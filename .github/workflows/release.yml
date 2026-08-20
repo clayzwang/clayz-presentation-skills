@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
@@ -62,18 +64,48 @@ jobs:
               output.write(f"version={version}\n")
               output.write(f"tag={tag}\n")
           PY
-      - name: Publish the GitHub release
+      - name: Build versioned release assets
+        id: assets
         env:
-          GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.release.outputs.tag }}
           VERSION: ${{ steps.release.outputs.version }}
         shell: bash
         run: |
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "Release $TAG already exists; leaving it unchanged."
-            exit 0
+          if git rev-parse --verify --quiet "refs/tags/$TAG" >/dev/null; then
+            archive_ref="$TAG"
+          else
+            archive_ref="$GITHUB_SHA"
           fi
-          gh release create "$TAG" \
-            --target "$GITHUB_SHA" \
-            --title "Clayz Presentation Skills $TAG" \
-            --notes-file release-notes.md
+          asset="clayz-presentation-skills-$TAG.zip"
+          checksum="$asset.sha256"
+          git archive \
+            --format=zip \
+            --prefix="clayz-presentation-skills-$VERSION/" \
+            --output="$asset" \
+            "$archive_ref"
+          sha256sum "$asset" > "$checksum"
+          echo "asset=$asset" >> "$GITHUB_OUTPUT"
+          echo "checksum=$checksum" >> "$GITHUB_OUTPUT"
+      - name: Publish or complete the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+          ASSET: ${{ steps.assets.outputs.asset }}
+          CHECKSUM: ${{ steps.assets.outputs.checksum }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            for file in "$ASSET" "$CHECKSUM"; do
+              if gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$file"; then
+                echo "Release asset $file already exists; leaving it unchanged."
+              else
+                gh release upload "$TAG" "$file"
+              fi
+            done
+          else
+            gh release create "$TAG" \
+              --target "$GITHUB_SHA" \
+              --title "Clayz Presentation Skills $TAG" \
+              --notes-file release-notes.md \
+              "$ASSET" "$CHECKSUM"
+          fi

@@ -1,0 +1,93 @@
+name: "Bug report / 缺陷报告"
+description: "Report a reproducible failure in Clayz Presentation Skills / 报告可复现的运行缺陷"
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Clayz Presentation Skills.
+        感谢你帮助改进 Clayz Presentation Skills。请先移除公司材料、客户信息、私有模板和其他敏感内容。
+
+  - type: input
+    id: clayz_version
+    attributes:
+      label: "Clayz version / Clayz 版本"
+      description: "For example: v0.2.0 or a commit SHA / 例如 v0.2.0 或提交 SHA"
+      placeholder: "v0.2.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: host
+    attributes:
+      label: "Host / 使用宿主"
+      options:
+        - "ChatGPT Work"
+        - "Codex"
+        - "Claude Code"
+        - "Gemini CLI"
+        - "Other / 其他"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: "Environment / 运行环境"
+      description: "OS, Python/Node version, model, and relevant renderer / 操作系统、Python或Node版本、模型及渲染器"
+      placeholder: "Windows 11; Python 3.12; ..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: stage
+    attributes:
+      label: "Affected stage / 受影响阶段"
+      options:
+        - "Logic / 逻辑"
+        - "Copy / 文案"
+        - "Art Direction / 艺术指导"
+        - "Output / 输出"
+        - "Supervisor / 监督"
+        - "Installation or packaging / 安装或打包"
+        - "Unknown / 尚不确定"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Steps to reproduce / 复现步骤"
+      description: "Use the smallest public or synthetic example possible / 请尽量使用最小化的公开或合成案例"
+      placeholder: |
+        1. Install ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected behavior / 预期结果"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Actual behavior / 实际结果"
+      description: "Include redacted logs or screenshots when useful / 如有帮助，可附脱敏日志或截图"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: "Public-boundary check / 公开边界确认"
+      options:
+        - label: "I searched existing issues and did not find the same report. / 我已检索现有 Issue，未发现相同问题。"
+          required: true
+        - label: "I removed private, corporate, customer, credential, and licensed third-party material. / 我已移除私有、公司、客户、凭据及受限第三方材料。"
+          required: true

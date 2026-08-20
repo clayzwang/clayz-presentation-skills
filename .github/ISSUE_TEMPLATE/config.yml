@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Questions, ideas, and showcase / 提问、想法与案例展示"
+    url: "https://github.com/clayzwang/clayz-presentation-skills/discussions"
+    about: "Use Discussions for open-ended questions, ideas, and public examples after Discussions is enabled. / Discussions 开启后，请在此提出开放问题、想法和公开案例。"
+  - name: "Security policy / 安全问题"
+    url: "https://github.com/clayzwang/clayz-presentation-skills/security/policy"
+    about: "Follow the private reporting instructions for security-sensitive findings. / 涉及安全敏感信息时，请遵循私密报告说明。"

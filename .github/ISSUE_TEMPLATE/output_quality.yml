@@ -1,0 +1,77 @@
+name: "Output quality feedback / 输出质量反馈"
+description: "Share specific evidence about what worked or failed in a generated presentation / 反馈生成演示中具体有效或不足之处"
+title: "[Quality]: "
+labels: ["output-quality", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Specific visual and business evidence is more useful than a score alone.
+        相比单独打分，我们更重视具体的商业表达与视觉证据。请仅使用公开、合成或已获授权的示例。
+
+  - type: input
+    id: version
+    attributes:
+      label: "Clayz version / Clayz 版本"
+      placeholder: "v0.2.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: presentation_type
+    attributes:
+      label: "Presentation type / 演示类型"
+      options:
+        - "Management update / 管理汇报"
+        - "Business analysis / 经营分析"
+        - "Strategy / 战略部署"
+        - "Training or SOP / 培训或SOP"
+        - "Company or product introduction / 公司或产品介绍"
+        - "Other / 其他"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: dimension
+    attributes:
+      label: "Primary quality dimension / 主要质量维度"
+      options:
+        - "Content compression / 内容压缩"
+        - "Narrative and logic / 叙事与逻辑"
+        - "Layout and composition / 版式与构图"
+        - "Visual hierarchy / 视觉层级"
+        - "Typography / 文字排版"
+        - "Charts and tables / 图表与表格"
+        - "Editability / 可编辑性"
+        - "Compatibility / 兼容性"
+    validations:
+      required: true
+
+  - type: textarea
+    id: worked
+    attributes:
+      label: "What worked well / 哪些地方做得好"
+    validations:
+      required: true
+
+  - type: textarea
+    id: improve
+    attributes:
+      label: "What should improve / 哪些地方需要改进"
+      description: "Point to a page, element, decision, or recurring pattern / 请指向具体页面、元素、判断或重复模式"
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "Public evidence / 可公开证据"
+      description: "Optional redacted screenshot, synthetic prompt, or minimal example / 可选：脱敏截图、合成提示词或最小案例"
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: "Sharing check / 分享确认"
+      options:
+        - label: "Any attached material is public, synthetic, mine to share, or properly licensed. / 所附材料为公开、合成、本人有权分享或具备适当许可。"
+          required: true
