@@ -7,3 +7,8 @@ Output, and Supervisor—was designed and released under the clayz brand.
 This product records non-visible provenance in generated artifact metadata.
 It does not add tracking identifiers, network callbacks, hidden slides, or
 visible watermarks.
+
+With gratitude to the authors and contributors of PPTAgent, DeepPresenter,
+pom, VASCAR, PosterO, and PptxGenJS. Their exact influence, license status,
+reviewed revision, and non-redistribution boundaries are documented in
+provenance/manifest.yaml and provenance/THIRD_PARTY_NOTICES.md.

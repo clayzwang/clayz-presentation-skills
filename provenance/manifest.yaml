@@ -3,45 +3,63 @@ project:
   original_architecture: "clayz"
   brand: "clayz"
 
+public_growth_boundary:
+  bundled_real_cases: false
+  bundled_taste_corpus: false
+  bundled_personal_preferences: false
+  automatic_aesthetic_truth: false
+  user_growth_route: "human-governed knowledge scaffold"
+
+deliberately_excluded:
+  - "reveal.js"
+  - "Marp"
+  - "PosterLlama"
+  - "Typst/Paged"
+  - "external master systems"
+  - "runtime or model weights"
+
 sources:
   - id: "pptagent"
     usage_type: "conceptual-inspiration"
     upstream: "https://github.com/icip-cas/PPTAgent"
     paper: "https://aclanthology.org/2025.emnlp-main.728/"
     upstream_license: "MIT"
-    pinned_version: null
+    pinned_version: "2419d30b134a71486523e95ded60b32489fd3c61"
     reviewed_on: "2026-08-20"
     influenced_components:
       - "controlled repair loop"
       - "reference clustering"
       - "environment-grounded observation"
+      - "bounded execution ledger"
     redistributed_files: []
-    note: "No upstream source code, templates, or media are redistributed. The influence is limited to reflective, edit-oriented workflow concepts."
+    note: "Thank you to the PPTAgent authors. No upstream source code, prompts, orchestration, templates, reference slides, tools, datasets, or media are redistributed. The influence is limited to independently expressed workflow concepts."
 
   - id: "deeppresenter"
     usage_type: "conceptual-inspiration"
     upstream: "https://github.com/icip-cas/PPTAgent"
     paper: "https://arxiv.org/abs/2602.22839"
     upstream_license: "MIT"
-    pinned_version: null
+    pinned_version: "2419d30b134a71486523e95ded60b32489fd3c61"
     reviewed_on: "2026-08-20"
     influenced_components:
       - "execution history"
       - "faceted review"
+      - "capability-gap reporting"
     redistributed_files: []
-    note: "No upstream source code, models, templates, or media are redistributed. The influence is limited to environment-grounded observation concepts."
+    note: "Thank you to the DeepPresenter authors. No upstream source code, prompts, agent runtime, models, tasksets, sandbox images, templates, tools, external services, or media are redistributed. The influence is limited to independently expressed environment-grounded observation concepts."
 
   - id: "pom"
     usage_type: "conceptual-inspiration"
     upstream: "https://github.com/hirokisakabe/pom"
     upstream_license: "MIT"
-    pinned_version: null
+    pinned_version: "1301384103f1d77f9c993f47dfd4d2b0dd6dd16f"
     reviewed_on: "2026-08-20"
     influenced_components:
       - "relative layout tree"
       - "constraint-based layout diagnostics"
+      - "source-preview-build separation"
     redistributed_files: []
-    note: "No package snapshot or source code is redistributed. The influence is limited to relative layout-tree and Flexbox-style layout concepts."
+    note: "Thank you to hirokisakabe and pom contributors. No pom XML, source, Yoga code, package, theme, master generator, node implementation, or media is redistributed. The Clayz solver is an original, smaller interoperability layer."
 
   - id: "vascar"
     usage_type: "conceptual-inspiration"
@@ -52,15 +70,30 @@ sources:
     influenced_components:
       - "render-observe-revise loop"
     redistributed_files: []
-    note: "No paper figures, text, code, or data are redistributed. The influence is limited to render-observe-revise concepts."
+    note: "Thank you to the VASCAR authors. No paper figures, text, code, model, score function, or data are redistributed. The influence is limited to bounded render-observe-revise concepts, and no automatic score becomes aesthetic truth."
+
+  - id: "postero"
+    usage_type: "paper-citation-only"
+    upstream: "https://github.com/theKinsley/PosterO-CVPR2025"
+    paper: "https://openaccess.thecvf.com/content/CVPR2025/html/Hsu_PosterO_Structuring_Layout_Trees_to_Enable_Language_Models_in_Generalized_CVPR_2025_paper.html"
+    upstream_license: "no-repository-license-observed"
+    pinned_version: "9b25970bfeff2685c81b541aa2ff341ecc430be6"
+    reviewed_on: "2026-08-20"
+    influenced_components:
+      - "design-intent layout tree"
+      - "content-aware hierarchy concepts"
+    redistributed_files: []
+    note: "Thank you to the PosterO authors. Because no clear repository-level license was observed, this project cites the paper only and independently expresses the abstract ideas. No code, weights, datasets, annotations, saliency pipeline, figures, or layouts are used or redistributed."
 
   - id: "pptxgenjs"
-    usage_type: "conceptual-inspiration"
+    usage_type: "optional-public-api-integration"
     upstream: "https://github.com/gitbrent/PptxGenJS"
     upstream_license: "MIT"
     pinned_version: "4.0.1"
+    pinned_commit: "3c9ec1b687c174952166f6a34b5e87ebf69fa469"
+    documentation: "https://gitbrent.github.io/PptxGenJS/"
     reviewed_on: "2026-08-20"
     influenced_components:
       - "editable PowerPoint object implementation"
     redistributed_files: []
-    note: "No library snapshot is included. The central renderer configuration may select PptxGenJS when it is installed separately."
+    note: "Thank you to gitbrent and PptxGenJS contributors. Clayz supplies an original, disabled experimental adapter against the documented public API. No upstream source, dependency lock, demo, template, master, or media is redistributed. Runtime is security-blocked in v0.2.0 because the current transitive image-size dependency has unpatched GHSA-w3rx-r6r6-pgpr and GHSA-5p2g-fcmc-qvqq advisories."

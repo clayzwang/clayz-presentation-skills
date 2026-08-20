@@ -21,7 +21,8 @@ Do not rewrite Logic or Copy, select a replacement composition, modify the PPTX,
 4. Read `references/medium-fidelity.md` for plan-object-render comparisons.
 5. Read `references/environment-grounded-observation.md` when runtime state conflicts with the written artifact.
 6. Read `references/interaction-failure-patterns.md` when the workflow repeatedly asks, exits, or overrides without authority.
-7. Read `../../packages/contracts/knowledge-learning.md` before routing a reusable observation to its responsible stage.
+7. Read `references/execution-ledger-and-reflection.md` when auditing tool use, retry loops, or failure recovery.
+8. Read `../../packages/contracts/knowledge-learning.md` before routing a reusable observation to its responsible stage.
 
 ## Workflow
 

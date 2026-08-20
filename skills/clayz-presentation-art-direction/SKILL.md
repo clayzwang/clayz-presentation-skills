@@ -20,9 +20,10 @@ Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page
 3. Validate the copy-approved package.
 4. Read `references/art-direction-plan-contract.md`.
 5. Read `references/material-routes.md` to select the dominant medium.
-6. Read `references/ab-and-regression.md` only for high-risk pages requiring real alternatives.
-7. Read `references/reference-cluster-discovery.md` when a large reference set must be narrowed.
-8. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior visual learning or persisting a reusable observation.
+6. Read `references/layout-intent-tree.md` when nested meaning, protected whitespace, or content-aware placement must be made explicit.
+7. Read `references/ab-and-regression.md` only for high-risk pages requiring real alternatives.
+8. Read `references/reference-cluster-discovery.md` when a large reference set must be narrowed.
+9. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior visual learning or persisting a reusable observation.
 
 ## Workflow
 

@@ -2,6 +2,14 @@
 
 This contract converts approved region relationships into editable coordinates without adding composition judgment. Its relative-layout tree is informed by the Flexbox/Yoga approach in [pom](https://github.com/hirokisakabe/pom); exact provenance and boundaries are in `provenance/manifest.yaml`. Final delivery uses the renderer and theme selected by central configuration and remains subject to Output QA.
 
+The repository includes an original, renderer-neutral solver. It is a small interoperability layer, not copied pom/Yoga code and not a general-purpose Flexbox implementation:
+
+```bash
+python ../../packages/layout/solve_relative_layout.py layout-tree.json resolved-layout.json
+```
+
+The input contract is `../../packages/contracts/layout-tree.schema.json`. The resolved geometry can then be mapped to any configured object renderer.
+
 ## Applicability
 
 Prefer a hybrid of fixed frame and internal relative layout:
@@ -50,5 +58,5 @@ Never go below `typography_contract`, consume `semantic_whitespace`, delete copy
 - Test at least short/long text and fewer/more peer-module variants for each layout family.
 - The final PPTX must still pass configured font, glyph-pixel, theme/master inheritance, target-application, readability, object-manifest, and full-deck render checks.
 - Text present in XML but absent in final rendered glyphs is a failure; lack of layout overflow does not override it.
-- `NODE_OVERLAP`, `NODE_OUT_OF_BOUNDS`, and clean results from the relative-layout engine are supporting evidence only, never a substitute for slide-by-slide visual inspection.
+- `NODE_OUT_OF_BOUNDS`, rejected constraints, and clean results from the relative-layout engine are supporting evidence only, never a substitute for slide-by-slide visual inspection. Layer overlap is intentional geometry and must be judged from the approved plan and final render.
 - `pom` may be used for research, probes, and diagnostic comparison. It is not the delivery engine and may not rebuild themes, masters, or the font system from an existing PPTX.

@@ -28,3 +28,18 @@ jobs:
           python -c "import base64,os,pathlib; pathlib.Path(os.environ['RUNNER_TEMP'],'release-denylist').write_bytes(base64.b64decode(os.environ['CLAYZ_RELEASE_DENYLIST_B64']))"
           echo "CLAYZ_RELEASE_DENYLIST=$RUNNER_TEMP/release-denylist" >> "$GITHUB_ENV"
       - run: python scripts/validate_all.py
+
+  optional-adapter-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check packages/adapters/pptxgenjs/render.mjs
+      - name: Verify fail-closed runtime status
+        run: python -c "import json; c=json.load(open('config/default.json')); a=c['renderer']['adapters']['pptxgenjs']; assert a['enabled'] is False; assert len(a['blocked_advisories']) == 2"
+      - name: Verify runtime requires explicit risk acknowledgement
+        run: |
+          if node packages/adapters/pptxgenjs/render.mjs examples/synthetic-business-review/render-manifest.json should-not-exist.pptx; then exit 1; fi
+          test ! -e should-not-exist.pptx

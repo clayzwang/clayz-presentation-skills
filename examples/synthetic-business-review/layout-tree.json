@@ -1,0 +1,32 @@
+{
+  "frame": {"x": 0.55, "y": 1.35, "w": 12.23, "h": 5.25},
+  "root": {
+    "id": "slide-body",
+    "type": "row",
+    "intent": "compare evidence before stating a decision implication",
+    "gap": 0.28,
+    "children": [
+      {
+        "id": "evidence-region",
+        "type": "column",
+        "basis": 7.65,
+        "gap": 0.2,
+        "children": [
+          {"id": "chart-region", "type": "leaf", "flex": 3, "role": "evidence", "copy_ids": ["COPY-S02-01"]},
+          {"id": "source-region", "type": "leaf", "flex": 1, "role": "source-note", "copy_ids": ["COPY-S02-02"]}
+        ]
+      },
+      {
+        "id": "implication-region",
+        "type": "column",
+        "flex": 1,
+        "gap": 0.16,
+        "children": [
+          {"id": "signal-one", "type": "leaf", "flex": 1, "role": "finding", "copy_ids": ["COPY-S02-03"]},
+          {"id": "signal-two", "type": "leaf", "flex": 1, "role": "finding", "copy_ids": ["COPY-S02-04"]},
+          {"id": "decision-boundary", "type": "leaf", "flex": 1, "role": "implication", "copy_ids": ["COPY-S02-05"]}
+        ]
+      }
+    ]
+  }
+}
