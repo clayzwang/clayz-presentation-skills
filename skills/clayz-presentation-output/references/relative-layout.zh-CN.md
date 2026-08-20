@@ -2,6 +2,14 @@
 
 本合同把批准的区域关系转成可编辑坐标，不新增构图判断。相对布局树受开源项目 [pom](https://github.com/hirokisakabe/pom) 的 Flexbox/Yoga 思路启发；准确来源与边界见仓库 `provenance/manifest.yaml`。最终交付由中央配置选定的渲染器、主题配置和 Output QA 完成。
 
+仓库提供一个原创、渲染器中立的轻量求解器。它只是互操作层，不复制 pom／Yoga 代码，也不是通用 Flexbox 实现：
+
+```bash
+python ../../packages/layout/solve_relative_layout.py layout-tree.json resolved-layout.json
+```
+
+输入合同为 `../../packages/contracts/layout-tree.schema.json`；求解后的几何信息可继续映射到中央配置选定的任意对象渲染器。
+
 ## 适用边界
 
 优先使用“固定外框 + 内部相对布局”的混合方式：
@@ -50,5 +58,5 @@
 - 同一布局族至少测试“短中文／长中文”和“模块减少／增加”两个变体；
 - 最终PPTX必须继续通过配置字体、字形像素、主题或母版继承、目标应用、可读性、对象清单和全稿渲染检查；
 - XML中存在中文但最终渲染没有中文字形，属于失败，不得以布局无溢出代替；
-- 相对布局引擎的 `NODE_OVERLAP`、`NODE_OUT_OF_BOUNDS` 或无报错结果只作辅助证据，不能替代逐页视觉检查；
+- 相对布局引擎的 `NODE_OUT_OF_BOUNDS`、约束拒绝或无报错结果只作辅助证据，不能替代逐页视觉检查；图层重叠属于有意几何，必须结合批准方案和最终渲染判断；
 - pom 可作为研究、探针和诊断对照，不作为交付引擎，也不得读取现有PPTX后重建主题、母版或字体体系。

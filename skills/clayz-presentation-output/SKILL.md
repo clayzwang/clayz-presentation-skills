@@ -21,15 +21,16 @@ Do not change approved text, data, relationships, page sequence, composition, or
 4. Read `references/art-direction-handoff.md` and `references/build-only-contract.md`.
 5. Read `references/expression-mode.md` to implement approved media.
 6. Read `references/relative-layout.md` for constraint-based regions.
-7. Read `references/lightweight-delivery.md` for the selected delivery profile.
-8. Read `references/controlled-repair-loop.md` when the written artifact drifts from the plan.
-9. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior implementation learning or persisting a reusable observation.
+7. Read `references/pptxgenjs-object-implementation.md` only when the configured renderer is PptxGenJS.
+8. Read `references/lightweight-delivery.md` for the selected delivery profile.
+9. Read `references/controlled-repair-loop.md` when the written artifact drifts from the plan.
+10. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior implementation learning or persisting a reusable observation.
 
 ## Workflow
 
 1. Load colors, typography, layout roles, optional master, renderer, target applications, delivery profile, and QA thresholds only from the resolved configuration.
 2. Select a renderer that satisfies every required capability. Record unavailable capabilities instead of pretending support.
-3. Build editable objects from the semantic layout tree, area plan, and `copy_unit_map`.
+3. Resolve approved relative regions with `../../packages/layout/solve_relative_layout.py`, then build editable objects from the resolved layout, area plan, and `copy_unit_map`.
 4. Preserve exact locked copy and `copy_id` traceability in object names or the build inventory.
 5. Apply the configured theme. Never import a reference deck's master, font, or object styling unless the user supplied it as the active theme and redistribution is not involved.
 6. Write the PPTX, reopen it, inspect package objects, render every slide, and perform thumbnail plus full-size review.
@@ -40,8 +41,9 @@ Do not change approved text, data, relationships, page sequence, composition, or
 python ../../scripts/stamp_pptx_metadata.py <deck.pptx> --config ../../config/default.json
 ```
 
-9. Emit the final PPTX, render evidence, object inventory, deviation log, and output QA report with status `built`.
-10. Emit task-local learning candidates only after final write, reopen, render, and inspection; persist them through the configured Output learning route and never auto-promote them.
+9. Record bounded tool calls, artifacts, hashes, and failures with `../../scripts/execution_ledger.py`; never record private chain-of-thought.
+10. Emit the final PPTX, render evidence, object inventory, deviation log, and output QA report with status `built`.
+11. Emit task-local learning candidates only after final write, reopen, render, and inspection; persist them through the configured Output learning route and never auto-promote them.
 
 ## Validation
 

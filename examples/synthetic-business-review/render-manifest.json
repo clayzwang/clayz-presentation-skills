@@ -1,0 +1,68 @@
+{
+  "contract": "io.clayz.presentation.render-manifest/1.0",
+  "presentation": {
+    "layout": "LAYOUT_WIDE",
+    "language": "en-US",
+    "author": "clayz",
+    "company": "Synthetic Example",
+    "subject": "Synthetic operating review",
+    "title": "Evidence before implication"
+  },
+  "theme": {
+    "headFontFace": "Aptos Display",
+    "bodyFontFace": "Aptos",
+    "lang": "en-US"
+  },
+  "slides": [
+    {
+      "slide_id": "SLIDE-001",
+      "background": "F7F8FC",
+      "speaker_notes": ["All values and labels on this page are synthetic."],
+      "objects": [
+        {
+          "object_id": "OBJECT-TITLE",
+          "copy_id": "COPY-S01-01",
+          "type": "text",
+          "text": "Evidence before implication",
+          "options": {"x": 0.55, "y": 0.35, "w": 8.6, "h": 0.5, "fontFace": "Aptos Display", "fontSize": 28, "bold": true, "color": "171A2B", "margin": 0}
+        },
+        {
+          "object_id": "OBJECT-STORYLINE",
+          "copy_id": "COPY-S01-02",
+          "type": "text",
+          "text": "Synthetic demand improved, but the final decision remains conditional on repeatability.",
+          "options": {"x": 0.55, "y": 0.9, "w": 12.2, "h": 0.32, "fontSize": 18, "color": "667085", "margin": 0}
+        },
+        {
+          "object_id": "OBJECT-CHART",
+          "copy_id": null,
+          "type": "chart",
+          "chart_type": "bar",
+          "series": [{"name": "Synthetic units", "labels": ["Jan", "Feb", "Mar", "Apr"], "values": [42, 48, 53, 59]}],
+          "options": {"x": 0.65, "y": 1.55, "w": 7.45, "h": 4.55, "showLegend": false, "showTitle": false, "showValue": true, "catAxisLabelFontSize": 14, "valAxisLabelFontSize": 12, "chartColors": ["5B5BD6"]}
+        },
+        {
+          "object_id": "OBJECT-IMPLICATION-BACKGROUND",
+          "copy_id": null,
+          "type": "shape",
+          "shape": "roundRect",
+          "options": {"x": 8.45, "y": 1.55, "w": 4.2, "h": 4.55, "rectRadius": 0.06, "fill": {"color": "FFFFFF"}, "line": {"color": "D8DCE8", "width": 1}}
+        },
+        {
+          "object_id": "OBJECT-IMPLICATION",
+          "copy_id": "COPY-S01-03",
+          "type": "text",
+          "text": "Decision boundary\n\nProceed only if the improvement persists across the next synthetic observation window.",
+          "options": {"x": 8.78, "y": 1.9, "w": 3.55, "h": 2.25, "fontSize": 20, "breakLine": false, "color": "171A2B", "margin": 0.05, "valign": "mid"}
+        },
+        {
+          "object_id": "OBJECT-SOURCE",
+          "copy_id": "COPY-S01-04",
+          "type": "text",
+          "text": "Source: generated fixture; no real organization or dataset.",
+          "options": {"x": 0.65, "y": 6.55, "w": 7.5, "h": 0.24, "fontSize": 12, "color": "667085", "margin": 0}
+        }
+      ]
+    }
+  ]
+}

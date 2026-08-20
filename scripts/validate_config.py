@@ -56,10 +56,6 @@ def validate(config: dict[str, Any]) -> list[str]:
             if not custom.get(key):
                 errors.append(f"identity.attribution.custom_properties.{key}: required")
 
-    workflow = require_mapping(config.get("workflow"), "workflow", errors)
-    if workflow.get("stages") != EXPECTED_STAGES:
-        errors.append(f"workflow.stages: expected {EXPECTED_STAGES}")
-
     theme = require_mapping(config.get("theme"), "theme", errors)
     colors = require_mapping(theme.get("colors"), "theme.colors", errors)
     for name, value in colors.items():
@@ -91,6 +87,8 @@ def validate(config: dict[str, Any]) -> list[str]:
         errors.append("references.roots: expected non-empty relative-path array")
         roots = []
     path_values = [*roots, references.get("registry"), references.get("admission_registry")]
+    index = require_mapping(references.get("index"), "references.index", errors)
+    path_values.append(index.get("path"))
     learning = require_mapping(references.get("learning"), "references.learning", errors)
     path_values.extend([learning.get("root"), learning.get("contract")])
     for value in path_values:
@@ -110,11 +108,34 @@ def validate(config: dict[str, Any]) -> list[str]:
         errors.append("references.allow_external_search: expected boolean")
     if not isinstance(references.get("maximum_unique_examples_per_deck"), int) or references.get("maximum_unique_examples_per_deck", 0) < 1:
         errors.append("references.maximum_unique_examples_per_deck: expected positive integer")
+    if index.get("engine") != "bm25-lexical":
+        errors.append("references.index.engine: public default must be bm25-lexical")
+    for key in ("maximum_results", "physical_neighbor_expansion", "semantic_neighbor_expansion"):
+        if not isinstance(index.get(key), int) or index.get(key, -1) < (1 if key == "maximum_results" else 0):
+            errors.append(f"references.index.{key}: invalid retrieval limit")
+
+    workflow = require_mapping(config.get("workflow"), "workflow", errors)
+    if workflow.get("contract_version") != "3.1-open":
+        errors.append("workflow.contract_version: expected 3.1-open")
+    if workflow.get("stages") != EXPECTED_STAGES:
+        errors.append(f"workflow.stages: expected {EXPECTED_STAGES}")
+    if workflow.get("execution_ledger_contract") != "io.clayz.presentation.execution-ledger/1.0":
+        errors.append("workflow.execution_ledger_contract: unsupported contract")
+    if not isinstance(workflow.get("maximum_technical_cycles"), int) or not 1 <= workflow.get("maximum_technical_cycles", 0) <= 10:
+        errors.append("workflow.maximum_technical_cycles: expected integer from 1 to 10")
 
     renderer = require_mapping(config.get("renderer"), "renderer", errors)
     caps = renderer.get("required_capabilities")
     if not isinstance(caps, list) or not caps:
         errors.append("renderer.required_capabilities: expected non-empty array")
+    adapters = require_mapping(renderer.get("adapters"), "renderer.adapters", errors)
+    pptxgenjs = require_mapping(adapters.get("pptxgenjs"), "renderer.adapters.pptxgenjs", errors)
+    if pptxgenjs.get("path") != "packages/adapters/pptxgenjs/render.mjs":
+        errors.append("renderer.adapters.pptxgenjs: expected the public adapter path")
+    if pptxgenjs.get("enabled") is not False or pptxgenjs.get("security_status") != "blocked-unpatched-transitive-dependency":
+        errors.append("renderer.adapters.pptxgenjs: public v0.2.0 must fail closed on the unpatched dependency")
+    if pptxgenjs.get("blocked_advisories") != ["GHSA-w3rx-r6r6-pgpr", "GHSA-5p2g-fcmc-qvqq"]:
+        errors.append("renderer.adapters.pptxgenjs.blocked_advisories: expected both reviewed advisories")
 
     delivery = require_mapping(config.get("delivery"), "delivery", errors)
     profiles = require_mapping(delivery.get("profiles"), "delivery.profiles", errors)

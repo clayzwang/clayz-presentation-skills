@@ -2,6 +2,16 @@
 
 All notable public changes are recorded here. This project follows Semantic Versioning.
 
+## 0.2.0 — 2026-08-20
+
+- Turn the empty knowledge scaffold into a human-admitted, hash-bound, local lexical register/index/search workflow with neighbor expansion and observation-only learning writeback.
+- Add an original renderer-neutral relative-layout solver plus layout-tree and render-manifest contracts.
+- Add an original experimental PptxGenJS API adapter and synthetic render-manifest fixture, but fail closed and omit the dependency lock because the current upstream dependency chain has two unpatched high-severity denial-of-service advisories.
+- Add a bounded execution ledger for tool calls, artifacts, hashes, failures, and technical repair cycles without storing private chain-of-thought.
+- Add English-first, Chinese-paired references for design-intent trees, editable-object output, execution evidence, and source-adoption boundaries.
+- Record exact reviewed upstream revisions, licenses, citation-only boundaries, and explicit thanks for PPTAgent, DeepPresenter, pom, VASCAR, PosterO, and PptxGenJS.
+- Preserve the public-growth boundary: no real presentation cases, taste corpus, personal preferences, templates, masters, private assets, runtime/model weights, or automatic aesthetic truth.
+
 ## 0.1.0 — 2026-08-20
 
 - Publish the five-stage Logic, Copy, Art Direction, Output, and Supervisor architecture.

@@ -2,6 +2,8 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.2.0**
+
 Clayz Presentation Skills is an open, five-stage system for producing evidence-based presentations:
 
 1. **Logic** establishes the question chain, claims, evidence, and cross-slide invariants.
@@ -26,6 +28,8 @@ The original architecture was created and released under the **clayz** brand.
 - `config/default.json` is the single public configuration source.
 - `packages/validators/` contains shared deterministic validators.
 - `packages/contracts/` contains versioned cross-stage contracts.
+- `packages/layout/` contains the original renderer-neutral relative-layout solver.
+- `packages/adapters/` contains optional, separately installed renderer adapters.
 - `knowledge/` contains the empty portable learning, source, and index scaffold.
 - `examples/` contains synthetic examples only.
 - `provenance/` records conceptual influences and redistributed dependencies.
@@ -50,6 +54,16 @@ python -m pip install -r requirements.txt
 python scripts/validate_all.py
 ```
 
+Resolve the fully synthetic layout-tree fixture:
+
+```bash
+python packages/layout/solve_relative_layout.py \
+  examples/synthetic-business-review/layout-tree.json \
+  /tmp/resolved-layout.json
+```
+
+The experimental PptxGenJS route is isolated under `packages/adapters/pptxgenjs/`. It is syntax-checked but security-blocked by default because its current upstream dependency chain contains unpatched denial-of-service advisories; see its README before any evaluation.
+
 Stamp non-visible clayz provenance into a generated PPTX:
 
 ```bash
@@ -66,11 +80,11 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 
 ## Runtime expectations
 
-- The core scripts require Python 3.10 or later. Pillow is used by raster, rhythm, and size inspection utilities.
+- The core scripts require Python 3.10 or later. Pillow supports raster, rhythm, and size inspection; PyYAML validates the machine-readable provenance manifest.
 - GitHub Actions tests Python 3.10, 3.11, and 3.12 and starts every public command-line entry point with `--help` before release.
 - Producing PPTX files requires a compatible agent host or a separately supplied backend such as a native presentation tool, PptxGenJS, or python-pptx.
 - Full production QA requires a renderer that can reopen and render the written PPTX, such as PowerPoint, WPS, or LibreOffice.
-- This repository currently provides skills, contracts, configuration, validators, and metadata tooling. It is not yet a standalone one-command model runner.
+- This repository provides skills, contracts, centralized configuration, validators, a local knowledge runtime, a relative-layout solver, an execution ledger, metadata tooling, and one disabled experimental editable-object adapter. It is not a standalone one-command model runner.
 - MCP is optional. A capable model host can read the skills and call local tools directly; add MCP only when you want a portable interface to remote storage, search, rendering, or another external service.
 
 ## Language routing
@@ -90,6 +104,12 @@ Supervisor has no separate learning silo. It returns reusable observations to th
 
 Downloading the repository does not create, read, or connect a ChatGPT Library. The default provider is the local filesystem. A host-specific adapter may map the same structure to ChatGPT Library or another storage system, but no such adapter is bundled or required. See [`knowledge/README.md`](knowledge/README.md) and [`knowledge/registry/schema.md`](knowledge/registry/schema.md).
 
+The scaffold is operational in v0.2.0: `scripts/knowledge_cli.py` can register, separately admit, index, search, and record observations. Unadmitted or hash-changed sources are excluded. See [`docs/knowledge-runtime.md`](docs/knowledge-runtime.md).
+
+## Public growth boundary
+
+v0.2.0 adds reusable engineering capability, not someone else's “humanity.” It intentionally ships no real presentation cases, taste corpus, personal preference profile, learned corporate style, template, or master. Each user may build those layers through the governed knowledge scaffold. The deliberately excluded technologies and the exact adopted/not-adopted boundary are documented in [`docs/source-adoption.md`](docs/source-adoption.md).
+
 ## Configuration
 
 Edit or override `config/default.json`. Do not hard-code organization brands, master files, fonts, local paths, or renderer names inside a skill.
@@ -102,7 +122,7 @@ For GitHub CI, store the UTF-8 denylist as a base64-encoded repository secret na
 
 ## Influence citations
 
-Conceptual influences are identified at the exact reference points inside the skill documentation and summarized in `provenance/manifest.yaml`. They include [PPTAgent](https://github.com/icip-cas/PPTAgent), [DeepPresenter](https://arxiv.org/abs/2602.22839), [pom](https://github.com/hirokisakabe/pom), [VASCAR](https://arxiv.org/abs/2412.04237), and optional [PptxGenJS](https://github.com/gitbrent/PptxGenJS). No upstream source snapshot, template, media, or model is bundled.
+Conceptual influences are identified at the exact reference points inside the skill documentation and summarized in `provenance/manifest.yaml`. With thanks to the authors and contributors of [PPTAgent](https://github.com/icip-cas/PPTAgent), [DeepPresenter](https://arxiv.org/abs/2602.22839), [pom](https://github.com/hirokisakabe/pom), [VASCAR](https://arxiv.org/abs/2412.04237), [PosterO](https://openaccess.thecvf.com/content/CVPR2025/html/Hsu_PosterO_Structuring_Layout_Trees_to_Enable_Language_Models_in_Generalized_CVPR_2025_paper.html), and [PptxGenJS](https://github.com/gitbrent/PptxGenJS). Exact revisions, licenses, citation-only constraints, and non-redistribution boundaries are recorded; no upstream source snapshot, prompt, template, reference slide, media, dataset, or model is bundled.
 
 ## License and citation
 

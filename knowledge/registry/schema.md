@@ -47,3 +47,7 @@ Each row records an observation without automatically promoting it:
 - `created_at`: ISO 8601 timestamp.
 
 An `admitted` status is not sufficient by itself. Retrieval still requires a matching row in `admitted-references.jsonl` when `require_human_admission` is enabled.
+
+## Generated `search-index.json`
+
+`scripts/knowledge_cli.py build-index` writes the configured index path. Only unchanged assets with a matching human-admission row are included. Text-like sources receive local BM25-style lexical tokens; PPTX, PDF, and image assets expose registered metadata only unless an authorized host adapter supplies extraction. The generated index is runtime state and is not committed.

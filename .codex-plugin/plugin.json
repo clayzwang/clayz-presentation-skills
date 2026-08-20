@@ -1,6 +1,6 @@
 {
   "name": "clayz-presentation-skills",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A five-stage presentation reasoning, writing, art-direction, production, and supervision system.",
   "author": {
     "name": "clayz"
@@ -17,8 +17,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Clayz Presentation Skills",
-    "shortDescription": "Five-stage presentation design and QA",
-    "longDescription": "Turn evidence into an approved presentation through separate Logic, Copy, Art Direction, Output, and Supervisor stages.",
+    "shortDescription": "Five-stage presentation design, production, and QA",
+    "longDescription": "Turn evidence into an approved presentation through separate Logic, Copy, Art Direction, Output, and Supervisor stages, with portable knowledge, layout, rendering, and execution contracts.",
     "developerName": "clayz",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],

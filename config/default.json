@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.1.0",
+        "ClayzVersion": "0.2.0",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -20,9 +20,11 @@
     }
   },
   "workflow": {
-    "contract_version": "3.0-open",
+    "contract_version": "3.1-open",
     "stages": ["logic", "copy", "art-direction", "output", "supervisor"],
-    "approval_states": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"]
+    "approval_states": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"],
+    "execution_ledger_contract": "io.clayz.presentation.execution-ledger/1.0",
+    "maximum_technical_cycles": 3
   },
   "locale": {
     "default": "en-US",
@@ -74,6 +76,13 @@
     "roots": ["knowledge/sources"],
     "registry": "knowledge/registry/asset-registry.jsonl",
     "admission_registry": "knowledge/registry/admitted-references.jsonl",
+    "index": {
+      "engine": "bm25-lexical",
+      "path": "knowledge/index/search-index.json",
+      "maximum_results": 5,
+      "physical_neighbor_expansion": 2,
+      "semantic_neighbor_expansion": 3
+    },
     "learning": {
       "root": "knowledge/learning",
       "stages": ["logic", "copy", "art-direction", "output"],
@@ -87,6 +96,14 @@
   },
   "renderer": {
     "provider": "auto",
+    "adapters": {
+      "pptxgenjs": {
+        "path": "packages/adapters/pptxgenjs/render.mjs",
+        "enabled": false,
+        "security_status": "blocked-unpatched-transitive-dependency",
+        "blocked_advisories": ["GHSA-w3rx-r6r6-pgpr", "GHSA-5p2g-fcmc-qvqq"]
+      }
+    },
     "required_capabilities": ["editable-text", "editable-shapes", "charts", "tables", "svg", "render-preview", "pptx-inspection"],
     "preferred_backends": ["native-presentation-tool", "pptxgenjs", "python-pptx"],
     "target_applications": ["powerpoint", "wps", "libreoffice"],
