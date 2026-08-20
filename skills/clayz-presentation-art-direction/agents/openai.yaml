@@ -1,0 +1,10 @@
+interface:
+  display_name: "Clayz Presentation Art Direction"
+  short_description: "Plan visual hierarchy, media, and deck rhythm"
+  icon_small: "./assets/clayz-mark.svg"
+  icon_large: "./assets/clayz-mark.svg"
+  brand_color: "#5B5BD6"
+  default_prompt: "Use $clayz-presentation-art-direction to create a production-ready visual plan from this copy-approved deck."
+policy:
+  allow_implicit_invocation: true
+

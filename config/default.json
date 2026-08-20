@@ -1,0 +1,117 @@
+{
+  "$schema": "./config.schema.json",
+  "identity": {
+    "project": "clayz-presentation-skills",
+    "version": "0.1.0",
+    "creator": "clayz",
+    "brand": "clayz",
+    "namespace": "io.clayz.presentation",
+    "attribution": {
+      "mode": "metadata",
+      "visible_mark": false,
+      "allow_removal": true,
+      "custom_properties": {
+        "ClayzGenerator": "clayz-presentation-skills",
+        "ClayzVersion": "0.1.0",
+        "ClayzOriginalArchitecture": "clayz",
+        "ClayzBrand": "clayz",
+        "ClayzNamespace": "io.clayz.presentation"
+      }
+    }
+  },
+  "workflow": {
+    "contract_version": "3.0-open",
+    "stages": ["logic", "copy", "art-direction", "output", "supervisor"],
+    "approval_states": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"]
+  },
+  "locale": {
+    "default": "en-US",
+    "supported": ["en-US", "zh-CN"],
+    "date_style": "iso",
+    "decimal_separator": ".",
+    "thousands_separator": ","
+  },
+  "theme": {
+    "profile": "neutral-default",
+    "source": "generated",
+    "master_path": null,
+    "slide_size": "LAYOUT_WIDE",
+    "layout_roles": ["cover", "body", "section", "closing"],
+    "colors": {
+      "background": "#F7F8FC",
+      "surface": "#FFFFFF",
+      "text": "#171A2B",
+      "muted": "#667085",
+      "accent": "#5B5BD6",
+      "accent_soft": "#E8E8FF",
+      "positive": "#14866D",
+      "warning": "#B7791F",
+      "negative": "#C24156",
+      "grid": "#D8DCE8"
+    },
+    "typography": {
+      "primary_fonts": ["Aptos", "Arial", "Noto Sans CJK SC", "sans-serif"],
+      "body_minimum_pt": 18,
+      "minimum_audience_text_pt": 12,
+      "minimum_chart_text_pt": 12,
+      "prefer_even_point_sizes": false,
+      "allow_fractional_point_sizes": true,
+      "minimum_exception_policy": "technical-fields-only",
+      "fail_on_missing_primary_font": false
+    }
+  },
+  "layout": {
+    "column_count": 12,
+    "safe_margin_in": 0.42,
+    "title_zone_height_in": 0.78,
+    "footer_zone_height_in": 0.28,
+    "minimum_gap_in": 0.12,
+    "maximum_horizontal_nodes": 5,
+    "cardification_policy": "evidence-required"
+  },
+  "references": {
+    "provider": "filesystem",
+    "roots": ["knowledge/sources"],
+    "registry": "knowledge/registry/asset-registry.jsonl",
+    "admission_registry": "knowledge/registry/admitted-references.jsonl",
+    "learning": {
+      "root": "knowledge/learning",
+      "stages": ["logic", "copy", "art-direction", "output"],
+      "writeback_mode": "append-observation-only",
+      "auto_promote": false,
+      "contract": "packages/contracts/knowledge-learning.md"
+    },
+    "require_human_admission": true,
+    "allow_external_search": true,
+    "maximum_unique_examples_per_deck": 24
+  },
+  "renderer": {
+    "provider": "auto",
+    "required_capabilities": ["editable-text", "editable-shapes", "charts", "tables", "svg", "render-preview", "pptx-inspection"],
+    "preferred_backends": ["native-presentation-tool", "pptxgenjs", "python-pptx"],
+    "target_applications": ["powerpoint", "wps", "libreoffice"],
+    "require_final_reopen_render": true
+  },
+  "delivery": {
+    "default_profile": "lightweight",
+    "profiles": {
+      "lightweight": {"raster_scale": 1.75, "jpeg_quality": 86, "max_long_edge": 1600},
+      "balanced": {"raster_scale": 2.0, "jpeg_quality": 90, "max_long_edge": 2200},
+      "high-fidelity": {"raster_scale": 2.5, "jpeg_quality": 94, "max_long_edge": 3200}
+    },
+    "embed_fonts": false,
+    "preserve_editability": true
+  },
+  "qa": {
+    "require_source_traceability": true,
+    "require_copy_id_traceability": true,
+    "require_object_inventory": true,
+    "require_full_deck_render_review": true,
+    "automatic_scores_are_diagnostic_only": true,
+    "scatter_lines_require_semantic_meaning": true,
+    "labels_must_be_legible": true,
+    "accent_band_detection": {
+      "rgb_distance": 52
+    }
+  }
+}

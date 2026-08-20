@@ -1,0 +1,208 @@
+{
+  "contract_version": "2.1",
+  "package_id": "synthetic-release-regression",
+  "version": "2.1.0",
+  "status": "copy-approved",
+  "brief": {
+    "purpose": "Explain a synthetic service improvement decision",
+    "initiator_stance": "Recommend a reversible pilot",
+    "preflight": {
+      "audience": {"primary": "Synthetic decision team"},
+      "material_type": "management-report",
+      "management_stage": "monitoring-diagnosis",
+      "narrative_archetype": "decision-proposal",
+      "desired_outcome": {"mode": "approve", "target": "Approve a small synthetic pilot"},
+      "confirmation": {
+        "audience": "user-provided",
+        "material_type": "user-confirmed",
+        "management_stage": "user-confirmed",
+        "narrative_archetype": "user-confirmed",
+        "desired_outcome": "user-confirmed"
+      }
+    },
+    "usage_context": "Synthetic automated release regression",
+    "duration_minutes": 5,
+    "constraints": ["Synthetic data only"]
+  },
+  "logic_layer": {
+    "knowledge_requirements": [],
+    "sources": [
+      {
+        "source_id": "SRC-SYN-01",
+        "type": "synthetic-fixture",
+        "title": "Synthetic pilot observation",
+        "locator": "tests/fixtures/synthetic-copy-package.json",
+        "accessed_at": "2026-08-20",
+        "reliability": "synthetic-test-only"
+      }
+    ],
+    "glossary": [],
+    "metric_dictionary": [],
+    "deck_message_tree": {
+      "root_claim": "A reversible pilot is the appropriate next step",
+      "section_order": ["SEC-01"],
+      "slide_order": ["S01"]
+    },
+    "narrative": {
+      "opening": "Establish the synthetic decision",
+      "progression": "Move from an observed gap to a reversible pilot",
+      "turning_points": [],
+      "closing": "Request approval for the synthetic pilot",
+      "management_stage_path": ["monitoring-diagnosis"],
+      "audience_state_arc": [
+        {
+          "slide_id": "S01",
+          "state_before": "Knows a synthetic gap exists",
+          "state_after": "Understands why a reversible pilot is appropriate",
+          "narrative_move": "decide"
+        }
+      ]
+    },
+    "cross_slide_contract": {"invariants": [], "series": []},
+    "slides": [
+      {
+        "slide_id": "S01",
+        "section_id": "SEC-01",
+        "narrative_role": "analysis",
+        "question_answered": "What should the synthetic team do next?",
+        "claim": "Run a reversible pilot before wider rollout.",
+        "audience_state_before": "Knows a synthetic gap exists",
+        "audience_state_after": "Understands why a reversible pilot is appropriate",
+        "analysis_level": "management-decision",
+        "zoom_transition": "none",
+        "content_load_class": "light",
+        "decision_weight": "high",
+        "series_id": null,
+        "series_role": "standalone",
+        "transition_from": "",
+        "transition_to": "",
+        "data": [],
+        "logic_map": {
+          "statement": "The observed gap supports a reversible pilot decision.",
+          "objects": []
+        },
+        "page_message_tree": {
+          "root_node_id": "N00",
+          "reading_sequence": ["N00"],
+          "nodes": [
+            {
+              "node_id": "N00",
+              "parent_node_id": null,
+              "level": 0,
+              "semantic_role": "claim",
+              "content_ref": "claim",
+              "sibling_group_id": null,
+              "children": []
+            }
+          ]
+        },
+        "semantic_relations": [],
+        "source_ids": ["SRC-SYN-01"],
+        "claim_status": "recommendation",
+        "confidence": "high",
+        "reasoning_contracts": {
+          "action_traceability": [],
+          "change_mechanism": null,
+          "operating_system": null,
+          "experiment_learning": null
+        },
+        "do_not_change": ["Keep the pilot reversible"]
+      }
+    ],
+    "open_items": [],
+    "lock": {
+      "slide_order_locked": true,
+      "claims_locked": true,
+      "numbers_locked": true,
+      "metric_definitions_locked": true,
+      "semantic_objects_locked": true,
+      "semantic_relations_locked": true,
+      "page_message_trees_locked": true,
+      "sources_locked": true,
+      "management_route_locked": true,
+      "reasoning_contracts_locked": true,
+      "cross_slide_contract_locked": true
+    }
+  },
+  "copy_layer": {
+    "logic_version": "2.1.0",
+    "cross_slide_copy_contract": {
+      "invariant_renderings": [],
+      "series_copy_strategies": []
+    },
+    "slides": [
+      {
+        "slide_id": "S01",
+        "title_mode": "action-directive",
+        "storyline_function": "action-bridge",
+        "audience_transition_copy_strategy": "State the reversible decision and its reason",
+        "title_copy_id": "C-S01-01",
+        "storyline_copy_id": "C-S01-02",
+        "copy_units": [
+          {
+            "copy_id": "C-S01-01",
+            "text": "Run a reversible pilot before wider rollout",
+            "role": "title",
+            "text_mode": "sentence",
+            "source_logic_node_ids": ["N00"],
+            "logic_level": 0,
+            "parent_copy_id": null,
+            "sibling_group_id": null,
+            "grammar_signature": "decision-sentence",
+            "order": 1,
+            "render_separately": true,
+            "merge_with_children": false,
+            "intentional_line_breaks": []
+          },
+          {
+            "copy_id": "C-S01-02",
+            "text": "The pilot tests the decision while limiting irreversible commitment.",
+            "role": "storyline",
+            "text_mode": "sentence",
+            "source_logic_node_ids": ["N00"],
+            "logic_level": 0,
+            "parent_copy_id": null,
+            "sibling_group_id": null,
+            "grammar_signature": "evidence-bridge",
+            "order": 2,
+            "render_separately": true,
+            "merge_with_children": false,
+            "intentional_line_breaks": []
+          }
+        ],
+        "node_copy_map": [
+          {
+            "logic_node_id": "N00",
+            "primary_copy_id": "C-S01-01",
+            "supplemental_copy_ids": ["C-S01-02"]
+          }
+        ],
+        "footnote_copy_ids": [],
+        "speaker_notes": [],
+        "series_copy_review": {
+          "series_id": null,
+          "invariant_terms_preserved": true,
+          "object_order_preserved": true,
+          "new_information_explicit": true
+        }
+      }
+    ],
+    "lock": {
+      "titles_locked": true,
+      "storylines_locked": true,
+      "visible_copy_locked": true,
+      "copy_hierarchy_locked": true,
+      "numbers_locked": true,
+      "punctuation_locked": true,
+      "intentional_line_breaks_locked": true,
+      "speaker_notes_locked": true,
+      "title_modes_locked": true,
+      "narrative_functions_locked": true,
+      "cross_slide_copy_locked": true
+    }
+  },
+  "approvals": {
+    "logic": {"status": "approved", "approved_by": "synthetic-test", "notes": ""},
+    "copy": {"status": "approved", "approved_by": "synthetic-test", "notes": ""}
+  }
+}

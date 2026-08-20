@@ -1,0 +1,25 @@
+{
+  "example_id": "synthetic-q2-review",
+  "synthetic": true,
+  "audience": "Product leadership team",
+  "desired_outcome": "Choose one retention initiative for the next six-week cycle",
+  "decision_question": "Which verified driver best explains the Q2 retention gap, and what should the team test next?",
+  "scope": {
+    "product": "Fictional collaboration software",
+    "period": "2026-Q2",
+    "segments": ["Starter", "Team", "Business"]
+  },
+  "source_files": ["source-data.csv"],
+  "constraints": [
+    "Treat every number as synthetic",
+    "Do not introduce external benchmarks",
+    "Keep the final deck to five slides",
+    "Use the generated neutral theme"
+  ],
+  "required_questions": [
+    "What changed?",
+    "Where is the gap concentrated?",
+    "Which driver is supported by the supplied data?",
+    "What action follows, with what measurement guardrail?"
+  ]
+}

@@ -1,0 +1,30 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    env:
+      CLAYZ_RELEASE_DENYLIST_B64: ${{ secrets.CLAYZ_RELEASE_DENYLIST_B64 }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Prepare private release denylist
+        if: ${{ env.CLAYZ_RELEASE_DENYLIST_B64 != '' }}
+        run: |
+          python -c "import base64,os,pathlib; pathlib.Path(os.environ['RUNNER_TEMP'],'release-denylist').write_bytes(base64.b64decode(os.environ['CLAYZ_RELEASE_DENYLIST_B64']))"
+          echo "CLAYZ_RELEASE_DENYLIST=$RUNNER_TEMP/release-denylist" >> "$GITHUB_ENV"
+      - run: python scripts/validate_all.py

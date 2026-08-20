@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.idea/
+.vscode/
+.env
+.release-denylist
+dist/
+build/
+*.ppt
+*.pptx
+*.pdf
+*.ttf
+*.otf
+*.woff
+*.woff2
+

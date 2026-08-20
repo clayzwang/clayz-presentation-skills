@@ -1,0 +1,33 @@
+{
+  "name": "clayz-presentation-skills",
+  "version": "0.1.0",
+  "description": "A five-stage presentation reasoning, writing, art-direction, production, and supervision system.",
+  "author": {
+    "name": "clayz"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "presentation",
+    "powerpoint",
+    "pptx",
+    "storyline",
+    "art-direction",
+    "quality-assurance"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Clayz Presentation Skills",
+    "shortDescription": "Five-stage presentation design and QA",
+    "longDescription": "Turn evidence into an approved presentation through separate Logic, Copy, Art Direction, Output, and Supervisor stages.",
+    "developerName": "clayz",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "brandColor": "#5B5BD6",
+    "composerIcon": "./assets/clayz-mark.svg",
+    "logo": "./assets/clayz-mark.svg",
+    "defaultPrompt": [
+      "Use the Clayz five-stage workflow to create a presentation from my source material.",
+      "Audit this deck with the Clayz Supervisor skill."
+    ]
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "contract_version": "1.3",
+  "status": "art-direction-approved",
+  "package_contract_version": "2.1",
+  "package_id": "synthetic-release-regression",
+  "package_version": "2.1.0",
+  "communication_contract": {
+    "audience": {"primary": "Synthetic decision team"},
+    "material_type": "management-report",
+    "management_stage": "monitoring-diagnosis",
+    "narrative_archetype": "decision-proposal",
+    "desired_outcome": {"mode": "approve", "target": "Approve a small synthetic pilot"},
+    "confirmation": {
+      "audience": "user-provided",
+      "material_type": "user-confirmed",
+      "management_stage": "user-confirmed",
+      "narrative_archetype": "user-confirmed",
+      "desired_outcome": "user-confirmed"
+    }
+  },
+  "art_direction": {
+    "visual_thesis": "One decision supported by one concise reason",
+    "material_route": "management-report",
+    "first_impression": "Clear and reversible decision",
+    "composition_principles": ["answer first"],
+    "forbidden_defaults": ["equal card wall"],
+    "silhouette_sequence": ["answer-first-type-field"],
+    "density_sequence": ["light"],
+    "dominant_media_sequence": ["typography"],
+    "motif_sequence": [null],
+    "brand_constraints_repeated": ["central configuration only"],
+    "approval": {"status": "approved", "approved_by": "synthetic-test", "notes": ""}
+  },
+  "reference_budget": {
+    "max_total_loaded": 24,
+    "max_per_archetype": 6,
+    "max_sequences_loaded": 4,
+    "loaded_record_ids": [],
+    "loaded_sequence_ids": [],
+    "query_log": [],
+    "sequence_query_log": [],
+    "budget_respected": true
+  },
+  "ab_review": {
+    "required_slide_ids": [],
+    "completed_slide_ids": [],
+    "selection_rule": "professional visual judgment",
+    "completed": true
+  },
+  "decision_log": {"conflicts": [], "deviations": [], "unresolved": []},
+  "typography_contract": {
+    "body_min_pt": 18,
+    "audience_detail_min_pt": 12,
+    "chart_text_min_pt": 12,
+    "even_point_sizes_required": false,
+    "minimum_exception_policy": "technical-fields-only",
+    "allowed_size_tokens": ["title", "body"],
+    "max_size_variants_per_logic_level": 2,
+    "fractional_point_sizes_allowed": true,
+    "grid_system": "12-column",
+    "bottom_safe_area_reserved": true,
+    "whitespace_review": true
+  },
+  "deck_rhythm": {
+    "hero_slide_ids": ["S01"],
+    "section_pulses": ["S01"],
+    "max_consecutive_same_silhouette": 2,
+    "max_consecutive_same_density": 2,
+    "max_bottom_conclusion_band_share": 0.2,
+    "minimum_dominant_media_for_10_plus_body_slides": 3,
+    "exceptions": [],
+    "series_groups": [],
+    "motif_sequence": [null],
+    "motif_contracts": [],
+    "semantic_whitespace_slide_ids": [],
+    "purposeful_repetition_review": {
+      "purposeful_series_preserved": true,
+      "nonseries_repetition_reviewed": true,
+      "motif_breaks_defined": true,
+      "semantic_whitespace_reviewed": true
+    },
+    "review": {"material_type_fit": true}
+  },
+  "slides": [
+    {
+      "slide_id": "S01",
+      "logic_statement": "The observed gap supports a reversible pilot decision.",
+      "page_message_tree_depth": 0,
+      "main_backbone": "decision then reason",
+      "local_relations": [],
+      "visual_layers": [{"node_id": "N00", "layer": "primary"}],
+      "reading_sequence": ["C-S01-01", "C-S01-02"],
+      "copy_unit_map": [
+        {
+          "copy_id": "C-S01-01",
+          "render_target_id": "TARGET-S01-TITLE",
+          "target_type": "shape",
+          "verification_method": "shape-name",
+          "visual_role": "primary",
+          "style_token": "title",
+          "reading_order": 1,
+          "parent_render_target_id": null,
+          "group_container_id": "GROUP-S01",
+          "alignment": "left",
+          "auto_fit": "none",
+          "intentional_line_breaks": []
+        },
+        {
+          "copy_id": "C-S01-02",
+          "render_target_id": "TARGET-S01-STORY",
+          "target_type": "shape",
+          "verification_method": "shape-name",
+          "visual_role": "secondary",
+          "style_token": "body",
+          "reading_order": 2,
+          "parent_render_target_id": null,
+          "group_container_id": "GROUP-S01",
+          "alignment": "left",
+          "auto_fit": "none",
+          "intentional_line_breaks": []
+        }
+      ],
+      "visual_hierarchy": {
+        "primary_copy_ids": ["C-S01-01"],
+        "secondary_copy_ids": ["C-S01-02"],
+        "tertiary_copy_ids": [],
+        "annotation_copy_ids": [],
+        "anchor_copy_ids": ["C-S01-01"],
+        "anchor_rationale": "The decision is the primary audience task"
+      },
+      "atomicity_review": {
+        "all_copy_units_mapped": true,
+        "parent_child_targets_distinct": true,
+        "sibling_targets_parallel": true,
+        "locked_text_verbatim": true,
+        "intentional_breaks_planned": true,
+        "no_hierarchy_encoded_only_by_punctuation": true,
+        "atomic_units_organized_into_visual_grammar": true,
+        "one_copy_one_card_default_rejected": true
+      },
+      "content_load_class_repeated": "light",
+      "decision_weight_repeated": "high",
+      "series_visual_contract": {
+        "series_id": null,
+        "behavior": "standalone",
+        "persistent_elements": [],
+        "logic_change_repeated": "standalone",
+        "progressive_change": "not applicable",
+        "allowed_variation": [],
+        "sequence_reference_ids": [],
+        "break_reason": ""
+      },
+      "motif_id": null,
+      "semantic_whitespace": {
+        "mode": "none",
+        "zones": [],
+        "narrative_duty": "",
+        "protected_from_filling": false
+      },
+      "persistent_context_rail": {
+        "enabled": false,
+        "purpose": "",
+        "scope_slide_ids": [],
+        "current_marker": "",
+        "max_area_percent": 0
+      },
+      "structure_signature": "answer-first-type-field",
+      "silhouette_family": "answer-first-type-field",
+      "dominant_medium": "typography",
+      "density_class": "light",
+      "visual_anchor": "decision title",
+      "medium_execution_contract": {
+        "structure_type": "typography",
+        "mapping_mode": "independent-shapes",
+        "required_object_types": ["shape"],
+        "minimum_object_counts": {"shape": 2},
+        "semantic_axes": ["decision hierarchy"],
+        "render_recognition_criteria": ["decision reads before supporting reason"],
+        "approved_alternative": null,
+        "data_chart_contract": null
+      },
+      "accent_coverage_band": "low",
+      "uses_bottom_conclusion_band": false,
+      "rhythm_exception": false,
+      "repetition_reason": "",
+      "icon_scan": [],
+      "image_plan": [],
+      "connector_plan": null,
+      "kpi_plan": [],
+      "shape_semantics": ["open typography field"],
+      "backflow_required": false,
+      "backflow_reason": "",
+      "anti_flatness_review": true,
+      "design_intent": {
+        "communication_job": "support a reversible decision",
+        "first_impression": "clear and bounded",
+        "first_visual": "decision title",
+        "attention_order": ["decision", "reason"],
+        "why_this_composition": "the decision should precede its qualifying reason",
+        "forbidden_fallbacks": ["equal cards"]
+      },
+      "area_plan": [
+        {
+          "region_id": "R-MAIN",
+          "role": "decision and reason",
+          "share_percent": 100,
+          "contains_copy_ids": ["C-S01-01", "C-S01-02"],
+          "grid_columns": [1, 12]
+        }
+      ],
+      "semantic_layout_tree": {
+        "tree_id": "SLT-S01-A",
+        "mode": "flat",
+        "root_node_id": "L0",
+        "nodes": [
+          {
+            "node_id": "L0",
+            "parent_node_id": null,
+            "node_type": "canvas",
+            "semantic_role": "decision field",
+            "region_id": "R-MAIN",
+            "copy_ids": ["C-S01-01", "C-S01-02"],
+            "shape_family": "text",
+            "reading_order": 0
+          }
+        ],
+        "relations": [],
+        "checks": {
+          "single_root": true,
+          "all_copy_ids_covered_once": true,
+          "hierarchy_explains_grouping": true,
+          "reading_order_explicit": true,
+          "shape_choices_semantic": true,
+          "no_flat_card_default": true
+        }
+      },
+      "reference_selection": [],
+      "reference_exception": "Synthetic release regression uses no external visual reference",
+      "ab_review": {
+        "required": false,
+        "candidates": [
+          {
+            "candidate_id": "A",
+            "silhouette_family": "answer-first-type-field",
+            "first_visual": "decision title",
+            "main_backbone": "decision then reason",
+            "reading_path": "top-to-bottom",
+            "area_plan": ["decision", "reason"],
+            "reference_ids": [],
+            "risk_notes": [],
+            "semantic_tree_signature": "one decision field with supporting reason",
+            "prototype_file": null
+          }
+        ],
+        "selected_candidate_id": "A",
+        "rejected_candidate_ids": [],
+        "rejection_rationale": "",
+        "greybox_status": "not-required",
+        "visual_self_correction": {
+          "required": false,
+          "max_rounds": 2,
+          "rounds": [],
+          "automatic_signals": [],
+          "automatic_signal_role": "diagnostic-only",
+          "candidate_diversity_status": "not-applicable",
+          "final_selection_basis": "professional-visual-judgment",
+          "stop_reason": "Ordinary synthetic regression slide does not require A/B"
+        }
+      },
+      "art_direction_lock": {
+        "composition_locked": true,
+        "silhouette_locked": true,
+        "dominant_medium_locked": true,
+        "density_locked": true,
+        "reading_path_locked": true,
+        "copy_mapping_locked": true,
+        "series_behavior_locked": true,
+        "motif_locked": true,
+        "semantic_whitespace_locked": true,
+        "context_rail_locked": true,
+        "semantic_layout_tree_locked": true
+      },
+      "handoff_status": "ready-for-output"
+    }
+  ]
+}

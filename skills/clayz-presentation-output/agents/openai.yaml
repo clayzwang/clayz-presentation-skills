@@ -1,0 +1,10 @@
+interface:
+  display_name: "Clayz Presentation Output"
+  short_description: "Build an editable PPTX and prove fidelity"
+  icon_small: "./assets/clayz-mark.svg"
+  icon_large: "./assets/clayz-mark.svg"
+  brand_color: "#5B5BD6"
+  default_prompt: "Use $clayz-presentation-output to build and verify the approved presentation."
+policy:
+  allow_implicit_invocation: true
+

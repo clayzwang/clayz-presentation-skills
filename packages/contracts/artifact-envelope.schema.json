@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:artifact-envelope:1.0",
+  "title": "Clayz presentation artifact envelope",
+  "type": "object",
+  "required": ["origin_namespace", "configuration_sha256", "artifact_type", "status"],
+  "properties": {
+    "origin_namespace": {"const": "io.clayz.presentation"},
+    "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact_type": {
+      "enum": ["logic-package", "copy-package", "art-direction-plan", "build-report", "supervision-report"]
+    },
+    "status": {
+      "enum": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"]
+    },
+    "source_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_type", "sha256"],
+        "properties": {
+          "artifact_type": {"type": "string"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    }
+  }
+}

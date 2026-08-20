@@ -1,0 +1,66 @@
+project:
+  name: "Clayz Presentation Skills"
+  original_architecture: "clayz"
+  brand: "clayz"
+
+sources:
+  - id: "pptagent"
+    usage_type: "conceptual-inspiration"
+    upstream: "https://github.com/icip-cas/PPTAgent"
+    paper: "https://aclanthology.org/2025.emnlp-main.728/"
+    upstream_license: "MIT"
+    pinned_version: null
+    reviewed_on: "2026-08-20"
+    influenced_components:
+      - "controlled repair loop"
+      - "reference clustering"
+      - "environment-grounded observation"
+    redistributed_files: []
+    note: "No upstream source code, templates, or media are redistributed. The influence is limited to reflective, edit-oriented workflow concepts."
+
+  - id: "deeppresenter"
+    usage_type: "conceptual-inspiration"
+    upstream: "https://github.com/icip-cas/PPTAgent"
+    paper: "https://arxiv.org/abs/2602.22839"
+    upstream_license: "MIT"
+    pinned_version: null
+    reviewed_on: "2026-08-20"
+    influenced_components:
+      - "execution history"
+      - "faceted review"
+    redistributed_files: []
+    note: "No upstream source code, models, templates, or media are redistributed. The influence is limited to environment-grounded observation concepts."
+
+  - id: "pom"
+    usage_type: "conceptual-inspiration"
+    upstream: "https://github.com/hirokisakabe/pom"
+    upstream_license: "MIT"
+    pinned_version: null
+    reviewed_on: "2026-08-20"
+    influenced_components:
+      - "relative layout tree"
+      - "constraint-based layout diagnostics"
+    redistributed_files: []
+    note: "No package snapshot or source code is redistributed. The influence is limited to relative layout-tree and Flexbox-style layout concepts."
+
+  - id: "vascar"
+    usage_type: "conceptual-inspiration"
+    paper: "https://arxiv.org/abs/2412.04237"
+    upstream_license: "citation-only"
+    pinned_version: "arXiv:2412.04237v3"
+    reviewed_on: "2026-08-20"
+    influenced_components:
+      - "render-observe-revise loop"
+    redistributed_files: []
+    note: "No paper figures, text, code, or data are redistributed. The influence is limited to render-observe-revise concepts."
+
+  - id: "pptxgenjs"
+    usage_type: "conceptual-inspiration"
+    upstream: "https://github.com/gitbrent/PptxGenJS"
+    upstream_license: "MIT"
+    pinned_version: "4.0.1"
+    reviewed_on: "2026-08-20"
+    influenced_components:
+      - "editable PowerPoint object implementation"
+    redistributed_files: []
+    note: "No library snapshot is included. The central renderer configuration may select PptxGenJS when it is installed separately."

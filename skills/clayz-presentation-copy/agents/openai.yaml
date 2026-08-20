@@ -1,0 +1,10 @@
+interface:
+  display_name: "Clayz Presentation Copy"
+  short_description: "Lock final copy and atomic text hierarchy"
+  icon_small: "./assets/clayz-mark.svg"
+  icon_large: "./assets/clayz-mark.svg"
+  brand_color: "#5B5BD6"
+  default_prompt: "Use $clayz-presentation-copy to finalize every visible word in this approved presentation package."
+policy:
+  allow_implicit_invocation: true
+

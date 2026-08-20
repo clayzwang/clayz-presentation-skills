@@ -1,0 +1,10 @@
+month,segment,active_accounts,retained_accounts,activation_rate,support_tickets_per_100_accounts
+2026-04,Starter,1200,984,0.61,8.2
+2026-04,Team,760,684,0.74,4.7
+2026-04,Business,310,291,0.82,2.9
+2026-05,Starter,1260,995,0.57,10.6
+2026-05,Team,790,695,0.72,5.1
+2026-05,Business,325,302,0.81,3.0
+2026-06,Starter,1310,1009,0.54,12.4
+2026-06,Team,820,705,0.69,6.0
+2026-06,Business,340,313,0.80,3.2
