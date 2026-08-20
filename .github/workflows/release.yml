@@ -1,0 +1,79 @@
+name: release
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".codex-plugin/plugin.json"
+      - ".github/workflows/release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Validate the release tree
+        run: python scripts/validate_all.py
+      - name: Prepare bilingual release notes
+        id: release
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import pathlib
+
+          root = pathlib.Path.cwd()
+          manifest = json.loads((root / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
+          version = manifest["version"]
+          tag = f"v{version}"
+          changelog = (root / "CHANGELOG.md").read_text(encoding="utf-8")
+          marker = f"## {version}"
+          start = changelog.find(marker)
+          if start < 0:
+              raise SystemExit(f"CHANGELOG.md has no section for {version}")
+          next_section = changelog.find("\n## ", start + len(marker))
+          section = changelog[start:next_section if next_section >= 0 else None].strip()
+          notes = f"""# Clayz Presentation Skills {tag}
+
+          {section}
+
+          ## 中文摘要
+
+          本版本在保持五阶段架构与公开边界的前提下，加入可迁移、可验证、非真实案例性的能力。真实案例、组织偏好与审美判断继续保留在用户自有的空学习层中；参考来源与致谢见仓库的 provenance 文件。
+
+          Release validation is completed before publication. The public tree contains no uploaded templates, private decks, company material, bundled fonts, screenshots, proprietary datasets, model weights, or real-case-derived assets.
+          """
+          (root / "release-notes.md").write_text(notes, encoding="utf-8")
+          with pathlib.Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
+              output.write(f"version={version}\n")
+              output.write(f"tag={tag}\n")
+          PY
+      - name: Publish the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; leaving it unchanged."
+            exit 0
+          fi
+          gh release create "$TAG" \
+            --target "$GITHUB_SHA" \
+            --title "Clayz Presentation Skills $TAG" \
+            --notes-file release-notes.md
