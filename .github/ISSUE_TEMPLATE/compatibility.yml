@@ -1,0 +1,58 @@
+name: "Compatibility report / 兼容性报告"
+description: "Report installation or runtime differences across hosts and environments / 报告不同宿主与环境中的安装或运行差异"
+title: "[Compatibility]: "
+labels: ["compatibility", "triage"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: "Clayz version / Clayz 版本"
+      placeholder: "v0.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: host_model
+    attributes:
+      label: "Host and model / 宿主与模型"
+      placeholder: "Codex; model name and version"
+    validations:
+      required: true
+
+  - type: input
+    id: runtime
+    attributes:
+      label: "Runtime / 运行环境"
+      description: "OS, Python, Node, office software, and renderer when relevant / 操作系统、Python、Node、办公软件与渲染器"
+    validations:
+      required: true
+
+  - type: textarea
+    id: install
+    attributes:
+      label: "Installation method / 安装方式"
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed
+    attributes:
+      label: "Observed behavior / 实际表现"
+    validations:
+      required: true
+
+  - type: textarea
+    id: minimal_reproduction
+    attributes:
+      label: "Minimal reproduction / 最小复现"
+      description: "Use public or synthetic material only / 仅使用公开或合成材料"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: "Privacy check / 隐私确认"
+      options:
+        - label: "Logs and examples are redacted and safe to publish. / 日志和示例均已脱敏，可安全公开。"
+          required: true
