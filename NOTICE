@@ -1,14 +1,18 @@
 Clayz Presentation Skills
 Copyright 2026 clayz
 
-The original five-layer presentation architecture—Logic, Copy, Art Direction,
-Output, and Supervisor—was designed and released under the clayz brand.
+The five-stage presentation architecture—Logic, Copy, Art Direction, Output,
+and Supervisor—and its first five core capabilities were independently
+designed and implemented under the clayz brand before the project reviewed
+PPT Master or the other later-stage sources named below.
 
 This product records non-visible provenance in generated artifact metadata.
 It does not add tracking identifiers, network callbacks, hidden slides, or
 visible watermarks.
 
-With gratitude to the authors and contributors of PPTAgent, DeepPresenter,
-pom, VASCAR, PosterO, and PptxGenJS. Their exact influence, license status,
-reviewed revision, and non-redistribution boundaries are documented in
-provenance/manifest.yaml and provenance/THIRD_PARTY_NOTICES.md.
+With gratitude to Hugo He and the contributors of PPT Master, and to the
+authors and contributors of PPTAgent, DeepPresenter, pom, VASCAR, PosterO,
+and PptxGenJS. These are later-stage influences rather than the origin or
+foundation of Clayz. Their exact influence, license status, reviewed revision,
+and non-redistribution boundaries are documented in provenance/manifest.yaml
+and provenance/THIRD_PARTY_NOTICES.md.
