@@ -19,6 +19,19 @@ deliberately_excluded:
   - "runtime or model weights"
 
 sources:
+  - id: "ppt-master"
+    usage_type: "later-stage-conceptual-reference"
+    upstream: "https://github.com/hugohe3/ppt-master"
+    upstream_license: "MIT"
+    pinned_version: "e8323bfaee249cffe1301ec40fca5875eb544d46"
+    reviewed_on: "2026-08-22"
+    influenced_components:
+      - "native editable PowerPoint workflow references"
+      - "presentation asset taxonomy and provenance practice"
+      - "chart, table, icon, and sample-deck research inputs"
+    redistributed_files: []
+    note: "With thanks to Hugo He and PPT Master contributors. Clayz had independently implemented its first five core capabilities before reviewing PPT Master. PPT Master is a later-stage reference, not the origin, fork base, or foundation of this repository. No upstream source code, prompts, knowledge documents, templates, charts, tables, icons, sample decks, datasets, models, or media are redistributed."
+
   - id: "pptagent"
     usage_type: "conceptual-inspiration"
     upstream: "https://github.com/icip-cas/PPTAgent"
