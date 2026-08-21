@@ -4,8 +4,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - ".codex-plugin/plugin.json"
-      - ".github/workflows/release.yml"
+      - "VERSION"
   workflow_dispatch:
 
 permissions:
@@ -39,8 +38,10 @@ jobs:
           import pathlib
 
           root = pathlib.Path.cwd()
+          version = (root / "VERSION").read_text(encoding="utf-8").strip()
           manifest = json.loads((root / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
-          version = manifest["version"]
+          if manifest["version"] != version:
+              raise SystemExit("plugin manifest version does not match VERSION")
           tag = f"v{version}"
           changelog = (root / "CHANGELOG.md").read_text(encoding="utf-8")
           marker = f"## {version}"
@@ -64,6 +65,18 @@ jobs:
               output.write(f"version={version}\n")
               output.write(f"tag={tag}\n")
           PY
+      - name: Guard immutable release tag
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        shell: bash
+        run: |
+          if git rev-parse --verify --quiet "refs/tags/$TAG" >/dev/null; then
+            tagged_commit="$(git rev-list -n1 "$TAG")"
+            if [ "$tagged_commit" != "$GITHUB_SHA" ]; then
+              echo "Refusing to move existing tag $TAG from $tagged_commit to $GITHUB_SHA."
+              exit 1
+            fi
+          fi
       - name: Build versioned release assets
         id: assets
         env:

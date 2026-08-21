@@ -4,6 +4,10 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
+- Nothing yet.
+
+## 0.3.0 — 2026-08-22
+
 - Upgrade Art Direction contract to v1.4 with content-aware canvas analysis and governed template/icon asset selection; image-led slides must record subject protection, usable copy zones, crop, contrast, directional flow, and local overlay decisions.
 - Add bilingual content-aware composition and asset/template grammar references that treat external layouts and icons as reviewed moves to re-derive, never fixed templates to clone.
 - Add a machine-validated ten-case synthetic visual regression suite covering four material routes, four cross-slide behaviors, image-led composition, and licensed asset selection.
@@ -13,6 +17,7 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add a public A-share market-analysis case with nine web-safe previews and a 16-slide editable deck.
 - Keep public output evidence isolated from `examples/`, `knowledge/`, and the reference corpus through a machine-readable case manifest.
 - Extend release-hygiene validation so only declared public PPTX artifacts are allowed and their XML payloads are scanned for private paths, opaque file identifiers, credentials, and denylist terms.
+- Establish `VERSION` as the release source of truth, add atomic release preparation and cross-surface validation, and make release tags immutable.
 
 ## 0.2.0 — 2026-08-20
 
