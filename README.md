@@ -30,7 +30,22 @@ Clayz Presentation Skills is an open, five-stage system for producing evidence-b
 4. **Output** builds an editable presentation against the approved plan.
 5. **Supervisor** audits drift and evidence without silently redesigning the deck.
 
-The original architecture was created and released under the **clayz** brand.
+## Capability upgrade in this iteration
+
+This is not a larger pile of layout rules. It gives Art Direction a stronger repertoire while keeping every move accountable to the current content:
+
+- **Content-aware composition:** image-led slides must inspect subject protection, usable copy zones, crop, contrast, directional flow, and overlay necessity before placing text. A remembered advertising layout is never accepted as the answer by itself.
+- **Template and icon grammar:** templates, charts, tables, icons, and sample decks enter as reviewed candidates. The plan must re-derive the composition from Logic and Copy, explain every selected asset's semantic role, keep icon-family decisions coherent, and record source and license evidence.
+- **Flexible judgment under contract:** the Art Direction plan v1.4 fixes the evidence and decisions that must be explicit, not coordinates, icon counts, fill ratios, or aesthetic scores. Rendered A/B evidence and professional judgment remain decisive.
+- **Fixed regression:** ten synthetic cases cover four material routes, four cross-slide behaviors, content-aware image composition, and governed asset selection. Tests reject image-led pages without canvas evidence and selected assets without license records.
+
+The public repository still bundles no third-party template, master, icon set, poster, dataset, model, or media. The capability is to retrieve, judge, re-compose, and attribute admissible material—not to clone a source library.
+
+## Project lineage
+
+The five-stage workflow and its first five core capabilities were independently designed and implemented under the **clayz** brand before the project reviewed PPT Master or the other sources listed below. After that foundation was working, Clayz entered an open-learning phase and selectively integrated ideas from multiple open-source and research projects.
+
+[PPT Master](https://github.com/hugohe3/ppt-master) is therefore a later-stage reference—not the origin, fork base, or foundation of this repository. File-level attribution remains governed by the exact provenance and redistribution records under `provenance/`.
 
 ## Design principles
 
@@ -141,7 +156,7 @@ For GitHub CI, store the UTF-8 denylist as a base64-encoded repository secret na
 
 ## Influence citations
 
-Conceptual influences are identified at the exact reference points inside the skill documentation and summarized in `provenance/manifest.yaml`. With thanks to the authors and contributors of [PPTAgent](https://github.com/icip-cas/PPTAgent), [DeepPresenter](https://arxiv.org/abs/2602.22839), [pom](https://github.com/hirokisakabe/pom), [VASCAR](https://arxiv.org/abs/2412.04237), [PosterO](https://openaccess.thecvf.com/content/CVPR2025/html/Hsu_PosterO_Structuring_Layout_Trees_to_Enable_Language_Models_in_Generalized_CVPR_2025_paper.html), and [PptxGenJS](https://github.com/gitbrent/PptxGenJS). Exact revisions, licenses, citation-only constraints, and non-redistribution boundaries are recorded; no upstream source snapshot, prompt, template, reference slide, media, dataset, or model is bundled.
+Later-stage conceptual influences are identified at the exact reference points inside the skill documentation and summarized in `provenance/manifest.yaml`. With thanks to the authors and contributors of [PPT Master](https://github.com/hugohe3/ppt-master), [PPTAgent](https://github.com/icip-cas/PPTAgent), [DeepPresenter](https://arxiv.org/abs/2602.22839), [pom](https://github.com/hirokisakabe/pom), [VASCAR](https://arxiv.org/abs/2412.04237), [PosterO](https://openaccess.thecvf.com/content/CVPR2025/html/Hsu_PosterO_Structuring_Layout_Trees_to_Enable_Language_Models_in_Generalized_CVPR_2025_paper.html), [PosterLayout](https://arxiv.org/abs/2303.15937), [Scan-and-Print](https://arxiv.org/abs/2505.20649), [CreatiPoster](https://arxiv.org/abs/2506.10890), and [PptxGenJS](https://github.com/gitbrent/PptxGenJS). Exact revisions, licenses, citation-only constraints, and non-redistribution boundaries are recorded; no upstream source snapshot, prompt, template, reference slide, media, dataset, or model is bundled.
 
 ## License and citation
 

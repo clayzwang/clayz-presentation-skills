@@ -14,7 +14,22 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 4. **Output**：按照批准计划制作可编辑的演示文稿。
 5. **Supervisor**：独立审计跨层漂移和证据，不静默重做设计。
 
-原始架构由 **clayz** 品牌创建并发布。
+## 本轮能力升级
+
+这不是继续堆版式口诀，而是给Art Direction增加一套更强的“招式”，同时要求每一招都服从当前内容：
+
+- **内容感知构图**：图像主导页必须先判断主体保护区、文案可放置区、裁切、对比度、视觉方向和遮罩必要性，再决定文字位置；记住一个广告版式本身不能成为答案。
+- **模板与Icon语法**：模板、图表、表格、Icon和外部样例只作为经过审阅的候选。页面必须从Logic和Copy重新推导构图，说明每项资产的语义角色，保持图标家族判断一致，并记录来源与许可证据。
+- **有合同的灵活判断**：Art Direction计划升级到v1.4，固定的是必须显式回答的证据和决策，不固定坐标、Icon数量、填充比例或审美分数；最终仍以真实A/B渲染和专业判断为准。
+- **固定回归**：10个完全合成的案例覆盖四类材料、四种跨页行为、内容感知画布和受控资产选择。图像主导页缺少画布证据、已选资产缺少许可记录都会被测试拒绝。
+
+公开仓库仍不打包任何第三方模板、母版、Icon库、海报、数据集、模型或媒体。增强的是检索、判断、重构和合规引用能力，不是克隆一个外部素材库。
+
+## 项目沿革
+
+五阶段工作流及其首批五项核心能力，由 **clayz** 品牌独立设计并实现；在这一基础已经可以运行之后，项目才进入开放学习阶段，陆续研究并选择性融汇多个开源项目和研究成果。
+
+因此，[PPT Master](https://github.com/hugohe3/ppt-master) 是后续参考来源之一，并非本项目的起点、Fork 基础或底层框架。具体文件是否需要署名，按 `provenance/` 中记录的来源、影响范围和再分发事实逐项判断。
 
 ## 核心边界
 
@@ -101,7 +116,7 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 
 ## 引用与公开边界
 
-感谢 PPTAgent、DeepPresenter、pom、VASCAR、PosterO 与 PptxGenJS 的作者和贡献者。相关项目只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
+感谢 PPT Master、PPTAgent、DeepPresenter、pom、VASCAR、PosterO、PosterLayout、Scan-and-Print、CreatiPoster 与 PptxGenJS 的作者和贡献者。它们是本项目形成首批五项核心能力之后陆续研究的后续来源，只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
 
 本项目采用 Apache-2.0 许可证，来源和引用见 `NOTICE`、`CITATION.cff` 与 `provenance/`。
 

@@ -56,6 +56,9 @@ Maintain synthetic, organization-neutral fixtures that cover at least:
 - four material routes: management report, business analysis, strategy deployment, and sales training;
 - four cross-slide cases: stable series, controlled variation, intentional series break, and non-series silhouette collision;
 - management-request order and related-data integration; and
+- content-aware image composition and governed template/icon selection; and
 - registry lookup, human admission, traceability, neighbor context, and reference-budget behavior.
 
-Regression tests validate selection logic, contracts, and failure behavior. They are not a visual-quality oracle and must contain no private templates or proprietary examples.
+The public fixed suite is `tests/fixtures/visual-regression-suite.json`. It contains ten named cases: four material routes, four cross-slide cases, one content-aware canvas case, and one asset/template grammar case. Run `python scripts/validate_visual_regression_suite.py` to verify exact coverage and synthetic licensing.
+
+Regression tests validate selection logic, contracts, and failure behavior. They are not a visual-quality oracle and must contain no private templates, proprietary examples, upstream layouts, or third-party media.

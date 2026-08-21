@@ -4,6 +4,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
+- Upgrade Art Direction contract to v1.4 with content-aware canvas analysis and governed template/icon asset selection; image-led slides must record subject protection, usable copy zones, crop, contrast, directional flow, and local overlay decisions.
+- Add bilingual content-aware composition and asset/template grammar references that treat external layouts and icons as reviewed moves to re-derive, never fixed templates to clone.
+- Add a machine-validated ten-case synthetic visual regression suite covering four material routes, four cross-slide behaviors, image-led composition, and licensed asset selection.
+- Cite and thank PosterLayout, Scan-and-Print, and CreatiPoster under paper-citation-only boundaries; redistribute no upstream code, models, datasets, figures, layouts, fonts, or media.
+- Clarify that Clayz independently implemented its first five core capabilities before later reviewing PPT Master and other sources; add pinned attribution and explicit non-redistribution boundaries.
 - Add a bilingual GitHub Pages Experience Center with slide-level browsing, release capability mapping, visual-range examples, and downloadable editable output evidence.
 - Add a public A-share market-analysis case with nine web-safe previews and a 16-slide editable deck.
 - Keep public output evidence isolated from `examples/`, `knowledge/`, and the reference corpus through a machine-readable case manifest.

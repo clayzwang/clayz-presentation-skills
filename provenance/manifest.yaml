@@ -19,6 +19,19 @@ deliberately_excluded:
   - "runtime or model weights"
 
 sources:
+  - id: "ppt-master"
+    usage_type: "later-stage-conceptual-reference"
+    upstream: "https://github.com/hugohe3/ppt-master"
+    upstream_license: "MIT"
+    pinned_version: "e8323bfaee249cffe1301ec40fca5875eb544d46"
+    reviewed_on: "2026-08-22"
+    influenced_components:
+      - "native editable PowerPoint workflow references"
+      - "presentation asset taxonomy and provenance practice"
+      - "chart, table, icon, and sample-deck research inputs"
+    redistributed_files: []
+    note: "Thank you to Hugo He and PPT Master contributors. Clayz had independently implemented its first five core capabilities before reviewing PPT Master. PPT Master is a later-stage reference, not the origin, fork base, or foundation of this repository. No upstream source code, prompts, knowledge documents, templates, charts, tables, icons, sample decks, datasets, models, or media are redistributed."
+
   - id: "pptagent"
     usage_type: "conceptual-inspiration"
     upstream: "https://github.com/icip-cas/PPTAgent"
@@ -84,6 +97,45 @@ sources:
       - "content-aware hierarchy concepts"
     redistributed_files: []
     note: "Thank you to the PosterO authors. Because no clear repository-level license was observed, this project cites the paper only and independently expresses the abstract ideas. No code, weights, datasets, annotations, saliency pipeline, figures, or layouts are used or redistributed."
+
+  - id: "posterlayout"
+    usage_type: "paper-citation-only"
+    upstream: "https://github.com/PKU-ICST-MIPL/PosterLayout-CVPR2023"
+    paper: "https://arxiv.org/abs/2303.15937"
+    upstream_license: "no-repository-license-observed"
+    pinned_version: "44ee576471f3c06d06fc632f13e3f96d0c381847"
+    reviewed_on: "2026-08-22"
+    influenced_components:
+      - "content-aware subject and placement observation vocabulary"
+      - "image-text overlap and readability risk prompts"
+    redistributed_files: []
+    note: "Thank you to the PosterLayout authors. Because no clear repository-level license was observed, Clayz cites the paper and independently expresses a presentation-specific observation contract. No repository code, models, datasets, annotations, metrics, figures, layouts, or media are used or redistributed."
+
+  - id: "scan-and-print"
+    usage_type: "paper-citation-only"
+    upstream: "https://github.com/theKinsley/Scan-and-Print-IJCAI2025"
+    paper: "https://arxiv.org/abs/2505.20649"
+    upstream_license: "no-repository-license-observed"
+    pinned_version: "87e3539701914ed75305675e727b913c1316a340"
+    reviewed_on: "2026-08-22"
+    influenced_components:
+      - "patch-level placement suitability prompts"
+      - "candidate-zone evidence recording"
+    redistributed_files: []
+    note: "Thank you to the Scan-and-Print authors. Because no clear repository-level license was observed, Clayz cites the paper and independently expresses the abstract observation ideas. No code, models, datasets, patches, annotations, figures, layouts, or media are used or redistributed."
+
+  - id: "creatiposter"
+    usage_type: "paper-citation-only"
+    upstream: "https://github.com/graphic-design-ai/creatiposter"
+    paper: "https://arxiv.org/abs/2506.10890"
+    upstream_license: "no-repository-license-observed"
+    pinned_version: "82a262addc7ccea9b1cb7d22923f4a57457c7a74"
+    reviewed_on: "2026-08-22"
+    influenced_components:
+      - "foreground-background separation prompts"
+      - "editable layered-composition boundary"
+    redistributed_files: []
+    note: "Thank you to the CreatiPoster authors. Because no clear repository-level license was observed, Clayz cites the paper and independently expresses presentation-specific foreground/background decisions. No code, protocol, model, dataset, training recipe, figure, layout, font, or media is used or redistributed."
 
   - id: "pptxgenjs"
     usage_type: "optional-public-api-integration"

@@ -1,0 +1,126 @@
+{
+  "suite_version": "1.0",
+  "purpose": "Synthetic decision regressions for Art Direction selection logic; not a visual-quality oracle.",
+  "cases": [
+    {
+      "case_id": "ROUTE-MANAGEMENT-REPORT",
+      "category": "material-route",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Ask a decision team to approve a reversible two-region pilot after showing the resource dilemma and success threshold.",
+      "risk": "The request becomes a promotional hero before the dilemma and trade-off are visible.",
+      "rejected_pattern": "Large approval slogan above four equal benefit cards.",
+      "target_backbone": "Dilemma and threshold lead to a bounded choice, trade-off, and explicit ask.",
+      "required_signals": ["decision weight controls area", "trade-off precedes ask", "one dominant decision field"],
+      "forbidden_signals": ["equal card wall", "recommendation before evidence"]
+    },
+    {
+      "case_id": "ROUTE-BUSINESS-ANALYSIS",
+      "category": "material-route",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Diagnose a synthetic conversion decline across channel, stage, and week, then identify the most actionable driver.",
+      "risk": "Related measures are fragmented into disconnected KPI cards.",
+      "rejected_pattern": "Six equal number cards with no common scale or causal reading path.",
+      "target_backbone": "A shared chart or table establishes the decline, isolates the driver, and anchors the action.",
+      "required_signals": ["related data share an encoding", "driver is visually coupled to evidence", "labels meet the chart minimum"],
+      "forbidden_signals": ["unrelated card fragments", "decorative connector lines"]
+    },
+    {
+      "case_id": "ROUTE-STRATEGY-DEPLOYMENT",
+      "category": "material-route",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Deploy a synthetic annual strategy through three capabilities, two guardrails, and phased ownership.",
+      "risk": "The strategy is reduced to a slogan plus three decorative pillars.",
+      "rejected_pattern": "Symmetric pillar template with no dependency, owner, or phase relation.",
+      "target_backbone": "Outcome, capability dependencies, guardrails, phases, and owners form one explainable system.",
+      "required_signals": ["dependencies are explicit", "guardrails constrain execution", "ownership and phase are readable"],
+      "forbidden_signals": ["ornamental pillars", "unexplained equal columns"]
+    },
+    {
+      "case_id": "ROUTE-SALES-TRAINING",
+      "category": "material-route",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Teach one synthetic customer-service procedure across mobile and web with checkpoints and exceptions.",
+      "risk": "Screenshots are placed as decoration while actions and exceptions become unreadable footnotes.",
+      "rejected_pattern": "Two device mockups with floating labels and no step-to-screen mapping.",
+      "target_backbone": "Action sequence maps to protected screenshot regions, checkpoints, and exception branches.",
+      "required_signals": ["steps map to visible targets", "exceptions branch from the correct step", "screenshots remain legible"],
+      "forbidden_signals": ["decorative screenshots", "unmapped callouts"]
+    },
+    {
+      "case_id": "SERIES-STABLE-BACKBONE",
+      "category": "cross-slide",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Compare four synthetic quarters on the same time base.",
+      "risk": "Each quarter is redesigned, destroying comparison.",
+      "rejected_pattern": "Four unrelated silhouettes for one stable series.",
+      "target_backbone": "Lock the time base and grammar while updating only values and current-quarter emphasis.",
+      "required_signals": ["series identity persists", "time base stays fixed", "new information becomes focal"],
+      "forbidden_signals": ["arbitrary silhouette change", "moving comparison anchors"]
+    },
+    {
+      "case_id": "SERIES-CONTROLLED-VARIATION",
+      "category": "cross-slide",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Reveal three synthetic implementation phases while preserving the shared roadmap.",
+      "risk": "Either every page is identical or every page loses the roadmap.",
+      "rejected_pattern": "Static duplication with no progressive focus.",
+      "target_backbone": "Keep the roadmap, vary the active phase, detail depth, and supporting medium deliberately.",
+      "required_signals": ["persistent elements are named", "allowed variation is bounded", "progressive change is visible"],
+      "forbidden_signals": ["accidental duplication", "unbounded redesign"]
+    },
+    {
+      "case_id": "SERIES-INTENTIONAL-BREAK",
+      "category": "cross-slide",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Exit a synthetic policy series into a decision page after the final comparison.",
+      "risk": "The decision inherits the series grammar and fails to announce a stage change.",
+      "rejected_pattern": "Another comparison page with a small ask at the bottom.",
+      "target_backbone": "Declare a series break, shift the first visual to the decision, and record the exit reason.",
+      "required_signals": ["series role is break", "exit reason is explicit", "decision becomes first visual"],
+      "forbidden_signals": ["silent grammar drift", "hidden decision"]
+    },
+    {
+      "case_id": "NONSERIES-SILHOUETTE-COLLISION",
+      "category": "cross-slide",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Place three unrelated synthetic pages next to one another in the deck sequence.",
+      "risk": "All three degrade into the same shallow card grid without a series reason.",
+      "rejected_pattern": "Repeated three-card silhouette across unrelated tasks.",
+      "target_backbone": "Give each page a task-fit medium and break accidental repetition while preserving deck rhythm.",
+      "required_signals": ["neighbor context is reviewed", "different jobs use different dominant media", "collision triggers A/B"],
+      "forbidden_signals": ["cardification", "meaningless isomorphism"]
+    },
+    {
+      "case_id": "CAPABILITY-CONTENT-AWARE-CANVAS",
+      "category": "capability",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Place a synthetic proposition and qualifier over a product photograph with a protected subject and directional gaze.",
+      "risk": "Blank-looking pixels are treated as safe and the overlay covers evidence or loses contrast.",
+      "rejected_pattern": "Copy a remembered ad layout or add one large opaque card without inspecting the image.",
+      "target_backbone": "Record protection and placement zones, test focal crop and contrast, then let gaze couple subject and proposition.",
+      "required_signals": ["every copy id has a usable placement zone", "subject protection is explicit", "overlay remains local or unnecessary"],
+      "forbidden_signals": ["fixed ad coordinates", "automatic saliency chooses the layout"]
+    },
+    {
+      "case_id": "CAPABILITY-ASSET-TEMPLATE-GRAMMAR",
+      "category": "capability",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Choose whether a template skeleton and two generic SVG icons improve a synthetic channel-comparison slide.",
+      "risk": "The template becomes the answer and icons are added as decoration without rights evidence.",
+      "rejected_pattern": "Clone a master layout, mix icon families, and omit source or license records.",
+      "target_backbone": "Derive the comparison structure from semantics, select only role-bearing assets, and record provenance and never-copy boundaries.",
+      "required_signals": ["selected assets are reviewed candidates", "license records cover selections", "template mode is derive-not-clone"],
+      "forbidden_signals": ["master cloning", "decorative icon count rule"]
+    }
+  ]
+}

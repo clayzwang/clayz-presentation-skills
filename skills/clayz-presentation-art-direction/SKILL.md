@@ -1,6 +1,6 @@
 ---
 name: clayz-presentation-art-direction
-description: Convert a copy-approved presentation package into an art-direction-approved visual plan covering first visual, hierarchy, medium, area allocation, semantic layout tree, cross-slide rhythm, and reference evidence. Use between final copy and PPTX production, or to diagnose composition, density, cardification, weak hierarchy, repetitive layouts, or unreadable charts. Do not rewrite approved content or build the final PPTX.
+description: Convert a copy-approved presentation package into an art-direction-approved visual plan covering first visual, hierarchy, medium, area allocation, content-aware image composition, governed template and icon selection, semantic layout tree, cross-slide rhythm, and reference evidence. Use between final copy and PPTX production, or to diagnose composition, density, cardification, weak hierarchy, repetitive layouts, image-text conflict, template imitation, decorative icons, or unreadable charts. Do not rewrite approved content or build the final PPTX.
 ---
 
 # Clayz Presentation Art Direction
@@ -9,7 +9,7 @@ Create an `art-direction-approved` plan that makes visual judgment explicit with
 
 ## Boundaries
 
-Own reference selection, first visual, visual anchor, dominant medium, hierarchy, area plan, semantic layout tree, silhouette, density, reading path, whitespace, motif, series behavior, and cross-slide rhythm.
+Own reference selection, first visual, visual anchor, dominant medium, hierarchy, area plan, content-aware canvas analysis, asset strategy, semantic layout tree, silhouette, density, reading path, whitespace, motif, series behavior, and cross-slide rhythm.
 
 Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page order, management stage, or cross-slide invariants. Do not create final PPTX objects.
 
@@ -21,21 +21,25 @@ Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page
 4. Read `references/art-direction-plan-contract.md`.
 5. Read `references/material-routes.md` to select the dominant medium.
 6. Read `references/layout-intent-tree.md` when nested meaning, protected whitespace, or content-aware placement must be made explicit.
-7. Read `references/ab-and-regression.md` only for high-risk pages requiring real alternatives.
-8. Read `references/reference-cluster-discovery.md` when a large reference set must be narrowed.
-9. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior visual learning or persisting a reusable observation.
+7. Read `references/content-aware-composition.md` when a photograph, screenshot, illustration, render, or mixed image canvas affects placement or cropping.
+8. Read `references/asset-and-template-grammar.md` when templates, icons, charts, tables, samples, or other reusable assets are considered.
+9. Read `references/ab-and-regression.md` only for high-risk pages requiring real alternatives.
+10. Read `references/reference-cluster-discovery.md` when a large reference set must be narrowed.
+11. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior visual learning or persisting a reusable observation.
 
 ## Workflow
 
 1. Group slides by communication purpose, relationship, load, decision weight, series role, and silhouette risk.
 2. Use the configured reference provider. Admit only traceable, human-approved sources with clear rights boundaries.
 3. For every slide, state the intended first impression, first visual, area allocation, dominant medium, density, reading path, semantic whitespace, and risks.
-4. Build a semantic layout tree that records containment, peers, sequence, cause, condition, support, comparison, feedback, or anchors.
-5. Map every `copy_id` exactly once to a render target and verification method.
-6. Use real rendered A/B prototypes for high-risk composition; do not treat automated scores or similarity as the winner.
-7. Judge the deck as a sequence, not a collection of isolated pages.
-8. Emit task-local learning candidates with rendered evidence, applicability, and `never_copy` boundaries; persist them only through the configured Art Direction learning route and never auto-promote them.
-9. Emit one plan with `origin_namespace: io.clayz.presentation` and status `art-direction-approved`.
+4. When an image-like canvas is present, inspect subject protection, placement suitability, crop and contrast risk, and directional flow before placing copy. Blank pixels are not automatically safe space.
+5. Treat templates and icons as reviewed candidates. Re-derive composition from the current page job, select assets by semantic role, and record source and license evidence; never clone a master, layout, brand identity, or arbitrary ratio.
+6. Build a semantic layout tree that records containment, peers, sequence, cause, condition, support, comparison, feedback, or anchors.
+7. Map every `copy_id` exactly once to a render target and verification method.
+8. Use real rendered A/B prototypes for high-risk composition; do not treat automated scores or similarity as the winner.
+9. Judge the deck as a sequence, not a collection of isolated pages.
+10. Emit task-local learning candidates with rendered evidence, applicability, and `never_copy` boundaries; persist them only through the configured Art Direction learning route and never auto-promote them.
+11. Emit one plan with `origin_namespace: io.clayz.presentation` and status `art-direction-approved`.
 
 ## Validation
 
