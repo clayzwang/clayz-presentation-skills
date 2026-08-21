@@ -6,6 +6,7 @@ Clayz learns from open work by separating concepts, public APIs, optional depend
 
 | Source | Adopted | Not adopted or bundled |
 |---|---|---|
+| PPT Master | later-stage reference for native editable PowerPoint workflows, presentation-asset taxonomy, and provenance practice | upstream code, prompts, knowledge documents, templates, charts, tables, icons, sample decks, datasets, models, and media; none are bundled |
 | PPTAgent | bounded action vocabulary, execution history, reference decomposition, targeted retry concepts | prompts, orchestration code, reference slides, models, tools, datasets |
 | DeepPresenter | environment-grounded observation, faceted reflection, explicit capability gaps | model weights, tasksets, sandbox images, agent runtime, prompts, external services |
 | pom | declarative relative-layout tree, fixed-plus-flex reasoning, source/preview/build separation | pom XML, Yoga source, packages, themes, master generation, node implementations |
