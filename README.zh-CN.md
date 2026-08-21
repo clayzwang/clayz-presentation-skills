@@ -14,7 +14,11 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 4. **Output**：按照批准计划制作可编辑的演示文稿。
 5. **Supervisor**：独立审计跨层漂移和证据，不静默重做设计。
 
-原始架构由 **clayz** 品牌创建并发布。
+## 项目沿革
+
+五阶段工作流及其首批五项核心能力，由 **clayz** 品牌独立设计并实现；在这一基础已经可以运行之后，项目才进入开放学习阶段，陆续研究并选择性融汇多个开源项目和研究成果。
+
+因此，[PPT Master](https://github.com/hugohe3/ppt-master) 是后续参考来源之一，并非本项目的起点、Fork 基础或底层框架。具体文件是否需要署名，按 `provenance/` 中记录的来源、影响范围和再分发事实逐项判断。
 
 ## 核心边界
 
@@ -101,7 +105,7 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 
 ## 引用与公开边界
 
-感谢 PPTAgent、DeepPresenter、pom、VASCAR、PosterO 与 PptxGenJS 的作者和贡献者。相关项目只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
+感谢 PPT Master、PPTAgent、DeepPresenter、pom、VASCAR、PosterO 与 PptxGenJS 的作者和贡献者。它们是本项目形成首批五项核心能力之后陆续研究的后续来源，只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
 
 本项目采用 Apache-2.0 许可证，来源和引用见 `NOTICE`、`CITATION.cff` 与 `provenance/`。
 
