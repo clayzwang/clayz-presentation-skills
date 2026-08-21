@@ -16,3 +16,8 @@ knowledge/index/search-index.json
 *.otf
 *.woff
 *.woff2
+
+# Public output evidence is allowed only when declared in the experience manifest
+# and validated by scripts/check_release_hygiene.py.
+!experience/assets/decks/
+!experience/assets/decks/*.pptx

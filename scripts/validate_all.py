@@ -34,6 +34,7 @@ def main() -> int:
     run("scripts/validate_skill_tree.py", ".")
     run("scripts/validate_knowledge_scaffold.py", ".")
     run("scripts/validate_markdown_links.py", ".")
+    run("scripts/validate_experience.py", ".")
     denylist = os.environ.get("CLAYZ_RELEASE_DENYLIST")
     command = ["scripts/check_release_hygiene.py", "."]
     if denylist:
@@ -46,3 +47,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

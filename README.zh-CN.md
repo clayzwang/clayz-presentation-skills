@@ -4,6 +4,8 @@
 
 [![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.2.0**
 
+**[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
+
 Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 
 1. **Logic**：建立问题链、论证关系、证据和跨页不变量。
@@ -18,7 +20,7 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 
 - 五个 Skill 只保存各自职责、方法和必要合同。
 - 母版、字体、色板、版式角色、参考资料源、渲染器、兼容目标、交付档位和签名统一进入 `config/default.json`。
-- 公开仓库不包含任何内部PPT、PDF、模板、字体、截图或其衍生素材。
+- 核心 Skill、合成示例和知识脚手架不包含任何内部PPT、PDF、模板、字体、截图或其衍生素材；`experience/` 仅保存隔离的公开数据产出证据，且不得进入知识库或参考语料。
 - 自动评分、视觉相似度和显著性只能作为诊断信号，不能代替业务与艺术判断。
 - 输出默认保持可编辑、可追溯，并在最终写盘后重新渲染检查。
 
@@ -75,7 +77,7 @@ v0.2.0 已让脚手架实际可运行：`scripts/knowledge_cli.py` 可登记、�
 
 ## 公开成长边界
 
-v0.2.0 增加的是可复用工程能力，不代替使用者吸收“人性”。仓库仍不附带真实PPT案例、审美语料、个人偏好档案、企业风格、模板或母版；每位使用者可通过受治理的空知识架构自行成长。明确不学习的技术与逐项“采用／不采用”边界见[`docs/source-adoption.zh-CN.md`](docs/source-adoption.zh-CN.md)。
+v0.2.0 增加的是可复用工程能力，不代替使用者吸收“人性”。核心 Skill、合成示例和知识脚手架仍不附带被准入的真实PPT案例、审美语料、个人偏好档案、企业风格、模板或母版；`experience/` 可以保存隔离的公开数据产出证据，但永不自动晋升为知识或参考。每位使用者可通过受治理的空知识架构自行成长。明确不学习的技术与逐项“采用／不采用”边界见[`docs/source-adoption.zh-CN.md`](docs/source-adoption.zh-CN.md)。
 
 发布检查支持通过 `CLAYZ_RELEASE_DENYLIST` 或 `scripts/check_release_hygiene.py --denylist` 传入未跟踪的本地禁用词表。组织名称和源材料短语只应保存在该本地文件中，不得写入公开仓库。
 
@@ -99,6 +101,7 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 
 ## 引用与公开边界
 
-感谢 PPTAgent、DeepPresenter、pom、VASCAR、PosterO 与 PptxGenJS 的作者和贡献者。相关项目只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型，也不包含任何上传的母版、PPT、PDF、字体、截图或其衍生素材；`examples/` 全部为合成数据。
+感谢 PPTAgent、DeepPresenter、pom、VASCAR、PosterO 与 PptxGenJS 的作者和贡献者。相关项目只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
 
 本项目采用 Apache-2.0 许可证，来源和引用见 `NOTICE`、`CITATION.cff` 与 `provenance/`。
+
