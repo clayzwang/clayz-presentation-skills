@@ -36,7 +36,9 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(config["identity"]["brand"], "clayz")
 
     def test_release_versions_are_consistent(self) -> None:
-        version = "0.2.0"
+        module = load_module("validate_version", ROOT / "scripts" / "validate_version.py")
+        self.assertEqual(module.validate(ROOT), [])
+        version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
         plugin = json.loads((ROOT / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8"))
         self.assertEqual(config["identity"]["version"], version)
@@ -46,6 +48,50 @@ class CoreTests(unittest.TestCase):
         pptxgenjs = config["renderer"]["adapters"]["pptxgenjs"]
         self.assertFalse(pptxgenjs["enabled"])
         self.assertEqual(len(pptxgenjs["blocked_advisories"]), 2)
+
+    def test_version_validator_rejects_drift(self) -> None:
+        module = load_module("validate_version_drift", ROOT / "scripts" / "validate_version.py")
+        with tempfile.TemporaryDirectory() as temporary:
+            snapshot = Path(temporary)
+            for relative in module.REQUIRED_FILES:
+                source = ROOT / relative
+                target = snapshot / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+            plugin_path = snapshot / ".codex-plugin" / "plugin.json"
+            plugin = json.loads(plugin_path.read_text(encoding="utf-8"))
+            plugin["version"] = "9.9.9"
+            plugin_path.write_text(json.dumps(plugin, indent=2) + "\n", encoding="utf-8")
+            errors = module.validate(snapshot)
+            self.assertTrue(any(".codex-plugin/plugin.json" in error for error in errors))
+
+    def test_prepare_release_updates_current_surfaces_only(self) -> None:
+        scripts_root = ROOT / "scripts"
+        sys.path.insert(0, str(scripts_root))
+        try:
+            validator = load_module("validate_version_prepare", scripts_root / "validate_version.py")
+            preparer = load_module("prepare_release_test", scripts_root / "prepare_release.py")
+        finally:
+            sys.path.remove(str(scripts_root))
+        with tempfile.TemporaryDirectory() as temporary:
+            snapshot = Path(temporary)
+            required = set(validator.REQUIRED_FILES) | set(preparer.TEXT_SURFACES)
+            for relative in required:
+                source = ROOT / relative
+                target = snapshot / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+            changelog_path = snapshot / "CHANGELOG.md"
+            changelog = changelog_path.read_text(encoding="utf-8").replace(
+                "## Unreleased\n\n- Nothing yet.",
+                "## Unreleased\n\n- Synthetic patch release note.",
+                1,
+            )
+            changelog_path.write_text(changelog, encoding="utf-8")
+            preparer.prepare(snapshot, "0.3.1", "2026-08-23")
+            self.assertEqual((snapshot / "VERSION").read_text(encoding="utf-8").strip(), "0.3.1")
+            self.assertEqual(validator.validate(snapshot), [])
+            self.assertIn("## 0.2.0 — 2026-08-20", changelog_path.read_text(encoding="utf-8"))
 
     def test_all_json_files_parse(self) -> None:
         for path in sorted(ROOT.rglob("*.json")):

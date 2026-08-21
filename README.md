@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.2.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.3.0**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -67,6 +67,9 @@ The five-stage workflow and its first five core capabilities were independently 
 - `examples/` contains synthetic examples only.
 - `experience/` contains isolated public-output evidence for the GitHub Pages experience; it is never admitted into the knowledge or reference corpus.
 - `provenance/` records conceptual influences and redistributed dependencies.
+- `VERSION` is the single release-version source of truth; `scripts/validate_version.py` rejects drift across metadata and public surfaces.
+
+Release maintainers should use `python scripts/prepare_release.py X.Y.Z --date YYYY-MM-DD` instead of editing version strings individually. Merging the resulting `VERSION` change triggers a guarded GitHub Release. See [`docs/releasing.md`](docs/releasing.md).
 
 ## Quick start
 

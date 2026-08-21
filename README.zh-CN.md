@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.2.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.3.0**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -40,6 +40,8 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 - 输出默认保持可编辑、可追溯，并在最终写盘后重新渲染检查。
 
 ## 验证
+
+`VERSION` 是唯一发布版本真值，CI会校验插件清单、中央配置、PPT元数据、CITATION、README、体验中心和Changelog是否一致。发布维护者应运行 `python scripts/prepare_release.py X.Y.Z --date YYYY-MM-DD`，不要逐文件手改版本；具体流程见[`docs/releasing.md`](docs/releasing.md)。
 
 完整克隆仓库，以保证五个 Skill 仍能访问共享配置、合同、验证器和空知识脚手架：
 
