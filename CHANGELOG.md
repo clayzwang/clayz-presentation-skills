@@ -4,6 +4,7 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
+- Clarify that Clayz independently implemented its first five core capabilities before later reviewing PPT Master and other sources; add pinned attribution and explicit non-redistribution boundaries.
 - Add a bilingual GitHub Pages Experience Center with slide-level browsing, release capability mapping, visual-range examples, and downloadable editable output evidence.
 - Add a public A-share market-analysis case with nine web-safe previews and a 16-slide editable deck.
 - Keep public output evidence isolated from `examples/`, `knowledge/`, and the reference corpus through a machine-readable case manifest.
