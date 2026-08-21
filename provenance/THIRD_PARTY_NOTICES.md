@@ -4,6 +4,7 @@ This source tree redistributes no third-party templates, fonts, slide decks, scr
 
 With gratitude to the authors and contributors below. Most entries are cited only as conceptual influences; PptxGenJS is represented by a disabled experimental public-API mapping and is not installed by this repository. Their licenses do not replace this repository's Apache-2.0 license.
 
+- [PPT Master](https://github.com/hugohe3/ppt-master/tree/e8323bfaee249cffe1301ec40fca5875eb544d46) by Hugo He and contributors — a later-stage reference for native editable PowerPoint workflows and presentation-asset organization; upstream license: MIT. Clayz had already implemented its first five core capabilities before this review. No PPT Master source code, prompts, knowledge documents, templates, charts, tables, icons, sample decks, datasets, models, or media are redistributed by this repository.
 - [PPTAgent](https://github.com/icip-cas/PPTAgent) and its [EMNLP 2025 paper](https://aclanthology.org/2025.emnlp-main.728/) — reflective, edit-oriented generation concepts; upstream repository license: MIT.
 - [DeepPresenter](https://arxiv.org/abs/2602.22839) — environment-grounded observation and revision concepts; implementation is published in the PPTAgent repository.
 - [pom](https://github.com/hirokisakabe/pom) — relative layout-tree and Flexbox-style layout concepts; upstream license: MIT.
