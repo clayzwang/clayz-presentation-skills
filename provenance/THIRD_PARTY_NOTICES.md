@@ -10,6 +10,9 @@ With gratitude to the authors and contributors below. Most entries are cited onl
 - [pom](https://github.com/hirokisakabe/pom) — relative layout-tree and Flexbox-style layout concepts; upstream license: MIT.
 - [VASCAR](https://arxiv.org/abs/2412.04237) — visual-aware render-observe-revise concepts; paper citation only.
 - [PosterO](https://openaccess.thecvf.com/content/CVPR2025/html/Hsu_PosterO_Structuring_Layout_Trees_to_Enable_Language_Models_in_Generalized_CVPR_2025_paper.html) — design-intent and hierarchical layout-tree concepts; paper citation only because no clear repository-level license was observed.
+- [PosterLayout](https://arxiv.org/abs/2303.15937) — content-aware subject, placement, overlap, and readability observation vocabulary; paper citation only because no clear repository-level license was observed.
+- [Scan-and-Print](https://arxiv.org/abs/2505.20649) — patch-level placement-suitability and candidate-zone observation concepts; paper citation only because no clear repository-level license was observed.
+- [CreatiPoster](https://arxiv.org/abs/2506.10890) — foreground/background separation and editable layered-composition concepts; paper citation only because no clear repository-level license was observed.
 - [PptxGenJS 4.0.1](https://github.com/gitbrent/PptxGenJS) — experimental editable OOXML API route; upstream license: MIT; dependency not bundled and runtime security-blocked in v0.2.0 pending fixes for its transitive dependency advisories.
 
 See `manifest.yaml` for the exact influence boundary and review date of each entry.

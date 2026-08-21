@@ -1,4 +1,4 @@
-# Art Direction Plan Contract v1.3
+# Art Direction Plan Contract v1.4
 
 `ppt-art-direction-plan.json` is the sole visual-decision handoff between a `copy-approved` script package and Output. It may not introduce new business content. Set its status to `art-direction-approved` only after every visual decision is locked.
 
@@ -6,7 +6,7 @@
 
 ```json
 {
-  "contract_version": "1.3",
+  "contract_version": "1.4",
   "status": "art-direction-approved",
   "package_contract_version": "2.1",
   "package_id": "example-deck",
@@ -104,8 +104,54 @@ In addition to the expression-plan fields, every slide includes:
 - `semantic_whitespace`: type, regions, narrative responsibility, and protection status.
 - `persistent_context_rail`: enablement, purpose, scope, current marker, and maximum area.
 - `medium_execution_contract.data_chart_contract`: chart type, type size, direct labels, point-connection policy, semantic lines, and collision avoidance; `null` for non-data slides.
+- `content_aware_canvas`: evidence-led subject protection, placement zones, crop, contrast, directional flow, and overlay policy.
+- `asset_strategy`: derive-not-clone template mode, semantic asset roles, candidates, selections, family decision, license evidence, and `never_copy` boundaries.
 
 The percentages in `area_plan` total 90–110 percent, allowing approximation for the title zone, safety margins, and local overlap. Every visible `copy_id` must be covered.
+
+## Content-aware canvas
+
+Image-led slides require `content_aware_canvas.enabled=true`. Mixed slides may enable it whenever the image changes placement or crop decisions. Non-image slides use the explicit disabled sentinel.
+
+```json
+{
+  "enabled": true,
+  "canvas_type": "photo",
+  "subject_protection_zones": [
+    {"zone_id": "SUBJECT-01", "role": "product and gaze", "protection": "hard", "reason": "primary evidence"}
+  ],
+  "candidate_placement_zones": [
+    {"zone_id": "PLACE-01", "suitability": "primary", "anchor_edges": ["left", "top"], "supports_copy_ids": ["S03-C01"], "reason": "stable contrast and follows gaze"}
+  ],
+  "crop_strategy": "focal-crop",
+  "contrast_strategy": "native",
+  "directional_flow": "subject gaze leads from product toward the proposition",
+  "overlay_policy": "none",
+  "evidence_basis": "full-size source image review with real text footprint"
+}
+```
+
+Subject and placement zone IDs are unique. Usable placement zones cover every visible `copy_id`; an `avoid` zone may cover none. `overlay_policy` is `none`, `local-scrim`, or `local-support-surface`: a full-slide card is never implied. The contract records professional observation and may not be populated from an automatic score alone.
+
+## Asset strategy
+
+```json
+{
+  "template_mode": "derive-not-clone",
+  "icon_policy": "semantic-only",
+  "required_roles": ["channel", "action"],
+  "candidate_asset_ids": ["ICON-PUBLIC-042"],
+  "selected_asset_ids": ["ICON-PUBLIC-042"],
+  "selection_rationale": "The icon distinguishes a channel faster than a repeated label.",
+  "family_consistency": "single-family",
+  "license_records": [
+    {"asset_id": "ICON-PUBLIC-042", "source": "configured asset registry", "license": "MIT", "attribution_required": true}
+  ],
+  "never_copy": ["reference wording", "reference brand identity", "reference master or layout coordinates"]
+}
+```
+
+Selected assets are a subset of reviewed candidates and have exactly one source-and-license record each. `family_consistency` is `single-family`, `intentional-mix`, or `not-applicable`. No selected asset is valid when rights are unknown. An empty selection is valid when native typography, shapes, a chart, or a table communicates the page more clearly.
 
 ## Semantic layout tree
 
@@ -230,5 +276,7 @@ Every following `art_direction_lock` field is `true`:
 - `semantic_whitespace_locked`
 - `context_rail_locked`
 - `semantic_layout_tree_locked`
+- `content_aware_canvas_locked`
+- `asset_strategy_locked`
 
 After Art Direction changes, any previous PPTX, Output QA, and Supervisor report is invalid.

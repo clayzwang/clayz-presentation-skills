@@ -15,7 +15,10 @@ import yaml
 
 
 COMMIT = re.compile(r"^[0-9a-f]{40}$")
-REQUIRED_SOURCES = {"ppt-master", "pptagent", "deeppresenter", "pom", "vascar", "postero", "pptxgenjs"}
+REQUIRED_SOURCES = {
+    "ppt-master", "pptagent", "deeppresenter", "pom", "vascar", "postero",
+    "posterlayout", "scan-and-print", "creatiposter", "pptxgenjs",
+}
 
 
 def validate(document: dict[str, Any]) -> list[str]:
@@ -61,11 +64,11 @@ def validate(document: dict[str, Any]) -> list[str]:
             errors.append(f"{label}.influenced_components: non-empty array is required")
         if "Thank you" not in str(source.get("note", "")):
             errors.append(f"{label}.note: explicit gratitude is required")
-        if identifier in {"ppt-master", "pptagent", "deeppresenter", "pom"} and not COMMIT.fullmatch(str(source.get("pinned_version", ""))):
+        if identifier in {"ppt-master", "pptagent", "deeppresenter", "pom", "posterlayout", "scan-and-print", "creatiposter"} and not COMMIT.fullmatch(str(source.get("pinned_version", ""))):
             errors.append(f"{label}.pinned_version: reviewed 40-character commit is required")
-        if identifier == "postero":
+        if identifier in {"postero", "posterlayout", "scan-and-print", "creatiposter"}:
             if source.get("usage_type") != "paper-citation-only" or source.get("upstream_license") != "no-repository-license-observed":
-                errors.append(f"{label}: PosterO must remain paper-citation-only")
+                errors.append(f"{label}: unlicensed research repositories must remain paper-citation-only")
         if identifier == "pptxgenjs":
             if source.get("usage_type") != "optional-public-api-integration":
                 errors.append(f"{label}: PptxGenJS must remain an optional public-API integration")

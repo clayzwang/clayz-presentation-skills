@@ -15,7 +15,7 @@ from config_policy import ValidationPolicy, load_policy
 from validate_ppt_package import validate_package
 
 
-CONTRACT_VERSION = "1.3"
+CONTRACT_VERSION = "1.4"
 TARGET_TYPES = {"shape", "table-cell", "chart-label"}
 VERIFY_METHODS = {"shape-name", "paragraph-exact"}
 VISUAL_ROLES = {"primary", "secondary", "tertiary", "annotation"}
@@ -62,6 +62,19 @@ SELF_CORRECTION_DIMENSIONS = {
     "production_integrity", "typography_readability", "attention_hierarchy",
     "structure_semantics", "composition_task_fit",
 }
+CANVAS_TYPES = {"none", "photo", "screenshot", "illustration", "mixed"}
+CROP_STRATEGIES = {"not-applicable", "contain", "cover", "focal-crop"}
+CONTRAST_STRATEGIES = {
+    "not-applicable", "native", "reposition-copy", "local-scrim",
+    "solid-support-surface", "mixed",
+}
+OVERLAY_POLICIES = {"none", "local-scrim", "local-support-surface"}
+ZONE_PROTECTION = {"hard", "soft"}
+PLACEMENT_SUITABILITY = {"primary", "secondary", "avoid"}
+ANCHOR_EDGES = {"top", "bottom", "left", "right", "center"}
+TEMPLATE_MODES = {"derive-not-clone"}
+ICON_POLICIES = {"semantic-only", "not-required"}
+FAMILY_CONSISTENCY = {"single-family", "intentional-mix", "not-applicable"}
 
 
 def nonempty(value: Any) -> bool:
@@ -86,6 +99,174 @@ def scan_post_render(value: Any, path: str, errors: list[str]) -> None:
     elif isinstance(value, list):
         for index, child in enumerate(value):
             scan_post_render(child, f"{path}[{index}]", errors)
+
+
+def unique_string_array(value: Any) -> bool:
+    return (
+        isinstance(value, list)
+        and len(value) == len(set(value))
+        and all(nonempty(item) for item in value)
+    )
+
+
+def validate_content_aware_canvas(
+    canvas: Any,
+    dominant_medium: Any,
+    expected_copy_ids: list[str],
+    path: str,
+    errors: list[str],
+) -> None:
+    keys = {
+        "enabled", "canvas_type", "subject_protection_zones",
+        "candidate_placement_zones", "crop_strategy", "contrast_strategy",
+        "directional_flow", "overlay_policy", "evidence_basis",
+    }
+    require_keys(canvas, keys, path, errors)
+    if not isinstance(canvas, dict):
+        return
+    enabled = canvas.get("enabled")
+    if not isinstance(enabled, bool):
+        errors.append(f"{path}.enabled: must be boolean")
+        return
+    image_led = dominant_medium in {"photo-or-screenshot", "scenario-illustration"}
+    if image_led and not enabled:
+        errors.append(f"{path}.enabled: image-led slides require content-aware analysis")
+    if not enabled:
+        expected = {
+            "canvas_type": "none",
+            "subject_protection_zones": [],
+            "candidate_placement_zones": [],
+            "crop_strategy": "not-applicable",
+            "contrast_strategy": "not-applicable",
+            "directional_flow": "not-applicable",
+            "overlay_policy": "none",
+            "evidence_basis": "not-applicable",
+        }
+        for key, value in expected.items():
+            if canvas.get(key) != value:
+                errors.append(f"{path}.{key}: disabled canvas must use {value!r}")
+        return
+    if canvas.get("canvas_type") not in CANVAS_TYPES - {"none"}:
+        errors.append(f"{path}.canvas_type: enabled canvas requires an image-like type")
+    if canvas.get("crop_strategy") not in CROP_STRATEGIES - {"not-applicable"}:
+        errors.append(f"{path}.crop_strategy: enabled canvas requires a crop decision")
+    if canvas.get("contrast_strategy") not in CONTRAST_STRATEGIES - {"not-applicable"}:
+        errors.append(f"{path}.contrast_strategy: enabled canvas requires a contrast decision")
+    if canvas.get("overlay_policy") not in OVERLAY_POLICIES:
+        errors.append(f"{path}.overlay_policy: invalid value")
+    if not nonempty(canvas.get("directional_flow")) or canvas.get("directional_flow") == "not-applicable":
+        errors.append(f"{path}.directional_flow: enabled canvas requires observed visual direction")
+    if not nonempty(canvas.get("evidence_basis")) or canvas.get("evidence_basis") == "not-applicable":
+        errors.append(f"{path}.evidence_basis: enabled canvas requires traceable visual evidence")
+
+    subject_zones = canvas.get("subject_protection_zones")
+    if not isinstance(subject_zones, list) or not subject_zones:
+        errors.append(f"{path}.subject_protection_zones: enabled canvas requires at least one zone")
+        subject_zones = []
+    subject_ids: list[str] = []
+    for index, zone in enumerate(subject_zones):
+        zpath = f"{path}.subject_protection_zones[{index}]"
+        require_keys(zone, {"zone_id", "role", "protection", "reason"}, zpath, errors)
+        if not isinstance(zone, dict):
+            continue
+        subject_ids.append(zone.get("zone_id"))
+        if any(not nonempty(zone.get(key)) for key in ("zone_id", "role", "reason")):
+            errors.append(f"{zpath}: zone_id, role and reason must be non-empty")
+        if zone.get("protection") not in ZONE_PROTECTION:
+            errors.append(f"{zpath}.protection: invalid value")
+    if len(subject_ids) != len(set(subject_ids)):
+        errors.append(f"{path}.subject_protection_zones: zone_id values must be unique")
+
+    placement_zones = canvas.get("candidate_placement_zones")
+    if not isinstance(placement_zones, list) or not placement_zones:
+        errors.append(f"{path}.candidate_placement_zones: enabled canvas requires candidate zones")
+        placement_zones = []
+    placement_ids: list[str] = []
+    supported: list[str] = []
+    usable_zone = False
+    for index, zone in enumerate(placement_zones):
+        zpath = f"{path}.candidate_placement_zones[{index}]"
+        require_keys(zone, {"zone_id", "suitability", "anchor_edges", "supports_copy_ids", "reason"}, zpath, errors)
+        if not isinstance(zone, dict):
+            continue
+        placement_ids.append(zone.get("zone_id"))
+        if not nonempty(zone.get("zone_id")) or not nonempty(zone.get("reason")):
+            errors.append(f"{zpath}: zone_id and reason must be non-empty")
+        suitability = zone.get("suitability")
+        if suitability not in PLACEMENT_SUITABILITY:
+            errors.append(f"{zpath}.suitability: invalid value")
+        anchors = zone.get("anchor_edges")
+        if not isinstance(anchors, list) or not anchors or len(anchors) != len(set(anchors)) or any(value not in ANCHOR_EDGES for value in anchors):
+            errors.append(f"{zpath}.anchor_edges: must be a unique non-empty anchor array")
+        copy_ids = zone.get("supports_copy_ids")
+        if not isinstance(copy_ids, list) or len(copy_ids) != len(set(copy_ids)) or any(value not in expected_copy_ids for value in copy_ids):
+            errors.append(f"{zpath}.supports_copy_ids: must reference visible copy ids")
+            copy_ids = []
+        if suitability in {"primary", "secondary"} and copy_ids:
+            supported.extend(copy_ids)
+            usable_zone = True
+    if len(placement_ids) != len(set(placement_ids)) or set(subject_ids) & set(placement_ids):
+        errors.append(f"{path}: all subject and placement zone_id values must be unique")
+    if not usable_zone:
+        errors.append(f"{path}.candidate_placement_zones: at least one usable zone must support copy")
+    if not set(expected_copy_ids).issubset(set(supported)):
+        errors.append(f"{path}.candidate_placement_zones: usable analysis must cover every visible copy_id")
+
+
+def validate_asset_strategy(
+    strategy: Any,
+    icon_scan: Any,
+    path: str,
+    errors: list[str],
+) -> None:
+    keys = {
+        "template_mode", "icon_policy", "required_roles", "candidate_asset_ids",
+        "selected_asset_ids", "selection_rationale", "family_consistency",
+        "license_records", "never_copy",
+    }
+    require_keys(strategy, keys, path, errors)
+    if not isinstance(strategy, dict):
+        return
+    if strategy.get("template_mode") not in TEMPLATE_MODES:
+        errors.append(f"{path}.template_mode: must be derive-not-clone")
+    if strategy.get("icon_policy") not in ICON_POLICIES:
+        errors.append(f"{path}.icon_policy: invalid value")
+    for key in ("required_roles", "candidate_asset_ids", "selected_asset_ids", "never_copy"):
+        values = strategy.get(key)
+        if not unique_string_array(values):
+            errors.append(f"{path}.{key}: must be a unique string array")
+    if not strategy.get("never_copy"):
+        errors.append(f"{path}.never_copy: must state at least one imitation boundary")
+    candidates = strategy.get("candidate_asset_ids") if isinstance(strategy.get("candidate_asset_ids"), list) else []
+    selected = strategy.get("selected_asset_ids") if isinstance(strategy.get("selected_asset_ids"), list) else []
+    if not set(selected).issubset(set(candidates)):
+        errors.append(f"{path}.selected_asset_ids: must be a subset of candidate_asset_ids")
+    if not nonempty(strategy.get("selection_rationale")):
+        errors.append(f"{path}.selection_rationale: must explain selection or non-selection")
+    family = strategy.get("family_consistency")
+    if family not in FAMILY_CONSISTENCY:
+        errors.append(f"{path}.family_consistency: invalid value")
+    if selected and family == "not-applicable":
+        errors.append(f"{path}.family_consistency: selected assets require a family decision")
+    if isinstance(icon_scan, list) and icon_scan and strategy.get("icon_policy") != "semantic-only":
+        errors.append(f"{path}.icon_policy: icon candidates require semantic-only")
+    records = strategy.get("license_records")
+    if not isinstance(records, list):
+        errors.append(f"{path}.license_records: must be an array")
+        records = []
+    record_ids: list[str] = []
+    for index, record in enumerate(records):
+        rpath = f"{path}.license_records[{index}]"
+        require_keys(record, {"asset_id", "source", "license", "attribution_required"}, rpath, errors)
+        if not isinstance(record, dict):
+            continue
+        record_ids.append(record.get("asset_id"))
+        if any(not nonempty(record.get(key)) for key in ("asset_id", "source", "license")):
+            errors.append(f"{rpath}: asset_id, source and license must be non-empty")
+        if not isinstance(record.get("attribution_required"), bool):
+            errors.append(f"{rpath}.attribution_required: must be boolean")
+    if len(record_ids) != len(set(record_ids)) or set(record_ids) != set(selected):
+        errors.append(f"{path}.license_records: must cover every selected asset exactly once")
 
 
 def communication_contract(package: dict[str, Any]) -> dict[str, Any]:
@@ -500,7 +681,7 @@ def validate_slide_plan(
         "content_load_class_repeated", "decision_weight_repeated", "series_visual_contract",
         "motif_id", "semantic_whitespace", "persistent_context_rail",
         "structure_signature", "silhouette_family", "dominant_medium", "density_class", "visual_anchor",
-        "medium_execution_contract",
+        "medium_execution_contract", "content_aware_canvas", "asset_strategy",
         "accent_coverage_band", "uses_bottom_conclusion_band", "rhythm_exception", "repetition_reason",
         "icon_scan", "image_plan", "connector_plan", "kpi_plan", "shape_semantics",
         "backflow_required", "backflow_reason", "anti_flatness_review",
@@ -773,6 +954,20 @@ def validate_slide_plan(
     if plan.get("reading_sequence") != expected_ids:
         errors.append(f"{path}.reading_sequence: must equal Copy order")
 
+    validate_content_aware_canvas(
+        plan.get("content_aware_canvas"),
+        plan.get("dominant_medium"),
+        expected_ids,
+        f"{path}.content_aware_canvas",
+        errors,
+    )
+    validate_asset_strategy(
+        plan.get("asset_strategy"),
+        plan.get("icon_scan"),
+        f"{path}.asset_strategy",
+        errors,
+    )
+
     area_plan = plan.get("area_plan")
     region_id_set: set[str] = set()
     if not isinstance(area_plan, list) or not area_plan:
@@ -958,6 +1153,7 @@ def validate_slide_plan(
         "composition_locked", "silhouette_locked", "dominant_medium_locked", "density_locked",
         "reading_path_locked", "copy_mapping_locked", "series_behavior_locked", "motif_locked",
         "semantic_whitespace_locked", "context_rail_locked", "semantic_layout_tree_locked",
+        "content_aware_canvas_locked", "asset_strategy_locked",
     }
     require_keys(art_lock, lock_keys, f"{path}.art_direction_lock", errors)
     if isinstance(art_lock, dict):

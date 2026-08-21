@@ -1,4 +1,4 @@
-# 艺术指导计划合同 v1.3
+# 艺术指导计划合同 v1.4
 
 `ppt-art-direction-plan.json` 是 `copy-approved` 脚本包与Output之间唯一视觉决策文件。它不新增业务内容，状态只能在全部视觉决策锁定后设为 `art-direction-approved`。
 
@@ -6,7 +6,7 @@
 
 ```json
 {
-  "contract_version": "1.3",
+  "contract_version": "1.4",
   "status": "art-direction-approved",
   "package_contract_version": "2.1",
   "package_id": "example-deck",
@@ -104,8 +104,54 @@
 - `semantic_whitespace`：留白类型、区域、叙事职责和保护状态；
 - `persistent_context_rail`：是否启用轻量导航、目的、范围、当前标记和面积上限。
 - `medium_execution_contract.data_chart_contract`：数据图表的类型、字号、直接标注、点间连线、语义线与标签避让合同；非数据图表页为 `null`。
+- `content_aware_canvas`：基于证据记录主体保护、候选放置区、裁切、对比度、视觉方向和覆盖策略；
+- `asset_strategy`：模板只推导不克隆、资产语义角色、候选与选择、家族判断、许可记录和 `never_copy` 边界。
 
 `area_plan` 的比例合计为90%至110%，允许标题区、安全区和局部重叠造成近似值；全部可见copy_id必须被覆盖。
+
+## 内容感知画布
+
+图像主导页必须使用 `content_aware_canvas.enabled=true`；混合媒介页只要图片影响文字放置或裁切，也应启用。非图像页使用明确的关闭哨兵值。
+
+```json
+{
+  "enabled": true,
+  "canvas_type": "photo",
+  "subject_protection_zones": [
+    {"zone_id": "SUBJECT-01", "role": "产品与视线", "protection": "hard", "reason": "主证据不得遮挡"}
+  ],
+  "candidate_placement_zones": [
+    {"zone_id": "PLACE-01", "suitability": "primary", "anchor_edges": ["left", "top"], "supports_copy_ids": ["S03-C01"], "reason": "对比稳定且顺应视线"}
+  ],
+  "crop_strategy": "focal-crop",
+  "contrast_strategy": "native",
+  "directional_flow": "主体视线从产品指向主张",
+  "overlay_policy": "none",
+  "evidence_basis": "按整页尺寸和真实文字占地观察源图"
+}
+```
+
+主体区与放置区的ID全局唯一；可用放置区必须覆盖全部可见copy_id，`avoid` 区可以不承载文案。`overlay_policy` 只能是 `none|local-scrim|local-support-surface`，不得暗示整页卡片。字段记录专业观察，不能只由自动分数生成。
+
+## 资产策略
+
+```json
+{
+  "template_mode": "derive-not-clone",
+  "icon_policy": "semantic-only",
+  "required_roles": ["渠道", "动作"],
+  "candidate_asset_ids": ["ICON-PUBLIC-042"],
+  "selected_asset_ids": ["ICON-PUBLIC-042"],
+  "selection_rationale": "Icon比重复标签更快区分渠道",
+  "family_consistency": "single-family",
+  "license_records": [
+    {"asset_id": "ICON-PUBLIC-042", "source": "配置的资产注册表", "license": "MIT", "attribution_required": true}
+  ],
+  "never_copy": ["参考文案", "参考品牌身份", "参考Master或Layout坐标"]
+}
+```
+
+已选资产必须是已审阅候选的子集，并且每项恰有一条来源与许可记录。`family_consistency` 为 `single-family|intentional-mix|not-applicable`。权利不明的资产不能入选；若字体、原生形状、图表或表格更清楚，空选择也是有效结论。
 
 ## 语义布局树
 
@@ -226,5 +272,7 @@
 - `semantic_whitespace_locked`；
 - `context_rail_locked`。
 - `semantic_layout_tree_locked`。
+- `content_aware_canvas_locked`；
+- `asset_strategy_locked`。
 
 Art Direction更新后，旧PPTX、Output QA和Supervisor报告全部失效。

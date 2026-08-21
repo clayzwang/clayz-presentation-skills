@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.3",
+  "contract_version": "1.4",
   "status": "art-direction-approved",
   "package_contract_version": "2.1",
   "package_id": "synthetic-release-regression",
@@ -179,6 +179,28 @@
         "approved_alternative": null,
         "data_chart_contract": null
       },
+      "content_aware_canvas": {
+        "enabled": false,
+        "canvas_type": "none",
+        "subject_protection_zones": [],
+        "candidate_placement_zones": [],
+        "crop_strategy": "not-applicable",
+        "contrast_strategy": "not-applicable",
+        "directional_flow": "not-applicable",
+        "overlay_policy": "none",
+        "evidence_basis": "not-applicable"
+      },
+      "asset_strategy": {
+        "template_mode": "derive-not-clone",
+        "icon_policy": "not-required",
+        "required_roles": [],
+        "candidate_asset_ids": [],
+        "selected_asset_ids": [],
+        "selection_rationale": "Typography and native shapes express this synthetic decision more directly than a reusable asset.",
+        "family_consistency": "not-applicable",
+        "license_records": [],
+        "never_copy": ["reference wording", "reference brand identity", "reference master or layout coordinates"]
+      },
       "accent_coverage_band": "low",
       "uses_bottom_conclusion_band": false,
       "rhythm_exception": false,
@@ -278,7 +300,9 @@
         "motif_locked": true,
         "semantic_whitespace_locked": true,
         "context_rail_locked": true,
-        "semantic_layout_tree_locked": true
+        "semantic_layout_tree_locked": true,
+        "content_aware_canvas_locked": true,
+        "asset_strategy_locked": true
       },
       "handoff_status": "ready-for-output"
     }

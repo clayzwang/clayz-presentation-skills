@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import importlib.util
+import copy
 import json
 import os
 import shutil
@@ -56,10 +57,98 @@ class CoreTests(unittest.TestCase):
     def test_public_adoption_boundary_is_explicit(self) -> None:
         manifest = (ROOT / "provenance" / "manifest.yaml").read_text(encoding="utf-8")
         boundary = (ROOT / "docs" / "source-adoption.md").read_text(encoding="utf-8")
-        for source in ("pptagent", "deeppresenter", "pom", "vascar", "postero", "pptxgenjs"):
+        for source in (
+            "ppt-master", "pptagent", "deeppresenter", "pom", "vascar", "postero",
+            "posterlayout", "scan-and-print", "creatiposter", "pptxgenjs",
+        ):
             self.assertIn(f'id: "{source}"', manifest)
         for excluded in ("reveal.js", "Marp", "PosterLlama", "Typst/Paged"):
             self.assertIn(excluded, boundary)
+
+    def test_visual_regression_suite_has_fixed_capability_coverage(self) -> None:
+        module = load_module(
+            "validate_visual_regression_suite",
+            ROOT / "scripts" / "validate_visual_regression_suite.py",
+        )
+        suite = json.loads(
+            (ROOT / "tests" / "fixtures" / "visual-regression-suite.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(module.validate(suite), [])
+        self.assertEqual(
+            {case["case_id"]: case["category"] for case in suite["cases"]},
+            module.REQUIRED_CASES,
+        )
+
+    def test_art_direction_requires_observed_canvas_and_licensed_assets(self) -> None:
+        validator_root = ROOT / "packages" / "validators"
+        sys.path.insert(0, str(validator_root))
+        try:
+            module = load_module(
+                "validate_art_direction_plan_contract_14",
+                validator_root / "validate_art_direction_plan.py",
+            )
+        finally:
+            sys.path.remove(str(validator_root))
+        package = json.loads(
+            (ROOT / "tests" / "fixtures" / "synthetic-copy-package.json").read_text(encoding="utf-8")
+        )
+        plan = json.loads(
+            (ROOT / "tests" / "fixtures" / "synthetic-art-direction-plan.json").read_text(encoding="utf-8")
+        )
+        slide = plan["slides"][0]
+        plan["art_direction"]["dominant_media_sequence"] = ["photo-or-screenshot"]
+        slide["dominant_medium"] = "photo-or-screenshot"
+        slide["medium_execution_contract"].update({
+            "structure_type": "photo-or-screenshot",
+            "mapping_mode": "mixed",
+            "required_object_types": ["picture", "shape"],
+            "minimum_object_counts": {"picture": 1, "shape": 2},
+            "semantic_axes": ["subject to proposition"],
+            "render_recognition_criteria": ["subject remains visible and gaze supports the proposition"],
+        })
+        slide["content_aware_canvas"] = {
+            "enabled": True,
+            "canvas_type": "photo",
+            "subject_protection_zones": [
+                {"zone_id": "SUBJECT-01", "role": "synthetic product", "protection": "hard", "reason": "primary evidence"}
+            ],
+            "candidate_placement_zones": [
+                {
+                    "zone_id": "PLACE-01",
+                    "suitability": "primary",
+                    "anchor_edges": ["left", "top"],
+                    "supports_copy_ids": ["C-S01-01", "C-S01-02"],
+                    "reason": "stable contrast with a gaze-led reading path",
+                }
+            ],
+            "crop_strategy": "focal-crop",
+            "contrast_strategy": "native",
+            "directional_flow": "synthetic subject gaze leads toward the proposition",
+            "overlay_policy": "none",
+            "evidence_basis": "full-size synthetic image review with real copy footprint",
+        }
+        slide["asset_strategy"] = {
+            "template_mode": "derive-not-clone",
+            "icon_policy": "semantic-only",
+            "required_roles": ["channel"],
+            "candidate_asset_ids": ["ICON-SYNTHETIC-01"],
+            "selected_asset_ids": ["ICON-SYNTHETIC-01"],
+            "selection_rationale": "The synthetic icon distinguishes the channel faster than repeated copy.",
+            "family_consistency": "single-family",
+            "license_records": [
+                {"asset_id": "ICON-SYNTHETIC-01", "source": "synthetic fixture", "license": "Apache-2.0", "attribution_required": False}
+            ],
+            "never_copy": ["reference wording", "reference brand identity", "reference coordinates"],
+        }
+        self.assertEqual(module.validate_plan(package, plan), [])
+
+        missing_canvas = copy.deepcopy(plan)
+        missing_canvas["slides"][0]["content_aware_canvas"]["enabled"] = False
+        self.assertTrue(any("content_aware_canvas" in error for error in module.validate_plan(package, missing_canvas)))
+
+        missing_license = copy.deepcopy(plan)
+        missing_license["slides"][0]["asset_strategy"]["license_records"] = []
+        self.assertTrue(any("license_records" in error for error in module.validate_plan(package, missing_license)))
 
     def test_stamp_custom_properties(self) -> None:
         module = load_module("stamp_pptx_metadata", ROOT / "scripts" / "stamp_pptx_metadata.py")

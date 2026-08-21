@@ -12,7 +12,8 @@ visible watermarks.
 
 With gratitude to Hugo He and the contributors of PPT Master, and to the
 authors and contributors of PPTAgent, DeepPresenter, pom, VASCAR, PosterO,
-and PptxGenJS. These are later-stage influences rather than the origin or
+PosterLayout, Scan-and-Print, CreatiPoster, and PptxGenJS. These are
+later-stage influences rather than the origin or
 foundation of Clayz. Their exact influence, license status, reviewed revision,
 and non-redistribution boundaries are documented in provenance/manifest.yaml
 and provenance/THIRD_PARTY_NOTICES.md.

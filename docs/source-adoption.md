@@ -13,6 +13,9 @@ Clayz learns from open work by separating concepts, public APIs, optional depend
 | VASCAR | render-observe-revise as a bounded diagnostic loop | figures, code, data, scoring model, automatic winner selection |
 | PptxGenJS | public API mapping for editable objects | active default runtime, dependency lock, library snapshot, demos, templates, masters, media; v0.2.0 remains security-blocked pending patched transitive dependencies |
 | PosterO | design-intent and hierarchical layout-tree research concepts | repository code, weights, datasets, annotations, saliency pipeline, figures, layouts |
+| PosterLayout | content-aware subject protection, placement, overlap, and readability observation vocabulary | repository code, models, datasets, annotations, metrics, figures, layouts, media |
+| Scan-and-Print | patch-level placement-suitability and candidate-zone observation concepts | repository code, models, datasets, patches, annotations, figures, layouts, media |
+| CreatiPoster | foreground/background separation and editable layered-composition concepts | repository code, protocol, models, datasets, training recipe, figures, layouts, fonts, media |
 
 ## Deliberately excluded
 
