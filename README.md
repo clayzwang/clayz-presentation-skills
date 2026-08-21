@@ -20,6 +20,8 @@ The same system can adapt its visual language to the task while preserving hiera
 
 > Showcase slides demonstrate presentation-generation capability and visual adaptation. Brand names shown in examples belong to their respective owners and do not imply affiliation or endorsement.
 
+**[Explore the interactive Experience Center →](https://clayzwang.github.io/clayz-presentation-skills/)**
+
 Clayz Presentation Skills is an open, five-stage system for producing evidence-based presentations:
 
 1. **Logic** establishes the question chain, claims, evidence, and cross-slide invariants.
@@ -48,6 +50,7 @@ The original architecture was created and released under the **clayz** brand.
 - `packages/adapters/` contains optional, separately installed renderer adapters.
 - `knowledge/` contains the empty portable learning, source, and index scaffold.
 - `examples/` contains synthetic examples only.
+- `experience/` contains isolated public-output evidence for the GitHub Pages experience; it is never admitted into the knowledge or reference corpus.
 - `provenance/` records conceptual influences and redistributed dependencies.
 
 ## Quick start
@@ -124,13 +127,13 @@ The scaffold is operational in v0.2.0: `scripts/knowledge_cli.py` can register, 
 
 ## Public growth boundary
 
-v0.2.0 adds reusable engineering capability, not someone else's “humanity.” It intentionally ships no real presentation cases, taste corpus, personal preference profile, learned corporate style, template, or master. Each user may build those layers through the governed knowledge scaffold. The deliberately excluded technologies and the exact adopted/not-adopted boundary are documented in [`docs/source-adoption.md`](docs/source-adoption.md).
+v0.2.0 adds reusable engineering capability, not someone else's “humanity.” The core skills, synthetic examples, and knowledge scaffold intentionally ship no admitted real cases, taste corpus, personal preference profile, learned corporate style, template, or master. Isolated public-data output evidence may appear under `experience/`, but it is never promoted into the knowledge or reference corpus. Each user may build those layers through the governed knowledge scaffold. The deliberately excluded technologies and the exact adopted/not-adopted boundary are documented in [`docs/source-adoption.md`](docs/source-adoption.md).
 
 ## Configuration
 
 Edit or override `config/default.json`. Do not hard-code organization brands, master files, fonts, local paths, or renderer names inside a skill.
 
-The repository intentionally includes no uploaded master, presentation, PDF, font, screenshot, or derived corporate asset. The example under `examples/` is fully synthetic.
+The core package intentionally includes no uploaded master, private presentation, PDF, font, or derived corporate reference asset. The example under `examples/` remains fully synthetic. Public-data screenshots and presentations under `experience/` are output evidence only and are governed by `experience/case-manifest.json` plus release-hygiene scanning.
 
 Release validation accepts an optional, untracked denylist through `CLAYZ_RELEASE_DENYLIST` or `scripts/check_release_hygiene.py --denylist`. Keep organization-specific names and source-material phrases in that local file, never in the public repository.
 
@@ -143,3 +146,4 @@ Conceptual influences are identified at the exact reference points inside the sk
 ## License and citation
 
 Licensed under Apache-2.0. See `NOTICE`, `CITATION.cff`, and `provenance/THIRD_PARTY_NOTICES.md`.
+

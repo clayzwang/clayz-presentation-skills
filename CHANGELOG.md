@@ -2,6 +2,13 @@
 
 All notable public changes are recorded here. This project follows Semantic Versioning.
 
+## Unreleased
+
+- Add a bilingual GitHub Pages Experience Center with slide-level browsing, release capability mapping, visual-range examples, and downloadable editable output evidence.
+- Add a public A-share market-analysis case with nine web-safe previews and a 16-slide editable deck.
+- Keep public output evidence isolated from `examples/`, `knowledge/`, and the reference corpus through a machine-readable case manifest.
+- Extend release-hygiene validation so only declared public PPTX artifacts are allowed and their XML payloads are scanned for private paths, opaque file identifiers, credentials, and denylist terms.
+
 ## 0.2.0 — 2026-08-20
 
 - Turn the empty knowledge scaffold into a human-admitted, hash-bound, local lexical register/index/search workflow with neighbor expansion and observation-only learning writeback.
@@ -21,3 +28,4 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add contract validators, public CLI smoke tests, Markdown-link validation, and a synthetic approved handoff regression.
 - Test Python 3.10, 3.11, and 3.12 in CI.
 - Exclude presentation templates, uploaded source material, bundled fonts, and private reference data.
+

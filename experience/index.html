@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore real output evidence from Clayz Presentation Skills: governed reasoning, commercial analysis, visual adaptation, and editable PowerPoint delivery."
+    />
+    <meta property="og:title" content="Clayz Presentation Skills · Experience Center" />
+    <meta
+      property="og:description"
+      content="From structured evidence to an editable, presentation-ready deck. Explore the output, release capabilities, and production workflow."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Clayz Presentation Skills · Experience Center</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Clayz Experience Center home">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>
+          <strong>Clayz</strong>
+          <small data-i18n="brandSub">Experience Center</small>
+        </span>
+      </a>
+
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a href="#case" data-i18n="navCase">Full case</a>
+        <a href="#versions" data-i18n="navVersions">Versions</a>
+        <a href="#styles" data-i18n="navStyles">Visual range</a>
+        <button class="language-toggle" type="button" aria-label="Switch language">中文</button>
+        <a
+          class="repo-link"
+          href="https://github.com/clayzwang/clayz-presentation-skills"
+          target="_blank"
+          rel="noreferrer"
+          data-i18n="navRepo"
+          >GitHub repository</a
+        >
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">CLAYZ PRESENTATION SKILLS · v0.2.0</p>
+          <h1 data-i18n="heroTitle">See what governed presentation generation can actually deliver.</h1>
+          <p class="hero-lede" data-i18n="heroLede">
+            Follow one complete public-data case from market evidence to a presentation-ready decision story — then download the editable PowerPoint.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#case" data-i18n="heroExplore">Explore the full case</a>
+            <a
+              class="button button-secondary"
+              href="assets/decks/a-share-market-analysis-v0.2.0.pptx"
+              download
+              data-i18n="heroDownload"
+              >Download editable PPTX</a
+            >
+          </div>
+        </div>
+
+        <dl class="hero-metrics" aria-label="Case summary">
+          <div>
+            <dt>16</dt>
+            <dd data-i18n="metricSlides">slide full deck</dd>
+          </div>
+          <div>
+            <dt>9</dt>
+            <dd data-i18n="metricPreviews">selected previews</dd>
+          </div>
+          <div>
+            <dt>PPTX</dt>
+            <dd data-i18n="metricEditable">editable output</dd>
+          </div>
+          <div>
+            <dt>4×</dt>
+            <dd data-i18n="metricRegimes">market regimes</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="case-section" id="case">
+        <div class="section-heading">
+          <div>
+            <p class="section-index">01 · DATA-TO-DECK</p>
+            <h2 data-i18n="caseTitle">A-share market regime and sector rotation</h2>
+          </div>
+          <p data-i18n="caseIntro">
+            A data-heavy commercial analysis case covering index paths, liquidity, sector rotation, representative companies, IPO funding pressure, and September uncertainty.
+          </p>
+        </div>
+
+        <div class="case-layout">
+          <aside class="case-brief" aria-label="Case brief">
+            <div class="case-status">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span data-i18n="caseStatus">Public output evidence</span>
+            </div>
+            <dl>
+              <div>
+                <dt data-i18n="briefInput">Input</dt>
+                <dd data-i18n="briefInputValue">Structured market workbook + analytical brief</dd>
+              </div>
+              <div>
+                <dt data-i18n="briefJob">Communication job</dt>
+                <dd data-i18n="briefJobValue">Explain four regime shifts and define the evidence required for September</dd>
+              </div>
+              <div>
+                <dt data-i18n="briefOutput">Output</dt>
+                <dd data-i18n="briefOutputValue">16-slide Chinese commercial analysis deck</dd>
+              </div>
+              <div>
+                <dt data-i18n="briefGenerated">Generated</dt>
+                <dd>2026-08-21 · v0.2.0 capability profile</dd>
+              </div>
+            </dl>
+
+            <div class="capability-list" aria-label="Demonstrated capabilities">
+              <span data-i18n="capSynthesis">Evidence synthesis</span>
+              <span data-i18n="capNarrative">Decision narrative</span>
+              <span data-i18n="capCharts">Chart selection</span>
+              <span data-i18n="capBrand">Company assets</span>
+              <span data-i18n="capConsistency">Cross-slide consistency</span>
+              <span data-i18n="capEditable">Editable PowerPoint</span>
+            </div>
+          </aside>
+
+          <div class="slide-explorer">
+            <div class="viewer-toolbar">
+              <div>
+                <span class="viewer-kicker" data-i18n="viewerKicker">Selected slide</span>
+                <strong id="slide-title">Executive synthesis</strong>
+              </div>
+              <div class="viewer-count" aria-live="polite">
+                <span id="slide-current">01</span>
+                <span>/</span>
+                <span id="slide-total">09</span>
+              </div>
+            </div>
+
+            <figure class="slide-stage">
+              <img
+                id="active-slide"
+                src="assets/cases/a-share/slide-02-summary.png"
+                alt="Executive synthesis slide from the A-share market analysis case"
+              />
+              <figcaption id="slide-caption" data-i18n="slideCaptionDefault">
+                The deck opens with one conclusion, four evidence anchors, and an explicit risk budget.
+              </figcaption>
+            </figure>
+
+            <div class="viewer-controls">
+              <button class="viewer-button" id="previous-slide" type="button" data-i18n="previousSlide">Previous</button>
+              <div class="thumbnail-strip" id="thumbnail-strip" aria-label="Slide thumbnails"></div>
+              <button class="viewer-button" id="next-slide" type="button" data-i18n="nextSlide">Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="evidence-section" aria-labelledby="evidence-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-index">02 · EVIDENCE CHAIN</p>
+            <h2 id="evidence-title" data-i18n="evidenceTitle">The output is the end of a governed chain.</h2>
+          </div>
+        </div>
+
+        <ol class="evidence-chain">
+          <li>
+            <span>01</span>
+            <strong data-i18n="evidenceLogic">Logic</strong>
+            <p data-i18n="evidenceLogicText">Separate four market regimes, define claims, and bind each claim to quantitative evidence.</p>
+          </li>
+          <li>
+            <span>02</span>
+            <strong data-i18n="evidenceCopy">Copy</strong>
+            <p data-i18n="evidenceCopyText">Compress the analysis into conclusion-led titles, key numbers, and explicit decision tests.</p>
+          </li>
+          <li>
+            <span>03</span>
+            <strong data-i18n="evidenceArt">Art direction</strong>
+            <p data-i18n="evidenceArtText">Assign visual weight, chart form, comparison structure, and cross-slide rhythm.</p>
+          </li>
+          <li>
+            <span>04</span>
+            <strong data-i18n="evidenceOutput">Output + QA</strong>
+            <p data-i18n="evidenceOutputText">Build editable slides, render the deck, and inspect consistency before delivery.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="version-section" id="versions">
+        <div class="section-heading">
+          <div>
+            <p class="section-index">03 · RELEASE CAPABILITY MAP</p>
+            <h2 data-i18n="versionTitle">What each public version established</h2>
+          </div>
+          <p data-i18n="versionIntro">
+            Releases are described by verifiable repository capability. Same-input visual comparisons will only be labeled as such when both outputs are preserved.
+          </p>
+        </div>
+
+        <div class="version-map">
+          <article>
+            <div class="version-label">
+              <span>v0.1.0</span>
+              <small>2026-08-20</small>
+            </div>
+            <h3 data-i18n="v1Title">Governed foundation</h3>
+            <ul>
+              <li data-i18n="v1Item1">Five-stage Logic → Copy → Art Direction → Output → Supervisor workflow</li>
+              <li data-i18n="v1Item2">Central configuration, contracts, validators, and bilingual references</li>
+              <li data-i18n="v1Item3">Synthetic approved-handoff regression and CI across Python 3.10–3.12</li>
+            </ul>
+          </article>
+
+          <article class="current-version">
+            <div class="version-label">
+              <span>v0.2.0</span>
+              <small data-i18n="currentRelease">Current release</small>
+            </div>
+            <h3 data-i18n="v2Title">Production structure</h3>
+            <ul>
+              <li data-i18n="v2Item1">Human-admitted, hash-bound local knowledge runtime</li>
+              <li data-i18n="v2Item2">Renderer-neutral relative-layout solver and render contracts</li>
+              <li data-i18n="v2Item3">Bounded execution ledger and isolated experimental editable-object adapter</li>
+            </ul>
+          </article>
+
+          <article>
+            <div class="version-label">
+              <span data-i18n="experienceLabel">Experience layer</span>
+              <small data-i18n="experienceDate">2026-08-21</small>
+            </div>
+            <h3 data-i18n="experienceTitle">Public output evidence</h3>
+            <ul>
+              <li data-i18n="experienceItem1">Full-case walkthrough with selected slide-level evidence</li>
+              <li data-i18n="experienceItem2">Editable PPTX download and explicit input-to-output framing</li>
+              <li data-i18n="experienceItem3">Output artifacts remain isolated from the reference and knowledge corpus</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="style-section" id="styles">
+        <div class="section-heading">
+          <div>
+            <p class="section-index">04 · VISUAL RANGE</p>
+            <h2 data-i18n="styleTitle">One governed system, different visual languages</h2>
+          </div>
+          <p data-i18n="styleIntro">
+            These compact studies demonstrate visual adaptation. The full market case above demonstrates long-form analytical compression.
+          </p>
+        </div>
+
+        <div class="style-gallery">
+          <figure>
+            <img src="assets/showcase/mckinsey-demo.png" alt="McKinsey-style consulting slide example" loading="lazy" />
+            <figcaption data-i18n="styleMck">Consulting structure · McKinsey-inspired study</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/showcase/bcg-demo.png" alt="BCG-style consulting slide example" loading="lazy" />
+            <figcaption data-i18n="styleBcg">Strategic framing · BCG-inspired study</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/showcase/pingan-demo.png" alt="Ping An business results slide example" loading="lazy" />
+            <figcaption data-i18n="stylePingan">Business reporting · Ping An study</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/showcase/clayz-overview.png" alt="Clayz Presentation Skills workflow overview" loading="lazy" />
+            <figcaption data-i18n="styleClayz">System overview · Clayz visual language</figcaption>
+          </figure>
+        </div>
+
+        <div class="style-download">
+          <div>
+            <strong data-i18n="styleDownloadTitle">Four-slide visual adaptation pack</strong>
+            <p data-i18n="styleDownloadText">Open the editable source behind the compact visual studies shown above.</p>
+          </div>
+          <a class="button button-secondary" href="assets/decks/clayz-four-slide-showcase.pptx" download data-i18n="styleDownloadButton"
+            >Download 4-slide PPTX</a
+          >
+        </div>
+      </section>
+
+      <section class="closing-section">
+        <p class="section-index">EXPLORE · DOWNLOAD · VERIFY</p>
+        <h2 data-i18n="closingTitle">The experience is evidence, not a promise.</h2>
+        <p data-i18n="closingText">
+          Inspect the slides, compare the release capability map, and open the editable PowerPoint before deciding whether the workflow fits your presentation work.
+        </p>
+        <div class="hero-actions">
+          <a
+            class="button button-primary"
+            href="assets/decks/a-share-market-analysis-v0.2.0.pptx"
+            download
+            data-i18n="closingDownload"
+            >Download the case deck</a
+          >
+          <a
+            class="button button-secondary"
+            href="https://github.com/clayzwang/clayz-presentation-skills"
+            target="_blank"
+            rel="noreferrer"
+            data-i18n="closingRepo"
+            >Inspect the repository</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p data-i18n="footerBoundary">
+        Public-data output evidence only. Showcase artifacts are not admitted into the Clayz knowledge or reference corpus.
+      </p>
+      <p data-i18n="footerDisclaimer">
+        Company names and marks belong to their respective owners and do not imply affiliation. Market content is for demonstration only and is not investment advice.
+      </p>
+      <p>© 2026 Clayz · Apache-2.0 applies to Clayz-owned source code.</p>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
