@@ -30,7 +30,7 @@ sources:
       - "presentation asset taxonomy and provenance practice"
       - "chart, table, icon, and sample-deck research inputs"
     redistributed_files: []
-    note: "With thanks to Hugo He and PPT Master contributors. Clayz had independently implemented its first five core capabilities before reviewing PPT Master. PPT Master is a later-stage reference, not the origin, fork base, or foundation of this repository. No upstream source code, prompts, knowledge documents, templates, charts, tables, icons, sample decks, datasets, models, or media are redistributed."
+    note: "Thank you to Hugo He and PPT Master contributors. Clayz had independently implemented its first five core capabilities before reviewing PPT Master. PPT Master is a later-stage reference, not the origin, fork base, or foundation of this repository. No upstream source code, prompts, knowledge documents, templates, charts, tables, icons, sample decks, datasets, models, or media are redistributed."
 
   - id: "pptagent"
     usage_type: "conceptual-inspiration"
