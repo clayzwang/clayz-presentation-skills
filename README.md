@@ -4,6 +4,22 @@
 
 [![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.2.0**
 
+**Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
+
+![Clayz Presentation Skills workflow](assets/showcase/clayz-overview.png)
+
+## Built for real presentation work
+
+The same system can adapt its visual language to the task while preserving hierarchy, evidence, and editability.
+
+![McKinsey-style consulting presentation example](assets/showcase/mckinsey-demo.png)
+
+![BCG-style consulting presentation example](assets/showcase/bcg-demo.png)
+
+![Ping An 2026 H1 business results presentation example](assets/showcase/pingan-demo.png)
+
+> Showcase slides demonstrate presentation-generation capability and visual adaptation. Brand names shown in examples belong to their respective owners and do not imply affiliation or endorsement.
+
 Clayz Presentation Skills is an open, five-stage system for producing evidence-based presentations:
 
 1. **Logic** establishes the question chain, claims, evidence, and cross-slide invariants.
