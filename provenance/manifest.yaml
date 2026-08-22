@@ -149,3 +149,25 @@ sources:
       - "editable PowerPoint object implementation"
     redistributed_files: []
     note: "Thank you to gitbrent and PptxGenJS contributors. Clayz supplies an original, disabled experimental adapter against the documented public API. No upstream source, dependency lock, demo, template, master, or media is redistributed. Runtime is security-blocked in v0.2.0 because the current transitive image-size dependency has unpatched GHSA-w3rx-r6r6-pgpr and GHSA-5p2g-fcmc-qvqq advisories."
+
+  - id: "enterprise-reference-architecture-corpus"
+    usage_type: "official-documentation-conceptual-reference"
+    upstream: "https://www.ibm.com/think/architectures"
+    additional_upstreams:
+      - "https://learn.microsoft.com/en-us/azure/architecture/"
+      - "https://docs.oracle.com/solutions/"
+      - "https://aws.amazon.com/architecture/"
+      - "https://cloud.google.com/architecture"
+      - "https://help.sap.com/docs/sap-btp-guidance-framework"
+      - "https://docs.nvidia.com/enterprise-reference-architectures/"
+      - "https://support.apple.com/guide/security/welcome/web"
+    upstream_license: "official-documentation-reference-only"
+    pinned_version: "reviewed-snapshot-2026-08-22"
+    reviewed_on: "2026-08-22"
+    influenced_components:
+      - "broad primary-source architecture sampling protocol"
+      - "outcome-floor-pillar-foundation house grammar"
+      - "cross-cutting governance and controlled feedback paths"
+      - "human-accountability boundary for enterprise AI architecture"
+    redistributed_files: []
+    note: "Thank you to the architects, technical writers, designers, engineers, and reviewers behind IBM Think Architectures, Microsoft Azure Architecture Center, Oracle Architecture Center, AWS Architecture guidance, Google Cloud Architecture Center, SAP BTP guidance, NVIDIA Enterprise Reference Architectures, and Apple Platform Security. Clayz independently synthesizes structural principles only. No diagram, wording, product icon, brand identity, master, template, coordinate system, or media from these official materials is redistributed."

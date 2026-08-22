@@ -6,7 +6,7 @@ Choose one primary route for the deck. A mixed deck may use secondary routes, bu
 |---|---|---|---|---|---|
 | `management-report` | Establish judgment, expose variance, support a decision | conclusion, variance, or decision evidence | answer-first evidence field; issue–cause–action; decision matrix | medium to high, tightly prioritized | ceremonial cover treatment, decorative dashboards, equal-weight cards |
 | `business-analysis` | Explain a pattern and its drivers | comparison, distribution, trend, or causal structure | dominant chart with annotated drivers; segmented comparison; evidence chain | medium to high | chart collage, unlabeled points, disconnected KPI tiles |
-| `strategy-deployment` | Turn intent into operating choices and sequence | strategic choice, mechanism, or operating path | choice architecture; mechanism map; phased roadmap; governance loop | medium | slogan wall, generic arrows, ornamental pyramids |
+| `strategy-deployment` | Turn intent into operating choices and sequence | strategic choice, mechanism, or operating path | choice architecture; mechanism map; phased roadmap; governed capability house; governance loop | medium | slogan wall, generic arrows, ornamental pyramids, noun-only architecture stacks |
 | `sales-training` | Enable recognition, practice, and repeatable action | scenario, behavior contrast, or conversation step | scenario sequence; before/after; guided practice; objection path | medium, with deliberate pauses | script dumping, mascot decoration, one-step-conversion claims |
 
 ## Mixed-route resolution

@@ -18,6 +18,7 @@ COMMIT = re.compile(r"^[0-9a-f]{40}$")
 REQUIRED_SOURCES = {
     "ppt-master", "pptagent", "deeppresenter", "pom", "vascar", "postero",
     "posterlayout", "scan-and-print", "creatiposter", "pptxgenjs",
+    "enterprise-reference-architecture-corpus",
 }
 
 

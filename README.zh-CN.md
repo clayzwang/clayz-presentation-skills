@@ -20,8 +20,9 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 
 - **内容感知构图**：图像主导页必须先判断主体保护区、文案可放置区、裁切、对比度、视觉方向和遮罩必要性，再决定文字位置；记住一个广告版式本身不能成为答案。
 - **模板与Icon语法**：模板、图表、表格、Icon和外部样例只作为经过审阅的候选。页面必须从Logic和Copy重新推导构图，说明每项资产的语义角色，保持图标家族判断一致，并记录来源与许可证据。
+- **参考架构综合**：当任务要求广泛对标时，Art Direction 可以研究用户指定的 50–100 份独立、包含架构图的一手文档，并在不导入厂商母版的前提下提炼共同结构语法。能力房子图必须区分业务结果、能力楼层、横切控制、基础设施地基、证据上行、受控反馈和人的责任。
 - **有合同的灵活判断**：Art Direction计划升级到v1.4，固定的是必须显式回答的证据和决策，不固定坐标、Icon数量、填充比例或审美分数；最终仍以真实A/B渲染和专业判断为准。
-- **固定回归**：10个完全合成的案例覆盖四类材料、四种跨页行为、内容感知画布和受控资产选择。图像主导页缺少画布证据、已选资产缺少许可记录都会被测试拒绝。
+- **固定回归**：11个完全合成的案例覆盖四类材料、四种跨页行为、内容感知画布、受控资产选择和参考架构房子图。图像主导页缺少画布证据、已选资产缺少许可记录，以及只有名词分层却没有责任或反馈的房子图，都会被测试拒绝。
 
 公开仓库仍不打包任何第三方模板、母版、Icon库、海报、数据集、模型或媒体。增强的是检索、判断、重构和合规引用能力，不是克隆一个外部素材库。
 
@@ -119,6 +120,8 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 ## 引用与公开边界
 
 感谢 PPT Master、PPTAgent、DeepPresenter、pom、VASCAR、PosterO、PosterLayout、Scan-and-Print、CreatiPoster 与 PptxGenJS 的作者和贡献者。它们是本项目形成首批五项核心能力之后陆续研究的后续来源，只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
+
+参考架构房子图协议还特别感谢 [IBM Think Architectures](https://www.ibm.com/think/architectures)、[Microsoft Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/)、[Oracle Architecture Center](https://docs.oracle.com/solutions/)、[AWS Architecture Center](https://aws.amazon.com/architecture/)、[Google Cloud Architecture Center](https://cloud.google.com/architecture)、[SAP BTP 指南](https://help.sap.com/docs/sap-btp-guidance-framework)、[NVIDIA Enterprise Reference Architectures](https://docs.nvidia.com/enterprise-reference-architectures/) 与 [Apple Platform Security](https://support.apple.com/guide/security/welcome/web) 背后的架构师、技术作者、设计师、工程师和审阅者。Clayz 只独立综合其中的结构原则，不再分发任何源架构图、原文、图标、品牌视觉、母版、模板、坐标或媒体。
 
 本项目采用 Apache-2.0 许可证，来源和引用见 `NOTICE`、`CITATION.cff` 与 `provenance/`。
 

@@ -121,6 +121,18 @@
       "target_backbone": "Derive the comparison structure from semantics, select only role-bearing assets, and record provenance and never-copy boundaries.",
       "required_signals": ["selected assets are reviewed candidates", "license records cover selections", "template mode is derive-not-clone"],
       "forbidden_signals": ["master cloning", "decorative icon count rule"]
+    },
+    {
+      "case_id": "CAPABILITY-REFERENCE-ARCHITECTURE-HOUSE",
+      "category": "capability",
+      "source_kind": "synthetic",
+      "license": "Apache-2.0",
+      "task": "Synthesize a one-slide enterprise data and AI capability house after a broad, primary-source reference study.",
+      "risk": "The result copies one vendor stack or becomes a decorative noun hierarchy with no operating mechanism.",
+      "rejected_pattern": "A branded roof above equal technology layers, ornamental governance pillars, and no accountable feedback path.",
+      "target_backbone": "Business outcomes cap ordered capability floors; cross-cutting responsibility and controlled evolution form the pillars; evidence flows upward and governed feedback returns to versioned business truth.",
+      "required_signals": ["research corpus and never-copy boundary are recorded", "roof floors pillars and foundation have distinct responsibilities", "upward evidence and return feedback paths are explicit", "human accountability is visible"],
+      "forbidden_signals": ["vendor master or coordinates are cloned", "feedback ends at retraining", "product names replace capability semantics"]
     }
   ]
 }

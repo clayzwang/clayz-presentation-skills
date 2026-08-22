@@ -8,9 +8,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## 0.3.0 — 2026-08-22
 
+- Add a bilingual reference-architecture house protocol that can study a requested 50–100 distinct primary, diagram-bearing documents and independently synthesize business outcomes, capability floors, cross-cutting controls, infrastructure foundations, evidence flow, governed feedback, and human accountability.
+- Thank and record the official enterprise architecture authors and design teams behind IBM, Microsoft, Oracle, AWS, Google Cloud, SAP, NVIDIA, and Apple under documentation-reference-only, no-redistribution boundaries.
 - Upgrade Art Direction contract to v1.4 with content-aware canvas analysis and governed template/icon asset selection; image-led slides must record subject protection, usable copy zones, crop, contrast, directional flow, and local overlay decisions.
 - Add bilingual content-aware composition and asset/template grammar references that treat external layouts and icons as reviewed moves to re-derive, never fixed templates to clone.
-- Add a machine-validated ten-case synthetic visual regression suite covering four material routes, four cross-slide behaviors, image-led composition, and licensed asset selection.
+- Add a machine-validated eleven-case synthetic visual regression suite covering four material routes, four cross-slide behaviors, image-led composition, licensed asset selection, and reference-architecture houses.
 - Cite and thank PosterLayout, Scan-and-Print, and CreatiPoster under paper-citation-only boundaries; redistribute no upstream code, models, datasets, figures, layouts, fonts, or media.
 - Clarify that Clayz independently implemented its first five core capabilities before later reviewing PPT Master and other sources; add pinned attribution and explicit non-redistribution boundaries.
 - Add a bilingual GitHub Pages Experience Center with slide-level browsing, release capability mapping, visual-range examples, and downloadable editable output evidence.

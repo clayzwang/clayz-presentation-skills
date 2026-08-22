@@ -22,6 +22,7 @@ REQUIRED_CASES = {
     "NONSERIES-SILHOUETTE-COLLISION": "cross-slide",
     "CAPABILITY-CONTENT-AWARE-CANVAS": "capability",
     "CAPABILITY-ASSET-TEMPLATE-GRAMMAR": "capability",
+    "CAPABILITY-REFERENCE-ARCHITECTURE-HOUSE": "capability",
 }
 REQUIRED_FIELDS = {
     "case_id", "category", "source_kind", "license", "task", "risk",

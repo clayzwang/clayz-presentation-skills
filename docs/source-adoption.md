@@ -16,6 +16,7 @@ Clayz learns from open work by separating concepts, public APIs, optional depend
 | PosterLayout | content-aware subject protection, placement, overlap, and readability observation vocabulary | repository code, models, datasets, annotations, metrics, figures, layouts, media |
 | Scan-and-Print | patch-level placement-suitability and candidate-zone observation concepts | repository code, models, datasets, patches, annotations, figures, layouts, media |
 | CreatiPoster | foreground/background separation and editable layered-composition concepts | repository code, protocol, models, datasets, training recipe, figures, layouts, fonts, media |
+| IBM, Microsoft, Oracle, AWS, Google Cloud, SAP, NVIDIA, and Apple official architecture materials | primary-source sampling and independent synthesis of business outcomes, capability floors, cross-cutting controls, infrastructure foundations, and governed feedback paths | diagrams, wording, product icons, brand identity, masters, templates, coordinates, and media |
 
 ## Deliberately excluded
 
