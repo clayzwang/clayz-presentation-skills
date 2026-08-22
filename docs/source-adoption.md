@@ -2,7 +2,7 @@
 
 Clayz learns from open work by separating concepts, public APIs, optional dependencies, and redistributed files. "Inspired by" never means "silently copied."
 
-## Adopted in v0.2.0
+## Adopted through v0.3.0
 
 | Source | Adopted | Not adopted or bundled |
 |---|---|---|
@@ -16,7 +16,7 @@ Clayz learns from open work by separating concepts, public APIs, optional depend
 | PosterLayout | content-aware subject protection, placement, overlap, and readability observation vocabulary | repository code, models, datasets, annotations, metrics, figures, layouts, media |
 | Scan-and-Print | patch-level placement-suitability and candidate-zone observation concepts | repository code, models, datasets, patches, annotations, figures, layouts, media |
 | CreatiPoster | foreground/background separation and editable layered-composition concepts | repository code, protocol, models, datasets, training recipe, figures, layouts, fonts, media |
-| IBM, Microsoft, Oracle, AWS, Google Cloud, SAP, NVIDIA, and Apple official architecture materials | primary-source sampling and independent synthesis of business outcomes, capability floors, cross-cutting controls, infrastructure foundations, and governed feedback paths | diagrams, wording, product icons, brand identity, masters, templates, coordinates, and media |
+| 76 official architecture documents from IBM, Microsoft, Google Cloud, AWS, Oracle, SAP, NVIDIA, Databricks, Snowflake, and Apple | source index, relationship tags, sixteen pattern cards, and an eight-step corpus-to-pattern-to-synthesis method | diagrams, wording, product icons, brand identity, masters, templates, coordinates, and media |
 
 ## Deliberately excluded
 

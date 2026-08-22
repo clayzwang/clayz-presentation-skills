@@ -111,6 +111,22 @@ class CoreTests(unittest.TestCase):
         for excluded in ("reveal.js", "Marp", "PosterLlama", "Typst/Paged"):
             self.assertIn(excluded, boundary)
 
+    def test_architecture_research_library_is_real_and_method_driven(self) -> None:
+        module = load_module(
+            "validate_architecture_research_library",
+            ROOT / "scripts" / "validate_architecture_research_library.py",
+        )
+        reference_root = ROOT / "skills" / "clayz-presentation-art-direction" / "references"
+        index = json.loads((reference_root / "architecture-source-index.json").read_text(encoding="utf-8"))
+        pattern_text = (reference_root / "architecture-pattern-library.md").read_text(encoding="utf-8")
+        method_texts = [
+            (reference_root / "reference-architecture-house.md").read_text(encoding="utf-8"),
+            (reference_root / "reference-architecture-house.zh-CN.md").read_text(encoding="utf-8"),
+        ]
+        self.assertEqual(module.validate(index, pattern_text, method_texts), [])
+        self.assertEqual(len(index["sources"]), 76)
+        self.assertEqual(len({source["publisher"] for source in index["sources"]}), 10)
+
     def test_visual_regression_suite_has_fixed_capability_coverage(self) -> None:
         module = load_module(
             "validate_visual_regression_suite",

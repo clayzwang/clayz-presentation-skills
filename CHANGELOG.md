@@ -8,8 +8,9 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## 0.3.0 — 2026-08-22
 
-- Add a bilingual reference-architecture house protocol that can study a requested 50–100 distinct primary, diagram-bearing documents and independently synthesize business outcomes, capability floors, cross-cutting controls, infrastructure foundations, evidence flow, governed feedback, and human accountability.
-- Thank and record the official enterprise architecture authors and design teams behind IBM, Microsoft, Oracle, AWS, Google Cloud, SAP, NVIDIA, and Apple under documentation-reference-only, no-redistribution boundaries.
+- Add a validated index of 76 distinct official, diagram-bearing architecture documents from ten publishers and a bilingual 16-card relationship-pattern library.
+- Replace rule-oriented architecture-house guidance with an eight-step corpus-to-pattern-to-synthesis method covering source selection, relationship extraction, pattern combination, task-specific derivation, slide translation, diagnosis, and research-ledger closure.
+- Thank and record the official enterprise architecture authors and design teams behind IBM, Microsoft, Google Cloud, AWS, Oracle, SAP, NVIDIA, Databricks, Snowflake, and Apple under documentation-reference-only, no-redistribution boundaries.
 - Upgrade Art Direction contract to v1.4 with content-aware canvas analysis and governed template/icon asset selection; image-led slides must record subject protection, usable copy zones, crop, contrast, directional flow, and local overlay decisions.
 - Add bilingual content-aware composition and asset/template grammar references that treat external layouts and icons as reviewed moves to re-derive, never fixed templates to clone.
 - Add a machine-validated eleven-case synthetic visual regression suite covering four material routes, four cross-slide behaviors, image-led composition, licensed asset selection, and reference-architecture houses.

@@ -32,6 +32,7 @@ def main() -> int:
     run("scripts/validate_version.py", ".")
     run("scripts/validate_config.py", "config/default.json")
     run("scripts/validate_provenance.py", "provenance/manifest.yaml")
+    run("scripts/validate_architecture_research_library.py", ".")
     run("scripts/validate_visual_regression_suite.py", "tests/fixtures/visual-regression-suite.json")
     run("scripts/validate_skill_tree.py", ".")
     run("scripts/validate_knowledge_scaffold.py", ".")

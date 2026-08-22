@@ -25,7 +25,7 @@ Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page
 8. Read `references/asset-and-template-grammar.md` when templates, icons, charts, tables, samples, or other reusable assets are considered.
 9. Read `references/ab-and-regression.md` only for high-risk pages requiring real alternatives.
 10. Read `references/reference-cluster-discovery.md` when a large reference set must be narrowed.
-11. Read `references/reference-architecture-house.md` when the task needs a capability house, enterprise reference architecture, data/AI platform overview, or operating-system architecture.
+11. When the task needs a capability house, enterprise reference architecture, data/AI platform overview, or operating-system architecture, read `references/reference-architecture-house.md`; then load its source index and pattern library.
 12. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior visual learning or persisting a reusable observation.
 
 ## Workflow
@@ -35,7 +35,7 @@ Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page
 3. For every slide, state the intended first impression, first visual, area allocation, dominant medium, density, reading path, semantic whitespace, and risks.
 4. When an image-like canvas is present, inspect subject protection, placement suitability, crop and contrast risk, and directional flow before placing copy. Blank pixels are not automatically safe space.
 5. Treat templates and icons as reviewed candidates. Re-derive composition from the current page job, select assets by semantic role, and record source and license evidence; never clone a master, layout, brand identity, or arbitrary ratio.
-6. For a reference-architecture house, separate business outcomes, capability floors, cross-cutting controls, infrastructure foundations, directional flows, and feedback evolution. A noun stack without responsibility or return flow is not an approved architecture.
+6. For a reference-architecture house, apply the corpus-to-pattern-to-synthesis method and record the selected source IDs, relationship grammars, task adaptations, and accountability path.
 7. Build a semantic layout tree that records containment, peers, sequence, cause, condition, support, comparison, feedback, or anchors.
 8. Map every `copy_id` exactly once to a render target and verification method.
 9. Use real rendered A/B prototypes for high-risk composition; do not treat automated scores or similarity as the winner.
