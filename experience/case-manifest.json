@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "experience_center": "Clayz Presentation Skills",
-  "release_capability_profile": "v0.2.0",
-  "generated_at": "2026-08-21",
+  "release_capability_profile": "v0.3.0",
+  "generated_at": "2026-08-23",
   "cases": [
     {
       "id": "a-share-market-analysis-20260821",
@@ -31,6 +31,40 @@
       "preview_count": 4,
       "repository_path": "clayz-four-slide-showcase.pptx",
       "download": "assets/decks/clayz-four-slide-showcase.pptx",
+      "policy": {
+        "public_data_output_evidence": true,
+        "admitted_to_reference_corpus": false,
+        "admitted_to_knowledge_corpus": false,
+        "investment_advice": false
+      }
+    },
+    {
+      "id": "chatbi-enterprise-cognitive-architecture-house-20260822",
+      "title": "ChatBI Enterprise Cognitive Architecture House",
+      "language": "zh-CN",
+      "input_type": "enterprise architecture research and ChatBI discussion brief",
+      "output_type": "editable PowerPoint",
+      "slide_count": 1,
+      "preview_count": 1,
+      "repository_path": "experience/assets/decks/chatbi-enterprise-cognitive-architecture-house-research-20260822.pptx",
+      "download": "assets/decks/chatbi-enterprise-cognitive-architecture-house-research-20260822.pptx",
+      "policy": {
+        "public_data_output_evidence": true,
+        "admitted_to_reference_corpus": false,
+        "admitted_to_knowledge_corpus": false,
+        "investment_advice": false
+      }
+    },
+    {
+      "id": "chatbi-enterprise-cognitive-system-advisory-v0.3.0-20260822",
+      "title": "From ChatBI to an Enterprise Cognitive System",
+      "language": "zh-CN",
+      "input_type": "strategy discussion notes, architecture research, and advisory brief",
+      "output_type": "editable PowerPoint",
+      "slide_count": 11,
+      "preview_count": 7,
+      "repository_path": "experience/assets/decks/from-chatbi-to-enterprise-cognitive-system-advisory-v0.3.0-20260822.pptx",
+      "download": "assets/decks/from-chatbi-to-enterprise-cognitive-system-advisory-v0.3.0-20260822.pptx",
       "policy": {
         "public_data_output_evidence": true,
         "admitted_to_reference_corpus": false,

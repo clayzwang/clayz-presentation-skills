@@ -265,6 +265,7 @@ main,
 .case-section,
 .evidence-section,
 .version-section,
+.chatbi-section,
 .style-section,
 .closing-section {
   padding: 104px 0;
@@ -589,6 +590,86 @@ main,
   margin-top: 12px;
 }
 
+.chatbi-case-stack {
+  display: grid;
+  gap: 28px;
+}
+
+.chatbi-case-card {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.28fr);
+  gap: 30px;
+  align-items: start;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(145deg, var(--white), var(--surface));
+  box-shadow: 0 18px 55px rgba(11, 18, 32, 0.08);
+}
+
+.chatbi-case-card-wide {
+  grid-template-columns: minmax(250px, 0.58fr) minmax(0, 1.42fr);
+}
+
+.chatbi-case-copy {
+  padding: 8px 4px 4px;
+}
+
+.chatbi-kicker {
+  margin: 0 0 12px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.chatbi-case-copy h3 {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.chatbi-case-copy > p:not(.chatbi-kicker) {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.chatbi-case-copy .button {
+  margin-top: 26px;
+}
+
+.chatbi-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.chatbi-preview {
+  margin: 0;
+}
+
+.chatbi-preview-feature {
+  grid-column: 1 / -1;
+}
+
+.chatbi-preview img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--white);
+}
+
+.chatbi-preview figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
 .style-gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -686,7 +767,9 @@ main,
 
   .hero,
   .section-heading,
-  .case-layout {
+  .case-layout,
+  .chatbi-case-card,
+  .chatbi-case-card-wide {
     grid-template-columns: 1fr;
   }
 
@@ -767,6 +850,7 @@ main,
   .case-section,
   .evidence-section,
   .version-section,
+  .chatbi-section,
   .style-section,
   .closing-section {
     padding: 72px 0;
@@ -790,6 +874,7 @@ main,
   }
 
   .evidence-chain,
+  .chatbi-preview-grid,
   .style-gallery {
     grid-template-columns: 1fr;
   }
@@ -813,6 +898,10 @@ main,
   .style-download {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .chatbi-preview-feature {
+    grid-column: auto;
   }
 }
 
