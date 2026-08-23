@@ -1,0 +1,163 @@
+{
+  "contract": "io.clayz.presentation.layout-resolution/1.0",
+  "frame": {
+    "x": 0.55,
+    "y": 1.35,
+    "w": 12.23,
+    "h": 5.25
+  },
+  "boxes": [
+    {
+      "id": "body",
+      "type": "row",
+      "parent_id": null,
+      "x": 0.55,
+      "y": 1.35,
+      "w": 12.23,
+      "h": 5.25,
+      "intent": "evidence supports implication",
+      "contract_node_id": "body"
+    },
+    {
+      "id": "evidence-column",
+      "type": "column",
+      "parent_id": "body",
+      "x": 0.55,
+      "y": 1.35,
+      "w": 8.215625000000001,
+      "h": 5.25,
+      "intent": "evidence precedes provenance",
+      "contract_node_id": "evidence-column"
+    },
+    {
+      "id": "primary-evidence-region",
+      "type": "leaf",
+      "parent_id": "evidence-column",
+      "x": 0.55,
+      "y": 1.35,
+      "w": 8.215625000000001,
+      "h": 4.072,
+      "role": "evidence",
+      "intent": "primary evidence",
+      "copy_ids": [
+        "COPY-EVIDENCE"
+      ],
+      "semantic_node_ids": [
+        "SLT-NODE-EVIDENCE"
+      ],
+      "contract_node_id": "primary-evidence-region",
+      "slot_id": "primary-evidence"
+    },
+    {
+      "id": "source-note-region",
+      "type": "leaf",
+      "parent_id": "evidence-column",
+      "x": 0.55,
+      "y": 5.582000000000001,
+      "w": 8.215625000000001,
+      "h": 1.018,
+      "role": "source-note",
+      "intent": "provenance supports evidence",
+      "copy_ids": [
+        "COPY-SOURCE"
+      ],
+      "semantic_node_ids": [
+        "SLT-NODE-SOURCE"
+      ],
+      "contract_node_id": "source-note-region",
+      "slot_id": "source-note"
+    },
+    {
+      "id": "implication-column",
+      "type": "column",
+      "parent_id": "body",
+      "x": 9.045625000000001,
+      "y": 1.35,
+      "w": 3.734375,
+      "h": 5.25,
+      "intent": "findings lead to implication",
+      "contract_node_id": "implication-column"
+    },
+    {
+      "id": "findings-region",
+      "type": "leaf",
+      "parent_id": "implication-column",
+      "x": 9.045625000000001,
+      "y": 1.35,
+      "w": 3.734375,
+      "h": 3.393333333333333,
+      "role": "finding",
+      "intent": "findings summarize evidence",
+      "copy_ids": [
+        "COPY-FINDING-1",
+        "COPY-FINDING-2"
+      ],
+      "semantic_node_ids": [
+        "SLT-NODE-FINDINGS"
+      ],
+      "contract_node_id": "findings-region",
+      "slot_id": "findings"
+    },
+    {
+      "id": "decision-implication-region",
+      "type": "leaf",
+      "parent_id": "implication-column",
+      "x": 9.045625000000001,
+      "y": 4.903333333333333,
+      "w": 3.734375,
+      "h": 1.6966666666666665,
+      "role": "implication",
+      "intent": "implication is conditional on findings",
+      "copy_ids": [
+        "COPY-IMPLICATION"
+      ],
+      "semantic_node_ids": [
+        "SLT-NODE-IMPLICATION"
+      ],
+      "contract_node_id": "decision-implication-region",
+      "slot_id": "decision-implication"
+    }
+  ],
+  "diagnostics": [],
+  "source_tree_id": "layout-tree-4f542f370643e9ebf41e",
+  "source": {
+    "layout_contract_id": "layout.evidence-with-implication",
+    "layout_contract_revision": "1",
+    "record_id": "layout.evidence-with-implication",
+    "retrieval_receipt_id": "receipt-9ca9be03d1fe9f388242",
+    "instance_id": "synthetic-comparison-slide",
+    "semantic_layout_tree_id": "SLT-SYNTHETIC-COMPARISON"
+  },
+  "compilation_id": "layout-compilation-48360c039ec8d36f2be8",
+  "lineage": {
+    "resolution_id": "layout-resolution-6a85fc653c04a8ae998a",
+    "retrieval_receipt_id": "receipt-9ca9be03d1fe9f388242",
+    "record_id": "layout.evidence-with-implication",
+    "layout_contract_id": "layout.evidence-with-implication",
+    "layout_contract_revision": "1",
+    "instance_id": "synthetic-comparison-slide",
+    "semantic_layout_tree_id": "SLT-SYNTHETIC-COMPARISON"
+  },
+  "layers": {
+    "theme": {
+      "status": "external-not-consumed",
+      "input_used": false
+    },
+    "visual_variant": {
+      "status": "external-not-consumed",
+      "input_used": false
+    },
+    "layout_contract": {
+      "status": "registered-selected",
+      "id": "layout.evidence-with-implication"
+    },
+    "layout_tree": {
+      "status": "compiled",
+      "id": "layout-tree-4f542f370643e9ebf41e"
+    },
+    "resolved_coordinates": {
+      "status": "materialized",
+      "contract": "io.clayz.presentation.layout-resolution/1.0"
+    }
+  }
+}

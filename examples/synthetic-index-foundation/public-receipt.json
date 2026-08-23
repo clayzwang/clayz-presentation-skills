@@ -1,0 +1,116 @@
+{
+  "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+  "receipt_id": "receipt-7b3a3c93762a5714d2b3",
+  "created_at": "2026-08-23T00:00:00Z",
+  "request": {
+    "contract": "io.clayz.presentation.retrieval-request/1.0",
+    "request_id": "synthetic-public-comparison",
+    "stage": "art-direction",
+    "query": "high-density comparison evidence hierarchy",
+    "rights_context": "public-open-source",
+    "require_human_admission": true,
+    "limit": 5,
+    "filters": {
+      "record_types": [],
+      "provider_ids": [],
+      "task_modes": [
+        "new-build"
+      ],
+      "page_roles": [
+        "comparison"
+      ],
+      "semantic_relations": [],
+      "purpose_tags": [
+        "high-density"
+      ],
+      "languages": [],
+      "failure_signals": [],
+      "include_metadata_only": true
+    },
+    "neighbor_expansion": {
+      "physical": 0,
+      "semantic": 1
+    }
+  },
+  "index_snapshot": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "987869347415afce6ac738bfaabd6a5efe0502672191752870809421e99c8de4",
+      "record_count": 2
+    },
+    {
+      "provider_id": "external-ephemeral",
+      "digest": "54da97fe9a577a03581b3a3e940915b3e2e61071133e210240aa8daf5977b933",
+      "record_count": 1
+    },
+    {
+      "provider_id": "filesystem-library",
+      "digest": "c831ad8fe60fa3aec6d726e2704d93fe13801692ff5614881838dce2dc50c440",
+      "record_count": 1
+    }
+  ],
+  "candidates": [
+    {
+      "record_id": "layout.compare.evidence-split",
+      "record_type": "layout-contract",
+      "provider_id": "builtin-catalog",
+      "title": "Evidence split comparison",
+      "score": 2.344084,
+      "match_basis": [
+        "lexical",
+        "page_role",
+        "purpose_tag",
+        "stage",
+        "task_mode"
+      ],
+      "rights_decision": "allowed",
+      "materializable": true,
+      "source_id": "source-layout-compare-evidence-split",
+      "source_revision": "1",
+      "license": "Apache-2.0",
+      "never_copy": [],
+      "neighbor_of": null,
+      "neighbor_type": null
+    },
+    {
+      "record_id": "reference.external.layout-research",
+      "record_type": "reference",
+      "provider_id": "external-ephemeral",
+      "title": "External layout research metadata",
+      "score": 1.322916,
+      "match_basis": [
+        "lexical",
+        "page_role",
+        "purpose_tag",
+        "stage",
+        "task_mode"
+      ],
+      "rights_decision": "metadata-only",
+      "materializable": false,
+      "source_id": "source-external-layout-research",
+      "source_revision": "metadata-snapshot-1",
+      "license": "metadata-only",
+      "never_copy": [
+        "source wording",
+        "figures",
+        "layouts",
+        "media"
+      ],
+      "neighbor_of": null,
+      "neighbor_type": null
+    }
+  ],
+  "selection": {
+    "selected": [],
+    "rejected": []
+  },
+  "fallback": {
+    "used": false,
+    "reason": ""
+  },
+  "hallucination_guard": {
+    "only_registered_records": true,
+    "invented_record_count": 0,
+    "candidate_count": 2
+  }
+}

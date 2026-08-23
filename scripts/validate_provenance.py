@@ -17,7 +17,8 @@ import yaml
 COMMIT = re.compile(r"^[0-9a-f]{40}$")
 REQUIRED_SOURCES = {
     "ppt-master", "pptagent", "deeppresenter", "pom", "vascar", "postero",
-    "posterlayout", "scan-and-print", "creatiposter", "pptxgenjs",
+    "posterlayout", "scan-and-print", "creatiposter", "tahta", "pptxgenjs",
+    "minimax-skills", "postercopilot", "posterverse",
     "enterprise-reference-architecture-corpus",
 }
 
@@ -65,7 +66,7 @@ def validate(document: dict[str, Any]) -> list[str]:
             errors.append(f"{label}.influenced_components: non-empty array is required")
         if "Thank you" not in str(source.get("note", "")):
             errors.append(f"{label}.note: explicit gratitude is required")
-        if identifier in {"ppt-master", "pptagent", "deeppresenter", "pom", "posterlayout", "scan-and-print", "creatiposter"} and not COMMIT.fullmatch(str(source.get("pinned_version", ""))):
+        if identifier in {"ppt-master", "pptagent", "deeppresenter", "pom", "posterlayout", "scan-and-print", "creatiposter", "tahta", "minimax-skills", "postercopilot", "posterverse"} and not COMMIT.fullmatch(str(source.get("pinned_version", ""))):
             errors.append(f"{label}.pinned_version: reviewed 40-character commit is required")
         if identifier in {"postero", "posterlayout", "scan-and-print", "creatiposter"}:
             if source.get("usage_type") != "paper-citation-only" or source.get("upstream_license") != "no-repository-license-observed":
@@ -75,6 +76,13 @@ def validate(document: dict[str, Any]) -> list[str]:
                 errors.append(f"{label}: PptxGenJS must remain an optional public-API integration")
             if not COMMIT.fullmatch(str(source.get("pinned_commit", ""))):
                 errors.append(f"{label}.pinned_commit: reviewed 40-character commit is required")
+        if identifier == "minimax-skills" and source.get("upstream_license") != "MIT":
+            errors.append(f"{label}: MiniMax Skills must retain its reviewed MIT license record")
+        if identifier == "postercopilot" and source.get("upstream_license") != "Apache-2.0-stated-in-readme":
+            errors.append(f"{label}: PosterCopilot license evidence must remain scoped to its README statement")
+        if identifier == "posterverse":
+            if source.get("usage_type") != "conceptual-inspiration-restricted-source" or source.get("upstream_license") != "CC-BY-NC-ND-4.0-stated-in-readme":
+                errors.append(f"{label}: PosterVerse must remain a restricted conceptual source with no imported derivative content")
     if identifiers != REQUIRED_SOURCES:
         errors.append(f"sources: expected exactly {sorted(REQUIRED_SOURCES)}")
     return errors

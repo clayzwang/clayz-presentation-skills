@@ -1,0 +1,46 @@
+{
+  "contract": "io.clayz.presentation.composition-pattern/1.0",
+  "composition_pattern_id": "pattern.flow-with-governed-checkpoint",
+  "revision": "1",
+  "title": "Flow with governed checkpoint",
+  "summary": "An ordered operational flow remains dominant while one checkpoint and its outcome are distinguished without breaking sequence continuity.",
+  "selection": {
+    "task_modes": ["new-build", "redesign"],
+    "page_roles": ["process"],
+    "semantic_relations": ["sequence"],
+    "purpose_tags": ["process-led"],
+    "languages": ["en-US", "zh-CN"]
+  },
+  "mapping": {
+    "first_visual_role": "ordered stage backbone",
+    "backbone_relation": "stages progress through one governed checkpoint to an outcome",
+    "reading_path": "stage order to checkpoint to outcome",
+    "spatial_rules": [
+      {"semantic_relation": "sequence", "spatial_behavior": "maintain one continuous ordered axis"},
+      {"semantic_relation": "condition", "spatial_behavior": "attach the checkpoint to the stage it governs rather than creating a detached panel"}
+    ],
+    "object_hierarchy": ["ordered stage backbone", "current stage", "governed checkpoint", "outcome"]
+  },
+  "applicability": {
+    "requires": ["stage order is semantically meaningful", "one checkpoint changes whether the flow may proceed"],
+    "avoid_when": ["steps are independent and unordered", "the checkpoint is only decorative emphasis"]
+  },
+  "failure_pattern_ids": ["failure.sequence-order-loss", "failure.semantic-visual-mismatch"],
+  "decision_contract": {
+    "selection_reason_required": true,
+    "rejection_reason_required": true,
+    "constraints_required": true,
+    "expected_visual_effect_required": true
+  },
+  "guards": {
+    "brand_neutral": true,
+    "original_method": true,
+    "theme_independent": true,
+    "visual_variant_independent": true,
+    "layout_contract_independent": true,
+    "coordinates_deferred": true,
+    "editable_objects_required": true,
+    "flattened_output_forbidden": true,
+    "no_embedded_assets": true
+  }
+}

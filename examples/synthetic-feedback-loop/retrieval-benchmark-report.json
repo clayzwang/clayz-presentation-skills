@@ -1,0 +1,89 @@
+{
+  "contract": "io.clayz.presentation.retrieval-benchmark-report/1.0",
+  "report_id": "benchmark-report-4d7c5f9b8f8d3294f67b",
+  "benchmark_id": "benchmark.stage5-synthetic-feedback",
+  "created_at": "2026-08-23T12:00:00Z",
+  "provider_snapshots": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "e5d8253d19c3a0b738156d0eaeb49169f11eca467fd4222a972a3db819054f67",
+      "record_count": 24
+    },
+    {
+      "provider_id": "feedback-learning",
+      "digest": "67ee4e7fbeb3428b68050e3e0356cfd5c44e145a458e66459bf1ffcfdc2881b4",
+      "record_count": 1
+    }
+  ],
+  "snapshot_drift": [],
+  "cases": [
+    {
+      "case_id": "registered-composition-pattern",
+      "expected_status": "matched",
+      "actual_status": "matched",
+      "top_k": 3,
+      "expected_candidate_ids": ["pattern.asymmetric-evidence-to-decision"],
+      "actual_candidate_ids": ["pattern.asymmetric-evidence-to-decision"],
+      "missing_expected_ids": [],
+      "forbidden_hits": [],
+      "invented_ids": [],
+      "receipt_id": "receipt-2f3b8c06ef1db77a4e13",
+      "passed": true,
+      "reasons": []
+    },
+    {
+      "case_id": "registered-failure-pattern",
+      "expected_status": "matched",
+      "actual_status": "matched",
+      "top_k": 3,
+      "expected_candidate_ids": ["failure.semantic-visual-mismatch"],
+      "actual_candidate_ids": ["failure.semantic-visual-mismatch"],
+      "missing_expected_ids": [],
+      "forbidden_hits": [],
+      "invented_ids": [],
+      "receipt_id": "receipt-f4c34255d37e8b4249f4",
+      "passed": true,
+      "reasons": []
+    },
+    {
+      "case_id": "human-admitted-learning",
+      "expected_status": "matched",
+      "actual_status": "matched",
+      "top_k": 3,
+      "expected_candidate_ids": ["learning.synthetic-label-offset"],
+      "actual_candidate_ids": ["learning.synthetic-label-offset"],
+      "missing_expected_ids": [],
+      "forbidden_hits": [],
+      "invented_ids": [],
+      "receipt_id": "receipt-ec8e33fed92d35d3ee93",
+      "passed": true,
+      "reasons": []
+    },
+    {
+      "case_id": "unregistered-request-stays-unresolved",
+      "expected_status": "unresolved",
+      "actual_status": "unresolved",
+      "top_k": 3,
+      "expected_candidate_ids": [],
+      "actual_candidate_ids": [],
+      "missing_expected_ids": [],
+      "forbidden_hits": [],
+      "invented_ids": [],
+      "receipt_id": "receipt-09f87a1952ac05ced549",
+      "passed": true,
+      "reasons": []
+    }
+  ],
+  "summary": {
+    "case_count": 4,
+    "passed_count": 4,
+    "failed_count": 0,
+    "snapshot_drift_count": 0,
+    "passed": true
+  },
+  "guards": {
+    "only_registered_records": true,
+    "invented_record_count": 0,
+    "automatic_baseline_update": false
+  }
+}

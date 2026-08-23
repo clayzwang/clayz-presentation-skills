@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:retrieval-benchmark:1.0",
+  "title": "Clayz deterministic retrieval benchmark",
+  "type": "object",
+  "required": ["contract", "benchmark_id", "expected_provider_snapshots", "cases", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.retrieval-benchmark/1.0"},
+    "benchmark_id": {"type": "string", "minLength": 1},
+    "expected_provider_snapshots": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/snapshot"}},
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["case_id", "request", "expected_candidate_ids", "forbidden_candidate_ids", "expected_status", "top_k"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "request": {"type": "object"},
+          "expected_candidate_ids": {"$ref": "#/$defs/stringSet"},
+          "forbidden_candidate_ids": {"$ref": "#/$defs/stringSet"},
+          "expected_status": {"enum": ["matched", "unresolved"]},
+          "top_k": {"type": "integer", "minimum": 1, "maximum": 50}
+        },
+        "additionalProperties": false
+      }
+    },
+    "guards": {
+      "type": "object",
+      "required": ["fail_on_snapshot_drift", "fail_on_forbidden_candidate", "unresolved_must_stay_empty", "automatic_baseline_update"],
+      "properties": {
+        "fail_on_snapshot_drift": {"const": true},
+        "fail_on_forbidden_candidate": {"const": true},
+        "unresolved_must_stay_empty": {"const": true},
+        "automatic_baseline_update": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "snapshot": {"type": "object", "required": ["provider_id", "digest", "record_count"], "properties": {"provider_id": {"type": "string", "minLength": 1}, "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "record_count": {"type": "integer", "minimum": 0}}, "additionalProperties": false},
+    "stringSet": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  },
+  "additionalProperties": false
+}

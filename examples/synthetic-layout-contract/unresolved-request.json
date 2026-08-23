@@ -1,0 +1,11 @@
+{
+  "contract": "io.clayz.presentation.layout-contract-request/1.0",
+  "request_id": "synthetic-layout-unresolved",
+  "task_mode": "new-build",
+  "page_role": "radial-constellation",
+  "semantic_relations": ["orbits"],
+  "purpose_tags": ["unregistered"],
+  "language": "zh-CN",
+  "rights_context": "public-open-source",
+  "provider_ids": ["builtin-catalog"]
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:feedback-index-report:1.0",
+  "title": "Clayz feedback index build report",
+  "type": "object",
+  "required": ["contract", "created_at", "provider_snapshot", "source_record_count", "admitted_record_count", "skipped", "malformed_admissions", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.feedback-index-report/1.0"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "provider_snapshot": {"$ref": "#/$defs/snapshot"},
+    "source_record_count": {"type": "integer", "minimum": 0},
+    "admitted_record_count": {"type": "integer", "minimum": 0},
+    "skipped": {"type": "array", "items": {"$ref": "#/$defs/skipped"}},
+    "malformed_admissions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "guards": {
+      "type": "object",
+      "required": ["human_admission_required", "hash_match_required", "source_observation_unchanged", "public_catalog_eligible", "generated_artifacts_auto_admitted", "supervisor_owns_store"],
+      "properties": {
+        "human_admission_required": {"const": true},
+        "hash_match_required": {"const": true},
+        "source_observation_unchanged": {"const": true},
+        "public_catalog_eligible": {"const": false},
+        "generated_artifacts_auto_admitted": {"const": false},
+        "supervisor_owns_store": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "snapshot": {"type": "object", "required": ["provider_id", "digest", "record_count"], "properties": {"provider_id": {"type": "string", "minLength": 1}, "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "record_count": {"type": "integer", "minimum": 0}}, "additionalProperties": false},
+    "skipped": {"type": "object", "required": ["record_id", "reason"], "properties": {"record_id": {"type": "string"}, "reason": {"type": "string", "minLength": 1}}, "additionalProperties": false}
+  },
+  "additionalProperties": false
+}

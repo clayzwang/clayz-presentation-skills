@@ -1,0 +1,60 @@
+{
+  "contract": "io.clayz.presentation.composition-pattern-resolution/1.0",
+  "resolution_id": "pattern-resolution-83a6fd0d8f9c411d4d6c",
+  "request": {
+    "contract": "io.clayz.presentation.composition-pattern-request/1.0",
+    "request_id": "stage4-synthetic-comparison",
+    "task_mode": "new-build",
+    "page_role": "comparison",
+    "semantic_relations": [
+      "supports"
+    ],
+    "purpose_tags": [
+      "evidence-led"
+    ],
+    "language": "zh-CN",
+    "rights_context": "public-open-source",
+    "provider_ids": [
+      "builtin-catalog"
+    ],
+    "constraints": [
+      "keep primary evidence as the first visual",
+      "preserve the approved evidence-to-implication relation",
+      "emit editable objects only"
+    ],
+    "expected_visual_effect": "evidence leads clearly to a supported decision implication"
+  },
+  "status": "selected",
+  "retrieval_receipt_ids": [
+    "receipt-987780ac486fec7a3ea2",
+    "receipt-654a97f2b750a093f196"
+  ],
+  "selected_composition_pattern": {
+    "record_id": "pattern.asymmetric-evidence-to-decision",
+    "provider_id": "builtin-catalog",
+    "payload_ref": "catalog/composition-patterns/asymmetric-evidence-to-decision.json",
+    "source_sha256": "4fc7810c5768f2b4f21f6875c578937e35da7db56fb843eca4e0bb0031fcdd03",
+    "selection_reason": "unique registered, human-admitted, materializable pattern matched the structured request"
+  },
+  "linked_failure_pattern_ids": [
+    "failure.equal-weight-flattening",
+    "failure.semantic-visual-mismatch"
+  ],
+  "rejected_patterns": [],
+  "fallback": {
+    "used": false,
+    "reason": "",
+    "next_action": ""
+  },
+  "guards": {
+    "only_registered_records": true,
+    "only_receipt_candidates_selected": true,
+    "linked_failures_receipt_bound": true,
+    "no_invented_patterns": true,
+    "theme_not_selected_here": true,
+    "visual_variant_not_selected_here": true,
+    "layout_contract_not_selected_here": true,
+    "coordinates_not_selected_here": true
+  }
+}
+

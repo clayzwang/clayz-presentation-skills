@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:retrieval-benchmark-report:1.0",
+  "title": "Clayz retrieval benchmark report",
+  "type": "object",
+  "required": ["contract", "report_id", "benchmark_id", "created_at", "provider_snapshots", "snapshot_drift", "cases", "summary", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.retrieval-benchmark-report/1.0"},
+    "report_id": {"type": "string", "minLength": 1},
+    "benchmark_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "provider_snapshots": {"type": "array", "items": {"type": "object"}},
+    "snapshot_drift": {"type": "array", "items": {"type": "object"}},
+    "cases": {"type": "array", "items": {"type": "object"}},
+    "summary": {
+      "type": "object",
+      "required": ["case_count", "passed_count", "failed_count", "snapshot_drift_count", "passed"],
+      "properties": {
+        "case_count": {"type": "integer", "minimum": 0},
+        "passed_count": {"type": "integer", "minimum": 0},
+        "failed_count": {"type": "integer", "minimum": 0},
+        "snapshot_drift_count": {"type": "integer", "minimum": 0},
+        "passed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["only_registered_records", "invented_record_count", "automatic_baseline_update"],
+      "properties": {
+        "only_registered_records": {"const": true},
+        "invented_record_count": {"const": 0},
+        "automatic_baseline_update": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

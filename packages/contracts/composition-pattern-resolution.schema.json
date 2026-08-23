@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:composition-pattern-resolution:1.0",
+  "title": "Clayz composition pattern resolution",
+  "type": "object",
+  "required": ["contract", "resolution_id", "request", "status", "retrieval_receipt_ids", "selected_composition_pattern", "linked_failure_pattern_ids", "rejected_patterns", "fallback", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.composition-pattern-resolution/1.0"},
+    "resolution_id": {"type": "string", "minLength": 1},
+    "request": {"type": "object"},
+    "status": {"enum": ["selected", "unresolved"]},
+    "retrieval_receipt_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "selected_composition_pattern": {
+      "type": ["object", "null"],
+      "properties": {
+        "record_id": {"type": "string", "pattern": "^pattern\\."},
+        "provider_id": {"type": "string", "minLength": 1},
+        "payload_ref": {"type": "string", "minLength": 1},
+        "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "selection_reason": {"type": "string", "minLength": 1}
+      },
+      "required": ["record_id", "provider_id", "payload_ref", "source_sha256", "selection_reason"],
+      "additionalProperties": false
+    },
+    "linked_failure_pattern_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^failure\\."}},
+    "rejected_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["record_id", "reason"],
+        "properties": {"record_id": {"type": "string", "pattern": "^pattern\\."}, "reason": {"type": "string", "minLength": 1}},
+        "additionalProperties": false
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "required": ["used", "reason", "next_action"],
+      "properties": {"used": {"type": "boolean"}, "reason": {"type": "string"}, "next_action": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["only_registered_records", "only_receipt_candidates_selected", "linked_failures_receipt_bound", "no_invented_patterns", "theme_not_selected_here", "visual_variant_not_selected_here", "layout_contract_not_selected_here", "coordinates_not_selected_here"],
+      "properties": {
+        "only_registered_records": {"const": true},
+        "only_receipt_candidates_selected": {"const": true},
+        "linked_failures_receipt_bound": {"const": true},
+        "no_invented_patterns": {"const": true},
+        "theme_not_selected_here": {"const": true},
+        "visual_variant_not_selected_here": {"const": true},
+        "layout_contract_not_selected_here": {"const": true},
+        "coordinates_not_selected_here": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,104 @@
+{
+  "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+  "receipt_id": "receipt-9ca9be03d1fe9f388242",
+  "created_at": "2026-08-23T08:00:00Z",
+  "request": {
+    "contract": "io.clayz.presentation.retrieval-request/1.0",
+    "request_id": "synthetic-layout-comparison-layout-contract",
+    "stage": "art-direction",
+    "query": "comparison supports evidence-led",
+    "rights_context": "public-open-source",
+    "require_human_admission": true,
+    "limit": 10,
+    "filters": {
+      "record_types": [
+        "layout-contract"
+      ],
+      "provider_ids": [
+        "builtin-catalog"
+      ],
+      "task_modes": [
+        "new-build"
+      ],
+      "page_roles": [
+        "comparison"
+      ],
+      "semantic_relations": [
+        "supports"
+      ],
+      "purpose_tags": [
+        "evidence-led"
+      ],
+      "languages": [
+        "zh-CN"
+      ],
+      "failure_signals": [],
+      "include_metadata_only": false
+    },
+    "neighbor_expansion": {
+      "physical": 0,
+      "semantic": 0
+    }
+  },
+  "index_snapshot": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "1d0c11483ce5fe6bf980d8554d5c0114e1fb539c56eaba3395fc8039cd1bec03",
+      "record_count": 13
+    }
+  ],
+  "candidates": [
+    {
+      "record_id": "layout.evidence-with-implication",
+      "record_type": "layout-contract",
+      "provider_id": "builtin-catalog",
+      "title": "Evidence with implication",
+      "score": 2.623046,
+      "match_basis": [
+        "language",
+        "lexical",
+        "page_role",
+        "provider_id",
+        "purpose_tag",
+        "record_type",
+        "semantic_relation",
+        "stage",
+        "task_mode"
+      ],
+      "rights_decision": "allowed",
+      "materializable": true,
+      "source_id": "clayz-layout-contract-evidence-with-implication",
+      "source_revision": "1",
+      "license": "Apache-2.0",
+      "never_copy": [
+        "corporate templates",
+        "presentation masters",
+        "brand kits",
+        "logos",
+        "font files",
+        "private data",
+        "model weights"
+      ],
+      "neighbor_of": null,
+      "neighbor_type": null
+    }
+  ],
+  "selection": {
+    "selected": [
+      {
+        "record_id": "layout.evidence-with-implication",
+        "reason": "registered eligible contract selected for the exact semantic request"
+      }
+    ],
+    "rejected": []
+  },
+  "fallback": {
+    "used": false,
+    "reason": ""
+  },
+  "hallucination_guard": {
+    "only_registered_records": true,
+    "invented_record_count": 0,
+    "candidate_count": 1
+  }
+}

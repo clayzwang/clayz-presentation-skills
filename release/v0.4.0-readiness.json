@@ -1,0 +1,36 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.4.0",
+  "current_public_version": "0.4.0",
+  "state": "release-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": true,
+    "tag": true,
+    "publish": true,
+    "experience_center_update": true
+  },
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "authorized_at": "2026-08-23T08:45:52Z",
+    "scope": "merge-tag-publish-experience-center"
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python scripts/validate_all.py"
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

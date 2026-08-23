@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:retrieval-request:1.0",
+  "title": "Clayz retrieval request",
+  "type": "object",
+  "required": [
+    "contract",
+    "request_id",
+    "stage",
+    "query",
+    "rights_context",
+    "require_human_admission",
+    "limit",
+    "filters",
+    "neighbor_expansion"
+  ],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.retrieval-request/1.0"},
+    "request_id": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["logic", "copy", "art-direction", "output", "supervisor", "shared"]},
+    "query": {"type": "string"},
+    "rights_context": {"enum": ["private-runtime", "public-open-source"]},
+    "require_human_admission": {"type": "boolean"},
+    "limit": {"type": "integer", "minimum": 1, "maximum": 50},
+    "filters": {
+      "type": "object",
+      "required": [
+        "record_types",
+        "provider_ids",
+        "task_modes",
+        "page_roles",
+        "semantic_relations",
+        "purpose_tags",
+        "languages",
+        "failure_signals",
+        "include_metadata_only"
+      ],
+      "properties": {
+        "record_types": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "capability",
+              "knowledge",
+              "layout-contract",
+              "visual-variant",
+              "composition-pattern",
+              "reference",
+              "sequence",
+              "failure-pattern",
+              "compatibility-note",
+              "learning"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "provider_ids": {"$ref": "#/$defs/stringSet"},
+        "task_modes": {"$ref": "#/$defs/stringSet"},
+        "page_roles": {"$ref": "#/$defs/stringSet"},
+        "semantic_relations": {"$ref": "#/$defs/stringSet"},
+        "purpose_tags": {"$ref": "#/$defs/stringSet"},
+        "languages": {"$ref": "#/$defs/stringSet"},
+        "failure_signals": {"$ref": "#/$defs/stringSet"},
+        "include_metadata_only": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "neighbor_expansion": {
+      "type": "object",
+      "required": ["physical", "semantic"],
+      "properties": {
+        "physical": {"type": "integer", "minimum": 0, "maximum": 10},
+        "semantic": {"type": "integer", "minimum": 0, "maximum": 10}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "stringSet": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

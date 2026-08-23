@@ -1,0 +1,127 @@
+{
+  "contract": "io.clayz.presentation.composition-plan/1.0",
+  "composition_plan_id": "composition-plan-b7586025e1264426cdc5",
+  "status": "compiled",
+  "lineage": {
+    "resolution_id": "pattern-resolution-83a6fd0d8f9c411d4d6c",
+    "retrieval_receipt_ids": [
+      "receipt-987780ac486fec7a3ea2",
+      "receipt-654a97f2b750a093f196"
+    ],
+    "record_id": "pattern.asymmetric-evidence-to-decision",
+    "composition_pattern_id": "pattern.asymmetric-evidence-to-decision",
+    "revision": "1"
+  },
+  "decision": {
+    "constraints": [
+      "keep primary evidence as the first visual",
+      "preserve the approved evidence-to-implication relation",
+      "emit editable objects only"
+    ],
+    "expected_visual_effect": "evidence leads clearly to a supported decision implication",
+    "selection_reason": "unique registered, human-admitted, materializable pattern matched the structured request",
+    "rejected_patterns": []
+  },
+  "composition": {
+    "title": "Asymmetric evidence to decision",
+    "summary": "A dominant evidence field supports a smaller but visually decisive implication without reducing the page to equal cards.",
+    "mapping": {
+      "first_visual_role": "primary evidence",
+      "backbone_relation": "evidence supports decision implication",
+      "reading_path": "dominant evidence to supporting findings to decision implication",
+      "spatial_rules": [
+        {
+          "semantic_relation": "supports",
+          "spatial_behavior": "allocate more area to evidence while keeping the implication visually final"
+        },
+        {
+          "semantic_relation": "compares",
+          "spatial_behavior": "preserve comparable evidence scales inside the dominant field"
+        }
+      ],
+      "object_hierarchy": [
+        "primary evidence",
+        "supporting findings",
+        "decision implication",
+        "source note"
+      ]
+    },
+    "applicability": {
+      "requires": [
+        "one evidence object is the approved first visual",
+        "a decision implication is supported by that evidence"
+      ],
+      "avoid_when": [
+        "both sides are independent peer decisions",
+        "evidence is absent or unverified"
+      ]
+    }
+  },
+  "failure_guards": [
+    {
+      "failure_pattern_id": "failure.equal-weight-flattening",
+      "summary": "Peer-looking containers give unequal semantic objects the same visual weight and erase the intended attention order.",
+      "failure_signals": [
+        "equal-visual-weight",
+        "card-overuse"
+      ],
+      "earliest_preventable_stage": "art-direction",
+      "repair_owner_stage": "art-direction",
+      "verification": [
+        "the first visual is recognizable within three seconds at thumbnail size",
+        "supporting objects remain subordinate in the rendered slide"
+      ],
+      "automatic_signal_role": "diagnostic-only"
+    },
+    {
+      "failure_pattern_id": "failure.semantic-visual-mismatch",
+      "summary": "The rendered spatial relationship communicates a different meaning from the approved semantic relation.",
+      "failure_signals": [
+        "semantic-visual-mismatch",
+        "wrong-reading-order"
+      ],
+      "earliest_preventable_stage": "art-direction",
+      "repair_owner_stage": "art-direction",
+      "verification": [
+        "the rendered reading path matches the approved relation order",
+        "the composition plan and Layout Tree remain traceable"
+      ],
+      "automatic_signal_role": "diagnostic-only"
+    }
+  ],
+  "layers": {
+    "theme": {
+      "status": "external-not-consumed",
+      "input_used": false
+    },
+    "visual_variant": {
+      "status": "external-not-consumed",
+      "input_used": false
+    },
+    "layout_contract": {
+      "status": "external-not-consumed",
+      "input_used": false
+    },
+    "composition_pattern": {
+      "status": "registered-selected",
+      "id": "pattern.asymmetric-evidence-to-decision"
+    },
+    "layout_tree": {
+      "status": "pending",
+      "input_used": false
+    },
+    "resolved_coordinates": {
+      "status": "pending",
+      "input_used": false
+    }
+  },
+  "guards": {
+    "only_receipt_selected_records": true,
+    "no_invented_patterns": true,
+    "no_coordinates_emitted": true,
+    "no_assets_embedded": true,
+    "editable_output_required": true,
+    "automatic_scores_diagnostic_only": true
+  }
+}
+

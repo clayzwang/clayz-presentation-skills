@@ -1,0 +1,34 @@
+{
+  "contract": "io.clayz.presentation.failure-pattern/1.0",
+  "failure_pattern_id": "failure.equal-weight-flattening",
+  "revision": "1",
+  "title": "Equal-weight flattening",
+  "summary": "Peer-looking containers give unequal semantic objects the same visual weight and erase the intended attention order.",
+  "signals": {
+    "failure_signals": ["equal-visual-weight", "card-overuse"],
+    "rendered_symptoms": ["the first visual is not distinguishable at thumbnail size", "supporting objects compete with the approved claim"],
+    "not_sufficient_evidence": ["the presence of rectangles alone", "a high object count without rendered hierarchy evidence"]
+  },
+  "ownership": {
+    "earliest_preventable_stage": "art-direction",
+    "diagnostic_stage": "supervisor",
+    "repair_owner_stage": "art-direction"
+  },
+  "repair": {
+    "actions": ["restore the approved first visual", "differentiate semantic levels through area and position before surface styling"],
+    "verification": ["the first visual is recognizable within three seconds at thumbnail size", "supporting objects remain subordinate in the rendered slide"],
+    "stop_conditions": ["do not delete approved copy to manufacture hierarchy", "do not replace the page with a flattened image"]
+  },
+  "evidence_policy": {
+    "rendered_evidence_required": true,
+    "automatic_signal_role": "diagnostic-only",
+    "human_ruling_required_for_promotion": true
+  },
+  "guards": {
+    "brand_neutral": true,
+    "original_method": true,
+    "no_embedded_assets": true,
+    "no_automatic_aesthetic_truth": true,
+    "supervisor_does_not_own_repairs": true
+  }
+}

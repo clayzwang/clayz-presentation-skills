@@ -1,0 +1,46 @@
+{
+  "contract": "io.clayz.presentation.legacy-index-migration-report/1.0",
+  "created_at": "2026-08-23T12:00:00Z",
+  "source_contract": "legacy-filesystem-knowledge/1.0",
+  "target_contract": "io.clayz.presentation.index-record/1.0",
+  "provider_snapshot": {
+    "provider_id": "filesystem-library",
+    "digest": "d07ffd5125b573d35f75d1a8fede80a7b89a593d0017ed503067d3e6e02dc725",
+    "record_count": 2
+  },
+  "counts": {
+    "source_assets": 3,
+    "migrated_assets": 1,
+    "source_learning_records": 2,
+    "migrated_learning_records": 1,
+    "skipped": 3,
+    "orphan_neighbors": 1
+  },
+  "skipped": [
+    {
+      "subject_id": "asset-synthetic-stale",
+      "reason": "source-hash-drift"
+    },
+    {
+      "subject_id": "asset-synthetic-unadmitted",
+      "reason": "human-admission-required"
+    },
+    {
+      "subject_id": "learning.synthetic-equal-weight-observation",
+      "reason": "human-admission-required"
+    }
+  ],
+  "orphan_neighbors": [
+    {
+      "subject_id": "asset-synthetic-guidance",
+      "neighbor_id": "asset-missing-neighbor"
+    }
+  ],
+  "guards": {
+    "human_admission_required": true,
+    "stale_hashes_skipped": true,
+    "private_scope_preserved": true,
+    "brand_assets_not_public": true,
+    "automatic_promotion": false
+  }
+}

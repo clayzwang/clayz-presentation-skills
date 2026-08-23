@@ -1,0 +1,65 @@
+{
+  "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+  "receipt_id": "receipt-f92e96e6bcb68845b4cd",
+  "created_at": "2026-08-23T11:00:00Z",
+  "request": {
+    "contract": "io.clayz.presentation.retrieval-request/1.0",
+    "request_id": "stage4-synthetic-unregistered-composition-pattern",
+    "stage": "art-direction",
+    "query": "orbital-constellation orbits unregistered",
+    "rights_context": "public-open-source",
+    "require_human_admission": true,
+    "limit": 20,
+    "filters": {
+      "record_types": [
+        "composition-pattern"
+      ],
+      "provider_ids": [
+        "builtin-catalog"
+      ],
+      "task_modes": [
+        "new-build"
+      ],
+      "page_roles": [
+        "orbital-constellation"
+      ],
+      "semantic_relations": [
+        "orbits"
+      ],
+      "purpose_tags": [
+        "unregistered"
+      ],
+      "languages": [
+        "zh-CN"
+      ],
+      "failure_signals": [],
+      "include_metadata_only": false
+    },
+    "neighbor_expansion": {
+      "physical": 0,
+      "semantic": 0
+    }
+  },
+  "index_snapshot": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "e5d8253d19c3a0b738156d0eaeb49169f11eca467fd4222a972a3db819054f67",
+      "record_count": 24
+    }
+  ],
+  "candidates": [],
+  "selection": {
+    "selected": [],
+    "rejected": []
+  },
+  "fallback": {
+    "used": true,
+    "reason": "no-eligible-registered-record"
+  },
+  "hallucination_guard": {
+    "only_registered_records": true,
+    "invented_record_count": 0,
+    "candidate_count": 0
+  }
+}
+

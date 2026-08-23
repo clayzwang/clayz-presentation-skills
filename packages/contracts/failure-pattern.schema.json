@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:failure-pattern:1.0",
+  "title": "Clayz failure pattern",
+  "type": "object",
+  "required": ["contract", "failure_pattern_id", "revision", "title", "summary", "signals", "ownership", "repair", "evidence_policy", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.failure-pattern/1.0"},
+    "failure_pattern_id": {"type": "string", "pattern": "^failure\\.[a-z0-9][a-z0-9._-]{2,119}$"},
+    "revision": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "signals": {
+      "type": "object",
+      "required": ["failure_signals", "rendered_symptoms", "not_sufficient_evidence"],
+      "properties": {
+        "failure_signals": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "rendered_symptoms": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "not_sufficient_evidence": {"$ref": "#/$defs/nonEmptyStringSet"}
+      },
+      "additionalProperties": false
+    },
+    "ownership": {
+      "type": "object",
+      "required": ["earliest_preventable_stage", "diagnostic_stage", "repair_owner_stage"],
+      "properties": {
+        "earliest_preventable_stage": {"$ref": "#/$defs/stage"},
+        "diagnostic_stage": {"const": "supervisor"},
+        "repair_owner_stage": {"$ref": "#/$defs/stage"}
+      },
+      "additionalProperties": false
+    },
+    "repair": {
+      "type": "object",
+      "required": ["actions", "verification", "stop_conditions"],
+      "properties": {
+        "actions": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "verification": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "stop_conditions": {"$ref": "#/$defs/nonEmptyStringSet"}
+      },
+      "additionalProperties": false
+    },
+    "evidence_policy": {
+      "type": "object",
+      "required": ["rendered_evidence_required", "automatic_signal_role", "human_ruling_required_for_promotion"],
+      "properties": {
+        "rendered_evidence_required": {"const": true},
+        "automatic_signal_role": {"const": "diagnostic-only"},
+        "human_ruling_required_for_promotion": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["brand_neutral", "original_method", "no_embedded_assets", "no_automatic_aesthetic_truth", "supervisor_does_not_own_repairs"],
+      "properties": {
+        "brand_neutral": {"const": true},
+        "original_method": {"const": true},
+        "no_embedded_assets": {"const": true},
+        "no_automatic_aesthetic_truth": {"const": true},
+        "supervisor_does_not_own_repairs": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "stage": {"enum": ["logic", "copy", "art-direction", "output", "supervisor"]},
+    "nonEmptyStringSet": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}

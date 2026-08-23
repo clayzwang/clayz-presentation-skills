@@ -18,30 +18,28 @@ Do not change approved text, data, relationships, page sequence, composition, or
 1. Resolve the central configuration from an explicit task path or `../../config/default.json`.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Validate the copy package and art-direction plan.
-4. Read `references/art-direction-handoff.md` and `references/build-only-contract.md`.
-5. Read `references/expression-mode.md` to implement approved media.
-6. Read `references/relative-layout.md` for constraint-based regions.
-7. Read `references/pptxgenjs-object-implementation.md` only when the configured renderer is PptxGenJS.
-8. Read `references/lightweight-delivery.md` for the selected delivery profile.
-9. Read `references/controlled-repair-loop.md` when the written artifact drifts from the plan.
-10. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior implementation learning or persisting a reusable observation.
+4. Read `references/art-direction-handoff.md` and `references/build-only-contract.md`. These core contracts are mandatory and never search-dependent.
+5. Read `references/expression-mode.md`, `references/relative-layout.md`, `references/layout-contract-compilation.md`, and `references/composition-plan-consumption.md`; they define approved-medium implementation, constraint-based regions, registered-contract compilation, and the Pattern decision boundary.
+6. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
+7. Resolve optional Output capabilities through the built-in Capability Index. Use `renderer-pptxgenjs` only when that renderer is explicitly selected and available; use `technical-drift` or `repair-loop` only when the written artifact actually drifts from the approved plan.
+8. Load only optional `knowledge_refs` returned by selected capability records. Keep capability, Layout Contract, Composition Pattern, linked Failure Pattern, and retrieval receipt IDs as task-local evidence; unresolved signals never justify pretending renderer support, re-selecting a composition method, or inventing a repair method.
 
 ## Workflow
 
 1. Load colors, typography, layout roles, optional master, renderer, target applications, delivery profile, and QA thresholds only from the resolved configuration.
-2. Select a renderer that satisfies every required capability. Record unavailable capabilities instead of pretending support.
-3. Resolve approved relative regions with `../../packages/layout/solve_relative_layout.py`, then build editable objects from the resolved layout, area plan, and `copy_unit_map`.
+2. Select a renderer that satisfies every required capability. Record unavailable capabilities instead of pretending support. Renderer-specific optional guidance must have been resolved by Capability Index.
+3. When Art Direction selected a registered Composition Pattern, verify the compiled Composition Plan and its receipts; consume its semantic mapping, constraints, expected visual effect, and failure guards without re-selecting the Pattern. Then, when Art Direction selected a registered Layout Contract, verify and compile it with `../../packages/layout/compile_layout_contract.py`; otherwise consume the explicitly approved core Layout Tree. Resolve approved relative regions with `../../packages/layout/solve_relative_layout.py`, then build editable objects from the resolved layout, area plan, and `copy_unit_map`. Output never selects or invents a Pattern or contract.
 4. Preserve exact locked copy and `copy_id` traceability in object names or the build inventory.
 5. Apply the configured theme. Never import a reference deck's master, font, or object styling unless the user supplied it as the active theme and redistribution is not involved.
 6. Write the PPTX, reopen it, inspect package objects, render every slide, and perform thumbnail plus full-size review.
-7. Run targeted technical repairs only. Never let a repair loop rewrite content or art direction.
+7. Run targeted technical repairs only when the controlled-repair capability was resolved. Never let a repair loop rewrite content or art direction.
 8. Stamp documented, removable clayz provenance into custom document properties:
 
 ```bash
 python ../../scripts/stamp_pptx_metadata.py <deck.pptx> --config ../../config/default.json
 ```
 
-9. Record bounded tool calls, artifacts, hashes, and failures with `../../scripts/execution_ledger.py`; never record private chain-of-thought.
+9. Record bounded tool calls, artifacts, hashes, failures, capability resolutions, and retrieval receipt IDs with task-local execution evidence; never record private chain-of-thought.
 10. Emit the final PPTX, render evidence, object inventory, deviation log, and output QA report with status `built`.
 11. Emit task-local learning candidates only after final write, reopen, render, and inspection; persist them through the configured Output learning route and never auto-promote them.
 

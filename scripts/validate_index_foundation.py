@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 clayz
+# SPDX-License-Identifier: Apache-2.0
+"""Validate index contracts and the public catalog's no-asset boundary."""
+
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from packages.index_runtime import IndexProvider, IndexRuntimeError  # noqa: E402
+
+SCHEMAS = {
+    "packages/contracts/index-record.schema.json": "urn:clayz:presentation:schema:index-record:1.0",
+    "packages/contracts/retrieval-request.schema.json": "urn:clayz:presentation:schema:retrieval-request:1.0",
+    "packages/contracts/retrieval-receipt.schema.json": "urn:clayz:presentation:schema:retrieval-receipt:1.0",
+    "packages/contracts/capability-resolution.schema.json": "urn:clayz:presentation:schema:capability-resolution:1.0",
+    "packages/contracts/layout-contract.schema.json": "urn:clayz:presentation:schema:layout-contract:1.0",
+    "packages/contracts/layout-contract-request.schema.json": "urn:clayz:presentation:schema:layout-contract-request:1.0",
+    "packages/contracts/layout-contract-instance.schema.json": "urn:clayz:presentation:schema:layout-contract-instance:1.0",
+    "packages/contracts/layout-contract-resolution.schema.json": "urn:clayz:presentation:schema:layout-contract-resolution:1.0",
+    "packages/contracts/layout-compilation.schema.json": "urn:clayz:presentation:schema:layout-compilation:1.0",
+    "packages/contracts/composition-pattern.schema.json": "urn:clayz:presentation:schema:composition-pattern:1.0",
+    "packages/contracts/failure-pattern.schema.json": "urn:clayz:presentation:schema:failure-pattern:1.0",
+    "packages/contracts/reference-record.schema.json": "urn:clayz:presentation:schema:reference-record:1.0",
+    "packages/contracts/sequence-record.schema.json": "urn:clayz:presentation:schema:sequence-record:1.0",
+    "packages/contracts/composition-pattern-request.schema.json": "urn:clayz:presentation:schema:composition-pattern-request:1.0",
+    "packages/contracts/composition-pattern-resolution.schema.json": "urn:clayz:presentation:schema:composition-pattern-resolution:1.0",
+    "packages/contracts/composition-plan.schema.json": "urn:clayz:presentation:schema:composition-plan:1.0",
+    "packages/contracts/metadata-dataset-export.schema.json": "urn:clayz:presentation:schema:metadata-dataset-export:1.0",
+}
+FORBIDDEN_CATALOG_SUFFIXES = {
+    ".pptx", ".pptm", ".potx", ".potm", ".thmx",
+    ".ttf", ".otf", ".woff", ".woff2",
+    ".ckpt", ".safetensors", ".pt", ".pth", ".onnx",
+    ".csv", ".tsv", ".parquet", ".xlsx", ".xls",
+}
+
+
+def main() -> int:
+    for relative, expected_id in SCHEMAS.items():
+        path = ROOT / relative
+        value = json.loads(path.read_text(encoding="utf-8"))
+        if value.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
+            raise IndexRuntimeError(f"{relative}: unexpected JSON Schema draft")
+        if value.get("$id") != expected_id:
+            raise IndexRuntimeError(f"{relative}: unexpected $id")
+        if value.get("type") != "object":
+            raise IndexRuntimeError(f"{relative}: root type must be object")
+
+    catalog = ROOT / "catalog"
+    for path in catalog.rglob("*"):
+        if path.is_file() and path.suffix.casefold() in FORBIDDEN_CATALOG_SUFFIXES:
+            raise IndexRuntimeError(f"public catalog must remain metadata/method only; forbidden asset found: {path.relative_to(ROOT)}")
+
+    provider = IndexProvider.from_jsonl("builtin-catalog", catalog / "records.jsonl")
+    for record in provider.records:
+        if not record["governance"]["public_catalog_eligible"]:
+            raise IndexRuntimeError(f"builtin catalog record is not public-catalog eligible: {record['record_id']}")
+        if record["rights"]["redistribution"] not in {"allowed", "metadata-only"}:
+            raise IndexRuntimeError(f"builtin catalog record has invalid redistribution state: {record['record_id']}")
+        if record["record_type"] == "capability":
+            if record["classification"]["brand_scope"] != "none":
+                raise IndexRuntimeError(f"capability records must remain brand-neutral: {record['record_id']}")
+            if record["payload"]["kind"] != "inline":
+                raise IndexRuntimeError(f"capability records must use inspectable inline payloads: {record['record_id']}")
+            payload = record["payload"]["ref"]
+            for ref in payload.get("knowledge_refs", []) + payload.get("validator_refs", []):
+                if not (ROOT / ref).is_file():
+                    raise IndexRuntimeError(f"capability references missing repository path {ref}: {record['record_id']}")
+        elif record["record_type"] == "layout-contract":
+            if record["classification"]["brand_scope"] != "none" or record["classification"]["asset_class"] != "contract":
+                raise IndexRuntimeError(f"layout contracts must remain brand-neutral contract metadata: {record['record_id']}")
+            if record["payload"]["kind"] != "path":
+                raise IndexRuntimeError(f"layout contracts must use hash-bound path payloads: {record['record_id']}")
+        elif record["record_type"] in {"composition-pattern", "failure-pattern", "reference", "sequence"}:
+            expected_asset_class = {
+                "composition-pattern": "method",
+                "failure-pattern": "method",
+                "reference": "reference-metadata",
+                "sequence": "sequence-metadata",
+            }[record["record_type"]]
+            if record["classification"]["brand_scope"] != "none" or record["classification"]["asset_class"] != expected_asset_class:
+                raise IndexRuntimeError(f"Pattern Library records must remain brand-neutral metadata: {record['record_id']}")
+            if record["payload"]["kind"] != "path":
+                raise IndexRuntimeError(f"Pattern Library records must use hash-bound path payloads: {record['record_id']}")
+            if record["rights"]["redistribution"] != "allowed" or record["rights"]["materialization"] != "allowed":
+                raise IndexRuntimeError(f"public Pattern Library metadata requires explicit rights: {record['record_id']}")
+        else:
+            raise IndexRuntimeError(f"unsupported built-in catalog record at this stage: {record['record_id']}")
+
+    print("index foundation valid")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

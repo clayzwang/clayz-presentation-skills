@@ -1,0 +1,136 @@
+{
+  "contract": "io.clayz.presentation.retrieval-benchmark/1.0",
+  "benchmark_id": "benchmark.stage5-synthetic-feedback",
+  "expected_provider_snapshots": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "e5d8253d19c3a0b738156d0eaeb49169f11eca467fd4222a972a3db819054f67",
+      "record_count": 24
+    },
+    {
+      "provider_id": "feedback-learning",
+      "digest": "67ee4e7fbeb3428b68050e3e0356cfd5c44e145a458e66459bf1ffcfdc2881b4",
+      "record_count": 1
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "registered-composition-pattern",
+      "request": {
+        "contract": "io.clayz.presentation.retrieval-request/1.0",
+        "request_id": "bench-pattern",
+        "stage": "art-direction",
+        "query": "asymmetric evidence decision comparison supports",
+        "rights_context": "public-open-source",
+        "require_human_admission": true,
+        "limit": 5,
+        "filters": {
+          "record_types": ["composition-pattern"],
+          "provider_ids": ["builtin-catalog"],
+          "task_modes": ["new-build"],
+          "page_roles": ["comparison"],
+          "semantic_relations": ["supports"],
+          "purpose_tags": ["evidence-led"],
+          "languages": ["en-US"],
+          "failure_signals": [],
+          "include_metadata_only": true
+        },
+        "neighbor_expansion": {"physical": 0, "semantic": 0}
+      },
+      "expected_candidate_ids": ["pattern.asymmetric-evidence-to-decision"],
+      "forbidden_candidate_ids": ["template.local-brand.private"],
+      "expected_status": "matched",
+      "top_k": 3
+    },
+    {
+      "case_id": "registered-failure-pattern",
+      "request": {
+        "contract": "io.clayz.presentation.retrieval-request/1.0",
+        "request_id": "bench-failure",
+        "stage": "supervisor",
+        "query": "semantic visual mismatch wrong reading order",
+        "rights_context": "public-open-source",
+        "require_human_admission": true,
+        "limit": 5,
+        "filters": {
+          "record_types": ["failure-pattern"],
+          "provider_ids": ["builtin-catalog"],
+          "task_modes": [],
+          "page_roles": [],
+          "semantic_relations": [],
+          "purpose_tags": ["diagnostic"],
+          "languages": ["en-US"],
+          "failure_signals": ["semantic-visual-mismatch"],
+          "include_metadata_only": true
+        },
+        "neighbor_expansion": {"physical": 0, "semantic": 0}
+      },
+      "expected_candidate_ids": ["failure.semantic-visual-mismatch"],
+      "forbidden_candidate_ids": ["failure.unregistered-aesthetic-opinion"],
+      "expected_status": "matched",
+      "top_k": 3
+    },
+    {
+      "case_id": "human-admitted-learning",
+      "request": {
+        "contract": "io.clayz.presentation.retrieval-request/1.0",
+        "request_id": "bench-learning",
+        "stage": "output",
+        "query": "label offset format conversion renderer",
+        "rights_context": "private-runtime",
+        "require_human_admission": true,
+        "limit": 5,
+        "filters": {
+          "record_types": ["learning"],
+          "provider_ids": ["feedback-learning"],
+          "task_modes": ["audit"],
+          "page_roles": ["evidence"],
+          "semantic_relations": [],
+          "purpose_tags": ["renderer-compatibility"],
+          "languages": ["en-US"],
+          "failure_signals": ["label-offset"],
+          "include_metadata_only": true
+        },
+        "neighbor_expansion": {"physical": 0, "semantic": 0}
+      },
+      "expected_candidate_ids": ["learning.synthetic-label-offset"],
+      "forbidden_candidate_ids": ["learning.synthetic-equal-weight-observation"],
+      "expected_status": "matched",
+      "top_k": 3
+    },
+    {
+      "case_id": "unregistered-request-stays-unresolved",
+      "request": {
+        "contract": "io.clayz.presentation.retrieval-request/1.0",
+        "request_id": "bench-unresolved",
+        "stage": "art-direction",
+        "query": "radial constellation orbits",
+        "rights_context": "public-open-source",
+        "require_human_admission": true,
+        "limit": 5,
+        "filters": {
+          "record_types": ["composition-pattern"],
+          "provider_ids": ["builtin-catalog"],
+          "task_modes": ["new-build"],
+          "page_roles": ["radial-constellation"],
+          "semantic_relations": ["orbits"],
+          "purpose_tags": ["unregistered"],
+          "languages": ["en-US"],
+          "failure_signals": [],
+          "include_metadata_only": true
+        },
+        "neighbor_expansion": {"physical": 0, "semantic": 0}
+      },
+      "expected_candidate_ids": [],
+      "forbidden_candidate_ids": ["pattern.hero-with-evidence-cluster"],
+      "expected_status": "unresolved",
+      "top_k": 3
+    }
+  ],
+  "guards": {
+    "fail_on_snapshot_drift": true,
+    "fail_on_forbidden_candidate": true,
+    "unresolved_must_stay_empty": true,
+    "automatic_baseline_update": false
+  }
+}

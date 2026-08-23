@@ -18,10 +18,10 @@ Do not finalize wording, punctuation, line breaks, typography, composition, them
 1. Resolve the central configuration from an explicit task path or `../../config/default.json`.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Record the configuration SHA-256 as `configuration_sha256`.
-4. Read `references/logic-package-contract.md` for the package contract.
-5. Read `references/research-and-reasoning.md` when evidence must be gathered or calculations must be audited.
-6. Read `references/semantic-logic-model.md` for complex relationships or repeated series.
-7. Read `../../packages/contracts/knowledge-learning.md` before retrieving prior learning or persisting a reusable observation.
+4. Read `references/logic-package-contract.md` for the package contract. This core contract is mandatory and never search-dependent.
+5. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
+6. Classify optional capability signals before loading optional references. Resolve them through the built-in Capability Index and retain the capability resolution plus retrieval receipt IDs. Typical signals include `evidence-research`, `audited-calculation`, `complex-relationships`, and `repeated-series`.
+7. Load only the optional `knowledge_refs` returned by selected capability records. If a signal is unresolved, record it explicitly and continue with core contracts or return the gap; never invent a capability or silently substitute unrelated guidance.
 
 ## Workflow
 
@@ -33,7 +33,7 @@ Do not finalize wording, punctuation, line breaks, typography, composition, them
 6. Define cross-slide invariants and series only when repetition carries meaning.
 7. Consolidate missing inputs into the smallest useful user interaction. Never invent data or imply approval.
 8. Emit task-local learning candidates with evidence and limits; persist them only through the configured Logic learning route and never auto-promote them.
-9. Emit one logic package with `origin_namespace: io.clayz.presentation` and status `logic-approved`.
+9. Emit one logic package with `origin_namespace: io.clayz.presentation` and status `logic-approved`; task-local execution evidence should retain the capability resolution and retrieval receipt IDs used for optional knowledge.
 
 ## Validation
 

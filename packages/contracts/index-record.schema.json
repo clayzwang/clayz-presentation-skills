@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:index-record:1.0",
+  "title": "Clayz index record",
+  "type": "object",
+  "required": ["contract", "record_id", "record_type", "provider_id", "title", "summary", "source", "governance", "rights", "classification", "payload", "neighbors"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.index-record/1.0"},
+    "record_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "record_type": {"enum": ["capability", "knowledge", "layout-contract", "visual-variant", "composition-pattern", "reference", "sequence", "failure-pattern", "compatibility-note", "learning"]},
+    "provider_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object",
+      "required": ["source_id", "source_uri", "source_revision", "sha256"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "source_uri": {"type": "string", "minLength": 1},
+        "source_revision": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "governance": {
+      "type": "object",
+      "required": ["human_admitted", "quality_status", "public_catalog_eligible", "deprecated"],
+      "properties": {
+        "human_admitted": {"type": "boolean"},
+        "quality_status": {"enum": ["observation", "admitted", "rejected", "deprecated"]},
+        "public_catalog_eligible": {"type": "boolean"},
+        "deprecated": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "rights": {
+      "type": "object",
+      "required": ["license", "redistribution", "materialization", "attribution_required", "never_copy"],
+      "properties": {
+        "license": {"type": "string", "minLength": 1},
+        "redistribution": {"enum": ["allowed", "metadata-only", "local-private", "forbidden"]},
+        "materialization": {"enum": ["allowed", "local-only", "forbidden"]},
+        "commercial_use": {"type": ["boolean", "null"]},
+        "derivative_use": {"type": ["boolean", "null"]},
+        "attribution_required": {"type": "boolean"},
+        "never_copy": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "classification": {
+      "type": "object",
+      "required": ["stages", "task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages", "failure_signals", "asset_class", "brand_scope"],
+      "properties": {
+        "stages": {"type": "array", "items": {"enum": ["logic", "copy", "art-direction", "output", "supervisor", "shared"]}, "uniqueItems": true},
+        "task_modes": {"$ref": "#/$defs/stringSet"},
+        "page_roles": {"$ref": "#/$defs/stringSet"},
+        "semantic_relations": {"$ref": "#/$defs/stringSet"},
+        "purpose_tags": {"$ref": "#/$defs/stringSet"},
+        "languages": {"$ref": "#/$defs/stringSet"},
+        "failure_signals": {"$ref": "#/$defs/stringSet"},
+        "asset_class": {"type": "string", "minLength": 1},
+        "brand_scope": {"enum": ["none", "generic", "brand-specific"]}
+      },
+      "additionalProperties": false
+    },
+    "payload": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "properties": {
+        "kind": {"enum": ["inline", "path", "uri"]},
+        "ref": {"oneOf": [{"type": "string", "minLength": 1}, {"type": "object"}]}
+      },
+      "additionalProperties": false
+    },
+    "neighbors": {
+      "type": "object",
+      "required": ["physical", "semantic"],
+      "properties": {
+        "physical": {"$ref": "#/$defs/stringSet"},
+        "semantic": {"$ref": "#/$defs/stringSet"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {"stringSet": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}},
+  "additionalProperties": false
+}

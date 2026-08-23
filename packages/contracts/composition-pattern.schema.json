@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:composition-pattern:1.0",
+  "title": "Clayz composition pattern",
+  "type": "object",
+  "required": ["contract", "composition_pattern_id", "revision", "title", "summary", "selection", "mapping", "applicability", "failure_pattern_ids", "decision_contract", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.composition-pattern/1.0"},
+    "composition_pattern_id": {"type": "string", "pattern": "^pattern\\.[a-z0-9][a-z0-9._-]{2,119}$"},
+    "revision": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "selection": {
+      "type": "object",
+      "required": ["task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages"],
+      "properties": {
+        "task_modes": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "page_roles": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "semantic_relations": {"$ref": "#/$defs/stringSet"},
+        "purpose_tags": {"$ref": "#/$defs/stringSet"},
+        "languages": {"$ref": "#/$defs/nonEmptyStringSet"}
+      },
+      "additionalProperties": false
+    },
+    "mapping": {
+      "type": "object",
+      "required": ["first_visual_role", "backbone_relation", "reading_path", "spatial_rules", "object_hierarchy"],
+      "properties": {
+        "first_visual_role": {"type": "string", "minLength": 1},
+        "backbone_relation": {"type": "string", "minLength": 1},
+        "reading_path": {"type": "string", "minLength": 1},
+        "spatial_rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["semantic_relation", "spatial_behavior"],
+            "properties": {
+              "semantic_relation": {"type": "string", "minLength": 1},
+              "spatial_behavior": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        },
+        "object_hierarchy": {"$ref": "#/$defs/nonEmptyStringSet"}
+      },
+      "additionalProperties": false
+    },
+    "applicability": {
+      "type": "object",
+      "required": ["requires", "avoid_when"],
+      "properties": {
+        "requires": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "avoid_when": {"$ref": "#/$defs/nonEmptyStringSet"}
+      },
+      "additionalProperties": false
+    },
+    "failure_pattern_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^failure\\.[a-z0-9][a-z0-9._-]{2,119}$"}
+    },
+    "decision_contract": {
+      "type": "object",
+      "required": ["selection_reason_required", "rejection_reason_required", "constraints_required", "expected_visual_effect_required"],
+      "properties": {
+        "selection_reason_required": {"const": true},
+        "rejection_reason_required": {"const": true},
+        "constraints_required": {"const": true},
+        "expected_visual_effect_required": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["brand_neutral", "original_method", "theme_independent", "visual_variant_independent", "layout_contract_independent", "coordinates_deferred", "editable_objects_required", "flattened_output_forbidden", "no_embedded_assets"],
+      "properties": {
+        "brand_neutral": {"const": true},
+        "original_method": {"const": true},
+        "theme_independent": {"const": true},
+        "visual_variant_independent": {"const": true},
+        "layout_contract_independent": {"const": true},
+        "coordinates_deferred": {"const": true},
+        "editable_objects_required": {"const": true},
+        "flattened_output_forbidden": {"const": true},
+        "no_embedded_assets": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "stringSet": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "nonEmptyStringSet": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}

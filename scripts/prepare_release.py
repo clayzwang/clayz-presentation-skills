@@ -33,10 +33,6 @@ def version_tuple(value: str) -> tuple[int, int, int]:
     return tuple(int(part) for part in value.split("."))  # type: ignore[return-value]
 
 
-def dump_json(document: object) -> str:
-    return json.dumps(document, ensure_ascii=False, indent=2) + "\n"
-
-
 def prepare(root: Path, new_version: str, release_date: str) -> None:
     if not SEMVER.fullmatch(new_version):
         raise RuntimeError("new version must be stable semantic version X.Y.Z without a v prefix")
@@ -59,16 +55,27 @@ def prepare(root: Path, new_version: str, release_date: str) -> None:
     plugin = json.loads(updated[plugin_path])
     if plugin.get("version") != current:
         raise RuntimeError("plugin version does not match current VERSION")
-    plugin["version"] = new_version
-    updated[plugin_path] = dump_json(plugin)
+    plugin_marker = f'"version": "{current}"'
+    if updated[plugin_path].count(plugin_marker) != 1:
+        raise RuntimeError("plugin version marker is ambiguous")
+    updated[plugin_path] = updated[plugin_path].replace(
+        plugin_marker,
+        f'"version": "{new_version}"',
+        1,
+    )
 
     config_path = root / "config/default.json"
     config = json.loads(updated[config_path])
     if config["identity"]["version"] != current or config["identity"]["attribution"]["custom_properties"]["ClayzVersion"] != current:
         raise RuntimeError("central configuration does not match current VERSION")
-    config["identity"]["version"] = new_version
-    config["identity"]["attribution"]["custom_properties"]["ClayzVersion"] = new_version
-    updated[config_path] = dump_json(config)
+    config_markers = {
+        f'"version": "{current}"': f'"version": "{new_version}"',
+        f'"ClayzVersion": "{current}"': f'"ClayzVersion": "{new_version}"',
+    }
+    for old, new in config_markers.items():
+        if updated[config_path].count(old) != 1:
+            raise RuntimeError(f"central configuration marker is ambiguous: {old}")
+        updated[config_path] = updated[config_path].replace(old, new, 1)
 
     citation_path = root / "CITATION.cff"
     citation = updated[citation_path]
@@ -128,13 +135,13 @@ def prepare(root: Path, new_version: str, release_date: str) -> None:
 
     try:
         for path, content in updated.items():
-            path.write_text(content, encoding="utf-8")
+            path.write_text(content, encoding="utf-8", newline="\n")
         errors = validate(root)
         if errors:
             raise RuntimeError("prepared release failed validation: " + "; ".join(errors))
     except Exception:
         for path, content in originals.items():
-            path.write_text(content, encoding="utf-8")
+            path.write_text(content, encoding="utf-8", newline="\n")
         raise
 
 

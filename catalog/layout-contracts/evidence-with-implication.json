@@ -1,0 +1,112 @@
+{
+  "contract": "io.clayz.presentation.layout-contract/1.0",
+  "layout_contract_id": "layout.evidence-with-implication",
+  "revision": "1",
+  "title": "Evidence with implication",
+  "summary": "A neutral semantic split that gives evidence more area than the decision implication it supports.",
+  "selection": {
+    "task_modes": ["new-build"],
+    "page_roles": ["comparison"],
+    "semantic_relations": ["supports"],
+    "purpose_tags": ["evidence-led"],
+    "languages": ["en-US", "zh-CN"]
+  },
+  "slots": [
+    {
+      "slot_id": "primary-evidence",
+      "role": "evidence",
+      "required": true,
+      "min_items": 1,
+      "max_items": 3,
+      "content_kinds": ["chart", "table", "diagram", "mixed"]
+    },
+    {
+      "slot_id": "source-note",
+      "role": "source-note",
+      "required": false,
+      "min_items": 0,
+      "max_items": 2,
+      "content_kinds": ["source-note", "text"]
+    },
+    {
+      "slot_id": "findings",
+      "role": "finding",
+      "required": true,
+      "min_items": 1,
+      "max_items": 3,
+      "content_kinds": ["text", "mixed"]
+    },
+    {
+      "slot_id": "decision-implication",
+      "role": "implication",
+      "required": true,
+      "min_items": 1,
+      "max_items": 1,
+      "content_kinds": ["text"]
+    }
+  ],
+  "structure": {
+    "id": "body",
+    "type": "split",
+    "semantic_relation": "evidence supports implication",
+    "direction": "row",
+    "gap_token": "md",
+    "children": [
+      {
+        "id": "evidence-column",
+        "type": "stack",
+        "semantic_relation": "evidence precedes provenance",
+        "direction": "column",
+        "gap_token": "sm",
+        "weight": 2.2,
+        "children": [
+          {
+            "id": "primary-evidence-region",
+            "type": "slot",
+            "semantic_relation": "primary evidence",
+            "weight": 4,
+            "slot_id": "primary-evidence"
+          },
+          {
+            "id": "source-note-region",
+            "type": "slot",
+            "semantic_relation": "provenance supports evidence",
+            "weight": 1,
+            "slot_id": "source-note"
+          }
+        ]
+      },
+      {
+        "id": "implication-column",
+        "type": "stack",
+        "semantic_relation": "findings lead to implication",
+        "direction": "column",
+        "gap_token": "sm",
+        "weight": 1,
+        "children": [
+          {
+            "id": "findings-region",
+            "type": "slot",
+            "semantic_relation": "findings summarize evidence",
+            "weight": 2,
+            "slot_id": "findings"
+          },
+          {
+            "id": "decision-implication-region",
+            "type": "slot",
+            "semantic_relation": "implication is conditional on findings",
+            "weight": 1,
+            "slot_id": "decision-implication"
+          }
+        ]
+      }
+    ]
+  },
+  "guards": {
+    "theme_independent": true,
+    "visual_variant_independent": true,
+    "coordinates_deferred": true,
+    "brand_neutral": true,
+    "no_embedded_assets": true
+  }
+}

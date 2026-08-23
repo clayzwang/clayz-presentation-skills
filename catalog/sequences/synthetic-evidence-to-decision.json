@@ -1,0 +1,25 @@
+{
+  "contract": "io.clayz.presentation.sequence-record/1.0",
+  "sequence_record_id": "sequence.synthetic-evidence-to-decision",
+  "revision": "1",
+  "title": "Synthetic evidence-to-decision sequence",
+  "summary": "A three-page metadata-only fixture that frames a question, examines evidence, and closes on an implication.",
+  "slide_record_ids": [
+    "reference.synthetic-evidence-opening",
+    "reference.synthetic-evidence-comparison",
+    "reference.synthetic-evidence-decision"
+  ],
+  "narrative_role": "question to evidence to decision",
+  "persistent_elements": ["decision question identity", "evidence lineage"],
+  "progressive_change": ["establish the decision question", "introduce the dominant evidence comparison", "promote the supported implication"],
+  "allowed_variation": ["first visual changes with narrative role", "density increases for evidence and recedes for the close"],
+  "break_reason": "",
+  "guards": {
+    "metadata_only": true,
+    "brand_neutral": true,
+    "synthetic_only": true,
+    "no_embedded_assets": true,
+    "no_coordinates": true,
+    "no_copy_text": true
+  }
+}

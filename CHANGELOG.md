@@ -6,6 +6,29 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.4.0 — 2026-08-23
+
+- Make v0.4.0 retrieval index-native through governed providers, receipts, and fail-closed selection.
+- Add provider-aware index records, structured retrieval requests, deterministic retrieval receipts, and selection guards that reject identifiers not present in the receipt.
+- Preserve source revision, provider identity, license, `never_copy`, and materialization status for every candidate; return an explicit empty result instead of fabricating a fallback record.
+- Add a public-catalog validator that rejects presentation templates, masters, themes, and font binaries, and prevents brand-specific assets from becoming public without explicit redistribution and materialization rights.
+- Add a fully synthetic three-provider example and regression tests proving that private local brand masters are excluded from public-open-source retrieval.
+- Add Stage 2 Capability Index routing: mandatory stage contracts remain deterministic while optional knowledge is selected only from registered, human-admitted, brand-neutral capability records with auditable per-signal retrieval receipts.
+- Convert the five stage skills to index-native optional-reference routing without adding a sixth decision-making skill; unresolved capability signals remain explicit instead of triggering invented guidance.
+- Keep the public capability catalog method-only and validate every referenced repository path; no company template, master, brand kit, font binary, dataset, model weight, or generated presentation enters the catalog.
+- Add Stage 3 Layout Contracts as original, brand-neutral, hash-bound semantic topology above the existing Semantic Layout Tree and relative solver, without changing the five-skill ownership model.
+- Separate Theme, Visual Variant, Layout Contract, task-local Layout Tree, and resolved coordinates; the compiler consumes no theme or variant input and preserves receipt-to-contract-to-tree lineage.
+- Reject unregistered, unretrieved, ambiguous, hash-drifted, or invalid contracts; an empty match stays explicitly `unresolved` and emits no invented fallback tree.
+- Add two synthetic public contracts, schemas, compiler, validators, regression fixtures, and Tahta conceptual attribution with a strict no-code/no-template/no-asset redistribution boundary.
+- Add Stage 4 Pattern & Dataset Library contracts for Composition Pattern, Failure Pattern, Reference metadata, and Sequence metadata without changing five-stage ownership.
+- Add receipt-bound Composition Pattern resolution: a Pattern compiles only when it and every linked Failure Pattern are registered, admitted, rights-eligible, hash-current, and selected in Retrieval Receipts; ambiguity and gaps remain explicitly unresolved.
+- Add an original coordinate-free Composition Plan compiler and a metadata-only dataset exporter that excludes source text, assets, coordinates, fonts, model weights, generated-artifact auto-admission, and automatic aesthetic truth.
+- Add three original Composition Patterns, four original Failure Patterns, three synthetic Reference records, one synthetic Sequence, Stage 4 validators, regression fixtures, and conceptual attribution for PosterCopilot, MiniMax Skills, and PosterVerse with strict non-redistribution boundaries.
+- Add Stage 5 hash-bound feedback admission: observations remain stage-owned and non-retrievable until a separate human decision admits the exact canonical record; admitted learning stays private and outside the public catalog.
+- Add deterministic retrieval benchmarks that pin provider snapshots, expected and forbidden candidates, unresolved emptiness, and invented-record count; baselines never update automatically.
+- Add fail-closed migration from the legacy filesystem index, preserving private scope while skipping stale or unadmitted subjects and reporting orphan neighbors.
+- Add a machine-validated v0.4.0 release-authorization record with all five stage gates evidenced and a separately recorded human decision required before merge, immutable Tag, publication, or Experience Center update.
+
 ## 0.3.0 — 2026-08-22
 
 - Add a validated index of 76 distinct official, diagram-bearing architecture documents from ten publishers and a bilingual 16-card relationship-pattern library.
@@ -41,4 +64,3 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add contract validators, public CLI smoke tests, Markdown-link validation, and a synthetic approved handoff regression.
 - Test Python 3.10, 3.11, and 3.12 in CI.
 - Exclude presentation templates, uploaded source material, bundled fonts, and private reference data.
-

@@ -1,0 +1,46 @@
+{
+  "contract": "io.clayz.presentation.reference-record/1.0",
+  "reference_record_id": "reference.synthetic-evidence-comparison",
+  "revision": "1",
+  "title": "Synthetic evidence sequence comparison",
+  "summary": "Metadata for a synthetic comparison page where a dominant evidence object supports findings and an implication.",
+  "provenance": {
+    "source_kind": "synthetic-only",
+    "source_id": "clayz-stage4-synthetic-sequence",
+    "source_revision": "1",
+    "rights_status": "redistributable-metadata",
+    "materialization_policy": "metadata-only",
+    "never_copy": ["corporate templates", "presentation masters", "brand kits", "logos", "font files", "private data", "model weights"]
+  },
+  "classification": {
+    "page_role": "comparison",
+    "first_visual_role": "primary evidence",
+    "semantic_relations": ["supports", "compares"],
+    "composition_pattern_ids": ["pattern.asymmetric-evidence-to-decision"],
+    "dominant_medium": "data-chart",
+    "content_load": "high",
+    "density": "high",
+    "reading_path": "evidence to findings to implication",
+    "series_role": "continuation",
+    "failure_pattern_ids": ["failure.equal-weight-flattening", "failure.semantic-visual-mismatch"],
+    "languages": ["en-US", "zh-CN"]
+  },
+  "neighbors": {
+    "physical": ["reference.synthetic-evidence-opening", "reference.synthetic-evidence-decision"],
+    "semantic": []
+  },
+  "quality": {
+    "status": "synthetic-fixture",
+    "human_admitted": true,
+    "decision_basis": "synthetic-contract",
+    "automatic_score_role": "diagnostic-only"
+  },
+  "content_boundary": {
+    "metadata_only": true,
+    "media_included": false,
+    "copy_included": false,
+    "coordinates_included": false,
+    "fonts_included": false,
+    "model_features_included": false
+  }
+}

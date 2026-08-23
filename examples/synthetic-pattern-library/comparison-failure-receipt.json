@@ -1,0 +1,198 @@
+{
+  "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+  "receipt_id": "receipt-654a97f2b750a093f196",
+  "created_at": "2026-08-23T11:00:00Z",
+  "request": {
+    "contract": "io.clayz.presentation.retrieval-request/1.0",
+    "request_id": "stage4-synthetic-comparison-linked-failures",
+    "stage": "art-direction",
+    "query": "failure.equal-weight-flattening failure.semantic-visual-mismatch",
+    "rights_context": "public-open-source",
+    "require_human_admission": true,
+    "limit": 50,
+    "filters": {
+      "record_types": [
+        "failure-pattern"
+      ],
+      "provider_ids": [
+        "builtin-catalog"
+      ],
+      "task_modes": [],
+      "page_roles": [],
+      "semantic_relations": [],
+      "purpose_tags": [],
+      "languages": [
+        "zh-CN"
+      ],
+      "failure_signals": [],
+      "include_metadata_only": false
+    },
+    "neighbor_expansion": {
+      "physical": 0,
+      "semantic": 0
+    }
+  },
+  "index_snapshot": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "e5d8253d19c3a0b738156d0eaeb49169f11eca467fd4222a972a3db819054f67",
+      "record_count": 24
+    }
+  ],
+  "candidates": [
+    {
+      "record_id": "failure.equal-weight-flattening",
+      "record_type": "failure-pattern",
+      "provider_id": "builtin-catalog",
+      "title": "Equal-weight flattening",
+      "score": 2.104002,
+      "match_basis": [
+        "language",
+        "lexical",
+        "provider_id",
+        "record_type",
+        "stage"
+      ],
+      "rights_decision": "allowed",
+      "materializable": true,
+      "source_id": "clayz-failure-equal-weight-flattening",
+      "source_revision": "1",
+      "license": "Apache-2.0",
+      "never_copy": [
+        "corporate templates",
+        "presentation masters",
+        "brand kits",
+        "logos",
+        "font files",
+        "private data",
+        "model weights",
+        "upstream examples"
+      ],
+      "neighbor_of": null,
+      "neighbor_type": null
+    },
+    {
+      "record_id": "failure.semantic-visual-mismatch",
+      "record_type": "failure-pattern",
+      "provider_id": "builtin-catalog",
+      "title": "Semantic and visual mismatch",
+      "score": 2.027634,
+      "match_basis": [
+        "language",
+        "lexical",
+        "provider_id",
+        "record_type",
+        "stage"
+      ],
+      "rights_decision": "allowed",
+      "materializable": true,
+      "source_id": "clayz-failure-semantic-visual-mismatch",
+      "source_revision": "1",
+      "license": "Apache-2.0",
+      "never_copy": [
+        "corporate templates",
+        "presentation masters",
+        "brand kits",
+        "logos",
+        "font files",
+        "private data",
+        "model weights",
+        "upstream examples"
+      ],
+      "neighbor_of": null,
+      "neighbor_type": null
+    },
+    {
+      "record_id": "failure.localization-overflow",
+      "record_type": "failure-pattern",
+      "provider_id": "builtin-catalog",
+      "title": "Localization overflow",
+      "score": 0.88,
+      "match_basis": [
+        "language",
+        "provider_id",
+        "record_type",
+        "stage"
+      ],
+      "rights_decision": "allowed",
+      "materializable": true,
+      "source_id": "clayz-failure-localization-overflow",
+      "source_revision": "1",
+      "license": "Apache-2.0",
+      "never_copy": [
+        "corporate templates",
+        "presentation masters",
+        "brand kits",
+        "logos",
+        "font files",
+        "private data",
+        "model weights",
+        "upstream examples"
+      ],
+      "neighbor_of": null,
+      "neighbor_type": null
+    },
+    {
+      "record_id": "failure.sequence-order-loss",
+      "record_type": "failure-pattern",
+      "provider_id": "builtin-catalog",
+      "title": "Sequence order loss",
+      "score": 0.88,
+      "match_basis": [
+        "language",
+        "provider_id",
+        "record_type",
+        "stage"
+      ],
+      "rights_decision": "allowed",
+      "materializable": true,
+      "source_id": "clayz-failure-sequence-order-loss",
+      "source_revision": "1",
+      "license": "Apache-2.0",
+      "never_copy": [
+        "corporate templates",
+        "presentation masters",
+        "brand kits",
+        "logos",
+        "font files",
+        "private data",
+        "model weights",
+        "upstream examples"
+      ],
+      "neighbor_of": null,
+      "neighbor_type": null
+    }
+  ],
+  "selection": {
+    "selected": [
+      {
+        "record_id": "failure.equal-weight-flattening",
+        "reason": "registered failure guard required by pattern.asymmetric-evidence-to-decision"
+      },
+      {
+        "record_id": "failure.semantic-visual-mismatch",
+        "reason": "registered failure guard required by pattern.asymmetric-evidence-to-decision"
+      }
+    ],
+    "rejected": [
+      {
+        "record_id": "failure.localization-overflow",
+        "reason": "not linked by the selected composition pattern"
+      },
+      {
+        "record_id": "failure.sequence-order-loss",
+        "reason": "not linked by the selected composition pattern"
+      }
+    ]
+  },
+  "fallback": {
+    "used": false,
+    "reason": ""
+  },
+  "hallucination_guard": {
+    "only_registered_records": true,
+    "invented_record_count": 0,
+    "candidate_count": 4
+  }
+}
+

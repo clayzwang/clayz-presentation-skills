@@ -94,6 +94,8 @@ In addition to the expression-plan fields, every slide includes:
 - `design_intent`: communication task, first impression, first visual, attention order, composition rationale, and prohibited fallbacks.
 - `area_plan`: regions, responsibilities, area percentages, included `copy_id` values, and 12-column grid spans.
 - `semantic_layout_tree`: grouping, containment, relations, reading order, and shape intent.
+- `composition_pattern_decision`: request ID, resolution ID, selected Pattern ID or explicit `unresolved`, task constraints, expected visual effect, selection and rejection reasons, linked Failure Pattern IDs, and Retrieval Receipt IDs. It contains no coordinates, Theme, Visual Variant, Layout Contract, renderer, template, asset, or hidden reasoning.
+- `layout_contract_decision`: request ID, resolution ID, selected Layout Contract ID or explicit `unresolved`, slot bindings, and Retrieval Receipt ID. It remains independent of Composition Pattern and Visual Variant.
 - `reference_selection`, plus `reference_exception` when no reference is used.
 - `ab_review`: candidates, selection, rejection reasons, and gray-box status.
 - `art_direction_lock`.

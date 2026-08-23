@@ -1,0 +1,1068 @@
+{
+  "contract": "io.clayz.presentation.metadata-dataset-export/1.0",
+  "dataset_id": "metadata-dataset-7b92844f451fd0b94469",
+  "created_at": "2026-08-23T11:00:00Z",
+  "provider_snapshot": {
+    "provider_id": "builtin-catalog",
+    "digest": "e5d8253d19c3a0b738156d0eaeb49169f11eca467fd4222a972a3db819054f67",
+    "record_count": 24
+  },
+  "record_types": [
+    "composition-pattern",
+    "failure-pattern",
+    "reference",
+    "sequence"
+  ],
+  "records": [
+    {
+      "record_id": "pattern.asymmetric-evidence-to-decision",
+      "record_type": "composition-pattern",
+      "source_id": "clayz-pattern-asymmetric-evidence-to-decision",
+      "source_revision": "1",
+      "source_sha256": "4fc7810c5768f2b4f21f6875c578937e35da7db56fb843eca4e0bb0031fcdd03",
+      "classification": {
+        "stages": [
+          "art-direction"
+        ],
+        "task_modes": [
+          "new-build",
+          "redesign"
+        ],
+        "page_roles": [
+          "comparison"
+        ],
+        "semantic_relations": [
+          "supports"
+        ],
+        "purpose_tags": [
+          "evidence-led"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [],
+        "asset_class": "method",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.composition-pattern/1.0",
+        "composition_pattern_id": "pattern.asymmetric-evidence-to-decision",
+        "revision": "1",
+        "title": "Asymmetric evidence to decision",
+        "summary": "A dominant evidence field supports a smaller but visually decisive implication without reducing the page to equal cards.",
+        "selection": {
+          "task_modes": [
+            "new-build",
+            "redesign"
+          ],
+          "page_roles": [
+            "comparison"
+          ],
+          "semantic_relations": [
+            "supports"
+          ],
+          "purpose_tags": [
+            "evidence-led"
+          ],
+          "languages": [
+            "en-US",
+            "zh-CN"
+          ]
+        },
+        "mapping": {
+          "first_visual_role": "primary evidence",
+          "backbone_relation": "evidence supports decision implication",
+          "reading_path": "dominant evidence to supporting findings to decision implication",
+          "spatial_rules": [
+            {
+              "semantic_relation": "supports",
+              "spatial_behavior": "allocate more area to evidence while keeping the implication visually final"
+            },
+            {
+              "semantic_relation": "compares",
+              "spatial_behavior": "preserve comparable evidence scales inside the dominant field"
+            }
+          ],
+          "object_hierarchy": [
+            "primary evidence",
+            "supporting findings",
+            "decision implication",
+            "source note"
+          ]
+        },
+        "applicability": {
+          "requires": [
+            "one evidence object is the approved first visual",
+            "a decision implication is supported by that evidence"
+          ],
+          "avoid_when": [
+            "both sides are independent peer decisions",
+            "evidence is absent or unverified"
+          ]
+        },
+        "failure_pattern_ids": [
+          "failure.equal-weight-flattening",
+          "failure.semantic-visual-mismatch"
+        ],
+        "decision_contract": {
+          "selection_reason_required": true,
+          "rejection_reason_required": true,
+          "constraints_required": true,
+          "expected_visual_effect_required": true
+        },
+        "guards": {
+          "brand_neutral": true,
+          "original_method": true,
+          "theme_independent": true,
+          "visual_variant_independent": true,
+          "layout_contract_independent": true,
+          "coordinates_deferred": true,
+          "editable_objects_required": true,
+          "flattened_output_forbidden": true,
+          "no_embedded_assets": true
+        }
+      }
+    },
+    {
+      "record_id": "pattern.flow-with-governed-checkpoint",
+      "record_type": "composition-pattern",
+      "source_id": "clayz-pattern-flow-with-governed-checkpoint",
+      "source_revision": "1",
+      "source_sha256": "b587c5e20da351617a1499bfca56e34c12d265ed1d11c45438a1dbafebaad826",
+      "classification": {
+        "stages": [
+          "art-direction"
+        ],
+        "task_modes": [
+          "new-build",
+          "redesign"
+        ],
+        "page_roles": [
+          "process"
+        ],
+        "semantic_relations": [
+          "sequence"
+        ],
+        "purpose_tags": [
+          "process-led"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [],
+        "asset_class": "method",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.composition-pattern/1.0",
+        "composition_pattern_id": "pattern.flow-with-governed-checkpoint",
+        "revision": "1",
+        "title": "Flow with governed checkpoint",
+        "summary": "An ordered operational flow remains dominant while one checkpoint and its outcome are distinguished without breaking sequence continuity.",
+        "selection": {
+          "task_modes": [
+            "new-build",
+            "redesign"
+          ],
+          "page_roles": [
+            "process"
+          ],
+          "semantic_relations": [
+            "sequence"
+          ],
+          "purpose_tags": [
+            "process-led"
+          ],
+          "languages": [
+            "en-US",
+            "zh-CN"
+          ]
+        },
+        "mapping": {
+          "first_visual_role": "ordered stage backbone",
+          "backbone_relation": "stages progress through one governed checkpoint to an outcome",
+          "reading_path": "stage order to checkpoint to outcome",
+          "spatial_rules": [
+            {
+              "semantic_relation": "sequence",
+              "spatial_behavior": "maintain one continuous ordered axis"
+            },
+            {
+              "semantic_relation": "condition",
+              "spatial_behavior": "attach the checkpoint to the stage it governs rather than creating a detached panel"
+            }
+          ],
+          "object_hierarchy": [
+            "ordered stage backbone",
+            "current stage",
+            "governed checkpoint",
+            "outcome"
+          ]
+        },
+        "applicability": {
+          "requires": [
+            "stage order is semantically meaningful",
+            "one checkpoint changes whether the flow may proceed"
+          ],
+          "avoid_when": [
+            "steps are independent and unordered",
+            "the checkpoint is only decorative emphasis"
+          ]
+        },
+        "failure_pattern_ids": [
+          "failure.sequence-order-loss",
+          "failure.semantic-visual-mismatch"
+        ],
+        "decision_contract": {
+          "selection_reason_required": true,
+          "rejection_reason_required": true,
+          "constraints_required": true,
+          "expected_visual_effect_required": true
+        },
+        "guards": {
+          "brand_neutral": true,
+          "original_method": true,
+          "theme_independent": true,
+          "visual_variant_independent": true,
+          "layout_contract_independent": true,
+          "coordinates_deferred": true,
+          "editable_objects_required": true,
+          "flattened_output_forbidden": true,
+          "no_embedded_assets": true
+        }
+      }
+    },
+    {
+      "record_id": "pattern.hero-with-evidence-cluster",
+      "record_type": "composition-pattern",
+      "source_id": "clayz-pattern-hero-with-evidence-cluster",
+      "source_revision": "1",
+      "source_sha256": "9d20fae718292a967b28646c07b17c48fbc6a7a40cb039cecc6dff5029eca9de",
+      "classification": {
+        "stages": [
+          "art-direction"
+        ],
+        "task_modes": [
+          "new-build",
+          "redesign"
+        ],
+        "page_roles": [
+          "argument"
+        ],
+        "semantic_relations": [
+          "supports"
+        ],
+        "purpose_tags": [
+          "hero-led"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [],
+        "asset_class": "method",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.composition-pattern/1.0",
+        "composition_pattern_id": "pattern.hero-with-evidence-cluster",
+        "revision": "1",
+        "title": "Hero with evidence cluster",
+        "summary": "One approved proposition or visual dominates while heterogeneous evidence remains grouped as support instead of competing as peers.",
+        "selection": {
+          "task_modes": [
+            "new-build",
+            "redesign"
+          ],
+          "page_roles": [
+            "argument"
+          ],
+          "semantic_relations": [
+            "supports"
+          ],
+          "purpose_tags": [
+            "hero-led"
+          ],
+          "languages": [
+            "en-US",
+            "zh-CN"
+          ]
+        },
+        "mapping": {
+          "first_visual_role": "approved hero proposition",
+          "backbone_relation": "one proposition is supported by an evidence cluster",
+          "reading_path": "hero proposition to evidence cluster to closing qualification",
+          "spatial_rules": [
+            {
+              "semantic_relation": "supports",
+              "spatial_behavior": "group evidence near the proposition without equalizing its visual weight"
+            },
+            {
+              "semantic_relation": "qualifies",
+              "spatial_behavior": "keep qualifications visually subordinate but readable"
+            }
+          ],
+          "object_hierarchy": [
+            "hero proposition",
+            "evidence cluster",
+            "qualification"
+          ]
+        },
+        "applicability": {
+          "requires": [
+            "the hero proposition is already approved",
+            "supporting evidence is heterogeneous but related"
+          ],
+          "avoid_when": [
+            "several propositions have equal decision weight",
+            "the hero would be an invented claim"
+          ]
+        },
+        "failure_pattern_ids": [
+          "failure.equal-weight-flattening",
+          "failure.localization-overflow"
+        ],
+        "decision_contract": {
+          "selection_reason_required": true,
+          "rejection_reason_required": true,
+          "constraints_required": true,
+          "expected_visual_effect_required": true
+        },
+        "guards": {
+          "brand_neutral": true,
+          "original_method": true,
+          "theme_independent": true,
+          "visual_variant_independent": true,
+          "layout_contract_independent": true,
+          "coordinates_deferred": true,
+          "editable_objects_required": true,
+          "flattened_output_forbidden": true,
+          "no_embedded_assets": true
+        }
+      }
+    },
+    {
+      "record_id": "failure.equal-weight-flattening",
+      "record_type": "failure-pattern",
+      "source_id": "clayz-failure-equal-weight-flattening",
+      "source_revision": "1",
+      "source_sha256": "8087057750d5d24d48648c3bc8a0330209c01679eb6648d51eb92d97a625efe1",
+      "classification": {
+        "stages": [
+          "shared"
+        ],
+        "task_modes": [
+          "new-build",
+          "redesign",
+          "audit"
+        ],
+        "page_roles": [],
+        "semantic_relations": [],
+        "purpose_tags": [
+          "diagnostic"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [
+          "equal-visual-weight",
+          "card-overuse"
+        ],
+        "asset_class": "method",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.failure-pattern/1.0",
+        "failure_pattern_id": "failure.equal-weight-flattening",
+        "revision": "1",
+        "title": "Equal-weight flattening",
+        "summary": "Peer-looking containers give unequal semantic objects the same visual weight and erase the intended attention order.",
+        "signals": {
+          "failure_signals": [
+            "equal-visual-weight",
+            "card-overuse"
+          ],
+          "rendered_symptoms": [
+            "the first visual is not distinguishable at thumbnail size",
+            "supporting objects compete with the approved claim"
+          ],
+          "not_sufficient_evidence": [
+            "the presence of rectangles alone",
+            "a high object count without rendered hierarchy evidence"
+          ]
+        },
+        "ownership": {
+          "earliest_preventable_stage": "art-direction",
+          "diagnostic_stage": "supervisor",
+          "repair_owner_stage": "art-direction"
+        },
+        "repair": {
+          "actions": [
+            "restore the approved first visual",
+            "differentiate semantic levels through area and position before surface styling"
+          ],
+          "verification": [
+            "the first visual is recognizable within three seconds at thumbnail size",
+            "supporting objects remain subordinate in the rendered slide"
+          ],
+          "stop_conditions": [
+            "do not delete approved copy to manufacture hierarchy",
+            "do not replace the page with a flattened image"
+          ]
+        },
+        "evidence_policy": {
+          "rendered_evidence_required": true,
+          "automatic_signal_role": "diagnostic-only",
+          "human_ruling_required_for_promotion": true
+        },
+        "guards": {
+          "brand_neutral": true,
+          "original_method": true,
+          "no_embedded_assets": true,
+          "no_automatic_aesthetic_truth": true,
+          "supervisor_does_not_own_repairs": true
+        }
+      }
+    },
+    {
+      "record_id": "failure.localization-overflow",
+      "record_type": "failure-pattern",
+      "source_id": "clayz-failure-localization-overflow",
+      "source_revision": "1",
+      "source_sha256": "12a38191acade47f0399a7f6f4ebd99d2b62dbb55264ebadb1fba46661dbbbe6",
+      "classification": {
+        "stages": [
+          "shared"
+        ],
+        "task_modes": [
+          "new-build",
+          "redesign",
+          "audit"
+        ],
+        "page_roles": [],
+        "semantic_relations": [],
+        "purpose_tags": [
+          "diagnostic"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [
+          "localization-overflow",
+          "minimum-type-pressure"
+        ],
+        "asset_class": "method",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.failure-pattern/1.0",
+        "failure_pattern_id": "failure.localization-overflow",
+        "revision": "1",
+        "title": "Localization overflow",
+        "summary": "Localized approved copy exceeds the capacity of its semantic region and pressures the build into clipping or illegal type reduction.",
+        "signals": {
+          "failure_signals": [
+            "localization-overflow",
+            "minimum-type-pressure"
+          ],
+          "rendered_symptoms": [
+            "approved copy clips or wraps beyond its region",
+            "body type falls below the configured minimum"
+          ],
+          "not_sufficient_evidence": [
+            "a longer translated string before rendering",
+            "a renderer warning without full-slide inspection"
+          ]
+        },
+        "ownership": {
+          "earliest_preventable_stage": "copy",
+          "diagnostic_stage": "supervisor",
+          "repair_owner_stage": "copy"
+        },
+        "repair": {
+          "actions": [
+            "return capacity pressure to Copy",
+            "split or reprioritize content with approval before rebuilding"
+          ],
+          "verification": [
+            "all approved copy renders inside its assigned region",
+            "configured typography minimums remain intact"
+          ],
+          "stop_conditions": [
+            "Output must not silently shorten copy",
+            "Output must not reduce type below approved minimums"
+          ]
+        },
+        "evidence_policy": {
+          "rendered_evidence_required": true,
+          "automatic_signal_role": "diagnostic-only",
+          "human_ruling_required_for_promotion": true
+        },
+        "guards": {
+          "brand_neutral": true,
+          "original_method": true,
+          "no_embedded_assets": true,
+          "no_automatic_aesthetic_truth": true,
+          "supervisor_does_not_own_repairs": true
+        }
+      }
+    },
+    {
+      "record_id": "failure.semantic-visual-mismatch",
+      "record_type": "failure-pattern",
+      "source_id": "clayz-failure-semantic-visual-mismatch",
+      "source_revision": "1",
+      "source_sha256": "105229f2f173c47f9a7c15c0671d6298e670c6774f4abdb22fb8d3037da5632c",
+      "classification": {
+        "stages": [
+          "shared"
+        ],
+        "task_modes": [
+          "new-build",
+          "redesign",
+          "audit"
+        ],
+        "page_roles": [],
+        "semantic_relations": [],
+        "purpose_tags": [
+          "diagnostic"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [
+          "semantic-visual-mismatch",
+          "wrong-reading-order"
+        ],
+        "asset_class": "method",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.failure-pattern/1.0",
+        "failure_pattern_id": "failure.semantic-visual-mismatch",
+        "revision": "1",
+        "title": "Semantic and visual mismatch",
+        "summary": "The rendered spatial relationship communicates a different meaning from the approved semantic relation.",
+        "signals": {
+          "failure_signals": [
+            "semantic-visual-mismatch",
+            "wrong-reading-order"
+          ],
+          "rendered_symptoms": [
+            "support looks like an unrelated peer",
+            "a condition appears after the outcome it governs"
+          ],
+          "not_sufficient_evidence": [
+            "a reviewer preference for another style",
+            "an automated similarity score without semantic inspection"
+          ]
+        },
+        "ownership": {
+          "earliest_preventable_stage": "art-direction",
+          "diagnostic_stage": "supervisor",
+          "repair_owner_stage": "art-direction"
+        },
+        "repair": {
+          "actions": [
+            "compare the rendered relation to the approved Semantic Layout Tree",
+            "restore containment, sequence, support, or comparison cues at the responsible layer"
+          ],
+          "verification": [
+            "the rendered reading path matches the approved relation order",
+            "the composition plan and Layout Tree remain traceable"
+          ],
+          "stop_conditions": [
+            "do not rewrite business meaning in Output",
+            "do not claim a different pattern after the fact"
+          ]
+        },
+        "evidence_policy": {
+          "rendered_evidence_required": true,
+          "automatic_signal_role": "diagnostic-only",
+          "human_ruling_required_for_promotion": true
+        },
+        "guards": {
+          "brand_neutral": true,
+          "original_method": true,
+          "no_embedded_assets": true,
+          "no_automatic_aesthetic_truth": true,
+          "supervisor_does_not_own_repairs": true
+        }
+      }
+    },
+    {
+      "record_id": "failure.sequence-order-loss",
+      "record_type": "failure-pattern",
+      "source_id": "clayz-failure-sequence-order-loss",
+      "source_revision": "1",
+      "source_sha256": "6047e18c42775c76203ea3a36dc6838b9b88108f0b088c192ce8c01f007f3725",
+      "classification": {
+        "stages": [
+          "shared"
+        ],
+        "task_modes": [
+          "new-build",
+          "redesign",
+          "audit"
+        ],
+        "page_roles": [],
+        "semantic_relations": [],
+        "purpose_tags": [
+          "diagnostic"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [
+          "sequence-order-loss",
+          "process-cardification"
+        ],
+        "asset_class": "method",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.failure-pattern/1.0",
+        "failure_pattern_id": "failure.sequence-order-loss",
+        "revision": "1",
+        "title": "Sequence order loss",
+        "summary": "A meaningful progression collapses into independent items, so stage order and checkpoints are no longer visible.",
+        "signals": {
+          "failure_signals": [
+            "sequence-order-loss",
+            "process-cardification"
+          ],
+          "rendered_symptoms": [
+            "stages read as interchangeable peers",
+            "the checkpoint is detached from the stage it governs"
+          ],
+          "not_sufficient_evidence": [
+            "a non-linear drawing alone",
+            "a reviewer preference for horizontal rather than vertical flow"
+          ]
+        },
+        "ownership": {
+          "earliest_preventable_stage": "art-direction",
+          "diagnostic_stage": "supervisor",
+          "repair_owner_stage": "art-direction"
+        },
+        "repair": {
+          "actions": [
+            "restore one continuous ordered backbone",
+            "attach conditions and checkpoints to the governed stage"
+          ],
+          "verification": [
+            "stage order is readable without relying on body copy",
+            "the checkpoint has an unambiguous governed stage"
+          ],
+          "stop_conditions": [
+            "do not invent missing stage order",
+            "do not connect unrelated objects with decorative arrows"
+          ]
+        },
+        "evidence_policy": {
+          "rendered_evidence_required": true,
+          "automatic_signal_role": "diagnostic-only",
+          "human_ruling_required_for_promotion": true
+        },
+        "guards": {
+          "brand_neutral": true,
+          "original_method": true,
+          "no_embedded_assets": true,
+          "no_automatic_aesthetic_truth": true,
+          "supervisor_does_not_own_repairs": true
+        }
+      }
+    },
+    {
+      "record_id": "reference.synthetic-evidence-comparison",
+      "record_type": "reference",
+      "source_id": "clayz-stage4-synthetic-sequence",
+      "source_revision": "1",
+      "source_sha256": "bcf2e22072db15d583ebe8ec65f4273409d08fcf682de1cd25387a5d490c0a59",
+      "classification": {
+        "stages": [
+          "art-direction"
+        ],
+        "task_modes": [
+          "new-build"
+        ],
+        "page_roles": [
+          "comparison"
+        ],
+        "semantic_relations": [
+          "supports",
+          "compares"
+        ],
+        "purpose_tags": [
+          "dataset-ready",
+          "synthetic-sequence"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [
+          "equal-visual-weight",
+          "semantic-visual-mismatch"
+        ],
+        "asset_class": "reference-metadata",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.reference-record/1.0",
+        "reference_record_id": "reference.synthetic-evidence-comparison",
+        "revision": "1",
+        "title": "Synthetic evidence sequence comparison",
+        "summary": "Metadata for a synthetic comparison page where a dominant evidence object supports findings and an implication.",
+        "provenance": {
+          "source_kind": "synthetic-only",
+          "source_id": "clayz-stage4-synthetic-sequence",
+          "source_revision": "1",
+          "rights_status": "redistributable-metadata",
+          "materialization_policy": "metadata-only",
+          "never_copy": [
+            "corporate templates",
+            "presentation masters",
+            "brand kits",
+            "logos",
+            "font files",
+            "private data",
+            "model weights"
+          ]
+        },
+        "classification": {
+          "page_role": "comparison",
+          "first_visual_role": "primary evidence",
+          "semantic_relations": [
+            "supports",
+            "compares"
+          ],
+          "composition_pattern_ids": [
+            "pattern.asymmetric-evidence-to-decision"
+          ],
+          "dominant_medium": "data-chart",
+          "content_load": "high",
+          "density": "high",
+          "reading_path": "evidence to findings to implication",
+          "series_role": "continuation",
+          "failure_pattern_ids": [
+            "failure.equal-weight-flattening",
+            "failure.semantic-visual-mismatch"
+          ],
+          "languages": [
+            "en-US",
+            "zh-CN"
+          ]
+        },
+        "neighbors": {
+          "physical": [
+            "reference.synthetic-evidence-opening",
+            "reference.synthetic-evidence-decision"
+          ],
+          "semantic": []
+        },
+        "quality": {
+          "status": "synthetic-fixture",
+          "human_admitted": true,
+          "decision_basis": "synthetic-contract",
+          "automatic_score_role": "diagnostic-only"
+        },
+        "content_boundary": {
+          "metadata_only": true,
+          "media_included": false,
+          "copy_included": false,
+          "coordinates_included": false,
+          "fonts_included": false,
+          "model_features_included": false
+        }
+      }
+    },
+    {
+      "record_id": "reference.synthetic-evidence-decision",
+      "record_type": "reference",
+      "source_id": "clayz-stage4-synthetic-sequence",
+      "source_revision": "1",
+      "source_sha256": "267b5c55257a25b3c258460dac164531eca39f198dabd5ffa49db2408c22f240",
+      "classification": {
+        "stages": [
+          "art-direction"
+        ],
+        "task_modes": [
+          "new-build"
+        ],
+        "page_roles": [
+          "decision"
+        ],
+        "semantic_relations": [
+          "concludes"
+        ],
+        "purpose_tags": [
+          "dataset-ready",
+          "synthetic-sequence"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [
+          "semantic-visual-mismatch",
+          "localization-overflow"
+        ],
+        "asset_class": "reference-metadata",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.reference-record/1.0",
+        "reference_record_id": "reference.synthetic-evidence-decision",
+        "revision": "1",
+        "title": "Synthetic evidence sequence decision",
+        "summary": "Metadata for a synthetic closing page that preserves evidence lineage while making the approved decision implication dominant.",
+        "provenance": {
+          "source_kind": "synthetic-only",
+          "source_id": "clayz-stage4-synthetic-sequence",
+          "source_revision": "1",
+          "rights_status": "redistributable-metadata",
+          "materialization_policy": "metadata-only",
+          "never_copy": [
+            "corporate templates",
+            "presentation masters",
+            "brand kits",
+            "logos",
+            "font files",
+            "private data",
+            "model weights"
+          ]
+        },
+        "classification": {
+          "page_role": "decision",
+          "first_visual_role": "decision implication",
+          "semantic_relations": [
+            "concludes"
+          ],
+          "composition_pattern_ids": [
+            "pattern.asymmetric-evidence-to-decision"
+          ],
+          "dominant_medium": "typography",
+          "content_load": "medium",
+          "density": "medium",
+          "reading_path": "decision implication to evidence trace",
+          "series_role": "closing",
+          "failure_pattern_ids": [
+            "failure.semantic-visual-mismatch",
+            "failure.localization-overflow"
+          ],
+          "languages": [
+            "en-US",
+            "zh-CN"
+          ]
+        },
+        "neighbors": {
+          "physical": [
+            "reference.synthetic-evidence-comparison"
+          ],
+          "semantic": [
+            "reference.synthetic-evidence-opening"
+          ]
+        },
+        "quality": {
+          "status": "synthetic-fixture",
+          "human_admitted": true,
+          "decision_basis": "synthetic-contract",
+          "automatic_score_role": "diagnostic-only"
+        },
+        "content_boundary": {
+          "metadata_only": true,
+          "media_included": false,
+          "copy_included": false,
+          "coordinates_included": false,
+          "fonts_included": false,
+          "model_features_included": false
+        }
+      }
+    },
+    {
+      "record_id": "reference.synthetic-evidence-opening",
+      "record_type": "reference",
+      "source_id": "clayz-stage4-synthetic-sequence",
+      "source_revision": "1",
+      "source_sha256": "456542228263160a951960c2be9ccaa640830a646fbdf196c05a4a351a72b0ac",
+      "classification": {
+        "stages": [
+          "art-direction"
+        ],
+        "task_modes": [
+          "new-build"
+        ],
+        "page_roles": [
+          "context"
+        ],
+        "semantic_relations": [
+          "frames"
+        ],
+        "purpose_tags": [
+          "dataset-ready",
+          "synthetic-sequence"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [],
+        "asset_class": "reference-metadata",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.reference-record/1.0",
+        "reference_record_id": "reference.synthetic-evidence-opening",
+        "revision": "1",
+        "title": "Synthetic evidence sequence opening",
+        "summary": "Metadata for a synthetic opening page that establishes the decision question without storing copy, coordinates, or media.",
+        "provenance": {
+          "source_kind": "synthetic-only",
+          "source_id": "clayz-stage4-synthetic-sequence",
+          "source_revision": "1",
+          "rights_status": "redistributable-metadata",
+          "materialization_policy": "metadata-only",
+          "never_copy": [
+            "corporate templates",
+            "presentation masters",
+            "brand kits",
+            "logos",
+            "font files",
+            "private data",
+            "model weights"
+          ]
+        },
+        "classification": {
+          "page_role": "context",
+          "first_visual_role": "decision question",
+          "semantic_relations": [
+            "frames"
+          ],
+          "composition_pattern_ids": [
+            "pattern.asymmetric-evidence-to-decision"
+          ],
+          "dominant_medium": "typography",
+          "content_load": "low",
+          "density": "low",
+          "reading_path": "question to evidence expectation",
+          "series_role": "opening",
+          "failure_pattern_ids": [
+            "failure.semantic-visual-mismatch"
+          ],
+          "languages": [
+            "en-US",
+            "zh-CN"
+          ]
+        },
+        "neighbors": {
+          "physical": [
+            "reference.synthetic-evidence-comparison"
+          ],
+          "semantic": [
+            "reference.synthetic-evidence-decision"
+          ]
+        },
+        "quality": {
+          "status": "synthetic-fixture",
+          "human_admitted": true,
+          "decision_basis": "synthetic-contract",
+          "automatic_score_role": "diagnostic-only"
+        },
+        "content_boundary": {
+          "metadata_only": true,
+          "media_included": false,
+          "copy_included": false,
+          "coordinates_included": false,
+          "fonts_included": false,
+          "model_features_included": false
+        }
+      }
+    },
+    {
+      "record_id": "sequence.synthetic-evidence-to-decision",
+      "record_type": "sequence",
+      "source_id": "clayz-stage4-synthetic-sequence",
+      "source_revision": "1",
+      "source_sha256": "aacb9eae680ff7ab2e56daaffc0e9b2ebb50351b735da5bc45fa964fd602f362",
+      "classification": {
+        "stages": [
+          "art-direction"
+        ],
+        "task_modes": [
+          "new-build"
+        ],
+        "page_roles": [],
+        "semantic_relations": [
+          "sequence"
+        ],
+        "purpose_tags": [
+          "dataset-ready",
+          "synthetic-sequence"
+        ],
+        "languages": [
+          "en-US",
+          "zh-CN"
+        ],
+        "failure_signals": [],
+        "asset_class": "sequence-metadata",
+        "brand_scope": "none"
+      },
+      "metadata": {
+        "contract": "io.clayz.presentation.sequence-record/1.0",
+        "sequence_record_id": "sequence.synthetic-evidence-to-decision",
+        "revision": "1",
+        "title": "Synthetic evidence-to-decision sequence",
+        "summary": "A three-page metadata-only fixture that frames a question, examines evidence, and closes on an implication.",
+        "slide_record_ids": [
+          "reference.synthetic-evidence-opening",
+          "reference.synthetic-evidence-comparison",
+          "reference.synthetic-evidence-decision"
+        ],
+        "narrative_role": "question to evidence to decision",
+        "persistent_elements": [
+          "decision question identity",
+          "evidence lineage"
+        ],
+        "progressive_change": [
+          "establish the decision question",
+          "introduce the dominant evidence comparison",
+          "promote the supported implication"
+        ],
+        "allowed_variation": [
+          "first visual changes with narrative role",
+          "density increases for evidence and recedes for the close"
+        ],
+        "break_reason": "",
+        "guards": {
+          "metadata_only": true,
+          "brand_neutral": true,
+          "synthetic_only": true,
+          "no_embedded_assets": true,
+          "no_coordinates": true,
+          "no_copy_text": true
+        }
+      }
+    }
+  ],
+  "guards": {
+    "only_registered_records": true,
+    "human_admitted_only": true,
+    "public_catalog_only": true,
+    "metadata_only": true,
+    "no_asset_bytes": true,
+    "no_raw_source_text": true,
+    "no_coordinates": true,
+    "no_fonts": true,
+    "no_model_weights": true,
+    "generated_artifacts_auto_admitted": false,
+    "automatic_aesthetic_truth": false
+  }
+}
+

@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.3.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.4.0**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -23,6 +23,9 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 - **参考架构综合**：Art Direction 内置经过校验的 76 份官方架构材料索引，覆盖十家发布者，并配套双语的 16 张关系模式卡。八步方法从问题界定、来源选择、关系提取和模式组合，推进到任务化推导、页面转译、诊断和研究账本收口；整个过程不导入厂商母版。
 - **有合同的灵活判断**：Art Direction计划升级到v1.4，固定的是必须显式回答的证据和决策，不固定坐标、Icon数量、填充比例或审美分数；最终仍以真实A/B渲染和专业判断为准。
 - **固定回归**：11个完全合成的案例覆盖四类材料、四种跨页行为、内容感知画布、受控资产选择和参考架构房子图。图像主导页缺少画布证据、已选资产缺少许可记录，以及只有名词分层却没有责任或反馈的房子图，都会被测试拒绝。
+- **Index-native 构图方法**：v0.4.0 增加已登记的 Composition Pattern、Failure Pattern 与 Dataset-ready Reference、Sequence 元数据。Pattern 选择、关联失败知识、被拒候选、约束和预期视觉效果全部绑定 Receipt；无匹配保持显式 `unresolved`。
+- **Metadata-only Dataset 边界**：公开导出只包含稳定 ID、分类、来源修订与哈希及原创方法元数据，排除源原文、图片、坐标、字体、模板、企业资产、模型权重、生成物自动准入和自动审美真值。
+- **人工准入反馈与 Benchmark**：v0.4.0 只在独立人工决定绑定记录精确哈希后才重新索引观察。私有 Learning 不进入公开 Catalog；固定 Provider 快照、四个检索用例、失败关闭的旧索引迁移和显式发布授权记录，会把漂移、虚构和未授权发布变成验证失败。
 
 公开仓库仍不打包任何第三方模板、母版、Icon库、海报、数据集、模型或媒体。增强的是检索、判断、重构和合规引用能力，不是克隆一个外部素材库。
 
@@ -63,6 +66,50 @@ python packages/layout/solve_relative_layout.py \
   /tmp/resolved-layout.json
 ```
 
+解析、编译并求解完全合成的已登记 Layout Contract 示例：
+
+```bash
+python packages/layout/compile_layout_contract.py \
+  examples/synthetic-layout-contract/comparison-request.json \
+  examples/synthetic-layout-contract/comparison-instance.json \
+  /tmp/layout-compilation.json \
+  --receipt-output /tmp/layout-receipt.json \
+  --resolution-output /tmp/layout-resolution.json \
+  --resolved-output /tmp/layout-coordinates.json
+```
+
+编译器不消费 Theme 或 Visual Variant。没有已登记合同匹配时，它会输出显式
+`unresolved` resolution，并拒绝凭空生成或编译 fallback contract。详见
+[`docs/layout-contracts.zh-CN.md`](docs/layout-contracts.zh-CN.md)。
+
+解析并编译完全合成的已登记 Composition Pattern，再导出公开的
+metadata-only Dataset：
+
+```bash
+python packages/patterns/compile_composition_pattern.py \
+  examples/synthetic-pattern-library/comparison-request.json \
+  --resolution-output /tmp/pattern-resolution.json \
+  --receipt-dir /tmp/pattern-receipts \
+  --plan-output /tmp/composition-plan.json
+
+python packages/patterns/export_metadata_dataset.py \
+  /tmp/clayz-metadata-dataset.json
+```
+
+Pattern compiler 不产生坐标，也不消费 Theme、Visual Variant、Layout Contract
+或 Layout Tree。Pattern 或任何关联 Failure Pattern 未登记、未召回、多义、
+权利不允许或哈希陈旧时都会拒绝编译。详见
+[`docs/pattern-dataset-library.zh-CN.md`](docs/pattern-dataset-library.zh-CN.md)。
+
+验证合成反馈闭环、Retrieval Benchmark、迁移报告与发布授权门禁：
+
+```bash
+python scripts/validate_feedback_benchmark.py
+```
+
+就绪记录要求五项证据门禁全部通过，并在 merge、不可变 Tag、发布或 Experience Center 当前版本更新前记录另一次明确人工决定。详见
+[`docs/feedback-benchmark-release-readiness.zh-CN.md`](docs/feedback-benchmark-release-readiness.zh-CN.md)。
+
 实验性 PptxGenJS 路线隔离在 `packages/adapters/pptxgenjs/`。其源码通过语法检查，但由于当前上游依赖链存在尚未修复的拒绝服务公告，中央配置默认阻断运行；任何评估前都应先阅读该目录 README。
 
 ## 运行环境与依赖
@@ -91,7 +138,7 @@ Supervisor不建立独立学习库，而是把可复用观察返回给对应责�
 
 下载仓库不会创建、读取或连接ChatGPT Library。默认资料提供者是本地文件系统；其他运行环境可以另行提供适配器，把同一结构映射到ChatGPT Library或其他存储系统，但本项目不捆绑、也不强制依赖此类适配器。详见[`knowledge/README.md`](knowledge/README.md)与[`knowledge/registry/schema.md`](knowledge/registry/schema.md)。
 
-v0.2.0 已让脚手架实际可运行：`scripts/knowledge_cli.py` 可登记、单独人工准入、建索引、检索和记录观察。未准入或哈希变化的来源不会进入索引。详见[`docs/knowledge-runtime.zh-CN.md`](docs/knowledge-runtime.zh-CN.md)。
+v0.2.0 已让脚手架实际可运行，v0.4.0 Stage 5 又把本地索引升级为 v2：`scripts/knowledge_cli.py` 可登记、单独人工准入、建索引、检索和记录观察；Learning 只有在独立人工准入绑定相同哈希后才进入索引。未准入或哈希变化的来源都会被排除。详见[`docs/knowledge-runtime.zh-CN.md`](docs/knowledge-runtime.zh-CN.md)。
 
 ## 公开成长边界
 
@@ -119,7 +166,7 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 
 ## 引用与公开边界
 
-感谢 PPT Master、PPTAgent、DeepPresenter、pom、VASCAR、PosterO、PosterLayout、Scan-and-Print、CreatiPoster 与 PptxGenJS 的作者和贡献者。它们是本项目形成首批五项核心能力之后陆续研究的后续来源，只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
+感谢 PPT Master、PPTAgent、DeepPresenter、pom、VASCAR、PosterO、PosterLayout、Scan-and-Print、CreatiPoster、Tahta、MiniMax Skills、PosterCopilot、PosterVerse 与 PptxGenJS 的作者和贡献者。它们是本项目形成首批五项核心能力之后陆续研究的后续来源，只作为明确标识的概念启发、论文引用或可选公开 API 路线；准确修订、许可、引用限制与影响范围记录在 `provenance/manifest.yaml`。仓库不打包其源码快照、提示词、参考页、模板、媒体、数据集或模型；`examples/` 全部为合成数据。`experience/` 中的公开数据截图与PPT仅作为产出证据，并由 `experience/case-manifest.json` 和发布卫生检查单独治理。
 
 参考架构综合方法还特别感谢 [IBM Think Architectures](https://www.ibm.com/think/architectures)、[Microsoft Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/)、[Google Cloud Architecture Center](https://cloud.google.com/architecture)、[AWS Architecture Center](https://aws.amazon.com/architecture/)、[Oracle Architecture Center](https://docs.oracle.com/solutions/)、[SAP Architecture Center](https://architecture.learning.sap.com/)、[NVIDIA Enterprise Reference Architectures](https://docs.nvidia.com/enterprise-reference-architectures/)、[Databricks 参考架构](https://docs.databricks.com/aws/en/lakehouse-architecture/reference)、[Snowflake 架构指南](https://www.snowflake.com/en/developers/guides) 与 [Apple Platform Security](https://support.apple.com/guide/security/welcome/web) 背后的架构师、技术作者、设计师、工程师和审阅者。索引只记录链接和提炼后的关系，不再分发任何源架构图、原文、图标、品牌视觉、母版、模板、坐标或媒体。
 

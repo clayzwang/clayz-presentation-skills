@@ -1,0 +1,64 @@
+{
+  "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+  "receipt_id": "receipt-faee2cd42f78c8dc367a",
+  "created_at": "2026-08-23T08:00:00Z",
+  "request": {
+    "contract": "io.clayz.presentation.retrieval-request/1.0",
+    "request_id": "synthetic-layout-unresolved-layout-contract",
+    "stage": "art-direction",
+    "query": "radial-constellation orbits unregistered",
+    "rights_context": "public-open-source",
+    "require_human_admission": true,
+    "limit": 10,
+    "filters": {
+      "record_types": [
+        "layout-contract"
+      ],
+      "provider_ids": [
+        "builtin-catalog"
+      ],
+      "task_modes": [
+        "new-build"
+      ],
+      "page_roles": [
+        "radial-constellation"
+      ],
+      "semantic_relations": [
+        "orbits"
+      ],
+      "purpose_tags": [
+        "unregistered"
+      ],
+      "languages": [
+        "zh-CN"
+      ],
+      "failure_signals": [],
+      "include_metadata_only": false
+    },
+    "neighbor_expansion": {
+      "physical": 0,
+      "semantic": 0
+    }
+  },
+  "index_snapshot": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "1d0c11483ce5fe6bf980d8554d5c0114e1fb539c56eaba3395fc8039cd1bec03",
+      "record_count": 13
+    }
+  ],
+  "candidates": [],
+  "selection": {
+    "selected": [],
+    "rejected": []
+  },
+  "fallback": {
+    "used": true,
+    "reason": "no-eligible-registered-record"
+  },
+  "hallucination_guard": {
+    "only_registered_records": true,
+    "invented_record_count": 0,
+    "candidate_count": 0
+  }
+}
