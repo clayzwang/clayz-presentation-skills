@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:layout-contract:1.0",
+  "title": "Clayz high-level semantic Layout Contract",
+  "type": "object",
+  "required": ["contract", "layout_contract_id", "revision", "title", "summary", "selection", "slots", "structure", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.layout-contract/1.0"},
+    "layout_contract_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "revision": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "selection": {
+      "type": "object",
+      "required": ["task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages"],
+      "properties": {
+        "task_modes": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "page_roles": {"$ref": "#/$defs/nonEmptyStringSet"},
+        "semantic_relations": {"$ref": "#/$defs/stringSet"},
+        "purpose_tags": {"$ref": "#/$defs/stringSet"},
+        "languages": {"$ref": "#/$defs/nonEmptyStringSet"}
+      },
+      "additionalProperties": false
+    },
+    "slots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["slot_id", "role", "required", "min_items", "max_items", "content_kinds"],
+        "properties": {
+          "slot_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+          "role": {"type": "string", "minLength": 1},
+          "required": {"type": "boolean"},
+          "min_items": {"type": "integer", "minimum": 0},
+          "max_items": {"type": "integer", "minimum": 1},
+          "content_kinds": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"enum": ["text", "chart", "table", "diagram", "image", "source-note", "mixed"]},
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "structure": {"$ref": "#/$defs/node"},
+    "guards": {
+      "type": "object",
+      "required": ["theme_independent", "visual_variant_independent", "coordinates_deferred", "brand_neutral", "no_embedded_assets"],
+      "properties": {
+        "theme_independent": {"const": true},
+        "visual_variant_independent": {"const": true},
+        "coordinates_deferred": {"const": true},
+        "brand_neutral": {"const": true},
+        "no_embedded_assets": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "stringSet": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "nonEmptyStringSet": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "node": {
+      "type": "object",
+      "required": ["id", "type", "semantic_relation"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+        "type": {"enum": ["split", "stack", "grid", "slot"]},
+        "semantic_relation": {"type": "string", "minLength": 1},
+        "direction": {"enum": ["row", "column"]},
+        "gap_token": {"enum": ["none", "xs", "sm", "md", "lg"]},
+        "padding_token": {"enum": ["none", "xs", "sm", "md", "lg"]},
+        "weight": {"type": "number", "exclusiveMinimum": 0},
+        "columns": {"type": "integer", "minimum": 1},
+        "column_span": {"type": "integer", "minimum": 1},
+        "slot_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+        "children": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/node"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

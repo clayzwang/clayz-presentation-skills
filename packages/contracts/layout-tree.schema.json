@@ -5,6 +5,21 @@
   "type": "object",
   "required": ["frame", "root"],
   "properties": {
+    "contract": {"const": "io.clayz.presentation.layout-tree/1.0"},
+    "tree_id": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object",
+      "required": ["layout_contract_id", "layout_contract_revision", "record_id", "retrieval_receipt_id", "instance_id", "semantic_layout_tree_id"],
+      "properties": {
+        "layout_contract_id": {"type": "string", "minLength": 1},
+        "layout_contract_revision": {"type": "string", "minLength": 1},
+        "record_id": {"type": "string", "minLength": 1},
+        "retrieval_receipt_id": {"type": "string", "minLength": 1},
+        "instance_id": {"type": "string", "minLength": 1},
+        "semantic_layout_tree_id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
     "frame": {"$ref": "#/$defs/box"},
     "root": {"$ref": "#/$defs/node"}
   },
@@ -31,7 +46,10 @@
         "intent": {"type": "string"},
         "reading_order": {"type": "integer", "minimum": 0},
         "copy_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "semantic_node_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "protected": {"type": "boolean"},
+        "contract_node_id": {"type": "string", "minLength": 1},
+        "slot_id": {"type": "string", "minLength": 1},
         "basis": {"type": "number", "minimum": 0},
         "flex": {"type": "number", "minimum": 0},
         "min": {"type": "number", "minimum": 0},

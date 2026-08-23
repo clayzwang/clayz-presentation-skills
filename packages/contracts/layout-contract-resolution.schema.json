@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:layout-contract-resolution:1.0",
+  "title": "Clayz Layout Contract resolution",
+  "type": "object",
+  "required": ["contract", "resolution_id", "request_id", "status", "retrieval_receipt_id", "selected_layout_contract", "fallback", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.layout-contract-resolution/1.0"},
+    "resolution_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["selected", "unresolved"]},
+    "retrieval_receipt_id": {"type": "string", "minLength": 1},
+    "selected_layout_contract": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["record_id", "provider_id", "payload_ref", "source_sha256"],
+          "properties": {
+            "record_id": {"type": "string", "minLength": 1},
+            "provider_id": {"type": "string", "minLength": 1},
+            "payload_ref": {"type": "string", "minLength": 1},
+            "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "fallback": {
+      "type": "object",
+      "required": ["used", "reason", "next_action"],
+      "properties": {"used": {"type": "boolean"}, "reason": {"type": "string"}, "next_action": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["only_registered_records", "only_receipt_candidates_selected", "no_invented_layout_contracts", "theme_not_selected_here", "visual_variant_not_selected_here"],
+      "properties": {
+        "only_registered_records": {"const": true},
+        "only_receipt_candidates_selected": {"const": true},
+        "no_invented_layout_contracts": {"const": true},
+        "theme_not_selected_here": {"const": true},
+        "visual_variant_not_selected_here": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

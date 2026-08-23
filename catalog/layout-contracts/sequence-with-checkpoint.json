@@ -1,0 +1,87 @@
+{
+  "contract": "io.clayz.presentation.layout-contract/1.0",
+  "layout_contract_id": "layout.sequence-with-checkpoint",
+  "revision": "1",
+  "title": "Sequence with checkpoint",
+  "summary": "A neutral semantic sequence that keeps the main stages dominant and closes with a checkpoint and outcome.",
+  "selection": {
+    "task_modes": ["new-build"],
+    "page_roles": ["process"],
+    "semantic_relations": ["sequence"],
+    "purpose_tags": ["process-led"],
+    "languages": ["en-US", "zh-CN"]
+  },
+  "slots": [
+    {
+      "slot_id": "sequence-stages",
+      "role": "process",
+      "required": true,
+      "min_items": 2,
+      "max_items": 6,
+      "content_kinds": ["text", "diagram", "mixed"]
+    },
+    {
+      "slot_id": "checkpoint",
+      "role": "condition",
+      "required": true,
+      "min_items": 1,
+      "max_items": 2,
+      "content_kinds": ["text", "mixed"]
+    },
+    {
+      "slot_id": "outcome",
+      "role": "outcome",
+      "required": true,
+      "min_items": 1,
+      "max_items": 1,
+      "content_kinds": ["text"]
+    }
+  ],
+  "structure": {
+    "id": "body",
+    "type": "stack",
+    "semantic_relation": "sequence resolves through checkpoint",
+    "direction": "column",
+    "gap_token": "md",
+    "children": [
+      {
+        "id": "sequence-region",
+        "type": "slot",
+        "semantic_relation": "ordered stages",
+        "weight": 3,
+        "slot_id": "sequence-stages"
+      },
+      {
+        "id": "closure-row",
+        "type": "split",
+        "semantic_relation": "checkpoint conditions outcome",
+        "direction": "row",
+        "gap_token": "sm",
+        "weight": 1,
+        "children": [
+          {
+            "id": "checkpoint-region",
+            "type": "slot",
+            "semantic_relation": "checkpoint",
+            "weight": 1,
+            "slot_id": "checkpoint"
+          },
+          {
+            "id": "outcome-region",
+            "type": "slot",
+            "semantic_relation": "outcome",
+            "weight": 1,
+            "slot_id": "outcome"
+          }
+        ]
+      }
+    ]
+  },
+  "guards": {
+    "theme_independent": true,
+    "visual_variant_independent": true,
+    "coordinates_deferred": true,
+    "brand_neutral": true,
+    "no_embedded_assets": true
+  }
+}

@@ -11,6 +11,7 @@ source code is copied or redistributed.
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import math
 from pathlib import Path
@@ -254,7 +255,7 @@ def solve(document: dict[str, Any]) -> dict[str, Any]:
         if node_type not in CONTAINER_TYPES | {"leaf"}:
             raise LayoutError(f"{path}.type: unsupported type {node_type!r}")
         record: dict[str, Any] = {"id": node_id, "type": node_type, "parent_id": parent_id, **box}
-        for key in ("role", "intent", "reading_order", "copy_ids", "protected"):
+        for key in ("role", "intent", "reading_order", "copy_ids", "semantic_node_ids", "protected", "contract_node_id", "slot_id"):
             if key in node:
                 record[key] = node[key]
         boxes[node_id] = record
@@ -281,12 +282,41 @@ def solve(document: dict[str, Any]) -> dict[str, Any]:
             visit(child, child_box, child_path, node_id)
 
     visit(root, root_box, "$.root", None)
-    return {
+    result = {
         "contract": "io.clayz.presentation.layout-resolution/1.0",
         "frame": root_box,
         "boxes": [boxes[node_id] for node_id in order],
         "diagnostics": diagnostics,
     }
+    if "tree_id" in document:
+        result["source_tree_id"] = document["tree_id"]
+    if "source" in document:
+        result["source"] = copy.deepcopy(document["source"])
+    return result
+
+
+def solve_compilation(compilation: dict[str, Any]) -> dict[str, Any]:
+    """Resolve a compilation envelope while preserving layer separation."""
+
+    if not isinstance(compilation, dict):
+        raise LayoutError("$: expected a compilation mapping")
+    if compilation.get("contract") != "io.clayz.presentation.layout-compilation/1.0":
+        raise LayoutError("$.contract: unsupported layout compilation")
+    if compilation.get("status") != "compiled":
+        raise LayoutError("$.status: only compiled envelopes can be solved")
+    layout_tree = compilation.get("layout_tree")
+    if not isinstance(layout_tree, dict):
+        raise LayoutError("$.layout_tree: expected a mapping")
+    result = solve(layout_tree)
+    result["compilation_id"] = compilation.get("compilation_id")
+    result["lineage"] = copy.deepcopy(compilation.get("lineage", {}))
+    layers = copy.deepcopy(compilation.get("layers", {}))
+    coordinates = layers.get("resolved_coordinates", {})
+    coordinates["status"] = "materialized"
+    coordinates["contract"] = result["contract"]
+    layers["resolved_coordinates"] = coordinates
+    result["layers"] = layers
+    return result
 
 
 def main() -> int:

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:layout-compilation:1.0",
+  "title": "Clayz Layout Contract compilation envelope",
+  "type": "object",
+  "required": ["contract", "compilation_id", "status", "lineage", "layers", "layout_tree"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.layout-compilation/1.0"},
+    "compilation_id": {"type": "string", "minLength": 1},
+    "status": {"const": "compiled"},
+    "lineage": {
+      "type": "object",
+      "required": ["resolution_id", "retrieval_receipt_id", "record_id", "layout_contract_id", "layout_contract_revision", "instance_id", "semantic_layout_tree_id"],
+      "properties": {
+        "resolution_id": {"type": "string", "minLength": 1},
+        "retrieval_receipt_id": {"type": "string", "minLength": 1},
+        "record_id": {"type": "string", "minLength": 1},
+        "layout_contract_id": {"type": "string", "minLength": 1},
+        "layout_contract_revision": {"type": "string", "minLength": 1},
+        "instance_id": {"type": "string", "minLength": 1},
+        "semantic_layout_tree_id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "layers": {
+      "type": "object",
+      "required": ["theme", "visual_variant", "layout_contract", "layout_tree", "resolved_coordinates"],
+      "properties": {
+        "theme": {"$ref": "#/$defs/externalLayer"},
+        "visual_variant": {"$ref": "#/$defs/externalLayer"},
+        "layout_contract": {"$ref": "#/$defs/materializedLayer"},
+        "layout_tree": {"$ref": "#/$defs/materializedLayer"},
+        "resolved_coordinates": {
+          "type": "object",
+          "required": ["status", "contract"],
+          "properties": {"status": {"const": "pending"}, "contract": {"const": "io.clayz.presentation.layout-resolution/1.0"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "layout_tree": {"$ref": "layout-tree.schema.json"}
+  },
+  "$defs": {
+    "externalLayer": {
+      "type": "object",
+      "required": ["status", "input_used"],
+      "properties": {"status": {"const": "external-not-consumed"}, "input_used": {"const": false}},
+      "additionalProperties": false
+    },
+    "materializedLayer": {
+      "type": "object",
+      "required": ["status", "id"],
+      "properties": {"status": {"type": "string", "minLength": 1}, "id": {"type": "string", "minLength": 1}},
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
