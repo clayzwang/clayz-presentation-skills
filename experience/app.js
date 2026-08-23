@@ -85,6 +85,180 @@ const slides = [
   },
 ];
 
+const slideDecks = {
+  case: slides,
+  release: [
+    {
+      src: "assets/cases/v0.4.0-capability-deck/slide-01-index-foundation.png",
+      title: { en: "Stage 1 · Index Foundation", zh: "阶段1 · Index Foundation" },
+      alt: { en: "Index Foundation capability slide", zh: "Index Foundation 能力页" },
+      caption: {
+        en: "Provider-aware retrieval begins with auditable receipts and explicit unresolved fallbacks.",
+        zh: "从带可审计回执和显式 unresolved fallback 的 Provider-aware 检索开始。",
+      },
+    },
+    {
+      src: "assets/cases/v0.4.0-capability-deck/slide-03-capability-index.png",
+      title: { en: "Stage 2 · Capability Index", zh: "阶段2 · Capability Index" },
+      alt: { en: "Capability Index routing slide", zh: "Capability Index 能力路由页" },
+      caption: {
+        en: "Capability routing makes supported paths and unresolved gaps visible before generation.",
+        zh: "能力路由在生成前明确展示可用路径和未解决缺口。",
+      },
+    },
+    {
+      src: "assets/cases/v0.4.0-capability-deck/slide-05-layout-contract.png",
+      title: { en: "Stage 3 · Layout Contract", zh: "阶段3 · Layout Contract" },
+      alt: { en: "Layout Contract compilation slide", zh: "Layout Contract 编译页" },
+      caption: {
+        en: "Registered layout contracts compile intent into renderer-neutral slide objects.",
+        zh: "已登记的布局契约将意图编译为与渲染器无关的幻灯片对象。",
+      },
+    },
+    {
+      src: "assets/cases/v0.4.0-capability-deck/slide-07-pattern-library.png",
+      title: { en: "Stage 4 · Pattern & Dataset Library", zh: "阶段4 · Pattern 与 Dataset Library" },
+      alt: { en: "Governed pattern and dataset library slide", zh: "受控 Pattern 与 Dataset Library 页面" },
+      caption: {
+        en: "Composition patterns, failure patterns, and dataset metadata stay governed and traceable.",
+        zh: "Composition Pattern、Failure Pattern 与数据集元数据保持受控且可追溯。",
+      },
+    },
+    {
+      src: "assets/cases/v0.4.0-capability-deck/slide-09-feedback-learning.png",
+      title: { en: "Stage 5 · Feedback, Benchmark & Readiness", zh: "阶段5 · Feedback、Benchmark 与 Readiness" },
+      alt: { en: "Human-admitted feedback learning slide", zh: "人工准入反馈学习页" },
+      caption: {
+        en: "Human-admitted feedback and fixed benchmarks gate what the system is ready to learn.",
+        zh: "人工准入反馈与固定基准共同约束系统可以学习的内容。",
+      },
+    },
+  ],
+  "chatbi-house": [
+    {
+      src: "assets/cases/chatbi-house/slide-01-architecture-house.png",
+      title: { en: "Enterprise cognitive architecture", zh: "企业认知架构" },
+      alt: {
+        en: "ChatBI enterprise cognitive architecture house slide",
+        zh: "ChatBI 企业认知架构房子图",
+      },
+      caption: {
+        en: "A single editable slide connects business applications, governed data, reasoning services, controls, and learning feedback.",
+        zh: "一张可编辑页面连接经营应用、受控数据、推理服务、运营治理和学习反馈。",
+      },
+    },
+  ],
+  chatbi: [
+    {
+      src: "assets/cases/chatbi-cognitive-system/slide-01-cover.png",
+      title: { en: "Challenge framing", zh: "挑战定义" },
+      alt: {
+        en: "Cover of the ChatBI enterprise cognitive system advisory deck",
+        zh: "ChatBI 企业认知系统建议材料封面",
+      },
+      caption: {
+        en: "The advisory opens by reframing ChatBI from metric lookup to enterprise cognition.",
+        zh: "从查指标重新定义问题：企业真正需要的是认知系统。",
+      },
+    },
+    {
+      src: "assets/cases/chatbi-cognitive-system/slide-03-architecture-house.png",
+      title: { en: "Architecture and unresolved questions", zh: "架构与未决问题" },
+      alt: {
+        en: "Architecture house and six unanswered enterprise questions",
+        zh: "企业认知架构房子图与六个未决问题",
+      },
+      caption: {
+        en: "The architecture view exposes the operating questions that a platform diagram alone cannot answer.",
+        zh: "架构图同时暴露单靠平台分层无法回答的运营问题。",
+      },
+    },
+    {
+      src: "assets/cases/chatbi-cognitive-system/slide-04-dupont-tree.png",
+      title: { en: "Top-down DuPont metric tree", zh: "自上而下的杜邦指标树" },
+      alt: { en: "Traditional multi-level DuPont metric tree", zh: "传统多层杜邦指标树" },
+      caption: {
+        en: "A top-down metric tree clarifies decomposition while revealing where interpretation still requires people.",
+        zh: "自上而下的指标拆解既建立结构，也明确哪些解释仍需人工判断。",
+      },
+    },
+    {
+      src: "assets/cases/chatbi-cognitive-system/slide-06-semantic-layer-trap.png",
+      title: { en: "The semantic-layer shortcut", zh: "语义层捷径" },
+      alt: { en: "Semantic layer accountability trap", zh: "语义层责任归属陷阱" },
+      caption: {
+        en: "A semantic layer can standardize definitions, but it cannot absorb human accountability.",
+        zh: "语义层可以统一定义，却不能替人承担判断责任。",
+      },
+    },
+    {
+      src: "assets/cases/chatbi-cognitive-system/slide-08-cognitive-loop.png",
+      title: { en: "Enterprise cognitive loop", zh: "企业认知闭环" },
+      alt: { en: "Enterprise cognitive operating loop", zh: "企业认知运营闭环" },
+      caption: {
+        en: "Trustworthy enterprise cognition depends on a closed operating loop, not another isolated platform layer.",
+        zh: "可信企业认知依赖运营闭环，而不是再增加一个孤立的平台层。",
+      },
+    },
+    {
+      src: "assets/cases/chatbi-cognitive-system/slide-10-triad-methodology.png",
+      title: { en: "Triad methodology", zh: "三元方法论" },
+      alt: { en: "Triad methodology for enterprise cognition", zh: "企业认知三元方法论" },
+      caption: {
+        en: "The methodology aligns evidence, reasoning, and accountable action.",
+        zh: "方法论将证据、推理和可问责行动对齐。",
+      },
+    },
+    {
+      src: "assets/cases/chatbi-cognitive-system/slide-11-closing-question.png",
+      title: { en: "The closing governance question", zh: "最后的治理问题" },
+      alt: { en: "Closing question about trustworthy evidence", zh: "关于可信证据的收尾问题" },
+      caption: {
+        en: "The deck closes by asking what evidence the organization is prepared to trust and act on.",
+        zh: "材料最终追问：组织准备信任什么证据，并据此采取行动？",
+      },
+    },
+  ],
+  styles: [
+    {
+      src: "assets/showcase/mckinsey-demo.png",
+      title: { en: "Consulting structure", zh: "咨询结构" },
+      alt: { en: "McKinsey-style consulting slide example", zh: "麦肯锡风格咨询页面示例" },
+      caption: {
+        en: "McKinsey-inspired study · conclusion-led hierarchy and disciplined evidence structure.",
+        zh: "麦肯锡风格研究 · 结论先行的层级与严谨证据结构。",
+      },
+    },
+    {
+      src: "assets/showcase/bcg-demo.png",
+      title: { en: "Strategic framing", zh: "战略框架" },
+      alt: { en: "BCG-style consulting slide example", zh: "BCG 风格咨询页面示例" },
+      caption: {
+        en: "BCG-inspired study · strong strategic framing with a distinct visual point of view.",
+        zh: "BCG 风格研究 · 清晰的战略框架和鲜明视觉观点。",
+      },
+    },
+    {
+      src: "assets/showcase/pingan-demo.png",
+      title: { en: "Business reporting", zh: "经营汇报" },
+      alt: { en: "Ping An business results slide example", zh: "平安风格经营结果页面示例" },
+      caption: {
+        en: "Ping An study · compact operating metrics designed for management review.",
+        zh: "平安案例研究 · 面向管理复盘的紧凑经营指标表达。",
+      },
+    },
+    {
+      src: "assets/showcase/clayz-overview.png",
+      title: { en: "System overview", zh: "系统总览" },
+      alt: { en: "Clayz Presentation Skills workflow overview", zh: "Clayz 演示文稿技能工作流总览" },
+      caption: {
+        en: "Clayz visual language · a system overview that keeps workflow, governance, and output connected.",
+        zh: "Clayz 视觉语言 · 将工作流、治理和输出连接起来的系统总览。",
+      },
+    },
+  ],
+};
+
 const translations = {
   en: {
     brandSub: "Experience Center",
@@ -97,6 +271,13 @@ const translations = {
     heroTitle: "See what governed presentation generation can actually deliver.",
     heroLede:
       "Follow one complete public-data case from market evidence to a presentation-ready decision story — then download the editable PowerPoint.",
+    advantageLabel: "THE CLAYZ ADVANTAGE",
+    advantageArchitecture: "Clear architecture",
+    advantageArchitectureText: "Separated stages and explicit contracts keep the system understandable and auditable.",
+    advantageLearning: "Strong self-learning",
+    advantageLearningText: "Governed learning quickly absorbs proven methods from many schools of thought.",
+    advantageAdaptability: "High adaptability",
+    advantageAdaptabilityText: "Personal requirements and corporate templates compose into one executable plan.",
     heroExplore: "Explore the full case",
     heroDownload: "Download editable PPTX",
     metricSlides: "slide full deck",
@@ -214,6 +395,13 @@ const translations = {
     navRepo: "GitHub 仓库",
     heroTitle: "直接看看这套受控演示文稿系统，最终究竟能交付什么。",
     heroLede: "沿着一个完整的公开数据案例，从市场证据走到可汇报的决策故事，并下载可编辑的 PowerPoint。",
+    advantageLabel: "CLAYZ 核心优势",
+    advantageArchitecture: "架构清晰",
+    advantageArchitectureText: "阶段职责和合同边界明确，整套系统易理解、可审计。",
+    advantageLearning: "自学习能力强",
+    advantageLearningText: "通过受控学习快速吸纳百家之长，并保留来源与准入边界。",
+    advantageAdaptability: "自适应能力强",
+    advantageAdaptabilityText: "将个性化要求与企业模板快速拼接为一套可执行方案。",
     heroExplore: "查看完整案例",
     heroDownload: "下载可编辑 PPTX",
     metricSlides: "页完整报告",
@@ -311,53 +499,114 @@ const translations = {
   },
 };
 
-let activeIndex = 0;
 let activeLanguage = localStorage.getItem("clayz-experience-language") || "en";
-
-const activeSlide = document.querySelector("#active-slide");
-const slideTitle = document.querySelector("#slide-title");
-const slideCaption = document.querySelector("#slide-caption");
-const slideCurrent = document.querySelector("#slide-current");
-const thumbnailStrip = document.querySelector("#thumbnail-strip");
 const languageToggle = document.querySelector(".language-toggle");
+const slideViewers = [];
 
-function renderThumbnails() {
-  thumbnailStrip.innerHTML = "";
+function createSlideViewer(container, deck) {
+  let activeIndex = 0;
 
-  slides.forEach((slide, index) => {
-    const button = document.createElement("button");
-    button.className = "thumbnail-button";
-    button.type = "button";
-    button.setAttribute("aria-label", `${index + 1}. ${slide.title[activeLanguage]}`);
-    button.setAttribute("aria-current", index === activeIndex ? "true" : "false");
+  container.tabIndex = 0;
+  container.classList.toggle("is-single-slide", deck.length === 1);
+  container.innerHTML = `
+    <div class="viewer-toolbar">
+      <div>
+        <span class="viewer-kicker"></span>
+        <strong class="viewer-slide-title"></strong>
+      </div>
+      <div class="viewer-count" aria-live="polite">
+        <span class="viewer-current">01</span>
+        <span>/</span>
+        <span class="viewer-total"></span>
+      </div>
+    </div>
+    <figure class="slide-stage">
+      <img class="viewer-active-slide" alt="" loading="lazy" decoding="async" />
+      <figcaption class="viewer-slide-caption"></figcaption>
+    </figure>
+    <div class="viewer-controls">
+      <button class="viewer-button viewer-previous" type="button"></button>
+      <div class="thumbnail-strip" role="list"></div>
+      <button class="viewer-button viewer-next" type="button"></button>
+    </div>
+  `;
 
-    const image = document.createElement("img");
-    image.src = slide.src;
-    image.alt = "";
-    image.loading = "lazy";
-    button.appendChild(image);
+  const activeSlide = container.querySelector(".viewer-active-slide");
+  const slideTitle = container.querySelector(".viewer-slide-title");
+  const slideCaption = container.querySelector(".viewer-slide-caption");
+  const slideCurrent = container.querySelector(".viewer-current");
+  const slideTotal = container.querySelector(".viewer-total");
+  const viewerKicker = container.querySelector(".viewer-kicker");
+  const previousButton = container.querySelector(".viewer-previous");
+  const nextButton = container.querySelector(".viewer-next");
+  const thumbnailStrip = container.querySelector(".thumbnail-strip");
 
-    button.addEventListener("click", () => selectSlide(index));
-    thumbnailStrip.appendChild(button);
+  function renderThumbnails() {
+    thumbnailStrip.innerHTML = "";
+
+    deck.forEach((slide, index) => {
+      const button = document.createElement("button");
+      button.className = "thumbnail-button";
+      button.type = "button";
+      button.setAttribute("role", "listitem");
+      button.setAttribute("aria-label", `${index + 1}. ${slide.title[activeLanguage]}`);
+      button.setAttribute("aria-current", index === activeIndex ? "true" : "false");
+
+      const image = document.createElement("img");
+      image.src = slide.src;
+      image.alt = "";
+      image.loading = "lazy";
+      button.appendChild(image);
+
+      button.addEventListener("click", () => selectSlide(index));
+      thumbnailStrip.appendChild(button);
+    });
+  }
+
+  function selectSlide(index, scrollThumbnail = true) {
+    activeIndex = (index + deck.length) % deck.length;
+    const slide = deck[activeIndex];
+
+    activeSlide.src = slide.src;
+    activeSlide.alt = slide.alt[activeLanguage];
+    slideTitle.textContent = slide.title[activeLanguage];
+    slideCaption.textContent = slide.caption[activeLanguage];
+    slideCurrent.textContent = String(activeIndex + 1).padStart(2, "0");
+
+    const thumbnails = thumbnailStrip.querySelectorAll(".thumbnail-button");
+    thumbnails.forEach((thumbnail, index) => {
+      thumbnail.setAttribute("aria-current", index === activeIndex ? "true" : "false");
+    });
+
+    if (scrollThumbnail) {
+      thumbnails[activeIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+  }
+
+  function renderLanguage() {
+    viewerKicker.textContent = translations[activeLanguage].viewerKicker;
+    previousButton.textContent = translations[activeLanguage].previousSlide;
+    nextButton.textContent = translations[activeLanguage].nextSlide;
+    thumbnailStrip.setAttribute("aria-label", activeLanguage === "zh" ? "幻灯片缩略图" : "Slide thumbnails");
+    renderThumbnails();
+    selectSlide(activeIndex, false);
+  }
+
+  previousButton.addEventListener("click", () => selectSlide(activeIndex - 1));
+  nextButton.addEventListener("click", () => selectSlide(activeIndex + 1));
+  container.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      selectSlide(activeIndex - 1);
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      selectSlide(activeIndex + 1);
+    }
   });
-}
 
-function selectSlide(index) {
-  activeIndex = (index + slides.length) % slides.length;
-  const slide = slides[activeIndex];
-
-  activeSlide.src = slide.src;
-  activeSlide.alt = slide.alt[activeLanguage];
-  slideTitle.textContent = slide.title[activeLanguage];
-  slideCaption.textContent = slide.caption[activeLanguage];
-  slideCurrent.textContent = String(activeIndex + 1).padStart(2, "0");
-
-  const thumbnails = thumbnailStrip.querySelectorAll(".thumbnail-button");
-  thumbnails.forEach((thumbnail, index) => {
-    thumbnail.setAttribute("aria-current", index === activeIndex ? "true" : "false");
-  });
-
-  thumbnails[activeIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  slideTotal.textContent = String(deck.length).padStart(2, "0");
+  return { renderLanguage };
 }
 
 function setLanguage(language) {
@@ -377,22 +626,16 @@ function setLanguage(language) {
   languageToggle.setAttribute("aria-label", language === "en" ? "切换到中文" : "Switch to English");
   localStorage.setItem("clayz-experience-language", language);
 
-  renderThumbnails();
-  selectSlide(activeIndex);
+  slideViewers.forEach((viewer) => viewer.renderLanguage());
 }
 
-document.querySelector("#previous-slide").addEventListener("click", () => selectSlide(activeIndex - 1));
-document.querySelector("#next-slide").addEventListener("click", () => selectSlide(activeIndex + 1));
-languageToggle.addEventListener("click", () => setLanguage(activeLanguage === "en" ? "zh" : "en"));
-
-document.addEventListener("keydown", (event) => {
-  const caseSection = document.querySelector("#case");
-  const rect = caseSection.getBoundingClientRect();
-  const caseIsVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-  if (!caseIsVisible) return;
-  if (event.key === "ArrowLeft") selectSlide(activeIndex - 1);
-  if (event.key === "ArrowRight") selectSlide(activeIndex + 1);
+document.querySelectorAll("[data-slide-viewer]").forEach((container) => {
+  const deck = slideDecks[container.dataset.slideViewer];
+  if (deck?.length) {
+    slideViewers.push(createSlideViewer(container, deck));
+  }
 });
+
+languageToggle.addEventListener("click", () => setLanguage(activeLanguage === "en" ? "zh" : "en"));
 
 setLanguage(activeLanguage);

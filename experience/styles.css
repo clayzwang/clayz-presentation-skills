@@ -165,7 +165,7 @@ main,
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.75fr);
   gap: 72px;
-  align-items: end;
+  align-items: center;
   min-height: 620px;
   padding: 104px 0 88px;
 }
@@ -193,6 +193,85 @@ main,
   color: var(--muted);
   font-size: clamp(18px, 2vw, 23px);
   line-height: 1.55;
+}
+
+.hero-advantage-block {
+  margin: 0;
+}
+
+.hero-advantage-label {
+  margin: 0 0 10px;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+}
+
+.hero-advantages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-advantages li {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 28px rgba(17, 34, 68, 0.07);
+}
+
+.hero-advantages span,
+.hero-advantages strong {
+  display: block;
+}
+
+.hero-advantages span {
+  margin-bottom: 24px;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.hero-advantages strong {
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.hero-advantages p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.hero-side {
+  display: grid;
+  gap: 22px;
+}
+
+.hero-side .hero-advantages {
+  grid-template-columns: 1fr;
+}
+
+.hero-side .hero-advantages li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  column-gap: 10px;
+  padding: 14px 16px;
+}
+
+.hero-side .hero-advantages span {
+  grid-row: 1 / 3;
+  margin: 2px 0 0;
+}
+
+.hero-side .hero-advantages p {
+  margin-top: 5px;
 }
 
 .hero-actions {
@@ -260,6 +339,20 @@ main,
   margin: 12px 0 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+.hero-side .hero-metrics div {
+  min-height: 92px;
+  padding: 15px;
+}
+
+.hero-side .hero-metrics dt {
+  font-size: 29px;
+}
+
+.hero-side .hero-metrics dd {
+  margin-top: 7px;
+  font-size: 11px;
 }
 
 .case-section,
@@ -382,6 +475,20 @@ main,
   border-radius: var(--radius);
   background: #eef2f7;
   box-shadow: var(--shadow);
+}
+
+.embedded-slide-explorer {
+  min-width: 0;
+  box-shadow: 0 14px 42px rgba(11, 18, 32, 0.09);
+}
+
+.showcase-slide-explorer {
+  width: min(100%, 980px);
+  margin-inline: auto;
+}
+
+.slide-explorer.is-single-slide .viewer-controls {
+  display: none;
 }
 
 .viewer-toolbar {
@@ -836,6 +943,10 @@ main,
 
   .hero h1 {
     font-size: 45px;
+  }
+
+  .hero-advantages {
+    grid-template-columns: 1fr;
   }
 
   .hero-metrics div {

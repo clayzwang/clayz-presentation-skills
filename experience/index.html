@@ -67,24 +67,47 @@
           </div>
         </div>
 
-        <dl class="hero-metrics" aria-label="Case summary">
-          <div>
-            <dt>16</dt>
-            <dd data-i18n="metricSlides">slide full deck</dd>
+        <div class="hero-side">
+          <div class="hero-advantage-block" aria-label="Clayz core advantages">
+            <p class="hero-advantage-label" data-i18n="advantageLabel">THE CLAYZ ADVANTAGE</p>
+            <ol class="hero-advantages">
+              <li>
+                <span aria-hidden="true">01</span>
+                <strong data-i18n="advantageArchitecture">Clear architecture</strong>
+                <p data-i18n="advantageArchitectureText">Separated stages and explicit contracts keep the system understandable and auditable.</p>
+              </li>
+              <li>
+                <span aria-hidden="true">02</span>
+                <strong data-i18n="advantageLearning">Strong self-learning</strong>
+                <p data-i18n="advantageLearningText">Governed learning quickly absorbs proven methods from many schools of thought.</p>
+              </li>
+              <li>
+                <span aria-hidden="true">03</span>
+                <strong data-i18n="advantageAdaptability">High adaptability</strong>
+                <p data-i18n="advantageAdaptabilityText">Personal requirements and corporate templates compose into one executable plan.</p>
+              </li>
+            </ol>
           </div>
-          <div>
-            <dt>9</dt>
-            <dd data-i18n="metricPreviews">selected previews</dd>
-          </div>
-          <div>
-            <dt>PPTX</dt>
-            <dd data-i18n="metricEditable">editable output</dd>
-          </div>
-          <div>
-            <dt>4×</dt>
-            <dd data-i18n="metricRegimes">market regimes</dd>
-          </div>
-        </dl>
+
+          <dl class="hero-metrics" aria-label="Case summary">
+            <div>
+              <dt>16</dt>
+              <dd data-i18n="metricSlides">slide full deck</dd>
+            </div>
+            <div>
+              <dt>9</dt>
+              <dd data-i18n="metricPreviews">selected previews</dd>
+            </div>
+            <div>
+              <dt>PPTX</dt>
+              <dd data-i18n="metricEditable">editable output</dd>
+            </div>
+            <div>
+              <dt>4×</dt>
+              <dd data-i18n="metricRegimes">market regimes</dd>
+            </div>
+          </dl>
+        </div>
       </section>
 
       <section class="case-section" id="case">
@@ -133,36 +156,7 @@
             </div>
           </aside>
 
-          <div class="slide-explorer">
-            <div class="viewer-toolbar">
-              <div>
-                <span class="viewer-kicker" data-i18n="viewerKicker">Selected slide</span>
-                <strong id="slide-title">Executive synthesis</strong>
-              </div>
-              <div class="viewer-count" aria-live="polite">
-                <span id="slide-current">01</span>
-                <span>/</span>
-                <span id="slide-total">09</span>
-              </div>
-            </div>
-
-            <figure class="slide-stage">
-              <img
-                id="active-slide"
-                src="assets/cases/a-share/slide-02-summary.png"
-                alt="Executive synthesis slide from the A-share market analysis case"
-              />
-              <figcaption id="slide-caption" data-i18n="slideCaptionDefault">
-                The deck opens with one conclusion, four evidence anchors, and an explicit risk budget.
-              </figcaption>
-            </figure>
-
-            <div class="viewer-controls">
-              <button class="viewer-button" id="previous-slide" type="button" data-i18n="previousSlide">Previous</button>
-              <div class="thumbnail-strip" id="thumbnail-strip" aria-label="Slide thumbnails"></div>
-              <button class="viewer-button" id="next-slide" type="button" data-i18n="nextSlide">Next</button>
-            </div>
-          </div>
+          <div class="slide-explorer" data-slide-viewer="case" aria-label="A-share market analysis slide viewer"></div>
         </div>
       </section>
 
@@ -277,28 +271,11 @@
               >Download 10-slide English PPTX</a
             >
           </div>
-          <div class="chatbi-preview-grid" aria-label="Selected previews from the v0.4.0 capability deck">
-            <figure class="chatbi-preview chatbi-preview-feature">
-              <img src="assets/cases/v0.4.0-capability-deck/slide-01-index-foundation.png" alt="Index Foundation capability slide" loading="lazy" />
-              <figcaption data-i18n="releasePreviewIndex">Stage 1 · Index Foundation</figcaption>
-            </figure>
-            <figure class="chatbi-preview">
-              <img src="assets/cases/v0.4.0-capability-deck/slide-03-capability-index.png" alt="Capability Index routing slide" loading="lazy" />
-              <figcaption data-i18n="releasePreviewCapability">Stage 2 · Capability Index</figcaption>
-            </figure>
-            <figure class="chatbi-preview">
-              <img src="assets/cases/v0.4.0-capability-deck/slide-05-layout-contract.png" alt="Layout Contract compilation slide" loading="lazy" />
-              <figcaption data-i18n="releasePreviewLayout">Stage 3 · Layout Contract</figcaption>
-            </figure>
-            <figure class="chatbi-preview">
-              <img src="assets/cases/v0.4.0-capability-deck/slide-07-pattern-library.png" alt="Governed pattern and dataset library slide" loading="lazy" />
-              <figcaption data-i18n="releasePreviewPatterns">Stage 4 · Pattern &amp; Dataset Library</figcaption>
-            </figure>
-            <figure class="chatbi-preview">
-              <img src="assets/cases/v0.4.0-capability-deck/slide-09-feedback-learning.png" alt="Human-admitted feedback learning slide" loading="lazy" />
-              <figcaption data-i18n="releasePreviewFeedback">Stage 5 · Feedback, Benchmark &amp; Readiness</figcaption>
-            </figure>
-          </div>
+          <div
+            class="slide-explorer embedded-slide-explorer"
+            data-slide-viewer="release"
+            aria-label="Selected slides from the v0.4.0 capability deck"
+          ></div>
         </article>
       </section>
 
@@ -329,14 +306,11 @@
                 >Download architecture PPTX</a
               >
             </div>
-            <figure class="chatbi-preview chatbi-preview-single">
-              <img
-                src="assets/cases/chatbi-house/slide-01-architecture-house.png"
-                alt="ChatBI enterprise cognitive architecture house slide"
-                loading="lazy"
-              />
-              <figcaption data-i18n="chatbiHouseCaption">Enterprise cognitive architecture · editable PowerPoint</figcaption>
-            </figure>
+            <div
+              class="slide-explorer embedded-slide-explorer"
+              data-slide-viewer="chatbi-house"
+              aria-label="ChatBI enterprise cognitive architecture slide"
+            ></div>
           </article>
 
           <article class="chatbi-case-card chatbi-case-card-wide">
@@ -354,36 +328,11 @@
                 >Download 11-slide advisory PPTX</a
               >
             </div>
-            <div class="chatbi-preview-grid" aria-label="Selected previews from the ChatBI advisory deck">
-              <figure class="chatbi-preview chatbi-preview-feature">
-                <img src="assets/cases/chatbi-cognitive-system/slide-01-cover.png" alt="Cover of the ChatBI enterprise cognitive system advisory deck" loading="lazy" />
-                <figcaption data-i18n="chatbiPreviewCover">Challenge framing</figcaption>
-              </figure>
-              <figure class="chatbi-preview">
-                <img src="assets/cases/chatbi-cognitive-system/slide-03-architecture-house.png" alt="Architecture house and six unanswered enterprise questions" loading="lazy" />
-                <figcaption data-i18n="chatbiPreviewHouse">Architecture and unresolved questions</figcaption>
-              </figure>
-              <figure class="chatbi-preview">
-                <img src="assets/cases/chatbi-cognitive-system/slide-04-dupont-tree.png" alt="Traditional multi-level DuPont metric tree" loading="lazy" />
-                <figcaption data-i18n="chatbiPreviewDupont">Top-down DuPont metric tree</figcaption>
-              </figure>
-              <figure class="chatbi-preview">
-                <img src="assets/cases/chatbi-cognitive-system/slide-06-semantic-layer-trap.png" alt="Semantic layer accountability trap" loading="lazy" />
-                <figcaption data-i18n="chatbiPreviewSemantic">The semantic-layer shortcut</figcaption>
-              </figure>
-              <figure class="chatbi-preview">
-                <img src="assets/cases/chatbi-cognitive-system/slide-08-cognitive-loop.png" alt="Enterprise cognitive operating loop" loading="lazy" />
-                <figcaption data-i18n="chatbiPreviewLoop">Enterprise cognitive loop</figcaption>
-              </figure>
-              <figure class="chatbi-preview">
-                <img src="assets/cases/chatbi-cognitive-system/slide-10-triad-methodology.png" alt="Triad methodology for enterprise cognition" loading="lazy" />
-                <figcaption data-i18n="chatbiPreviewTriad">Triad methodology</figcaption>
-              </figure>
-              <figure class="chatbi-preview">
-                <img src="assets/cases/chatbi-cognitive-system/slide-11-closing-question.png" alt="Closing question about trustworthy evidence" loading="lazy" />
-                <figcaption data-i18n="chatbiPreviewQuestion">The closing governance question</figcaption>
-              </figure>
-            </div>
+            <div
+              class="slide-explorer embedded-slide-explorer"
+              data-slide-viewer="chatbi"
+              aria-label="Selected slides from the ChatBI advisory deck"
+            ></div>
           </article>
         </div>
       </section>
@@ -399,24 +348,11 @@
           </p>
         </div>
 
-        <div class="style-gallery">
-          <figure>
-            <img src="assets/showcase/mckinsey-demo.png" alt="McKinsey-style consulting slide example" loading="lazy" />
-            <figcaption data-i18n="styleMck">Consulting structure · McKinsey-inspired study</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/showcase/bcg-demo.png" alt="BCG-style consulting slide example" loading="lazy" />
-            <figcaption data-i18n="styleBcg">Strategic framing · BCG-inspired study</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/showcase/pingan-demo.png" alt="Ping An business results slide example" loading="lazy" />
-            <figcaption data-i18n="stylePingan">Business reporting · Ping An study</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/showcase/clayz-overview.png" alt="Clayz Presentation Skills workflow overview" loading="lazy" />
-            <figcaption data-i18n="styleClayz">System overview · Clayz visual language</figcaption>
-          </figure>
-        </div>
+        <div
+          class="slide-explorer showcase-slide-explorer"
+          data-slide-viewer="styles"
+          aria-label="Visual adaptation slide viewer"
+        ></div>
 
         <div class="style-download">
           <div>
