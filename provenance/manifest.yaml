@@ -137,6 +137,19 @@ sources:
     redistributed_files: []
     note: "Thank you to the CreatiPoster authors. Because no clear repository-level license was observed, Clayz cites the paper and independently expresses presentation-specific foreground/background decisions. No code, protocol, model, dataset, training recipe, figure, layout, font, or media is used or redistributed."
 
+  - id: "tahta"
+    usage_type: "conceptual-inspiration"
+    upstream: "https://github.com/zcag/tahta"
+    upstream_license: "MIT"
+    pinned_version: "7720bc9fc139e8561c282259a4a2519b0c0877bd"
+    reviewed_on: "2026-08-23"
+    influenced_components:
+      - "machine-readable layout-contract boundary"
+      - "explicit separation of visual variant from semantic layout structure"
+      - "contract validation before rendering"
+    redistributed_files: []
+    note: "Thank you to Cagdas Salur and Tahta contributors. Clayz independently implements a renderer-neutral, index-governed Layout Contract compiler for editable PowerPoint workflows. No Tahta source code, JSON contracts, layouts, variants, components, tokens, CSS, fonts, prompts, examples, screenshots, assets, themes, templates, or media are copied or redistributed."
+
   - id: "pptxgenjs"
     usage_type: "optional-public-api-integration"
     upstream: "https://github.com/gitbrent/PptxGenJS"

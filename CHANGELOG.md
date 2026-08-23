@@ -12,6 +12,10 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add Stage 2 Capability Index routing: mandatory stage contracts remain deterministic while optional knowledge is selected only from registered, human-admitted, brand-neutral capability records with auditable per-signal retrieval receipts.
 - Convert the five stage skills to index-native optional-reference routing without adding a sixth decision-making skill; unresolved capability signals remain explicit instead of triggering invented guidance.
 - Keep the public capability catalog method-only and validate every referenced repository path; no company template, master, brand kit, font binary, dataset, model weight, or generated presentation enters the catalog.
+- Add Stage 3 Layout Contracts as original, brand-neutral, hash-bound semantic topology above the existing Semantic Layout Tree and relative solver, without changing the five-skill ownership model.
+- Separate Theme, Visual Variant, Layout Contract, task-local Layout Tree, and resolved coordinates; the compiler consumes no theme or variant input and preserves receipt-to-contract-to-tree lineage.
+- Reject unregistered, unretrieved, ambiguous, hash-drifted, or invalid contracts; an empty match stays explicitly `unresolved` and emits no invented fallback tree.
+- Add two synthetic public contracts, schemas, compiler, validators, regression fixtures, and Tahta conceptual attribution with a strict no-code/no-template/no-asset redistribution boundary.
 
 ## 0.3.0 — 2026-08-22
 

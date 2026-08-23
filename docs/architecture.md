@@ -10,6 +10,14 @@
 | Output | editable objects, coordinates, theme application, technical repair, final files | approved content or visual intent |
 | Supervisor | cross-layer diagnosis, evidence, severity, ownership, challenge record | any upstream or downstream artifact |
 
+## Layout compilation layers
+
+Theme and Visual Variant remain configuration and Art Direction concerns.
+Registered Layout Contracts provide reusable semantic topology, while the
+task-local Layout Tree binds approved Semantic Layout Tree nodes and copy IDs.
+Only Output resolves coordinates and creates objects. See
+[`layout-contracts.md`](layout-contracts.md).
+
 ## Central configuration
 
 All environmental and stylistic choices resolve from `config/default.json` or one explicit override. Skills may read the configuration but may not copy its values into their own instructions as fixed rules.

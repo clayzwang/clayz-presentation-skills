@@ -19,10 +19,11 @@ Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Validate the copy-approved package.
 4. Read `references/art-direction-plan-contract.md` and `references/material-routes.md`. These core contracts are mandatory and never search-dependent.
-5. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-6. Classify optional visual signals, then resolve them through the built-in Capability Index. Supported examples include `image-led`, `image-copy-conflict`, `asset-selection`, `template-candidate`, `icon-selection`, `high-risk-composition`, `ab-review`, `large-reference-set`, `reference-discovery`, `architecture-house`, and `enterprise-architecture`.
-7. Load only optional `knowledge_refs` returned by selected capability records. Architecture-house routing may return the source index and pattern library together with its method reference; this is a governed capability bundle, not a template lookup.
-8. Preserve every capability resolution and retrieval receipt ID as task-local evidence. If a signal has no eligible capability, record the unresolved signal and use core contracts or return the gap; never invent a layout method, reference, template, or brand asset.
+5. Read `references/layout-contract-routing.md`. The routing boundary is mandatory and never search-dependent; the existence of a matching registered Layout Contract is search-dependent.
+6. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
+7. Classify optional visual signals, then resolve them through the built-in Capability Index. Supported examples include `image-led`, `image-copy-conflict`, `asset-selection`, `template-candidate`, `icon-selection`, `high-risk-composition`, `ab-review`, `large-reference-set`, `reference-discovery`, `architecture-house`, and `enterprise-architecture`.
+8. Load only optional `knowledge_refs` returned by selected capability records. Architecture-house routing may return the source index and pattern library together with its method reference; this is a governed capability bundle, not a template lookup.
+9. Preserve every capability and Layout Contract resolution plus retrieval receipt ID as task-local evidence. If a signal or contract has no eligible record, mark it unresolved and use core contracts or return the gap; never invent a layout method, reference, template, contract, or brand asset.
 
 ## Workflow
 
@@ -33,11 +34,12 @@ Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page
 5. Treat templates and icons as reviewed candidates. Use the resolved asset-grammar capability, re-derive composition from the current page job, select assets by semantic role, and record source and license evidence; never clone a master, layout, brand identity, or arbitrary ratio.
 6. For a reference-architecture house, use the resolved architecture-house capability and apply the corpus-to-pattern-to-synthesis method. Record selected source IDs, relationship grammars, task adaptations, and accountability path.
 7. Build a semantic layout tree that records containment, peers, sequence, cause, condition, support, comparison, feedback, or anchors.
-8. Map every `copy_id` exactly once to a render target and verification method.
-9. Use real rendered A/B prototypes for high-risk composition only when the A/B capability was resolved; do not treat automated scores or similarity as the winner.
-10. Judge the deck as a sequence, not a collection of isolated pages.
-11. Emit task-local learning candidates with rendered evidence, applicability, and `never_copy` boundaries; persist them only through the configured Art Direction learning route and never auto-promote them.
-12. Emit one plan with `origin_namespace: io.clayz.presentation` and status `art-direction-approved`; task-local execution evidence should retain the capability resolution and retrieval receipt IDs used for optional knowledge.
+8. Resolve an optional registered Layout Contract from the approved page semantics, then bind its slots to Semantic Layout Tree node IDs and `copy_id` values. Keep Theme, Visual Variant, Layout Contract, Layout Tree, and resolved coordinates as separate layers. With no eligible contract, record `unresolved` and continue through the core tree path without claiming a named contract.
+9. Map every `copy_id` exactly once to a render target and verification method.
+10. Use real rendered A/B prototypes for high-risk composition only when the A/B capability was resolved; do not treat automated scores or similarity as the winner.
+11. Judge the deck as a sequence, not a collection of isolated pages.
+12. Emit task-local learning candidates with rendered evidence, applicability, and `never_copy` boundaries; persist them only through the configured Art Direction learning route and never auto-promote them.
+13. Emit one plan with `origin_namespace: io.clayz.presentation` and status `art-direction-approved`; task-local execution evidence should retain the capability and Layout Contract resolution and retrieval receipt IDs used.
 
 ## Validation
 

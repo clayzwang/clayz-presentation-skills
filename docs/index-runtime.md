@@ -56,4 +56,4 @@ The runtime implementation is in `packages/index_runtime/`. Use `scripts/index_r
 
 ## Development status
 
-This is an unreleased foundation. `VERSION` remains unchanged. Later v0.4.0 stages will connect capability routing, layout contracts, composition and failure patterns, learning promotion, and retrieval benchmarks to the same receipts.
+This is an unreleased foundation. `VERSION` remains unchanged. Capability routing and registered Layout Contracts now use the same receipts; later v0.4.0 stages may connect composition and failure patterns, learning promotion, and retrieval benchmarks.

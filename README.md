@@ -100,6 +100,22 @@ python packages/layout/solve_relative_layout.py \
   /tmp/resolved-layout.json
 ```
 
+Resolve, compile, and solve the synthetic registered Layout Contract fixture:
+
+```bash
+python packages/layout/compile_layout_contract.py \
+  examples/synthetic-layout-contract/comparison-request.json \
+  examples/synthetic-layout-contract/comparison-instance.json \
+  /tmp/layout-compilation.json \
+  --receipt-output /tmp/layout-receipt.json \
+  --resolution-output /tmp/layout-resolution.json \
+  --resolved-output /tmp/layout-coordinates.json
+```
+
+The compiler consumes no Theme or Visual Variant input. If no registered
+contract matches, it emits an explicit unresolved resolution and refuses to
+invent or compile a fallback contract. See [`docs/layout-contracts.md`](docs/layout-contracts.md).
+
 The experimental PptxGenJS route is isolated under `packages/adapters/pptxgenjs/`. It is syntax-checked but security-blocked by default because its current upstream dependency chain contains unpatched denial-of-service advisories; see its README before any evaluation.
 
 Stamp non-visible clayz provenance into a generated PPTX:

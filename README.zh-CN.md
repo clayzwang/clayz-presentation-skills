@@ -63,6 +63,22 @@ python packages/layout/solve_relative_layout.py \
   /tmp/resolved-layout.json
 ```
 
+解析、编译并求解完全合成的已登记 Layout Contract 示例：
+
+```bash
+python packages/layout/compile_layout_contract.py \
+  examples/synthetic-layout-contract/comparison-request.json \
+  examples/synthetic-layout-contract/comparison-instance.json \
+  /tmp/layout-compilation.json \
+  --receipt-output /tmp/layout-receipt.json \
+  --resolution-output /tmp/layout-resolution.json \
+  --resolved-output /tmp/layout-coordinates.json
+```
+
+编译器不消费 Theme 或 Visual Variant。没有已登记合同匹配时，它会输出显式
+`unresolved` resolution，并拒绝凭空生成或编译 fallback contract。详见
+[`docs/layout-contracts.zh-CN.md`](docs/layout-contracts.zh-CN.md)。
+
 实验性 PptxGenJS 路线隔离在 `packages/adapters/pptxgenjs/`。其源码通过语法检查，但由于当前上游依赖链存在尚未修复的拒绝服务公告，中央配置默认阻断运行；任何评估前都应先阅读该目录 README。
 
 ## 运行环境与依赖
