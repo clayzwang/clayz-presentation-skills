@@ -19,18 +19,9 @@ SCHEMAS = {
     "packages/contracts/index-record.schema.json": "urn:clayz:presentation:schema:index-record:1.0",
     "packages/contracts/retrieval-request.schema.json": "urn:clayz:presentation:schema:retrieval-request:1.0",
     "packages/contracts/retrieval-receipt.schema.json": "urn:clayz:presentation:schema:retrieval-receipt:1.0",
+    "packages/contracts/capability-resolution.schema.json": "urn:clayz:presentation:schema:capability-resolution:1.0",
 }
-FORBIDDEN_CATALOG_SUFFIXES = {
-    ".pptx",
-    ".pptm",
-    ".potx",
-    ".potm",
-    ".thmx",
-    ".ttf",
-    ".otf",
-    ".woff",
-    ".woff2",
-}
+FORBIDDEN_CATALOG_SUFFIXES = {".pptx", ".pptm", ".potx", ".potm", ".thmx", ".ttf", ".otf", ".woff", ".woff2"}
 
 
 def main() -> int:
@@ -47,17 +38,23 @@ def main() -> int:
     catalog = ROOT / "catalog"
     for path in catalog.rglob("*"):
         if path.is_file() and path.suffix.casefold() in FORBIDDEN_CATALOG_SUFFIXES:
-            raise IndexRuntimeError(
-                f"public catalog must remain metadata/method only; forbidden asset found: {path.relative_to(ROOT)}"
-            )
+            raise IndexRuntimeError(f"public catalog must remain metadata/method only; forbidden asset found: {path.relative_to(ROOT)}")
 
-    records = catalog / "records.jsonl"
-    provider = IndexProvider.from_jsonl("builtin-catalog", records)
+    provider = IndexProvider.from_jsonl("builtin-catalog", catalog / "records.jsonl")
     for record in provider.records:
         if not record["governance"]["public_catalog_eligible"]:
             raise IndexRuntimeError(f"builtin catalog record is not public-catalog eligible: {record['record_id']}")
         if record["rights"]["redistribution"] not in {"allowed", "metadata-only"}:
             raise IndexRuntimeError(f"builtin catalog record has invalid redistribution state: {record['record_id']}")
+        if record["record_type"] == "capability":
+            if record["classification"]["brand_scope"] != "none":
+                raise IndexRuntimeError(f"capability records must remain brand-neutral: {record['record_id']}")
+            if record["payload"]["kind"] != "inline":
+                raise IndexRuntimeError(f"capability records must use inspectable inline payloads: {record['record_id']}")
+            payload = record["payload"]["ref"]
+            for ref in payload.get("knowledge_refs", []) + payload.get("validator_refs", []):
+                if not (ROOT / ref).is_file():
+                    raise IndexRuntimeError(f"capability references missing repository path {ref}: {record['record_id']}")
 
     print("index foundation valid")
     return 0
