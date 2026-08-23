@@ -18,6 +18,21 @@ task-local Layout Tree binds approved Semantic Layout Tree nodes and copy IDs.
 Only Output resolves coordinates and creates objects. See
 [`layout-contracts.md`](layout-contracts.md).
 
+## Composition and dataset metadata layers
+
+Registered Composition Patterns describe how approved semantic relations may
+become spatial relationships, while Layout Contracts describe reusable semantic
+topology. Art Direction owns both decisions but keeps them independent. A
+Composition Plan is coordinate-free and receipt-bound; Output consumes it with
+the independently approved Layout Contract or core Layout Tree. Supervisor may
+use receipt-selected Failure Patterns only to diagnose rendered evidence and
+route repair to the earliest responsible stage.
+
+Reference and Sequence records are dataset-ready metadata, not bundled cases.
+Their exporter excludes source text, media, coordinates, fonts, model features,
+generated-artifact auto-admission, and automatic aesthetic truth. See
+[`pattern-dataset-library.md`](pattern-dataset-library.md).
+
 ## Central configuration
 
 All environmental and stylistic choices resolve from `config/default.json` or one explicit override. Skills may read the configuration but may not copy its values into their own instructions as fixed rules.

@@ -94,6 +94,8 @@
 - `design_intent`：沟通任务、第一印象、第一视觉、注意顺序、构图理由、禁用回退；
 - `area_plan`：区域、职责、面积比例、包含copy_id和12列网格跨度；
 - `semantic_layout_tree`：页面分组、包含、关系、阅读顺序和形状意图；
+- `composition_pattern_decision`：请求 ID、解析 ID、已选 Pattern ID 或显式 `unresolved`、任务约束、预期视觉效果、采用与拒绝原因、关联 Failure Pattern ID，以及 Retrieval Receipt ID；不得包含坐标、Theme、Visual Variant、Layout Contract、Renderer、模板、资产或隐藏推理；
+- `layout_contract_decision`：请求 ID、解析 ID、已选 Layout Contract ID 或显式 `unresolved`、Slot 绑定及 Retrieval Receipt ID；它与 Composition Pattern、Visual Variant 保持独立；
 - `reference_selection` 与无参考时的 `reference_exception`；
 - `ab_review`：候选、选择、淘汰理由和灰度状态；
 - `art_direction_lock`；

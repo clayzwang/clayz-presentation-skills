@@ -1,0 +1,13 @@
+{
+  "contract": "io.clayz.presentation.composition-pattern-request/1.0",
+  "request_id": "stage4-synthetic-unregistered",
+  "task_mode": "new-build",
+  "page_role": "orbital-constellation",
+  "semantic_relations": ["orbits"],
+  "purpose_tags": ["unregistered"],
+  "language": "zh-CN",
+  "rights_context": "public-open-source",
+  "provider_ids": ["builtin-catalog"],
+  "constraints": ["do not invent an orbital pattern"],
+  "expected_visual_effect": "remain explicit when no registered pattern exists"
+}

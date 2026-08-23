@@ -2,7 +2,7 @@
 
 Clayz learns from open work by separating concepts, public APIs, optional dependencies, and redistributed files. "Inspired by" never means "silently copied."
 
-## Adopted through v0.3.0
+## Adopted and reviewed, including Unreleased
 
 | Source | Adopted | Not adopted or bundled |
 |---|---|---|
@@ -17,6 +17,9 @@ Clayz learns from open work by separating concepts, public APIs, optional depend
 | Scan-and-Print | patch-level placement-suitability and candidate-zone observation concepts | repository code, models, datasets, patches, annotations, figures, layouts, media |
 | CreatiPoster | foreground/background separation and editable layered-composition concepts | repository code, protocol, models, datasets, training recipe, figures, layouts, fonts, media |
 | Tahta | machine-readable contract boundary, visual-variant separation, and validation-before-rendering concepts | source code, JSON contracts, layouts, variants, components, tokens, CSS, fonts, prompts, examples, screenshots, assets, themes, templates, media |
+| MiniMax Skills | explicit separation of presentation design references and failure/pitfall knowledge as optional routed guidance | source code, prompts, skill text, rules, examples, templates, assets, dependencies, or generated files |
+| PosterCopilot | abstract separation of layout reasoning, editable layer control, and renderer-independent structured output | source code, prompts, system messages, datasets, annotations, models, weights, training recipes, layout JSON examples, assets, figures, renders, or media |
+| PosterVerse | abstract dataset-ready metadata and modular blueprint/background/layout-text workflow concepts | source code, HTML specifications, datasets, annotations, models, weights, training recipes, prompts, figures, posters, fonts, or media; its non-commercial/no-derivatives materials are not imported |
 | 76 official architecture documents from IBM, Microsoft, Google Cloud, AWS, Oracle, SAP, NVIDIA, Databricks, Snowflake, and Apple | source index, relationship tags, sixteen pattern cards, and an eight-step corpus-to-pattern-to-synthesis method | diagrams, wording, product icons, brand identity, masters, templates, coordinates, and media |
 
 ## Deliberately excluded

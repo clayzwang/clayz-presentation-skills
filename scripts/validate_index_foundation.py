@@ -25,6 +25,14 @@ SCHEMAS = {
     "packages/contracts/layout-contract-instance.schema.json": "urn:clayz:presentation:schema:layout-contract-instance:1.0",
     "packages/contracts/layout-contract-resolution.schema.json": "urn:clayz:presentation:schema:layout-contract-resolution:1.0",
     "packages/contracts/layout-compilation.schema.json": "urn:clayz:presentation:schema:layout-compilation:1.0",
+    "packages/contracts/composition-pattern.schema.json": "urn:clayz:presentation:schema:composition-pattern:1.0",
+    "packages/contracts/failure-pattern.schema.json": "urn:clayz:presentation:schema:failure-pattern:1.0",
+    "packages/contracts/reference-record.schema.json": "urn:clayz:presentation:schema:reference-record:1.0",
+    "packages/contracts/sequence-record.schema.json": "urn:clayz:presentation:schema:sequence-record:1.0",
+    "packages/contracts/composition-pattern-request.schema.json": "urn:clayz:presentation:schema:composition-pattern-request:1.0",
+    "packages/contracts/composition-pattern-resolution.schema.json": "urn:clayz:presentation:schema:composition-pattern-resolution:1.0",
+    "packages/contracts/composition-plan.schema.json": "urn:clayz:presentation:schema:composition-plan:1.0",
+    "packages/contracts/metadata-dataset-export.schema.json": "urn:clayz:presentation:schema:metadata-dataset-export:1.0",
 }
 FORBIDDEN_CATALOG_SUFFIXES = {
     ".pptx", ".pptm", ".potx", ".potm", ".thmx",
@@ -70,6 +78,19 @@ def main() -> int:
                 raise IndexRuntimeError(f"layout contracts must remain brand-neutral contract metadata: {record['record_id']}")
             if record["payload"]["kind"] != "path":
                 raise IndexRuntimeError(f"layout contracts must use hash-bound path payloads: {record['record_id']}")
+        elif record["record_type"] in {"composition-pattern", "failure-pattern", "reference", "sequence"}:
+            expected_asset_class = {
+                "composition-pattern": "method",
+                "failure-pattern": "method",
+                "reference": "reference-metadata",
+                "sequence": "sequence-metadata",
+            }[record["record_type"]]
+            if record["classification"]["brand_scope"] != "none" or record["classification"]["asset_class"] != expected_asset_class:
+                raise IndexRuntimeError(f"Pattern Library records must remain brand-neutral metadata: {record['record_id']}")
+            if record["payload"]["kind"] != "path":
+                raise IndexRuntimeError(f"Pattern Library records must use hash-bound path payloads: {record['record_id']}")
+            if record["rights"]["redistribution"] != "allowed" or record["rights"]["materialization"] != "allowed":
+                raise IndexRuntimeError(f"public Pattern Library metadata requires explicit rights: {record['record_id']}")
         else:
             raise IndexRuntimeError(f"unsupported built-in catalog record at this stage: {record['record_id']}")
 

@@ -1,0 +1,46 @@
+{
+  "contract": "io.clayz.presentation.composition-pattern/1.0",
+  "composition_pattern_id": "pattern.hero-with-evidence-cluster",
+  "revision": "1",
+  "title": "Hero with evidence cluster",
+  "summary": "One approved proposition or visual dominates while heterogeneous evidence remains grouped as support instead of competing as peers.",
+  "selection": {
+    "task_modes": ["new-build", "redesign"],
+    "page_roles": ["argument"],
+    "semantic_relations": ["supports"],
+    "purpose_tags": ["hero-led"],
+    "languages": ["en-US", "zh-CN"]
+  },
+  "mapping": {
+    "first_visual_role": "approved hero proposition",
+    "backbone_relation": "one proposition is supported by an evidence cluster",
+    "reading_path": "hero proposition to evidence cluster to closing qualification",
+    "spatial_rules": [
+      {"semantic_relation": "supports", "spatial_behavior": "group evidence near the proposition without equalizing its visual weight"},
+      {"semantic_relation": "qualifies", "spatial_behavior": "keep qualifications visually subordinate but readable"}
+    ],
+    "object_hierarchy": ["hero proposition", "evidence cluster", "qualification"]
+  },
+  "applicability": {
+    "requires": ["the hero proposition is already approved", "supporting evidence is heterogeneous but related"],
+    "avoid_when": ["several propositions have equal decision weight", "the hero would be an invented claim"]
+  },
+  "failure_pattern_ids": ["failure.equal-weight-flattening", "failure.localization-overflow"],
+  "decision_contract": {
+    "selection_reason_required": true,
+    "rejection_reason_required": true,
+    "constraints_required": true,
+    "expected_visual_effect_required": true
+  },
+  "guards": {
+    "brand_neutral": true,
+    "original_method": true,
+    "theme_independent": true,
+    "visual_variant_independent": true,
+    "layout_contract_independent": true,
+    "coordinates_deferred": true,
+    "editable_objects_required": true,
+    "flattened_output_forbidden": true,
+    "no_embedded_assets": true
+  }
+}

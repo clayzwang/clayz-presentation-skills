@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:composition-pattern-request:1.0",
+  "title": "Clayz composition pattern request",
+  "type": "object",
+  "required": ["contract", "request_id", "task_mode", "page_role", "semantic_relations", "purpose_tags", "language", "rights_context", "provider_ids", "constraints", "expected_visual_effect"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.composition-pattern-request/1.0"},
+    "request_id": {"type": "string", "minLength": 1},
+    "task_mode": {"type": "string", "minLength": 1},
+    "page_role": {"type": "string", "minLength": 1},
+    "semantic_relations": {"$ref": "#/$defs/stringSet"},
+    "purpose_tags": {"$ref": "#/$defs/stringSet"},
+    "language": {"type": "string", "minLength": 1},
+    "rights_context": {"enum": ["public-open-source", "private-runtime"]},
+    "provider_ids": {"$ref": "#/$defs/nonEmptyStringSet"},
+    "constraints": {"$ref": "#/$defs/nonEmptyStringSet"},
+    "expected_visual_effect": {"type": "string", "minLength": 1},
+    "preferred_pattern_id": {"type": "string", "pattern": "^pattern\\."}
+  },
+  "$defs": {
+    "stringSet": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "nonEmptyStringSet": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}

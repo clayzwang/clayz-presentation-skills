@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:composition-plan:1.0",
+  "title": "Clayz compiled composition plan",
+  "type": "object",
+  "required": ["contract", "composition_plan_id", "status", "lineage", "decision", "composition", "failure_guards", "layers", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.composition-plan/1.0"},
+    "composition_plan_id": {"type": "string", "minLength": 1},
+    "status": {"const": "compiled"},
+    "lineage": {
+      "type": "object",
+      "required": ["resolution_id", "retrieval_receipt_ids", "record_id", "composition_pattern_id", "revision"],
+      "properties": {
+        "resolution_id": {"type": "string", "minLength": 1},
+        "retrieval_receipt_ids": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "record_id": {"type": "string", "pattern": "^pattern\\."},
+        "composition_pattern_id": {"type": "string", "pattern": "^pattern\\."},
+        "revision": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "required": ["constraints", "expected_visual_effect", "selection_reason", "rejected_patterns"],
+      "properties": {
+        "constraints": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "expected_visual_effect": {"type": "string", "minLength": 1},
+        "selection_reason": {"type": "string", "minLength": 1},
+        "rejected_patterns": {"type": "array"}
+      },
+      "additionalProperties": false
+    },
+    "composition": {"type": "object"},
+    "failure_guards": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "layers": {
+      "type": "object",
+      "required": ["theme", "visual_variant", "layout_contract", "composition_pattern", "layout_tree", "resolved_coordinates"],
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["only_receipt_selected_records", "no_invented_patterns", "no_coordinates_emitted", "no_assets_embedded", "editable_output_required", "automatic_scores_diagnostic_only"],
+      "properties": {
+        "only_receipt_selected_records": {"const": true},
+        "no_invented_patterns": {"const": true},
+        "no_coordinates_emitted": {"const": true},
+        "no_assets_embedded": {"const": true},
+        "editable_output_required": {"const": true},
+        "automatic_scores_diagnostic_only": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

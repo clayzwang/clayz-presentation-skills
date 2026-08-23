@@ -1,0 +1,34 @@
+{
+  "contract": "io.clayz.presentation.failure-pattern/1.0",
+  "failure_pattern_id": "failure.localization-overflow",
+  "revision": "1",
+  "title": "Localization overflow",
+  "summary": "Localized approved copy exceeds the capacity of its semantic region and pressures the build into clipping or illegal type reduction.",
+  "signals": {
+    "failure_signals": ["localization-overflow", "minimum-type-pressure"],
+    "rendered_symptoms": ["approved copy clips or wraps beyond its region", "body type falls below the configured minimum"],
+    "not_sufficient_evidence": ["a longer translated string before rendering", "a renderer warning without full-slide inspection"]
+  },
+  "ownership": {
+    "earliest_preventable_stage": "copy",
+    "diagnostic_stage": "supervisor",
+    "repair_owner_stage": "copy"
+  },
+  "repair": {
+    "actions": ["return capacity pressure to Copy", "split or reprioritize content with approval before rebuilding"],
+    "verification": ["all approved copy renders inside its assigned region", "configured typography minimums remain intact"],
+    "stop_conditions": ["Output must not silently shorten copy", "Output must not reduce type below approved minimums"]
+  },
+  "evidence_policy": {
+    "rendered_evidence_required": true,
+    "automatic_signal_role": "diagnostic-only",
+    "human_ruling_required_for_promotion": true
+  },
+  "guards": {
+    "brand_neutral": true,
+    "original_method": true,
+    "no_embedded_assets": true,
+    "no_automatic_aesthetic_truth": true,
+    "supervisor_does_not_own_repairs": true
+  }
+}

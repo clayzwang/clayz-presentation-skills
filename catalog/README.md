@@ -10,3 +10,10 @@ Stage 3 adds original semantic Layout Contracts under `layout-contracts/`. They
 define slot topology and relative weights, not presentation templates. Every
 contract is hash-bound to an index record and must be selected through a
 retrieval receipt before it can be compiled.
+
+Stage 4 adds `composition-patterns/`, `failure-patterns/`, `references/`, and
+`sequences/`. Composition and Failure Patterns are original method metadata.
+Reference and Sequence payloads are fully synthetic, metadata-only fixtures:
+they contain no source copy, image, coordinates, fonts, brand identity, or
+model features. Every file is hash-bound, human-admitted, brand-neutral, and
+cross-link validated before it can be retrieved or exported.

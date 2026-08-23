@@ -39,6 +39,8 @@ This is not a larger pile of layout rules. It gives Art Direction a stronger rep
 - **Reference-architecture synthesis:** Art Direction ships a validated index of 76 distinct official, diagram-bearing documents from ten publishers and a bilingual 16-card relationship-pattern library. An eight-step method moves from problem framing and source selection through relationship extraction, pattern combination, task-specific derivation, slide translation, diagnosis, and a traceable research ledger—without importing a vendor master.
 - **Flexible judgment under contract:** the Art Direction plan v1.4 fixes the evidence and decisions that must be explicit, not coordinates, icon counts, fill ratios, or aesthetic scores. Rendered A/B evidence and professional judgment remain decisive.
 - **Fixed regression:** eleven synthetic cases cover four material routes, four cross-slide behaviors, content-aware image composition, governed asset selection, and reference-architecture houses. Tests reject image-led pages without canvas evidence, selected assets without license records, and noun-only houses without responsibility or feedback.
+- **Index-native composition methods:** unreleased Stage 4 adds registered Composition and Failure Patterns plus dataset-ready Reference and Sequence metadata. Pattern selection, linked failure knowledge, rejected alternatives, constraints, and expected visual effect are receipt-bound; no match remains explicitly unresolved.
+- **Metadata-only dataset boundary:** the public exporter contains stable IDs, classifications, source revisions, hashes, and original method metadata only. It excludes source text, images, coordinates, fonts, templates, corporate assets, model weights, generated-artifact auto-admission, and automatic aesthetic truth.
 
 The public repository still bundles no third-party template, master, icon set, poster, dataset, model, or media. The capability is to retrieve, judge, re-compose, and attribute admissible material—not to clone a source library.
 
@@ -116,6 +118,26 @@ The compiler consumes no Theme or Visual Variant input. If no registered
 contract matches, it emits an explicit unresolved resolution and refuses to
 invent or compile a fallback contract. See [`docs/layout-contracts.md`](docs/layout-contracts.md).
 
+Resolve and compile the synthetic registered Composition Pattern fixture, then
+export the public metadata-only dataset:
+
+```bash
+python packages/patterns/compile_composition_pattern.py \
+  examples/synthetic-pattern-library/comparison-request.json \
+  --resolution-output /tmp/pattern-resolution.json \
+  --receipt-dir /tmp/pattern-receipts \
+  --plan-output /tmp/composition-plan.json
+
+python packages/patterns/export_metadata_dataset.py \
+  /tmp/clayz-metadata-dataset.json
+```
+
+The Pattern compiler emits no coordinates and consumes no Theme, Visual
+Variant, Layout Contract, or Layout Tree. It refuses to compile when the
+Pattern or any linked Failure Pattern is unregistered, unretrieved, ambiguous,
+rights-ineligible, or hash-stale. See
+[`docs/pattern-dataset-library.md`](docs/pattern-dataset-library.md).
+
 The experimental PptxGenJS route is isolated under `packages/adapters/pptxgenjs/`. It is syntax-checked but security-blocked by default because its current upstream dependency chain contains unpatched denial-of-service advisories; see its README before any evaluation.
 
 Stamp non-visible clayz provenance into a generated PPTX:
@@ -176,7 +198,7 @@ For GitHub CI, store the UTF-8 denylist as a base64-encoded repository secret na
 
 ## Influence citations
 
-Later-stage conceptual influences are identified at the exact reference points inside the skill documentation and summarized in `provenance/manifest.yaml`. With thanks to the authors and contributors of [PPT Master](https://github.com/hugohe3/ppt-master), [PPTAgent](https://github.com/icip-cas/PPTAgent), [DeepPresenter](https://arxiv.org/abs/2602.22839), [pom](https://github.com/hirokisakabe/pom), [VASCAR](https://arxiv.org/abs/2412.04237), [PosterO](https://openaccess.thecvf.com/content/CVPR2025/html/Hsu_PosterO_Structuring_Layout_Trees_to_Enable_Language_Models_in_Generalized_CVPR_2025_paper.html), [PosterLayout](https://arxiv.org/abs/2303.15937), [Scan-and-Print](https://arxiv.org/abs/2505.20649), [CreatiPoster](https://arxiv.org/abs/2506.10890), and [PptxGenJS](https://github.com/gitbrent/PptxGenJS). Exact revisions, licenses, citation-only constraints, and non-redistribution boundaries are recorded; no upstream source snapshot, prompt, template, reference slide, media, dataset, or model is bundled.
+Later-stage conceptual influences are identified at the exact reference points inside the skill documentation and summarized in `provenance/manifest.yaml`. With thanks to the authors and contributors of [PPT Master](https://github.com/hugohe3/ppt-master), [PPTAgent](https://github.com/icip-cas/PPTAgent), [DeepPresenter](https://arxiv.org/abs/2602.22839), [pom](https://github.com/hirokisakabe/pom), [VASCAR](https://arxiv.org/abs/2412.04237), [PosterO](https://openaccess.thecvf.com/content/CVPR2025/html/Hsu_PosterO_Structuring_Layout_Trees_to_Enable_Language_Models_in_Generalized_CVPR_2025_paper.html), [PosterLayout](https://arxiv.org/abs/2303.15937), [Scan-and-Print](https://arxiv.org/abs/2505.20649), [CreatiPoster](https://arxiv.org/abs/2506.10890), [Tahta](https://github.com/zcag/tahta), [MiniMax Skills](https://github.com/MiniMax-AI/skills), [PosterCopilot](https://github.com/JiazheWei/PosterCopilot), [PosterVerse](https://github.com/wuhaer/PosterVerse), and [PptxGenJS](https://github.com/gitbrent/PptxGenJS). Exact revisions, licenses, citation-only constraints, and non-redistribution boundaries are recorded; no upstream source snapshot, prompt, template, reference slide, media, dataset, or model is bundled.
 
 For the reference-architecture synthesis method, Clayz also thanks the architects, technical writers, designers, engineers, and reviewers behind [IBM Think Architectures](https://www.ibm.com/think/architectures), [Microsoft Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/), [Google Cloud Architecture Center](https://cloud.google.com/architecture), [AWS Architecture Center](https://aws.amazon.com/architecture/), [Oracle Architecture Center](https://docs.oracle.com/solutions/), [SAP Architecture Center](https://architecture.learning.sap.com/), [NVIDIA Enterprise Reference Architectures](https://docs.nvidia.com/enterprise-reference-architectures/), [Databricks reference architectures](https://docs.databricks.com/aws/en/lakehouse-architecture/reference), [Snowflake architecture guidance](https://www.snowflake.com/en/developers/guides), and [Apple Platform Security](https://support.apple.com/guide/security/welcome/web). The index records links and distilled relationships only; no source diagram, wording, icon, brand identity, master, template, coordinate system, or media is redistributed.
 

@@ -1,0 +1,46 @@
+{
+  "contract": "io.clayz.presentation.reference-record/1.0",
+  "reference_record_id": "reference.synthetic-evidence-decision",
+  "revision": "1",
+  "title": "Synthetic evidence sequence decision",
+  "summary": "Metadata for a synthetic closing page that preserves evidence lineage while making the approved decision implication dominant.",
+  "provenance": {
+    "source_kind": "synthetic-only",
+    "source_id": "clayz-stage4-synthetic-sequence",
+    "source_revision": "1",
+    "rights_status": "redistributable-metadata",
+    "materialization_policy": "metadata-only",
+    "never_copy": ["corporate templates", "presentation masters", "brand kits", "logos", "font files", "private data", "model weights"]
+  },
+  "classification": {
+    "page_role": "decision",
+    "first_visual_role": "decision implication",
+    "semantic_relations": ["concludes"],
+    "composition_pattern_ids": ["pattern.asymmetric-evidence-to-decision"],
+    "dominant_medium": "typography",
+    "content_load": "medium",
+    "density": "medium",
+    "reading_path": "decision implication to evidence trace",
+    "series_role": "closing",
+    "failure_pattern_ids": ["failure.semantic-visual-mismatch", "failure.localization-overflow"],
+    "languages": ["en-US", "zh-CN"]
+  },
+  "neighbors": {
+    "physical": ["reference.synthetic-evidence-comparison"],
+    "semantic": ["reference.synthetic-evidence-opening"]
+  },
+  "quality": {
+    "status": "synthetic-fixture",
+    "human_admitted": true,
+    "decision_basis": "synthetic-contract",
+    "automatic_score_role": "diagnostic-only"
+  },
+  "content_boundary": {
+    "metadata_only": true,
+    "media_included": false,
+    "copy_included": false,
+    "coordinates_included": false,
+    "fonts_included": false,
+    "model_features_included": false
+  }
+}

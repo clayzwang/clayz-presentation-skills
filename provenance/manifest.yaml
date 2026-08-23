@@ -150,6 +150,43 @@ sources:
     redistributed_files: []
     note: "Thank you to Cagdas Salur and Tahta contributors. Clayz independently implements a renderer-neutral, index-governed Layout Contract compiler for editable PowerPoint workflows. No Tahta source code, JSON contracts, layouts, variants, components, tokens, CSS, fonts, prompts, examples, screenshots, assets, themes, templates, or media are copied or redistributed."
 
+  - id: "minimax-skills"
+    usage_type: "conceptual-inspiration"
+    upstream: "https://github.com/MiniMax-AI/skills"
+    upstream_license: "MIT"
+    pinned_version: "60aaae52bb2af8162732751a4332f62a5fef518b"
+    reviewed_on: "2026-08-23"
+    influenced_components:
+      - "optional failure and pitfall knowledge routing"
+      - "separation of presentation references by task purpose"
+    redistributed_files: []
+    note: "Thank you to MiniMax and MiniMax Skills contributors. Clayz independently expresses registered Failure Pattern contracts and keeps core authority deterministic. No MiniMax source code, prompts, skill text, rules, examples, templates, assets, dependencies, or generated files are copied or redistributed."
+
+  - id: "postercopilot"
+    usage_type: "conceptual-inspiration"
+    upstream: "https://github.com/JiazheWei/PosterCopilot"
+    paper: "https://arxiv.org/abs/2512.04082"
+    upstream_license: "Apache-2.0-stated-in-readme"
+    pinned_version: "aa1de672034facb9e2b7b472ab6ea56234a5b80c"
+    reviewed_on: "2026-08-23"
+    influenced_components:
+      - "semantic-to-spatial Composition Pattern boundary"
+      - "editable-object requirement and renderer-independent composition plan"
+    redistributed_files: []
+    note: "Thank you to the PosterCopilot authors. Clayz adopts only the abstract separation of layout reasoning, editable layer control, and rendering. No repository code, prompts, system messages, dataset, annotation, model, weight, training recipe, layout JSON example, asset, figure, render, or media is copied or redistributed."
+
+  - id: "posterverse"
+    usage_type: "conceptual-inspiration-restricted-source"
+    upstream: "https://github.com/wuhaer/PosterVerse"
+    upstream_license: "CC-BY-NC-ND-4.0-stated-in-readme"
+    pinned_version: "158104943e2f0fd33167cfed0ac7ffa09e2c9e6e"
+    reviewed_on: "2026-08-23"
+    influenced_components:
+      - "dataset-ready reference and sequence metadata boundary"
+      - "modular blueprint, background, and layout-text workflow concept"
+    redistributed_files: []
+    note: "Thank you to the PosterVerse authors. Because the repository states a non-commercial, no-derivatives license, Clayz uses only high-level workflow and metadata-structuring concepts and independently implements its public schemas. No code, HTML specification, dataset, annotation, model, weight, training recipe, prompt, figure, poster, font, or media is copied, derived, or redistributed."
+
   - id: "pptxgenjs"
     usage_type: "optional-public-api-integration"
     upstream: "https://github.com/gitbrent/PptxGenJS"

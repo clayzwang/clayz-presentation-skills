@@ -373,9 +373,10 @@ class CoreTests(unittest.TestCase):
             *sorted((ROOT / "scripts").glob("*.py")),
             *sorted((ROOT / "packages" / "validators").glob("*.py")),
             *sorted((ROOT / "packages" / "layout").glob("*.py")),
+            *sorted((ROOT / "packages" / "patterns").glob("*.py")),
         ]
         for path in paths:
-            if path.name == "validate_all.py":
+            if path.name in {"validate_all.py", "__init__.py"}:
                 continue
             with self.subTest(path=path.relative_to(ROOT)):
                 result = subprocess.run(

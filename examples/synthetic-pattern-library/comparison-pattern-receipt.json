@@ -1,0 +1,106 @@
+{
+  "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+  "receipt_id": "receipt-987780ac486fec7a3ea2",
+  "created_at": "2026-08-23T11:00:00Z",
+  "request": {
+    "contract": "io.clayz.presentation.retrieval-request/1.0",
+    "request_id": "stage4-synthetic-comparison-composition-pattern",
+    "stage": "art-direction",
+    "query": "comparison supports evidence-led",
+    "rights_context": "public-open-source",
+    "require_human_admission": true,
+    "limit": 20,
+    "filters": {
+      "record_types": [
+        "composition-pattern"
+      ],
+      "provider_ids": [
+        "builtin-catalog"
+      ],
+      "task_modes": [
+        "new-build"
+      ],
+      "page_roles": [
+        "comparison"
+      ],
+      "semantic_relations": [
+        "supports"
+      ],
+      "purpose_tags": [
+        "evidence-led"
+      ],
+      "languages": [
+        "zh-CN"
+      ],
+      "failure_signals": [],
+      "include_metadata_only": false
+    },
+    "neighbor_expansion": {
+      "physical": 0,
+      "semantic": 0
+    }
+  },
+  "index_snapshot": [
+    {
+      "provider_id": "builtin-catalog",
+      "digest": "e5d8253d19c3a0b738156d0eaeb49169f11eca467fd4222a972a3db819054f67",
+      "record_count": 24
+    }
+  ],
+  "candidates": [
+    {
+      "record_id": "pattern.asymmetric-evidence-to-decision",
+      "record_type": "composition-pattern",
+      "provider_id": "builtin-catalog",
+      "title": "Asymmetric evidence to decision",
+      "score": 2.623046,
+      "match_basis": [
+        "language",
+        "lexical",
+        "page_role",
+        "provider_id",
+        "purpose_tag",
+        "record_type",
+        "semantic_relation",
+        "stage",
+        "task_mode"
+      ],
+      "rights_decision": "allowed",
+      "materializable": true,
+      "source_id": "clayz-pattern-asymmetric-evidence-to-decision",
+      "source_revision": "1",
+      "license": "Apache-2.0",
+      "never_copy": [
+        "corporate templates",
+        "presentation masters",
+        "brand kits",
+        "logos",
+        "font files",
+        "private data",
+        "model weights",
+        "upstream layouts"
+      ],
+      "neighbor_of": null,
+      "neighbor_type": null
+    }
+  ],
+  "selection": {
+    "selected": [
+      {
+        "record_id": "pattern.asymmetric-evidence-to-decision",
+        "reason": "unique registered, human-admitted, materializable pattern matched the structured request"
+      }
+    ],
+    "rejected": []
+  },
+  "fallback": {
+    "used": false,
+    "reason": ""
+  },
+  "hallucination_guard": {
+    "only_registered_records": true,
+    "invented_record_count": 0,
+    "candidate_count": 1
+  }
+}
+

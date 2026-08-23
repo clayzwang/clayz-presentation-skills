@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:sequence-record:1.0",
+  "title": "Clayz dataset-ready sequence metadata",
+  "type": "object",
+  "required": ["contract", "sequence_record_id", "revision", "title", "summary", "slide_record_ids", "narrative_role", "persistent_elements", "progressive_change", "allowed_variation", "break_reason", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.sequence-record/1.0"},
+    "sequence_record_id": {"type": "string", "pattern": "^sequence\\.[a-z0-9][a-z0-9._-]{2,118}$"},
+    "revision": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "slide_record_ids": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "pattern": "^reference\\."}},
+    "narrative_role": {"type": "string", "minLength": 1},
+    "persistent_elements": {"$ref": "#/$defs/nonEmptyStringSet"},
+    "progressive_change": {"$ref": "#/$defs/nonEmptyStringSet"},
+    "allowed_variation": {"$ref": "#/$defs/nonEmptyStringSet"},
+    "break_reason": {"type": "string"},
+    "guards": {
+      "type": "object",
+      "required": ["metadata_only", "brand_neutral", "synthetic_only", "no_embedded_assets", "no_coordinates", "no_copy_text"],
+      "properties": {
+        "metadata_only": {"const": true},
+        "brand_neutral": {"const": true},
+        "synthetic_only": {"const": true},
+        "no_embedded_assets": {"const": true},
+        "no_coordinates": {"const": true},
+        "no_copy_text": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {"nonEmptyStringSet": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}},
+  "additionalProperties": false
+}

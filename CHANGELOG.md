@@ -16,6 +16,10 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Separate Theme, Visual Variant, Layout Contract, task-local Layout Tree, and resolved coordinates; the compiler consumes no theme or variant input and preserves receipt-to-contract-to-tree lineage.
 - Reject unregistered, unretrieved, ambiguous, hash-drifted, or invalid contracts; an empty match stays explicitly `unresolved` and emits no invented fallback tree.
 - Add two synthetic public contracts, schemas, compiler, validators, regression fixtures, and Tahta conceptual attribution with a strict no-code/no-template/no-asset redistribution boundary.
+- Add Stage 4 Pattern & Dataset Library contracts for Composition Pattern, Failure Pattern, Reference metadata, and Sequence metadata without changing five-stage ownership.
+- Add receipt-bound Composition Pattern resolution: a Pattern compiles only when it and every linked Failure Pattern are registered, admitted, rights-eligible, hash-current, and selected in Retrieval Receipts; ambiguity and gaps remain explicitly unresolved.
+- Add an original coordinate-free Composition Plan compiler and a metadata-only dataset exporter that excludes source text, assets, coordinates, fonts, model weights, generated-artifact auto-admission, and automatic aesthetic truth.
+- Add three original Composition Patterns, four original Failure Patterns, three synthetic Reference records, one synthetic Sequence, Stage 4 validators, regression fixtures, and conceptual attribution for PosterCopilot, MiniMax Skills, and PosterVerse with strict non-redistribution boundaries.
 
 ## 0.3.0 — 2026-08-22
 

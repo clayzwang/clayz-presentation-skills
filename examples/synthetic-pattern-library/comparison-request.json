@@ -1,0 +1,17 @@
+{
+  "contract": "io.clayz.presentation.composition-pattern-request/1.0",
+  "request_id": "stage4-synthetic-comparison",
+  "task_mode": "new-build",
+  "page_role": "comparison",
+  "semantic_relations": ["supports"],
+  "purpose_tags": ["evidence-led"],
+  "language": "zh-CN",
+  "rights_context": "public-open-source",
+  "provider_ids": ["builtin-catalog"],
+  "constraints": [
+    "keep primary evidence as the first visual",
+    "preserve the approved evidence-to-implication relation",
+    "emit editable objects only"
+  ],
+  "expected_visual_effect": "evidence leads clearly to a supported decision implication"
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:reference-record:1.0",
+  "title": "Clayz dataset-ready reference metadata",
+  "type": "object",
+  "required": ["contract", "reference_record_id", "revision", "title", "summary", "provenance", "classification", "neighbors", "quality", "content_boundary"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.reference-record/1.0"},
+    "reference_record_id": {"type": "string", "pattern": "^reference\\.[a-z0-9][a-z0-9._-]{2,117}$"},
+    "revision": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "provenance": {
+      "type": "object",
+      "required": ["source_kind", "source_id", "source_revision", "rights_status", "materialization_policy", "never_copy"],
+      "properties": {
+        "source_kind": {"enum": ["synthetic-only", "public-metadata", "private-metadata"]},
+        "source_id": {"type": "string", "minLength": 1},
+        "source_revision": {"type": "string", "minLength": 1},
+        "rights_status": {"enum": ["redistributable-metadata", "metadata-only", "local-private"]},
+        "materialization_policy": {"enum": ["metadata-only", "local-only"]},
+        "never_copy": {"$ref": "#/$defs/stringSet"}
+      },
+      "additionalProperties": false
+    },
+    "classification": {
+      "type": "object",
+      "required": ["page_role", "first_visual_role", "semantic_relations", "composition_pattern_ids", "dominant_medium", "content_load", "density", "reading_path", "series_role", "failure_pattern_ids", "languages"],
+      "properties": {
+        "page_role": {"type": "string", "minLength": 1},
+        "first_visual_role": {"type": "string", "minLength": 1},
+        "semantic_relations": {"$ref": "#/$defs/stringSet"},
+        "composition_pattern_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^pattern\\."}},
+        "dominant_medium": {"type": "string", "minLength": 1},
+        "content_load": {"enum": ["low", "medium", "high"]},
+        "density": {"enum": ["low", "medium", "high"]},
+        "reading_path": {"type": "string", "minLength": 1},
+        "series_role": {"enum": ["standalone", "opening", "continuation", "checkpoint", "closing", "break"]},
+        "failure_pattern_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^failure\\."}},
+        "languages": {"$ref": "#/$defs/nonEmptyStringSet"}
+      },
+      "additionalProperties": false
+    },
+    "neighbors": {
+      "type": "object",
+      "required": ["physical", "semantic"],
+      "properties": {"physical": {"$ref": "#/$defs/stringSet"}, "semantic": {"$ref": "#/$defs/stringSet"}},
+      "additionalProperties": false
+    },
+    "quality": {
+      "type": "object",
+      "required": ["status", "human_admitted", "decision_basis", "automatic_score_role"],
+      "properties": {
+        "status": {"enum": ["synthetic-fixture", "observation", "admitted"]},
+        "human_admitted": {"type": "boolean"},
+        "decision_basis": {"enum": ["synthetic-contract", "human-review"]},
+        "automatic_score_role": {"const": "diagnostic-only"}
+      },
+      "additionalProperties": false
+    },
+    "content_boundary": {
+      "type": "object",
+      "required": ["metadata_only", "media_included", "copy_included", "coordinates_included", "fonts_included", "model_features_included"],
+      "properties": {
+        "metadata_only": {"const": true},
+        "media_included": {"const": false},
+        "copy_included": {"const": false},
+        "coordinates_included": {"const": false},
+        "fonts_included": {"const": false},
+        "model_features_included": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "stringSet": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "nonEmptyStringSet": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}

@@ -56,4 +56,4 @@ Provider 身份不能被抹平。即使标题相同，不同 Provider 的记录�
 
 ## 当前状态
 
-这是未发布的基础阶段，`VERSION` 保持不变。Capability routing 与已登记 Layout Contract 已共用同一套回执；v0.4.0 后续阶段可继续接入构图/失败模式、学习晋升和检索 Benchmark。
+这是未发布的基础阶段，`VERSION` 保持不变。Capability routing、已登记 Layout Contract、Composition Pattern 与关联 Failure Pattern 已共用同一套回执；Dataset-ready Reference 与 Sequence 元数据也可在不导出源资产的前提下导出。v0.4.0 后续阶段可继续接入人工准入的学习晋升和检索 Benchmark。
