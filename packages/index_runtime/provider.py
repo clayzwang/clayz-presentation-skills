@@ -58,11 +58,8 @@ class IndexProvider:
                 "source_sha256": record["source"]["sha256"],
                 "quality_status": record["governance"]["quality_status"],
                 "rights": record["rights"],
+                "payload": record["payload"],
             }
             for record in self.records
         ]
-        return {
-            "provider_id": self.provider_id,
-            "digest": sha256_json(payload),
-            "record_count": len(payload),
-        }
+        return {"provider_id": self.provider_id, "digest": sha256_json(payload), "record_count": len(payload)}
