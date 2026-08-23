@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:capability-resolution:1.0",
+  "title": "Clayz capability resolution",
+  "type": "object",
+  "required": ["contract", "resolution_id", "stage", "request_id", "mandatory_core", "retrieval_receipt_id", "selected_capabilities", "unresolved_signals", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.capability-resolution/1.0"},
+    "resolution_id": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["logic", "copy", "art-direction", "output", "supervisor"]},
+    "request_id": {"type": "string", "minLength": 1},
+    "mandatory_core": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ref", "reason"],
+        "properties": {
+          "ref": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "retrieval_receipt_id": {"type": "string", "minLength": 1},
+    "selected_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["record_id", "capability_id", "reason", "knowledge_refs", "validator_refs"],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 1},
+          "capability_id": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "knowledge_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "validator_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+        },
+        "additionalProperties": false
+      }
+    },
+    "unresolved_signals": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "guards": {
+      "type": "object",
+      "required": ["core_contracts_not_search_dependent", "only_receipt_candidates_selected", "no_invented_capabilities"],
+      "properties": {
+        "core_contracts_not_search_dependent": {"const": true},
+        "only_receipt_candidates_selected": {"const": true},
+        "no_invented_capabilities": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
