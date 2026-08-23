@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:retrieval-receipt:1.0",
+  "title": "Clayz retrieval receipt",
+  "type": "object",
+  "required": [
+    "contract",
+    "receipt_id",
+    "created_at",
+    "request",
+    "index_snapshot",
+    "candidates",
+    "selection",
+    "fallback",
+    "hallucination_guard"
+  ],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.retrieval-receipt/1.0"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 1},
+    "request": {"type": "object"},
+    "index_snapshot": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["provider_id", "digest", "record_count"],
+        "properties": {
+          "provider_id": {"type": "string", "minLength": 1},
+          "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "record_count": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "record_id",
+          "record_type",
+          "provider_id",
+          "title",
+          "score",
+          "match_basis",
+          "rights_decision",
+          "materializable",
+          "source_id",
+          "source_revision",
+          "license",
+          "never_copy",
+          "neighbor_of",
+          "neighbor_type"
+        ],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 1},
+          "record_type": {"type": "string", "minLength": 1},
+          "provider_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "score": {"type": "number", "minimum": 0},
+          "match_basis": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "rights_decision": {"type": "string", "minLength": 1},
+          "materializable": {"type": "boolean"},
+          "source_id": {"type": "string", "minLength": 1},
+          "source_revision": {"type": "string", "minLength": 1},
+          "license": {"type": "string", "minLength": 1},
+          "never_copy": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "neighbor_of": {"type": ["string", "null"]},
+          "neighbor_type": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "selection": {
+      "type": "object",
+      "required": ["selected", "rejected"],
+      "properties": {
+        "selected": {"$ref": "#/$defs/decisions"},
+        "rejected": {"$ref": "#/$defs/decisions"}
+      },
+      "additionalProperties": false
+    },
+    "fallback": {
+      "type": "object",
+      "required": ["used", "reason"],
+      "properties": {
+        "used": {"type": "boolean"},
+        "reason": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "hallucination_guard": {
+      "type": "object",
+      "required": ["only_registered_records", "invented_record_count", "candidate_count"],
+      "properties": {
+        "only_registered_records": {"const": true},
+        "invented_record_count": {"const": 0},
+        "candidate_count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["record_id", "reason"],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
