@@ -88,8 +88,11 @@ class CoreTests(unittest.TestCase):
                 1,
             )
             changelog_path.write_text(changelog, encoding="utf-8")
-            preparer.prepare(snapshot, "0.3.1", "2026-08-23")
-            self.assertEqual((snapshot / "VERSION").read_text(encoding="utf-8").strip(), "0.3.1")
+            current = (snapshot / "VERSION").read_text(encoding="utf-8").strip()
+            major, minor, patch = (int(part) for part in current.split("."))
+            next_patch = f"{major}.{minor}.{patch + 1}"
+            preparer.prepare(snapshot, next_patch, "2026-08-23")
+            self.assertEqual((snapshot / "VERSION").read_text(encoding="utf-8").strip(), next_patch)
             self.assertEqual(validator.validate(snapshot), [])
             self.assertIn("## 0.2.0 — 2026-08-20", changelog_path.read_text(encoding="utf-8"))
 

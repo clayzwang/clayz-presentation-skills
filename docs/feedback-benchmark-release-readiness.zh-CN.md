@@ -1,6 +1,6 @@
 # 反馈、Benchmark、迁移与发布就绪
 
-Stage 5 在不改变五阶段权责、也不授权发布的前提下，闭合未发布 v0.4.0 的开发循环。
+Stage 5 在不改变五阶段权责的前提下闭合 v0.4.0 开发循环；只有另一次独立、明确的人工授权被记录后，发布门禁才会打开。
 
 ## 人工准入反馈闭环
 
@@ -20,9 +20,9 @@ Provider 漂移、缺少预期候选、返回禁止候选、unresolved 用例非
 
 仓库 Fixture 完全合成：三项资产和两条 Learning 最终迁移一条知识记录与一条学习记录；一项哈希陈旧资产和两个未准入对象被跳过。
 
-## 发布就绪不等于发布授权
+## 发布就绪仍需独立授权
 
-`release/v0.4.0-readiness.json` 记录五个开发阶段已有证据，但 merge、tag、publish 和 Experience Center update 四项动作全部保持 `false`，`VERSION` 仍为 `0.3.0`。改变这些字段前必须获得另一次独立人工授权并执行新的发布动作。
+`release/v0.4.0-readiness.json` 记录五个开发阶段已有证据。用户在 2026-08-23 明确作出发布决定后，状态从 `draft-review` 转为 `release-authorized`，绑定 `VERSION=0.4.0`，并授权 merge、不可变 Tag、GitHub 发布和 Experience Center 当前版本标记。正式发布工作流仍须先通过完整仓库验证。
 
 ```bash
 python scripts/validate_feedback_benchmark.py

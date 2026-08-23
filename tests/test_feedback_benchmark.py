@@ -143,14 +143,14 @@ class FeedbackBenchmarkTests(unittest.TestCase):
         self.assertTrue(all(record["governance"]["public_catalog_eligible"] is False for record in provider.records))
         self.assertTrue(all(not record["neighbors"]["physical"] and not record["neighbors"]["semantic"] for record in provider.records))
 
-    def test_release_readiness_is_evidence_backed_but_never_authorizes_release(self) -> None:
+    def test_release_readiness_is_evidence_backed_and_explicitly_authorized(self) -> None:
         result = validate_release_readiness(ROOT, read_json(ROOT / "release" / "v0.4.0-readiness.json"))
-        self.assertEqual(result["current_public_version"], "0.3.0")
-        self.assertFalse(result["release_authorized"])
+        self.assertEqual(result["current_public_version"], "0.4.0")
+        self.assertTrue(result["release_authorized"])
 
-    def test_release_readiness_rejects_premature_release_action(self) -> None:
+    def test_release_readiness_rejects_incomplete_release_authorization(self) -> None:
         readiness = read_json(ROOT / "release" / "v0.4.0-readiness.json")
-        readiness["actions"]["publish"] = True
+        readiness["actions"]["publish"] = False
         with self.assertRaises(ReadinessError):
             validate_release_readiness(ROOT, readiness)
 

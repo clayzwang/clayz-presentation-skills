@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Validate v0.4.0 readiness without authorizing a release."""
+"""Validate the explicit, evidence-backed v0.4.0 release authorization."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ READINESS_CONTRACT = "io.clayz.presentation.release-readiness/1.0"
 
 
 class ReadinessError(ValueError):
-    """Raised when the unreleased readiness evidence is incomplete or unsafe."""
+    """Raised when release authorization evidence is incomplete or unsafe."""
 
 
 def _require(condition: bool, message: str) -> None:
@@ -37,8 +37,8 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
     _require(value.get("contract") == READINESS_CONTRACT, f"readiness.contract must be {READINESS_CONTRACT}")
     _require(value.get("target_version") == "0.4.0", "readiness target_version must be 0.4.0")
     current = (root / "VERSION").read_text(encoding="utf-8").strip()
-    _require(value.get("current_public_version") == current == "0.3.0", "public VERSION must remain 0.3.0 during review")
-    _require(value.get("state") == "draft-review", "readiness state must remain draft-review")
+    _require(value.get("current_public_version") == current == "0.4.0", "public VERSION must be 0.4.0 for release")
+    _require(value.get("state") == "release-authorized", "readiness state must be release-authorized")
     stages = value.get("stage_gates")
     _require(isinstance(stages, Mapping), "stage_gates must be an object")
     expected = {
@@ -52,7 +52,13 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
     actions = value.get("actions")
     _require(isinstance(actions, Mapping), "readiness.actions must be an object")
     for key in ("merge", "tag", "publish", "experience_center_update"):
-        _require(actions.get(key) is False, f"readiness.actions.{key} must remain false")
+        _require(actions.get(key) is True, f"readiness.actions.{key} must be explicitly authorized")
+    authorization = value.get("authorization")
+    _require(isinstance(authorization, Mapping), "readiness.authorization must be an object")
+    _require(authorization.get("decision") == "explicit-user-authorization", "release requires an explicit user decision")
+    _require(authorization.get("scope") == "merge-tag-publish-experience-center", "release authorization scope is incomplete")
+    authorized_at = authorization.get("authorized_at")
+    _require(isinstance(authorized_at, str) and authorized_at.endswith("Z"), "release authorized_at must be UTC")
     evidence = value.get("evidence")
     _require(isinstance(evidence, Mapping), "readiness.evidence must be an object")
     benchmark_path = root / str(evidence.get("benchmark_report", ""))
@@ -78,5 +84,5 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
         "current_public_version": current,
         "state": value["state"],
         "benchmark_passed": True,
-        "release_authorized": False,
+        "release_authorized": True,
     }

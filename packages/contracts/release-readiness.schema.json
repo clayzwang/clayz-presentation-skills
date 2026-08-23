@@ -1,23 +1,33 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:clayz:presentation:schema:release-readiness:1.0",
-  "title": "Clayz unreleased v0.4.0 readiness record",
+  "title": "Clayz v0.4.0 release authorization record",
   "type": "object",
-  "required": ["contract", "target_version", "current_public_version", "state", "stage_gates", "actions", "evidence", "guards"],
+  "required": ["contract", "target_version", "current_public_version", "state", "stage_gates", "actions", "authorization", "evidence", "guards"],
   "properties": {
     "contract": {"const": "io.clayz.presentation.release-readiness/1.0"},
     "target_version": {"const": "0.4.0"},
-    "current_public_version": {"const": "0.3.0"},
-    "state": {"const": "draft-review"},
+    "current_public_version": {"const": "0.4.0"},
+    "state": {"const": "release-authorized"},
     "stage_gates": {"type": "object", "additionalProperties": {"type": "boolean"}},
     "actions": {
       "type": "object",
       "required": ["merge", "tag", "publish", "experience_center_update"],
       "properties": {
-        "merge": {"const": false},
-        "tag": {"const": false},
-        "publish": {"const": false},
-        "experience_center_update": {"const": false}
+        "merge": {"const": true},
+        "tag": {"const": true},
+        "publish": {"const": true},
+        "experience_center_update": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "authorization": {
+      "type": "object",
+      "required": ["decision", "authorized_at", "scope"],
+      "properties": {
+        "decision": {"const": "explicit-user-authorization"},
+        "authorized_at": {"type": "string", "format": "date-time"},
+        "scope": {"const": "merge-tag-publish-experience-center"}
       },
       "additionalProperties": false
     },

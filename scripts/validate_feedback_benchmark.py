@@ -83,7 +83,7 @@ def main() -> int:
 
     readiness = read_json(ROOT / "release" / "v0.4.0-readiness.json")
     result = validate_release_readiness(ROOT, readiness)
-    require(result["release_authorized"] is False, "readiness must not authorize release")
+    require(result["release_authorized"] is True, "explicit release authorization is missing")
 
     print("feedback, benchmark, migration, and release readiness valid")
     return 0

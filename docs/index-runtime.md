@@ -56,10 +56,10 @@ The runtime implementation is in `packages/index_runtime/`. Use `scripts/index_r
 
 ## Development status
 
-This remains unreleased and `VERSION` stays at `0.3.0`. Capability routing,
-registered Layout Contracts, Composition Patterns, linked Failure Patterns, and
-hash-bound private learning now use the same receipts. Stage 5 adds fixed
-provider-snapshot benchmarks, fail-closed legacy migration, and a readiness
-record whose merge, tag, publish, and Experience Center actions all remain
-false. See
+v0.4.0 capability routing, registered Layout Contracts, Composition Patterns,
+linked Failure Patterns, and hash-bound private learning use the same receipts.
+Stage 5 adds fixed provider-snapshot benchmarks, fail-closed legacy migration,
+and a release record that requires all evidence gates plus a separate explicit
+human decision before merge, immutable Tag, publication, or Experience Center
+update. See
 [`feedback-benchmark-release-readiness.md`](feedback-benchmark-release-readiness.md).

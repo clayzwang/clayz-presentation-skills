@@ -1,7 +1,8 @@
 # Feedback, benchmark, migration, and release readiness
 
-Stage 5 closes the unreleased v0.4.0 development loop without changing the
-five-stage ownership model and without authorizing a release.
+Stage 5 closes the v0.4.0 development loop without changing the five-stage
+ownership model. Release remains blocked until a separate explicit human
+authorization is recorded.
 
 ## Human-admitted feedback loop
 
@@ -39,13 +40,14 @@ The repository fixture is synthetic: three assets and two learning observations
 produce one migrated knowledge record and one migrated learning record. One
 stale asset and two unadmitted subjects are skipped.
 
-## Release readiness is not release authority
+## Release readiness requires separate authority
 
 `release/v0.4.0-readiness.json` records that all five development stages have
-evidence, but every external action remains false: merge, tag, publish, and
-Experience Center update. `VERSION` remains `0.3.0`. A separate human
-authorization and a new release action are required before any of these fields
-may change.
+evidence. After an explicit user decision on 2026-08-23, it transitioned from
+`draft-review` to `release-authorized`, binds `VERSION=0.4.0`, and explicitly
+authorizes merge, immutable tag creation, GitHub publication, and the current
+Experience Center marker. The release workflow still validates the full tree
+before it may publish.
 
 Validate the stage with:
 

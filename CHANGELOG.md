@@ -4,7 +4,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
-- Begin the unreleased v0.4.0 Index Foundation without changing `VERSION` or publishing a release.
+- Nothing yet.
+
+## 0.4.0 — 2026-08-23
+
+- Make v0.4.0 retrieval index-native through governed providers, receipts, and fail-closed selection.
 - Add provider-aware index records, structured retrieval requests, deterministic retrieval receipts, and selection guards that reject identifiers not present in the receipt.
 - Preserve source revision, provider identity, license, `never_copy`, and materialization status for every candidate; return an explicit empty result instead of fabricating a fallback record.
 - Add a public-catalog validator that rejects presentation templates, masters, themes, and font binaries, and prevents brand-specific assets from becoming public without explicit redistribution and materialization rights.
@@ -23,7 +27,7 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add Stage 5 hash-bound feedback admission: observations remain stage-owned and non-retrievable until a separate human decision admits the exact canonical record; admitted learning stays private and outside the public catalog.
 - Add deterministic retrieval benchmarks that pin provider snapshots, expected and forbidden candidates, unresolved emptiness, and invented-record count; baselines never update automatically.
 - Add fail-closed migration from the legacy filesystem index, preserving private scope while skipping stale or unadmitted subjects and reporting orphan neighbors.
-- Add a machine-validated v0.4.0 readiness record with all five stage gates evidenced while `VERSION` remains `0.3.0` and merge, tag, publish, and Experience Center update remain explicitly disabled.
+- Add a machine-validated v0.4.0 release-authorization record with all five stage gates evidenced and a separately recorded human decision required before merge, immutable Tag, publication, or Experience Center update.
 
 ## 0.3.0 — 2026-08-22
 

@@ -56,4 +56,4 @@ Provider 身份不能被抹平。即使标题相同，不同 Provider 的记录�
 
 ## 当前状态
 
-这是未发布的基础阶段，`VERSION` 保持不变。Capability routing、已登记 Layout Contract、Composition Pattern 与关联 Failure Pattern 已共用同一套回执；Dataset-ready Reference 与 Sequence 元数据也可在不导出源资产的前提下导出。v0.4.0 后续阶段可继续接入人工准入的学习晋升和检索 Benchmark。
+v0.4.0 的 Capability routing、已登记 Layout Contract、Composition Pattern、关联 Failure Pattern 与哈希绑定的私有 Learning 共用同一套回执。Stage 5 还增加固定 Provider 快照 Benchmark、失败关闭的旧索引迁移，以及要求五项证据门禁和独立人工决定的发布授权记录。详见[`feedback-benchmark-release-readiness.zh-CN.md`](feedback-benchmark-release-readiness.zh-CN.md)。
