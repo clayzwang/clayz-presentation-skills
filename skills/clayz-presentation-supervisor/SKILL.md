@@ -17,24 +17,22 @@ Do not rewrite Logic or Copy, select a replacement composition, modify the PPTX,
 
 1. Resolve the central configuration from an explicit task path or `../../config/default.json`.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
-3. Read `references/supervision-contract.md`.
-4. Read `references/medium-fidelity.md` for plan-object-render comparisons.
-5. Read `references/environment-grounded-observation.md` when runtime state conflicts with the written artifact.
-6. Read `references/interaction-failure-patterns.md` when the workflow repeatedly asks, exits, or overrides without authority.
-7. Read `references/execution-ledger-and-reflection.md` when auditing tool use, retry loops, or failure recovery.
-8. Read `../../packages/contracts/knowledge-learning.md` before routing a reusable observation to its responsible stage.
+3. Read `references/supervision-contract.md`. This authority contract is mandatory and never search-dependent.
+4. Read `../../packages/contracts/knowledge-learning.md` before routing reusable observations. This governance contract is mandatory and never search-dependent.
+5. Classify optional audit signals and resolve them through the built-in Capability Index. Typical signals include `plan-object-render`, `medium-fidelity`, `runtime-conflict`, `environment-observation`, `interaction-failure`, `retry-loop`, `execution-ledger`, and `failure-recovery`.
+6. Load only optional `knowledge_refs` returned by selected capability records. Preserve capability resolution and retrieval receipt IDs as audit evidence; unresolved signals stay explicit and never authorize invented diagnoses or silent intervention.
 
 ## Workflow
 
-1. Bind the exact hashes of the Logic package, Copy package, Art Direction plan, PPTX, render root, object inventory, deviation log, QA report, and resolved configuration.
+1. Bind the exact hashes of the Logic package, Copy package, Art Direction plan, PPTX, render root, object inventory, deviation log, QA report, resolved configuration, and available retrieval receipts.
 2. Audit business relationships and content readiness before visual quality.
-3. Compare approved importance with actual visual attention, and approved medium with actual object types and rendered appearance.
+3. Compare approved importance with actual visual attention, and approved medium with actual object types and rendered appearance; use the resolved medium-fidelity capability when applicable.
 4. Check cross-slide invariants, series behavior, semantic whitespace, motif, reading order, typography, data labels, connectors, and target-application compatibility.
-5. Treat written PPTX objects and final renders as stronger evidence than in-memory success messages.
+5. Treat written PPTX objects and final renders as stronger evidence than in-memory success messages; use environment-grounded observation only when that capability was resolved.
 6. For every issue, record evidence, expected state, actual state, impact, severity, confidence, earliest responsible layer, and recommended return target.
-7. Distinguish deterministic failures from professional judgment and from unresolved uncertainty.
+7. Distinguish deterministic failures from professional judgment and from unresolved uncertainty. Interaction and retry-loop diagnoses require their corresponding resolved capabilities.
 8. Return reusable learning candidates to Logic, Copy, Art Direction, or Output with evidence and limits; never create a Supervisor learning silo or promote a candidate automatically.
-9. Emit one report with `origin_namespace: io.clayz.presentation` and status `supervised`.
+9. Emit one report with `origin_namespace: io.clayz.presentation` and status `supervised`; task-local audit evidence should retain the capability resolution and retrieval receipt IDs used for optional knowledge.
 
 ## Validation
 
