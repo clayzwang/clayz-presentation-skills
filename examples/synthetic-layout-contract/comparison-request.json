@@ -1,0 +1,11 @@
+{
+  "contract": "io.clayz.presentation.layout-contract-request/1.0",
+  "request_id": "synthetic-layout-comparison",
+  "task_mode": "new-build",
+  "page_role": "comparison",
+  "semantic_relations": ["supports"],
+  "purpose_tags": ["evidence-led"],
+  "language": "zh-CN",
+  "rights_context": "public-open-source",
+  "provider_ids": ["builtin-catalog"]
+}

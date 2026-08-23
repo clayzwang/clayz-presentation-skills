@@ -1,0 +1,20 @@
+{
+  "contract": "io.clayz.presentation.layout-contract-resolution/1.0",
+  "resolution_id": "layout-resolution-887181292a5c61f7d509",
+  "request_id": "synthetic-layout-unresolved",
+  "status": "unresolved",
+  "retrieval_receipt_id": "receipt-faee2cd42f78c8dc367a",
+  "selected_layout_contract": null,
+  "fallback": {
+    "used": true,
+    "reason": "no-eligible-registered-layout-contract",
+    "next_action": "use-core-semantic-layout-tree-without-claiming-a-contract"
+  },
+  "guards": {
+    "only_registered_records": true,
+    "only_receipt_candidates_selected": true,
+    "no_invented_layout_contracts": true,
+    "theme_not_selected_here": true,
+    "visual_variant_not_selected_here": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "contract": "io.clayz.presentation.layout-contract-instance/1.0",
+  "instance_id": "synthetic-comparison-slide",
+  "layout_contract_id": "layout.evidence-with-implication",
+  "semantic_layout_tree_id": "SLT-SYNTHETIC-COMPARISON",
+  "frame": {"x": 0.55, "y": 1.35, "w": 12.23, "h": 5.25},
+  "bindings": [
+    {"slot_id": "primary-evidence", "content_kind": "chart", "copy_ids": ["COPY-EVIDENCE"], "semantic_node_ids": ["SLT-NODE-EVIDENCE"]},
+    {"slot_id": "source-note", "content_kind": "source-note", "copy_ids": ["COPY-SOURCE"], "semantic_node_ids": ["SLT-NODE-SOURCE"]},
+    {"slot_id": "findings", "content_kind": "text", "copy_ids": ["COPY-FINDING-1", "COPY-FINDING-2"], "semantic_node_ids": ["SLT-NODE-FINDINGS"]},
+    {"slot_id": "decision-implication", "content_kind": "text", "copy_ids": ["COPY-IMPLICATION"], "semantic_node_ids": ["SLT-NODE-IMPLICATION"]}
+  ]
+}

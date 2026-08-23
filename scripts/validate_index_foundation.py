@@ -20,8 +20,18 @@ SCHEMAS = {
     "packages/contracts/retrieval-request.schema.json": "urn:clayz:presentation:schema:retrieval-request:1.0",
     "packages/contracts/retrieval-receipt.schema.json": "urn:clayz:presentation:schema:retrieval-receipt:1.0",
     "packages/contracts/capability-resolution.schema.json": "urn:clayz:presentation:schema:capability-resolution:1.0",
+    "packages/contracts/layout-contract.schema.json": "urn:clayz:presentation:schema:layout-contract:1.0",
+    "packages/contracts/layout-contract-request.schema.json": "urn:clayz:presentation:schema:layout-contract-request:1.0",
+    "packages/contracts/layout-contract-instance.schema.json": "urn:clayz:presentation:schema:layout-contract-instance:1.0",
+    "packages/contracts/layout-contract-resolution.schema.json": "urn:clayz:presentation:schema:layout-contract-resolution:1.0",
+    "packages/contracts/layout-compilation.schema.json": "urn:clayz:presentation:schema:layout-compilation:1.0",
 }
-FORBIDDEN_CATALOG_SUFFIXES = {".pptx", ".pptm", ".potx", ".potm", ".thmx", ".ttf", ".otf", ".woff", ".woff2"}
+FORBIDDEN_CATALOG_SUFFIXES = {
+    ".pptx", ".pptm", ".potx", ".potm", ".thmx",
+    ".ttf", ".otf", ".woff", ".woff2",
+    ".ckpt", ".safetensors", ".pt", ".pth", ".onnx",
+    ".csv", ".tsv", ".parquet", ".xlsx", ".xls",
+}
 
 
 def main() -> int:
@@ -55,6 +65,13 @@ def main() -> int:
             for ref in payload.get("knowledge_refs", []) + payload.get("validator_refs", []):
                 if not (ROOT / ref).is_file():
                     raise IndexRuntimeError(f"capability references missing repository path {ref}: {record['record_id']}")
+        elif record["record_type"] == "layout-contract":
+            if record["classification"]["brand_scope"] != "none" or record["classification"]["asset_class"] != "contract":
+                raise IndexRuntimeError(f"layout contracts must remain brand-neutral contract metadata: {record['record_id']}")
+            if record["payload"]["kind"] != "path":
+                raise IndexRuntimeError(f"layout contracts must use hash-bound path payloads: {record['record_id']}")
+        else:
+            raise IndexRuntimeError(f"unsupported built-in catalog record at this stage: {record['record_id']}")
 
     print("index foundation valid")
     return 0

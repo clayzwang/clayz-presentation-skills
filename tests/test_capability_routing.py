@@ -54,8 +54,9 @@ class CapabilityRoutingTests(unittest.TestCase):
 
     def test_capability_catalog_contains_no_brand_specific_assets(self) -> None:
         provider = self.runtime.providers[0]
-        for record in provider.records:
-            self.assertEqual(record["record_type"], "capability")
+        records = [record for record in provider.records if record["record_type"] == "capability"]
+        self.assertTrue(records)
+        for record in records:
             self.assertNotEqual(record["classification"]["brand_scope"], "brand-specific")
             self.assertNotIn(record["classification"]["asset_class"], {"template", "master", "font", "brand-kit"})
 

@@ -1,0 +1,144 @@
+{
+  "contract": "io.clayz.presentation.layout-compilation/1.0",
+  "compilation_id": "layout-compilation-48360c039ec8d36f2be8",
+  "status": "compiled",
+  "lineage": {
+    "resolution_id": "layout-resolution-6a85fc653c04a8ae998a",
+    "retrieval_receipt_id": "receipt-9ca9be03d1fe9f388242",
+    "record_id": "layout.evidence-with-implication",
+    "layout_contract_id": "layout.evidence-with-implication",
+    "layout_contract_revision": "1",
+    "instance_id": "synthetic-comparison-slide",
+    "semantic_layout_tree_id": "SLT-SYNTHETIC-COMPARISON"
+  },
+  "layers": {
+    "theme": {
+      "status": "external-not-consumed",
+      "input_used": false
+    },
+    "visual_variant": {
+      "status": "external-not-consumed",
+      "input_used": false
+    },
+    "layout_contract": {
+      "status": "registered-selected",
+      "id": "layout.evidence-with-implication"
+    },
+    "layout_tree": {
+      "status": "compiled",
+      "id": "layout-tree-4f542f370643e9ebf41e"
+    },
+    "resolved_coordinates": {
+      "status": "pending",
+      "contract": "io.clayz.presentation.layout-resolution/1.0"
+    }
+  },
+  "layout_tree": {
+    "contract": "io.clayz.presentation.layout-tree/1.0",
+    "tree_id": "layout-tree-4f542f370643e9ebf41e",
+    "source": {
+      "layout_contract_id": "layout.evidence-with-implication",
+      "layout_contract_revision": "1",
+      "record_id": "layout.evidence-with-implication",
+      "retrieval_receipt_id": "receipt-9ca9be03d1fe9f388242",
+      "instance_id": "synthetic-comparison-slide",
+      "semantic_layout_tree_id": "SLT-SYNTHETIC-COMPARISON"
+    },
+    "frame": {
+      "x": 0.55,
+      "y": 1.35,
+      "w": 12.23,
+      "h": 5.25
+    },
+    "root": {
+      "id": "body",
+      "type": "row",
+      "intent": "evidence supports implication",
+      "contract_node_id": "body",
+      "gap": 0.28,
+      "children": [
+        {
+          "id": "evidence-column",
+          "type": "column",
+          "intent": "evidence precedes provenance",
+          "contract_node_id": "evidence-column",
+          "flex": 2.2,
+          "gap": 0.16,
+          "children": [
+            {
+              "id": "primary-evidence-region",
+              "type": "leaf",
+              "intent": "primary evidence",
+              "contract_node_id": "primary-evidence-region",
+              "flex": 4,
+              "slot_id": "primary-evidence",
+              "role": "evidence",
+              "copy_ids": [
+                "COPY-EVIDENCE"
+              ],
+              "semantic_node_ids": [
+                "SLT-NODE-EVIDENCE"
+              ]
+            },
+            {
+              "id": "source-note-region",
+              "type": "leaf",
+              "intent": "provenance supports evidence",
+              "contract_node_id": "source-note-region",
+              "flex": 1,
+              "slot_id": "source-note",
+              "role": "source-note",
+              "copy_ids": [
+                "COPY-SOURCE"
+              ],
+              "semantic_node_ids": [
+                "SLT-NODE-SOURCE"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "implication-column",
+          "type": "column",
+          "intent": "findings lead to implication",
+          "contract_node_id": "implication-column",
+          "flex": 1,
+          "gap": 0.16,
+          "children": [
+            {
+              "id": "findings-region",
+              "type": "leaf",
+              "intent": "findings summarize evidence",
+              "contract_node_id": "findings-region",
+              "flex": 2,
+              "slot_id": "findings",
+              "role": "finding",
+              "copy_ids": [
+                "COPY-FINDING-1",
+                "COPY-FINDING-2"
+              ],
+              "semantic_node_ids": [
+                "SLT-NODE-FINDINGS"
+              ]
+            },
+            {
+              "id": "decision-implication-region",
+              "type": "leaf",
+              "intent": "implication is conditional on findings",
+              "contract_node_id": "decision-implication-region",
+              "flex": 1,
+              "slot_id": "decision-implication",
+              "role": "implication",
+              "copy_ids": [
+                "COPY-IMPLICATION"
+              ],
+              "semantic_node_ids": [
+                "SLT-NODE-IMPLICATION"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
