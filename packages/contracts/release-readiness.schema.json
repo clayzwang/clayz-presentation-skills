@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:release-readiness:1.0",
+  "title": "Clayz unreleased v0.4.0 readiness record",
+  "type": "object",
+  "required": ["contract", "target_version", "current_public_version", "state", "stage_gates", "actions", "evidence", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.release-readiness/1.0"},
+    "target_version": {"const": "0.4.0"},
+    "current_public_version": {"const": "0.3.0"},
+    "state": {"const": "draft-review"},
+    "stage_gates": {"type": "object", "additionalProperties": {"type": "boolean"}},
+    "actions": {
+      "type": "object",
+      "required": ["merge", "tag", "publish", "experience_center_update"],
+      "properties": {
+        "merge": {"const": false},
+        "tag": {"const": false},
+        "publish": {"const": false},
+        "experience_center_update": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["benchmark_report", "migration_report", "validation_command"],
+      "properties": {
+        "benchmark_report": {"type": "string", "minLength": 1},
+        "migration_report": {"type": "string", "minLength": 1},
+        "validation_command": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["no_unlicensed_assets", "no_private_brand_assets", "no_generated_auto_admission", "no_automatic_aesthetic_truth", "release_requires_separate_human_authorization"],
+      "properties": {
+        "no_unlicensed_assets": {"const": true},
+        "no_private_brand_assets": {"const": true},
+        "no_generated_auto_admission": {"const": true},
+        "no_automatic_aesthetic_truth": {"const": true},
+        "release_requires_separate_human_authorization": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

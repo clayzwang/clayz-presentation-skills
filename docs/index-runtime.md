@@ -56,4 +56,10 @@ The runtime implementation is in `packages/index_runtime/`. Use `scripts/index_r
 
 ## Development status
 
-This is an unreleased foundation. `VERSION` remains unchanged. Capability routing, registered Layout Contracts, Composition Patterns, and linked Failure Patterns now use the same receipts. Dataset-ready Reference and Sequence metadata can be exported without source assets. A later v0.4.0 stage may connect human-admitted learning promotion and retrieval benchmarks.
+This remains unreleased and `VERSION` stays at `0.3.0`. Capability routing,
+registered Layout Contracts, Composition Patterns, linked Failure Patterns, and
+hash-bound private learning now use the same receipts. Stage 5 adds fixed
+provider-snapshot benchmarks, fail-closed legacy migration, and a readiness
+record whose merge, tag, publish, and Experience Center actions all remain
+false. See
+[`feedback-benchmark-release-readiness.md`](feedback-benchmark-release-readiness.md).

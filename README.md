@@ -41,6 +41,7 @@ This is not a larger pile of layout rules. It gives Art Direction a stronger rep
 - **Fixed regression:** eleven synthetic cases cover four material routes, four cross-slide behaviors, content-aware image composition, governed asset selection, and reference-architecture houses. Tests reject image-led pages without canvas evidence, selected assets without license records, and noun-only houses without responsibility or feedback.
 - **Index-native composition methods:** unreleased Stage 4 adds registered Composition and Failure Patterns plus dataset-ready Reference and Sequence metadata. Pattern selection, linked failure knowledge, rejected alternatives, constraints, and expected visual effect are receipt-bound; no match remains explicitly unresolved.
 - **Metadata-only dataset boundary:** the public exporter contains stable IDs, classifications, source revisions, hashes, and original method metadata only. It excludes source text, images, coordinates, fonts, templates, corporate assets, model weights, generated-artifact auto-admission, and automatic aesthetic truth.
+- **Human-admitted feedback and benchmark:** unreleased Stage 5 re-indexes an observation only when a separate human decision binds its exact hash. Private learning stays outside the public catalog; fixed provider snapshots, four retrieval cases, fail-closed legacy migration, and an unreleased readiness record turn drift, invention, and premature release into validation failures.
 
 The public repository still bundles no third-party template, master, icon set, poster, dataset, model, or media. The capability is to retrieve, judge, re-compose, and attribute admissible material—not to clone a source library.
 
@@ -138,6 +139,17 @@ Pattern or any linked Failure Pattern is unregistered, unretrieved, ambiguous,
 rights-ineligible, or hash-stale. See
 [`docs/pattern-dataset-library.md`](docs/pattern-dataset-library.md).
 
+Validate the synthetic feedback loop, retrieval benchmark, migration report,
+and unreleased readiness gate:
+
+```bash
+python scripts/validate_feedback_benchmark.py
+```
+
+The readiness record keeps `VERSION=0.3.0` and leaves merge, tag, publish, and
+Experience Center update disabled. See
+[`docs/feedback-benchmark-release-readiness.md`](docs/feedback-benchmark-release-readiness.md).
+
 The experimental PptxGenJS route is isolated under `packages/adapters/pptxgenjs/`. It is syntax-checked but security-blocked by default because its current upstream dependency chain contains unpatched denial-of-service advisories; see its README before any evaluation.
 
 Stamp non-visible clayz provenance into a generated PPTX:
@@ -180,7 +192,7 @@ Supervisor has no separate learning silo. It returns reusable observations to th
 
 Downloading the repository does not create, read, or connect a ChatGPT Library. The default provider is the local filesystem. A host-specific adapter may map the same structure to ChatGPT Library or another storage system, but no such adapter is bundled or required. See [`knowledge/README.md`](knowledge/README.md) and [`knowledge/registry/schema.md`](knowledge/registry/schema.md).
 
-The scaffold is operational in v0.2.0: `scripts/knowledge_cli.py` can register, separately admit, index, search, and record observations. Unadmitted or hash-changed sources are excluded. See [`docs/knowledge-runtime.md`](docs/knowledge-runtime.md).
+The scaffold is operational in v0.2.0 and extended by unreleased Stage 5: `scripts/knowledge_cli.py` can register, separately admit, index, search, and record observations. The v2 local index includes learning only after a matching hash-bound human admission. Unadmitted or hash-changed sources are excluded. See [`docs/knowledge-runtime.md`](docs/knowledge-runtime.md).
 
 ## Public growth boundary
 

@@ -23,7 +23,11 @@ Supervisor deliberately has no separate learning silo. It reads all approved art
 
 ## Operational commands
 
-`scripts/knowledge_cli.py` registers sources, records human admission, builds the local index, searches admitted material, and appends non-promoted learning observations. Paths and retrieval limits come from `config/default.json`; no knowledge content is embedded in the skill files.
+`scripts/knowledge_cli.py` registers sources, records human admission, builds the local index, searches admitted material, and appends non-promoted learning observations. A learning observation enters the v2 index only after a separate admission binds its exact canonical SHA-256; editing it invalidates the admission. Paths and retrieval limits come from `config/default.json`; no knowledge content is embedded in the skill files.
+
+Stage 5 also supplies a generic private learning provider, fixed-snapshot
+retrieval benchmark, and fail-closed legacy migration. None of these publishes
+local knowledge into the built-in catalog.
 
 See [`../docs/knowledge-runtime.md`](../docs/knowledge-runtime.md) for commands and adapter boundaries.
 

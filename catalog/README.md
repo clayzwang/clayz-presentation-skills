@@ -17,3 +17,8 @@ Reference and Sequence payloads are fully synthetic, metadata-only fixtures:
 they contain no source copy, image, coordinates, fonts, brand identity, or
 model features. Every file is hash-bound, human-admitted, brand-neutral, and
 cross-link validated before it can be retrieved or exported.
+
+Stage 5 does not add task feedback to this public catalog. Human-admitted
+observations are rebuilt as a separate private-runtime provider and remain
+`public_catalog_eligible=false`. Benchmark fixtures may reference their stable
+metadata IDs, but never copy private content into `catalog/`.

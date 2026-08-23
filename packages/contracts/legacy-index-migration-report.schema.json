@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:legacy-index-migration-report:1.0",
+  "title": "Clayz legacy knowledge migration report",
+  "type": "object",
+  "required": ["contract", "created_at", "source_contract", "target_contract", "provider_snapshot", "counts", "skipped", "orphan_neighbors", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.legacy-index-migration-report/1.0"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "source_contract": {"const": "legacy-filesystem-knowledge/1.0"},
+    "target_contract": {"const": "io.clayz.presentation.index-record/1.0"},
+    "provider_snapshot": {"type": "object"},
+    "counts": {"type": "object"},
+    "skipped": {"type": "array", "items": {"type": "object"}},
+    "orphan_neighbors": {"type": "array", "items": {"type": "object"}},
+    "guards": {
+      "type": "object",
+      "required": ["human_admission_required", "stale_hashes_skipped", "private_scope_preserved", "brand_assets_not_public", "automatic_promotion"],
+      "properties": {
+        "human_admission_required": {"const": true},
+        "stale_hashes_skipped": {"const": true},
+        "private_scope_preserved": {"const": true},
+        "brand_assets_not_public": {"const": true},
+        "automatic_promotion": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

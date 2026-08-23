@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:learning-record:1.0",
+  "title": "Clayz observation-only learning record",
+  "type": "object",
+  "required": ["contract", "record_id", "stage", "task_purpose", "observation", "evidence_refs", "decision", "user_ruling", "promotion_status", "created_at", "classification", "source", "guards"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.learning-record/1.0"},
+    "record_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "stage": {"enum": ["logic", "copy", "art-direction", "output"]},
+    "task_purpose": {"type": "string", "minLength": 1},
+    "observation": {"type": "string", "minLength": 1},
+    "evidence_refs": {"$ref": "#/$defs/stringSet"},
+    "decision": {"type": "string", "minLength": 1},
+    "user_ruling": {"type": ["string", "null"]},
+    "promotion_status": {"const": "observation"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "classification": {
+      "type": "object",
+      "required": ["task_modes", "page_roles", "purpose_tags", "language", "failure_signals"],
+      "properties": {
+        "task_modes": {"$ref": "#/$defs/stringSet"},
+        "page_roles": {"$ref": "#/$defs/stringSet"},
+        "purpose_tags": {"$ref": "#/$defs/stringSet"},
+        "language": {"type": "string", "minLength": 1},
+        "failure_signals": {"$ref": "#/$defs/stringSet"}
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["source_kind", "source_id", "source_revision"],
+      "properties": {
+        "source_kind": {"enum": ["task-observation", "synthetic-fixture"]},
+        "source_id": {"type": "string", "minLength": 1},
+        "source_revision": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "guards": {
+      "type": "object",
+      "required": ["human_admission_required", "generated_artifact_auto_admitted", "supervisor_owns_store"],
+      "properties": {
+        "human_admission_required": {"const": true},
+        "generated_artifact_auto_admitted": {"const": false},
+        "supervisor_owns_store": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {"stringSet": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}},
+  "additionalProperties": false
+}

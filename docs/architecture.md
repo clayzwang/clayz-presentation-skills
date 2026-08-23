@@ -54,3 +54,11 @@ The source repository stores shared contracts and validators once. The plugin bu
 The public distribution includes four stage learning areas—Logic, Copy, Art Direction, and Output—plus one shared source-and-index area. Supervisor reads across the full production chain and routes reusable observations to the earliest responsible stage; it does not own a fifth learning silo.
 
 The default filesystem scaffold is empty and portable. It does not create or connect ChatGPT Library. Host adapters may map the same contract to another storage system, while human admission and no-auto-promotion remain invariant.
+
+An observation becomes retrievable only after a separate human admission binds
+its canonical hash. The rebuilt learning provider remains private and distinct
+from the public built-in catalog. Retrieval benchmarks pin provider snapshots,
+while migration converts only unchanged admitted legacy records. These feedback
+and release-readiness services support the five stages; they do not add a sixth
+stage or transfer approval authority. See
+[`feedback-benchmark-release-readiness.md`](feedback-benchmark-release-readiness.md).

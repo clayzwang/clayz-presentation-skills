@@ -1,0 +1,26 @@
+{
+  "contract": "io.clayz.presentation.feedback-index-report/1.0",
+  "created_at": "2026-08-23T12:00:00Z",
+  "provider_snapshot": {
+    "provider_id": "feedback-learning",
+    "digest": "67ee4e7fbeb3428b68050e3e0356cfd5c44e145a458e66459bf1ffcfdc2881b4",
+    "record_count": 1
+  },
+  "source_record_count": 2,
+  "admitted_record_count": 1,
+  "skipped": [
+    {
+      "record_id": "learning.synthetic-equal-weight-observation",
+      "reason": "human-admission-required"
+    }
+  ],
+  "malformed_admissions": [],
+  "guards": {
+    "human_admission_required": true,
+    "hash_match_required": true,
+    "source_observation_unchanged": true,
+    "public_catalog_eligible": false,
+    "generated_artifacts_auto_admitted": false,
+    "supervisor_owns_store": false
+  }
+}

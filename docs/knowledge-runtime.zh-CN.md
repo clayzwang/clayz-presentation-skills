@@ -11,6 +11,8 @@ v0.2.0 让空知识架构真正可运行，但不附带任何人的审美偏好�
 - 文本类文件使用本地词法索引；PPTX、PDF 与图片不会被静默解析，除非宿主提供经过授权的解析器。
 - 检索分数只负责召回候选，不能晋升质量、替代判断或改变当前任务的批准基准。
 - 学习回写始终以 `promotion_status=observation` 开始。
+- Learning 只有在第二次人工准入绑定其规范 SHA-256 后才可进入检索；观察内容变化会使旧准入失效。
+- 准入后的 Learning 仍属于私有运行层，不会自动进入公开 Catalog。
 
 ## 常用命令
 
@@ -36,5 +38,21 @@ python scripts/knowledge_cli.py record-learning art-direction \
   --evidence-ref output/rendered/3.png \
   --decision "把容量冲突交还 Art Direction。"
 ```
+
+人工审阅后，才可对该条完全一致的观察执行私有准入：
+
+```bash
+python scripts/knowledge_cli.py admit learning <learning-record-id> \
+  --admitted-by maintainer \
+  --use-for renderer-compatibility \
+  --never-copy generated-coordinates \
+  --promotion-target compatibility-note \
+  --confirm-human-decision
+
+python scripts/knowledge_cli.py build-index
+```
+
+生成索引使用 `io.clayz.presentation.knowledge-index/2.0`，并分别保留资产与 Learning 数量。Stage 5 的通用 Provider、Benchmark 和迁移命令见
+[`feedback-benchmark-release-readiness.zh-CN.md`](feedback-benchmark-release-readiness.zh-CN.md)。
 
 宿主可以更换为向量检索、映射到 ChatGPT Library 或增加 PDF/PPTX 解析器，但必须保留稳定 ID、来源/许可、人工准入、`never_copy`、哈希和禁止自动晋升的约束，并如实报告读写失败。

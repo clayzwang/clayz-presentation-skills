@@ -20,6 +20,10 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add receipt-bound Composition Pattern resolution: a Pattern compiles only when it and every linked Failure Pattern are registered, admitted, rights-eligible, hash-current, and selected in Retrieval Receipts; ambiguity and gaps remain explicitly unresolved.
 - Add an original coordinate-free Composition Plan compiler and a metadata-only dataset exporter that excludes source text, assets, coordinates, fonts, model weights, generated-artifact auto-admission, and automatic aesthetic truth.
 - Add three original Composition Patterns, four original Failure Patterns, three synthetic Reference records, one synthetic Sequence, Stage 4 validators, regression fixtures, and conceptual attribution for PosterCopilot, MiniMax Skills, and PosterVerse with strict non-redistribution boundaries.
+- Add Stage 5 hash-bound feedback admission: observations remain stage-owned and non-retrievable until a separate human decision admits the exact canonical record; admitted learning stays private and outside the public catalog.
+- Add deterministic retrieval benchmarks that pin provider snapshots, expected and forbidden candidates, unresolved emptiness, and invented-record count; baselines never update automatically.
+- Add fail-closed migration from the legacy filesystem index, preserving private scope while skipping stale or unadmitted subjects and reporting orphan neighbors.
+- Add a machine-validated v0.4.0 readiness record with all five stage gates evidenced while `VERSION` remains `0.3.0` and merge, tag, publish, and Experience Center update remain explicitly disabled.
 
 ## 0.3.0 — 2026-08-22
 

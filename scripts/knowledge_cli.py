@@ -18,6 +18,15 @@ from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from packages.feedback.learning import (  # noqa: E402
+    FeedbackError,
+    validate_learning_admission,
+    validate_learning_record,
+)
+
 TEXT_SUFFIXES = {".csv", ".json", ".jsonl", ".md", ".svg", ".txt", ".yaml", ".yml"}
 KIND_BY_SUFFIX = {
     ".csv": "data",
@@ -36,6 +45,9 @@ KIND_BY_SUFFIX = {
     ".webp": "image",
 }
 STAGES = {"logic", "copy", "art-direction", "output"}
+LEARNING_CONTRACT = "io.clayz.presentation.learning-record/1.0"
+LEARNING_ADMISSION_CONTRACT = "io.clayz.presentation.learning-admission/1.0"
+PROMOTION_TARGETS = {"knowledge", "failure-pattern", "compatibility-note", "proven-repair"}
 
 
 class KnowledgeError(ValueError):
@@ -105,6 +117,11 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def sha256_json(value: dict[str, Any]) -> str:
+    canonical = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 def tokenize(text: str) -> list[str]:
@@ -189,23 +206,45 @@ def admit_reference(
     never_copy: list[str],
     decision_notes: str,
     confirmed: bool,
+    promotion_target: str | None = None,
 ) -> dict[str, Any]:
     if not confirmed:
         raise KnowledgeError("admission requires --confirm-human-decision")
     if subject_type not in {"asset", "learning"}:
         raise KnowledgeError(f"unsupported subject_type: {subject_type}")
     if subject_type == "asset":
-        subjects = {row.get("asset_id") for row in read_jsonl(settings["asset_registry"])}
+        subjects = {
+            row.get("asset_id"): row
+            for row in read_jsonl(settings["asset_registry"])
+            if isinstance(row.get("asset_id"), str)
+        }
     else:
-        subjects = set()
+        subjects = {}
         for stage in STAGES:
-            subjects.update(
-                row.get("record_id")
+            subjects.update({
+                row.get("record_id"): row
                 for row in read_jsonl(settings["learning_root"] / stage / "learning-records.jsonl")
-            )
+                if isinstance(row.get("record_id"), str)
+            })
     if subject_id not in subjects:
         raise KnowledgeError(f"unknown {subject_type}: {subject_id}")
-    admission_id = _id("admission", f"{subject_type}:{subject_id}:{admitted_by}:{','.join(use_for)}")
+    subject = subjects[subject_id]
+    if subject_type == "learning":
+        try:
+            subject = validate_learning_record(subject)
+        except FeedbackError as exc:
+            raise KnowledgeError(f"invalid learning record: {exc}") from exc
+        resolved_target = promotion_target or "knowledge"
+        if resolved_target not in PROMOTION_TARGETS:
+            raise KnowledgeError(f"unsupported promotion target: {resolved_target}")
+        subject_sha256 = sha256_json(subject)
+    else:
+        resolved_target = None
+        subject_sha256 = str(subject.get("sha256", ""))
+    admission_id = _id(
+        "admission",
+        f"{subject_type}:{subject_id}:{admitted_by}:{','.join(use_for)}:{resolved_target or ''}:{subject_sha256}",
+    )
     registry = settings["admission_registry"]
     existing = read_jsonl(registry)
     for row in existing:
@@ -215,12 +254,23 @@ def admit_reference(
         "admission_id": admission_id,
         "subject_type": subject_type,
         "subject_id": subject_id,
+        "subject_sha256": subject_sha256,
         "admitted_by": admitted_by,
         "admitted_at": utc_now(),
         "use_for": sorted(set(use_for)),
         "never_copy": sorted(set(never_copy)),
         "decision_notes": decision_notes,
     }
+    if subject_type == "learning":
+        entry.update({
+            "contract": LEARNING_ADMISSION_CONTRACT,
+            "promotion_target": resolved_target,
+            "public_catalog_eligible": False,
+        })
+        try:
+            entry = validate_learning_admission(entry, subject)
+        except FeedbackError as exc:
+            raise KnowledgeError(f"invalid learning admission: {exc}") from exc
     append_jsonl(registry, entry)
     return entry
 
@@ -234,12 +284,22 @@ def record_learning(
     evidence_refs: list[str],
     decision: str,
     user_ruling: str | None,
+    task_modes: list[str] | None = None,
+    page_roles: list[str] | None = None,
+    purpose_tags: list[str] | None = None,
+    language: str = "und",
+    failure_signals: list[str] | None = None,
+    source_kind: str = "task-observation",
+    source_id: str | None = None,
+    source_revision: str = "1",
 ) -> dict[str, Any]:
     if stage not in STAGES:
         raise KnowledgeError(f"unsupported stage: {stage}")
     created_at = utc_now()
+    resolved_id = _id("learning", f"{stage}:{task_purpose}:{observation}:{created_at}")
     entry = {
-        "record_id": _id("learning", f"{stage}:{task_purpose}:{observation}:{created_at}"),
+        "contract": LEARNING_CONTRACT,
+        "record_id": resolved_id,
         "stage": stage,
         "task_purpose": task_purpose,
         "observation": observation,
@@ -248,6 +308,23 @@ def record_learning(
         "user_ruling": user_ruling,
         "promotion_status": "observation",
         "created_at": created_at,
+        "classification": {
+            "task_modes": sorted(set(task_modes or [])),
+            "page_roles": sorted(set(page_roles or [])),
+            "purpose_tags": sorted(set(purpose_tags or [])),
+            "language": language,
+            "failure_signals": sorted(set(failure_signals or [])),
+        },
+        "source": {
+            "source_kind": source_kind,
+            "source_id": source_id or f"task-local-{resolved_id}",
+            "source_revision": source_revision,
+        },
+        "guards": {
+            "human_admission_required": True,
+            "generated_artifact_auto_admitted": False,
+            "supervisor_owns_store": False,
+        },
     }
     append_jsonl(settings["learning_root"] / stage / "learning-records.jsonl", entry)
     return entry
@@ -298,6 +375,9 @@ def build_index(settings: dict[str, Any], *, maximum_bytes: int = 2_000_000) -> 
         documents.append(
             {
                 "asset_id": asset_id,
+                "record_id": asset_id,
+                "record_type": "knowledge",
+                "source_type": "asset",
                 "relative_path": relative,
                 "kind": asset.get("kind"),
                 "language": asset.get("language"),
@@ -310,11 +390,67 @@ def build_index(settings: dict[str, Any], *, maximum_bytes: int = 2_000_000) -> 
                 "token_length": sum(counts.values()),
             }
         )
+
+    admitted_learning = {
+        row.get("subject_id"): row
+        for row in admissions
+        if row.get("subject_type") == "learning"
+    }
+    for stage in sorted(STAGES):
+        for learning in read_jsonl(settings["learning_root"] / stage / "learning-records.jsonl"):
+            record_id = learning.get("record_id")
+            if not isinstance(record_id, str) or not record_id:
+                continue
+            admission = admitted_learning.get(record_id)
+            if not admission:
+                continue
+            try:
+                learning = validate_learning_record(learning)
+                admission = validate_learning_admission(admission, learning)
+            except FeedbackError:
+                continue
+            classification = learning.get("classification", {})
+            purpose_tags = sorted(set(
+                [str(value) for value in classification.get("purpose_tags", [])]
+                + [str(value) for value in admission.get("use_for", [])]
+                + [str(admission.get("promotion_target", "knowledge"))]
+            ))
+            metadata = " ".join([
+                record_id,
+                stage,
+                str(learning.get("task_purpose", "")),
+                str(learning.get("observation", "")),
+                str(learning.get("decision", "")),
+                str(learning.get("user_ruling", "")),
+                " ".join(purpose_tags),
+                " ".join(str(value) for value in classification.get("failure_signals", [])),
+            ])
+            counts = Counter(tokenize(metadata))
+            document_frequency.update(counts.keys())
+            documents.append({
+                "asset_id": record_id,
+                "record_id": record_id,
+                "record_type": "learning",
+                "source_type": "learning",
+                "stage": stage,
+                "relative_path": None,
+                "kind": "learning",
+                "language": classification.get("language", "und"),
+                "purpose_tags": purpose_tags,
+                "use_for": admission.get("use_for", []),
+                "never_copy": admission.get("never_copy", []),
+                "physical_neighbors": [],
+                "semantic_neighbors": [],
+                "token_counts": dict(sorted(counts.items())),
+                "token_length": sum(counts.values()),
+            })
     index = {
-        "contract": "io.clayz.presentation.knowledge-index/1.0",
+        "contract": "io.clayz.presentation.knowledge-index/2.0",
         "generated_at": utc_now(),
         "engine": "bm25-lexical",
         "document_count": len(documents),
+        "asset_document_count": sum(1 for document in documents if document.get("source_type") == "asset"),
+        "learning_document_count": sum(1 for document in documents if document.get("source_type") == "learning"),
         "document_frequency": dict(sorted(document_frequency.items())),
         "documents": documents,
     }
@@ -360,7 +496,7 @@ def search_index(
                 {
                     key: document.get(key)
                     for key in (
-                        "asset_id",
+                        "asset_id", "record_id", "record_type", "source_type", "stage",
                         "relative_path",
                         "kind",
                         "language",
@@ -373,8 +509,8 @@ def search_index(
                 }
                 | {"score": round(score, 6)}
             )
-    ranked = sorted(results, key=lambda item: (-item["score"], str(item["asset_id"])))[:limit]
-    by_id = {document.get("asset_id"): document for document in documents}
+    ranked = sorted(results, key=lambda item: (-item["score"], str(item.get("record_id") or item["asset_id"])))[:limit]
+    by_id = {(document.get("record_id") or document.get("asset_id")): document for document in documents}
     expanded = list(ranked)
     seen = {result.get("asset_id") for result in expanded}
     for result in ranked:
@@ -390,7 +526,8 @@ def search_index(
                     {
                         key: neighbor.get(key)
                         for key in (
-                            "asset_id", "relative_path", "kind", "language", "purpose_tags",
+                            "asset_id", "record_id", "record_type", "source_type", "stage",
+                            "relative_path", "kind", "language", "purpose_tags",
                             "use_for", "never_copy", "physical_neighbors", "semantic_neighbors",
                         )
                     }
@@ -429,6 +566,7 @@ def main(argv: Iterable[str] | None = None) -> int:
     admit.add_argument("--use-for", action="append", required=True)
     admit.add_argument("--never-copy", action="append", default=[])
     admit.add_argument("--decision-notes", default="")
+    admit.add_argument("--promotion-target", choices=sorted(PROMOTION_TARGETS))
     admit.add_argument("--confirm-human-decision", action="store_true")
 
     learning = subparsers.add_parser("record-learning", help="Append a non-promoted observation")
@@ -438,6 +576,14 @@ def main(argv: Iterable[str] | None = None) -> int:
     learning.add_argument("--evidence-ref", action="append", default=[])
     learning.add_argument("--decision", required=True)
     learning.add_argument("--user-ruling")
+    learning.add_argument("--task-mode", action="append", default=[])
+    learning.add_argument("--page-role", action="append", default=[])
+    learning.add_argument("--purpose-tag", action="append", default=[])
+    learning.add_argument("--language", default="und")
+    learning.add_argument("--failure-signal", action="append", default=[])
+    learning.add_argument("--source-kind", choices=["task-observation", "synthetic-fixture"], default="task-observation")
+    learning.add_argument("--source-id")
+    learning.add_argument("--source-revision", default="1")
 
     index_parser = subparsers.add_parser("build-index", help="Build a local lexical index from admitted sources")
     index_parser.add_argument("--maximum-text-bytes", type=int, default=2_000_000)
@@ -480,6 +626,7 @@ def main(argv: Iterable[str] | None = None) -> int:
                     never_copy=args.never_copy,
                     decision_notes=args.decision_notes,
                     confirmed=args.confirm_human_decision,
+                    promotion_target=args.promotion_target,
                 )
             )
         elif args.command == "record-learning":
@@ -492,6 +639,14 @@ def main(argv: Iterable[str] | None = None) -> int:
                     evidence_refs=args.evidence_ref,
                     decision=args.decision,
                     user_ruling=args.user_ruling,
+                    task_modes=args.task_mode,
+                    page_roles=args.page_role,
+                    purpose_tags=args.purpose_tag,
+                    language=args.language,
+                    failure_signals=args.failure_signal,
+                    source_kind=args.source_kind,
+                    source_id=args.source_id,
+                    source_revision=args.source_revision,
                 )
             )
         elif args.command == "build-index":

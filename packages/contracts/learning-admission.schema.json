@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:learning-admission:1.0",
+  "title": "Clayz human learning admission",
+  "type": "object",
+  "required": ["contract", "admission_id", "subject_type", "subject_id", "subject_sha256", "admitted_by", "admitted_at", "use_for", "never_copy", "decision_notes", "promotion_target", "public_catalog_eligible"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.learning-admission/1.0"},
+    "admission_id": {"type": "string", "minLength": 1},
+    "subject_type": {"const": "learning"},
+    "subject_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "subject_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "admitted_by": {"type": "string", "minLength": 1},
+    "admitted_at": {"type": "string", "format": "date-time"},
+    "use_for": {"$ref": "#/$defs/stringSet"},
+    "never_copy": {"$ref": "#/$defs/stringSet"},
+    "decision_notes": {"type": "string", "minLength": 1},
+    "promotion_target": {"enum": ["knowledge", "failure-pattern", "compatibility-note", "proven-repair"]},
+    "public_catalog_eligible": {"const": false}
+  },
+  "$defs": {"stringSet": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}},
+  "additionalProperties": false
+}

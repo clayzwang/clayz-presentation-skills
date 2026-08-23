@@ -26,11 +26,16 @@ Each row records an explicit human decision:
 - `admission_id`: stable unique identifier;
 - `subject_type`: `asset` or `learning`;
 - `subject_id`: an `asset_id` or learning `record_id`;
+- `subject_sha256`: the exact file hash for an asset or canonical JSON hash for a learning record;
 - `admitted_by`: human or governance role;
 - `admitted_at`: ISO 8601 timestamp;
 - `use_for`: approved uses;
 - `never_copy`: elements that must not be reproduced;
 - `decision_notes`: reason and limitations.
+
+Learning admissions also contain `contract`, `promotion_target`, and
+`public_catalog_eligible=false`. The promotion target classifies private reuse;
+it does not authorize public publication.
 
 ## Stage `learning-records.jsonl`
 
@@ -43,11 +48,13 @@ Each row records an observation without automatically promoting it:
 - `evidence_refs`: task artifacts, renders, or source identifiers;
 - `decision`: what was preserved, changed, or rejected;
 - `user_ruling`: optional human judgment;
-- `promotion_status`: `observation`, `rejected`, or `admitted`;
+- `promotion_status`: always `observation` in the source record;
 - `created_at`: ISO 8601 timestamp.
 
-An `admitted` status is not sufficient by itself. Retrieval still requires a matching row in `admitted-references.jsonl` when `require_human_admission` is enabled.
+Retrieval requires a separate row in `admitted-references.jsonl` whose
+`subject_sha256` matches the unchanged record. Source records never promote
+themselves.
 
 ## Generated `search-index.json`
 
-`scripts/knowledge_cli.py build-index` writes the configured index path. Only unchanged assets with a matching human-admission row are included. Text-like sources receive local BM25-style lexical tokens; PPTX, PDF, and image assets expose registered metadata only unless an authorized host adapter supplies extraction. The generated index is runtime state and is not committed.
+`scripts/knowledge_cli.py build-index` writes the configured v2 index path. Only unchanged assets and unchanged learning records with matching human-admission rows are included. The index preserves `record_type`, `source_type`, and responsible `stage`. Text-like sources receive local BM25-style lexical tokens; PPTX, PDF, and image assets expose registered metadata only unless an authorized host adapter supplies extraction. The generated index is runtime state and is not committed.
