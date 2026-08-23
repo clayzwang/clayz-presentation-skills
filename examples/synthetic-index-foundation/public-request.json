@@ -1,0 +1,21 @@
+{
+  "contract": "io.clayz.presentation.retrieval-request/1.0",
+  "request_id": "synthetic-public-comparison",
+  "stage": "art-direction",
+  "query": "high-density comparison evidence hierarchy",
+  "rights_context": "public-open-source",
+  "require_human_admission": true,
+  "limit": 5,
+  "filters": {
+    "record_types": [],
+    "provider_ids": [],
+    "task_modes": ["new-build"],
+    "page_roles": ["comparison"],
+    "semantic_relations": [],
+    "purpose_tags": ["high-density"],
+    "languages": [],
+    "failure_signals": [],
+    "include_metadata_only": true
+  },
+  "neighbor_expansion": {"physical": 0, "semantic": 1}
+}
