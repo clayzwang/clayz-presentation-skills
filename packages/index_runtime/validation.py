@@ -68,14 +68,7 @@ def validate_record(record: Mapping[str, Any]) -> dict[str, Any]:
     require(isinstance(classification, Mapping), "record.classification must be an object")
     stages = require_string_list(classification.get("stages", []), "record.classification.stages")
     require(all(stage in STAGES for stage in stages), "record.classification.stages contains an unsupported stage")
-    for key in (
-        "task_modes",
-        "page_roles",
-        "semantic_relations",
-        "purpose_tags",
-        "languages",
-        "failure_signals",
-    ):
+    for key in ("task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages", "failure_signals"):
         require_string_list(classification.get(key, []), f"record.classification.{key}")
     asset_class = require_nonempty_string(classification.get("asset_class"), "record.classification.asset_class")
     brand_scope = require_nonempty_string(classification.get("brand_scope"), "record.classification.brand_scope")
@@ -83,8 +76,12 @@ def validate_record(record: Mapping[str, Any]) -> dict[str, Any]:
 
     payload = normalized.get("payload")
     require(isinstance(payload, Mapping), "record.payload must be an object")
-    require(payload.get("kind") in {"inline", "path", "uri"}, "record.payload.kind is invalid")
-    require_nonempty_string(payload.get("ref"), "record.payload.ref")
+    payload_kind = payload.get("kind")
+    require(payload_kind in {"inline", "path", "uri"}, "record.payload.kind is invalid")
+    if payload_kind == "inline":
+        require(isinstance(payload.get("ref"), Mapping), "inline record.payload.ref must be an object")
+    else:
+        require_nonempty_string(payload.get("ref"), "record.payload.ref")
 
     neighbors = normalized.get("neighbors", {"physical": [], "semantic": []})
     require(isinstance(neighbors, Mapping), "record.neighbors must be an object")
@@ -119,16 +116,7 @@ def validate_request(request: Mapping[str, Any]) -> dict[str, Any]:
     filters = normalized.get("filters", {})
     require(isinstance(filters, Mapping), "request.filters must be an object")
     resolved_filters = dict(filters)
-    for key in (
-        "record_types",
-        "provider_ids",
-        "task_modes",
-        "page_roles",
-        "semantic_relations",
-        "purpose_tags",
-        "languages",
-        "failure_signals",
-    ):
+    for key in ("record_types", "provider_ids", "task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages", "failure_signals"):
         values = require_string_list(filters.get(key, []), f"request.filters.{key}")
         if key == "record_types":
             require(all(value in RECORD_TYPES for value in values), "request.filters.record_types contains an unsupported value")
