@@ -4,7 +4,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
-- Nothing yet.
+- Begin the unreleased v0.4.0 Index Foundation without changing `VERSION` or publishing a release.
+- Add provider-aware index records, structured retrieval requests, deterministic retrieval receipts, and selection guards that reject identifiers not present in the receipt.
+- Preserve source revision, provider identity, license, `never_copy`, and materialization status for every candidate; return an explicit empty result instead of fabricating a fallback record.
+- Add a public-catalog validator that rejects presentation templates, masters, themes, and font binaries, and prevents brand-specific assets from becoming public without explicit redistribution and materialization rights.
+- Add a fully synthetic three-provider example and regression tests proving that private local brand masters are excluded from public-open-source retrieval.
 
 ## 0.3.0 — 2026-08-22
 
@@ -41,4 +45,3 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add contract validators, public CLI smoke tests, Markdown-link validation, and a synthetic approved handoff regression.
 - Test Python 3.10, 3.11, and 3.12 in CI.
 - Exclude presentation templates, uploaded source material, bundled fonts, and private reference data.
-

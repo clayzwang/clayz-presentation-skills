@@ -36,6 +36,7 @@ def main() -> int:
     run("scripts/validate_visual_regression_suite.py", "tests/fixtures/visual-regression-suite.json")
     run("scripts/validate_skill_tree.py", ".")
     run("scripts/validate_knowledge_scaffold.py", ".")
+    run("scripts/validate_index_foundation.py")
     run("scripts/validate_markdown_links.py", ".")
     run("scripts/validate_experience.py", ".")
     denylist = os.environ.get("CLAYZ_RELEASE_DENYLIST")
@@ -50,4 +51,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
