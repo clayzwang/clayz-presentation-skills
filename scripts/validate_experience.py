@@ -119,7 +119,11 @@ def validate(root: Path) -> list[str]:
         errors.append("experience slide viewer declares no slide sources")
     for source in slide_sources:
         relative = _safe_relative(source)
-        if relative is None or not (experience / relative).is_file():
+        if source.startswith("assets/showcase/"):
+            source_path = root / relative if relative is not None else None
+        else:
+            source_path = experience / relative if relative is not None else None
+        if source_path is None or not source_path.is_file():
             errors.append(f"missing slide viewer asset: {source}")
 
     preview_paths = sorted((experience / "assets" / "cases").rglob("*.png"))
