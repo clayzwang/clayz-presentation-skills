@@ -6,6 +6,14 @@
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
+## Why Clayz stands out
+
+| Core advantage | What it enables |
+| --- | --- |
+| **1. Clear architecture** | Five separated stages, shared contracts, centralized configuration, and explicit QA boundaries make the system understandable, replaceable, and auditable. |
+| **2. Strong self-learning** | Human-admitted, source-traceable learning can quickly absorb proven methods from many schools of thought without turning reference material into blind imitation. |
+| **3. High adaptability** | Task-specific requirements, content constraints, corporate themes, templates, and assets can be composed quickly into one executable production plan instead of being forced into a fixed template. |
+
 ![Clayz Presentation Skills workflow](assets/showcase/clayz-overview.png)
 
 ## Built for real presentation work
