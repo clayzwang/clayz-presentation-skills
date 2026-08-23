@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "experience_center": "Clayz Presentation Skills",
-  "release_capability_profile": "v0.3.0",
+  "release_capability_profile": "v0.4.0",
   "generated_at": "2026-08-23",
   "cases": [
     {
@@ -31,6 +31,24 @@
       "preview_count": 4,
       "repository_path": "clayz-four-slide-showcase.pptx",
       "download": "assets/decks/clayz-four-slide-showcase.pptx",
+      "policy": {
+        "public_data_output_evidence": true,
+        "admitted_to_reference_corpus": false,
+        "admitted_to_knowledge_corpus": false,
+        "investment_advice": false
+      }
+    },
+    {
+      "id": "v0.4.0-governed-generation-capability-deck-en-20260823",
+      "title": "v0.4.0 Governed Generation Capability Deck",
+      "language": "en-US",
+      "input_type": "synthetic Stage 1–5 capability evidence",
+      "output_type": "editable PowerPoint",
+      "slide_count": 10,
+      "preview_count": 5,
+      "repository_path": "experience/assets/decks/v0.4.0-governed-generation-capability-deck-en.pptx",
+      "download": "assets/decks/v0.4.0-governed-generation-capability-deck-en.pptx",
+      "sha256": "49dc2d285d7dc94c8cabe8bc77a7b591ff4c81dce515d0a6517d6e3e7c6f09b0",
       "policy": {
         "public_data_output_evidence": true,
         "admitted_to_reference_corpus": false,
