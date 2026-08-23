@@ -9,6 +9,9 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Preserve source revision, provider identity, license, `never_copy`, and materialization status for every candidate; return an explicit empty result instead of fabricating a fallback record.
 - Add a public-catalog validator that rejects presentation templates, masters, themes, and font binaries, and prevents brand-specific assets from becoming public without explicit redistribution and materialization rights.
 - Add a fully synthetic three-provider example and regression tests proving that private local brand masters are excluded from public-open-source retrieval.
+- Add Stage 2 Capability Index routing: mandatory stage contracts remain deterministic while optional knowledge is selected only from registered, human-admitted, brand-neutral capability records with auditable per-signal retrieval receipts.
+- Convert the five stage skills to index-native optional-reference routing without adding a sixth decision-making skill; unresolved capability signals remain explicit instead of triggering invented guidance.
+- Keep the public capability catalog method-only and validate every referenced repository path; no company template, master, brand kit, font binary, dataset, model weight, or generated presentation enters the catalog.
 
 ## 0.3.0 — 2026-08-22
 
