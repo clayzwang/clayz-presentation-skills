@@ -29,7 +29,7 @@ GENERIC_PATTERNS = {
     ),
     "credential-in-url": re.compile(r"https?://[^\s/@:]+:[^\s/@]+@"),
 }
-TEXT_SUFFIXES = {".md", ".py", ".json", ".jsonl", ".yaml", ".yml", ".toml", ".txt", ".cff", ".svg"}
+TEXT_SUFFIXES = {".md", ".py", ".js", ".mjs", ".html", ".css", ".json", ".jsonl", ".yaml", ".yml", ".toml", ".txt", ".cff", ".svg"}
 DEFAULT_DENYLIST: list[str] = []
 PUBLIC_OUTPUT_MANIFEST = Path("experience/case-manifest.json")
 PUBLIC_OUTPUT_ROOT = Path("experience/assets/decks")

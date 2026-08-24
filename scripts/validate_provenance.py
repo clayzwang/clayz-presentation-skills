@@ -19,7 +19,7 @@ REQUIRED_SOURCES = {
     "ppt-master", "pptagent", "deeppresenter", "pom", "vascar", "postero",
     "posterlayout", "scan-and-print", "creatiposter", "tahta", "pptxgenjs",
     "minimax-skills", "postercopilot", "posterverse",
-    "enterprise-reference-architecture-corpus",
+    "apache-echarts", "sharp", "enterprise-reference-architecture-corpus",
 }
 
 
@@ -83,6 +83,9 @@ def validate(document: dict[str, Any]) -> list[str]:
         if identifier == "posterverse":
             if source.get("usage_type") != "conceptual-inspiration-restricted-source" or source.get("upstream_license") != "CC-BY-NC-ND-4.0-stated-in-readme":
                 errors.append(f"{label}: PosterVerse must remain a restricted conceptual source with no imported derivative content")
+        if identifier in {"apache-echarts", "sharp"}:
+            if source.get("usage_type") != "optional-public-api-integration" or source.get("upstream_license") != "Apache-2.0":
+                errors.append(f"{label}: Node.js chart dependencies must remain optional Apache-2.0 public-API integrations")
     if identifiers != REQUIRED_SOURCES:
         errors.append(f"sources: expected exactly {sorted(REQUIRED_SOURCES)}")
     return errors

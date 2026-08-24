@@ -1,0 +1,23 @@
+{
+  "year": 2024,
+  "unit": "million barrels per day",
+  "production_world": 96.89,
+  "consumption_world": 104.71,
+  "producers": [
+    {"code":"USA","display":"美国","metric":"20.1 Mb/d · 20.8%","value":20.8,"color":"#0E7490"},
+    {"code":"SAU","display":"沙特","metric":"10.9 Mb/d · 11.2%","value":11.2,"color":"#0F766E"},
+    {"code":"RUS","display":"俄罗斯","metric":"10.8 Mb/d · 11.1%","value":11.1,"color":"#2563EB"},
+    {"code":"CAN","display":"加拿大","metric":"5.9 Mb/d · 6.1%","value":6.1,"color":"#60A5FA"},
+    {"code":"IRN","display":"伊朗","metric":"5.1 Mb/d · 5.2%","value":5.2,"color":"#4F46E5"},
+    {"code":"CHN","display":"中国","metric":"4.3 Mb/d · 4.4%","value":4.4,"color":"#0284C7"},
+    {"code":"OTHER","display":"其他生产国","metric":"39.9 Mb/d · 41.2%","value":41.2,"color":"#94A3B8"}
+  ],
+  "consumers": [
+    {"code":"USA","display":"美国","metric":"20.3 Mb/d · 19.4%","value":19.4,"color":"#F59E0B"},
+    {"code":"CHN","display":"中国","metric":"16.5 Mb/d · 15.7%","value":15.7,"color":"#EF4444"},
+    {"code":"IND","display":"印度","metric":"5.8 Mb/d · 5.5%","value":5.5,"color":"#F97316"},
+    {"code":"SAU","display":"沙特","metric":"4.0 Mb/d · 3.8%","value":3.8,"color":"#D97706"},
+    {"code":"RUS","display":"俄罗斯","metric":"3.9 Mb/d · 3.7%","value":3.7,"color":"#FB7185"},
+    {"code":"OTHER","display":"其他消费国","metric":"54.3 Mb/d · 51.9%","value":51.9,"color":"#CBD5E1"}
+  ]
+}

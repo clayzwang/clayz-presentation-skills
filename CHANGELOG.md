@@ -6,6 +6,18 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.5.0 — 2026-08-24
+
+- Unify the full case, v0.4.0 evidence, ChatBI materials, and visual-range studies under one reusable Experience Center slide viewer.
+- Add previous/next navigation to every multi-slide viewer.
+- Add synchronized thumbnails, active-slide titles, and page counters.
+- Add left/right keyboard navigation while preserving focus isolation between viewers.
+- Hide meaningless navigation controls automatically for single-slide material.
+- Keep every viewer synchronized across English/Chinese switching and responsive desktop/mobile layouts.
+- Surface Clayz's three core advantages at the beginning of the Experience Center and bilingual READMEs: clear architecture, governed self-learning, and high adaptability.
+- Add a reproducible Node.js chart-asset route using Apache ECharts 6.1.0 SSR and sharp 0.35.3 without enabling the security-blocked PptxGenJS adapter.
+- Publish a two-slide editable PowerPoint case comparing global oil production/consumption and cross-country population age structures, with public data, previews, source notes, and reusable code isolated inside the Experience Center.
+
 ## 0.4.0 — 2026-08-23
 
 - Make v0.4.0 retrieval index-native through governed providers, receipts, and fail-closed selection.

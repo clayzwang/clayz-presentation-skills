@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:clayz:presentation:schema:release-readiness:1.0",
-  "title": "Clayz v0.4.0 release authorization record",
+  "title": "Clayz release authorization record",
   "type": "object",
   "required": ["contract", "target_version", "current_public_version", "state", "stage_gates", "actions", "authorization", "evidence", "guards"],
   "properties": {
     "contract": {"const": "io.clayz.presentation.release-readiness/1.0"},
-    "target_version": {"const": "0.4.0"},
-    "current_public_version": {"const": "0.4.0"},
+    "target_version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
+    "current_public_version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
     "state": {"const": "release-authorized"},
     "stage_gates": {"type": "object", "additionalProperties": {"type": "boolean"}},
     "actions": {
@@ -37,7 +37,10 @@
       "properties": {
         "benchmark_report": {"type": "string", "minLength": 1},
         "migration_report": {"type": "string", "minLength": 1},
-        "validation_command": {"type": "string", "minLength": 1}
+        "validation_command": {"type": "string", "minLength": 1},
+        "experience_validation": {"type": "string", "minLength": 1},
+        "presentation_overflow_check": {"type": "string", "minLength": 1},
+        "node_chart_build": {"type": "string", "minLength": 1}
       },
       "additionalProperties": false
     },

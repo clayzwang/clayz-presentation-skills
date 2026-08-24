@@ -21,8 +21,10 @@ skills.
 2. Add the editable output under `assets/decks/`.
 3. Declare the repository path, public download path, and isolation policy in
    `case-manifest.json`.
-4. Add the case to `index.html` and `app.js`.
-5. Run `python scripts/validate_all.py` before opening a pull request.
+4. Put optional reproducibility material under `materials/<case-id>/` and declare
+   its `source_path`; do not place public-data cases in the synthetic `examples/` tree.
+5. Add the case to `index.html` and `app.js`.
+6. Run `python scripts/validate_all.py` before opening a pull request.
 
 GitHub Pages is deployed by `.github/workflows/pages.yml`. The workflow publishes only
 the assembled experience site and the existing showcase assets.

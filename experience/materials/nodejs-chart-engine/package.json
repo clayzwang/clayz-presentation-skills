@@ -1,0 +1,17 @@
+{
+  "name": "@clayz/experience-nodejs-chart-engine",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "description": "Reproducible Apache ECharts SSR assets for the Clayz v0.5.0 Experience Center case.",
+  "scripts": {
+    "build": "node generate-charts.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "echarts": "6.1.0",
+    "sharp": "0.35.3"
+  }
+}

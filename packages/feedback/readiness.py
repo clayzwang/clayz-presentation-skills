@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Validate the explicit, evidence-backed v0.4.0 release authorization."""
+"""Validate explicit, evidence-backed authorization for the current release."""
 
 from __future__ import annotations
 
@@ -35,9 +35,9 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
     _require(isinstance(document, Mapping), "release readiness must be an object")
     value = dict(document)
     _require(value.get("contract") == READINESS_CONTRACT, f"readiness.contract must be {READINESS_CONTRACT}")
-    _require(value.get("target_version") == "0.4.0", "readiness target_version must be 0.4.0")
     current = (root / "VERSION").read_text(encoding="utf-8").strip()
-    _require(value.get("current_public_version") == current == "0.4.0", "public VERSION must be 0.4.0 for release")
+    _require(value.get("target_version") == current, "readiness target_version must match VERSION")
+    _require(value.get("current_public_version") == current, "readiness current_public_version must match VERSION")
     _require(value.get("state") == "release-authorized", "readiness state must be release-authorized")
     stages = value.get("stage_gates")
     _require(isinstance(stages, Mapping), "stage_gates must be an object")
@@ -69,6 +69,9 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
     _require(benchmark.get("summary", {}).get("passed") is True, "retrieval benchmark must pass")
     _require(benchmark.get("summary", {}).get("snapshot_drift_count") == 0, "retrieval benchmark has snapshot drift")
     _require(migration.get("contract") == "io.clayz.presentation.legacy-index-migration-report/1.0", "migration report contract is invalid")
+    if tuple(int(part) for part in current.split(".")) >= (0, 5, 0):
+        for key in ("experience_validation", "presentation_overflow_check", "node_chart_build"):
+            _require(isinstance(evidence.get(key), str) and evidence[key], f"readiness.evidence.{key} is required")
     guards = value.get("guards")
     _require(isinstance(guards, Mapping), "readiness.guards must be an object")
     for key in (

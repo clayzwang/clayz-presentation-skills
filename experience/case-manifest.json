@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "experience_center": "Clayz Presentation Skills",
-  "release_capability_profile": "v0.4.0",
-  "generated_at": "2026-08-23",
+  "release_capability_profile": "v0.5.0",
+  "generated_at": "2026-08-24",
   "cases": [
     {
       "id": "a-share-market-analysis-20260821",
@@ -83,6 +83,25 @@
       "preview_count": 7,
       "repository_path": "experience/assets/decks/from-chatbi-to-enterprise-cognitive-system-advisory-v0.3.0-20260822.pptx",
       "download": "assets/decks/from-chatbi-to-enterprise-cognitive-system-advisory-v0.3.0-20260822.pptx",
+      "policy": {
+        "public_data_output_evidence": true,
+        "admitted_to_reference_corpus": false,
+        "admitted_to_knowledge_corpus": false,
+        "investment_advice": false
+      }
+    },
+    {
+      "id": "nodejs-chart-engine-global-oil-demography-v0.5.0-20260824",
+      "title": "Global Oil and Demographic Structure with a Node.js Chart Engine",
+      "language": "zh-CN",
+      "input_type": "public Energy Institute and World Bank data",
+      "output_type": "editable PowerPoint plus reproducible Node.js chart source",
+      "slide_count": 2,
+      "preview_count": 2,
+      "repository_path": "experience/assets/decks/nodejs-chart-engine-global-oil-demography-v0.5.0.pptx",
+      "download": "assets/decks/nodejs-chart-engine-global-oil-demography-v0.5.0.pptx",
+      "source_path": "experience/materials/nodejs-chart-engine",
+      "sha256": "3521e7874bf8f5d48d9817726031497db82476be1c6b270bed33e06ba621abed",
       "policy": {
         "public_data_output_evidence": true,
         "admitted_to_reference_corpus": false,

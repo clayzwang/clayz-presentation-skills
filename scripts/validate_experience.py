@@ -89,6 +89,14 @@ def validate(root: Path) -> list[str]:
             continue
         if not (root / repository_relative).is_file():
             errors.append(f"missing case artifact: {repository_path}")
+        source_path = case.get("source_path")
+        if source_path is not None:
+            if not isinstance(source_path, str) or not source_path.strip():
+                errors.append(f"experience case {index} has invalid source_path")
+            else:
+                source_relative = _safe_relative(source_path)
+                if source_relative is None or not (root / source_relative).is_dir():
+                    errors.append(f"missing or unsafe case source material: {source_path}")
         published_downloads[download] = repository_relative
         if not isinstance(case.get("slide_count"), int) or case["slide_count"] < 1:
             errors.append(f"experience case {index} has invalid slide_count")

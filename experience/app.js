@@ -219,6 +219,32 @@ const slideDecks = {
       },
     },
   ],
+  nodecharts: [
+    {
+      src: "assets/cases/nodejs-chart-engine-v0.5.0/slide-01-global-oil-sankey.png",
+      title: { en: "Oil supply and demand do not share one center", zh: "全球石油生产与消费重心并不重合" },
+      alt: {
+        en: "Sankey slide comparing 2024 global oil production and consumption structures",
+        zh: "比较2024年全球石油生产与消费结构的桑基图页面",
+      },
+      caption: {
+        en: "ECharts Sankey widths compare each country's share on independently normalized production and consumption sides; they do not represent bilateral trade.",
+        zh: "ECharts 桑基图分别归一化生产端与消费端的国家份额；流线不表示双边贸易。",
+      },
+    },
+    {
+      src: "assets/cases/nodejs-chart-engine-v0.5.0/slide-02-global-age-radial.png",
+      title: { en: "Age structures are diverging across countries", zh: "全球人口年龄结构正在拉开代际差距" },
+      alt: {
+        en: "Three-layer radial stacked-bar slide comparing 2024 population age structures",
+        zh: "比较2024年人口年龄结构的三层径向堆叠图页面",
+      },
+      caption: {
+        en: "Equal-width country sectors show three within-country age shares that sum to 100%, from very young Niger to deeply aged Japan.",
+        zh: "等宽国家扇区用三层径向占比合计到100%，从年轻的尼日尔延伸到深度老龄化的日本。",
+      },
+    },
+  ],
   styles: [
     {
       src: "assets/showcase/mckinsey-demo.png",
@@ -265,6 +291,7 @@ const translations = {
     navCase: "Full case",
     navVersions: "Versions",
     navReleaseDeck: "v0.4.0 deck",
+    navNodeCharts: "Node.js charts",
     navChatbi: "ChatBI cases",
     navStyles: "Visual range",
     navRepo: "GitHub repository",
@@ -331,6 +358,10 @@ const translations = {
     v3Item1: "Provider-aware Index with auditable receipts and explicit unresolved fallbacks",
     v3Item2: "Registered Layout Contracts, Composition and Failure Patterns, and metadata-only dataset export",
     v3Item3: "Hash-bound private learning, fixed retrieval benchmarks, and fail-closed legacy migration",
+    v4Title: "Expressive chart evidence",
+    v4Item1: "One reusable dynamic viewer across every Experience Center slide group",
+    v4Item2: "Keyboard, thumbnail, bilingual, responsive, and single-slide-aware interaction",
+    v4Item3: "Reproducible Apache ECharts SSR assets with public data, source notes, and editable PPTX evidence",
     releaseDeckTitle: "Inside v0.4.0: five stages of governed generation",
     releaseDeckIntro:
       "A 10-slide English deck consolidates the evidence from Index Foundation through capability routing, Layout Contracts, governed patterns, and human-admitted feedback.",
@@ -344,6 +375,15 @@ const translations = {
     releasePreviewLayout: "Stage 3 · Layout Contract",
     releasePreviewPatterns: "Stage 4 · Pattern & Dataset Library",
     releasePreviewFeedback: "Stage 5 · Feedback, Benchmark & Readiness",
+    nodeChartsTitle: "Node.js adds chart forms that remain presentation-ready",
+    nodeChartsIntro:
+      "A two-slide public-data case tests an open-source Node.js chart route on two difficult analytical questions: asymmetric oil structures and cross-country age composition.",
+    nodeChartsKicker: "v0.5.0 chart-engine material · 2 slides",
+    nodeChartsName: "Global oil and demographic structure",
+    nodeChartsText:
+      "Apache ECharts renders server-side SVG and sharp produces PowerPoint-safe PNG assets. The package includes the editable deck, web previews, source data, method notes, and a reproducible Node.js script.",
+    nodeChartsDownload: "Download 2-slide editable PPTX",
+    nodeChartsSource: "Inspect Node.js source",
     chatbiTitle: "From metric lookup to an enterprise cognitive system",
     chatbiIntro:
       "Two related Chinese-language outputs turn the ChatBI discussion into an architecture view and a compact advisory narrative. Both editable source decks are available below.",
@@ -390,6 +430,7 @@ const translations = {
     navCase: "完整案例",
     navVersions: "版本能力",
     navReleaseDeck: "v0.4.0 材料",
+    navNodeCharts: "Node.js 图表",
     navChatbi: "ChatBI 案例",
     navStyles: "视觉范围",
     navRepo: "GitHub 仓库",
@@ -452,6 +493,10 @@ const translations = {
     v3Item1: "带可审计回执和显式 unresolved fallback 的 Provider-aware Index",
     v3Item2: "已登记 Layout Contract、Composition/Failure Pattern 与 metadata-only Dataset 导出",
     v3Item3: "哈希绑定的私有 Learning、固定检索 Benchmark 与失败关闭的旧索引迁移",
+    v4Title: "更具表达力的图表证据",
+    v4Item1: "体验中心所有幻灯片组统一使用可复用动态 viewer",
+    v4Item2: "支持键盘、缩略图、中英双语、移动端与单页自动适配",
+    v4Item3: "公开数据、来源说明、可编辑 PPTX 与 Apache ECharts SSR 代码形成可复现证据",
     releaseDeckTitle: "深入 v0.4.0：受治理生成的五个阶段",
     releaseDeckIntro: "这份10页英文材料汇总了从 Index Foundation、能力路由和 Layout Contract，到受控 Pattern 与人工准入 Feedback 的阶段证据。",
     releaseDeckKicker: "版本能力材料 · 10页",
@@ -463,6 +508,13 @@ const translations = {
     releasePreviewLayout: "阶段3 · Layout Contract",
     releasePreviewPatterns: "阶段4 · Pattern 与 Dataset Library",
     releasePreviewFeedback: "阶段5 · Feedback、Benchmark 与 Readiness",
+    nodeChartsTitle: "用 Node.js 扩展表达力，同时保持演示文稿可交付",
+    nodeChartsIntro: "这份两页公开数据案例，用开源 Node.js 图表链路检验两个高难度问题：非对称石油结构与跨国人口年龄构成。",
+    nodeChartsKicker: "v0.5.0 图表引擎材料 · 2页",
+    nodeChartsName: "全球石油与人口结构分析",
+    nodeChartsText: "Apache ECharts 以 SSR 方式生成 SVG，sharp 输出适合 PowerPoint 的 PNG；材料同时提供可编辑 PPTX、网页预览、源数据、方法说明和可复用 Node.js 脚本。",
+    nodeChartsDownload: "下载两页可编辑 PPTX",
+    nodeChartsSource: "查看 Node.js 源码",
     chatbiTitle: "从查指标，走向企业认知系统",
     chatbiIntro: "两份相互关联的中文材料，将 ChatBI 讨论分别形成一页企业认知架构和一份紧凑的建议性叙事；下方均可下载可编辑源文件。",
     chatbiHouseKicker: "架构研究 · 1页",

@@ -1,0 +1,100 @@
+<svg width="780" height="500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full" viewBox="0 0 780 500">
+<rect width="780" height="500" x="0" y="0" fill="none"></rect>
+<path d="M455 255A65 65 0 1 1 454.7 248.5A65 65 0 0 1 455 255M483.8 255A93.8 93.8 0 1 1 483.3 245.6A93.8 93.8 0 0 1 483.8 255M512.5 255A122.5 122.5 0 1 1 511.9 242.8A122.5 122.5 0 0 1 512.5 255M541.3 255A151.3 151.3 0 1 1 540.5 239.9A151.3 151.3 0 0 1 541.3 255M570 255A180 180 0 1 1 569.1 237A180 180 0 0 1 570 255" fill="none" pointer-events="visible" stroke="rgb(148,163,184)" stroke-opacity="0.35" class="zr1-cls-28"></path>
+<path d="M408.7 33.3l39 0l0 13l-39 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" x="428.23770311516114" y="39.76608504096683" fill="#0F172A">尼日尔</text>
+<path d="M406.9 50.8l42.7 0l0 10l-42.7 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:10px;font-family:Aptos;font-weight:700;" xml:space="preserve" x="428.23770311516114" y="55.76608504096683" fill="#D95F59">65+ 2.6%</text>
+<path d="M498.9 77l48 0l0 12l-48 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="498.89176567184205" y="83.03195598870113" fill="#334155">尼日利亚</text>
+<path d="M553 131.1l48 0l0 12l-48 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="552.9680440112988" y="137.10823432815798" fill="#334155">巴基斯坦</text>
+<path d="M582.2 210.8l24 0l0 12l-24 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="582.2339149590332" y="216.76229688483886" fill="#334155">印度</text>
+<path d="M582.2 287.2l60 0l0 12l-60 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="582.2339149590332" y="293.23770311516114" fill="#334155">印度尼西亚</text>
+<path d="M553 366.4l52 0l0 13l-52 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" x="552.9680440112988" y="372.891765671842" fill="#0F172A">世界平均</text>
+<path d="M553 383.9l48.3 0l0 10l-48.3 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:10px;font-family:Aptos;font-weight:700;" xml:space="preserve" x="552.9680440112988" y="388.891765671842" fill="#D95F59">65+ 10.2%</text>
+<path d="M498.9 421l36 0l0 12l-36 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="498.89176567184205" y="426.96804401129884" fill="#334155">土耳其</text>
+<path d="M416.2 450.2l24 0l0 12l-24 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="428.23770311516114" y="456.2339149590332" fill="#334155">巴西</text>
+<path d="M338.8 449.7l26 0l0 13l-26 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" x="351.76229688483886" y="456.2339149590332" fill="#0F172A">中国</text>
+<path d="M327.6 467.2l48.3 0l0 10l-48.3 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:10px;font-family:Aptos;font-weight:700;" xml:space="preserve" x="351.76229688483886" y="472.2339149590332" fill="#D95F59">65+ 14.7%</text>
+<path d="M245.1 421l36 0l0 12l-36 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="281.108234328158" y="426.9680440112989" fill="#334155">俄罗斯</text>
+<path d="M203 366.9l24 0l0 12l-24 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="227.0319559887011" y="372.891765671842" fill="#334155">美国</text>
+<path d="M173.8 287.2l24 0l0 12l-24 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="197.76608504096683" y="293.2377031151612" fill="#334155">韩国</text>
+<path d="M173.8 210.8l24 0l0 12l-24 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="197.76608504096683" y="216.76229688483883" fill="#334155">法国</text>
+<path d="M203 131.1l24 0l0 12l-24 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="227.0319559887011" y="137.108234328158" fill="#334155">德国</text>
+<path d="M245.1 77l36 0l0 12l-36 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:Microsoft YaHei;font-weight:600;" x="281.108234328158" y="83.03195598870113" fill="#334155">意大利</text>
+<path d="M338.8 33.3l26 0l0 13l-26 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" x="351.7622968848388" y="39.76608504096686" fill="#0F172A">日本</text>
+<path d="M327.6 50.8l48.3 0l0 10l-48.3 0Z" fill="none" pointer-events="visible" class="zr1-cls-28"></path>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:10px;font-family:Aptos;font-weight:700;" xml:space="preserve" x="351.7622968848388" y="55.76608504096686" fill="#D95F59">65+ 29.8%</text>
+<path d="M393.7 136.5A118.6 118.6 0 0 1 431.9 144.1L413 194.2A65 65 0 0 0 392 190Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="0" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M436.2 152.8A112.2 112.2 0 0 1 466.8 173.2L434.5 207.6A65 65 0 0 0 416.7 195.8Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="1" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M468.1 181.6A107.2 107.2 0 0 1 487.7 210.9L449.2 228.3A65 65 0 0 0 437.4 210.5Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="2" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M477.3 222A93.3 93.3 0 0 1 483.3 252.1L455 253A65 65 0 0 0 450.8 232Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="3" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M483.2 257.9A93.3 93.3 0 0 1 477.3 288L450.8 278A65 65 0 0 0 455 257Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="4" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M475.2 293.4A93.4 93.4 0 0 1 458.1 319L437.4 299.5A65 65 0 0 0 449.2 281.7Z" fill="#F2C14E" stroke="#0F172A" stroke-width="1.5" ecmeta_series_index="0" ecmeta_data_index="5" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M451.4 320.4A89.7 89.7 0 0 1 426.9 336.7L416.7 314.2A65 65 0 0 0 434.5 302.4Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="6" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M421 337A87.6 87.6 0 0 1 392.8 342.6L392 320A65 65 0 0 0 413 315.8Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="7" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M387.4 338.4A83.4 83.4 0 0 1 360.5 333L367 315.8A65 65 0 0 0 388 320Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="8" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M355.1 332.4A84.9 84.9 0 0 1 331.9 316.9L345.5 302.4A65 65 0 0 0 363.3 314.2Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="9" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M328.1 313.1A84.9 84.9 0 0 1 312.6 289.9L330.8 281.7A65 65 0 0 0 342.6 299.5Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="10" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M317.8 282.3A77.2 77.2 0 0 1 312.9 257.4L325 257A65 65 0 0 0 329.2 278Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="11" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M306.1 252.4A84 84 0 0 1 311.4 225.3L329.2 232A65 65 0 0 0 325 253Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="12" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M316.2 221.7A81 81 0 0 1 331 199.6L342.6 210.5A65 65 0 0 0 330.8 228.3Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="13" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M336.1 197.6A78.7 78.7 0 0 1 357.6 183.3L363.3 195.8A65 65 0 0 0 345.5 207.6Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="14" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M362.4 181.9A78.2 78.2 0 0 1 387.5 176.9L388 190A65 65 0 0 0 367 194.2Z" fill="#F2C14E" stroke="#F8FAFC" ecmeta_series_index="0" ecmeta_data_index="15" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M395.6 78.1A177 177 0 0 1 452.6 89.4L431.9 144.1A118.6 118.6 0 0 0 393.7 136.5Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="0" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M462.6 94.1A176.5 176.5 0 0 1 510.8 126.3L466.8 173.2A112.2 112.2 0 0 0 436.2 152.8Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="1" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M517.6 135.2A175.1 175.1 0 0 1 549.6 183L487.7 210.9A107.2 107.2 0 0 0 468.1 181.6Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="2" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M550.7 194.3A171.8 171.8 0 0 1 561.7 249.6L483.3 252.1A93.3 93.3 0 0 0 477.3 222Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="3" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M561.5 260.4A171.6 171.6 0 0 1 550.5 315.7L477.3 288A93.3 93.3 0 0 0 483.2 257.9Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="4" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M543.4 324.2A168.3 168.3 0 0 1 512.7 370.2L458.1 319A93.4 93.4 0 0 0 475.2 293.4Z" fill="#2F7D8C" stroke="#0F172A" stroke-width="1.5" ecmeta_series_index="1" ecmeta_data_index="5" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M505.1 377.6A168.2 168.2 0 0 1 459.2 408.3L426.9 336.7A89.7 89.7 0 0 0 451.4 320.4Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="6" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M449.1 411.5A167.3 167.3 0 0 1 395.3 422.2L392.8 342.6A87.6 87.6 0 0 0 421 337Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="7" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M384.9 418.1A163.1 163.1 0 0 1 332.3 407.6L360.5 333A83.4 83.4 0 0 0 387.4 338.4Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="8" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M324.1 401A160.2 160.2 0 0 1 280.3 371.8L331.9 316.9A84.9 84.9 0 0 0 355.1 332.4Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="9" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M273.8 364.1A159.4 159.4 0 0 1 244.7 320.6L312.6 289.9A84.9 84.9 0 0 0 328.1 313.1Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="10" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M242.4 310.8A157.8 157.8 0 0 1 232.2 260L312.9 257.4A77.2 77.2 0 0 0 317.8 282.3Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="11" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M235.5 250.1A154.5 154.5 0 0 1 245.4 200.4L311.4 225.3A84 84 0 0 0 306.1 252.4Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="12" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M250.3 191.9A153.3 153.3 0 0 1 278.2 150L331 199.6A81 81 0 0 0 316.2 221.7Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="13" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M286.2 144.4A151.7 151.7 0 0 1 327.6 116.8L357.6 183.3A78.7 78.7 0 0 0 336.1 197.6Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="14" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M338.5 118.7A145.8 145.8 0 0 1 385.4 109.3L387.5 176.9A78.2 78.2 0 0 0 362.4 181.9Z" fill="#2F7D8C" stroke="#F8FAFC" ecmeta_series_index="1" ecmeta_data_index="15" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M395.7 75.1A180 180 0 0 1 453.6 86.6L452.6 89.4A177 177 0 0 0 395.6 78.1Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="0" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M464.1 90.9A180 180 0 0 1 513.2 123.8L510.8 126.3A176.5 176.5 0 0 0 462.6 94.1Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="1" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M521.2 131.8A180 180 0 0 1 554.1 180.9L549.6 183A175.1 175.1 0 0 0 517.6 135.2Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="2" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M558.4 191.4A180 180 0 0 1 569.9 249.3L561.7 249.6A171.8 171.8 0 0 0 550.7 194.3Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="3" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M569.9 260.7A180 180 0 0 1 558.4 318.6L550.5 315.7A171.6 171.6 0 0 0 561.5 260.4Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="4" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M554.1 329.1A180 180 0 0 1 521.2 378.2L512.7 370.2A168.3 168.3 0 0 0 543.4 324.2Z" fill="#D95F59" stroke="#0F172A" stroke-width="1.5" ecmeta_series_index="2" ecmeta_data_index="5" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M513.2 386.2A180 180 0 0 1 464.1 419.1L459.2 408.3A168.2 168.2 0 0 0 505.1 377.6Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="6" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M453.6 423.4A180 180 0 0 1 395.7 434.9L395.3 422.2A167.3 167.3 0 0 0 449.1 411.5Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="7" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M384.3 434.9A180 180 0 0 1 326.4 423.4L332.3 407.6A163.1 163.1 0 0 0 384.9 418.1Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="8" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M315.9 419.1A180 180 0 0 1 266.8 386.2L280.3 371.8A160.2 160.2 0 0 0 324.1 401Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="9" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M258.8 378.2A180 180 0 0 1 225.9 329.1L244.7 320.6A159.4 159.4 0 0 0 273.8 364.1Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="10" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M221.6 318.6A180 180 0 0 1 210.1 260.7L232.2 260A157.8 157.8 0 0 0 242.4 310.8Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="11" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M210.1 249.3A180 180 0 0 1 221.6 191.4L245.4 200.4A154.5 154.5 0 0 0 235.5 250.1Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="12" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M225.9 180.9A180 180 0 0 1 258.8 131.8L278.2 150A153.3 153.3 0 0 0 250.3 191.9Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="13" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M266.8 123.8A180 180 0 0 1 315.9 90.9L327.6 116.8A151.7 151.7 0 0 0 286.2 144.4Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="14" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<path d="M326.4 86.6A180 180 0 0 1 384.3 75.1L385.4 109.3A145.8 145.8 0 0 0 338.5 118.7Z" fill="#D95F59" stroke="#F8FAFC" ecmeta_series_index="2" ecmeta_data_index="15" ecmeta_ssr_type="chart" ecmeta_silent="true" class="zr1-cls-28"></path>
+<style ><![CDATA[
+.zr1-cls-28:hover {
+pointer-events:none;
+}
+
+]]>
+
+</style>
+</svg>

@@ -42,12 +42,13 @@ stale asset and two unadmitted subjects are skipped.
 
 ## Release readiness requires separate authority
 
-`release/v0.4.0-readiness.json` records that all five development stages have
-evidence. After an explicit user decision on 2026-08-23, it transitioned from
-`draft-review` to `release-authorized`, binds `VERSION=0.4.0`, and explicitly
-authorizes merge, immutable tag creation, GitHub publication, and the current
-Experience Center marker. The release workflow still validates the full tree
-before it may publish.
+Each release uses `release/vX.Y.Z-readiness.json` for the version named by
+`VERSION`. The record preserves the five development-stage gates and a separate
+explicit user decision authorizing merge, immutable tag creation, GitHub
+publication, and the current Experience Center marker. Starting with v0.5.0,
+the record also names the Experience Center, Node.js chart-build, and
+presentation-overflow checks. The release workflow still validates the full
+tree before it may publish.
 
 Validate the stage with:
 

@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.4.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.5.0**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -34,6 +34,7 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 - **Index-native 构图方法**：v0.4.0 增加已登记的 Composition Pattern、Failure Pattern 与 Dataset-ready Reference、Sequence 元数据。Pattern 选择、关联失败知识、被拒候选、约束和预期视觉效果全部绑定 Receipt；无匹配保持显式 `unresolved`。
 - **Metadata-only Dataset 边界**：公开导出只包含稳定 ID、分类、来源修订与哈希及原创方法元数据，排除源原文、图片、坐标、字体、模板、企业资产、模型权重、生成物自动准入和自动审美真值。
 - **人工准入反馈与 Benchmark**：v0.4.0 只在独立人工决定绑定记录精确哈希后才重新索引观察。私有 Learning 不进入公开 Catalog；固定 Provider 快照、四个检索用例、失败关闭的旧索引迁移和显式发布授权记录，会把漂移、虚构和未授权发布变成验证失败。
+- **更具表达力的 Node.js 图表证据**：v0.5.0 在 Experience Center 中隔离加入 Apache ECharts SSR 与 sharp 路线，用于生成桑基图和三层径向 100% 堆叠图。公开材料包含源数据、方法说明、可复用代码、网页预览和两页可编辑 PPTX，同时不启用仍处于安全阻断状态的 PptxGenJS 适配器。
 
 公开仓库仍不打包任何第三方模板、母版、Icon库、海报、数据集、模型或媒体。增强的是检索、判断、重构和合规引用能力，不是克隆一个外部素材库。
 

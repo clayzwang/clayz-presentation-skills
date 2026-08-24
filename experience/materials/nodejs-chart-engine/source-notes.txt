@@ -1,0 +1,28 @@
+Public data and chart-engine sources for the v0.5.0 Experience Center case.
+
+Oil page
+- Energy Institute, Statistical Review of World Energy 2025 (2024 data)
+  https://www.energyinst.org/__data/assets/pdf_file/0007/1658077/Statistical-Review-of-World-Energy.pdf
+- Production uses total oil; consumption uses total liquids. Their statistical scopes differ.
+- Sankey widths are normalized independently to 100% on the production and consumption sides.
+- The chart compares country scale and structural concentration. It does not encode bilateral trade.
+
+Population page
+- World Bank WDI, Population ages 0–14 (% of total population)
+  https://data.worldbank.org/indicator/SP.POP.0014.TO.ZS
+- World Bank WDI, Population ages 15–64 (% of total population)
+  https://data.worldbank.org/indicator/SP.POP.1564.TO.ZS
+- World Bank WDI, Population ages 65 and above (% of total population)
+  https://data.worldbank.org/indicator/SP.POP.65UP.TO.ZS
+- The 2024 indicators are based on United Nations Population Division data.
+- Every country sector has equal angular width. Country population size is not encoded.
+- The 15 countries plus world average are a representative analytical selection, not a complete ranking.
+
+Node.js chart pipeline
+- Apache ECharts 6.1.0, server-side SVG rendering
+  https://github.com/apache/echarts/tree/c5a48f5f97d23e5379720870b8444cd05b50ffb4
+  https://echarts.apache.org/handbook/en/how-to/cross-platform/server/
+- sharp 0.35.3, SVG-to-PNG rasterization
+  https://github.com/lovell/sharp/tree/v0.35.3
+
+All external sources were accessed on 2026-08-24. ECharts and sharp are Apache-2.0 dependencies installed by the user; their source is not vendored here.

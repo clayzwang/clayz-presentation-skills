@@ -81,7 +81,8 @@ def main() -> int:
     require(any(item["reason"] == "source-hash-drift" for item in migration_report["skipped"]), "migration must report stale asset hashes")
     require(all(record["governance"]["public_catalog_eligible"] is False for record in migrated.records), "migration must preserve private scope")
 
-    readiness = read_json(ROOT / "release" / "v0.4.0-readiness.json")
+    version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    readiness = read_json(ROOT / "release" / f"v{version}-readiness.json")
     result = validate_release_readiness(ROOT, readiness)
     require(result["release_authorized"] is True, "explicit release authorization is missing")
 

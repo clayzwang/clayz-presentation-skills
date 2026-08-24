@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.4.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.5.0**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -50,6 +50,7 @@ This is not a larger pile of layout rules. It gives Art Direction a stronger rep
 - **Index-native composition methods:** v0.4.0 adds registered Composition and Failure Patterns plus dataset-ready Reference and Sequence metadata. Pattern selection, linked failure knowledge, rejected alternatives, constraints, and expected visual effect are receipt-bound; no match remains explicitly unresolved.
 - **Metadata-only dataset boundary:** the public exporter contains stable IDs, classifications, source revisions, hashes, and original method metadata only. It excludes source text, images, coordinates, fonts, templates, corporate assets, model weights, generated-artifact auto-admission, and automatic aesthetic truth.
 - **Human-admitted feedback and benchmark:** v0.4.0 re-indexes an observation only when a separate human decision binds its exact hash. Private learning stays outside the public catalog; fixed provider snapshots, four retrieval cases, fail-closed legacy migration, and an explicit release-authorization record turn drift, invention, and unauthorized release into validation failures.
+- **Expressive Node.js chart evidence:** v0.5.0 adds an isolated Experience Center route using Apache ECharts SSR and sharp for Sankey and 100% radial stacked-bar assets. The public material includes source data, method notes, reproducible code, web previews, and an editable two-slide PPTX without enabling the security-blocked PptxGenJS adapter.
 
 The public repository still bundles no third-party template, master, icon set, poster, dataset, model, or media. The capability is to retrieve, judge, re-compose, and attribute admissible material—not to clone a source library.
 

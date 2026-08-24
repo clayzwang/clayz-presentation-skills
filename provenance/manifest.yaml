@@ -200,6 +200,31 @@ sources:
     redistributed_files: []
     note: "Thank you to gitbrent and PptxGenJS contributors. Clayz supplies an original, disabled experimental adapter against the documented public API. No upstream source, dependency lock, demo, template, master, or media is redistributed. Runtime is security-blocked in v0.2.0 because the current transitive image-size dependency has unpatched GHSA-w3rx-r6r6-pgpr and GHSA-5p2g-fcmc-qvqq advisories."
 
+  - id: "apache-echarts"
+    usage_type: "optional-public-api-integration"
+    upstream: "https://github.com/apache/echarts"
+    upstream_license: "Apache-2.0"
+    pinned_version: "6.1.0"
+    pinned_commit: "c5a48f5f97d23e5379720870b8444cd05b50ffb4"
+    documentation: "https://echarts.apache.org/handbook/en/how-to/cross-platform/server/"
+    reviewed_on: "2026-08-24"
+    influenced_components:
+      - "Experience Center server-side SVG chart assets"
+      - "Sankey and radial stacked-bar expression routes"
+    redistributed_files: []
+    note: "Thank you to the Apache ECharts authors and contributors. Clayz calls the documented server-side rendering API from an original Experience Center script. ECharts source, packages, demos, datasets, themes, examples, and media are not vendored or redistributed."
+
+  - id: "sharp"
+    usage_type: "optional-public-api-integration"
+    upstream: "https://github.com/lovell/sharp"
+    upstream_license: "Apache-2.0"
+    pinned_version: "0.35.3"
+    reviewed_on: "2026-08-24"
+    influenced_components:
+      - "Experience Center SVG-to-PNG rasterization"
+    redistributed_files: []
+    note: "Thank you to Lovell Fuller and the sharp contributors. Clayz calls the documented rasterization API from an original Experience Center script. sharp source, packages, binaries, examples, and media are not vendored or redistributed."
+
   - id: "enterprise-reference-architecture-corpus"
     usage_type: "official-documentation-conceptual-reference"
     upstream: "https://www.ibm.com/think/architectures"

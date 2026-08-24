@@ -22,7 +22,7 @@ Provider 漂移、缺少预期候选、返回禁止候选、unresolved 用例非
 
 ## 发布就绪仍需独立授权
 
-`release/v0.4.0-readiness.json` 记录五个开发阶段已有证据。用户在 2026-08-23 明确作出发布决定后，状态从 `draft-review` 转为 `release-authorized`，绑定 `VERSION=0.4.0`，并授权 merge、不可变 Tag、GitHub 发布和 Experience Center 当前版本标记。正式发布工作流仍须先通过完整仓库验证。
+每次发布使用与 `VERSION` 对应的 `release/vX.Y.Z-readiness.json`。记录保留五个开发阶段门禁，并要求一次独立、明确的用户决定来授权 merge、不可变 Tag、GitHub 发布和 Experience Center 当前版本标记。从 v0.5.0 起，记录还必须列出 Experience Center、Node.js 图表构建和 PPTX 溢出检查。正式发布工作流仍须先通过完整仓库验证。
 
 ```bash
 python scripts/validate_feedback_benchmark.py
