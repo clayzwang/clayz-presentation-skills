@@ -33,7 +33,6 @@ jobs:
           mkdir -p _site/assets/showcase
           cp -R experience/. _site/
           cp assets/showcase/*.png _site/assets/showcase/
-          cp clayz-four-slide-showcase.pptx _site/assets/decks/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

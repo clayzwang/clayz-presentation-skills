@@ -23,12 +23,12 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
           cache: pip
       - run: python -m pip install -r requirements.txt
       - name: Validate the release tree
         run: python scripts/validate_all.py
-      - name: Prepare bilingual release notes
+      - name: Resolve version and bilingual release notes
         id: release
         shell: bash
         run: |
@@ -42,28 +42,13 @@ jobs:
           manifest = json.loads((root / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
           if manifest["version"] != version:
               raise SystemExit("plugin manifest version does not match VERSION")
-          tag = f"v{version}"
-          changelog = (root / "CHANGELOG.md").read_text(encoding="utf-8")
-          marker = f"## {version}"
-          start = changelog.find(marker)
-          if start < 0:
-              raise SystemExit(f"CHANGELOG.md has no section for {version}")
-          next_section = changelog.find("\n## ", start + len(marker))
-          section = changelog[start:next_section if next_section >= 0 else None].strip()
-          notes = f"""# Clayz Presentation Skills {tag}
-
-          {section}
-
-          ## 中文摘要
-
-          本版本在保持五阶段架构与公开边界的前提下，加入可迁移、可验证、非真实案例性的能力。真实案例、组织偏好与审美判断继续保留在用户自有的空学习层中；参考来源与致谢见仓库的 provenance 文件。
-
-          Release validation is completed before publication. The public tree contains no uploaded templates, private decks, company material, bundled fonts, screenshots, proprietary datasets, model weights, or real-case-derived assets.
-          """
-          (root / "release-notes.md").write_text(notes, encoding="utf-8")
+          notes = root / "release" / f"v{version}-release-notes.md"
+          if not notes.is_file():
+              raise SystemExit(f"missing bilingual release notes: {notes}")
           with pathlib.Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
               output.write(f"version={version}\n")
-              output.write(f"tag={tag}\n")
+              output.write(f"tag=v{version}\n")
+              output.write(f"notes={notes.as_posix()}\n")
           PY
       - name: Guard immutable release tag
         env:
@@ -77,40 +62,29 @@ jobs:
               exit 1
             fi
           fi
-      - name: Build versioned release assets
-        id: assets
-        env:
-          TAG: ${{ steps.release.outputs.tag }}
-          VERSION: ${{ steps.release.outputs.version }}
-        shell: bash
-        run: |
-          if git rev-parse --verify --quiet "refs/tags/$TAG" >/dev/null; then
-            archive_ref="$TAG"
-          else
-            archive_ref="$GITHUB_SHA"
-          fi
-          asset="clayz-presentation-skills-$TAG.zip"
-          checksum="$asset.sha256"
-          git archive \
-            --format=zip \
-            --prefix="clayz-presentation-skills-$VERSION/" \
-            --output="$asset" \
-            "$archive_ref"
-          sha256sum "$asset" > "$checksum"
-          echo "asset=$asset" >> "$GITHUB_OUTPUT"
-          echo "checksum=$checksum" >> "$GITHUB_OUTPUT"
+      - name: Fetch reviewed cross-platform offline wheels
+        run: python scripts/fetch_offline_wheels.py
+      - name: Build light and offline release archives
+        run: python scripts/build_runtime_packs.py
+      - name: Verify release archives, nested wheels, and checksums
+        run: python scripts/verify_release_bundles.py
       - name: Publish or complete the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.release.outputs.tag }}
-          ASSET: ${{ steps.assets.outputs.asset }}
-          CHECKSUM: ${{ steps.assets.outputs.checksum }}
+          NOTES: ${{ steps.release.outputs.notes }}
         shell: bash
         run: |
+          mapfile -t assets < <(find dist -maxdepth 1 -type f \( -name '*.zip' -o -name 'SHA256SUMS.txt' \) -print | sort)
+          if [ "${#assets[@]}" -ne 5 ]; then
+            echo "Expected four ZIP archives plus SHA256SUMS.txt; found ${#assets[@]} files."
+            exit 1
+          fi
           if gh release view "$TAG" >/dev/null 2>&1; then
-            for file in "$ASSET" "$CHECKSUM"; do
-              if gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$file"; then
-                echo "Release asset $file already exists; leaving it unchanged."
+            for file in "${assets[@]}"; do
+              name="$(basename "$file")"
+              if gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$name"; then
+                echo "Release asset $name already exists; leaving it unchanged."
               else
                 gh release upload "$TAG" "$file"
               fi
@@ -119,6 +93,6 @@ jobs:
             gh release create "$TAG" \
               --target "$GITHUB_SHA" \
               --title "Clayz Presentation Skills $TAG" \
-              --notes-file release-notes.md \
-              "$ASSET" "$CHECKSUM"
+              --notes-file "$NOTES" \
+              "${assets[@]}"
           fi

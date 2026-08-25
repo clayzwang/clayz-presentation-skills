@@ -1,8 +1,8 @@
 {
   "contract": "io.clayz.presentation.release-readiness/1.0",
   "target_version": "0.5.1",
-  "current_public_version": "0.5.0",
-  "state": "local-build-authorized",
+  "current_public_version": "0.5.1",
+  "state": "release-authorized",
   "stage_gates": {
     "index_foundation": true,
     "capability_integration": true,
@@ -11,15 +11,15 @@
     "feedback_benchmark_migration": true
   },
   "actions": {
-    "merge": false,
-    "tag": false,
-    "publish": false,
-    "experience_center_update": false
+    "merge": true,
+    "tag": true,
+    "publish": true,
+    "experience_center_update": true
   },
   "authorization": {
-    "decision": "explicit-user-restriction",
-    "authorized_at": "2026-08-25T14:35:25Z",
-    "scope": "local-build-no-github-push"
+    "decision": "explicit-user-authorization",
+    "authorized_at": "2026-08-25T17:11:57Z",
+    "scope": "merge-tag-publish-experience-center"
   },
   "evidence": {
     "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
