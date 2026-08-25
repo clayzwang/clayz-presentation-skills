@@ -31,6 +31,7 @@ def main() -> int:
     compile_sources()
     run("scripts/validate_version.py", ".")
     run("scripts/validate_config.py", "config/default.json")
+    run("scripts/validate_runtime.py", ".")
     run("scripts/validate_provenance.py", "provenance/manifest.yaml")
     run("scripts/validate_architecture_research_library.py", ".")
     run("scripts/validate_visual_regression_suite.py", "tests/fixtures/visual-regression-suite.json")

@@ -1,0 +1,18 @@
+{
+  "contract": "io.clayz.presentation.runtime-pack/1.0",
+  "pack_id": "linux",
+  "platform": "linux",
+  "authoring": {
+    "primary": "python-pptx",
+    "alternatives": ["artifact-tool"]
+  },
+  "rendering": {
+    "primary": "libreoffice",
+    "alternatives": ["artifact-tool"],
+    "script": "../common/render_with_libreoffice.py"
+  },
+  "pdf_support": {
+    "mode": "lazy-for-input; required-for-libreoffice-png-qa",
+    "tools": ["pdfinfo", "pdftoppm"]
+  }
+}

@@ -2,6 +2,8 @@
 
 Stage 5 在不改变五阶段权责的前提下闭合 v0.4.0 开发循环；只有另一次独立、明确的人工授权被记录后，发布门禁才会打开。
 
+如果用户明确要求只构建本地版本、暂不发布，应使用 `local-build-authorized`：保留上一版 `current_public_version`，把 merge、tag、publish 和 Experience Center 更新全部设为 `false`，并记录 `local-build-no-github-push`。该状态只验证本地证据，绝不构成发布授权。
+
 ## 人工准入反馈闭环
 
 Logic、Copy、Art Direction 与 Output 可以追加带证据的观察。Supervisor 只能把候选退回其中一个责任层，不建立第五个学习库。来源记录始终保持 `promotion_status=observation`。

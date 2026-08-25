@@ -6,6 +6,14 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.5.1 — 2026-08-25
+
+- Add a host-model-independent baseline authoring chain using the public render-manifest contract and a public python-pptx adapter.
+- Add one-shot runtime preflight, A–D capability-based interaction profiles, fixed route locking, and explicit no-mid-run-switch guards.
+- Add bounded production budgets for source collection, authoring writes, persistent Office processes, full renders, one targeted repair, and one fallback restart.
+- Add common, Windows, macOS, and Linux runtime packs plus deterministic local ZIP packaging without bundling unreviewed third-party binaries.
+- Keep PDF and Poppler lazy: ordinary PPTX authoring no longer implies PDF tooling, while PDF input and LibreOffice PDF-to-PNG QA declare it explicitly.
+
 ## 0.5.0 — 2026-08-24
 
 - Unify the full case, v0.4.0 evidence, ChatBI materials, and visual-range studies under one reusable Experience Center slide viewer.

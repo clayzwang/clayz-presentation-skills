@@ -8,16 +8,16 @@
     "contract": {"const": "io.clayz.presentation.release-readiness/1.0"},
     "target_version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
     "current_public_version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
-    "state": {"const": "release-authorized"},
+    "state": {"enum": ["release-authorized", "local-build-authorized"]},
     "stage_gates": {"type": "object", "additionalProperties": {"type": "boolean"}},
     "actions": {
       "type": "object",
       "required": ["merge", "tag", "publish", "experience_center_update"],
       "properties": {
-        "merge": {"const": true},
-        "tag": {"const": true},
-        "publish": {"const": true},
-        "experience_center_update": {"const": true}
+        "merge": {"type": "boolean"},
+        "tag": {"type": "boolean"},
+        "publish": {"type": "boolean"},
+        "experience_center_update": {"type": "boolean"}
       },
       "additionalProperties": false
     },
@@ -25,9 +25,9 @@
       "type": "object",
       "required": ["decision", "authorized_at", "scope"],
       "properties": {
-        "decision": {"const": "explicit-user-authorization"},
+        "decision": {"enum": ["explicit-user-authorization", "explicit-user-restriction"]},
         "authorized_at": {"type": "string", "format": "date-time"},
-        "scope": {"const": "merge-tag-publish-experience-center"}
+        "scope": {"enum": ["merge-tag-publish-experience-center", "local-build-no-github-push"]}
       },
       "additionalProperties": false
     },

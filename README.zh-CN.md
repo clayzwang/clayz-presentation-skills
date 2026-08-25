@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.5.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.5.1**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -123,12 +123,16 @@ python scripts/validate_feedback_benchmark.py
 
 ## 运行环境与依赖
 
-- 核心脚本需要Python 3.10或更高版本；位图准备、视觉节奏和文件体积检查使用Pillow，机器可读来源清单校验使用PyYAML。
+- 核心脚本需要Python 3.10或更高版本；不依赖宿主模型的基础作者链使用`python-pptx`，位图准备、视觉节奏和文件体积检查使用Pillow，机器可读清单校验使用PyYAML。
 - GitHub Actions会分别使用Python 3.10、3.11和3.12验证，并在发布前用`--help`启动所有公开命令行入口。
-- 真正生成PPTX需要具备演示文稿能力的Agent环境，或另行提供原生演示工具、PptxGenJS、python-pptx等后端。
-- 完整生产QA需要能够重开并渲染最终PPTX的环境，例如PowerPoint、WPS或LibreOffice。
-- 当前仓库提供Skill、合同、集中配置、验证器、本地知识运行层、相对布局求解器、执行账本、签名工具和一个默认禁用的实验性可编辑对象适配器；它仍不是一条命令即可调用任意模型的独立Runner。
+- 每次生产运行只能执行一次`scripts/runtime_preflight.py`。它按交互能力划分A—D类、扫描依赖、锁定一条作者／渲染路线并写入调用预算；分类不绑定模型品牌。
+- 完整生产QA在Windows使用一个常驻PowerPoint COM进程，在macOS/Linux使用一个LibreOffice进程；宿主提供的Artifact Tool只是可选路线。
+- PDF与Poppler按需加载：只有输入包含PDF页面，或锁定的LibreOffice路线需要PDF→PNG时才需要，普通PPTX作者过程不依赖它们。
+- 运行`python scripts/build_runtime_packs.py`可生成分系统插件压缩包；压缩包包含插件源码和平台启动器，但不擅自分发未经审查的第三方二进制。
+- C、D类模型通过适配器消费相同的内部合同；用户仍用自然语言交互，不需要手写render manifest或预检JSON。
 - MCP不是必需依赖。能读取Skill并调用本地工具的大模型宿主可直接运行；只有需要统一接入远程存储、检索、渲染或其他外部服务时，才需要另建MCP接口。
+
+固定生命周期、依赖替代、系统包和宿主接入合同见[`docs/runtime-architecture.zh-CN.md`](docs/runtime-architecture.zh-CN.md)。
 
 ## 中英文路由
 

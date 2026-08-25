@@ -84,7 +84,10 @@ def main() -> int:
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     readiness = read_json(ROOT / "release" / f"v{version}-readiness.json")
     result = validate_release_readiness(ROOT, readiness)
-    require(result["release_authorized"] is True, "explicit release authorization is missing")
+    require(
+        result["release_authorized"] is True or result["local_build_authorized"] is True,
+        "neither release authorization nor explicit local-build restriction is present",
+    )
 
     print("feedback, benchmark, migration, and release readiness valid")
     return 0

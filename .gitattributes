@@ -1,0 +1,4 @@
+# Hash-bound public catalog payloads must keep repository-stable bytes on every OS.
+catalog/**/*.json text eol=lf
+catalog/**/*.jsonl text eol=lf
+examples/synthetic-feedback-loop/legacy-sources/** text eol=lf

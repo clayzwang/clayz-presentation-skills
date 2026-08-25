@@ -1,0 +1,39 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.5.1",
+  "current_public_version": "0.5.0",
+  "state": "local-build-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": false,
+    "tag": false,
+    "publish": false,
+    "experience_center_update": false
+  },
+  "authorization": {
+    "decision": "explicit-user-restriction",
+    "authorized_at": "2026-08-25T14:35:25Z",
+    "scope": "local-build-no-github-push"
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python scripts/validate_all.py",
+    "experience_validation": "python scripts/validate_experience.py",
+    "presentation_overflow_check": "slides_test.py experience/assets/decks/nodejs-chart-engine-global-oil-demography-v0.5.0.pptx",
+    "node_chart_build": "npm run build --prefix experience/materials/nodejs-chart-engine"
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

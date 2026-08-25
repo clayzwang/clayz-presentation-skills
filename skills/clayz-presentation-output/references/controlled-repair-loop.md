@@ -46,11 +46,11 @@ Every action binds a `slide_id`, stable `target_ids`, preconditions, execution s
 ## Cycle
 
 1. `initial-render`: write and reopen the current PPTX; record object, font, compatibility, size, and slide-render evidence. It may contain no repair action.
-2. `targeted-repair`: repair only affected slides and objects. Declare `repair_of`; do not rewrite the whole deck to conceal a local failure.
+2. `targeted-repair`: repair only affected slides and objects. Declare `repair_of`; do not rewrite the whole deck to conceal a local failure. The central runtime budget permits at most one targeted-repair cycle.
 3. After each repair, rewrite, reopen, and render affected slides. Record machine evidence separately from visual interpretation.
 4. `final-reopen`: reopen the final written file, render the complete deck, and bind its final hash. Only this cycle can produce final `pass`.
 
-Any failed or partially successful cycle must lead to a further targeted repair, an upstream challenge, or a documented decision to proceed with visible risk. Failure cannot remain only in console output or model context.
+Any failed or partially successful cycle must lead to the single permitted targeted repair, an upstream challenge, or a documented decision to proceed with visible risk. Failure cannot remain only in console output or model context. Repeating capability discovery or switching the locked backend is never a repair action.
 
 ## Validation
 

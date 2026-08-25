@@ -47,7 +47,7 @@ The final resolved configuration hash belongs in every stage artifact as `config
 
 ## Distribution model
 
-The source repository stores shared contracts and validators once. The plugin bundles five skills around that shared root. A future standalone release builder may vendor the required shared files into a single-skill package without changing source ownership.
+The source repository stores shared contracts and validators once. The plugin bundles five skills around that shared root. v0.5.1 adds a deterministic runtime beneath Output rather than a sixth decision-making skill. It provides a public baseline adapter, one-shot preflight, route locking, bounded calls, and common plus operating-system packs. See [`runtime-architecture.md`](runtime-architecture.md).
 
 ## Portable knowledge model
 

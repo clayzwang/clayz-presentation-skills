@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.5.0",
+        "ClayzVersion": "0.5.1",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -25,6 +25,26 @@
     "approval_states": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"],
     "execution_ledger_contract": "io.clayz.presentation.execution-ledger/1.0",
     "maximum_technical_cycles": 3
+  },
+  "runtime": {
+    "contract_version": "1.0",
+    "preflight_script": "scripts/runtime_preflight.py",
+    "model_profiles": ["A", "B", "C", "D"],
+    "classification_basis": "capabilities-not-model-brands",
+    "route_policy": "scan-once-lock-for-run",
+    "fallback_policy": "restart-from-preflight",
+    "platform_packs": ["common", "windows", "macos", "linux"],
+    "pdf_support": "lazy-optional",
+    "budgets": {
+      "maximum_capability_scans": 1,
+      "maximum_source_collection_rounds": 1,
+      "maximum_authoring_writes": 2,
+      "maximum_office_processes": 1,
+      "maximum_full_deck_renders": 2,
+      "maximum_repair_cycles": 1,
+      "maximum_route_switches": 0,
+      "maximum_fallback_restarts": 1
+    }
   },
   "locale": {
     "default": "en-US",
@@ -104,8 +124,11 @@
         "blocked_advisories": ["GHSA-w3rx-r6r6-pgpr", "GHSA-5p2g-fcmc-qvqq"]
       }
     },
-    "required_capabilities": ["editable-text", "editable-shapes", "charts", "tables", "svg", "render-preview", "pptx-inspection"],
-    "preferred_backends": ["native-presentation-tool", "pptxgenjs", "python-pptx"],
+    "baseline_authoring_backend": "python-pptx",
+    "baseline_adapter": "packages/adapters/python_pptx/render.py",
+    "required_capabilities": ["editable-text", "editable-shapes", "charts", "tables", "images", "render-preview", "pptx-inspection"],
+    "optional_capabilities": ["svg", "pdf-page-input"],
+    "preferred_backends": ["python-pptx", "artifact-tool", "native-presentation-tool", "pptxgenjs"],
     "target_applications": ["powerpoint", "wps", "libreoffice"],
     "require_final_reopen_render": true
   },

@@ -1,7 +1,7 @@
 {
   "name": "clayz-presentation-skills",
-  "version": "0.5.0",
-  "description": "A five-stage presentation reasoning, writing, art-direction, production, and supervision system.",
+  "version": "0.5.1",
+  "description": "A five-stage presentation system with a model-independent baseline runtime, locked tool routing, editable production, and render-grounded supervision.",
   "author": {
     "name": "clayz"
   },
@@ -18,7 +18,7 @@
   "interface": {
     "displayName": "Clayz Presentation Skills",
     "shortDescription": "Five-stage presentation design, production, and QA",
-    "longDescription": "Turn evidence into an approved presentation through separate Logic, Copy, Art Direction, Output, and Supervisor stages, with portable knowledge, layout, rendering, and execution contracts.",
+    "longDescription": "Turn evidence into an approved presentation through separate Logic, Copy, Art Direction, Output, and Supervisor stages, then execute through a one-shot capability scan, locked backend, bounded calls, and platform-specific runtime pack.",
     "developerName": "clayz",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],

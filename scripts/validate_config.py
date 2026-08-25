@@ -17,7 +17,7 @@ from typing import Any
 HEX_COLOR = re.compile(r"^#[0-9A-Fa-f]{6}$")
 REQUIRED_TOP_LEVEL = {
     "identity", "workflow", "locale", "theme", "layout",
-    "references", "renderer", "delivery", "qa",
+    "references", "renderer", "runtime", "delivery", "qa",
 }
 EXPECTED_STAGES = ["logic", "copy", "art-direction", "output", "supervisor"]
 EXPECTED_LEARNING_STAGES = ["logic", "copy", "art-direction", "output"]
@@ -124,10 +124,48 @@ def validate(config: dict[str, Any]) -> list[str]:
     if not isinstance(workflow.get("maximum_technical_cycles"), int) or not 1 <= workflow.get("maximum_technical_cycles", 0) <= 10:
         errors.append("workflow.maximum_technical_cycles: expected integer from 1 to 10")
 
+    runtime = require_mapping(config.get("runtime"), "runtime", errors)
+    if runtime.get("contract_version") != "1.0":
+        errors.append("runtime.contract_version: expected 1.0")
+    if runtime.get("preflight_script") != "scripts/runtime_preflight.py":
+        errors.append("runtime.preflight_script: expected scripts/runtime_preflight.py")
+    if runtime.get("model_profiles") != ["A", "B", "C", "D"]:
+        errors.append("runtime.model_profiles: expected capability profiles A, B, C, D")
+    if runtime.get("classification_basis") != "capabilities-not-model-brands":
+        errors.append("runtime.classification_basis: must remain brand-neutral")
+    if runtime.get("route_policy") != "scan-once-lock-for-run":
+        errors.append("runtime.route_policy: expected scan-once-lock-for-run")
+    if runtime.get("fallback_policy") != "restart-from-preflight":
+        errors.append("runtime.fallback_policy: expected restart-from-preflight")
+    if runtime.get("platform_packs") != ["common", "windows", "macos", "linux"]:
+        errors.append("runtime.platform_packs: expected common plus three operating-system packs")
+    if runtime.get("pdf_support") != "lazy-optional":
+        errors.append("runtime.pdf_support: PDF must remain lazy and optional")
+    budgets = require_mapping(runtime.get("budgets"), "runtime.budgets", errors)
+    expected_budgets = {
+        "maximum_capability_scans": 1,
+        "maximum_source_collection_rounds": 1,
+        "maximum_office_processes": 1,
+        "maximum_repair_cycles": 1,
+        "maximum_route_switches": 0,
+        "maximum_fallback_restarts": 1,
+    }
+    for key, expected in expected_budgets.items():
+        if budgets.get(key) != expected:
+            errors.append(f"runtime.budgets.{key}: expected {expected}")
+    for key in ("maximum_authoring_writes", "maximum_full_deck_renders"):
+        if not isinstance(budgets.get(key), int) or not 1 <= budgets.get(key, 0) <= 2:
+            errors.append(f"runtime.budgets.{key}: expected integer from 1 to 2")
+
     renderer = require_mapping(config.get("renderer"), "renderer", errors)
     caps = renderer.get("required_capabilities")
     if not isinstance(caps, list) or not caps:
         errors.append("renderer.required_capabilities: expected non-empty array")
+    optional_caps = renderer.get("optional_capabilities")
+    if not isinstance(optional_caps, list) or len(optional_caps) != len(set(optional_caps)):
+        errors.append("renderer.optional_capabilities: expected unique string array")
+    elif any(not isinstance(item, str) or not item for item in optional_caps):
+        errors.append("renderer.optional_capabilities: expected unique string array")
     adapters = require_mapping(renderer.get("adapters"), "renderer.adapters", errors)
     pptxgenjs = require_mapping(adapters.get("pptxgenjs"), "renderer.adapters.pptxgenjs", errors)
     if pptxgenjs.get("path") != "packages/adapters/pptxgenjs/render.mjs":
@@ -136,6 +174,10 @@ def validate(config: dict[str, Any]) -> list[str]:
         errors.append("renderer.adapters.pptxgenjs: public v0.2.0 must fail closed on the unpatched dependency")
     if pptxgenjs.get("blocked_advisories") != ["GHSA-w3rx-r6r6-pgpr", "GHSA-5p2g-fcmc-qvqq"]:
         errors.append("renderer.adapters.pptxgenjs.blocked_advisories: expected both reviewed advisories")
+    if renderer.get("baseline_authoring_backend") != "python-pptx":
+        errors.append("renderer.baseline_authoring_backend: expected python-pptx")
+    if renderer.get("baseline_adapter") != "packages/adapters/python_pptx/render.py":
+        errors.append("renderer.baseline_adapter: expected public python-pptx adapter path")
 
     delivery = require_mapping(config.get("delivery"), "delivery", errors)
     profiles = require_mapping(delivery.get("profiles"), "delivery.profiles", errors)

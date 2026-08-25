@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.5.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.5.1**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -178,12 +178,16 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 
 ## Runtime expectations
 
-- The core scripts require Python 3.10 or later. Pillow supports raster, rhythm, and size inspection; PyYAML validates the machine-readable provenance manifest.
+- The core scripts require Python 3.10 or later. The host-model-independent baseline authoring route uses `python-pptx`; Pillow supports raster, rhythm, and size inspection; PyYAML validates machine-readable manifests.
 - GitHub Actions tests Python 3.10, 3.11, and 3.12 and starts every public command-line entry point with `--help` before release.
-- Producing PPTX files requires a compatible agent host or a separately supplied backend such as a native presentation tool, PptxGenJS, or python-pptx.
-- Full production QA requires a renderer that can reopen and render the written PPTX, such as PowerPoint, WPS, or LibreOffice.
-- This repository provides skills, contracts, centralized configuration, validators, a local knowledge runtime, a relative-layout solver, an execution ledger, metadata tooling, and one disabled experimental editable-object adapter. It is not a standalone one-command model runner.
+- Run `scripts/runtime_preflight.py` exactly once per production run. It classifies A–D interaction capabilities, scans dependencies, locks one authoring/render route, and records the configured call budgets. Model brands are not part of the classification.
+- Full production QA uses one persistent PowerPoint COM process on Windows or one LibreOffice process on macOS/Linux. A host-provided Artifact Tool remains optional.
+- PDF and Poppler are lazy dependencies: they are needed for PDF page input or a selected LibreOffice PDF-to-PNG render path, not ordinary PPTX authoring.
+- Build local OS-specific plugin archives with `python scripts/build_runtime_packs.py`. The archives contain the plugin source and platform launchers, but no unreviewed third-party binaries.
+- C and D models use the same internal contracts through an adapter; users continue to interact in natural language and never need to author render manifests or preflight JSON.
 - MCP is optional. A capable model host can read the skills and call local tools directly; add MCP only when you want a portable interface to remote storage, search, rendering, or another external service.
+
+See [`docs/runtime-architecture.md`](docs/runtime-architecture.md) for the fixed lifecycle, dependency ladder, platform packs, and host-integration contract.
 
 ## Language routing
 

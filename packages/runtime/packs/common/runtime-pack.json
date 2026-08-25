@@ -1,0 +1,22 @@
+{
+  "contract": "io.clayz.presentation.runtime-pack/1.0",
+  "pack_id": "common",
+  "platform": "any",
+  "bundled": [
+    "five Clayz skills",
+    "contracts, validators, layout and pattern runtimes",
+    "runtime preflight and locked-route planner",
+    "python-pptx render-manifest adapter"
+  ],
+  "required": [
+    {"id": "python", "minimum": "3.10", "alternatives": []},
+    {"id": "python-pptx", "minimum": "1.0", "alternatives": ["artifact-tool"]},
+    {"id": "Pillow", "minimum": "10.0", "alternatives": []},
+    {"id": "PyYAML", "minimum": "6.0", "alternatives": []}
+  ],
+  "lazy_optional": [
+    {"id": "artifact-tool", "purpose": "host-provided authoring route"},
+    {"id": "Poppler", "purpose": "PDF page input and LibreOffice PDF render fallback"},
+    {"id": "SVG converter", "purpose": "SVG use on the python-pptx route"}
+  ]
+}

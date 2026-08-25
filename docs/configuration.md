@@ -12,6 +12,7 @@ The only deliberate duplication is plugin UI metadata (`agents/openai.yaml` and 
 - slide size, layout roles, margins, and gaps;
 - reference provider and registries;
 - renderer capabilities and target applications;
+- runtime model profiles, one-shot preflight policy, fixed-route budgets, and platform-pack selection;
 - delivery profile and media limits;
 - deterministic QA toggles.
 
@@ -24,6 +25,12 @@ The only deliberate duplication is plugin UI metadata (`agents/openai.yaml` and 
 - private credentials or access tokens.
 
 Never commit a local override that contains confidential paths, private template names, or internal brand values.
+
+## Runtime routing
+
+`runtime` defines process budgets and invariants, not discovered machine paths. Run `scripts/runtime_preflight.py` once per production run to materialize those paths and select one locked route. Keep that report task-local; do not copy local executable paths into central configuration.
+
+The baseline authoring route is `renderer.baseline_adapter`. PDF support remains lazy, so Poppler is not a core authoring dependency. See [`runtime-architecture.md`](runtime-architecture.md).
 
 ## Locale and reference routing
 

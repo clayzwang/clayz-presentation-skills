@@ -1,0 +1,19 @@
+{
+  "contract": "io.clayz.presentation.runtime-pack/1.0",
+  "pack_id": "windows",
+  "platform": "windows",
+  "authoring": {
+    "primary": "python-pptx",
+    "alternatives": ["powerpoint-com", "artifact-tool"]
+  },
+  "rendering": {
+    "primary": "powerpoint-com",
+    "alternatives": ["libreoffice"],
+    "single_process_script": "render_with_powerpoint.ps1"
+  },
+  "pdf_support": {
+    "mode": "lazy",
+    "required_only_for": ["PDF page input", "LibreOffice PDF-to-PNG fallback"],
+    "tools": ["pdfinfo", "pdftoppm"]
+  }
+}

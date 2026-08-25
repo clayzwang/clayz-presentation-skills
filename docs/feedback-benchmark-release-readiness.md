@@ -4,6 +4,8 @@ Stage 5 closes the v0.4.0 development loop without changing the five-stage
 ownership model. Release remains blocked until a separate explicit human
 authorization is recorded.
 
+When a user explicitly requests a versioned local build without publication, use `local-build-authorized`: preserve the prior `current_public_version`, set merge, tag, publish, and Experience Center actions to `false`, and record scope `local-build-no-github-push`. This state validates local evidence but never authorizes a release.
+
 ## Human-admitted feedback loop
 
 Logic, Copy, Art Direction, and Output may append evidence-backed observations.

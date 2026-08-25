@@ -4,7 +4,7 @@
   "title": "Clayz Presentation Skills configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["identity", "workflow", "locale", "theme", "layout", "references", "renderer", "delivery", "qa"],
+  "required": ["identity", "workflow", "runtime", "locale", "theme", "layout", "references", "renderer", "delivery", "qa"],
   "properties": {
     "identity": {
       "type": "object",
@@ -29,6 +29,36 @@
         "approval_states": {"type": "array", "minItems": 1, "items": {"type": "string"}},
         "execution_ledger_contract": {"const": "io.clayz.presentation.execution-ledger/1.0"},
         "maximum_technical_cycles": {"type": "integer", "minimum": 1, "maximum": 10}
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "preflight_script", "model_profiles", "classification_basis", "route_policy", "fallback_policy", "platform_packs", "pdf_support", "budgets"],
+      "properties": {
+        "contract_version": {"const": "1.0"},
+        "preflight_script": {"const": "scripts/runtime_preflight.py"},
+        "model_profiles": {"const": ["A", "B", "C", "D"]},
+        "classification_basis": {"const": "capabilities-not-model-brands"},
+        "route_policy": {"const": "scan-once-lock-for-run"},
+        "fallback_policy": {"const": "restart-from-preflight"},
+        "platform_packs": {"const": ["common", "windows", "macos", "linux"]},
+        "pdf_support": {"const": "lazy-optional"},
+        "budgets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["maximum_capability_scans", "maximum_source_collection_rounds", "maximum_authoring_writes", "maximum_office_processes", "maximum_full_deck_renders", "maximum_repair_cycles", "maximum_route_switches", "maximum_fallback_restarts"],
+          "properties": {
+            "maximum_capability_scans": {"const": 1},
+            "maximum_source_collection_rounds": {"const": 1},
+            "maximum_authoring_writes": {"type": "integer", "minimum": 1, "maximum": 2},
+            "maximum_office_processes": {"const": 1},
+            "maximum_full_deck_renders": {"type": "integer", "minimum": 1, "maximum": 2},
+            "maximum_repair_cycles": {"const": 1},
+            "maximum_route_switches": {"const": 0},
+            "maximum_fallback_restarts": {"const": 1}
+          }
+        }
       }
     },
     "locale": {"type": "object"},
@@ -111,7 +141,7 @@
     },
     "renderer": {
       "type": "object",
-      "required": ["provider", "adapters", "required_capabilities", "preferred_backends", "target_applications", "require_final_reopen_render"],
+      "required": ["provider", "adapters", "baseline_authoring_backend", "baseline_adapter", "required_capabilities", "optional_capabilities", "preferred_backends", "target_applications", "require_final_reopen_render"],
       "properties": {
         "provider": {"type": "string"},
         "adapters": {
@@ -131,7 +161,10 @@
           },
           "required": ["pptxgenjs"]
         },
+        "baseline_authoring_backend": {"const": "python-pptx"},
+        "baseline_adapter": {"const": "packages/adapters/python_pptx/render.py"},
         "required_capabilities": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "optional_capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "preferred_backends": {"type": "array", "minItems": 1, "items": {"type": "string"}},
         "target_applications": {"type": "array", "minItems": 1, "items": {"type": "string"}},
         "require_final_reopen_render": {"const": true}

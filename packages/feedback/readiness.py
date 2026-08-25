@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Validate explicit, evidence-backed authorization for the current release."""
+"""Validate evidence-backed release or explicitly restricted local-build state."""
 
 from __future__ import annotations
 
@@ -37,8 +37,13 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
     _require(value.get("contract") == READINESS_CONTRACT, f"readiness.contract must be {READINESS_CONTRACT}")
     current = (root / "VERSION").read_text(encoding="utf-8").strip()
     _require(value.get("target_version") == current, "readiness target_version must match VERSION")
-    _require(value.get("current_public_version") == current, "readiness current_public_version must match VERSION")
-    _require(value.get("state") == "release-authorized", "readiness state must be release-authorized")
+    state = value.get("state")
+    _require(state in {"release-authorized", "local-build-authorized"}, "unsupported readiness state")
+    if state == "release-authorized":
+        _require(value.get("current_public_version") == current, "release current_public_version must match VERSION")
+    else:
+        public_version = value.get("current_public_version")
+        _require(isinstance(public_version, str) and public_version != current, "local build must preserve the prior public version")
     stages = value.get("stage_gates")
     _require(isinstance(stages, Mapping), "stage_gates must be an object")
     expected = {
@@ -51,12 +56,17 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
     _require(set(stages) == expected and all(item is True for item in stages.values()), "all five stage gates must be true")
     actions = value.get("actions")
     _require(isinstance(actions, Mapping), "readiness.actions must be an object")
+    expected_action = state == "release-authorized"
     for key in ("merge", "tag", "publish", "experience_center_update"):
-        _require(actions.get(key) is True, f"readiness.actions.{key} must be explicitly authorized")
+        _require(actions.get(key) is expected_action, f"readiness.actions.{key} must be {expected_action}")
     authorization = value.get("authorization")
     _require(isinstance(authorization, Mapping), "readiness.authorization must be an object")
-    _require(authorization.get("decision") == "explicit-user-authorization", "release requires an explicit user decision")
-    _require(authorization.get("scope") == "merge-tag-publish-experience-center", "release authorization scope is incomplete")
+    if state == "release-authorized":
+        _require(authorization.get("decision") == "explicit-user-authorization", "release requires an explicit user decision")
+        _require(authorization.get("scope") == "merge-tag-publish-experience-center", "release authorization scope is incomplete")
+    else:
+        _require(authorization.get("decision") == "explicit-user-restriction", "local build requires an explicit no-publish restriction")
+        _require(authorization.get("scope") == "local-build-no-github-push", "local build scope must forbid GitHub push")
     authorized_at = authorization.get("authorized_at")
     _require(isinstance(authorized_at, str) and authorized_at.endswith("Z"), "release authorized_at must be UTC")
     evidence = value.get("evidence")
@@ -84,8 +94,9 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
         _require(guards.get(key) is True, f"readiness.guards.{key} must be true")
     return {
         "target_version": value["target_version"],
-        "current_public_version": current,
+        "current_public_version": value["current_public_version"],
         "state": value["state"],
         "benchmark_passed": True,
-        "release_authorized": True,
+        "release_authorized": state == "release-authorized",
+        "local_build_authorized": state == "local-build-authorized",
     }
