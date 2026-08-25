@@ -27,13 +27,18 @@
     "validation_command": "python scripts/validate_all.py",
     "experience_validation": "python scripts/validate_experience.py",
     "presentation_overflow_check": "slides_test.py experience/assets/decks/nodejs-chart-engine-global-oil-demography-v0.5.0.pptx",
-    "node_chart_build": "npm run build --prefix experience/materials/nodejs-chart-engine"
+    "node_chart_build": "npm run build --prefix experience/materials/nodejs-chart-engine",
+    "release_bundle_build": "python scripts/build_runtime_packs.py",
+    "release_bundle_verification": "python scripts/verify_release_bundles.py"
   },
   "guards": {
     "no_unlicensed_assets": true,
     "no_private_brand_assets": true,
     "no_generated_auto_admission": true,
     "no_automatic_aesthetic_truth": true,
-    "release_requires_separate_human_authorization": true
+    "release_requires_separate_human_authorization": true,
+    "light_archive_has_no_third_party_wheels": true,
+    "offline_wheels_are_hash_locked": true,
+    "private_brand_archive_audit": true
   }
 }

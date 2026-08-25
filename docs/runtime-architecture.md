@@ -24,4 +24,4 @@ The repository bundles contracts, adapters, validators, preflight logic, and per
 
 ## Local platform packages
 
-Run `python scripts/build_runtime_packs.py` to create deterministic Windows, macOS, and Linux plugin ZIPs under `dist/`. Each package contains common source plus exactly one operating-system pack and a runtime lock manifest. It deliberately contains no unreviewed third-party binary bundle.
+Run `python scripts/build_runtime_packs.py --bundle light` to create the deterministic light plugin ZIP under `dist/`. After `scripts/fetch_offline_wheels.py` stages reviewed CPython 3.12 wheels, the default build also creates separate Windows, macOS, and Linux offline dependency add-ons. The light archive contains no third-party wheels; offline add-ons contain only hash-locked wheels, installer metadata, and retained notices. See [`release-packages.md`](release-packages.md).

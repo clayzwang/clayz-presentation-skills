@@ -6,6 +6,8 @@ __pycache__/
 node_modules/
 .env
 .release-denylist
+.release-cache/
+.tmp/
 dist/
 build/
 knowledge/index/search-index.json

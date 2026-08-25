@@ -128,7 +128,8 @@ python scripts/validate_feedback_benchmark.py
 - 每次生产运行只能执行一次`scripts/runtime_preflight.py`。它按交互能力划分A—D类、扫描依赖、锁定一条作者／渲染路线并写入调用预算；分类不绑定模型品牌。
 - 完整生产QA在Windows使用一个常驻PowerPoint COM进程，在macOS/Linux使用一个LibreOffice进程；宿主提供的Artifact Tool只是可选路线。
 - PDF与Poppler按需加载：只有输入包含PDF页面，或锁定的LibreOffice路线需要PDF→PNG时才需要，普通PPTX作者过程不依赖它们。
-- 运行`python scripts/build_runtime_packs.py`可生成分系统插件压缩包；压缩包包含插件源码和平台启动器，但不擅自分发未经审查的第三方二进制。
+- 运行`python scripts/build_runtime_packs.py --bundle light`生成唯一的轻量插件主包；其中不包含第三方wheel、体验中心案例、PPT/PDF或展示媒体。
+- CPython 3.12离线依赖拆成Windows、macOS和Linux三个附加包。维护者先用`scripts/fetch_offline_wheels.py`获取经过锁定的官方wheel，再用`scripts/build_runtime_packs.py`生成全部本地发版文件；适用系统、安装、哈希与许可见[`docs/release-packages.zh-CN.md`](docs/release-packages.zh-CN.md)。
 - C、D类模型通过适配器消费相同的内部合同；用户仍用自然语言交互，不需要手写render manifest或预检JSON。
 - MCP不是必需依赖。能读取Skill并调用本地工具的大模型宿主可直接运行；只有需要统一接入远程存储、检索、渲染或其他外部服务时，才需要另建MCP接口。
 
@@ -184,4 +185,3 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 参考架构综合方法还特别感谢 [IBM Think Architectures](https://www.ibm.com/think/architectures)、[Microsoft Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/)、[Google Cloud Architecture Center](https://cloud.google.com/architecture)、[AWS Architecture Center](https://aws.amazon.com/architecture/)、[Oracle Architecture Center](https://docs.oracle.com/solutions/)、[SAP Architecture Center](https://architecture.learning.sap.com/)、[NVIDIA Enterprise Reference Architectures](https://docs.nvidia.com/enterprise-reference-architectures/)、[Databricks 参考架构](https://docs.databricks.com/aws/en/lakehouse-architecture/reference)、[Snowflake 架构指南](https://www.snowflake.com/en/developers/guides) 与 [Apple Platform Security](https://support.apple.com/guide/security/welcome/web) 背后的架构师、技术作者、设计师、工程师和审阅者。索引只记录链接和提炼后的关系，不再分发任何源架构图、原文、图标、品牌视觉、母版、模板、坐标或媒体。
 
 本项目采用 Apache-2.0 许可证，来源和引用见 `NOTICE`、`CITATION.cff` 与 `provenance/`。
-

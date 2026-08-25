@@ -24,4 +24,4 @@ A—D 是能力分级，不是模型品牌排名。A、B 可直接编排 Runtime
 
 ## 本地系统包
 
-运行 `python scripts/build_runtime_packs.py`，可在 `dist/` 生成 Windows、macOS、Linux 三个确定性插件 ZIP。每个包都包含 common 源码、且只包含一个操作系统包，并附运行锁清单；不会擅自捆绑未经审查的第三方二进制。
+运行`python scripts/build_runtime_packs.py --bundle light`可在`dist/`生成一个确定性的轻量插件主包。维护者先用`scripts/fetch_offline_wheels.py`暂存经过审阅的CPython 3.12 wheel，默认构建再生成Windows、macOS和Linux三个独立离线依赖附加包。轻量包不带第三方wheel；离线包只带哈希锁定wheel、安装清单和保留的许可说明。详见[`release-packages.zh-CN.md`](release-packages.zh-CN.md)。

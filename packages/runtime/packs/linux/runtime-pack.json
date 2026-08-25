@@ -2,6 +2,10 @@
   "contract": "io.clayz.presentation.runtime-pack/1.0",
   "pack_id": "linux",
   "platform": "linux",
+  "offline_dependency_pack": {
+    "python": "CPython 3.12",
+    "architectures": ["manylinux_2_28_x86-64", "manylinux_2_28_aarch64"]
+  },
   "authoring": {
     "primary": "python-pptx",
     "alternatives": ["artifact-tool"]

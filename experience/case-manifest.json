@@ -22,23 +22,6 @@
       }
     },
     {
-      "id": "four-slide-visual-adaptation",
-      "title": "Four-slide Visual Adaptation Pack",
-      "language": "en-US",
-      "input_type": "four compact presentation tasks",
-      "output_type": "editable PowerPoint",
-      "slide_count": 4,
-      "preview_count": 4,
-      "repository_path": "clayz-four-slide-showcase.pptx",
-      "download": "assets/decks/clayz-four-slide-showcase.pptx",
-      "policy": {
-        "public_data_output_evidence": true,
-        "admitted_to_reference_corpus": false,
-        "admitted_to_knowledge_corpus": false,
-        "investment_advice": false
-      }
-    },
-    {
       "id": "v0.4.0-governed-generation-capability-deck-en-20260823",
       "title": "v0.4.0 Governed Generation Capability Deck",
       "language": "en-US",

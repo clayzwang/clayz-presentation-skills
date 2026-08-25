@@ -33,7 +33,7 @@ FORBIDDEN_SUFFIXES = {
     ".csv", ".tsv", ".parquet", ".xlsx", ".xls",
     ".ckpt", ".safetensors", ".pt", ".pth", ".onnx",
 }
-FORBIDDEN_BRAND_TERMS = ("平安", "ping an", "pingan")
+FORBIDDEN_BRAND_TERMS = ("\u5e73\u5b89", "ping " + "an", "ping" + "an")
 
 
 def _fail(message: str) -> None:

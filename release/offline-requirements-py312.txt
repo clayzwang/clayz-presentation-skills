@@ -1,0 +1,6 @@
+Pillow==12.3.0
+PyYAML==6.0.3
+python-pptx==1.0.2
+XlsxWriter==3.2.9
+lxml==6.0.2
+typing-extensions==4.15.0

@@ -2,6 +2,10 @@
   "contract": "io.clayz.presentation.runtime-pack/1.0",
   "pack_id": "macos",
   "platform": "macos",
+  "offline_dependency_pack": {
+    "python": "CPython 3.12",
+    "architectures": ["arm64", "x86-64"]
+  },
   "authoring": {
     "primary": "python-pptx",
     "alternatives": ["artifact-tool"]

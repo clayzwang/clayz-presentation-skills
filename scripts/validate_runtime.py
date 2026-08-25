@@ -46,6 +46,13 @@ def validate(root: Path) -> list[str]:
         "packages/runtime/packs/windows/runtime-pack.json",
         "packages/runtime/packs/macos/runtime-pack.json",
         "packages/runtime/packs/linux/runtime-pack.json",
+        "scripts/fetch_offline_wheels.py",
+        "scripts/install_offline_dependencies.py",
+        "scripts/verify_release_bundles.py",
+        "release/offline-requirements-py312.txt",
+        "provenance/OFFLINE_DEPENDENCY_NOTICES.md",
+        "docs/release-packages.md",
+        "docs/release-packages.zh-CN.md",
     ]
     for relative in required_files:
         if not (root / relative).is_file():
@@ -57,6 +64,10 @@ def validate(root: Path) -> list[str]:
         value = json.loads(path.read_text(encoding="utf-8"))
         if value.get("contract") != "io.clayz.presentation.runtime-pack/1.0":
             errors.append(f"{path.relative_to(root)}: wrong contract")
+        if name == "common" and value.get("distribution", {}).get("third_party_wheels_in_light_archive") is not False:
+            errors.append("common runtime pack must keep the light archive free of third-party wheels")
+        if name != "common" and value.get("offline_dependency_pack", {}).get("python") != "CPython 3.12":
+            errors.append(f"{path.relative_to(root)}: offline pack must target CPython 3.12")
     try:
         report = build_preflight_report(config, model_profile="D", required_capabilities=["structured-spec"])
         if report.get("contract") != CONTRACT or report.get("selected_route", {}).get("locked") is not True:

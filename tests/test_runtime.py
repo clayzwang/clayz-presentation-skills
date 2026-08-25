@@ -74,17 +74,47 @@ class RuntimeTests(unittest.TestCase):
         self.assertTrue(report["selected_route"]["available"])
         self.assertFalse(report["selected_route"]["host_model_private_tool_required"])
 
-    def test_pack_builder_includes_one_os_pack(self) -> None:
+    def test_release_builder_separates_light_plugin_and_offline_wheels(self) -> None:
         module = load_module("build_runtime_packs_unit", ROOT / "scripts" / "build_runtime_packs.py")
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         with tempfile.TemporaryDirectory() as temporary:
-            archive = module.build("windows", Path(temporary), version)
-            with zipfile.ZipFile(archive) as package:
+            temporary_root = Path(temporary)
+            light = module.build_light(temporary_root, version)
+            with zipfile.ZipFile(light) as package:
                 names = set(package.namelist())
             self.assertIn("clayz-presentation-skills/packages/runtime/packs/windows/runtime-pack.json", names)
             self.assertIn("clayz-presentation-skills/packages/runtime/packs/common/runtime-pack.json", names)
-            self.assertFalse(any("/packs/linux/" in name or "/packs/macos/" in name for name in names))
             self.assertIn("clayz-presentation-skills/runtime/runtime-lock.json", names)
+            self.assertFalse(any("/experience/" in name or "/assets/showcase/" in name for name in names))
+            self.assertFalse(any(name.endswith(".whl") for name in names))
+
+            wheel_dir = temporary_root / "wheels" / "windows"
+            wheel_dir.mkdir(parents=True)
+            for distribution, dependency_version in module.REQUIRED_DISTRIBUTIONS.items():
+                filename = f"{distribution.replace('-', '_')}-{dependency_version}-py3-none-any.whl"
+                with zipfile.ZipFile(wheel_dir / filename, "w") as wheel:
+                    wheel.writestr(
+                        f"{distribution.replace('-', '_')}-{dependency_version}.dist-info/licenses/LICENSE",
+                        "synthetic permissive license\n",
+                    )
+            offline = module.build_offline("windows", temporary_root / "wheels", temporary_root, version)
+            with zipfile.ZipFile(offline) as package:
+                offline_names = set(package.namelist())
+                lock = package.read("clayz-presentation-skills-offline/requirements.lock").decode("utf-8")
+            self.assertIn("clayz-presentation-skills-offline/offline-pack.json", offline_names)
+            self.assertIn("clayz-presentation-skills-offline/install_offline_dependencies.py", offline_names)
+            self.assertEqual(sum(name.endswith(".whl") for name in offline_names), len(module.REQUIRED_DISTRIBUTIONS))
+            self.assertIn("--hash=sha256:", lock)
+
+    def test_release_audit_rejects_private_brand_text(self) -> None:
+        module = load_module("build_runtime_packs_brand_audit", ROOT / "scripts" / "build_runtime_packs.py")
+        with tempfile.TemporaryDirectory() as temporary:
+            archive = Path(temporary) / "candidate.zip"
+            with zipfile.ZipFile(archive, "w") as package:
+                package.writestr("package/readme.txt", "ping" + "an")
+            with self.assertRaises(ValueError):
+                module.audit_archive(archive)
+            self.assertFalse(archive.exists())
 
     def test_python_adapter_builds_editable_synthetic_deck(self) -> None:
         if importlib.util.find_spec("pptx") is None:

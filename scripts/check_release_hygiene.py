@@ -33,9 +33,10 @@ TEXT_SUFFIXES = {".md", ".py", ".js", ".mjs", ".html", ".css", ".json", ".jsonl"
 DEFAULT_DENYLIST: list[str] = []
 PUBLIC_OUTPUT_MANIFEST = Path("experience/case-manifest.json")
 PUBLIC_OUTPUT_ROOT = Path("experience/assets/decks")
-LEGACY_PUBLIC_OUTPUTS = {Path("clayz-four-slide-showcase.pptx")}
+LEGACY_PUBLIC_OUTPUTS: set[Path] = set()
 MAX_PUBLIC_OUTPUT_BYTES = 25 * 1024 * 1024
 MAX_PUBLIC_OUTPUT_XML_BYTES = 20 * 1024 * 1024
+LOCAL_BUILD_PARTS = {"dist", "build", ".release-cache", ".tmp"}
 
 
 def load_denylist(path: Path | None) -> list[str]:
@@ -160,6 +161,8 @@ def scan(root: Path, denylist: list[str]) -> list[dict[str, str]]:
         if ".git" in path.parts:
             continue
         relative = path.relative_to(root)
+        if any(part in LOCAL_BUILD_PARTS for part in relative.parts):
+            continue
         if path.is_dir():
             if path.name == "__pycache__":
                 findings.append(_finding(relative, "python-cache", path.name))

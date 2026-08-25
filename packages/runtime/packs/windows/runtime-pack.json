@@ -2,6 +2,10 @@
   "contract": "io.clayz.presentation.runtime-pack/1.0",
   "pack_id": "windows",
   "platform": "windows",
+  "offline_dependency_pack": {
+    "python": "CPython 3.12",
+    "architectures": ["x86-64"]
+  },
   "authoring": {
     "primary": "python-pptx",
     "alternatives": ["powerpoint-com", "artifact-tool"]

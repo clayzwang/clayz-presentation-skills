@@ -2,6 +2,11 @@
   "contract": "io.clayz.presentation.runtime-pack/1.0",
   "pack_id": "common",
   "platform": "any",
+  "distribution": {
+    "light_archive": "clayz-presentation-skills-{version}-light.zip",
+    "third_party_wheels_in_light_archive": false,
+    "offline_addons": "separate by operating system; CPython 3.12"
+  },
   "bundled": [
     "five Clayz skills",
     "contracts, validators, layout and pattern runtimes",

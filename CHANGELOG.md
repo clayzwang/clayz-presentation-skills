@@ -11,7 +11,8 @@ All notable public changes are recorded here. This project follows Semantic Vers
 - Add a host-model-independent baseline authoring chain using the public render-manifest contract and a public python-pptx adapter.
 - Add one-shot runtime preflight, A–D capability-based interaction profiles, fixed route locking, and explicit no-mid-run-switch guards.
 - Add bounded production budgets for source collection, authoring writes, persistent Office processes, full renders, one targeted repair, and one fallback restart.
-- Add common, Windows, macOS, and Linux runtime packs plus deterministic local ZIP packaging without bundling unreviewed third-party binaries.
+- Ship one light plugin archive with no third-party wheels, plus separate Windows, macOS, and Linux CPython 3.12 offline dependency archives containing reviewed, hash-locked wheels and retained license metadata.
+- Add archive-level release audits that reject private corporate showcase names or text after packaging, and keep Experience Center cases, presentation files, and showcase media outside every plugin release archive.
 - Keep PDF and Poppler lazy: ordinary PPTX authoring no longer implies PDF tooling, while PDF input and LibreOffice PDF-to-PNG QA declare it explicitly.
 
 ## 0.5.0 — 2026-08-24

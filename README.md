@@ -24,8 +24,6 @@ The same system can adapt its visual language to the task while preserving hiera
 
 ![BCG-style consulting presentation example](assets/showcase/bcg-demo.png)
 
-![Ping An 2026 H1 business results presentation example](assets/showcase/pingan-demo.png)
-
 > Showcase slides demonstrate presentation-generation capability and visual adaptation. Brand names shown in examples belong to their respective owners and do not imply affiliation or endorsement.
 
 **[Explore the interactive Experience Center →](https://clayzwang.github.io/clayz-presentation-skills/)**
@@ -183,7 +181,8 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 - Run `scripts/runtime_preflight.py` exactly once per production run. It classifies A–D interaction capabilities, scans dependencies, locks one authoring/render route, and records the configured call budgets. Model brands are not part of the classification.
 - Full production QA uses one persistent PowerPoint COM process on Windows or one LibreOffice process on macOS/Linux. A host-provided Artifact Tool remains optional.
 - PDF and Poppler are lazy dependencies: they are needed for PDF page input or a selected LibreOffice PDF-to-PNG render path, not ordinary PPTX authoring.
-- Build local OS-specific plugin archives with `python scripts/build_runtime_packs.py`. The archives contain the plugin source and platform launchers, but no unreviewed third-party binaries.
+- Run `python scripts/build_runtime_packs.py --bundle light` to create the single light plugin archive. It contains no third-party wheels, Experience Center cases, presentation files, or showcase media.
+- Optional CPython 3.12 offline dependencies are separate Windows, macOS, and Linux add-on archives. Maintainers fetch reviewed wheels with `scripts/fetch_offline_wheels.py`, then build all release files with `scripts/build_runtime_packs.py`; exact targets, installation, hashes, and licensing are documented in [`docs/release-packages.md`](docs/release-packages.md).
 - C and D models use the same internal contracts through an adapter; users continue to interact in natural language and never need to author render manifests or preflight JSON.
 - MCP is optional. A capable model host can read the skills and call local tools directly; add MCP only when you want a portable interface to remote storage, search, rendering, or another external service.
 
@@ -231,4 +230,3 @@ For the reference-architecture synthesis method, Clayz also thanks the architect
 ## License and citation
 
 Licensed under Apache-2.0. See `NOTICE`, `CITATION.cff`, and `provenance/THIRD_PARTY_NOTICES.md`.
-
