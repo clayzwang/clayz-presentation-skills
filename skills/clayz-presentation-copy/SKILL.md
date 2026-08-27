@@ -15,13 +15,14 @@ Do not change Logic-approved facts, claims, relationships, page responsibilities
 
 ## Required context
 
-1. Resolve the central configuration from an explicit task path or `../../config/default.json`.
+1. Resolve the central configuration in one order only: use an explicit task configuration when supplied; otherwise, when `../../runtime/personal-extension.json` exists, treat it as the generated **Personal Extension Runtime**, validate its lock and resolved config hash with `../../scripts/validate_personal_extension.py`, and use the config path named there; otherwise use `../../config/default.json`. Do not re-resolve or change the extension route after Logic.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Validate the Logic package before editing copy.
 4. Read `references/copy-package-contract.md`. This core contract is mandatory and never search-dependent.
 5. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-6. Classify optional Copy signals and resolve them through the built-in Capability Index. For nested meaning or multiple renderable units, use signals such as `nested-meaning` or `atomic-copy` rather than hard-coding an optional reference read.
-7. Load only optional `knowledge_refs` returned by selected capability records. Preserve the resolution and retrieval receipt IDs; unresolved signals remain explicit gaps and never trigger invented guidance.
+6. Reuse the one task Provider lock created before Logic; it always contains the bundled public Provider and may contain owner-private Providers whose declared stages include Copy. Do not rescan either Library, change mounts, or replace a Provider snapshot mid-run.
+7. Classify optional Copy signals and resolve them through the built-in Capability Index. For nested meaning or multiple renderable units, use signals such as `nested-meaning` or `atomic-copy` rather than hard-coding an optional reference read.
+8. Load only optional `knowledge_refs` returned by selected capability records. Preserve the resolution and retrieval receipt IDs; unresolved signals remain explicit gaps and never trigger invented guidance.
 
 ## Workflow
 

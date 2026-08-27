@@ -6,6 +6,17 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.5.2 — 2026-08-28
+
+- Add a Personal Extension Profile contract with allowlisted replace, append-unique, and stricter-only policies while sealing the public five-stage workflow and release identity.
+- Add one shared Provider manifest contract, an immutable bundled public manifest/index, owner-private manifests, logical mounts, host bindings, deterministic resolved-config/origin mapping, and one task route shared by all five stages.
+- Build Cloud Public Light and Local Public Light from one public-core digest; Cloud Light treats ChatGPT tools as the execution body and omits local adapters and platform packs.
+- Add inspected host-capability input so Cloud Light can lock an available `native-presentation-tool` route without assuming or bundling ChatGPT tools.
+- Add a private cloud composer that attaches a resolved Profile and private Library routes to Cloud Public Light while keeping real profiles, private indexes, attachments, masters, fonts, and cases outside the public repository and ZIP.
+- Add explicit ChatGPT Library structure and update rules so local and cloud physical paths may differ without changing logical references or stage behavior.
+- Keep public materials and their canonical index available; defer only the methods for public-material continuous learning, community aggregation, automatic update, and cross-source fusion, plus Task Overlay, remote MCP Providers, and automatic private Library ingestion.
+- Publish a Windows-first local release plus Cloud Public Light; no macOS, Linux, or iOS package is produced or claimed as validated in this release.
+- Replace organization-specific release checks in public source with a repository-external denylist consumed by local validation and GitHub Actions.
 ## 0.5.1 — 2026-08-25
 
 - Add a host-model-independent baseline authoring chain using the public render-manifest contract and a public python-pptx adapter.

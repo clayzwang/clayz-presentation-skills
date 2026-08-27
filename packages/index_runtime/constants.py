@@ -20,8 +20,8 @@ RECORD_TYPES = {
 }
 STAGES = {"logic", "copy", "art-direction", "output", "supervisor", "shared"}
 RIGHTS_CONTEXTS = {"private-runtime", "public-open-source"}
-REDISTRIBUTION = {"allowed", "metadata-only", "local-private", "forbidden"}
-MATERIALIZATION = {"allowed", "local-only", "forbidden"}
+REDISTRIBUTION = {"allowed", "metadata-only", "local-private", "owner-private", "forbidden"}
+MATERIALIZATION = {"allowed", "local-only", "owner-private", "forbidden"}
 QUALITY_STATES = {"observation", "admitted", "rejected", "deprecated"}
 HIGH_RISK_BRAND_ASSET_CLASSES = {"template", "master", "font", "brand-kit"}
 

@@ -9,7 +9,7 @@ The structure has four stage-specific learning areas and one shared source-and-i
 - `learning/art-direction/` records reusable visual judgment and regression observations.
 - `learning/output/` records reusable implementation and compatibility observations.
 - `sources/` and `registry/` store shared materials and their searchable, human-governed metadata.
-- `index/` receives a generated local lexical index; the generated file is ignored by Git.
+- `index/` receives a generated local lexical search cache; the generated file is ignored by Git and is not a canonical Provider index.
 
 Supervisor deliberately has no separate learning silo. It reads all approved artifacts and rendered evidence, records findings in task outputs, and returns reusable observations to the responsible stage.
 
@@ -23,7 +23,7 @@ Supervisor deliberately has no separate learning silo. It reads all approved art
 
 ## Operational commands
 
-`scripts/knowledge_cli.py` registers sources, records human admission, builds the local index, searches admitted material, and appends non-promoted learning observations. A learning observation enters the v2 index only after a separate admission binds its exact canonical SHA-256; editing it invalidates the admission. Paths and retrieval limits come from `config/default.json`; no knowledge content is embedded in the skill files.
+`scripts/knowledge_cli.py` registers sources, records human admission, builds the derived local search cache, searches admitted material, and appends non-promoted learning observations. A learning observation enters that cache only after a separate admission binds its exact canonical SHA-256; editing it invalidates the admission. Paths and retrieval limits come from `config/default.json`; no knowledge content is embedded in the skill files. A Library connected through Personal Extension uses admitted `IndexRecord` JSONL plus the shared Provider manifest contract as its canonical index.
 
 Stage 5 also supplies a generic private learning provider, fixed-snapshot
 retrieval benchmark, and fail-closed legacy migration. None of these publishes

@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -33,7 +34,19 @@ FORBIDDEN_SUFFIXES = {
     ".csv", ".tsv", ".parquet", ".xlsx", ".xls",
     ".ckpt", ".safetensors", ".pt", ".pth", ".onnx",
 }
-FORBIDDEN_BRAND_TERMS = ("\u5e73\u5b89", "ping " + "an", "ping" + "an")
+
+
+def _release_denylist() -> tuple[str, ...]:
+    configured = os.environ.get("CLAYZ_RELEASE_DENYLIST")
+    if not configured:
+        return ()
+    return tuple(
+        dict.fromkeys(
+            line.strip().casefold()
+            for line in Path(configured).read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        )
+    )
 
 
 def _fail(message: str) -> None:
@@ -41,6 +54,7 @@ def _fail(message: str) -> None:
 
 
 def main() -> int:
+    denylist = _release_denylist()
     for relative, expected_id in SCHEMAS.items():
         document = json.loads((ROOT / relative).read_text(encoding="utf-8"))
         if document.get("$schema") != "https://json-schema.org/draft/2020-12/schema" or document.get("$id") != expected_id:
@@ -53,8 +67,8 @@ def main() -> int:
                 _fail(f"Stage 4 public catalog contains forbidden asset: {path.relative_to(ROOT)}")
             if path.is_file():
                 text = path.read_text(encoding="utf-8").casefold()
-                if any(term in text for term in FORBIDDEN_BRAND_TERMS):
-                    _fail(f"Stage 4 public catalog contains forbidden brand-specific text: {path.relative_to(ROOT)}")
+                if any(term in text for term in denylist):
+                    _fail(f"Stage 4 public catalog contains repository-external denylist text: {path.relative_to(ROOT)}")
 
     provider = IndexProvider.from_jsonl("builtin-catalog", ROOT / "catalog" / "records.jsonl")
     try:

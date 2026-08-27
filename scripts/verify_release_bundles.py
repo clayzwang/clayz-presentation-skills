@@ -33,10 +33,12 @@ def _checksum_map(path: Path) -> dict[str, str]:
     return result
 
 
-def verify_light(path: Path) -> list[str]:
+def verify_light(path: Path, target: str) -> list[str]:
     errors: list[str] = []
     with zipfile.ZipFile(path) as archive:
         names = archive.namelist()
+        lock_name = f"{builder.LIGHT_ROOT}/runtime/runtime-lock.json"
+        lock = json.loads(archive.read(lock_name)) if lock_name in names else {}
     for name in names:
         folded = name.casefold()
         if name.endswith(".whl"):
@@ -48,6 +50,10 @@ def verify_light(path: Path) -> list[str]:
     required = f"{builder.LIGHT_ROOT}/runtime/runtime-lock.json"
     if required not in names:
         errors.append(f"light archive missing {required}")
+    if lock.get("bundle") != f"{target}-public-light":
+        errors.append(f"{path.name}: wrong light target lock")
+    if target == "cloud" and any("/packages/adapters/" in name or "/packages/runtime/packs/" in name for name in names):
+        errors.append(f"{path.name}: cloud light contains local execution payload")
     return errors
 
 
@@ -92,11 +98,11 @@ def verify_offline(path: Path, platform_name: str) -> list[str]:
     return errors
 
 
-def verify(root: Path) -> list[str]:
+def verify(root: Path, platforms: tuple[str, ...] = builder.DEFAULT_RELEASE_PLATFORMS) -> list[str]:
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-    expected = [f"clayz-presentation-skills-{version}-light.zip"] + [
+    expected = [f"clayz-presentation-skills-{version}-{target}-light.zip" for target in builder.LIGHT_TARGETS] + [
         f"clayz-presentation-skills-{version}-offline-{platform_name}-py312.zip"
-        for platform_name in builder.OFFLINE_TARGETS
+        for platform_name in platforms
     ]
     errors: list[str] = []
     checksum_path = root / "SHA256SUMS.txt"
@@ -107,7 +113,10 @@ def verify(root: Path) -> list[str]:
     except (OSError, ValueError) as exc:
         return [str(exc)]
     if set(checksums) != set(expected):
-        errors.append("SHA256SUMS.txt does not list exactly the four release archives")
+        errors.append(
+            "SHA256SUMS.txt does not list exactly the two light archives and "
+            f"the selected offline add-ons: {', '.join(platforms)}"
+        )
     for filename in expected:
         path = root / filename
         if not path.is_file():
@@ -122,7 +131,8 @@ def verify(root: Path) -> list[str]:
             errors.append(f"archive audit failed for {filename}: {exc}")
             continue
         if filename.endswith("-light.zip"):
-            errors.extend(verify_light(path))
+            target = next(name for name in builder.LIGHT_TARGETS if f"-{name}-light.zip" in filename)
+            errors.extend(verify_light(path, target))
         else:
             platform_name = next(name for name in builder.OFFLINE_TARGETS if f"-offline-{name}-" in filename)
             errors.extend(verify_offline(path, platform_name))
@@ -132,8 +142,10 @@ def verify(root: Path) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("root", nargs="?", type=Path, default=ROOT / "dist")
+    parser.add_argument("--platform", choices=["windows", "macos", "linux", "all"], default="windows")
     args = parser.parse_args()
-    errors = verify(args.root.resolve())
+    platforms = tuple(builder.OFFLINE_TARGETS) if args.platform == "all" else (args.platform,)
+    errors = verify(args.root.resolve(), platforms)
     print(json.dumps({"ok": not errors, "errors": errors}, ensure_ascii=False, indent=2))
     return 1 if errors else 0
 

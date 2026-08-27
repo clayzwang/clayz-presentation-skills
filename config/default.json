@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.5.1",
+        "ClayzVersion": "0.5.2",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -92,13 +92,17 @@
     "cardification_policy": "evidence-required"
   },
   "references": {
-    "provider": "filesystem",
+    "provider_contract": "packages/contracts/provider-manifest.schema.json",
+    "public_provider_manifest": "catalog/provider-manifest.json",
+    "public_index": "catalog/records.jsonl",
+    "local_library_adapter": "filesystem",
     "roots": ["knowledge/sources"],
     "registry": "knowledge/registry/asset-registry.jsonl",
     "admission_registry": "knowledge/registry/admitted-references.jsonl",
     "index": {
+      "role": "derived-local-search-cache",
       "engine": "bm25-lexical",
-      "path": "knowledge/index/search-index.json",
+      "path": "knowledge/index/search-cache.json",
       "maximum_results": 5,
       "physical_neighbor_expansion": 2,
       "semantic_neighbor_expansion": 3

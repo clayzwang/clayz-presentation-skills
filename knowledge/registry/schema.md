@@ -55,6 +55,6 @@ Retrieval requires a separate row in `admitted-references.jsonl` whose
 `subject_sha256` matches the unchanged record. Source records never promote
 themselves.
 
-## Generated `search-index.json`
+## Generated `search-cache.json`
 
-`scripts/knowledge_cli.py build-index` writes the configured v2 index path. Only unchanged assets and unchanged learning records with matching human-admission rows are included. The index preserves `record_type`, `source_type`, and responsible `stage`. Text-like sources receive local BM25-style lexical tokens; PPTX, PDF, and image assets expose registered metadata only unless an authorized host adapter supplies extraction. The generated index is runtime state and is not committed.
+`scripts/knowledge_cli.py build-index` writes the configured v2 cache path. Only unchanged assets and unchanged learning records with matching human-admission rows are included. The cache preserves `record_type`, `source_type`, and responsible `stage`. Text-like sources receive local BM25-style lexical tokens; PPTX, PDF, and image assets expose registered metadata only unless an authorized host adapter supplies extraction. The generated cache is runtime state, is not a canonical Provider index, and is not committed.

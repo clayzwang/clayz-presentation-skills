@@ -80,13 +80,22 @@ def validate(config: dict[str, Any]) -> list[str]:
         errors.append("layout.column_count: expected positive integer")
 
     references = require_mapping(config.get("references"), "references", errors)
-    if references.get("provider") != "filesystem":
-        errors.append("references.provider: public default must be filesystem")
+    if references.get("provider_contract") != "packages/contracts/provider-manifest.schema.json":
+        errors.append("references.provider_contract: expected the shared Provider manifest schema")
+    if references.get("public_provider_manifest") != "catalog/provider-manifest.json":
+        errors.append("references.public_provider_manifest: expected the bundled public Provider manifest")
+    if references.get("public_index") != "catalog/records.jsonl":
+        errors.append("references.public_index: expected the canonical public index")
+    if references.get("local_library_adapter") != "filesystem":
+        errors.append("references.local_library_adapter: public default must be filesystem")
     roots = references.get("roots")
     if not isinstance(roots, list) or not roots or not all(isinstance(item, str) and item for item in roots):
         errors.append("references.roots: expected non-empty relative-path array")
         roots = []
-    path_values = [*roots, references.get("registry"), references.get("admission_registry")]
+    path_values = [
+        references.get("provider_contract"), references.get("public_provider_manifest"), references.get("public_index"),
+        *roots, references.get("registry"), references.get("admission_registry"),
+    ]
     index = require_mapping(references.get("index"), "references.index", errors)
     path_values.append(index.get("path"))
     learning = require_mapping(references.get("learning"), "references.learning", errors)
@@ -110,6 +119,8 @@ def validate(config: dict[str, Any]) -> list[str]:
         errors.append("references.maximum_unique_examples_per_deck: expected positive integer")
     if index.get("engine") != "bm25-lexical":
         errors.append("references.index.engine: public default must be bm25-lexical")
+    if index.get("role") != "derived-local-search-cache":
+        errors.append("references.index.role: must distinguish the local cache from canonical Provider indexes")
     for key in ("maximum_results", "physical_neighbor_expansion", "semantic_neighbor_expansion"):
         if not isinstance(index.get(key), int) or index.get(key, -1) < (1 if key == "maximum_results" else 0):
             errors.append(f"references.index.{key}: invalid retrieval limit")

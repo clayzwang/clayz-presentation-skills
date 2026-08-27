@@ -158,6 +158,26 @@ class IndexRuntimeTests(unittest.TestCase):
         self.assertTrue(receipt["candidates"][0]["materializable"])
         self.assertEqual(receipt["candidates"][0]["rights_decision"], "private-runtime-allowed")
 
+    def test_owner_private_asset_is_available_to_local_or_cloud_private_runtime_only(self) -> None:
+        private_reference = record(
+            "reference.owner-private.cloud",
+            provider_id="owner-private-library",
+            record_type="reference",
+            title="Owner-private cloud reference",
+            summary="A private reference available only inside the owner's selected runtime.",
+            asset_class="document",
+            brand_scope="brand-specific",
+            redistribution="owner-private",
+            materialization="owner-private",
+            public_catalog_eligible=False,
+        )
+        runtime = CompositeIndex([IndexProvider.from_records("owner-private-library", [private_reference])])
+        public_receipt = runtime.search(request(query="owner private cloud reference"))
+        self.assertEqual(public_receipt["candidates"], [])
+        private_receipt = runtime.search(request(context="private-runtime", query="owner private cloud reference"))
+        self.assertEqual(private_receipt["candidates"][0]["record_id"], "reference.owner-private.cloud")
+        self.assertTrue(private_receipt["candidates"][0]["materializable"])
+
     def test_metadata_only_records_are_non_materializable(self) -> None:
         reference = record(
             "reference.external.metadata",

@@ -15,13 +15,14 @@ Do not finalize wording, punctuation, line breaks, typography, composition, them
 
 ## Required context
 
-1. Resolve the central configuration from an explicit task path or `../../config/default.json`.
+1. Resolve the central configuration in one order only: use an explicit task configuration when supplied; otherwise, when `../../runtime/personal-extension.json` exists, treat it as the generated **Personal Extension Runtime**, validate its lock and resolved config hash with `../../scripts/validate_personal_extension.py`, and use the config path named there; otherwise use `../../config/default.json`. The extension decision happens once before Logic and never creates another workflow stage.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Record the configuration SHA-256 as `configuration_sha256`.
 4. Read `references/logic-package-contract.md` for the package contract. This core contract is mandatory and never search-dependent.
 5. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-6. Classify optional capability signals before loading optional references. Resolve them through the built-in Capability Index and retain the capability resolution plus retrieval receipt IDs. Typical signals include `evidence-research`, `audited-calculation`, `complex-relationships`, and `repeated-series`.
-7. Load only the optional `knowledge_refs` returned by selected capability records. If a signal is unresolved, record it explicitly and continue with core contracts or return the gap; never invent a capability or silently substitute unrelated guidance.
+6. Load the bundled public Provider declared by the resolved configuration or Personal Extension Runtime and bind its immutable snapshot first. When the extension is enabled, add only owner-private Providers whose declared stages include Logic. Read each private manifest once through its selected logical mount, lock the current snapshot in the same task evidence, and build one `CompositeIndex`; a required missing Provider fails closed, while an optional missing Provider records public-core fallback.
+7. Classify optional capability signals before loading optional references. Resolve them through the built-in Capability Index and retain the capability resolution plus retrieval receipt IDs. Typical signals include `evidence-research`, `audited-calculation`, `complex-relationships`, and `repeated-series`.
+8. Load only the optional `knowledge_refs` returned by selected capability records. If a signal is unresolved, record it explicitly and continue with core contracts or return the gap; never invent a capability or silently substitute unrelated guidance.
 
 ## Workflow
 

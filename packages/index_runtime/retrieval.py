@@ -54,7 +54,7 @@ class CompositeIndex:
         if context == "public-open-source":
             if not governance.get("public_catalog_eligible"):
                 return False, False, "not-public-catalog-eligible"
-            if redistribution in {"local-private", "forbidden"}:
+            if redistribution in {"local-private", "owner-private", "forbidden"}:
                 return False, False, "redistribution-not-allowed"
             if asset_class in HIGH_RISK_BRAND_ASSET_CLASSES and brand_scope == "brand-specific":
                 if redistribution != "allowed" or materialization != "allowed":
@@ -72,7 +72,7 @@ class CompositeIndex:
             if not include_metadata_only:
                 return False, False, "metadata-only-disabled"
             return True, False, "metadata-only"
-        return True, materialization in {"allowed", "local-only"}, "private-runtime-allowed"
+        return True, materialization in {"allowed", "local-only", "owner-private"}, "private-runtime-allowed"
 
     @staticmethod
     def _matches_filter(record: Mapping[str, Any], request: Mapping[str, Any]) -> tuple[bool, list[str]]:

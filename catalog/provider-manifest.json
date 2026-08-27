@@ -1,0 +1,26 @@
+{
+  "$schema": "../packages/contracts/provider-manifest.schema.json",
+  "contract": "io.clayz.presentation.provider-manifest/1.0",
+  "provider_id": "builtin-catalog",
+  "visibility": "public",
+  "rights_context": "public-open-source",
+  "human_admission_required": true,
+  "allowed_hosts": ["local", "chatgpt-personal"],
+  "index": {
+    "record_contract": "io.clayz.presentation.index-record/1.0",
+    "format": "jsonl",
+    "uri": "bundle://public-library/catalog/records.jsonl",
+    "refresh_policy": "immutable-release",
+    "snapshot": {
+      "provider_id": "builtin-catalog",
+      "digest": "e5d8253d19c3a0b738156d0eaeb49169f11eca467fd4222a972a3db819054f67",
+      "record_count": 24
+    }
+  },
+  "evolution_methods": {
+    "continuous_learning": "deferred",
+    "community_aggregation": "deferred",
+    "automatic_update": "deferred",
+    "cross_source_fusion": "deferred"
+  }
+}

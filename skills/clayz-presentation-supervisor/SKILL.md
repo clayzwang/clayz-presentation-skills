@@ -15,12 +15,13 @@ Do not rewrite Logic or Copy, select a replacement composition, modify the PPTX,
 
 ## Required context
 
-1. Resolve the central configuration from an explicit task path or `../../config/default.json`.
+1. Resolve the central configuration in one order only: use an explicit task configuration when supplied; otherwise, when `../../runtime/personal-extension.json` exists, treat it as the generated **Personal Extension Runtime**, validate its lock and resolved config hash with `../../scripts/validate_personal_extension.py`, and use the config path named there; otherwise use `../../config/default.json`. Bind the extension digest without creating a separate private supervision authority.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Read `references/supervision-contract.md` and `references/failure-pattern-routing.md`. These authority and routing contracts are mandatory and never search-dependent; the existence of a matching Failure Pattern is search-dependent.
 4. Read `../../packages/contracts/knowledge-learning.md` and the locale-matched `references/feedback-index-routing.md` before routing reusable observations. These governance contracts are mandatory and never search-dependent.
-5. Classify optional audit signals and resolve them through the built-in Capability Index. Typical signals include `plan-object-render`, `medium-fidelity`, `runtime-conflict`, `environment-observation`, `interaction-failure`, `retry-loop`, `execution-ledger`, and `failure-recovery`.
-6. Load only optional `knowledge_refs` returned by selected capability records. Resolve an optional Failure Pattern only from observed evidence and keep its retrieval receipt ID. Unresolved signals stay explicit and never authorize invented diagnoses, repair methods, or silent intervention.
+5. Verify that every stage used the same runtime lock and task Provider snapshots, including the bundled public Provider. When the Personal Extension Runtime is enabled, include only owner-private Providers whose declared stages include Supervisor; never treat a private record as stronger evidence merely because it is private.
+6. Classify optional audit signals and resolve them through the built-in Capability Index. Typical signals include `plan-object-render`, `medium-fidelity`, `runtime-conflict`, `environment-observation`, `interaction-failure`, `retry-loop`, `execution-ledger`, and `failure-recovery`.
+7. Load only optional `knowledge_refs` returned by selected capability records. Resolve an optional Failure Pattern only from observed evidence and keep its retrieval receipt ID. Unresolved signals stay explicit and never authorize invented diagnoses, repair methods, or silent intervention.
 
 ## Workflow
 

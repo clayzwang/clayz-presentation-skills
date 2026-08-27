@@ -27,8 +27,8 @@
       "required": ["route_id", "authoring_backend", "render_backend", "available", "missing_capabilities", "host_model_private_tool_required", "locked"],
       "properties": {
         "route_id": {"type": "string"},
-        "authoring_backend": {"enum": ["python-pptx", "artifact-tool", "powerpoint-com", "spec-only"]},
-        "render_backend": {"enum": ["powerpoint-com", "libreoffice", "artifact-tool", "none"]},
+        "authoring_backend": {"enum": ["native-presentation-tool", "python-pptx", "artifact-tool", "powerpoint-com", "spec-only"]},
+        "render_backend": {"enum": ["native-presentation-tool", "powerpoint-com", "libreoffice", "artifact-tool", "none"]},
         "available": {"type": "boolean"},
         "missing_capabilities": {"type": "array", "items": {"type": "string"}},
         "host_model_private_tool_required": {"type": "boolean"},

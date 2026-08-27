@@ -15,15 +15,16 @@ Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page
 
 ## Required context
 
-1. Resolve the central configuration from an explicit task path or `../../config/default.json`.
+1. Resolve the central configuration in one order only: use an explicit task configuration when supplied; otherwise, when `../../runtime/personal-extension.json` exists, treat it as the generated **Personal Extension Runtime**, validate its lock and resolved config hash with `../../scripts/validate_personal_extension.py`, and use the config path named there; otherwise use `../../config/default.json`. Do not create a private Art Direction fork.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Validate the copy-approved package.
 4. Read `references/art-direction-plan-contract.md` and `references/material-routes.md`. These core contracts are mandatory and never search-dependent.
 5. Read `references/layout-contract-routing.md` and `references/pattern-library-routing.md`. These routing boundaries are mandatory and never search-dependent; the existence of a matching registered Layout Contract, Composition Pattern, Failure Pattern, Reference, or Sequence is search-dependent.
 6. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-7. Classify optional visual signals, then resolve them through the built-in Capability Index. Supported examples include `image-led`, `image-copy-conflict`, `asset-selection`, `template-candidate`, `icon-selection`, `high-risk-composition`, `ab-review`, `large-reference-set`, `reference-discovery`, `architecture-house`, and `enterprise-architecture`.
-8. Load only optional `knowledge_refs` returned by selected capability records. Architecture-house routing may return the source index and pattern library together with its method reference; this is a governed capability bundle, not a template lookup.
-9. Preserve every capability, Layout Contract, and Composition Pattern resolution plus retrieval receipt ID as task-local evidence. If a signal, contract, pattern, or linked failure record has no eligible record, mark it unresolved and use core contracts or return the gap; never invent a layout method, reference, template, contract, pattern, failure diagnosis, or brand asset.
+7. Reuse the one task Provider lock created before Logic; it always contains the bundled public Provider and may contain owner-private Providers whose declared stages include Art Direction. Private references remain governed index candidates; they do not bypass human admission, rights, hash, receipt, or `never_copy` checks.
+8. Classify optional visual signals, then resolve them through the built-in Capability Index. Supported examples include `image-led`, `image-copy-conflict`, `asset-selection`, `template-candidate`, `icon-selection`, `high-risk-composition`, `ab-review`, `large-reference-set`, `reference-discovery`, `architecture-house`, and `enterprise-architecture`.
+9. Load only optional `knowledge_refs` returned by selected capability records. Architecture-house routing may return the source index and pattern library together with its method reference; this is a governed capability bundle, not a template lookup.
+10. Preserve every capability, Layout Contract, and Composition Pattern resolution plus retrieval receipt ID as task-local evidence. If a signal, contract, pattern, or linked failure record has no eligible record, mark it unresolved and use core contracts or return the gap; never invent a layout method, reference, template, contract, pattern, failure diagnosis, or brand asset.
 
 ## Workflow
 

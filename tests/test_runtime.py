@@ -74,19 +74,47 @@ class RuntimeTests(unittest.TestCase):
         self.assertTrue(report["selected_route"]["available"])
         self.assertFalse(report["selected_route"]["host_model_private_tool_required"])
 
+    def test_chatgpt_host_tools_form_the_cloud_execution_body(self) -> None:
+        module = load_module("preflight_cloud_host", ROOT / "packages" / "runtime" / "preflight.py")
+        config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
+        capabilities = list(config["renderer"]["required_capabilities"]) + ["svg", "speaker-notes"]
+        with (
+            mock.patch.object(module, "_module", return_value=False),
+            mock.patch.object(module, "_artifact_tool", return_value={"available": False, "node": None, "node_modules": None, "bin_dir": None, "package": None}),
+            mock.patch.object(module, "_windows_powerpoint", return_value={"available": False, "evidence": None}),
+            mock.patch.object(module, "_command", return_value=None),
+        ):
+            report = module.build_preflight_report(
+                config,
+                model_profile="A",
+                host_capabilities={"host": "chatgpt-personal", "available": True, "capabilities": capabilities},
+            )
+        self.assertEqual(report["dependencies"]["host_tools"]["host"], "chatgpt-personal")
+        self.assertEqual(report["selected_route"]["route_id"], "native-presentation-tool+native-presentation-tool")
+        self.assertTrue(report["selected_route"]["available"])
+
     def test_release_builder_separates_light_plugin_and_offline_wheels(self) -> None:
         module = load_module("build_runtime_packs_unit", ROOT / "scripts" / "build_runtime_packs.py")
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         with tempfile.TemporaryDirectory() as temporary:
             temporary_root = Path(temporary)
-            light = module.build_light(temporary_root, version)
-            with zipfile.ZipFile(light) as package:
-                names = set(package.namelist())
-            self.assertIn("clayz-presentation-skills/packages/runtime/packs/windows/runtime-pack.json", names)
-            self.assertIn("clayz-presentation-skills/packages/runtime/packs/common/runtime-pack.json", names)
-            self.assertIn("clayz-presentation-skills/runtime/runtime-lock.json", names)
-            self.assertFalse(any("/experience/" in name or "/assets/showcase/" in name for name in names))
-            self.assertFalse(any(name.endswith(".whl") for name in names))
+            local_light = module.build_light(temporary_root, version, "local")
+            cloud_light = module.build_light(temporary_root, version, "cloud")
+            with zipfile.ZipFile(local_light) as package:
+                local_names = set(package.namelist())
+                local_lock = json.loads(package.read("clayz-presentation-skills/runtime/runtime-lock.json"))
+            with zipfile.ZipFile(cloud_light) as package:
+                cloud_names = set(package.namelist())
+                cloud_lock = json.loads(package.read("clayz-presentation-skills/runtime/runtime-lock.json"))
+            self.assertIn("clayz-presentation-skills/packages/runtime/packs/windows/runtime-pack.json", local_names)
+            self.assertIn("clayz-presentation-skills/packages/runtime/packs/common/runtime-pack.json", local_names)
+            self.assertNotIn("clayz-presentation-skills/packages/runtime/packs/windows/runtime-pack.json", cloud_names)
+            self.assertFalse(any("/packages/adapters/" in name for name in cloud_names))
+            self.assertIn("clayz-presentation-skills/catalog/provider-manifest.json", cloud_names)
+            self.assertEqual(local_lock["public_core_sha256"], cloud_lock["public_core_sha256"])
+            self.assertEqual(cloud_lock["tool_boundary"], "host-provided")
+            self.assertFalse(any("/experience/" in name or "/assets/showcase/" in name for name in local_names | cloud_names))
+            self.assertFalse(any(name.endswith(".whl") for name in local_names | cloud_names))
 
             wheel_dir = temporary_root / "wheels" / "windows"
             wheel_dir.mkdir(parents=True)
@@ -106,14 +134,28 @@ class RuntimeTests(unittest.TestCase):
             self.assertEqual(sum(name.endswith(".whl") for name in offline_names), len(module.REQUIRED_DISTRIBUTIONS))
             self.assertIn("--hash=sha256:", lock)
 
-    def test_release_audit_rejects_private_brand_text(self) -> None:
+    def test_public_core_digest_ignores_python_cache_files(self) -> None:
+        module = load_module("build_runtime_packs_cache_hygiene", ROOT / "scripts" / "build_runtime_packs.py")
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_root = Path(temporary)
+            catalog = temporary_root / "catalog"
+            catalog.mkdir()
+            (catalog / "provider-manifest.json").write_text("{}\n", encoding="utf-8")
+            with mock.patch.object(module, "ROOT", temporary_root):
+                clean_digest = module.public_core_digest()
+                cache = catalog / "__pycache__"
+                cache.mkdir()
+                (cache / "provider.cpython-312.pyc").write_bytes(b"synthetic cache")
+                self.assertEqual(module.public_core_digest(), clean_digest)
+
+    def test_release_audit_rejects_external_denylist_text(self) -> None:
         module = load_module("build_runtime_packs_brand_audit", ROOT / "scripts" / "build_runtime_packs.py")
         with tempfile.TemporaryDirectory() as temporary:
             archive = Path(temporary) / "candidate.zip"
             with zipfile.ZipFile(archive, "w") as package:
-                package.writestr("package/readme.txt", "ping" + "an")
+                package.writestr("package/readme.txt", "synthetic-private-company")
             with self.assertRaises(ValueError):
-                module.audit_archive(archive)
+                module.audit_archive(archive, ("synthetic-private-company",))
             self.assertFalse(archive.exists())
 
     def test_python_adapter_builds_editable_synthetic_deck(self) -> None:

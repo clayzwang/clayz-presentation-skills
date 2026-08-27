@@ -52,7 +52,9 @@ python scripts/knowledge_cli.py admit learning <learning-record-id> \
 python scripts/knowledge_cli.py build-index
 ```
 
-生成索引使用 `io.clayz.presentation.knowledge-index/2.0`，并分别保留资产与 Learning 数量。Stage 5 的通用 Provider、Benchmark 和迁移命令见
+生成的派生检索缓存使用 `io.clayz.presentation.knowledge-index/2.0`，并分别保留资产与 Learning 数量。Stage 5 的通用 Provider、Benchmark 和迁移命令见
 [`feedback-benchmark-release-readiness.zh-CN.md`](feedback-benchmark-release-readiness.zh-CN.md)。
+
+该缓存只是资料整理工具，不是 Provider 真源。随包公共真源是 `catalog/records.jsonl`；接入 Personal Extension 的私有 Library 使用已准入的 `IndexRecord` JSONL 与 `provider-manifest.schema.json` 作为规范控制面。
 
 宿主可以更换为向量检索、映射到 ChatGPT Library 或增加 PDF/PPTX 解析器，但必须保留稳定 ID、来源/许可、人工准入、`never_copy`、哈希和禁止自动晋升的约束，并如实报告读写失败。

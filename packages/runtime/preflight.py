@@ -112,6 +112,20 @@ def _artifact_tool() -> dict[str, Any]:
     }
 
 
+def _host_tools(value: Mapping[str, Any] | None) -> dict[str, Any]:
+    raw = value or {}
+    capabilities = raw.get("capabilities", [])
+    if not isinstance(capabilities, list) or not all(isinstance(item, str) and item for item in capabilities):
+        raise ValueError("host capabilities must be a string array")
+    available = raw.get("available", False)
+    if not isinstance(available, bool):
+        raise ValueError("host capability availability must be boolean")
+    host = raw.get("host", "local")
+    if not isinstance(host, str) or not host:
+        raise ValueError("host capability host must be a non-empty string")
+    return {"host": host, "available": available, "capabilities": sorted(set(capabilities))}
+
+
 def _route_candidates(dependencies: Mapping[str, Any], required: set[str]) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     authoring_caps = {
@@ -124,21 +138,25 @@ def _route_candidates(dependencies: Mapping[str, Any], required: set[str]) -> li
         "powerpoint-com": {
             "editable-text", "editable-shapes", "tables", "images", "svg", "speaker-notes", "pptx-inspection"
         },
+        "native-presentation-tool": set(dependencies["host_tools"]["capabilities"]),
         "spec-only": {"structured-spec"},
     }
     renderer_caps = {
         "powerpoint-com": {"render-preview", "pptx-inspection"},
         "libreoffice": {"render-preview", "pptx-inspection"},
         "artifact-tool": {"render-preview", "pptx-inspection", "svg"},
+        "native-presentation-tool": set(dependencies["host_tools"]["capabilities"]),
         "none": set(),
     }
     renderers: list[tuple[str, bool]] = [
+        ("native-presentation-tool", bool(dependencies["host_tools"]["available"])),
         ("powerpoint-com", bool(dependencies["powerpoint_com"]["available"])),
         ("libreoffice", bool(dependencies["commands"]["libreoffice"])),
         ("artifact-tool", bool(dependencies["artifact_tool"]["available"])),
         ("none", True),
     ]
     authors: list[tuple[str, bool]] = [
+        ("native-presentation-tool", bool(dependencies["host_tools"]["available"])),
         ("python-pptx", bool(dependencies["python_modules"]["pptx"])),
         ("artifact-tool", bool(dependencies["artifact_tool"]["available"])),
         ("powerpoint-com", bool(dependencies["powerpoint_com"]["available"])),
@@ -160,7 +178,7 @@ def _route_candidates(dependencies: Mapping[str, Any], required: set[str]) -> li
                 "render_backend": renderer,
                 "available": not missing,
                 "missing_capabilities": missing,
-                "host_model_private_tool_required": author == "artifact-tool",
+                "host_model_private_tool_required": author in {"artifact-tool", "native-presentation-tool"},
             })
             break
     return candidates
@@ -171,12 +189,14 @@ def build_preflight_report(
     *,
     model_profile: str | None = None,
     model_capabilities: Mapping[str, Any] | None = None,
+    host_capabilities: Mapping[str, Any] | None = None,
     required_capabilities: list[str] | None = None,
 ) -> dict[str, Any]:
     profile = classify_model_profile(model_capabilities, model_profile)
     runtime = config.get("runtime", {}) if isinstance(config, Mapping) else {}
     renderer = config.get("renderer", {}) if isinstance(config, Mapping) else {}
     required = set(required_capabilities or renderer.get("required_capabilities", []))
+    resolved_host_tools = _host_tools(host_capabilities)
     dependencies = {
         "python": {"executable": sys.executable, "version": platform.python_version()},
         "python_modules": {
@@ -185,6 +205,7 @@ def build_preflight_report(
             "yaml": _module("yaml"),
         },
         "artifact_tool": _artifact_tool(),
+        "host_tools": resolved_host_tools,
         "powerpoint_com": _windows_powerpoint(),
         "commands": {
             "libreoffice": _command("soffice", "libreoffice"),

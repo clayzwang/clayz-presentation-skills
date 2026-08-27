@@ -104,19 +104,23 @@
     "references": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["provider", "roots", "registry", "admission_registry", "index", "learning", "require_human_admission", "allow_external_search", "maximum_unique_examples_per_deck"],
+      "required": ["provider_contract", "public_provider_manifest", "public_index", "local_library_adapter", "roots", "registry", "admission_registry", "index", "learning", "require_human_admission", "allow_external_search", "maximum_unique_examples_per_deck"],
       "properties": {
-        "provider": {"type": "string", "minLength": 1},
+        "provider_contract": {"const": "packages/contracts/provider-manifest.schema.json"},
+        "public_provider_manifest": {"const": "catalog/provider-manifest.json"},
+        "public_index": {"const": "catalog/records.jsonl"},
+        "local_library_adapter": {"const": "filesystem"},
         "roots": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
         "registry": {"type": "string", "minLength": 1},
         "admission_registry": {"type": "string", "minLength": 1},
         "index": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["engine", "path", "maximum_results", "physical_neighbor_expansion", "semantic_neighbor_expansion"],
+          "required": ["role", "engine", "path", "maximum_results", "physical_neighbor_expansion", "semantic_neighbor_expansion"],
           "properties": {
+            "role": {"const": "derived-local-search-cache"},
             "engine": {"const": "bm25-lexical"},
-            "path": {"const": "knowledge/index/search-index.json"},
+            "path": {"const": "knowledge/index/search-cache.json"},
             "maximum_results": {"type": "integer", "minimum": 1},
             "physical_neighbor_expansion": {"type": "integer", "minimum": 0},
             "semantic_neighbor_expansion": {"type": "integer", "minimum": 0}

@@ -1,8 +1,8 @@
 # Built-in index catalog
 
-`catalog/` contains only project-maintained contracts, original method records, and metadata that are safe to distribute with the open-source repository. It is not a template library and must not contain third-party presentation files, masters, themes, fonts, brand kits, screenshots, extracted company visual identities, datasets, or model weights.
+`catalog/` is the bundled public Library control plane. `provider-manifest.json` binds the immutable release snapshot; `records.jsonl` is its one canonical public index. The directory contains only project-maintained contracts, original method records, and metadata that are safe to distribute with the open-source repository. It is not a template library and must not contain third-party presentation files, masters, themes, fonts, brand kits, screenshots, extracted company visual identities, datasets, or model weights.
 
-The generated user knowledge index remains under `knowledge/index/`. Host or filesystem libraries may contain private material for their owners, but provider identity and rights remain attached to every retrieval candidate. A private brand asset never becomes public merely because it was retrieved or used successfully.
+The generated file under `knowledge/index/` is a derived local search cache for the portable owner Library scaffold, not a second public index. Host or filesystem libraries may contain private material for their owners, but provider identity and rights remain attached to every retrieval candidate. A private brand asset never becomes public merely because it was retrieved or used successfully.
 
 At the unreleased Capability Index stage, `records.jsonl` contains brand-neutral Clayz capability-routing records. They point to existing repository methods and validators; they do not embed templates, coordinates, company identities, external prompts, model weights, or generated presentation content.
 
@@ -22,3 +22,5 @@ Stage 5 does not add task feedback to this public catalog. Human-admitted
 observations are rebuilt as a separate private-runtime provider and remain
 `public_catalog_eligible=false`. Benchmark fixtures may reference their stable
 metadata IDs, but never copy private content into `catalog/`.
+
+The public manifest records four deliberately deferred methods: continuous learning, community aggregation, automatic update, and cross-source fusion. The deferral applies to those evolution methods, not to the public records already shipped here.

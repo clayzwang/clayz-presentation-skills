@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.5.1**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.5.2**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -66,9 +66,18 @@ The five-stage workflow and its first five core capabilities were independently 
 - Never let automated scores replace business, editorial, or visual judgment.
 - Preserve editability, source traceability, and final rendered evidence.
 
+## Personal Extension Profile foundation
+
+v0.5.2 adds one optional, owner-private extension decision before Logic while preserving the same five-stage workflow. A private Profile may supply governed theme overrides and logical Library mounts; a private Provider keeps admitted references, indexes, masters, and other assets outside this public repository. Both local and ChatGPT personal hosts resolve the same `library://` URIs through host-specific bindings.
+
+The repository is more than a light archive: one Public Core, the canonical public Provider manifest/index, public Library payloads, shared contracts, and host adapters produce separate Cloud Public Light and Local Public Light targets. The cloud target attaches a resolved Personal Extension Profile and private Library routes to Cloud Public Light; it is not a parallel set of private skills. See [`docs/personal-extension.md`](docs/personal-extension.md) and [`docs/chatgpt-personal-light.md`](docs/chatgpt-personal-light.md). Public material remains usable now. What is deferred is the method for its continuous learning, community aggregation, automatic update, and cross-source fusion, together with Task Overlay, remote MCP Providers, and automatic private Library ingestion.
+
+This public release contains the extension contracts and composition method only. It contains no real owner Profile, private Provider, private index, organization master, font, presentation, PDF, or prior-learning body. v0.5.2 is Windows-first for local execution; Cloud Public Light remains host-managed. No macOS, Linux, or iOS release package is produced or claimed as validated in this version.
+
 ## Repository layout
 
 - `skills/` contains the five focused skills.
+- `catalog/provider-manifest.json` and `catalog/records.jsonl` are the canonical public Provider control plane and index.
 - `config/default.json` is the single public configuration source.
 - `packages/validators/` contains shared deterministic validators.
 - `packages/contracts/` contains versioned cross-stage contracts.
@@ -179,10 +188,10 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 - The core scripts require Python 3.10 or later. The host-model-independent baseline authoring route uses `python-pptx`; Pillow supports raster, rhythm, and size inspection; PyYAML validates machine-readable manifests.
 - GitHub Actions tests Python 3.10, 3.11, and 3.12 and starts every public command-line entry point with `--help` before release.
 - Run `scripts/runtime_preflight.py` exactly once per production run. It classifies A–D interaction capabilities, scans dependencies, locks one authoring/render route, and records the configured call budgets. Model brands are not part of the classification.
-- Full production QA uses one persistent PowerPoint COM process on Windows or one LibreOffice process on macOS/Linux. A host-provided Artifact Tool remains optional.
+- The validated local production route for v0.5.2 is Windows with one persistent PowerPoint COM process. Cloud Public Light uses inspected host capabilities. Other local operating-system routes remain future compatibility work and are not release claims.
 - PDF and Poppler are lazy dependencies: they are needed for PDF page input or a selected LibreOffice PDF-to-PNG render path, not ordinary PPTX authoring.
-- Run `python scripts/build_runtime_packs.py --bundle light` to create the single light plugin archive. It contains no third-party wheels, Experience Center cases, presentation files, or showcase media.
-- Optional CPython 3.12 offline dependencies are separate Windows, macOS, and Linux add-on archives. Maintainers fetch reviewed wheels with `scripts/fetch_offline_wheels.py`, then build all release files with `scripts/build_runtime_packs.py`; exact targets, installation, hashes, and licensing are documented in [`docs/release-packages.md`](docs/release-packages.md).
+- Run `python scripts/build_runtime_packs.py --bundle light` to create Cloud Public Light and Local Public Light from the same public-core digest. Cloud Light relies on ChatGPT host tools and omits local adapters and platform packs; Local Light retains them. Neither archive contains third-party wheels, Experience Center cases, presentation files, or showcase media.
+- The only CPython 3.12 offline dependency add-on published for v0.5.2 is Windows x86-64. Maintainers fetch reviewed Windows wheels and build the two Light archives plus the Windows add-on; exact installation, hashes, and licensing are documented in [`docs/release-packages.md`](docs/release-packages.md).
 - C and D models use the same internal contracts through an adapter; users continue to interact in natural language and never need to author render manifests or preflight JSON.
 - MCP is optional. A capable model host can read the skills and call local tools directly; add MCP only when you want a portable interface to remote storage, search, rendering, or another external service.
 
@@ -203,7 +212,7 @@ The public repository includes an intentionally empty portable scaffold under `k
 
 Supervisor has no separate learning silo. It returns reusable observations to the responsible stage. Generated artifacts, automated scores, usage counts, and Supervisor opinions never become approved references automatically.
 
-Downloading the repository does not create, read, or connect a ChatGPT Library. The default provider is the local filesystem. A host-specific adapter may map the same structure to ChatGPT Library or another storage system, but no such adapter is bundled or required. See [`knowledge/README.md`](knowledge/README.md) and [`knowledge/registry/schema.md`](knowledge/registry/schema.md).
+Downloading the repository does not create, read, or connect a ChatGPT Library. `catalog/records.jsonl` is the canonical bundled public index. The filesystem `knowledge/` scaffold is an owner-local authoring area; `knowledge/index/search-cache.json`, when generated, is only a derived local search cache and never competes with a Provider index as source of truth. A host binding may map an owner-private Library to ChatGPT without changing its logical `library://` references. See [`knowledge/README.md`](knowledge/README.md) and [`knowledge/registry/schema.md`](knowledge/registry/schema.md).
 
 The scaffold is operational in v0.2.0 and extended by v0.4.0 Stage 5: `scripts/knowledge_cli.py` can register, separately admit, index, search, and record observations. The v2 local index includes learning only after a matching hash-bound human admission. Unadmitted or hash-changed sources are excluded. See [`docs/knowledge-runtime.md`](docs/knowledge-runtime.md).
 

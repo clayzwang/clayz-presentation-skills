@@ -98,7 +98,7 @@ class CoreTests(unittest.TestCase):
 
     def test_all_json_files_parse(self) -> None:
         for path in sorted(ROOT.rglob("*.json")):
-            if ".git" in path.parts or "node_modules" in path.parts or path.name == "search-index.json":
+            if ".git" in path.parts or "node_modules" in path.parts or path.name == "search-cache.json":
                 continue
             with self.subTest(path=path.relative_to(ROOT)):
                 json.loads(path.read_text(encoding="utf-8"))
@@ -251,6 +251,9 @@ class CoreTests(unittest.TestCase):
     def test_reference_configuration_points_to_scaffold(self) -> None:
         config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
         references = config["references"]
+        self.assertEqual(references["public_provider_manifest"], "catalog/provider-manifest.json")
+        self.assertEqual(references["public_index"], "catalog/records.jsonl")
+        self.assertEqual(references["index"]["role"], "derived-local-search-cache")
         self.assertEqual(references["learning"]["stages"], ["logic", "copy", "art-direction", "output"])
         self.assertFalse(references["learning"]["auto_promote"])
         self.assertNotIn("supervisor", references["learning"]["stages"])

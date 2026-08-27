@@ -3,7 +3,7 @@
   "pack_id": "common",
   "platform": "any",
   "distribution": {
-    "light_archive": "clayz-presentation-skills-{version}-light.zip",
+    "light_archive": "clayz-presentation-skills-{version}-local-light.zip",
     "third_party_wheels_in_light_archive": false,
     "offline_addons": "separate by operating system; CPython 3.12"
   },

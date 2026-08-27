@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:personal-extension-runtime:1.0",
+  "title": "Clayz resolved Personal Extension Runtime",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "core", "extension", "config", "mounts", "providers", "origin_map", "guards", "lock"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.personal-extension-runtime/1.0"},
+    "core": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "workflow_stages"],
+      "properties": {
+        "name": {"const": "clayz-presentation-skills"},
+        "version": {"type": "string"},
+        "workflow_stages": {"const": ["logic", "copy", "art-direction", "output", "supervisor"]}
+      }
+    },
+    "extension": {"type": "object"},
+    "config": {"type": "object"},
+    "mounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["mount_id", "logical_root", "adapter", "root"],
+        "properties": {
+          "mount_id": {"type": "string"},
+          "logical_root": {"type": "string"},
+          "adapter": {"enum": ["bundle", "filesystem", "host-library"]},
+          "root": {"type": "string"}
+        }
+      }
+    },
+    "providers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["provider_id", "visibility", "manifest_uri", "manifest_contract", "mount_id", "required", "stages", "snapshot_policy"],
+        "properties": {
+          "provider_id": {"type": "string"},
+          "visibility": {"enum": ["public", "owner-private"]},
+          "manifest_uri": {"type": "string"},
+          "manifest_contract": {"const": "io.clayz.presentation.provider-manifest/1.0"},
+          "mount_id": {"type": "string"},
+          "required": {"type": "boolean"},
+          "stages": {"type": "array", "items": {"enum": ["logic", "copy", "art-direction", "output", "supervisor"]}, "uniqueItems": true},
+          "snapshot_policy": {"enum": ["immutable-release", "read-once-lock-for-run"]},
+          "index_snapshot": {"type": "object"}
+        }
+      }
+    },
+    "origin_map": {"type": "array"},
+    "guards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["single_public_workflow", "no_sixth_stage", "public_fallback_when_optional_provider_unavailable", "required_private_provider_fails_closed", "provider_snapshot_locked_per_run", "public_material_evolution_methods_deferred"],
+      "properties": {
+        "single_public_workflow": {"const": true},
+        "no_sixth_stage": {"const": true},
+        "public_fallback_when_optional_provider_unavailable": {"const": true},
+        "required_private_provider_fails_closed": {"const": true},
+        "provider_snapshot_locked_per_run": {"const": true},
+        "public_material_evolution_methods_deferred": {"const": true}
+      }
+    },
+    "lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "digest"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

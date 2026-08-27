@@ -10,7 +10,7 @@ Every candidate keeps its `provider_id`, source revision, license, `never_copy` 
 
 ## Provider model
 
-The first contract supports multiple independent providers:
+One `provider-manifest` contract supports multiple independent providers:
 
 - `builtin-catalog`: project-maintained contracts and original methods safe for open-source distribution;
 - `filesystem-library`: user-owned local or NAS knowledge;
@@ -18,6 +18,8 @@ The first contract supports multiple independent providers:
 - `external-ephemeral`: task-local search metadata that is not automatically persisted.
 
 Provider identities are never collapsed. Identical titles from different providers remain distinct records with distinct rights and revisions.
+
+`catalog/provider-manifest.json` binds `catalog/records.jsonl` as the immutable bundled public snapshot used by both Cloud Public Light and Local Public Light. Owner-private Providers use the same manifest contract with `library://` index URIs and a per-task read-once snapshot lock. The legacy `knowledge-index/2.0` file is only a derived local search cache.
 
 ## Hallucination boundary
 

@@ -10,7 +10,7 @@ node_modules/
 .tmp/
 dist/
 build/
-knowledge/index/search-index.json
+knowledge/index/search-cache.json
 *.ppt
 *.pptx
 *.pdf

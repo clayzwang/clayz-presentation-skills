@@ -36,7 +36,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / ".release-cache" / "wheels")
     parser.add_argument("--requirements", type=Path, default=ROOT / "release" / "offline-requirements-py312.txt")
-    parser.add_argument("--platform", choices=["windows", "macos", "linux", "all"], default="all")
+    parser.add_argument("--platform", choices=["windows", "macos", "linux", "all"], default="windows")
     args = parser.parse_args()
     selected = list(TARGETS) if args.platform == "all" else [args.platform]
     for platform_name in selected:

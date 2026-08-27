@@ -10,7 +10,7 @@ v0.4.0 的开发从一件事开始：把检索从“可选的文件搜索”升�
 
 ## Provider 模型
 
-第一版合同支持多个彼此独立的 Provider：
+统一的 `provider-manifest` 合同支持多个彼此独立的 Provider：
 
 - `builtin-catalog`：项目维护、可以安全随开源仓库分发的合同和原创方法；
 - `filesystem-library`：用户拥有的本地或 NAS 知识；
@@ -18,6 +18,8 @@ v0.4.0 的开发从一件事开始：把检索从“可选的文件搜索”升�
 - `external-ephemeral`：当前任务临时搜索得到的元数据，不自动持久化。
 
 Provider 身份不能被抹平。即使标题相同，不同 Provider 的记录仍保留独立的权利、版本和来源。
+
+`catalog/provider-manifest.json` 把 `catalog/records.jsonl` 绑定为 Cloud Public Light 与 Local Public Light 共用的不可变公共 snapshot。所有者私有 Provider 使用同一 manifest 合同，通过 `library://` 索引 URI 在每个任务开始时读取一次并锁定。旧的 `knowledge-index/2.0` 文件只是派生本地检索缓存。
 
 ## 知识幻觉边界
 

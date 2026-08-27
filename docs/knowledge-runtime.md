@@ -38,7 +38,7 @@ python scripts/knowledge_cli.py admit asset <asset-id> \
   --confirm-human-decision
 ```
 
-Build and query the local index:
+Build and query the derived local search cache:
 
 ```bash
 python scripts/knowledge_cli.py build-index
@@ -68,10 +68,12 @@ python scripts/knowledge_cli.py admit learning <learning-record-id> \
 python scripts/knowledge_cli.py build-index
 ```
 
-The generated index uses `io.clayz.presentation.knowledge-index/2.0` and keeps
+The generated cache uses `io.clayz.presentation.knowledge-index/2.0` and keeps
 asset and learning counts separate. Stage 5 also provides the generic provider
 path, benchmark, and migration commands documented in
 [`feedback-benchmark-release-readiness.md`](feedback-benchmark-release-readiness.md).
+
+This cache is an authoring convenience, not a Provider source of truth. The bundled public source of truth is `catalog/records.jsonl`; a personal connected Library uses admitted `IndexRecord` JSONL plus `provider-manifest.schema.json`.
 
 ## Host adapters
 

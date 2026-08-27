@@ -26,6 +26,8 @@ The only deliberate duplication is plugin UI metadata (`agents/openai.yaml` and 
 
 Never commit a local override that contains confidential paths, private template names, or internal brand values.
 
+For reusable private settings, use a Personal Extension Profile outside the repository instead of editing this file. The composer applies only allowlisted `replace`, `append_unique`, or `stricter_only` operations, writes an origin map, and generates a host-specific resolved config. See [`personal-extension.md`](personal-extension.md). Native local or ChatGPT Library paths belong only in private host bindings; stage instructions and index records use logical `library://` URIs.
+
 ## Runtime routing
 
 `runtime` defines process budgets and invariants, not discovered machine paths. Run `scripts/runtime_preflight.py` once per production run to materialize those paths and select one locked route. Keep that report task-local; do not copy local executable paths into central configuration.
@@ -36,8 +38,8 @@ The baseline authoring route is `renderer.baseline_adapter`. PDF support remains
 
 `locale.default` selects the documentation route when the task does not specify a locale. English references use the base filename (`name.md`); Simplified Chinese references use the matching `name.zh-CN.md`. Skills load exactly one route by default so bilingual documentation does not double context cost. The locale controls instructions, formatting defaults, and language-aware QA; it does not translate approved content automatically.
 
-## Portable knowledge paths
+## Public Provider and portable Library paths
 
-The public default points to the intentionally empty `knowledge/` scaffold. It contains four learning areas—Logic, Copy, Art Direction, and Output—plus shared sources and registries. Supervisor has no independent learning store.
+`references.public_provider_manifest` and `references.public_index` identify the immutable bundled public Provider; their values remain `catalog/provider-manifest.json` and `catalog/records.jsonl` in every host target. The intentionally empty `knowledge/` scaffold is a separate owner-local Library authoring area. It contains four learning areas—Logic, Copy, Art Direction, and Output—plus shared sources and registries. Supervisor has no independent learning store. Its generated `references.index.path` has role `derived-local-search-cache` and is never a canonical Provider index.
 
-Keep `require_human_admission=true` and `learning.auto_promote=false`. Learning records are observations until a human admission is written to the configured admission registry. A different host may replace the filesystem provider, but ChatGPT Library is optional and is not created or connected by downloading this repository.
+Keep `require_human_admission=true` and `learning.auto_promote=false`. Learning records are observations until a human admission is written to the configured admission registry. A host binding may connect an owner-private Provider to ChatGPT Library, but downloading the repository does not create or connect that Library.
