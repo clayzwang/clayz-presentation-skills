@@ -1,6 +1,8 @@
-# PPT v2.1文案层合同
+# PPT v2.3文案层合同
 
 Copy 在状态为 `logic-approved` 的同一 `ppt-design-package.json` 中追加 `copy_layer`。完成后根状态为 `copy-approved`；`logic_layer` 不得发生任何变化。
+
+根包合同升级为 `2.3`，必须逐字节保留 Logic 启动前锁定的 `resource_inventory`，并在 `index_evidence` 追加最终 Copy 检索回执。Copy 只能使用已选资源；若发现新来源，必须交还 Supervisor 修订盘点并再次向用户简报。Copy 审批还会执行全篇表达检查：非系列页面不得机械重复相同标题/故事线、同一过渡话术、同一整页语法向量或同一段实质性短语。
 
 ## copy_layer
 

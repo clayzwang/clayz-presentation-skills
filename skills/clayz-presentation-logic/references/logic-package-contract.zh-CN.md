@@ -1,4 +1,4 @@
-# PPT v2.1逻辑层合同
+# PPT v2.3逻辑层合同
 
 `ppt-design-package.json` 是 Logic、Copy、Output 共用的唯一交接文件。Logic 只写根信息和 `logic_layer`；Copy 在同一文件追加 `copy_layer`。不得维护两个平行包。
 
@@ -6,11 +6,13 @@
 
 ```json
 {
-  "contract_version": "2.1",
+  "contract_version": "2.3",
   "package_id": "example-deck",
   "version": "2.1.0",
   "status": "logic-approved",
   "brief": {},
+  "resource_inventory": {},
+  "index_evidence": {},
   "logic_layer": {},
   "copy_layer": null,
   "approvals": {
@@ -19,6 +21,10 @@
   }
 }
 ```
+
+`resource_inventory` 遵循 `io.clayz.presentation.resource-inventory/1.0`。Supervisor 必须先完成七域盘点，把“发现了什么、选用什么、哪些不可用、走哪条制作与渲染路线”展示给用户并锁定为 ready，Logic 才能启动。所有非主机资源都需绑定内容指纹；中途新增资源必须修订盘点并再次向用户简报。
+
+`index_evidence` 遵循 `io.clayz.presentation.index-execution-evidence/1.0`。`logic-approved` 时必须包含锁定的 Provider 快照、适用时已完成的任务级所有者资料物化以及最终 Logic 检索回执；`copy-approved` 时继续增加 Copy 回执，并保持同一份锁。
 
 `status` 只能沿 `draft → logic-approved → copy-approved` 前进。逻辑发生实质变化时，必须删除旧 `copy_layer`，把状态退回 `draft` 或重新审批为 `logic-approved`。
 
@@ -59,7 +65,7 @@
 必备字段：
 
 - `knowledge_requirements`：仍需学习或核实的问题；
-- `sources`：来源清单，至少含 `source_id`、`type`、`title`、`locator`、`accessed_at`、`reliability`；
+- `sources`：来源清单，至少含 `source_id`、`resource_id`、`type`、`title`、`locator`、`accessed_at`、`reliability`；每个 `resource_id` 必须指向 Logic 启动前已选中的资源；
 - `glossary`：术语、定义和来源；
 - `metric_dictionary`：指标名、定义、公式、单位、期间和来源；
 - `deck_message_tree`：总论点、章节和逐页主张；

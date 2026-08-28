@@ -480,6 +480,31 @@ def resolve_personal_extension(
         },
         "mounts": mounts,
         "providers": sorted(providers, key=lambda item: item["provider_id"]),
+        "resource_inventory": {
+            "contract": "io.clayz.presentation.resource-inventory-policy/1.0",
+            "artifact": "ppt-resource-inventory.json",
+            "finalizer_script": "scripts/finalize_resource_inventory.py",
+            "evidence_contract": "packages/contracts/resource-inventory.schema.json",
+            "required_scan_scopes": [
+                "plugin-runtime", "task-inputs", "owner-library", "public-index",
+                "brand-assets", "host-capabilities", "font-environment",
+            ],
+            "user_brief_before_logic": True,
+            "final_usage_reconciliation": True,
+            "fail_closed": True,
+        },
+        "index_execution": {
+            "contract": "io.clayz.presentation.index-execution-policy/1.0",
+            "mode": "first-class-stage-gated",
+            "task_provider_id": "task-private-learning",
+            "source_manifest": "runtime-input://owner-learning-manifest",
+            "source_manifest_contract": "io.clayz.presentation.owner-learning-sources/1.0",
+            "source_manifest_required": True,
+            "materializer_script": "scripts/materialize_owner_index.py",
+            "evidence_contract": "packages/contracts/index-execution-evidence.schema.json",
+            "fail_closed_stages": WORKFLOW_STAGES,
+            "required_receipt_stages": WORKFLOW_STAGES,
+        },
         "origin_map": sorted(origin_map, key=lambda item: item["path"]),
         "guards": {
             "single_public_workflow": True,
@@ -488,6 +513,11 @@ def resolve_personal_extension(
             "required_private_provider_fails_closed": True,
             "provider_snapshot_locked_per_run": True,
             "public_material_evolution_methods_deferred": True,
+            "resource_inventory_required": True,
+            "resource_brief_before_logic": True,
+            "resource_usage_reconciliation_required": True,
+            "first_class_index_required": True,
+            "stage_receipts_fail_closed": True,
         },
     }
     runtime["lock"] = {"algorithm": "sha256", "digest": sha256_json(runtime)}
@@ -554,6 +584,34 @@ def validate_personal_extension_runtime(
             _library_uri(provider.get("manifest_uri"), f"runtime.providers[{index}].manifest_uri")
             _require(provider.get("snapshot_policy") == "read-once-lock-for-run", "private runtime provider snapshot policy is unsupported")
     _require(public_provider_count == 1, "runtime must contain exactly one bundled public Provider")
+    expected_resource_inventory = {
+        "contract": "io.clayz.presentation.resource-inventory-policy/1.0",
+        "artifact": "ppt-resource-inventory.json",
+        "finalizer_script": "scripts/finalize_resource_inventory.py",
+        "evidence_contract": "packages/contracts/resource-inventory.schema.json",
+        "required_scan_scopes": [
+            "plugin-runtime", "task-inputs", "owner-library", "public-index",
+            "brand-assets", "host-capabilities", "font-environment",
+        ],
+        "user_brief_before_logic": True,
+        "final_usage_reconciliation": True,
+        "fail_closed": True,
+    }
+    _require(normalized.get("resource_inventory") == expected_resource_inventory, "runtime.resource_inventory must enforce the pre-Logic user-visible resource gate")
+    index_execution = normalized.get("index_execution")
+    expected_index_execution = {
+        "contract": "io.clayz.presentation.index-execution-policy/1.0",
+        "mode": "first-class-stage-gated",
+        "task_provider_id": "task-private-learning",
+        "source_manifest": "runtime-input://owner-learning-manifest",
+        "source_manifest_contract": "io.clayz.presentation.owner-learning-sources/1.0",
+        "source_manifest_required": True,
+        "materializer_script": "scripts/materialize_owner_index.py",
+        "evidence_contract": "packages/contracts/index-execution-evidence.schema.json",
+        "fail_closed_stages": WORKFLOW_STAGES,
+        "required_receipt_stages": WORKFLOW_STAGES,
+    }
+    _require(index_execution == expected_index_execution, "runtime.index_execution must enforce the first-class stage-gated Index policy")
     guards = normalized.get("guards")
     _require(isinstance(guards, Mapping) and all(value is True for value in guards.values()), "runtime guards must all be true")
     lock = normalized.get("lock")

@@ -42,7 +42,9 @@ python scripts/compose_personal_light.py <private-profile.json> \
   --provider-manifest <private-provider.manifest.json>
 ```
 
-默认输出写入 `dist/private/`；该目录不进入公共 release scan，也不应被 Git 跟踪。ZIP 以 Cloud Public Light 为基础，包含唯一 Public Core、公共 Provider manifest/index、五个 Skill、一份生成的 resolved config 和 `runtime/personal-extension.json`。它不包含本地适配器、系统包、源 Profile、源私有 manifest、私有 JSONL 索引、附件、母版、字体或案例。
+默认输出写入 `dist/private/`；该目录不进入公共 release scan，也不应被 Git 跟踪。可直接安装的 ZIP 把 `.codex-plugin/plugin.json` 放在根目录，并包含唯一 Public Core、公共 Provider manifest/index、五个 Skill、一份生成的 resolved config、`runtime/personal-extension.json` 和完整插件挂载契约。它不包含本地适配器、系统包、源 Profile、源私有 manifest、私有 JSONL 索引、附件、母版、字体或案例。
+
+演示文稿任务开始时，Supervisor 会盘点已挂载运行时、任务输入、所有者 Library、公共 Index、品牌资产、主机能力和字体，并在 Logic 前向用户说明发现与选用情况。所有者学习来源清单根据该次盘点在任务目录生成，再交给 `scripts/materialize_owner_index.py`；该清单及原始字节不会进入公开仓库。
 
 ## 上传和更新规则
 

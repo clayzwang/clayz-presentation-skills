@@ -1,4 +1,4 @@
-# PPT监督报告合同 v2.6
+# PPT监督报告合同 v2.9
 
 `ppt-supervision-report.json` 是独立事后审计记录，不表示用户批准返工，也不得写回任何上游产物。
 
@@ -26,13 +26,15 @@
 
 ```json
 {
-  "contract_version": "2.6",
+  "contract_version": "2.9",
   "package_id": "example-deck",
   "package_version": "2.1.0",
-  "art_direction_plan_contract_version": "1.3",
-  "output_qa_contract_version": "3.6",
+  "art_direction_plan_contract_version": "1.6",
+  "output_qa_contract_version": "3.9",
   "supervised_at": "2026-08-12T22:30:00+08:00",
   "run_status": "issues-found",
+  "index_evidence": {},
+  "resource_usage": {},
   "artifact_paths": {
     "package": "ppt-design-package.json",
     "art_direction_plan": "ppt-art-direction-plan.json",
@@ -65,7 +67,9 @@
 }
 ```
 
-`run_status`：`clean`、`issues-found`、`incomplete-evidence`。缺少艺术指导、PPTX、最终渲染或制作偏差证据时使用 `incomplete-evidence`。
+`resource_usage` 遵循 `io.clayz.presentation.resource-usage/1.0`：必须把用户在 Logic 前看过的全部已选资源逐项对账为“实际使用”或“明确未用”，将已用资源映射到五个治理阶段及具体证据，并提供最终用户可见摘要。缺失或锁不一致时必须标为 `incomplete-evidence`。
+
+`run_status`：`clean`、`issues-found`、`incomplete-evidence`。缺少艺术指导、PPTX、最终渲染、制作偏差、一等公民 Index 物化、资源使用对账或任一阶段回执时使用 `incomplete-evidence`，且不得正常交付。
 
 `delivery_efficiency.status` 只能为 `pass`、`fail` 或 `uncertain`。用户未提前指定时 `profile` 必须为 `lightweight`；`uncertain` 时根状态必须为 `incomplete-evidence`。`ppt-size-audit.json` 必须绑定最终PPTX哈希，并与 `ppt-object-inventory.json.package_media` 的文件大小、媒体数量、重复项、字体和附件事实相互印证。超出总体软预算但单项效率已通过时，可以 `pass`，但 `exception_reason` 必须写出具体业务必要性；重复、未使用、超分辨率或意外嵌入内容不能用例外理由放行。
 
@@ -148,9 +152,9 @@
 }
 ```
 
-检查状态：`pass`、`fail`、`not-applicable`、`uncertain`。`uncertain` 只用于证据不足，根状态必须为 `incomplete-evidence`。`not-applicable` 也要写具体证据。
+检查状态：`pass`、`fail`、`not-applicable`、`uncertain`。`uncertain` 只用于证据不足，根状态必须为 `incomplete-evidence`。`not-applicable` 也要写具体证据。每条检查证据必须包含稳定的 slide ID，并且对该页、该检查唯一；跨检查或跨页重复同一句话判无效。Supervisor 必须针对最终 PPTX 重跑完整 Output QA，不能用自己写的“一致”代替对象和渲染证据。
 
-`planned.audience_detail_min_pt`、`chart_text_min_pt` 与 `data_chart_contract` 必须逐字继承艺术指导计划。正文页 `rendered.minimum_audience_text_pt_observed` 必须记录实际最小受众字号，`nonconforming_point_sizes_observed` 记录所有违反中央字号令牌政策的值；低于配置下限或列表非空时 `typography_legibility` 必须失败并生成对应问题。
+`planned.audience_detail_min_pt`、`chart_text_min_pt`、`data_chart_contract` 与 `quantitative_execution_contract` 必须逐字继承艺术指导计划。正文页 `rendered.minimum_audience_text_pt_observed` 必须记录实际最小受众字号，`nonconforming_point_sizes_observed` 记录所有违反中央字号令牌政策的值；低于配置下限或列表非空时 `typography_legibility` 必须失败并生成对应问题。
 
 散点图页必须审查 `scatter_label_evidence` 与 `scatter_line_evidence`：实体标签缺失、重叠或不可读时使用 `SCATTER_ENTITY_LABEL_MISSING_OR_UNREADABLE`；不同实体点被无语义连接时使用 `SCATTER_UNJUSTIFIED_POINT_CONNECTIONS`。非散点图页该检查为 `not-applicable`，散点图页不得标为不适用。
 

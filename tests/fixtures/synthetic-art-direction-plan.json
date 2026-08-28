@@ -1,15 +1,20 @@
 {
-  "contract_version": "1.4",
+  "contract_version": "1.6",
   "status": "art-direction-approved",
-  "package_contract_version": "2.1",
+  "package_contract_version": "2.3",
   "package_id": "synthetic-release-regression",
-  "package_version": "2.1.0",
+  "package_version": "2.3.0",
   "communication_contract": {
-    "audience": {"primary": "Synthetic decision team"},
+    "audience": {
+      "primary": "Synthetic decision team"
+    },
     "material_type": "management-report",
     "management_stage": "monitoring-diagnosis",
     "narrative_archetype": "decision-proposal",
-    "desired_outcome": {"mode": "approve", "target": "Approve a small synthetic pilot"},
+    "desired_outcome": {
+      "mode": "approve",
+      "target": "Approve a small synthetic pilot"
+    },
     "confirmation": {
       "audience": "user-provided",
       "material_type": "user-confirmed",
@@ -22,22 +27,58 @@
     "visual_thesis": "One decision supported by one concise reason",
     "material_route": "management-report",
     "first_impression": "Clear and reversible decision",
-    "composition_principles": ["answer first"],
-    "forbidden_defaults": ["equal card wall"],
-    "silhouette_sequence": ["answer-first-type-field"],
-    "density_sequence": ["light"],
-    "dominant_media_sequence": ["typography"],
-    "motif_sequence": [null],
-    "brand_constraints_repeated": ["central configuration only"],
-    "approval": {"status": "approved", "approved_by": "synthetic-test", "notes": ""}
+    "composition_principles": [
+      "answer first"
+    ],
+    "forbidden_defaults": [
+      "equal card wall"
+    ],
+    "silhouette_sequence": [
+      "answer-first-type-field"
+    ],
+    "density_sequence": [
+      "light"
+    ],
+    "dominant_media_sequence": [
+      "typography"
+    ],
+    "motif_sequence": [
+      null
+    ],
+    "brand_constraints_repeated": [
+      "central configuration only"
+    ],
+    "approval": {
+      "status": "approved",
+      "approved_by": "synthetic-test",
+      "notes": ""
+    }
   },
   "reference_budget": {
     "max_total_loaded": 24,
     "max_per_archetype": 6,
     "max_sequences_loaded": 4,
-    "loaded_record_ids": [],
+    "loaded_record_ids": [
+      "owner.art-direction.1",
+      "owner.art-direction.2",
+      "owner.art-direction.3",
+      "owner.art-direction.4"
+    ],
     "loaded_sequence_ids": [],
-    "query_log": [],
+    "query_log": [
+      {
+        "request_id": "regression-art-direction",
+        "receipt_id": "receipt-art-direction",
+        "query": "consume required owner learning for art-direction",
+        "selected_record_ids": [
+          "owner.art-direction.1",
+          "owner.art-direction.2",
+          "owner.art-direction.3",
+          "owner.art-direction.4"
+        ],
+        "adoption_outcome": "Used as task-local synthetic guidance for the approved composition"
+      }
+    ],
     "sequence_query_log": [],
     "budget_respected": true
   },
@@ -47,14 +88,21 @@
     "selection_rule": "professional visual judgment",
     "completed": true
   },
-  "decision_log": {"conflicts": [], "deviations": [], "unresolved": []},
+  "decision_log": {
+    "conflicts": [],
+    "deviations": [],
+    "unresolved": []
+  },
   "typography_contract": {
     "body_min_pt": 18,
     "audience_detail_min_pt": 12,
     "chart_text_min_pt": 12,
     "even_point_sizes_required": false,
     "minimum_exception_policy": "technical-fields-only",
-    "allowed_size_tokens": ["title", "body"],
+    "allowed_size_tokens": [
+      "title",
+      "body"
+    ],
     "max_size_variants_per_logic_level": 2,
     "fractional_point_sizes_allowed": true,
     "grid_system": "12-column",
@@ -62,15 +110,21 @@
     "whitespace_review": true
   },
   "deck_rhythm": {
-    "hero_slide_ids": ["S01"],
-    "section_pulses": ["S01"],
+    "hero_slide_ids": [
+      "S01"
+    ],
+    "section_pulses": [
+      "S01"
+    ],
     "max_consecutive_same_silhouette": 2,
     "max_consecutive_same_density": 2,
     "max_bottom_conclusion_band_share": 0.2,
     "minimum_dominant_media_for_10_plus_body_slides": 3,
     "exceptions": [],
     "series_groups": [],
-    "motif_sequence": [null],
+    "motif_sequence": [
+      null
+    ],
     "motif_contracts": [],
     "semantic_whitespace_slide_ids": [],
     "purposeful_repetition_review": {
@@ -79,7 +133,9 @@
       "motif_breaks_defined": true,
       "semantic_whitespace_reviewed": true
     },
-    "review": {"material_type_fit": true}
+    "review": {
+      "material_type_fit": true
+    }
   },
   "slides": [
     {
@@ -88,8 +144,16 @@
       "page_message_tree_depth": 0,
       "main_backbone": "decision then reason",
       "local_relations": [],
-      "visual_layers": [{"node_id": "N00", "layer": "primary"}],
-      "reading_sequence": ["C-S01-01", "C-S01-02"],
+      "visual_layers": [
+        {
+          "node_id": "N00",
+          "layer": "primary"
+        }
+      ],
+      "reading_sequence": [
+        "C-S01-01",
+        "C-S01-02"
+      ],
       "copy_unit_map": [
         {
           "copy_id": "C-S01-01",
@@ -121,11 +185,17 @@
         }
       ],
       "visual_hierarchy": {
-        "primary_copy_ids": ["C-S01-01"],
-        "secondary_copy_ids": ["C-S01-02"],
+        "primary_copy_ids": [
+          "C-S01-01"
+        ],
+        "secondary_copy_ids": [
+          "C-S01-02"
+        ],
         "tertiary_copy_ids": [],
         "annotation_copy_ids": [],
-        "anchor_copy_ids": ["C-S01-01"],
+        "anchor_copy_ids": [
+          "C-S01-01"
+        ],
         "anchor_rationale": "The decision is the primary audience task"
       },
       "atomicity_review": {
@@ -172,12 +242,32 @@
       "medium_execution_contract": {
         "structure_type": "typography",
         "mapping_mode": "independent-shapes",
-        "required_object_types": ["shape"],
-        "minimum_object_counts": {"shape": 2},
-        "semantic_axes": ["decision hierarchy"],
-        "render_recognition_criteria": ["decision reads before supporting reason"],
+        "required_object_types": [
+          "shape"
+        ],
+        "minimum_object_counts": {
+          "shape": 2
+        },
+        "semantic_axes": [
+          "decision hierarchy"
+        ],
+        "render_recognition_criteria": [
+          "decision reads before supporting reason"
+        ],
         "approved_alternative": null,
-        "data_chart_contract": null
+        "data_chart_contract": null,
+        "quantitative_execution_contract": {
+          "data_ids": [],
+          "encoding_mode": "not-applicable",
+          "comparison_task": "No quantitative comparison is present on this synthetic slide",
+          "scale": {
+            "type": "none",
+            "baseline": null,
+            "unit": null,
+            "rationale": "The slide communicates one decision and contains no quantitative values"
+          },
+          "shape_encoded_exception": null
+        }
       },
       "content_aware_canvas": {
         "enabled": false,
@@ -199,7 +289,11 @@
         "selection_rationale": "Typography and native shapes express this synthetic decision more directly than a reusable asset.",
         "family_consistency": "not-applicable",
         "license_records": [],
-        "never_copy": ["reference wording", "reference brand identity", "reference master or layout coordinates"]
+        "never_copy": [
+          "reference wording",
+          "reference brand identity",
+          "reference master or layout coordinates"
+        ]
       },
       "accent_coverage_band": "low",
       "uses_bottom_conclusion_band": false,
@@ -209,7 +303,9 @@
       "image_plan": [],
       "connector_plan": null,
       "kpi_plan": [],
-      "shape_semantics": ["open typography field"],
+      "shape_semantics": [
+        "open typography field"
+      ],
       "backflow_required": false,
       "backflow_reason": "",
       "anti_flatness_review": true,
@@ -217,17 +313,28 @@
         "communication_job": "support a reversible decision",
         "first_impression": "clear and bounded",
         "first_visual": "decision title",
-        "attention_order": ["decision", "reason"],
+        "attention_order": [
+          "decision",
+          "reason"
+        ],
         "why_this_composition": "the decision should precede its qualifying reason",
-        "forbidden_fallbacks": ["equal cards"]
+        "forbidden_fallbacks": [
+          "equal cards"
+        ]
       },
       "area_plan": [
         {
           "region_id": "R-MAIN",
           "role": "decision and reason",
           "share_percent": 100,
-          "contains_copy_ids": ["C-S01-01", "C-S01-02"],
-          "grid_columns": [1, 12]
+          "contains_copy_ids": [
+            "C-S01-01",
+            "C-S01-02"
+          ],
+          "grid_columns": [
+            1,
+            12
+          ]
         }
       ],
       "semantic_layout_tree": {
@@ -241,7 +348,10 @@
             "node_type": "canvas",
             "semantic_role": "decision field",
             "region_id": "R-MAIN",
-            "copy_ids": ["C-S01-01", "C-S01-02"],
+            "copy_ids": [
+              "C-S01-01",
+              "C-S01-02"
+            ],
             "shape_family": "text",
             "reading_order": 0
           }
@@ -267,7 +377,10 @@
             "first_visual": "decision title",
             "main_backbone": "decision then reason",
             "reading_path": "top-to-bottom",
-            "area_plan": ["decision", "reason"],
+            "area_plan": [
+              "decision",
+              "reason"
+            ],
             "reference_ids": [],
             "risk_notes": [],
             "semantic_tree_signature": "one decision field with supporting reason",
@@ -306,5 +419,364 @@
       },
       "handoff_status": "ready-for-output"
     }
-  ]
+  ],
+  "resource_inventory_lock": {
+    "inventory_id": "inventory.regression.001",
+    "revision": 1,
+    "digest": "54e80a90becf8da43957c2d3a3e805d7a85c2edb3e59e7a8b949d76e458e2d98"
+  },
+  "index_evidence": {
+    "contract": "io.clayz.presentation.index-execution-evidence/1.0",
+    "mode": "owner-personal",
+    "runtime_lock_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "provider_lock": {
+      "lock_id": "regression-provider-lock",
+      "snapshots": [
+        {
+          "provider_id": "builtin-catalog",
+          "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "record_count": 12
+        },
+        {
+          "provider_id": "owner-private-library",
+          "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "record_count": 9
+        },
+        {
+          "provider_id": "task-private-learning",
+          "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "record_count": 8
+        }
+      ],
+      "lock_sha256": "318c1b3d70cecf85e31c192f674aff2dc145b2140f0f7bac43e2d708a5c52e73"
+    },
+    "owner_materialization": {
+      "status": "materialized",
+      "source_manifest_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "materialization_report_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "provider_id": "task-private-learning",
+      "record_count": 8,
+      "required_sources": [
+        {
+          "source_id": "demo-art-learning",
+          "stages": [
+            "art-direction"
+          ]
+        },
+        {
+          "source_id": "demo-copy-learning",
+          "stages": [
+            "copy"
+          ]
+        },
+        {
+          "source_id": "demo-logic-learning",
+          "stages": [
+            "logic"
+          ]
+        },
+        {
+          "source_id": "demo-output-learning",
+          "stages": [
+            "output"
+          ]
+        },
+        {
+          "source_id": "demo-purpose-index",
+          "stages": [
+            "art-direction"
+          ]
+        },
+        {
+          "source_id": "demo-reviewed-counterexamples",
+          "stages": [
+            "supervisor"
+          ]
+        },
+        {
+          "source_id": "demo-visual-preferences",
+          "stages": [
+            "art-direction"
+          ]
+        },
+        {
+          "source_id": "demo-visual-reference-index",
+          "stages": [
+            "art-direction"
+          ]
+        }
+      ],
+      "materialized_source_ids": [
+        "demo-art-learning",
+        "demo-copy-learning",
+        "demo-logic-learning",
+        "demo-output-learning",
+        "demo-purpose-index",
+        "demo-reviewed-counterexamples",
+        "demo-visual-preferences",
+        "demo-visual-reference-index"
+      ],
+      "missing_source_ids": []
+    },
+    "stage_receipts": {
+      "logic": [
+        {
+          "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+          "receipt_id": "receipt-logic",
+          "created_at": "2026-08-28T08:00:00+00:00",
+          "request": {
+            "contract": "io.clayz.presentation.retrieval-request/1.0",
+            "request_id": "regression-logic",
+            "stage": "logic",
+            "query": "consume required owner learning for logic",
+            "rights_context": "private-runtime",
+            "require_human_admission": true,
+            "limit": 20,
+            "filters": {
+              "record_types": [],
+              "provider_ids": [
+                "task-private-learning"
+              ],
+              "task_modes": [],
+              "page_roles": [],
+              "semantic_relations": [],
+              "purpose_tags": [],
+              "languages": [
+                "zh-CN"
+              ],
+              "failure_signals": [],
+              "include_metadata_only": false
+            },
+            "neighbor_expansion": {
+              "physical": 0,
+              "semantic": 0
+            }
+          },
+          "index_snapshot": [
+            {
+              "provider_id": "builtin-catalog",
+              "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "record_count": 12
+            },
+            {
+              "provider_id": "owner-private-library",
+              "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "record_count": 9
+            },
+            {
+              "provider_id": "task-private-learning",
+              "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "record_count": 8
+            }
+          ],
+          "candidates": [
+            {
+              "record_id": "owner.logic.1",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-logic-learning"
+            }
+          ],
+          "selection": {
+            "selected": [
+              {
+                "record_id": "owner.logic.1",
+                "reason": "applies demo-logic-learning to this stage"
+              }
+            ],
+            "rejected": []
+          },
+          "fallback": {
+            "used": false,
+            "reason": ""
+          },
+          "hallucination_guard": {
+            "only_registered_records": true,
+            "invented_record_count": 0,
+            "candidate_count": 1
+          }
+        }
+      ],
+      "copy": [
+        {
+          "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+          "receipt_id": "receipt-copy",
+          "created_at": "2026-08-28T08:00:00+00:00",
+          "request": {
+            "contract": "io.clayz.presentation.retrieval-request/1.0",
+            "request_id": "regression-copy",
+            "stage": "copy",
+            "query": "consume required owner learning for copy",
+            "rights_context": "private-runtime",
+            "require_human_admission": true,
+            "limit": 20,
+            "filters": {
+              "record_types": [],
+              "provider_ids": [
+                "task-private-learning"
+              ],
+              "task_modes": [],
+              "page_roles": [],
+              "semantic_relations": [],
+              "purpose_tags": [],
+              "languages": [
+                "zh-CN"
+              ],
+              "failure_signals": [],
+              "include_metadata_only": false
+            },
+            "neighbor_expansion": {
+              "physical": 0,
+              "semantic": 0
+            }
+          },
+          "index_snapshot": [
+            {
+              "provider_id": "builtin-catalog",
+              "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "record_count": 12
+            },
+            {
+              "provider_id": "owner-private-library",
+              "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "record_count": 9
+            },
+            {
+              "provider_id": "task-private-learning",
+              "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "record_count": 8
+            }
+          ],
+          "candidates": [
+            {
+              "record_id": "owner.copy.1",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-copy-learning"
+            }
+          ],
+          "selection": {
+            "selected": [
+              {
+                "record_id": "owner.copy.1",
+                "reason": "applies demo-copy-learning to this stage"
+              }
+            ],
+            "rejected": []
+          },
+          "fallback": {
+            "used": false,
+            "reason": ""
+          },
+          "hallucination_guard": {
+            "only_registered_records": true,
+            "invented_record_count": 0,
+            "candidate_count": 1
+          }
+        }
+      ],
+      "art-direction": [
+        {
+          "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+          "receipt_id": "receipt-art-direction",
+          "created_at": "2026-08-28T08:00:00+00:00",
+          "request": {
+            "contract": "io.clayz.presentation.retrieval-request/1.0",
+            "request_id": "regression-art-direction",
+            "stage": "art-direction",
+            "query": "consume required owner learning for art-direction",
+            "rights_context": "private-runtime",
+            "require_human_admission": true,
+            "limit": 20,
+            "filters": {
+              "record_types": [],
+              "provider_ids": [
+                "task-private-learning"
+              ],
+              "task_modes": [],
+              "page_roles": [],
+              "semantic_relations": [],
+              "purpose_tags": [],
+              "languages": [
+                "zh-CN"
+              ],
+              "failure_signals": [],
+              "include_metadata_only": false
+            },
+            "neighbor_expansion": {
+              "physical": 0,
+              "semantic": 0
+            }
+          },
+          "index_snapshot": [
+            {
+              "provider_id": "builtin-catalog",
+              "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "record_count": 12
+            },
+            {
+              "provider_id": "owner-private-library",
+              "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "record_count": 9
+            },
+            {
+              "provider_id": "task-private-learning",
+              "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "record_count": 8
+            }
+          ],
+          "candidates": [
+            {
+              "record_id": "owner.art-direction.1",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-art-learning"
+            },
+            {
+              "record_id": "owner.art-direction.2",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-purpose-index"
+            },
+            {
+              "record_id": "owner.art-direction.3",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-visual-preferences"
+            },
+            {
+              "record_id": "owner.art-direction.4",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-visual-reference-index"
+            }
+          ],
+          "selection": {
+            "selected": [
+              {
+                "record_id": "owner.art-direction.1",
+                "reason": "applies demo-art-learning to this stage"
+              },
+              {
+                "record_id": "owner.art-direction.2",
+                "reason": "applies demo-purpose-index to this stage"
+              },
+              {
+                "record_id": "owner.art-direction.3",
+                "reason": "applies demo-visual-preferences to this stage"
+              },
+              {
+                "record_id": "owner.art-direction.4",
+                "reason": "applies demo-visual-reference-index to this stage"
+              }
+            ],
+            "rejected": []
+          },
+          "fallback": {
+            "used": false,
+            "reason": ""
+          },
+          "hallucination_guard": {
+            "only_registered_records": true,
+            "invented_record_count": 0,
+            "candidate_count": 4
+          }
+        }
+      ]
+    }
+  }
 }

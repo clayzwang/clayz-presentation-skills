@@ -4,7 +4,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
-- Nothing yet.
+- Add a fail-closed pre-Logic resource inventory covering plugin runtime, task inputs, owner Library, public Index, brand assets, host capabilities, and fonts; Supervisor must tell the user what was found, selected, unavailable, and which production route will be used before authoring starts.
+- Promote Index use from background guidance to stage-gated execution evidence: one locked Provider snapshot, task-local owner-learning materialization, and finalized Retrieval Receipts are required across Logic, Copy, Art Direction, Output, and Supervisor.
+- Add deterministic gates for cross-slide wording and grammar variation, content-specific first visuals, silhouette and structure reuse, quantitative native-object proof, connector counts, and slide-specific supervision evidence.
+- Add complete-plugin mount validation so a detached Skill cannot silently run without its shared contracts, validators, runtime policy, and bilingual references.
+- Keep owner-learning manifests runtime-supplied. The public source contains only generic contracts and synthetic regression fixtures—no organization Provider, owner file inventory, private path, private index, presentation, brand asset, or fixed private record count.
 
 ## 0.5.2 — 2026-08-28
 

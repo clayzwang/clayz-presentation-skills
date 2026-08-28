@@ -42,7 +42,9 @@ python scripts/compose_personal_light.py <private-profile.json> \
   --provider-manifest <private-provider.manifest.json>
 ```
 
-The default output is written under `dist/private/`, which is excluded from public release scans and Git tracking. The ZIP starts from Cloud Public Light and contains the one Public Core, public Provider manifest/index, five skills, generated resolved config, and `runtime/personal-extension.json`. It contains no local adapters, platform packs, source Profile, source private manifest, private JSONL index, attachment, master, font, or case.
+The default output is written under `dist/private/`, which is excluded from public release scans and Git tracking. The install-ready ZIP places `.codex-plugin/plugin.json` at its root and contains the one Public Core, public Provider manifest/index, five skills, generated resolved config, `runtime/personal-extension.json`, and a complete-plugin mount contract. It contains no local adapters, platform packs, source Profile, source private manifest, private JSONL index, attachment, master, font, or case.
+
+At the start of a presentation task, Supervisor inventories the mounted runtime, task inputs, owner Library, public Index, brand assets, host capabilities, and fonts; it reports what was found and selected before Logic begins. Any owner-learning source manifest is generated task-locally from that inventory and passed to `scripts/materialize_owner_index.py`; the manifest and source bytes are never part of this public repository.
 
 ## Upload and update rules
 

@@ -1,4 +1,4 @@
-# Presentation Supervision Report Contract v2.6
+# Presentation Supervision Report Contract v2.9
 
 `ppt-supervision-report.json` is an independent post-production audit. It does not approve rework and may not write back to upstream artifacts.
 
@@ -36,13 +36,15 @@ An approved artifact is the current execution baseline, not an unchallengeable p
 
 ```json
 {
-  "contract_version": "2.6",
+  "contract_version": "2.9",
   "package_id": "example-deck",
   "package_version": "2.1.0",
-  "art_direction_plan_contract_version": "1.3",
-  "output_qa_contract_version": "3.6",
+  "art_direction_plan_contract_version": "1.6",
+  "output_qa_contract_version": "3.9",
   "supervised_at": "2026-08-12T22:30:00+08:00",
   "run_status": "issues-found",
+  "index_evidence": {},
+  "resource_usage": {},
   "artifact_paths": {
     "package": "ppt-design-package.json",
     "art_direction_plan": "ppt-art-direction-plan.json",
@@ -75,7 +77,9 @@ An approved artifact is the current execution baseline, not an unchallengeable p
 }
 ```
 
-`run_status` is `clean`, `issues-found`, or `incomplete-evidence`. Missing Art Direction, PPTX, final renders, or build-deviation evidence requires `incomplete-evidence`.
+`resource_usage` follows `io.clayz.presentation.resource-usage/1.0`. It reconciles every resource selected in the user-visible pre-Logic inventory as actually used or intentionally unused, maps used resources to all five governed stages with concrete evidence, and carries a final user-visible summary. A missing or mismatched reconciliation requires `incomplete-evidence`.
+
+`run_status` is `clean`, `issues-found`, or `incomplete-evidence`. Missing Art Direction, PPTX, final renders, build-deviation evidence, first-class Index materialization, resource-use reconciliation, or any stage receipt requires `incomplete-evidence` and prevents normal delivery.
 
 `delivery_efficiency.status` is `pass`, `fail`, or `uncertain`; `uncertain` requires root `incomplete-evidence`. Unless the user specified otherwise, `profile` is `lightweight`. The size audit binds the final PPTX hash and reconciles file size, media counts, duplicates, fonts, and attachments with `ppt-object-inventory.json.package_media`. A deck over its total soft budget may pass when item-level efficiency passes and `exception_reason` states the business need. Duplicate, unused, over-resolution, or accidentally embedded content cannot be excepted.
 
@@ -86,7 +90,7 @@ An approved artifact is the current execution baseline, not an unchallengeable p
 Each slide records:
 
 - `slide_id` and `render_file`;
-- `planned`: first visual, area signature, silhouette, density, dominant medium, structure signature/type, series and motif, whitespace, context rail, semantic tree, visual-self-correction requirement, required object types/counts, target-type counts, typography minima, and data-chart contract;
+- `planned`: first visual, area signature, silhouette, density, dominant medium, structure signature/type, series and motif, whitespace, context rail, semantic tree, visual-self-correction requirement, required object types/counts, target-type counts, typography minima, data-chart contract, and quantitative-execution contract;
 - `actual_objects`: shapes, text shapes, connectors, pictures, graphic frames, tables, charts, and diagrams;
 - `rendered`: observed medium, first visual, area, series backbone, motif, whitespace, context rail, semantic tree, self-correction evidence, minimum type size, token violations, scatter evidence, recognizability, and concrete evidence; and
 - `checks`: independent fidelity checks from Logic/Copy through target-application compatibility.
@@ -117,6 +121,8 @@ Required checks include:
 - `scatter_semantics_and_labels`
 
 Check status is `pass`, `fail`, `not-applicable`, or `uncertain`. `uncertain` requires root `incomplete-evidence`. `not-applicable` still needs specific evidence.
+
+Every check evidence string cites the stable slide ID and is unique to that slide and check. Reusing one sentence across checks or pages is invalid. Supervisor reruns the complete Output QA validator against the final PPTX; a self-authored “consistent” statement cannot replace object or render evidence.
 
 `planned.audience_detail_min_pt`, `chart_text_min_pt`, and `data_chart_contract` reproduce the Art Direction plan exactly. On body slides, record `rendered.minimum_audience_text_pt_observed` and every central type-token violation in `nonconforming_point_sizes_observed`. Below-minimum text or a nonempty violation list fails `typography_legibility` and creates an issue.
 

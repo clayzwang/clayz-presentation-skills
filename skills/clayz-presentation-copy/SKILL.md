@@ -17,10 +17,10 @@ Do not change Logic-approved facts, claims, relationships, page responsibilities
 
 1. Resolve the central configuration in one order only: use an explicit task configuration when supplied; otherwise, when `../../runtime/personal-extension.json` exists, treat it as the generated **Personal Extension Runtime**, validate its lock and resolved config hash with `../../scripts/validate_personal_extension.py`, and use the config path named there; otherwise use `../../config/default.json`. Do not re-resolve or change the extension route after Logic.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
-3. Validate the Logic package before editing copy.
+3. Validate the Logic package and its ready `resource_inventory` before editing copy. Preserve the inventory lock unchanged; a new source or reference must return to Supervisor for a revised inventory and user brief.
 4. Read `references/copy-package-contract.md`. This core contract is mandatory and never search-dependent.
 5. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-6. Reuse the one task Provider lock created before Logic; it always contains the bundled public Provider and may contain owner-private Providers whose declared stages include Copy. Do not rescan either Library, change mounts, or replace a Provider snapshot mid-run.
+6. Read the locale-matched `../clayz-presentation-supervisor/references/first-class-index-gate.md`. Reuse the one task Provider lock created before Logic; it contains the bundled public Provider, owner-private Providers, and the materialized `task-private-learning` Provider. Copy may not start until the required Copy learning source is hashed and present.
 7. Classify optional Copy signals and resolve them through the built-in Capability Index. For nested meaning or multiple renderable units, use signals such as `nested-meaning` or `atomic-copy` rather than hard-coding an optional reference read.
 8. Load only optional `knowledge_refs` returned by selected capability records. Preserve the resolution and retrieval receipt IDs; unresolved signals remain explicit gaps and never trigger invented guidance.
 
@@ -34,7 +34,7 @@ Do not change Logic-approved facts, claims, relationships, page responsibilities
 6. Keep charts and tables supplied with complete labels, units, sources, and explanation text.
 7. Raise upstream conflicts instead of silently fixing Logic.
 8. Emit task-local learning candidates with language, audience, evidence, and limits; persist them only through the configured Copy learning route and never auto-promote them.
-9. Emit one package with `origin_namespace: io.clayz.presentation` and status `copy-approved`; task-local execution evidence should retain the capability resolution and retrieval receipt IDs used for optional knowledge.
+9. Emit one package with `origin_namespace: io.clayz.presentation` and status `copy-approved`; preserve root `resource_inventory`, and add finalized Copy receipts to root `index_evidence`. Passing structure alone is insufficient: cross-slide duplicate titles, storylines, transition formulas, grammar vectors, and substantial phrases must pass deterministic variation checks unless Logic declared a purposeful series.
 
 ## Validation
 

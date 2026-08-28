@@ -12,8 +12,11 @@ from pathlib import Path
 from typing import Any
 
 from config_policy import ValidationPolicy, load_policy
+from index_evidence import index_lock_signature, validate_index_evidence
+from resource_inventory import resource_inventory_signature, validate_resource_usage
+import validate_output_qa as output_qa_validator
 
-CONTRACT_VERSION = "2.6"
+CONTRACT_VERSION = "2.9"
 RUN_STATUS = {"clean", "issues-found", "incomplete-evidence"}
 CHECK_STATUS = {"pass", "fail", "not-applicable", "uncertain"}
 CHECK_KEYS = {
@@ -82,6 +85,46 @@ def issue_lookup(issues: list[dict[str, Any]]) -> set[tuple[str, Any]]:
     return {(item.get("finding_code"), item.get("slide_id")) for item in issues if isinstance(item, dict)}
 
 
+def register_check_evidence(
+    evidence: Any,
+    slide_id: Any,
+    path: str,
+    seen: dict[str, str],
+    errors: list[str],
+) -> None:
+    """Reject short, anonymous, or repeated check evidence."""
+
+    if not nonempty(evidence) or len(str(evidence).strip()) < 16:
+        errors.append(f"{path}: must be substantive and at least 16 characters")
+        return
+    normalized = " ".join(str(evidence).casefold().split())
+    if nonempty(slide_id) and str(slide_id).casefold() not in normalized:
+        errors.append(f"{path}: must cite the stable slide_id")
+    if normalized in seen:
+        errors.append(f"{path}: duplicate boilerplate already used at {seen[normalized]}")
+        return
+    seen[normalized] = path
+
+
+def missing_required_object_types(execution: Any, actual: Any) -> list[str]:
+    """Return planned object types whose actual inventory is below the hard minimum."""
+
+    if not isinstance(execution, dict) or not isinstance(actual, dict):
+        return []
+    missing: list[str] = []
+    minimums = execution.get("minimum_object_counts")
+    if not isinstance(minimums, dict):
+        return missing
+    for object_type, minimum in minimums.items():
+        inventory_key = OBJECT_INVENTORY_MAP.get(object_type)
+        if not inventory_key or not isinstance(minimum, int) or minimum < 0:
+            continue
+        observed = actual.get(inventory_key)
+        if not isinstance(observed, int) or observed < minimum:
+            missing.append(object_type)
+    return sorted(missing)
+
+
 def validate_report(
     package: Any,
     plan: Any,
@@ -89,13 +132,22 @@ def validate_report(
     inventory: Any,
     report: Any,
     policy: ValidationPolicy | None = None,
+    pptx: Path | None = None,
+    render_root: Path | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
-    errors: list[str] = []
+    errors: list[str] = output_qa_validator.validate_qa(
+        package,
+        plan,
+        qa,
+        render_root=render_root,
+        pptx=pptx,
+        policy=policy,
+    )
     require_keys(report, {
         "contract_version", "package_id", "package_version", "art_direction_plan_contract_version",
         "output_qa_contract_version", "supervised_at", "run_status", "artifact_paths", "slides",
-        "issues", "deck_findings", "responsibility_attribution", "recommendations", "delivery_efficiency",
+        "issues", "deck_findings", "responsibility_attribution", "recommendations", "delivery_efficiency", "index_evidence", "resource_usage",
     }, "$report", errors)
     if not all(isinstance(item, dict) for item in (package, plan, qa, inventory, report)):
         return errors
@@ -107,6 +159,23 @@ def validate_report(
         errors.append("report.art_direction_plan_contract_version: must match plan")
     if report.get("output_qa_contract_version") != qa.get("contract_version"):
         errors.append("report.output_qa_contract_version: must match QA")
+    expected_resource_lock = resource_inventory_signature(package.get("resource_inventory"))
+    if qa.get("resource_inventory_lock") != expected_resource_lock:
+        errors.append("qa.resource_inventory_lock: must preserve the pre-Logic inventory")
+    validate_resource_usage(
+        report.get("resource_usage"),
+        package.get("resource_inventory"),
+        "report.resource_usage",
+        errors,
+    )
+    validate_index_evidence(
+        report.get("index_evidence"),
+        ["logic", "copy", "art-direction", "output", "supervisor"],
+        "report.index_evidence",
+        errors,
+    )
+    if index_lock_signature(report.get("index_evidence")) != index_lock_signature(qa.get("index_evidence")):
+        errors.append("report.index_evidence: must preserve the Output QA Provider lock and owner materialization")
     if report.get("run_status") not in RUN_STATUS:
         errors.append("report.run_status: invalid value")
     if not nonempty(report.get("supervised_at")):
@@ -217,6 +286,7 @@ def validate_report(
         errors.append("report.slides: order must exactly match package")
 
     any_uncertain = False
+    check_evidence_seen: dict[str, str] = {}
     for index, (plan_slide, report_slide) in enumerate(zip(plan_slides, report_slides)):
         path = f"report.slides[{index}]"
         require_keys(report_slide, {"slide_id", "render_file", "planned", "actual_objects", "rendered", "checks"}, path, errors)
@@ -226,7 +296,7 @@ def validate_report(
         logic_slide = logic_by_id.get(slide_id, {})
         is_body = logic_slide.get("narrative_role") not in {"cover", "closing"}
         planned = report_slide.get("planned")
-        require_keys(planned, {"first_visual", "area_signature", "silhouette_family", "density_class", "dominant_medium", "structure_signature", "structure_type", "series_id", "series_behavior", "motif_id", "semantic_whitespace_mode", "context_rail_enabled", "semantic_tree_id", "semantic_tree_mode", "visual_self_correction_required", "required_object_types", "minimum_object_counts", "target_type_counts", "audience_detail_min_pt", "chart_text_min_pt", "data_chart_contract"}, f"{path}.planned", errors)
+        require_keys(planned, {"first_visual", "area_signature", "silhouette_family", "density_class", "dominant_medium", "structure_signature", "structure_type", "series_id", "series_behavior", "motif_id", "semantic_whitespace_mode", "context_rail_enabled", "semantic_tree_id", "semantic_tree_mode", "visual_self_correction_required", "required_object_types", "minimum_object_counts", "target_type_counts", "audience_detail_min_pt", "chart_text_min_pt", "data_chart_contract", "quantitative_execution_contract"}, f"{path}.planned", errors)
         expected_counts = target_counts(plan_slide)
         execution = plan_slide.get("medium_execution_contract", {})
         if isinstance(planned, dict):
@@ -276,6 +346,8 @@ def validate_report(
                 errors.append(f"{path}.planned.chart_text_min_pt: must match Art Direction")
             if planned.get("data_chart_contract") != execution.get("data_chart_contract"):
                 errors.append(f"{path}.planned.data_chart_contract: must match Art Direction")
+            if planned.get("quantitative_execution_contract") != execution.get("quantitative_execution_contract"):
+                errors.append(f"{path}.planned.quantitative_execution_contract: must match Art Direction")
 
         actual = report_slide.get("actual_objects")
         require_keys(actual, REQUIRED_INVENTORY, f"{path}.actual_objects", errors)
@@ -299,6 +371,9 @@ def validate_report(
             for key in ("first_visual_observed", "area_plan_observed", "series_backbone_observed", "motif_observed", "semantic_whitespace_observed", "context_rail_observed", "semantic_tree_observed", "visual_self_correction_evidence_observed", "scatter_label_evidence", "scatter_line_evidence", "evidence"):
                 if not nonempty(rendered.get(key)):
                     errors.append(f"{path}.rendered.{key}: must be non-empty")
+            rendered_evidence = str(rendered.get("evidence", ""))
+            if nonempty(slide_id) and slide_id.casefold() not in rendered_evidence.casefold():
+                errors.append(f"{path}.rendered.evidence: must cite the stable slide_id")
             observed_min = rendered.get("minimum_audience_text_pt_observed")
             if observed_min is not None and (not isinstance(observed_min, (int, float)) or observed_min <= 0):
                 errors.append(f"{path}.rendered.minimum_audience_text_pt_observed: must be null or a positive number")
@@ -326,8 +401,13 @@ def validate_report(
                         failed_checks.add(key)
                     elif status == "uncertain":
                         any_uncertain = True
-                    if not nonempty(check.get("evidence")):
-                        errors.append(f"{path}.checks.{key}.evidence: must be non-empty")
+                    register_check_evidence(
+                        check.get("evidence"),
+                        slide_id,
+                        f"{path}.checks.{key}.evidence",
+                        check_evidence_seen,
+                        errors,
+                    )
         covered = {
             check
             for issue in valid_issues
@@ -350,13 +430,8 @@ def validate_report(
             required_codes.append("BUILD_TABLE_MISSING")
         if medium == "data-chart" and not chart_alternative and chart_count == 0:
             required_codes.append("BUILD_CHART_MISSING")
-        generic_missing = False
-        if isinstance(actual, dict):
-            for object_type, minimum in execution.get("minimum_object_counts", {}).items() if isinstance(execution, dict) else []:
-                inventory_key = OBJECT_INVENTORY_MAP.get(object_type)
-                if inventory_key and actual.get(inventory_key, 0) < minimum and object_type not in {"native-table", "native-chart"}:
-                    generic_missing = True
-        if generic_missing:
+        missing_objects = missing_required_object_types(execution, actual)
+        if any(object_type not in {"native-table", "native-chart"} for object_type in missing_objects):
             required_codes.append("BUILD_REQUIRED_OBJECT_MISSING")
         if isinstance(rendered, dict) and rendered.get("recognizability") == "fail":
             required_codes.append("RENDERED_MEDIUM_UNCLEAR")
@@ -543,11 +618,19 @@ def main() -> int:
     parser.add_argument("qa", type=Path)
     parser.add_argument("inventory", type=Path)
     parser.add_argument("report", type=Path)
+    parser.add_argument("--pptx", type=Path, required=True)
+    parser.add_argument("--render-root", type=Path)
     parser.add_argument("--config", type=Path)
     args = parser.parse_args()
     try:
         documents = [json.loads(path.read_text(encoding="utf-8")) for path in (args.package, args.plan, args.qa, args.inventory, args.report)]
-        errors = validate_report(*documents, load_policy(args.config))
+        output_qa_validator.qa_path_parent = args.qa.resolve().parent
+        errors = validate_report(
+            *documents,
+            load_policy(args.config),
+            pptx=args.pptx,
+            render_root=args.render_root,
+        )
     except (OSError, json.JSONDecodeError, RuntimeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2

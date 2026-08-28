@@ -40,6 +40,9 @@ Clayz Presentation Skills is an open, five-stage system for producing evidence-b
 
 This is not a larger pile of layout rules. It gives Art Direction a stronger repertoire while keeping every move accountable to the current content:
 
+- **Inventory before authoring:** Supervisor scans the complete plugin runtime, task inputs, owner Library, public Index, brand assets, host capabilities, and font environment before Logic. It tells the user what was found, what will be used, what is unavailable, and which authoring/render route is locked—then authoring may start.
+- **First-class Index execution:** one Provider snapshot is locked for the run. Owner learning is materialized from a task-supplied manifest and each stage must attach finalized Retrieval Receipts proving which registered records were actually selected; “reviewed the library” is not evidence.
+- **Substance and object gates:** deck-level validators reject mechanical wording and grammar repetition, generic first visuals, unjustified silhouette or structure reuse, shape-only pseudo-charts, missing connectors, and duplicated slide-agnostic QA boilerplate.
 - **Content-aware composition:** image-led slides must inspect subject protection, usable copy zones, crop, contrast, directional flow, and overlay necessity before placing text. A remembered advertising layout is never accepted as the answer by itself.
 - **Template and icon grammar:** templates, charts, tables, icons, and sample decks enter as reviewed candidates. The plan must re-derive the composition from Logic and Copy, explain every selected asset's semantic role, keep icon-family decisions coherent, and record source and license evidence.
 - **Reference-architecture synthesis:** Art Direction ships a validated index of 76 distinct official, diagram-bearing documents from ten publishers and a bilingual 16-card relationship-pattern library. An eight-step method moves from problem framing and source selection through relationship extraction, pattern combination, task-specific derivation, slide translation, diagnosis, and a traceable research ledger—without importing a vendor master.
@@ -73,6 +76,8 @@ v0.5.2 adds one optional, owner-private extension decision before Logic while pr
 The repository is more than a light archive: one Public Core, the canonical public Provider manifest/index, public Library payloads, shared contracts, and host adapters produce separate Cloud Public Light and Local Public Light targets. The cloud target attaches a resolved Personal Extension Profile and private Library routes to Cloud Public Light; it is not a parallel set of private skills. See [`docs/personal-extension.md`](docs/personal-extension.md) and [`docs/chatgpt-personal-light.md`](docs/chatgpt-personal-light.md). Public material remains usable now. What is deferred is the method for its continuous learning, community aggregation, automatic update, and cross-source fusion, together with Task Overlay, remote MCP Providers, and automatic private Library ingestion.
 
 This public release contains the extension contracts and composition method only. It contains no real owner Profile, private Provider, private index, organization master, font, presentation, PDF, or prior-learning body. v0.5.2 is Windows-first for local execution; Cloud Public Light remains host-managed. No macOS, Linux, or iOS release package is produced or claimed as validated in this version.
+
+On an owner-personal run, Supervisor now creates the owner-learning source manifest from the resources discovered for that task. The manifest and source bytes stay outside the public repository and release bundles; only the generic materialization contract, receipt gates, and synthetic regression fixtures are public.
 
 ## Repository layout
 

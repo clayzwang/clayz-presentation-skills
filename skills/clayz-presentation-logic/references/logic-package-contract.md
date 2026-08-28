@@ -1,4 +1,4 @@
-# PPT v2.1 Logic package contract
+# PPT v2.3 Logic package contract
 
 `ppt-design-package.json` is the single handoff file shared by Logic, Copy, and Output. Logic writes the root fields and `logic_layer`; Copy appends `copy_layer` to the same file. Never maintain parallel packages.
 
@@ -6,11 +6,13 @@
 
 ```json
 {
-  "contract_version": "2.1",
+  "contract_version": "2.3",
   "package_id": "example-deck",
   "version": "2.1.0",
   "status": "logic-approved",
   "brief": {},
+  "resource_inventory": {},
+  "index_evidence": {},
   "logic_layer": {},
   "copy_layer": null,
   "approvals": {
@@ -19,6 +21,10 @@
   }
 }
 ```
+
+`resource_inventory` follows `io.clayz.presentation.resource-inventory/1.0`. Supervisor must finish the seven-scope scan, show the user what was found, selected, unavailable, and which execution route will be used, then lock the ready inventory before Logic starts. Every selected non-host resource carries a content fingerprint; a new resource requires a revised inventory and another visible brief.
+
+`index_evidence` follows `io.clayz.presentation.index-execution-evidence/1.0`. At `logic-approved`, it contains the locked Provider snapshots, completed task-local owner materialization when applicable, and finalized Logic Retrieval Receipts. At `copy-approved`, it additionally contains finalized Copy receipts while preserving the same lock.
 
 Advance `status` only through `draft -> logic-approved -> copy-approved`. After a material Logic change, remove the stale `copy_layer` and return the package to `draft`, or obtain a new `logic-approved` decision.
 
@@ -59,7 +65,7 @@ Advance `status` only through `draft -> logic-approved -> copy-approved`. After 
 Required fields:
 
 - `knowledge_requirements`: questions still requiring research or verification;
-- `sources`: source inventory containing at least `source_id`, `type`, `title`, `locator`, `accessed_at`, and `reliability`;
+- `sources`: source inventory containing at least `source_id`, `resource_id`, `type`, `title`, `locator`, `accessed_at`, and `reliability`; every `resource_id` must reference a resource selected in the pre-Logic inventory;
 - `glossary`: terms, definitions, and sources;
 - `metric_dictionary`: metric name, definition, formula, unit, period, and source;
 - `deck_message_tree`: overall claim, sections, and slide-level claims;

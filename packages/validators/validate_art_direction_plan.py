@@ -7,15 +7,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
 
 from config_policy import ValidationPolicy, load_policy
+from index_evidence import index_lock_signature, validate_index_evidence
+from resource_inventory import resource_inventory_signature
 from validate_ppt_package import validate_package
 
 
-CONTRACT_VERSION = "1.4"
+CONTRACT_VERSION = "1.6"
 TARGET_TYPES = {"shape", "table-cell", "chart-label"}
 VERIFY_METHODS = {"shape-name", "paragraph-exact"}
 VISUAL_ROLES = {"primary", "secondary", "tertiary", "annotation"}
@@ -38,6 +41,12 @@ STRUCTURE_TYPES = {
 }
 MAPPING_MODES = {"composite-structure", "independent-shapes", "mixed"}
 OBJECT_TYPES = {"shape", "native-table", "native-chart", "connector", "picture", "diagram"}
+QUANTITATIVE_ENCODINGS = {"native-chart", "native-table", "kpi-text", "shape-encoded-chart", "not-applicable"}
+QUANTITATIVE_SCALES = {"linear", "log", "index", "percentage", "categorical", "none"}
+GENERIC_FIRST_VISUALS = {
+    "主图", "结论结构", "主表", "结构图", "关系图", "数据图", "图表", "视觉中心",
+    "mainvisual", "hero", "herovisual", "mainchart", "maintable", "structure",
+}
 COMPOSITE_STRUCTURES = {"table", "data-chart", "timeline", "swimlane", "matrix", "process", "relationship-diagram", "hierarchy"}
 POST_RENDER_KEYS = {
     "reviewed_at_full_size", "no_collision", "no_collision_or_tangency",
@@ -88,6 +97,35 @@ def require_keys(obj: Any, keys: set[str], path: str, errors: list[str]) -> None
     missing = sorted(keys - set(obj))
     if missing:
         errors.append(f"{path}: missing keys {missing}")
+
+
+def stage_receipt_selection(evidence: Any, stage: str) -> tuple[set[str], set[str]]:
+    receipt_ids: set[str] = set()
+    record_ids: set[str] = set()
+    if not isinstance(evidence, dict):
+        return receipt_ids, record_ids
+    receipts = evidence.get("stage_receipts", {}).get(stage, [])
+    if not isinstance(receipts, list):
+        return receipt_ids, record_ids
+    for receipt in receipts:
+        if not isinstance(receipt, dict):
+            continue
+        if nonempty(receipt.get("receipt_id")):
+            receipt_ids.add(receipt["receipt_id"])
+        selection = receipt.get("selection", {})
+        for item in selection.get("selected", []) if isinstance(selection, dict) else []:
+            if isinstance(item, dict) and nonempty(item.get("record_id")):
+                record_ids.add(item["record_id"])
+    return receipt_ids, record_ids
+
+
+def normalize_first_visual(value: Any) -> str:
+    return re.sub(r"[^\w\u4e00-\u9fff]+", "", str(value or "")).casefold()
+
+
+def is_generic_first_visual(value: Any) -> bool:
+    normalized = normalize_first_visual(value)
+    return normalized in GENERIC_FIRST_VISUALS or len(normalized) < 4
 
 
 def scan_post_render(value: Any, path: str, errors: list[str]) -> None:
@@ -388,7 +426,7 @@ def validate_plan(
     errors = validate_package(package, "copy-approved")
     require_keys(
         plan,
-        {"contract_version", "status", "package_contract_version", "package_id", "package_version", "communication_contract", "art_direction", "reference_budget", "ab_review", "decision_log", "typography_contract", "deck_rhythm", "slides"},
+        {"contract_version", "status", "package_contract_version", "package_id", "package_version", "resource_inventory_lock", "index_evidence", "communication_contract", "art_direction", "reference_budget", "ab_review", "decision_log", "typography_contract", "deck_rhythm", "slides"},
         "$plan",
         errors,
     )
@@ -402,8 +440,18 @@ def validate_plan(
         errors.append("plan.package_contract_version: must equal package contract_version")
     if plan.get("package_id") != package.get("package_id") or plan.get("package_version") != package.get("version"):
         errors.append("plan package identity/version must match package")
+    if plan.get("resource_inventory_lock") != resource_inventory_signature(package.get("resource_inventory")):
+        errors.append("plan.resource_inventory_lock: must preserve the pre-Logic resource inventory signature")
     if plan.get("communication_contract") != communication_contract(package):
         errors.append("plan.communication_contract: must exactly inherit brief.preflight")
+    validate_index_evidence(
+        plan.get("index_evidence"),
+        ["logic", "copy", "art-direction"],
+        "plan.index_evidence",
+        errors,
+    )
+    if index_lock_signature(plan.get("index_evidence")) != index_lock_signature(package.get("index_evidence")):
+        errors.append("plan.index_evidence: must preserve the package Provider lock and owner materialization")
     scan_post_render(plan, "$plan", errors)
 
     art_direction = plan.get("art_direction")
@@ -437,6 +485,7 @@ def validate_plan(
     )
     loaded_record_ids: set[str] = set()
     loaded_sequence_ids: set[str] = set()
+    art_receipt_ids, art_selected_record_ids = stage_receipt_selection(plan.get("index_evidence"), "art-direction")
     if isinstance(reference_budget, dict):
         max_total = reference_budget.get("max_total_loaded")
         max_archetype = reference_budget.get("max_per_archetype")
@@ -448,14 +497,38 @@ def validate_plan(
             errors.append("plan.reference_budget.max_per_archetype: must be 1..8")
         if not isinstance(max_sequences, int) or not 1 <= max_sequences <= 4:
             errors.append("plan.reference_budget.max_sequences_loaded: must be 1..4")
-        if not isinstance(loaded, list) or len(loaded) != len(set(loaded)) or any(not nonempty(x) for x in loaded):
-            errors.append("plan.reference_budget.loaded_record_ids: must be a unique string array")
+        if not isinstance(loaded, list) or not loaded or len(loaded) != len(set(loaded)) or any(not nonempty(x) for x in loaded):
+            errors.append("plan.reference_budget.loaded_record_ids: must be a non-empty unique string array")
         else:
             loaded_record_ids = set(loaded)
             if isinstance(max_total, int) and len(loaded) > max_total:
                 errors.append("plan.reference_budget.loaded_record_ids: exceeds max_total_loaded")
-        if not isinstance(reference_budget.get("query_log"), list):
-            errors.append("plan.reference_budget.query_log: must be an array")
+            if not loaded_record_ids.issubset(art_selected_record_ids):
+                errors.append("plan.reference_budget.loaded_record_ids: every loaded record must be selected by an Art Direction retrieval receipt")
+        query_log = reference_budget.get("query_log")
+        if not isinstance(query_log, list) or not query_log:
+            errors.append("plan.reference_budget.query_log: must be a non-empty array")
+        else:
+            logged_records: set[str] = set()
+            for query_index, query in enumerate(query_log):
+                qpath = f"plan.reference_budget.query_log[{query_index}]"
+                require_keys(query, {"request_id", "receipt_id", "query", "selected_record_ids", "adoption_outcome"}, qpath, errors)
+                if not isinstance(query, dict):
+                    continue
+                for key in ("request_id", "receipt_id", "query", "adoption_outcome"):
+                    if not nonempty(query.get(key)):
+                        errors.append(f"{qpath}.{key}: must be non-empty")
+                if query.get("receipt_id") not in art_receipt_ids:
+                    errors.append(f"{qpath}.receipt_id: must bind an Art Direction retrieval receipt")
+                selected_ids = query.get("selected_record_ids")
+                if not isinstance(selected_ids, list) or not selected_ids or len(selected_ids) != len(set(selected_ids)):
+                    errors.append(f"{qpath}.selected_record_ids: must be a non-empty unique array")
+                elif any(record_id not in art_selected_record_ids for record_id in selected_ids):
+                    errors.append(f"{qpath}.selected_record_ids: must come from the bound retrieval evidence")
+                else:
+                    logged_records.update(selected_ids)
+            if loaded_record_ids and not loaded_record_ids.issubset(logged_records):
+                errors.append("plan.reference_budget.query_log: must explain adoption of every loaded_record_id")
         loaded_sequences = reference_budget.get("loaded_sequence_ids")
         if not isinstance(loaded_sequences, list) or len(loaded_sequences) != len(set(loaded_sequences)) or any(not nonempty(x) for x in loaded_sequences):
             errors.append("plan.reference_budget.loaded_sequence_ids: must be a unique string array")
@@ -562,6 +635,16 @@ def validate_plan(
         for key in ("hero_slide_ids", "section_pulses", "exceptions", "series_groups", "motif_sequence", "motif_contracts", "semantic_whitespace_slide_ids"):
             if not isinstance(rhythm.get(key), list):
                 errors.append(f"plan.deck_rhythm.{key}: must be an array")
+        for key in ("max_consecutive_same_silhouette", "max_consecutive_same_density"):
+            value = rhythm.get(key)
+            if not isinstance(value, int) or not 1 <= value <= 3:
+                errors.append(f"plan.deck_rhythm.{key}: must be an integer from 1 to 3")
+        band_share = rhythm.get("max_bottom_conclusion_band_share")
+        if not isinstance(band_share, (int, float)) or not 0 <= band_share <= 0.35:
+            errors.append("plan.deck_rhythm.max_bottom_conclusion_band_share: must be between 0 and 0.35")
+        media_minimum = rhythm.get("minimum_dominant_media_for_10_plus_body_slides")
+        if not isinstance(media_minimum, int) or not 3 <= media_minimum <= len(DOMINANT_MEDIA):
+            errors.append("plan.deck_rhythm.minimum_dominant_media_for_10_plus_body_slides: must require at least 3 media")
         repetition_review = rhythm.get("purposeful_repetition_review")
         repetition_keys = {
             "purposeful_series_preserved", "nonseries_repetition_reviewed",
@@ -633,6 +716,80 @@ def validate_plan(
         ]
         if rhythm.get("semantic_whitespace_slide_ids") != whitespace_ids:
             errors.append("plan.deck_rhythm.semantic_whitespace_slide_ids: must match slide plans")
+        body_pairs = [
+            (logic_slide, plan_slide)
+            for logic_slide, plan_slide in zip(logic_slides, plan_slides)
+            if logic_slide.get("narrative_role") not in {"cover", "closing"}
+        ]
+        nonseries_pairs = [
+            (logic_slide, plan_slide)
+            for logic_slide, plan_slide in body_pairs
+            if logic_slide.get("series_id") is None
+        ]
+
+        def enforce_run(field: str, maximum_key: str) -> None:
+            maximum = rhythm.get(maximum_key)
+            if not isinstance(maximum, int):
+                return
+            run_value: Any = object()
+            run_ids: list[str] = []
+            for logic_slide, plan_slide in body_pairs:
+                if logic_slide.get("series_id") is not None:
+                    run_value = object()
+                    run_ids = []
+                    continue
+                value = plan_slide.get(field)
+                if value == run_value:
+                    run_ids.append(str(plan_slide.get("slide_id")))
+                else:
+                    run_value = value
+                    run_ids = [str(plan_slide.get("slide_id"))]
+                if len(run_ids) > maximum:
+                    errors.append(
+                        f"plan.deck_rhythm.{maximum_key}: non-series {field} run exceeds {maximum} on {run_ids}"
+                    )
+                    break
+
+        enforce_run("silhouette_family", "max_consecutive_same_silhouette")
+        enforce_run("density_class", "max_consecutive_same_density")
+
+        first_visual_reuse: dict[str, list[str]] = {}
+        structure_reuse: dict[str, list[str]] = {}
+        for _, plan_slide in nonseries_pairs:
+            slide_id = str(plan_slide.get("slide_id"))
+            first_visual = str(plan_slide.get("design_intent", {}).get("first_visual", ""))
+            normalized_visual = normalize_first_visual(first_visual)
+            if is_generic_first_visual(first_visual):
+                errors.append(
+                    f"plan.slides[{slide_id}].design_intent.first_visual: must name the content-specific visual, not a generic placeholder"
+                )
+            if normalized_visual:
+                first_visual_reuse.setdefault(normalized_visual, []).append(slide_id)
+            signature = str(plan_slide.get("structure_signature", "")).strip().casefold()
+            if signature:
+                structure_reuse.setdefault(signature, []).append(slide_id)
+        for slide_ids in first_visual_reuse.values():
+            if len(slide_ids) >= 3:
+                errors.append(
+                    f"plan.deck_rhythm: one first visual is reused across non-series slides {slide_ids}"
+                )
+        for slide_ids in structure_reuse.values():
+            if len(slide_ids) >= 3:
+                errors.append(
+                    f"plan.deck_rhythm: one structure_signature is reused across non-series slides {slide_ids}"
+                )
+        if len(body_pairs) >= 10 and isinstance(rhythm.get("minimum_dominant_media_for_10_plus_body_slides"), int):
+            media_count = len({plan_slide.get("dominant_medium") for _, plan_slide in body_pairs})
+            if media_count < rhythm["minimum_dominant_media_for_10_plus_body_slides"]:
+                errors.append(
+                    "plan.deck_rhythm.minimum_dominant_media_for_10_plus_body_slides: actual dominant-media diversity is too low"
+                )
+        if body_pairs and isinstance(rhythm.get("max_bottom_conclusion_band_share"), (int, float)):
+            actual_share = sum(bool(plan_slide.get("uses_bottom_conclusion_band")) for _, plan_slide in body_pairs) / len(body_pairs)
+            if actual_share > rhythm["max_bottom_conclusion_band_share"]:
+                errors.append(
+                    f"plan.deck_rhythm.max_bottom_conclusion_band_share: actual share {actual_share:.3f} exceeds the plan limit"
+                )
         logic_series = (package.get("logic_layer") or {}).get("cross_slide_contract", {}).get("series", [])
         expected_series = []
         plan_by_id = {slide.get("slide_id"): slide for slide in plan_slides}
@@ -826,7 +983,7 @@ def validate_slide_plan(
     medium = plan.get("medium_execution_contract")
     require_keys(
         medium,
-        {"structure_type", "mapping_mode", "required_object_types", "minimum_object_counts", "semantic_axes", "render_recognition_criteria", "approved_alternative", "data_chart_contract"},
+        {"structure_type", "mapping_mode", "required_object_types", "minimum_object_counts", "semantic_axes", "render_recognition_criteria", "approved_alternative", "data_chart_contract", "quantitative_execution_contract"},
         f"{path}.medium_execution_contract",
         errors,
     )
@@ -840,6 +997,7 @@ def validate_slide_plan(
         criteria = medium.get("render_recognition_criteria")
         alternative = medium.get("approved_alternative")
         data_chart = medium.get("data_chart_contract")
+        quantitative = medium.get("quantitative_execution_contract")
         if structure_type not in STRUCTURE_TYPES:
             errors.append(f"{path}.medium_execution_contract.structure_type: invalid value")
         if mapping_mode not in MAPPING_MODES:
@@ -936,6 +1094,66 @@ def validate_slide_plan(
                         errors.append(f"{path}.medium_execution_contract.data_chart_contract.point_connection_policy: invalid policy")
         elif data_chart is not None:
             errors.append(f"{path}.medium_execution_contract.data_chart_contract: non-data-chart slides must use null")
+        logic_data_ids = {
+            item.get("data_id")
+            for item in logic_slide.get("data", [])
+            if isinstance(item, dict) and nonempty(item.get("data_id"))
+        }
+        require_keys(
+            quantitative,
+            {"data_ids", "encoding_mode", "comparison_task", "scale", "shape_encoded_exception"},
+            f"{path}.medium_execution_contract.quantitative_execution_contract",
+            errors,
+        )
+        if isinstance(quantitative, dict):
+            qpath = f"{path}.medium_execution_contract.quantitative_execution_contract"
+            encoded_ids = quantitative.get("data_ids")
+            if not isinstance(encoded_ids, list) or len(encoded_ids) != len(set(encoded_ids)) or set(encoded_ids) != logic_data_ids:
+                errors.append(f"{qpath}.data_ids: must cover every Logic data_id exactly once")
+            encoding_mode = quantitative.get("encoding_mode")
+            if encoding_mode not in QUANTITATIVE_ENCODINGS:
+                errors.append(f"{qpath}.encoding_mode: invalid value")
+            if not nonempty(quantitative.get("comparison_task")):
+                errors.append(f"{qpath}.comparison_task: must be non-empty")
+            scale = quantitative.get("scale")
+            require_keys(scale, {"type", "baseline", "unit", "rationale"}, f"{qpath}.scale", errors)
+            if isinstance(scale, dict):
+                if scale.get("type") not in QUANTITATIVE_SCALES:
+                    errors.append(f"{qpath}.scale.type: invalid value")
+                if not nonempty(scale.get("rationale")):
+                    errors.append(f"{qpath}.scale.rationale: must be non-empty")
+                if scale.get("type") == "index" and not isinstance(scale.get("baseline"), (int, float)):
+                    errors.append(f"{qpath}.scale.baseline: index treatment requires a numeric baseline")
+            exception = quantitative.get("shape_encoded_exception")
+            if logic_data_ids:
+                if encoding_mode == "not-applicable":
+                    errors.append(f"{qpath}.encoding_mode: data-bearing slides cannot be not-applicable")
+                if len(logic_data_ids) >= 3 and plan.get("dominant_medium") not in {"data-chart", "table"}:
+                    errors.append(
+                        f"{qpath}: three or more comparable values require a native data-chart or table as the dominant medium"
+                    )
+                if encoding_mode == "native-chart" and plan.get("dominant_medium") != "data-chart":
+                    errors.append(f"{qpath}.encoding_mode: native-chart must use dominant_medium=data-chart")
+                if encoding_mode == "native-table" and plan.get("dominant_medium") != "table":
+                    errors.append(f"{qpath}.encoding_mode: native-table must use dominant_medium=table")
+                if encoding_mode == "shape-encoded-chart":
+                    require_keys(exception, {"reason", "approved_by", "approval_basis"}, f"{qpath}.shape_encoded_exception", errors)
+                    if isinstance(exception, dict):
+                        for key in ("reason", "approved_by", "approval_basis"):
+                            if not nonempty(exception.get(key)):
+                                errors.append(f"{qpath}.shape_encoded_exception.{key}: must be non-empty")
+                        approval = str(exception.get("approved_by", "")).casefold()
+                        if "user" not in approval and "用户" not in approval:
+                            errors.append(f"{qpath}.shape_encoded_exception.approved_by: requires explicit user approval")
+                elif exception is not None:
+                    errors.append(f"{qpath}.shape_encoded_exception: must be null unless shape-encoded-chart is used")
+            else:
+                if encoding_mode != "not-applicable":
+                    errors.append(f"{qpath}.encoding_mode: slides without Logic data must be not-applicable")
+                if not isinstance(scale, dict) or scale.get("type") != "none" or scale.get("baseline") is not None or scale.get("unit") is not None:
+                    errors.append(f"{qpath}.scale: non-quantitative slides must use type=none with null baseline and unit")
+                if exception is not None:
+                    errors.append(f"{qpath}.shape_encoded_exception: non-quantitative slides must use null")
     for key in ("uses_bottom_conclusion_band", "rhythm_exception", "backflow_required", "anti_flatness_review"):
         if not isinstance(plan.get(key), bool):
             errors.append(f"{path}.{key}: must be boolean")

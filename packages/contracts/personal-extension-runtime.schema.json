@@ -4,7 +4,7 @@
   "title": "Clayz resolved Personal Extension Runtime",
   "type": "object",
   "additionalProperties": false,
-  "required": ["contract", "core", "extension", "config", "mounts", "providers", "origin_map", "guards", "lock"],
+  "required": ["contract", "core", "extension", "config", "mounts", "providers", "resource_inventory", "index_execution", "origin_map", "guards", "lock"],
   "properties": {
     "contract": {"const": "io.clayz.presentation.personal-extension-runtime/1.0"},
     "core": {
@@ -53,18 +53,55 @@
         }
       }
     },
+    "resource_inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "artifact", "finalizer_script", "evidence_contract", "required_scan_scopes", "user_brief_before_logic", "final_usage_reconciliation", "fail_closed"],
+      "properties": {
+        "contract": {"const": "io.clayz.presentation.resource-inventory-policy/1.0"},
+        "artifact": {"const": "ppt-resource-inventory.json"},
+        "finalizer_script": {"const": "scripts/finalize_resource_inventory.py"},
+        "evidence_contract": {"const": "packages/contracts/resource-inventory.schema.json"},
+        "required_scan_scopes": {"const": ["plugin-runtime", "task-inputs", "owner-library", "public-index", "brand-assets", "host-capabilities", "font-environment"]},
+        "user_brief_before_logic": {"const": true},
+        "final_usage_reconciliation": {"const": true},
+        "fail_closed": {"const": true}
+      }
+    },
+    "index_execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "mode", "task_provider_id", "source_manifest", "source_manifest_contract", "source_manifest_required", "materializer_script", "evidence_contract", "fail_closed_stages", "required_receipt_stages"],
+      "properties": {
+        "contract": {"const": "io.clayz.presentation.index-execution-policy/1.0"},
+        "mode": {"const": "first-class-stage-gated"},
+        "task_provider_id": {"const": "task-private-learning"},
+        "source_manifest": {"const": "runtime-input://owner-learning-manifest"},
+        "source_manifest_contract": {"const": "io.clayz.presentation.owner-learning-sources/1.0"},
+        "source_manifest_required": {"const": true},
+        "materializer_script": {"const": "scripts/materialize_owner_index.py"},
+        "evidence_contract": {"const": "packages/contracts/index-execution-evidence.schema.json"},
+        "fail_closed_stages": {"const": ["logic", "copy", "art-direction", "output", "supervisor"]},
+        "required_receipt_stages": {"const": ["logic", "copy", "art-direction", "output", "supervisor"]}
+      }
+    },
     "origin_map": {"type": "array"},
     "guards": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["single_public_workflow", "no_sixth_stage", "public_fallback_when_optional_provider_unavailable", "required_private_provider_fails_closed", "provider_snapshot_locked_per_run", "public_material_evolution_methods_deferred"],
+      "required": ["single_public_workflow", "no_sixth_stage", "public_fallback_when_optional_provider_unavailable", "required_private_provider_fails_closed", "provider_snapshot_locked_per_run", "public_material_evolution_methods_deferred", "resource_inventory_required", "resource_brief_before_logic", "resource_usage_reconciliation_required", "first_class_index_required", "stage_receipts_fail_closed"],
       "properties": {
         "single_public_workflow": {"const": true},
         "no_sixth_stage": {"const": true},
         "public_fallback_when_optional_provider_unavailable": {"const": true},
         "required_private_provider_fails_closed": {"const": true},
         "provider_snapshot_locked_per_run": {"const": true},
-        "public_material_evolution_methods_deferred": {"const": true}
+        "public_material_evolution_methods_deferred": {"const": true},
+        "resource_inventory_required": {"const": true},
+        "resource_brief_before_logic": {"const": true},
+        "resource_usage_reconciliation_required": {"const": true},
+        "first_class_index_required": {"const": true},
+        "stage_receipts_fail_closed": {"const": true}
       }
     },
     "lock": {

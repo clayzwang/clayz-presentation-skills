@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:resource-inventory:1.0",
+  "title": "Clayz pre-Logic presentation resource inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract", "inventory_id", "revision", "task_mode", "runtime_mode", "created_at",
+    "scan_scope", "resources", "summary", "selected_resource_ids", "deferred_resource_ids",
+    "unavailable_resource_ids", "execution_route", "user_brief", "gate", "lock"
+  ],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.resource-inventory/1.0"},
+    "inventory_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "revision": {"type": "integer", "minimum": 1},
+    "task_mode": {"enum": ["new-build", "revision", "audit"]},
+    "runtime_mode": {"enum": ["owner-personal", "public-core"]},
+    "created_at": {"type": "string", "minLength": 1},
+    "scan_scope": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scope", "status", "evidence_ref", "discovered_entry_count", "note"],
+        "properties": {
+          "scope": {"enum": ["plugin-runtime", "task-inputs", "owner-library", "public-index", "brand-assets", "host-capabilities", "font-environment"]},
+          "status": {"enum": ["complete", "partial", "unavailable", "not-applicable"]},
+          "evidence_ref": {"type": "string", "minLength": 1},
+          "discovered_entry_count": {"type": "integer", "minimum": 0},
+          "note": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "resource_id", "category", "label", "origin", "locator", "availability", "required",
+          "stages", "quantity", "fingerprint_sha256", "rights_context", "decision", "decision_reason",
+          "evidence_ref"
+        ],
+        "properties": {
+          "resource_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+          "category": {"enum": ["task-input", "plugin-skill", "runtime-config", "index-provider", "library-source", "reference-pool", "theme", "template", "font", "brand-asset", "host-capability", "authoring-route", "renderer", "target-application"]},
+          "label": {"type": "string", "minLength": 1},
+          "origin": {"enum": ["task", "plugin", "owner-library", "public-catalog", "host"]},
+          "locator": {"type": "string", "pattern": "^(attachment|bundle|host|library|plugin|public-index|task)://\\S+$"},
+          "availability": {"enum": ["available", "partial", "missing", "inaccessible", "not-applicable"]},
+          "required": {"type": "boolean"},
+          "stages": {"type": "array", "items": {"enum": ["root", "logic", "copy", "art-direction", "output", "supervisor"]}, "uniqueItems": true},
+          "quantity": {"type": "integer", "minimum": 1},
+          "fingerprint_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "rights_context": {"enum": ["task-provided", "owner-private", "public-open-source", "host-capability"]},
+          "decision": {"enum": ["selected", "deferred", "excluded", "unavailable"]},
+          "decision_reason": {"type": "string", "minLength": 1},
+          "evidence_ref": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "summary": {"type": "object"},
+    "selected_resource_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "deferred_resource_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "unavailable_resource_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "execution_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "authoring_route", "render_route", "target_application", "evidence_ref"],
+      "properties": {
+        "status": {"enum": ["ready", "blocked"]},
+        "authoring_route": {"type": "string", "minLength": 1},
+        "render_route": {"type": "string", "minLength": 1},
+        "target_application": {"type": "string", "minLength": 1},
+        "evidence_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "user_brief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "presented_at", "channel", "language", "reported_resource_ids",
+        "reported_selected_resource_ids", "reported_not_selected_resource_ids",
+        "reported_unavailable_resource_ids", "discovered_lines", "selected_lines",
+        "unavailable_lines", "execution_line", "content_sha256"
+      ],
+      "properties": {
+        "status": {"enum": ["pending", "presented"]},
+        "presented_at": {"type": ["string", "null"]},
+        "channel": {"const": "commentary"},
+        "language": {"enum": ["zh-CN", "en-US"]},
+        "reported_resource_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "reported_selected_resource_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "reported_not_selected_resource_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "reported_unavailable_resource_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "discovered_lines": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "selected_lines": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "unavailable_lines": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "execution_line": {"type": "string", "minLength": 1},
+        "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "gate": {"type": "object"},
+    "lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "digest"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

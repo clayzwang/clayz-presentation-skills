@@ -1,4 +1,4 @@
-# 艺术指导计划合同 v1.4
+# 艺术指导计划合同 v1.6
 
 `ppt-art-direction-plan.json` 是 `copy-approved` 脚本包与Output之间唯一视觉决策文件。它不新增业务内容，状态只能在全部视觉决策锁定后设为 `art-direction-approved`。
 
@@ -6,11 +6,13 @@
 
 ```json
 {
-  "contract_version": "1.4",
+  "contract_version": "1.6",
   "status": "art-direction-approved",
-  "package_contract_version": "2.1",
+  "package_contract_version": "2.3",
   "package_id": "example-deck",
   "package_version": "2.1.0",
+  "resource_inventory_lock": {},
+  "index_evidence": {},
   "communication_contract": {},
   "art_direction": {},
   "reference_budget": {},
@@ -21,6 +23,8 @@
   "slides": []
 }
 ```
+
+`resource_inventory_lock` 必须与脚本包中 Logic 启动前的资源盘点签名完全一致。Art Direction 只能选用盘点内的主题、模板、视觉参考、资产、字体和 Provider；若发现新资源，必须交还 Supervisor 修订盘点并向用户重新简报。
 
 `communication_contract` 必须逐字继承脚本包 `brief.preflight`。`typography_contract`、`deck_rhythm`、逐页 `copy_unit_map`、`visual_hierarchy` 和 `medium_execution_contract` 延续原表达计划v2.1的机器可校验字段，但其所有选择权移交给Art Direction。
 
@@ -57,13 +61,19 @@
   "max_sequences_loaded": 4,
   "loaded_record_ids": ["REF-DEMO-015", "REF-DEMO-299"],
   "loaded_sequence_ids": ["SEQ-DEMO-QUARTERS"],
-  "query_log": [],
+  "query_log": [{
+    "request_id": "request-art-direction-reference",
+    "receipt_id": "receipt-registered-selection",
+    "query": "银行规模与增长证据的比较页",
+    "selected_record_ids": ["REF-DEMO-015"],
+    "adoption_outcome": "只采用层级和比较语法；禁止复制源文案和像素"
+  }],
   "sequence_query_log": [],
   "budget_respected": true
 }
 ```
 
-同一案例跨页复用只计一次。`query_log` 记录检索条件和采用结果，不能只写“参考过样本”。
+同一案例跨页复用只计一次。`query_log` 必须非空，把每个已加载记录绑定到 Art Direction 检索回执，并记录检索条件和采用结果；不能只写“参考过样本”。
 
 ## decision_log
 
@@ -106,6 +116,7 @@
 - `semantic_whitespace`：留白类型、区域、叙事职责和保护状态；
 - `persistent_context_rail`：是否启用轻量导航、目的、范围、当前标记和面积上限。
 - `medium_execution_contract.data_chart_contract`：数据图表的类型、字号、直接标注、点间连线、语义线与标签避让合同；非数据图表页为 `null`。
+- `medium_execution_contract.quantitative_execution_contract`：逐项登记 Logic 数据 ID、编码方式、比较任务、尺度/基准/单位理由，以及经用户明确批准的形状编码例外。三个及以上可比值必须以原生图表或表格作为主媒介。
 - `content_aware_canvas`：基于证据记录主体保护、候选放置区、裁切、对比度、视觉方向和覆盖策略；
 - `asset_strategy`：模板只推导不克隆、资产语义角色、候选与选择、家族判断、许可记录和 `never_copy` 边界。
 
@@ -235,6 +246,8 @@
 - `motif_contracts`：每个母题的目的、建立页、复现页、局部变化规则、打破页和打破理由；
 - `semantic_whitespace_slide_ids`；
 - `purposeful_repetition_review`：确认系列重复有业务目的、非系列同构有打破策略。
+
+验证器会实际核验轮廓和密度连续重复上限、主媒介多样性、底部结论带占比、内容特定首要视觉以及非系列结构复用。“主图”“主表”“结论结构”等只是占位词，不能作为首要视觉决策。
 
 ## A/B候选
 

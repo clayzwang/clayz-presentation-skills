@@ -26,6 +26,9 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 
 这不是继续堆版式口诀，而是给Art Direction增加一套更强的“招式”，同时要求每一招都服从当前内容：
 
+- **开工前先盘点**：Supervisor 在 Logic 前完整盘点插件运行时、任务输入、所有者 Library、公共 Index、品牌资产、主机能力和字体环境；先告诉用户“发现了什么、将使用什么、哪些不可用、锁定哪条制作与渲染路线”，再允许开工。
+- **Index 作为一等执行依赖**：整项任务只锁定一份 Provider 快照。所有者学习资料由任务运行时清单物化，各阶段必须提交最终 Retrieval Receipt，证明实际选择了哪些已登记记录；“已阅读资料库”不再算证据。
+- **内容与对象双重门禁**：全篇验证器会拦截机械重复的话术和语法、空泛首要视觉、无理由重复的页面轮廓与结构、以形状冒充图表、缺少连接线，以及跨页复制的泛化质检话术。
 - **内容感知构图**：图像主导页必须先判断主体保护区、文案可放置区、裁切、对比度、视觉方向和遮罩必要性，再决定文字位置；记住一个广告版式本身不能成为答案。
 - **模板与Icon语法**：模板、图表、表格、Icon和外部样例只作为经过审阅的候选。页面必须从Logic和Copy重新推导构图，说明每项资产的语义角色，保持图标家族判断一致，并记录来源与许可证据。
 - **参考架构综合**：Art Direction 内置经过校验的 76 份官方架构材料索引，覆盖十家发布者，并配套双语的 16 张关系模式卡。八步方法从问题界定、来源选择、关系提取和模式组合，推进到任务化推导、页面转译、诊断和研究账本收口；整个过程不导入厂商母版。
@@ -59,6 +62,8 @@ v0.5.2 在 Logic 前增加一次可选的所有者私有扩展判断，同时保
 GitHub 公共源不只是一个 light 压缩包：唯一 Public Core、规范公共 Provider manifest/index、公共 Library payload、共享契约与宿主适配器会生成 Cloud Public Light 和 Local Public Light。云端目标是在 Cloud Public Light 上接入已解析的 Personal Extension Profile 与私有 Library 路线，而不是另建一套私有 Skill。详见[`docs/personal-extension.zh-CN.md`](docs/personal-extension.zh-CN.md)和[`docs/chatgpt-personal-light.zh-CN.md`](docs/chatgpt-personal-light.zh-CN.md)。公共资料现在即可使用；本版暂缓的是公共资料持续学习、社区汇聚、自动更新和跨来源融合的方法，以及 Task Overlay、远程 MCP Provider 和私有 Library 自动摄取。
 
 本次公开发布只包含扩展契约与组合方法，不包含任何真实个人 Profile、私有 Provider、私有索引、机构母版、字体、演示文稿、PDF 或前期学习正文。v0.5.2 的本地执行以 Windows 为首发验证环境，Cloud Public Light 继续使用宿主工具；本版不生成、也不宣称已验证 macOS、Linux 或 iOS 发版包。
+
+在所有者个人模式下，Supervisor 会根据本次资源盘点结果生成任务级学习来源清单。清单和原始字节始终留在公开仓库与发布包之外；公开部分只有通用物化契约、回执门禁和完全合成的回归样例。
 
 ## 验证
 

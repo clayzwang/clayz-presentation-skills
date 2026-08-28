@@ -81,6 +81,100 @@ def normalize(text: str) -> str:
     return re.sub(r"[\s：:，,、；;。.!！？?（）()\-—]", "", text).casefold()
 
 
+def _copy_text(copy_slide: dict[str, Any], copy_id: Any) -> str:
+    for unit in copy_slide.get("copy_units", []):
+        if isinstance(unit, dict) and unit.get("copy_id") == copy_id:
+            return str(unit.get("text", ""))
+    return ""
+
+
+def validate_deck_expression_variation(
+    logic_slides: list[Any],
+    copy_slides: list[Any],
+    errors: list[str],
+) -> None:
+    """Reject mechanical Copy shells that are not backed by a Logic series."""
+
+    nonseries: list[tuple[str, dict[str, Any]]] = []
+    for logic_slide, copy_slide in zip(logic_slides, copy_slides):
+        if not isinstance(logic_slide, dict) or not isinstance(copy_slide, dict):
+            continue
+        slide_id = str(copy_slide.get("slide_id", ""))
+        title = _copy_text(copy_slide, copy_slide.get("title_copy_id"))
+        storyline = _copy_text(copy_slide, copy_slide.get("storyline_copy_id"))
+        normalized_title = normalize(title)
+        normalized_storyline = normalize(storyline)
+        if (
+            normalized_title
+            and normalized_storyline
+            and min(len(normalized_title), len(normalized_storyline)) >= 8
+            and (normalized_title in normalized_storyline or normalized_storyline in normalized_title)
+        ):
+            errors.append(
+                f"copy_layer.slides[{slide_id}]: title and storyline duplicate the same proposition instead of advancing it"
+            )
+        if logic_slide.get("series_id") is None:
+            nonseries.append((slide_id, copy_slide))
+
+    def repeated_groups(values: list[tuple[str, str]], minimum: int) -> list[tuple[str, list[str]]]:
+        grouped: dict[str, list[str]] = {}
+        for slide_id, value in values:
+            if value:
+                grouped.setdefault(value, []).append(slide_id)
+        return [(value, ids) for value, ids in grouped.items() if len(ids) >= minimum]
+
+    titles = [
+        (slide_id, normalize(_copy_text(slide, slide.get("title_copy_id"))))
+        for slide_id, slide in nonseries
+    ]
+    storylines = [
+        (slide_id, normalize(_copy_text(slide, slide.get("storyline_copy_id"))))
+        for slide_id, slide in nonseries
+        if slide.get("storyline_copy_id") is not None
+    ]
+    for label, values in (("title", titles), ("storyline", storylines)):
+        for _, slide_ids in repeated_groups(values, 2):
+            errors.append(
+                f"copy_layer: identical non-series {label} copy repeats across slides {slide_ids}"
+            )
+
+    strategies = [
+        (slide_id, normalize(str(slide.get("audience_transition_copy_strategy", ""))))
+        for slide_id, slide in nonseries
+    ]
+    for _, slide_ids in repeated_groups(strategies, 3):
+        errors.append(
+            f"copy_layer: one audience-transition expression is mechanically repeated across non-series slides {slide_ids}"
+        )
+
+    grammar_vectors: list[tuple[str, str]] = []
+    phrase_occurrences: dict[str, set[str]] = {}
+    for slide_id, slide in nonseries:
+        vector: list[str] = []
+        for unit in slide.get("copy_units", []):
+            if not isinstance(unit, dict):
+                continue
+            role = unit.get("role")
+            signature = unit.get("grammar_signature")
+            if role not in {"footnote", "data-label", "data-unit", "data-value"} and nonempty(signature):
+                vector.append(f"{role}:{signature}")
+            if role in {"storyline", "item", "evidence", "annotation"}:
+                phrase = normalize(str(unit.get("text", "")))
+                if len(phrase) >= 10 and sum(character.isdigit() for character in phrase) < len(phrase) / 2:
+                    phrase_occurrences.setdefault(phrase, set()).add(slide_id)
+        if vector:
+            grammar_vectors.append((slide_id, "|".join(vector)))
+    for _, slide_ids in repeated_groups(grammar_vectors, 3):
+        errors.append(
+            f"copy_layer: one complete grammar vector is repeated across non-series slides {slide_ids}; vary syntax or declare a Logic series"
+        )
+    for slide_ids in phrase_occurrences.values():
+        if len(slide_ids) >= 3:
+            errors.append(
+                f"copy_layer: one substantial visible phrase repeats across non-series slides {sorted(slide_ids)}"
+            )
+
+
 def validate_copy_layer(data: dict[str, Any], errors: list[str]) -> None:
     status = data.get("status")
     if status != "copy-approved":
@@ -160,6 +254,7 @@ def validate_copy_layer(data: dict[str, Any], errors: list[str]) -> None:
     global_copy_ids: set[str] = set()
     for index, (logic_slide, copy_slide) in enumerate(zip(logic_slides, copy_slides)):
         validate_copy_slide(logic_slide, copy_slide, f"copy_layer.slides[{index}]", global_copy_ids, errors)
+    validate_deck_expression_variation(logic_slides, copy_slides, errors)
 
 
 def validate_copy_slide(

@@ -16,10 +16,12 @@ from xml.etree import ElementTree as ET
 
 from compare_package_to_pptx import extract_slide, natural_slide_key
 from config_policy import ValidationPolicy, load_policy
+from index_evidence import index_lock_signature, validate_index_evidence
+from resource_inventory import resource_inventory_signature
 from validate_art_direction_plan import OBJECT_TYPES, STRUCTURE_TYPES, validate_plan
 
 
-CONTRACT_VERSION = "3.6"
+CONTRACT_VERSION = "3.9"
 CHECK_KEYS = {
     "exact_text", "copy_id_traceability", "atomic_copy_separation",
     "parent_child_hierarchy", "peer_parallelism", "visual_hierarchy",
@@ -61,6 +63,27 @@ def require_keys(obj: Any, keys: set[str], path: str, errors: list[str]) -> None
     missing = sorted(keys - set(obj))
     if missing:
         errors.append(f"{path}: missing keys {missing}")
+
+
+def validate_quantitative_inventory(
+    quantitative: Any,
+    actual_inventory: Any,
+    path: str,
+    errors: list[str],
+) -> None:
+    """Bind the declared quantitative encoding to real editable PPTX objects."""
+
+    if not isinstance(quantitative, dict) or not isinstance(actual_inventory, dict):
+        return
+    encoding_mode = quantitative.get("encoding_mode")
+    requirements = {
+        "native-chart": ("native-chart", "native chart object"),
+        "native-table": ("native-table", "native table object"),
+        "shape-encoded-chart": ("shape", "shape evidence"),
+    }
+    inventory_key, label = requirements.get(encoding_mode, (None, None))
+    if inventory_key is not None and actual_inventory.get(inventory_key, 0) < 1:
+        errors.append(f"{path}: {encoding_mode} quantitative plan requires {label}")
 
 
 def pptx_inventories(pptx: Path) -> list[dict[str, int]]:
@@ -130,7 +153,7 @@ def validate_qa(
     errors = validate_plan(package, plan, policy)
     require_keys(
         qa,
-        {"contract_version", "package_id", "package_version", "art_direction_plan_contract_version", "communication_contract_reviewed", "typography_contract_reviewed", "legibility_audit_reviewed", "font_environment_report", "cjk_render_report", "final_reopen_render_root", "final_reopen_cjk_render_reviewed", "delivery_profile", "size_audit_report", "size_audit_reviewed", "size_budget_exception_reason", "slides"},
+        {"contract_version", "package_id", "package_version", "art_direction_plan_contract_version", "resource_inventory_lock", "index_evidence", "communication_contract_reviewed", "typography_contract_reviewed", "legibility_audit_reviewed", "font_environment_report", "cjk_render_report", "final_reopen_render_root", "final_reopen_cjk_render_reviewed", "delivery_profile", "size_audit_report", "size_audit_reviewed", "size_budget_exception_reason", "slides"},
         "$qa",
         errors,
     )
@@ -151,6 +174,17 @@ def validate_qa(
         errors.append("qa package identity/version must match package")
     if qa.get("art_direction_plan_contract_version") != plan.get("contract_version"):
         errors.append("qa.art_direction_plan_contract_version: must match plan")
+    expected_resource_lock = resource_inventory_signature(package.get("resource_inventory"))
+    if qa.get("resource_inventory_lock") != expected_resource_lock or plan.get("resource_inventory_lock") != expected_resource_lock:
+        errors.append("qa.resource_inventory_lock: package, Art Direction, and Output QA must preserve one inventory signature")
+    validate_index_evidence(
+        qa.get("index_evidence"),
+        ["logic", "copy", "art-direction", "output"],
+        "qa.index_evidence",
+        errors,
+    )
+    if index_lock_signature(qa.get("index_evidence")) != index_lock_signature(plan.get("index_evidence")):
+        errors.append("qa.index_evidence: must preserve the Art Direction Provider lock and owner materialization")
     profile = qa.get("delivery_profile")
     if profile not in {"lightweight", "balanced", "high-fidelity"}:
         errors.append("qa.delivery_profile: invalid value")
@@ -227,6 +261,13 @@ def validate_qa(
             errors.append(f"{path}.actual_object_inventory: must contain exact non-negative counts for {sorted(OBJECT_TYPES)}")
         elif index < len(inventories) and actual_inventory != inventories[index]:
             errors.append(f"{path}.actual_object_inventory: must match final PPTX object evidence")
+        quantitative = medium.get("quantitative_execution_contract") if isinstance(medium, dict) else None
+        validate_quantitative_inventory(
+            quantitative,
+            actual_inventory,
+            f"{path}.actual_object_inventory",
+            errors,
+        )
         rendered_structure = qa_slide.get("rendered_structure_type")
         if rendered_structure not in STRUCTURE_TYPES:
             errors.append(f"{path}.rendered_structure_type: invalid value")

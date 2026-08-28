@@ -198,17 +198,17 @@ class PersonalExtensionTests(unittest.TestCase):
             compose_personal_light(profile_path, [manifest_path], output)
             with zipfile.ZipFile(output) as archive:
                 names = archive.namelist()
-                root = "clayz-presentation-skills-personal"
-                self.assertIn(f"{root}/runtime/personal-extension.json", names)
-                self.assertIn(f"{root}/config/personal-extension-resolved.json", names)
-                self.assertIn(f"{root}/catalog/provider-manifest.json", names)
-                self.assertFalse(any("/packages/runtime/packs/" in name for name in names))
-                self.assertFalse(any("/packages/adapters/" in name for name in names))
+                self.assertIn("runtime/personal-extension.json", names)
+                self.assertIn("runtime/plugin-mount-contract.json", names)
+                self.assertIn("config/personal-extension-resolved.json", names)
+                self.assertIn("catalog/provider-manifest.json", names)
+                self.assertFalse(any("packages/runtime/packs/" in name for name in names))
+                self.assertFalse(any("packages/adapters/" in name for name in names))
                 self.assertFalse(any("_extension/providers/private/index/records.jsonl" in name for name in names))
                 combined = b"\n".join(archive.read(name) for name in names if name.endswith((".json", ".md")))
                 self.assertNotIn(b"Synthetic private reference", combined)
-                manifest = json.loads(archive.read(f"{root}/.codex-plugin/plugin.json"))
-                self.assertEqual(manifest["name"], root)
+                manifest = json.loads(archive.read(".codex-plugin/plugin.json"))
+                self.assertEqual(manifest["name"], "clayz-presentation-skills-personal")
 
 
 if __name__ == "__main__":

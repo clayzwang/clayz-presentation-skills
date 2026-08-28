@@ -1,6 +1,8 @@
-# PPT v2.1 Copy-layer contract
+# PPT v2.3 Copy-layer contract
 
 Copy appends `copy_layer` to the same `ppt-design-package.json` while its status is `logic-approved`. On completion, root status becomes `copy-approved`; `logic_layer` remains byte-for-byte unchanged.
+
+The root package uses contract `2.3`, preserves the pre-Logic `resource_inventory` byte-for-byte, and adds finalized Copy receipts to `index_evidence`. Copy may consume only selected resources; discovering a new source returns control to Supervisor for a revised inventory and another user-visible brief. Copy approval also runs deck-level expression checks: non-series pages may not repeat identical titles/storylines, one transition formula, one complete grammar vector, or one substantial phrase mechanically.
 
 ## `copy_layer`
 

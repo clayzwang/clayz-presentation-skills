@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Validate the v2.1 PPT logic layer with only the Python standard library."""
+"""Validate the v2.3 PPT logic layer with only the Python standard library."""
 
 from __future__ import annotations
 
@@ -12,8 +12,11 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from index_evidence import validate_index_evidence
+from resource_inventory import validate_resource_inventory
 
-CONTRACT_VERSION = "2.1"
+
+CONTRACT_VERSION = "2.3"
 STATUS_RANK = {"draft": 0, "logic-approved": 1, "copy-approved": 2}
 MATERIAL_TYPES = {
     "management-report", "business-analysis", "strategy-deployment", "sales-training"
@@ -465,7 +468,7 @@ def validate_slide(slide: Any, path: str, errors: list[str]) -> None:
 
 def validate_package(data: Any, require_status: str = "logic-approved") -> list[str]:
     errors: list[str] = []
-    required_root = {"contract_version", "package_id", "version", "status", "brief", "logic_layer", "copy_layer", "approvals"}
+    required_root = {"contract_version", "package_id", "version", "status", "brief", "resource_inventory", "logic_layer", "copy_layer", "approvals", "index_evidence"}
     require_keys(data, required_root, "$", errors)
     if not isinstance(data, dict):
         return errors
@@ -481,6 +484,25 @@ def validate_package(data: Any, require_status: str = "logic-approved") -> list[
         errors.append(f"status: requires at least {require_status}, got {status}")
     if status == "logic-approved" and data.get("copy_layer") is not None:
         errors.append("copy_layer: must be null while status is logic-approved")
+
+    validate_resource_inventory(
+        data.get("resource_inventory"),
+        "resource_inventory",
+        errors,
+        require_ready=status in {"logic-approved", "copy-approved"},
+    )
+    selected_resource_ids = set(
+        data.get("resource_inventory", {}).get("selected_resource_ids", [])
+        if isinstance(data.get("resource_inventory"), dict)
+        else []
+    )
+
+    required_index_stages: list[str] = []
+    if status in {"logic-approved", "copy-approved"}:
+        required_index_stages.append("logic")
+    if status == "copy-approved":
+        required_index_stages.append("copy")
+    validate_index_evidence(data.get("index_evidence"), required_index_stages, "index_evidence", errors)
 
     validate_brief(data.get("brief"), errors)
     logic = data.get("logic_layer")
@@ -501,10 +523,12 @@ def validate_package(data: Any, require_status: str = "logic-approved") -> list[
         if not isinstance(source, dict):
             continue
         spath = f"logic_layer.sources[{index}]"
-        require_keys(source, {"source_id", "type", "title", "locator", "accessed_at", "reliability"}, spath, errors)
-        for key in ("type", "title", "locator", "accessed_at", "reliability"):
+        require_keys(source, {"source_id", "resource_id", "type", "title", "locator", "accessed_at", "reliability"}, spath, errors)
+        for key in ("resource_id", "type", "title", "locator", "accessed_at", "reliability"):
             if not is_nonempty_string(source.get(key)):
                 errors.append(f"{spath}.{key}: must be non-empty")
+        if source.get("resource_id") not in selected_resource_ids:
+            errors.append(f"{spath}.resource_id: must reference a resource selected before Logic")
 
     deck_tree = logic.get("deck_message_tree")
     require_keys(deck_tree, {"root_claim", "section_order", "slide_order"}, "logic_layer.deck_message_tree", errors)

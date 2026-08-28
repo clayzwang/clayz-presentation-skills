@@ -1,17 +1,22 @@
 {
-  "contract_version": "2.1",
+  "contract_version": "2.3",
   "package_id": "synthetic-release-regression",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "status": "copy-approved",
   "brief": {
     "purpose": "Explain a synthetic service improvement decision",
     "initiator_stance": "Recommend a reversible pilot",
     "preflight": {
-      "audience": {"primary": "Synthetic decision team"},
+      "audience": {
+        "primary": "Synthetic decision team"
+      },
       "material_type": "management-report",
       "management_stage": "monitoring-diagnosis",
       "narrative_archetype": "decision-proposal",
-      "desired_outcome": {"mode": "approve", "target": "Approve a small synthetic pilot"},
+      "desired_outcome": {
+        "mode": "approve",
+        "target": "Approve a small synthetic pilot"
+      },
       "confirmation": {
         "audience": "user-provided",
         "material_type": "user-confirmed",
@@ -22,7 +27,9 @@
     },
     "usage_context": "Synthetic automated release regression",
     "duration_minutes": 5,
-    "constraints": ["Synthetic data only"]
+    "constraints": [
+      "Synthetic data only"
+    ]
   },
   "logic_layer": {
     "knowledge_requirements": [],
@@ -33,22 +40,29 @@
         "title": "Synthetic pilot observation",
         "locator": "tests/fixtures/synthetic-copy-package.json",
         "accessed_at": "2026-08-20",
-        "reliability": "synthetic-test-only"
+        "reliability": "synthetic-test-only",
+        "resource_id": "task.request"
       }
     ],
     "glossary": [],
     "metric_dictionary": [],
     "deck_message_tree": {
       "root_claim": "A reversible pilot is the appropriate next step",
-      "section_order": ["SEC-01"],
-      "slide_order": ["S01"]
+      "section_order": [
+        "SEC-01"
+      ],
+      "slide_order": [
+        "S01"
+      ]
     },
     "narrative": {
       "opening": "Establish the synthetic decision",
       "progression": "Move from an observed gap to a reversible pilot",
       "turning_points": [],
       "closing": "Request approval for the synthetic pilot",
-      "management_stage_path": ["monitoring-diagnosis"],
+      "management_stage_path": [
+        "monitoring-diagnosis"
+      ],
       "audience_state_arc": [
         {
           "slide_id": "S01",
@@ -58,7 +72,10 @@
         }
       ]
     },
-    "cross_slide_contract": {"invariants": [], "series": []},
+    "cross_slide_contract": {
+      "invariants": [],
+      "series": []
+    },
     "slides": [
       {
         "slide_id": "S01",
@@ -83,7 +100,9 @@
         },
         "page_message_tree": {
           "root_node_id": "N00",
-          "reading_sequence": ["N00"],
+          "reading_sequence": [
+            "N00"
+          ],
           "nodes": [
             {
               "node_id": "N00",
@@ -97,7 +116,9 @@
           ]
         },
         "semantic_relations": [],
-        "source_ids": ["SRC-SYN-01"],
+        "source_ids": [
+          "SRC-SYN-01"
+        ],
         "claim_status": "recommendation",
         "confidence": "high",
         "reasoning_contracts": {
@@ -106,7 +127,9 @@
           "operating_system": null,
           "experiment_learning": null
         },
-        "do_not_change": ["Keep the pilot reversible"]
+        "do_not_change": [
+          "Keep the pilot reversible"
+        ]
       }
     ],
     "open_items": [],
@@ -125,7 +148,7 @@
     }
   },
   "copy_layer": {
-    "logic_version": "2.1.0",
+    "logic_version": "2.3.0",
     "cross_slide_copy_contract": {
       "invariant_renderings": [],
       "series_copy_strategies": []
@@ -144,7 +167,9 @@
             "text": "Run a reversible pilot before wider rollout",
             "role": "title",
             "text_mode": "sentence",
-            "source_logic_node_ids": ["N00"],
+            "source_logic_node_ids": [
+              "N00"
+            ],
             "logic_level": 0,
             "parent_copy_id": null,
             "sibling_group_id": null,
@@ -159,7 +184,9 @@
             "text": "The pilot tests the decision while limiting irreversible commitment.",
             "role": "storyline",
             "text_mode": "sentence",
-            "source_logic_node_ids": ["N00"],
+            "source_logic_node_ids": [
+              "N00"
+            ],
             "logic_level": 0,
             "parent_copy_id": null,
             "sibling_group_id": null,
@@ -174,7 +201,9 @@
           {
             "logic_node_id": "N00",
             "primary_copy_id": "C-S01-01",
-            "supplemental_copy_ids": ["C-S01-02"]
+            "supplemental_copy_ids": [
+              "C-S01-02"
+            ]
           }
         ],
         "footnote_copy_ids": [],
@@ -202,7 +231,551 @@
     }
   },
   "approvals": {
-    "logic": {"status": "approved", "approved_by": "synthetic-test", "notes": ""},
-    "copy": {"status": "approved", "approved_by": "synthetic-test", "notes": ""}
+    "logic": {
+      "status": "approved",
+      "approved_by": "synthetic-test",
+      "notes": ""
+    },
+    "copy": {
+      "status": "approved",
+      "approved_by": "synthetic-test",
+      "notes": ""
+    }
+  },
+  "resource_inventory": {
+    "contract": "io.clayz.presentation.resource-inventory/1.0",
+    "inventory_id": "inventory.regression.001",
+    "revision": 1,
+    "task_mode": "new-build",
+    "runtime_mode": "owner-personal",
+    "created_at": "2026-08-28T08:00:00+00:00",
+    "scan_scope": [
+      {
+        "scope": "plugin-runtime",
+        "status": "complete",
+        "evidence_ref": "evidence/plugin-runtime.json",
+        "discovered_entry_count": 2,
+        "note": "plugin-runtime was inspected deterministically"
+      },
+      {
+        "scope": "task-inputs",
+        "status": "complete",
+        "evidence_ref": "evidence/task-inputs.json",
+        "discovered_entry_count": 1,
+        "note": "task-inputs was inspected deterministically"
+      },
+      {
+        "scope": "owner-library",
+        "status": "complete",
+        "evidence_ref": "evidence/owner-library.json",
+        "discovered_entry_count": 2,
+        "note": "owner-library was inspected deterministically"
+      },
+      {
+        "scope": "public-index",
+        "status": "complete",
+        "evidence_ref": "evidence/public-index.json",
+        "discovered_entry_count": 1,
+        "note": "public-index was inspected deterministically"
+      },
+      {
+        "scope": "brand-assets",
+        "status": "complete",
+        "evidence_ref": "evidence/brand-assets.json",
+        "discovered_entry_count": 1,
+        "note": "brand-assets was inspected deterministically"
+      },
+      {
+        "scope": "host-capabilities",
+        "status": "complete",
+        "evidence_ref": "evidence/host-capabilities.json",
+        "discovered_entry_count": 1,
+        "note": "host-capabilities was inspected deterministically"
+      },
+      {
+        "scope": "font-environment",
+        "status": "complete",
+        "evidence_ref": "evidence/font-environment.json",
+        "discovered_entry_count": 1,
+        "note": "font-environment was inspected deterministically"
+      }
+    ],
+    "resources": [
+      {
+        "resource_id": "task.request",
+        "category": "task-input",
+        "label": "user request",
+        "origin": "task",
+        "locator": "task://request",
+        "availability": "available",
+        "required": true,
+        "stages": [
+          "root",
+          "logic"
+        ],
+        "quantity": 1,
+        "fingerprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "rights_context": "task-provided",
+        "decision": "selected",
+        "decision_reason": "selected because user request is needed by this task",
+        "evidence_ref": "evidence/task.request.json"
+      },
+      {
+        "resource_id": "plugin.five-skills",
+        "category": "plugin-skill",
+        "label": "five governed Skills",
+        "origin": "plugin",
+        "locator": "plugin://skills",
+        "availability": "available",
+        "required": true,
+        "stages": [
+          "root",
+          "logic",
+          "copy",
+          "art-direction",
+          "output",
+          "supervisor"
+        ],
+        "quantity": 5,
+        "fingerprint_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "rights_context": "public-open-source",
+        "decision": "selected",
+        "decision_reason": "selected because five governed Skills is needed by this task",
+        "evidence_ref": "evidence/plugin.five-skills.json"
+      },
+      {
+        "resource_id": "owner.learning-pools",
+        "category": "library-source",
+        "label": "owner learning and visual indexes",
+        "origin": "owner-library",
+        "locator": "library://ppt-personal/learning",
+        "availability": "available",
+        "required": true,
+        "stages": [
+          "root",
+          "logic",
+          "copy",
+          "art-direction",
+          "output",
+          "supervisor"
+        ],
+        "quantity": 8,
+        "fingerprint_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "rights_context": "owner-private",
+        "decision": "selected",
+        "decision_reason": "selected because owner learning and visual indexes is needed by this task",
+        "evidence_ref": "evidence/owner.learning-pools.json"
+      },
+      {
+        "resource_id": "public.index",
+        "category": "index-provider",
+        "label": "bundled public Index",
+        "origin": "public-catalog",
+        "locator": "public-index://builtin-catalog",
+        "availability": "available",
+        "required": true,
+        "stages": [
+          "root",
+          "logic",
+          "copy",
+          "art-direction",
+          "output",
+          "supervisor"
+        ],
+        "quantity": 24,
+        "fingerprint_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "rights_context": "public-open-source",
+        "decision": "selected",
+        "decision_reason": "selected because bundled public Index is needed by this task",
+        "evidence_ref": "evidence/public.index.json"
+      },
+      {
+        "resource_id": "owner.theme",
+        "category": "theme",
+        "label": "owner presentation theme",
+        "origin": "owner-library",
+        "locator": "library://ppt-personal/theme",
+        "availability": "available",
+        "required": true,
+        "stages": [
+          "root",
+          "art-direction",
+          "output",
+          "supervisor"
+        ],
+        "quantity": 1,
+        "fingerprint_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "rights_context": "owner-private",
+        "decision": "selected",
+        "decision_reason": "selected because owner presentation theme is needed by this task",
+        "evidence_ref": "evidence/owner.theme.json"
+      },
+      {
+        "resource_id": "host.authoring-route",
+        "category": "authoring-route",
+        "label": "native presentation authoring route",
+        "origin": "host",
+        "locator": "host://native-presentation",
+        "availability": "available",
+        "required": true,
+        "stages": [
+          "root",
+          "output",
+          "supervisor"
+        ],
+        "quantity": 1,
+        "fingerprint_sha256": null,
+        "rights_context": "host-capability",
+        "decision": "selected",
+        "decision_reason": "selected because native presentation authoring route is needed by this task",
+        "evidence_ref": "evidence/host.authoring-route.json"
+      },
+      {
+        "resource_id": "host.font-environment",
+        "category": "font",
+        "label": "inspected font environment",
+        "origin": "host",
+        "locator": "host://fonts",
+        "availability": "available",
+        "required": true,
+        "stages": [
+          "root",
+          "output",
+          "supervisor"
+        ],
+        "quantity": 1,
+        "fingerprint_sha256": null,
+        "rights_context": "host-capability",
+        "decision": "selected",
+        "decision_reason": "selected because inspected font environment is needed by this task",
+        "evidence_ref": "evidence/host.font-environment.json"
+      }
+    ],
+    "execution_route": {
+      "status": "ready",
+      "authoring_route": "native presentation authoring",
+      "render_route": "native reopen and full-slide render",
+      "target_application": "Microsoft PowerPoint",
+      "evidence_ref": "runtime-preflight.json"
+    },
+    "user_brief": {
+      "status": "presented",
+      "presented_at": "2026-08-28T08:01:00+00:00",
+      "channel": "commentary",
+      "language": "en-US",
+      "reported_resource_ids": [
+        "host.authoring-route",
+        "host.font-environment",
+        "owner.learning-pools",
+        "owner.theme",
+        "plugin.five-skills",
+        "public.index",
+        "task.request"
+      ],
+      "reported_selected_resource_ids": [
+        "host.authoring-route",
+        "host.font-environment",
+        "owner.learning-pools",
+        "owner.theme",
+        "plugin.five-skills",
+        "public.index",
+        "task.request"
+      ],
+      "reported_not_selected_resource_ids": [],
+      "reported_unavailable_resource_ids": [],
+      "discovered_lines": [
+        "Found one task input and the complete five-skill plugin runtime",
+        "Found owner learning pools, the bundled public Index, one theme, and host capabilities"
+      ],
+      "selected_lines": [
+        "Selected the task input, governed skills, owner learning pools, public Index, and theme",
+        "Selected the inspected native authoring route and font environment for production and QA"
+      ],
+      "unavailable_lines": [],
+      "execution_line": "Resources are locked; begin Logic on the inspected native authoring and render route",
+      "content_sha256": "3bc5d460dd4eba235b3eb8e59e9c49f0d8f7651537450000f0405abed0364c75"
+    },
+    "gate": {
+      "verified_before_logic": true,
+      "authoring_started_at": "2026-08-28T08:02:00+00:00",
+      "status": "ready",
+      "authoring_may_start": true,
+      "blocking_resource_ids": [],
+      "blocking_reasons": []
+    },
+    "summary": {
+      "resource_entry_count": 7,
+      "item_quantity_total": 41,
+      "available_entry_count": 7,
+      "selected_entry_count": 7,
+      "deferred_entry_count": 0,
+      "unavailable_entry_count": 0,
+      "missing_required_entry_count": 0
+    },
+    "selected_resource_ids": [
+      "host.authoring-route",
+      "host.font-environment",
+      "owner.learning-pools",
+      "owner.theme",
+      "plugin.five-skills",
+      "public.index",
+      "task.request"
+    ],
+    "deferred_resource_ids": [],
+    "unavailable_resource_ids": [],
+    "lock": {
+      "algorithm": "sha256",
+      "digest": "54e80a90becf8da43957c2d3a3e805d7a85c2edb3e59e7a8b949d76e458e2d98"
+    }
+  },
+  "index_evidence": {
+    "contract": "io.clayz.presentation.index-execution-evidence/1.0",
+    "mode": "owner-personal",
+    "runtime_lock_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "provider_lock": {
+      "lock_id": "regression-provider-lock",
+      "snapshots": [
+        {
+          "provider_id": "builtin-catalog",
+          "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "record_count": 12
+        },
+        {
+          "provider_id": "owner-private-library",
+          "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "record_count": 9
+        },
+        {
+          "provider_id": "task-private-learning",
+          "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "record_count": 8
+        }
+      ],
+      "lock_sha256": "318c1b3d70cecf85e31c192f674aff2dc145b2140f0f7bac43e2d708a5c52e73"
+    },
+    "owner_materialization": {
+      "status": "materialized",
+      "source_manifest_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "materialization_report_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "provider_id": "task-private-learning",
+      "record_count": 8,
+      "required_sources": [
+        {
+          "source_id": "demo-art-learning",
+          "stages": [
+            "art-direction"
+          ]
+        },
+        {
+          "source_id": "demo-copy-learning",
+          "stages": [
+            "copy"
+          ]
+        },
+        {
+          "source_id": "demo-logic-learning",
+          "stages": [
+            "logic"
+          ]
+        },
+        {
+          "source_id": "demo-output-learning",
+          "stages": [
+            "output"
+          ]
+        },
+        {
+          "source_id": "demo-purpose-index",
+          "stages": [
+            "art-direction"
+          ]
+        },
+        {
+          "source_id": "demo-reviewed-counterexamples",
+          "stages": [
+            "supervisor"
+          ]
+        },
+        {
+          "source_id": "demo-visual-preferences",
+          "stages": [
+            "art-direction"
+          ]
+        },
+        {
+          "source_id": "demo-visual-reference-index",
+          "stages": [
+            "art-direction"
+          ]
+        }
+      ],
+      "materialized_source_ids": [
+        "demo-art-learning",
+        "demo-copy-learning",
+        "demo-logic-learning",
+        "demo-output-learning",
+        "demo-purpose-index",
+        "demo-reviewed-counterexamples",
+        "demo-visual-preferences",
+        "demo-visual-reference-index"
+      ],
+      "missing_source_ids": []
+    },
+    "stage_receipts": {
+      "logic": [
+        {
+          "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+          "receipt_id": "receipt-logic",
+          "created_at": "2026-08-28T08:00:00+00:00",
+          "request": {
+            "contract": "io.clayz.presentation.retrieval-request/1.0",
+            "request_id": "regression-logic",
+            "stage": "logic",
+            "query": "consume required owner learning for logic",
+            "rights_context": "private-runtime",
+            "require_human_admission": true,
+            "limit": 20,
+            "filters": {
+              "record_types": [],
+              "provider_ids": [
+                "task-private-learning"
+              ],
+              "task_modes": [],
+              "page_roles": [],
+              "semantic_relations": [],
+              "purpose_tags": [],
+              "languages": [
+                "zh-CN"
+              ],
+              "failure_signals": [],
+              "include_metadata_only": false
+            },
+            "neighbor_expansion": {
+              "physical": 0,
+              "semantic": 0
+            }
+          },
+          "index_snapshot": [
+            {
+              "provider_id": "builtin-catalog",
+              "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "record_count": 12
+            },
+            {
+              "provider_id": "owner-private-library",
+              "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "record_count": 9
+            },
+            {
+              "provider_id": "task-private-learning",
+              "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "record_count": 8
+            }
+          ],
+          "candidates": [
+            {
+              "record_id": "owner.logic.1",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-logic-learning"
+            }
+          ],
+          "selection": {
+            "selected": [
+              {
+                "record_id": "owner.logic.1",
+                "reason": "applies demo-logic-learning to this stage"
+              }
+            ],
+            "rejected": []
+          },
+          "fallback": {
+            "used": false,
+            "reason": ""
+          },
+          "hallucination_guard": {
+            "only_registered_records": true,
+            "invented_record_count": 0,
+            "candidate_count": 1
+          }
+        }
+      ],
+      "copy": [
+        {
+          "contract": "io.clayz.presentation.retrieval-receipt/1.0",
+          "receipt_id": "receipt-copy",
+          "created_at": "2026-08-28T08:00:00+00:00",
+          "request": {
+            "contract": "io.clayz.presentation.retrieval-request/1.0",
+            "request_id": "regression-copy",
+            "stage": "copy",
+            "query": "consume required owner learning for copy",
+            "rights_context": "private-runtime",
+            "require_human_admission": true,
+            "limit": 20,
+            "filters": {
+              "record_types": [],
+              "provider_ids": [
+                "task-private-learning"
+              ],
+              "task_modes": [],
+              "page_roles": [],
+              "semantic_relations": [],
+              "purpose_tags": [],
+              "languages": [
+                "zh-CN"
+              ],
+              "failure_signals": [],
+              "include_metadata_only": false
+            },
+            "neighbor_expansion": {
+              "physical": 0,
+              "semantic": 0
+            }
+          },
+          "index_snapshot": [
+            {
+              "provider_id": "builtin-catalog",
+              "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "record_count": 12
+            },
+            {
+              "provider_id": "owner-private-library",
+              "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "record_count": 9
+            },
+            {
+              "provider_id": "task-private-learning",
+              "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "record_count": 8
+            }
+          ],
+          "candidates": [
+            {
+              "record_id": "owner.copy.1",
+              "provider_id": "task-private-learning",
+              "source_id": "demo-copy-learning"
+            }
+          ],
+          "selection": {
+            "selected": [
+              {
+                "record_id": "owner.copy.1",
+                "reason": "applies demo-copy-learning to this stage"
+              }
+            ],
+            "rejected": []
+          },
+          "fallback": {
+            "used": false,
+            "reason": ""
+          },
+          "hallucination_guard": {
+            "only_registered_records": true,
+            "invented_record_count": 0,
+            "candidate_count": 1
+          }
+        }
+      ]
+    }
   }
 }

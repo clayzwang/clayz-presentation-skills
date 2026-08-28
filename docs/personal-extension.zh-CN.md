@@ -23,7 +23,7 @@ Cloud Public Light（脑）
 2. `provider-manifest.schema.json`：用同一契约描述随包公共 Provider 与所有者私有 Provider；
 3. `personal-extension-runtime.schema.json`：验证 composer 生成的宿主专用运行信封。
 
-检索仍然只走现有的 `index-record`、retrieval request/receipt、`IndexProvider` 和 `CompositeIndex`。`catalog/provider-manifest.json` 与 `catalog/records.jsonl` 是公共 Provider 的规范控制面与唯一索引真源；`knowledge/index/search-cache.json` 只是本地 Library 工具生成的派生缓存。私有记录保留独立 `provider_id`、哈希、权限、人工准入状态和 `never_copy` 边界。公共仓库不得包含真实私有 Profile、manifest、索引、附件、母版、字体、品牌值或原生路径。
+检索仍然只走现有的 `index-record`、retrieval request/receipt、`IndexProvider` 和 `CompositeIndex`。`resource-inventory.schema.json` 增加 Logic 前盘点和用户简报，`index-execution-evidence.schema.json` 则证明任务级所有者来源物化与各阶段回执覆盖。所有者学习清单根据该次盘点作为运行时输入生成，不是仓库文件。`catalog/provider-manifest.json` 与 `catalog/records.jsonl` 是公共 Provider 的规范控制面与唯一索引真源；`knowledge/index/search-cache.json` 只是本地 Library 工具生成的派生缓存。私有记录保留独立 `provider_id`、哈希、权限、人工准入状态和 `never_copy` 边界。公共仓库不得包含真实私有 Profile、manifest、索引、附件、母版、字体、品牌值或原生路径。
 
 ## 覆盖策略
 

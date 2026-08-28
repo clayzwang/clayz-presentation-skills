@@ -1,4 +1,4 @@
-# Art Direction Plan Contract v1.4
+# Art Direction Plan Contract v1.6
 
 `ppt-art-direction-plan.json` is the sole visual-decision handoff between a `copy-approved` script package and Output. It may not introduce new business content. Set its status to `art-direction-approved` only after every visual decision is locked.
 
@@ -6,11 +6,13 @@
 
 ```json
 {
-  "contract_version": "1.4",
+  "contract_version": "1.6",
   "status": "art-direction-approved",
-  "package_contract_version": "2.1",
+  "package_contract_version": "2.3",
   "package_id": "example-deck",
   "package_version": "2.1.0",
+  "resource_inventory_lock": {},
+  "index_evidence": {},
   "communication_contract": {},
   "art_direction": {},
   "reference_budget": {},
@@ -21,6 +23,8 @@
   "slides": []
 }
 ```
+
+`resource_inventory_lock` must equal the pre-Logic inventory signature from the script package. Art Direction may select only themes, templates, visual references, assets, fonts, and providers included in that inventory; any newly discovered resource returns to Supervisor for a revised scan and visible brief.
 
 `communication_contract` must reproduce `brief.preflight` from the script package exactly. `typography_contract`, `deck_rhythm`, and each slide's `copy_unit_map`, `visual_hierarchy`, and `medium_execution_contract` retain the machine-checkable fields defined by expression plan v2.1, while Art Direction owns every visual choice.
 
@@ -57,13 +61,19 @@ The four sequences must cover the complete deck in slide order. `density_sequenc
   "max_sequences_loaded": 4,
   "loaded_record_ids": ["REF-DEMO-015", "REF-DEMO-299"],
   "loaded_sequence_ids": ["SEQ-DEMO-QUARTERS"],
-  "query_log": [],
+  "query_log": [{
+    "request_id": "request-art-direction-reference",
+    "receipt_id": "receipt-registered-selection",
+    "query": "comparison page for bank-scale and growth evidence",
+    "selected_record_ids": ["REF-DEMO-015"],
+    "adoption_outcome": "selected for hierarchy and comparison grammar; source copy and pixels remain forbidden"
+  }],
   "sequence_query_log": [],
   "budget_respected": true
 }
 ```
 
-Reuse of one case across multiple slides counts once. `query_log` records search conditions and adoption outcomes; “reviewed references” is not sufficient.
+Reuse of one case across multiple slides counts once. `query_log` is non-empty, binds each loaded record to an Art Direction Retrieval Receipt, and records search conditions and adoption outcomes; “reviewed references” is not sufficient.
 
 ## `decision_log`
 
@@ -106,6 +116,7 @@ In addition to the expression-plan fields, every slide includes:
 - `semantic_whitespace`: type, regions, narrative responsibility, and protection status.
 - `persistent_context_rail`: enablement, purpose, scope, current marker, and maximum area.
 - `medium_execution_contract.data_chart_contract`: chart type, type size, direct labels, point-connection policy, semantic lines, and collision avoidance; `null` for non-data slides.
+- `medium_execution_contract.quantitative_execution_contract`: exact Logic data IDs, encoding mode, comparison task, scale/baseline/unit rationale, and any explicitly user-approved shape-encoded exception. Three or more comparable values require a native chart or table as the dominant medium.
 - `content_aware_canvas`: evidence-led subject protection, placement zones, crop, contrast, directional flow, and overlay policy.
 - `asset_strategy`: derive-not-clone template mode, semantic asset roles, candidates, selections, family decision, license evidence, and `never_copy` boundaries.
 
@@ -237,6 +248,8 @@ Additional `deck_rhythm` fields:
 - `motif_contracts`: purpose, establishment slide, recurrence slides, local-variation rule, break slide, and break reason for each motif.
 - `semantic_whitespace_slide_ids`.
 - `purposeful_repetition_review`: confirm that series repetition has a business purpose and that non-series isomorphism has a break strategy.
+
+The validator enforces the declared silhouette and density run limits, dominant-medium diversity, bottom conclusion-band share, content-specific first visuals, and non-series structure reuse. “Main visual”, “main table”, “主图”, “主表”, and “结论结构” are placeholders, not acceptable first-visual decisions.
 
 ## A/B candidates
 

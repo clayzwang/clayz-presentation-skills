@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:index-execution-evidence:1.0",
+  "title": "Clayz first-class Index execution evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "mode", "runtime_lock_digest", "provider_lock", "owner_materialization", "stage_receipts"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.index-execution-evidence/1.0"},
+    "mode": {"enum": ["owner-personal", "public-core"]},
+    "runtime_lock_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "provider_lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lock_id", "snapshots", "lock_sha256"],
+      "properties": {
+        "lock_id": {"type": "string", "minLength": 1},
+        "snapshots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["provider_id", "digest", "record_count"],
+            "properties": {
+              "provider_id": {"type": "string", "minLength": 1},
+              "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "record_count": {"type": "integer", "minimum": 0}
+            }
+          }
+        },
+        "lock_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "owner_materialization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "source_manifest_sha256", "materialization_report_sha256", "provider_id", "record_count", "required_sources", "materialized_source_ids", "missing_source_ids"],
+      "properties": {
+        "status": {"enum": ["materialized", "not-applicable", "blocked"]},
+        "source_manifest_sha256": {"type": ["string", "null"]},
+        "materialization_report_sha256": {"type": ["string", "null"]},
+        "provider_id": {"const": "task-private-learning"},
+        "record_count": {"type": "integer", "minimum": 0},
+        "required_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_id", "stages"],
+            "properties": {
+              "source_id": {"type": "string", "minLength": 1},
+              "stages": {
+                "type": "array",
+                "minItems": 1,
+                "items": {"enum": ["logic", "copy", "art-direction", "output", "supervisor"]},
+                "uniqueItems": true
+              }
+            }
+          }
+        },
+        "materialized_source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "missing_source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      }
+    },
+    "stage_receipts": {
+      "type": "object",
+      "properties": {
+        "logic": {"$ref": "#/$defs/receipts"},
+        "copy": {"$ref": "#/$defs/receipts"},
+        "art-direction": {"$ref": "#/$defs/receipts"},
+        "output": {"$ref": "#/$defs/receipts"},
+        "supervisor": {"$ref": "#/$defs/receipts"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "receipts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "object"}
+    }
+  }
+}
