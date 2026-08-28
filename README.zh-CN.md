@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.5.2**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.6.0**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -57,11 +57,11 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 
 ## Personal Extension Profile 基础
 
-v0.5.2 在 Logic 前增加一次可选的所有者私有扩展判断，同时保持唯一的五阶段主流程。私有 Profile 可以提供受治理的主题覆盖和逻辑 Library mount；私有 Provider 把已准入参考、索引、母版和其他资产留在公共仓库之外。本地和 ChatGPT 自用宿主通过各自 binding 解析同一组 `library://` URI。
+v0.5.2 奠定了 Logic 前可选的所有者私有扩展判断，同时保持唯一的五阶段主流程。私有 Profile 可以提供受治理的主题覆盖和逻辑 Library mount；私有 Provider 把已准入参考、索引、母版和其他资产留在公共仓库之外。本地和 ChatGPT 自用宿主通过各自 binding 解析同一组 `library://` URI。
 
 GitHub 公共源不只是一个 light 压缩包：唯一 Public Core、规范公共 Provider manifest/index、公共 Library payload、共享契约与宿主适配器会生成 Cloud Public Light 和 Local Public Light。云端目标是在 Cloud Public Light 上接入已解析的 Personal Extension Profile 与私有 Library 路线，而不是另建一套私有 Skill。详见[`docs/personal-extension.zh-CN.md`](docs/personal-extension.zh-CN.md)和[`docs/chatgpt-personal-light.zh-CN.md`](docs/chatgpt-personal-light.zh-CN.md)。公共资料现在即可使用；本版暂缓的是公共资料持续学习、社区汇聚、自动更新和跨来源融合的方法，以及 Task Overlay、远程 MCP Provider 和私有 Library 自动摄取。
 
-本次公开发布只包含扩展契约与组合方法，不包含任何真实个人 Profile、私有 Provider、私有索引、机构母版、字体、演示文稿、PDF 或前期学习正文。v0.5.2 的本地执行以 Windows 为首发验证环境，Cloud Public Light 继续使用宿主工具；本版不生成、也不宣称已验证 macOS、Linux 或 iOS 发版包。
+本次公开发布只包含扩展契约与组合方法，不包含任何真实个人 Profile、私有 Provider、私有索引、机构母版、字体、演示文稿、PDF 或前期学习正文。v0.6.0 的本地执行以 Windows 为首发验证环境，Cloud Public Light 继续使用宿主工具；本版不生成、也不宣称已验证 macOS、Linux 或 iOS 发版包。
 
 在所有者个人模式下，Supervisor 会根据本次资源盘点结果生成任务级学习来源清单。清单和原始字节始终留在公开仓库与发布包之外；公开部分只有通用物化契约、回执门禁和完全合成的回归样例。
 
@@ -139,10 +139,10 @@ python scripts/validate_feedback_benchmark.py
 - 核心脚本需要Python 3.10或更高版本；不依赖宿主模型的基础作者链使用`python-pptx`，位图准备、视觉节奏和文件体积检查使用Pillow，机器可读清单校验使用PyYAML。
 - GitHub Actions会分别使用Python 3.10、3.11和3.12验证，并在发布前用`--help`启动所有公开命令行入口。
 - 每次生产运行只能执行一次`scripts/runtime_preflight.py`。它按交互能力划分A—D类、扫描依赖、锁定一条作者／渲染路线并写入调用预算；分类不绑定模型品牌。
-- v0.5.2 已验证的本地生产路线是 Windows 加一个常驻 PowerPoint COM 进程；Cloud Public Light 使用检查后的宿主能力。其他本地操作系统路线属于后续兼容工作，不是本版发布承诺。
+- v0.6.0 已验证的本地生产路线是 Windows 加一个常驻 PowerPoint COM 进程；Cloud Public Light 使用检查后的宿主能力。其他本地操作系统路线属于后续兼容工作，不是本版发布承诺。
 - PDF与Poppler按需加载：只有输入包含PDF页面，或锁定的LibreOffice路线需要PDF→PNG时才需要，普通PPTX作者过程不依赖它们。
 - 运行`python scripts/build_runtime_packs.py --bundle light`，从同一 public-core digest 生成 Cloud Public Light 与 Local Public Light。Cloud Light 使用 ChatGPT 宿主工具，不携带本地适配器和系统包；Local Light 保留这些内容。两者都不包含第三方wheel、体验中心案例、PPT/PDF或展示媒体。
-- v0.5.2 只发布 Windows x86-64 的 CPython 3.12 离线依赖附加包。维护者获取经过锁定的 Windows wheel，并生成两个 Light 包与一个 Windows 附加包；安装、哈希与许可见[`docs/release-packages.zh-CN.md`](docs/release-packages.zh-CN.md)。
+- v0.6.0 只发布 Windows x86-64 的 CPython 3.12 离线依赖附加包。维护者获取经过锁定的 Windows wheel，并生成两个 Light 包与一个 Windows 附加包；安装、哈希与许可见[`docs/release-packages.zh-CN.md`](docs/release-packages.zh-CN.md)。
 - C、D类模型通过适配器消费相同的内部合同；用户仍用自然语言交互，不需要手写render manifest或预检JSON。
 - MCP不是必需依赖。能读取Skill并调用本地工具的大模型宿主可直接运行；只有需要统一接入远程存储、检索、渲染或其他外部服务时，才需要另建MCP接口。
 

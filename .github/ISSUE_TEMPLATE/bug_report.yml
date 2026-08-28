@@ -13,8 +13,8 @@ body:
     id: clayz_version
     attributes:
       label: "Clayz version / Clayz 版本"
-      description: "For example: v0.5.2 or a commit SHA / 例如 v0.5.2 或提交 SHA"
-      placeholder: "v0.5.2"
+      description: "For example: v0.6.0 or a commit SHA / 例如 v0.6.0 或提交 SHA"
+      placeholder: "v0.6.0"
     validations:
       required: true
 
