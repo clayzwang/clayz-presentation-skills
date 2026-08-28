@@ -1,6 +1,6 @@
 # Runtime architecture
 
-v0.5.2 preserves the v0.5.1 separation of presentation reasoning from execution and adds one optional owner-private extension decision before Logic. One Public Core and one bundled public Provider remain the brain in every target. Local adapters execute the Local Light route; ChatGPT host tools form the body for Cloud Light. The five skills still own decisions. The runtime owns capability discovery, route locking, bounded tool use, and the host boundary.
+v0.6.0 preserves the v0.5.2 separation of presentation reasoning, governed retrieval, and execution while making pre-Logic resource inventory mandatory. One Public Core and one bundled public Provider remain the brain in every target. Local adapters execute the Local Light route; ChatGPT host tools form the body for Cloud Light. The five skills still own decisions. The runtime owns resource and capability discovery, route locking, bounded tool use, and the host boundary.
 
 ## Fixed lifecycle
 
@@ -19,11 +19,11 @@ Cloud hosts inspect their actually available presentation capabilities and pass 
 ## Dependency levels
 
 1. Common authoring: Python 3.10+, `python-pptx`, Pillow, and PyYAML. This route does not require a host model's private presentation tool.
-2. Final rendering in the v0.5.2 local release: one PowerPoint COM process on Windows. Cloud Public Light may select a host-provided presentation or Artifact Tool route during preflight. Other local operating-system routes are not v0.5.2 release claims.
+2. Final rendering in the v0.6.0 local release: one PowerPoint COM process on Windows. Cloud Public Light may select a host-provided presentation or Artifact Tool route during preflight. Other local operating-system routes are not v0.6.0 release claims.
 3. Lazy media support: Poppler only for PDF page input or the LibreOffice PDF-to-PNG rendering route; an SVG converter only when the selected deck actually contains SVG on a backend that cannot insert it natively.
 
 The repository bundles contracts, adapters, validators, preflight logic, and per-platform launcher scripts. Third-party applications and binaries remain external unless their licenses and platform packaging are separately reviewed.
 
 ## Public Light targets and local platform packages
 
-Run `python scripts/build_runtime_packs.py --bundle light` to create deterministic Cloud Public Light and Local Public Light ZIPs under `dist/`. Both bind the same `public_core_sha256` and bundled public Provider snapshot. Cloud Light omits local adapters and platform packs because ChatGPT supplies tools; Local Light retains local execution routes. After `scripts/fetch_offline_wheels.py --platform windows` stages reviewed CPython 3.12 wheels, the v0.5.2 release build creates only the Windows offline dependency add-on. No Light archive contains third-party wheels, and no macOS, Linux, or iOS release package is produced. See [`release-packages.md`](release-packages.md).
+Run `python scripts/build_runtime_packs.py --bundle light` to create deterministic Cloud Public Light and Local Public Light ZIPs under `dist/`. Both bind the same `public_core_sha256` and bundled public Provider snapshot. Cloud Light omits local adapters and platform packs because ChatGPT supplies tools; Local Light retains local execution routes. After `scripts/fetch_offline_wheels.py --platform windows` stages reviewed CPython 3.12 wheels, the v0.6.0 release build creates only the Windows offline dependency add-on. No Light archive contains third-party wheels, and no macOS, Linux, or iOS release package is produced. See [`release-packages.md`](release-packages.md).

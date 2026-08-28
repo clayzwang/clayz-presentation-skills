@@ -1,6 +1,6 @@
 # Personal Extension Profile
 
-Version 0.5.2 adds one optional owner-private extension point before the existing five-stage workflow. It does not add a sixth skill, fork a stage, or create a second retrieval engine. Public material, its Library payloads, and its index are still organized and usable in this version. What is deferred is the method for continuous learning, community aggregation, automatic update, and cross-source fusion of public material.
+The v0.5.2 foundation added one optional owner-private extension point before the existing five-stage workflow. It does not add a sixth skill, fork a stage, or create a second retrieval engine. Public material, its Library payloads, and its index remain organized and usable. What is deferred is the method for continuous learning, community aggregation, automatic update, and cross-source fusion of public material.
 
 ```text
 GitHub public source

@@ -28,4 +28,4 @@ python scripts/build_runtime_packs.py --platform windows
 python scripts/verify_release_bundles.py --platform windows
 ```
 
-脚本只更新“当前版本”位置，不会全局替换历史版本、旧体验案例文件名或版本特定的安全审查记录。v0.5.2 发版产物由 Cloud Public Light、Local Public Light、Windows CPython 3.12 离线依赖包和 SHA-256 清单组成；本版不生成其他操作系统包。细节见[`release-packages.zh-CN.md`](release-packages.zh-CN.md)。包含 `VERSION` 变化的 PR 合并后才会触发 GitHub Release；若目标 Tag 已经指向其他提交，发布会直接失败，禁止覆盖旧版本。
+脚本只更新“当前版本”位置，不会全局替换历史版本、旧体验案例文件名或版本特定的安全审查记录。v0.6.0 发版产物由 Cloud Public Light、Local Public Light、Windows CPython 3.12 离线依赖包和 SHA-256 清单组成；本版不生成其他操作系统包。细节见[`release-packages.zh-CN.md`](release-packages.zh-CN.md)。包含 `VERSION` 变化的 PR 合并后才会触发 GitHub Release；若目标 Tag 已经指向其他提交，发布会直接失败，禁止覆盖旧版本。
