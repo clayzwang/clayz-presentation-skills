@@ -30,6 +30,7 @@ Cloud Public Light（脑）
 策略由公共 resolver 决定，私有 Profile 不能自行声明更宽松的策略，也不能覆盖 sealed 字段。
 
 - `replace` 只允许修改明确的演示文稿选择，例如 locale、主题身份、母版逻辑 URI、颜色、有序字体栈、部分布局值和交付档位；
+- `theme.typography.font_validation` 把规范字体名及其等价别名建模为一个字体身份；别名只用于解析已安装名称，不能在 `primary_fonts` 中成为额外回退位，Latin 与 East Asian PPTX 字体字段只写该身份的 `pptx_family`；
 - `append_unique` 只能追加能力、目标应用、后端或版式角色列表，不能删除公共基线；
 - `stricter_only` 只能提高字号阈值或打开验证门禁，不能降低阈值或关闭已有门禁；
 - workflow、namespace、版本、公开署名、路线预算、学习准入和核心合同字段全部 sealed。

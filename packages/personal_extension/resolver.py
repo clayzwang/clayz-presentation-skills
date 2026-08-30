@@ -31,6 +31,7 @@ REPLACE_PATHS = {
     "theme.master_path",
     "theme.slide_size",
     "theme.typography.primary_fonts",
+    "theme.typography.font_validation",
     "theme.typography.prefer_even_point_sizes",
     "theme.typography.allow_fractional_point_sizes",
     "theme.typography.minimum_exception_policy",

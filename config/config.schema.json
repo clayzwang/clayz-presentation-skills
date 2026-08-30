@@ -74,7 +74,7 @@
         "colors": {"type": "object"},
         "typography": {
           "type": "object",
-          "required": ["primary_fonts", "body_minimum_pt", "minimum_audience_text_pt", "minimum_chart_text_pt", "prefer_even_point_sizes", "allow_fractional_point_sizes", "minimum_exception_policy", "fail_on_missing_primary_font"],
+          "required": ["primary_fonts", "body_minimum_pt", "minimum_audience_text_pt", "minimum_chart_text_pt", "prefer_even_point_sizes", "allow_fractional_point_sizes", "minimum_exception_policy", "fail_on_missing_primary_font", "font_validation"],
           "properties": {
             "primary_fonts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
             "body_minimum_pt": {"type": "number", "exclusiveMinimum": 0},
@@ -83,7 +83,40 @@
             "prefer_even_point_sizes": {"type": "boolean"},
             "allow_fractional_point_sizes": {"type": "boolean"},
             "minimum_exception_policy": {"type": "string", "minLength": 1},
-            "fail_on_missing_primary_font": {"type": "boolean"}
+            "fail_on_missing_primary_font": {"type": "boolean"},
+            "font_validation": {
+              "type": ["object", "null"],
+              "additionalProperties": false,
+              "required": ["contract_version", "mode", "deferred_font_identities", "preserve_requested_font_names", "silent_substitution_forbidden", "cloud_render_authority", "cloud_pdf_pixel_equivalence", "native_reopen_required_for_final_font_acceptance", "missing_deferred_font_status"],
+              "properties": {
+                "contract_version": {"const": "1.0"},
+                "mode": {"const": "preserve-name-defer-native"},
+                "deferred_font_identities": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["canonical_family", "aliases", "pptx_family"],
+                    "properties": {
+                      "canonical_family": {"type": "string", "minLength": 1},
+                      "aliases": {
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {"type": "string", "minLength": 1}
+                      },
+                      "pptx_family": {"type": "string", "minLength": 1}
+                    }
+                  }
+                },
+                "preserve_requested_font_names": {"const": true},
+                "silent_substitution_forbidden": {"const": true},
+                "cloud_render_authority": {"const": "diagnostic-only"},
+                "cloud_pdf_pixel_equivalence": {"const": "not-required-when-deferred-font-missing"},
+                "native_reopen_required_for_final_font_acceptance": {"const": true},
+                "missing_deferred_font_status": {"const": "font-validation-pending"}
+              }
+            }
           }
         }
       }

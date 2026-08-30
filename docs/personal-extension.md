@@ -30,6 +30,7 @@ The existing `index-record`, retrieval-request, retrieval-receipt, `IndexProvide
 The resolver owns the policy for every supported path. A private profile cannot declare a weaker policy or override a sealed path.
 
 - `replace` is limited to explicit presentation choices such as locale, theme identity, logical master URI, colors, the ordered font stack, selected layout values, and delivery profile.
+- `theme.typography.font_validation` models a canonical family and its equivalent aliases as one identity. Aliases resolve installed names; they never become extra fallback positions in `primary_fonts`. The identity's `pptx_family` is the only name written to Latin and East Asian PPTX font fields.
 - `append_unique` extends capability, application, backend, or layout-role lists without deleting the public baseline.
 - `stricter_only` may raise text thresholds or turn a validation guard on; it cannot lower a threshold or turn an existing guard off.
 - All workflow, namespace, version, public attribution, route-budget, learning-admission, and core-contract fields remain sealed.

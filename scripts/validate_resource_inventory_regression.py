@@ -77,9 +77,9 @@ def _draft() -> dict[str, Any]:
     resources = [
         _resource("task.request", "task-input", "user request", "task", "task://request", ["root", "logic"], "a" * 64, rights="task-provided"),
         _resource("plugin.five-skills", "plugin-skill", "five governed Skills", "plugin", "plugin://skills", ["root", "logic", "copy", "art-direction", "output", "supervisor"], "b" * 64, quantity=5, rights="public-open-source"),
-        _resource("owner.learning-pools", "library-source", "owner learning and visual indexes", "owner-library", "library://ppt-personal/learning", ["root", "logic", "copy", "art-direction", "output", "supervisor"], "c" * 64, quantity=8),
+        _resource("owner.learning-pools", "library-source", "owner learning and visual indexes", "owner-library", "library://example-presentation/learning", ["root", "logic", "copy", "art-direction", "output", "supervisor"], "c" * 64, quantity=8),
         _resource("public.index", "index-provider", "bundled public Index", "public-catalog", "public-index://builtin-catalog", ["root", "logic", "copy", "art-direction", "output", "supervisor"], "d" * 64, quantity=24, rights="public-open-source"),
-        _resource("owner.theme", "theme", "owner presentation theme", "owner-library", "library://ppt-personal/theme", ["root", "art-direction", "output", "supervisor"], "e" * 64),
+        _resource("owner.theme", "theme", "owner presentation theme", "owner-library", "library://example-presentation/theme", ["root", "art-direction", "output", "supervisor"], "e" * 64),
         _resource("host.authoring-route", "authoring-route", "native presentation authoring route", "host", "host://native-presentation", ["root", "output", "supervisor"], None, rights="host-capability"),
         _resource("host.font-environment", "font", "inspected font environment", "host", "host://fonts", ["root", "output", "supervisor"], None, rights="host-capability"),
     ]

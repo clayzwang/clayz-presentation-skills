@@ -21,6 +21,7 @@ from packages.index_runtime import IndexRuntimeError, read_json  # noqa: E402
 from packages.index_runtime.utils import sha256_json  # noqa: E402
 from packages.personal_extension import PersonalExtensionError, required_provider_bindings, resolve_personal_extension  # noqa: E402
 from scripts.build_runtime_packs import ARCHIVE_TIME, include_light, public_core_digest  # noqa: E402
+from scripts.validate_config import validate as validate_config  # noqa: E402
 from scripts.validate_plugin_mount import REQUIRED_PERSONAL_PATHS, REQUIRED_SHARED_PATHS, REQUIRED_SKILLS  # noqa: E402
 
 
@@ -214,6 +215,11 @@ def compose_personal_light(
         provider_manifests=provider_manifests,
         config_path=PERSONAL_CONFIG_PATH,
     )
+    config_errors = validate_config(resolved_config)
+    if config_errors:
+        raise PersonalExtensionError(
+            "resolved configuration failed validation: " + "; ".join(config_errors)
+        )
     base_manifest = read_json(ROOT / ".codex-plugin" / "plugin.json")
     plugin_manifest = _personal_manifest(base_manifest, plugin_name)
     provider_bindings = required_provider_bindings(runtime)

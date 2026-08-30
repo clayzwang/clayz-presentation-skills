@@ -348,7 +348,7 @@
         "category": "library-source",
         "label": "owner learning and visual indexes",
         "origin": "owner-library",
-        "locator": "library://ppt-personal/learning",
+        "locator": "library://example-presentation/learning",
         "availability": "available",
         "required": true,
         "stages": [
@@ -394,7 +394,7 @@
         "category": "theme",
         "label": "owner presentation theme",
         "origin": "owner-library",
-        "locator": "library://ppt-personal/theme",
+        "locator": "library://example-presentation/theme",
         "availability": "available",
         "required": true,
         "stages": [
@@ -525,7 +525,7 @@
     "unavailable_resource_ids": [],
     "lock": {
       "algorithm": "sha256",
-      "digest": "54e80a90becf8da43957c2d3a3e805d7a85c2edb3e59e7a8b949d76e458e2d98"
+      "digest": "208f0a85ac884d9c9f655c7fb6e46a3e8c8fa387d345b9ce0bc96fdbfb54b4ea"
     }
   },
   "index_evidence": {

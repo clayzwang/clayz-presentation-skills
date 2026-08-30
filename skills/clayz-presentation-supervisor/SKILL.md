@@ -26,15 +26,16 @@ For an audit-only request, start from the available approved packages and artifa
 
 ## Cloud font acceptance
 
-Read `theme.typography.font_validation` from the resolved configuration. When its mode is `preserve-name-defer-native` and a listed deferred font such as `华文楷体` or `STKaiti` is unavailable in the cloud renderer:
+Read `theme.typography.font_validation` from the resolved configuration. Each entry in `deferred_font_identities` is one font identity: `canonical_family` is the requested family, `aliases` are equivalent installed names, and `pptx_family` is the single name to write. Never interpret an alias as another fallback font. When mode is `preserve-name-defer-native` and the cloud renderer cannot resolve any name in an identity:
 
-- require the written PPTX and its East Asian font fields to preserve the requested family name;
+- require both Latin and East Asian PPTX font fields to use that identity's exact `pptx_family`;
+- report the requested canonical family, the matched installed name or `unavailable`, and the written PPTX name separately;
 - forbid silent replacement and record any observed cloud-render substitution;
 - treat cloud PNG/PDF output as diagnostic-only and do not require cloud PDF pixel equivalence;
 - emit `font-validation-pending` for native reopen/render on a machine with the complete font; and
 - allow PPTX delivery with that explicit pending state, but never claim final font-pixel acceptance.
 
-`fail_on_missing_primary_font` still blocks substitution and authoritative render claims. It does not block writing a semantically correct PPTX for a font explicitly covered by the deferred-native policy. A missing non-deferred font, a changed PPTX font name, or a claimed authoritative render without the font remains blocking.
+An installed canonical name or any configured alias satisfies the same identity; a missing alias alone is not a font failure. `fail_on_missing_primary_font` still blocks substitution and authoritative render claims. It does not block writing a semantically correct PPTX for a font identity explicitly covered by the deferred-native policy. A missing non-deferred identity, a changed PPTX font name, or a claimed authoritative render without the font remains blocking.
 
 ## Authority
 

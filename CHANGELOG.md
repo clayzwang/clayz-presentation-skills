@@ -4,7 +4,8 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
-- Nothing yet.
+- Model localized and English font-family names as one canonical font identity, reject alias collisions in fallback stacks, and require one explicit PPTX family name across Latin and East Asian fields so `华文楷体` and `STKaiti` cannot be misclassified as separate fonts.
+- Replace a private-looking logical Library namespace in public synthetic resource-inventory fixtures with the generic `library://example-presentation/` namespace.
 
 ## 0.7.0 — 2026-08-30
 

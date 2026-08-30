@@ -79,7 +79,8 @@
       "prefer_even_point_sizes": false,
       "allow_fractional_point_sizes": true,
       "minimum_exception_policy": "technical-fields-only",
-      "fail_on_missing_primary_font": false
+      "fail_on_missing_primary_font": false,
+      "font_validation": null
     }
   },
   "layout": {
