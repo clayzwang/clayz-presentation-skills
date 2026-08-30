@@ -423,7 +423,7 @@
   "resource_inventory_lock": {
     "inventory_id": "inventory.regression.001",
     "revision": 1,
-    "digest": "54e80a90becf8da43957c2d3a3e805d7a85c2edb3e59e7a8b949d76e458e2d98"
+    "digest": "208f0a85ac884d9c9f655c7fb6e46a3e8c8fa387d345b9ce0bc96fdbfb54b4ea"
   },
   "index_evidence": {
     "contract": "io.clayz.presentation.index-execution-evidence/1.0",

@@ -63,8 +63,11 @@ def validate(config: dict[str, Any]) -> list[str]:
             errors.append(f"theme.colors.{name}: expected #RRGGBB")
     typography = require_mapping(theme.get("typography"), "theme.typography", errors)
     fonts = typography.get("primary_fonts")
-    if not isinstance(fonts, list) or not fonts or not all(isinstance(item, str) and item for item in fonts):
+    if not isinstance(fonts, list) or not fonts or not all(isinstance(item, str) and item.strip() for item in fonts):
         errors.append("theme.typography.primary_fonts: expected non-empty string array")
+        fonts = []
+    elif len({item.casefold() for item in fonts}) != len(fonts):
+        errors.append("theme.typography.primary_fonts: expected case-insensitively unique font families")
     for key in ("body_minimum_pt", "minimum_audience_text_pt", "minimum_chart_text_pt"):
         value = typography.get(key)
         if not isinstance(value, (int, float)) or value < 8:
@@ -74,6 +77,73 @@ def validate(config: dict[str, Any]) -> list[str]:
             errors.append(f"theme.typography.{key}: expected boolean")
     if not isinstance(typography.get("minimum_exception_policy"), str) or not typography.get("minimum_exception_policy"):
         errors.append("theme.typography.minimum_exception_policy: expected non-empty string")
+    font_validation = typography.get("font_validation")
+    if font_validation is not None:
+        font_validation = require_mapping(font_validation, "theme.typography.font_validation", errors)
+        expected_font_validation = {
+            "contract_version": "1.0",
+            "mode": "preserve-name-defer-native",
+            "preserve_requested_font_names": True,
+            "silent_substitution_forbidden": True,
+            "cloud_render_authority": "diagnostic-only",
+            "cloud_pdf_pixel_equivalence": "not-required-when-deferred-font-missing",
+            "native_reopen_required_for_final_font_acceptance": True,
+            "missing_deferred_font_status": "font-validation-pending",
+        }
+        for key, expected in expected_font_validation.items():
+            if font_validation.get(key) != expected:
+                errors.append(f"theme.typography.font_validation.{key}: expected {expected!r}")
+
+        identities = font_validation.get("deferred_font_identities")
+        if not isinstance(identities, list) or not identities:
+            errors.append(
+                "theme.typography.font_validation.deferred_font_identities: "
+                "expected non-empty identity array"
+            )
+            identities = []
+        primary_names = {item.casefold() for item in fonts}
+        claimed_names: dict[str, str] = {}
+        for index, value in enumerate(identities):
+            path = f"theme.typography.font_validation.deferred_font_identities[{index}]"
+            identity = require_mapping(value, path, errors)
+            canonical = identity.get("canonical_family")
+            aliases = identity.get("aliases")
+            pptx_family = identity.get("pptx_family")
+            if not isinstance(canonical, str) or not canonical.strip():
+                errors.append(f"{path}.canonical_family: expected non-empty string")
+                canonical = ""
+            if not isinstance(aliases, list) or not all(
+                isinstance(alias, str) and alias.strip() for alias in aliases
+            ):
+                errors.append(f"{path}.aliases: expected string array")
+                aliases = []
+            elif len({alias.casefold() for alias in aliases}) != len(aliases):
+                errors.append(f"{path}.aliases: expected case-insensitively unique names")
+            if not isinstance(pptx_family, str) or not pptx_family.strip():
+                errors.append(f"{path}.pptx_family: expected non-empty string")
+                pptx_family = ""
+
+            identity_names = [canonical, *aliases]
+            identity_keys = {name.casefold() for name in identity_names if name}
+            if canonical and canonical.casefold() not in primary_names:
+                errors.append(f"{path}.canonical_family: must appear once in primary_fonts")
+            for alias in aliases:
+                if alias.casefold() in primary_names:
+                    errors.append(
+                        f"{path}.aliases: alias {alias!r} must not appear in primary_fonts as a fallback"
+                    )
+            if pptx_family and pptx_family.casefold() not in identity_keys:
+                errors.append(f"{path}.pptx_family: must equal the canonical family or one of its aliases")
+            for name in identity_names:
+                if not name:
+                    continue
+                key = name.casefold()
+                if key in claimed_names:
+                    errors.append(
+                        f"{path}: font name {name!r} collides with {claimed_names[key]}"
+                    )
+                else:
+                    claimed_names[key] = path
 
     layout = require_mapping(config.get("layout"), "layout", errors)
     if not isinstance(layout.get("column_count"), int) or layout.get("column_count", 0) < 1:

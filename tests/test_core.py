@@ -35,6 +35,46 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(module.validate(config), [])
         self.assertEqual(config["identity"]["brand"], "clayz")
 
+    def test_font_aliases_resolve_as_one_identity_not_fallbacks(self) -> None:
+        module = load_module("validate_config_font_identity", ROOT / "scripts" / "validate_config.py")
+        config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
+        config["theme"]["typography"]["primary_fonts"] = ["华文楷体"]
+        config["theme"]["typography"]["font_validation"] = {
+            "contract_version": "1.0",
+            "mode": "preserve-name-defer-native",
+            "deferred_font_identities": [
+                {
+                    "canonical_family": "华文楷体",
+                    "aliases": ["STKaiti"],
+                    "pptx_family": "华文楷体",
+                }
+            ],
+            "preserve_requested_font_names": True,
+            "silent_substitution_forbidden": True,
+            "cloud_render_authority": "diagnostic-only",
+            "cloud_pdf_pixel_equivalence": "not-required-when-deferred-font-missing",
+            "native_reopen_required_for_final_font_acceptance": True,
+            "missing_deferred_font_status": "font-validation-pending",
+        }
+        self.assertEqual(module.validate(config), [])
+
+        duplicate_fallback = copy.deepcopy(config)
+        duplicate_fallback["theme"]["typography"]["primary_fonts"].append("STKaiti")
+        errors = module.validate(duplicate_fallback)
+        self.assertTrue(any("must not appear in primary_fonts as a fallback" in error for error in errors), errors)
+
+        alias_collision = copy.deepcopy(config)
+        alias_collision["theme"]["typography"]["primary_fonts"].append("Synthetic CJK")
+        alias_collision["theme"]["typography"]["font_validation"]["deferred_font_identities"].append(
+            {
+                "canonical_family": "Synthetic CJK",
+                "aliases": ["stkaiti"],
+                "pptx_family": "Synthetic CJK",
+            }
+        )
+        errors = module.validate(alias_collision)
+        self.assertTrue(any("collides with" in error for error in errors), errors)
+
     def test_release_versions_are_consistent(self) -> None:
         module = load_module("validate_version", ROOT / "scripts" / "validate_version.py")
         self.assertEqual(module.validate(ROOT), [])

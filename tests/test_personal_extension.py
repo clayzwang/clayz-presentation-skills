@@ -143,6 +143,39 @@ class PersonalExtensionTests(unittest.TestCase):
         self.assertEqual([item["visibility"] for item in runtime["providers"]], ["public", "owner-private"])
         self.assertEqual(len(runtime["origin_map"]), 6)
 
+    def test_private_profile_can_preserve_one_font_identity_with_aliases(self) -> None:
+        candidate = profile(self.base["identity"]["version"])
+        font_validation = {
+            "contract_version": "1.0",
+            "mode": "preserve-name-defer-native",
+            "deferred_font_identities": [
+                {
+                    "canonical_family": "华文楷体",
+                    "aliases": ["STKaiti"],
+                    "pptx_family": "华文楷体",
+                }
+            ],
+            "preserve_requested_font_names": True,
+            "silent_substitution_forbidden": True,
+            "cloud_render_authority": "diagnostic-only",
+            "cloud_pdf_pixel_equivalence": "not-required-when-deferred-font-missing",
+            "native_reopen_required_for_final_font_acceptance": True,
+            "missing_deferred_font_status": "font-validation-pending",
+        }
+        candidate["overrides"].append({
+            "path": "theme.typography.font_validation",
+            "policy": "replace",
+            "value": font_validation,
+        })
+        resolved, _ = resolve_personal_extension(
+            self.base,
+            candidate,
+            host="chatgpt-personal",
+            public_provider_manifests=[self.public_manifest],
+            provider_manifests=[self.manifest],
+        )
+        self.assertEqual(resolved["theme"]["typography"]["font_validation"], font_validation)
+
     def test_sealed_field_cannot_be_overridden(self) -> None:
         value = profile(self.base["identity"]["version"])
         value["overrides"].append({"path": "workflow.stages", "policy": "replace", "value": ["logic"]})
@@ -327,6 +360,46 @@ class PersonalExtensionTests(unittest.TestCase):
             tampered_report = inspect_composite_skill_mount(temp / "extracted")
             self.assertFalse(tampered_report["complete"], tampered_report)
             self.assertTrue(any("required-provider" in error or "extension-digest" in error for error in tampered_report["errors"]))
+
+    def test_cloud_composer_rejects_font_alias_as_second_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            temp = Path(directory)
+            candidate = profile(self.base["identity"]["version"])
+            candidate["overrides"].extend([
+                {
+                    "path": "theme.typography.primary_fonts",
+                    "policy": "replace",
+                    "value": ["华文楷体", "STKaiti"],
+                },
+                {
+                    "path": "theme.typography.font_validation",
+                    "policy": "replace",
+                    "value": {
+                        "contract_version": "1.0",
+                        "mode": "preserve-name-defer-native",
+                        "deferred_font_identities": [
+                            {
+                                "canonical_family": "华文楷体",
+                                "aliases": ["STKaiti"],
+                                "pptx_family": "华文楷体",
+                            }
+                        ],
+                        "preserve_requested_font_names": True,
+                        "silent_substitution_forbidden": True,
+                        "cloud_render_authority": "diagnostic-only",
+                        "cloud_pdf_pixel_equivalence": "not-required-when-deferred-font-missing",
+                        "native_reopen_required_for_final_font_acceptance": True,
+                        "missing_deferred_font_status": "font-validation-pending",
+                    },
+                },
+            ])
+            profile_path = temp / "personal-profile.json"
+            manifest_path = temp / "provider.manifest.json"
+            output = temp / "personal-cloud-light.zip"
+            profile_path.write_text(json.dumps(candidate, ensure_ascii=False), encoding="utf-8")
+            manifest_path.write_text(json.dumps(self.manifest, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(PersonalExtensionError, "must not appear in primary_fonts as a fallback"):
+                compose_personal_light(profile_path, [manifest_path], output)
 
     def test_validate_all_dispatches_the_standalone_skill_profile(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
