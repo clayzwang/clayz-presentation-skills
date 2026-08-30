@@ -1,15 +1,15 @@
 # 发版包说明
 
-v0.6.0 从唯一公共核心构建两个公共 Light 目标，继续把本地第三方 Python 依赖分开发布，并在公共发版路径之外提供所有者私有的云端 composer。本地发版以 Windows 为首发验证环境，本版不发布其他操作系统包。
+v0.7.0 从唯一公共核心构建两个公共 Light 目标，继续把本地第三方 Python 依赖分开发布，并在公共发版路径之外提供所有者私有的云端 composer。本地发版以 Windows 为首发验证环境，本版不发布其他操作系统包。
 
 ## 文件组成
 
-- `clayz-presentation-skills-0.6.0-cloud-light.zip` 是面向 ChatGPT 的公共脑；它使用宿主工具，不包含本地适配器、系统包或离线依赖。
-- `clayz-presentation-skills-0.6.0-local-light.zip` 是通过 Windows 验证的本地公共插件；可以联网运行`python -m pip install -r requirements.txt`，也可以搭配下面的 Windows 离线包。
-- `clayz-presentation-skills-0.6.0-offline-windows-py312.zip`适用于Windows x86-64与CPython 3.12。
+- `clayz-presentation-skills-0.7.0-cloud-light.zip` 是面向 ChatGPT 的公共脑；它使用宿主工具，不包含本地适配器、系统包或离线依赖。
+- `clayz-presentation-skills-0.7.0-local-light.zip` 是通过 Windows 验证的本地公共插件；可以联网运行`python -m pip install -r requirements.txt`，也可以搭配下面的 Windows 离线包。
+- `clayz-presentation-skills-0.7.0-offline-windows-py312.zip`适用于Windows x86-64与CPython 3.12。
 - `SHA256SUMS.txt`记录两个 Light 与 Windows 离线附加包的校验值。
 
-v0.6.0 不生成 macOS、Linux 或 iOS 压缩包。源码层的可移植接口属于后续工作，不能视为已经测试的发布承诺。
+v0.7.0 不生成 macOS、Linux 或 iOS 压缩包。源码层的可移植接口属于后续工作，不能视为已经测试的发布承诺。
 
 离线包只是 Local Public Light 的依赖附加包，不能代替插件主包，也绝不是 Cloud Light 的依赖。解压后运行：
 

@@ -4,6 +4,10 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
+- Nothing yet.
+
+## 0.7.0 — 2026-08-30
+
 - Upgrade the supervision report contract to v3.3 with explicit initiator, mediator, recorder, and final-auditor accountability; a unique canonical preflight-before-Logic lifecycle; hash-bound governed evidence; run/issue/time-bound mediation checkpoints; and receipt-backed target-application outcomes.
 - Upgrade runtime preflight to v1.2 with a fresh script-issued challenge, exact task-byte resubmission, task-root-bound issuance and canonical one-use consumption ledgers whose files and hashes are reopened, structured host-inventory receipts without self-verified claims, and additive-only task requirements so Personal Extension capabilities cannot be removed by a caller.
 - Add an external Personal runtime-pack lock that binds the resolved config, runtime digest, and exact required-Provider set; require non-empty snapshots and actual finalized-receipt selection of every required Provider in each applicable governed stage.
