@@ -34,7 +34,7 @@ The resolver owns the policy for every supported path. A private profile cannot 
 - `stricter_only` may raise text thresholds or turn a validation guard on; it cannot lower a threshold or turn an existing guard off.
 - All workflow, namespace, version, public attribution, route-budget, learning-admission, and core-contract fields remain sealed.
 
-Every resolved override receives an origin-map entry. The generated runtime binds the resolved-config hash and its own deterministic lock digest.
+Every resolved override receives an origin-map entry. The generated runtime binds the resolved-config hash and its own deterministic lock digest. The composed Personal package also writes an external runtime-pack lock that binds both digests plus the exact sorted binding set for every Provider marked `required: true`. Validation must use all three objects; recomputing an internally self-consistent but reduced runtime/config pair cannot erase a required Provider.
 
 ## Logical Library mounts
 
@@ -73,6 +73,10 @@ Store `records.jsonl` and `provider.manifest.json` at stable logical locations d
 - With no generated runtime, all skills use `config/default.json` and the bundled public Provider.
 - An unavailable optional private Provider records an explicit public-core fallback.
 - An unavailable required Provider, master, font, or brand asset fails closed for tasks that require it.
+- `renderer.required_capabilities` adds only real authoring-route requirements. Per-application PowerPoint/WPS native reopen acceptance is governed by `target_applications` plus preflight observations and must not be promoted into a pre-Logic hard gate.
+- In owner-personal mode, preflight must read the generated resolved config, issue a fresh challenge from the canonical task-request bytes, write the canonical task-root issuance ledger, resubmit the same bytes for the one scan, exclusively consume the challenge through the canonical task-root consumption ledger, bind both ledger byte hashes and the raw config SHA-256, and treat task-level requirements as additive only. Caller-chosen run/task values, missing or synthetic in-memory receipt claims, a copied/replayed/cross-root challenge, falling back to public `config/default.json`, or shrinking Personal Extension requirements are integration failures.
+- The runtime pack lock and task Index evidence must preserve a non-empty snapshot for every required private Provider; every required Provider must be actually selected by a finalized receipt in each applicable governed stage, all under the same Provider snapshot lock. Merely listing the Provider in a shared snapshot is insufficient.
+- Final delivery is materialized only by `scripts/publish_supervised_pair.py`, which revalidates the report against that same resolved config and preflight before creating the PPTX/report pair and manifest.
 - A private record never bypasses rights, hash, admission, receipt, or materialization checks.
 - Provider discovery and snapshot locking happen once before Logic; later stages reuse that task lock.
 - The public Provider manifest explicitly marks `continuous_learning`, `community_aggregation`, `automatic_update`, and `cross_source_fusion` methods as `deferred`. Existing public material is not deferred or disabled.

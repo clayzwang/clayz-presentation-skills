@@ -27,7 +27,7 @@
     "maximum_technical_cycles": 3
   },
   "runtime": {
-    "contract_version": "1.0",
+    "contract_version": "1.2",
     "preflight_script": "scripts/runtime_preflight.py",
     "model_profiles": ["A", "B", "C", "D"],
     "classification_basis": "capabilities-not-model-brands",

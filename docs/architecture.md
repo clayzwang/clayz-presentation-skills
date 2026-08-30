@@ -47,7 +47,7 @@ The final resolved configuration hash belongs in every stage artifact as `config
 
 ## Distribution model
 
-The source repository stores shared contracts and validators once. The plugin bundles five skills around that shared root. v0.5.1 adds a deterministic runtime beneath Output rather than a sixth decision-making skill. It provides a public baseline adapter, one-shot preflight, route locking, bounded calls, and common plus operating-system packs. See [`runtime-architecture.md`](runtime-architecture.md).
+The source repository stores shared contracts and validators once. The Codex and marketplace plugin bundles five Skills around that shared root. The ChatGPT Skills host adapter compiles the same five stage sources into one publication unit with one root `SKILL.md` and five responsibility-separated internal modules, because detached uploads cannot share the root safely. This is a packaging transform, not another Public Core and not a sixth decision-making stage. v0.5.1 adds a deterministic runtime beneath Output rather than a sixth decision-making skill. It provides a public baseline adapter, one-shot preflight, route locking, bounded calls, and common plus operating-system packs. See [`runtime-architecture.md`](runtime-architecture.md).
 
 ## Portable knowledge model
 

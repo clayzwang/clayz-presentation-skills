@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -16,6 +17,7 @@ if str(ROOT) not in sys.path:
 
 from packages.index_runtime.utils import sha256_json  # noqa: E402
 from packages.index_runtime.validation import validate_request  # noqa: E402
+from packages.personal_extension import required_provider_bindings, validate_personal_extension_runtime  # noqa: E402
 
 
 CONTRACT = "io.clayz.presentation.index-execution-evidence/1.0"
@@ -101,6 +103,26 @@ def _snapshot_list(provider_lock: Mapping[str, Any], path: str, errors: list[str
     if normalized != expected_order:
         errors.append(f"{path}.snapshots: must be sorted by provider_id")
     return normalized
+
+
+def _bound_personal_runtime(path: str, errors: list[str]) -> Mapping[str, Any] | None:
+    runtime_path = ROOT / "runtime" / "personal-extension.json"
+    if not runtime_path.is_file():
+        return None
+    runtime_lock_path = ROOT / "runtime" / "runtime-lock.json"
+    config_path = ROOT / "config" / "personal-extension-resolved.json"
+    try:
+        runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
+        runtime_lock = json.loads(runtime_lock_path.read_text(encoding="utf-8"))
+        resolved_config = json.loads(config_path.read_text(encoding="utf-8"))
+        return validate_personal_extension_runtime(
+            runtime,
+            resolved_config=resolved_config,
+            runtime_pack_lock=runtime_lock,
+        )
+    except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
+        errors.append(f"{path}.runtime_lock_digest: Personal Extension Runtime binding failed: {exc}")
+        return None
 
 
 def _validate_receipt(
@@ -224,6 +246,16 @@ def validate_index_evidence(
         errors.append(f"{path}.mode: invalid value")
     if not isinstance(evidence.get("runtime_lock_digest"), str) or not SHA256.fullmatch(evidence["runtime_lock_digest"]):
         errors.append(f"{path}.runtime_lock_digest: must be lowercase SHA-256")
+    bound_runtime = _bound_personal_runtime(path, errors) if mode == "owner-personal" else None
+    required_provider_ids = set(OWNER_REQUIRED_PROVIDER_IDS)
+    required_provider_stages: dict[str, set[str]] = {}
+    if isinstance(bound_runtime, Mapping):
+        if evidence.get("runtime_lock_digest") != bound_runtime.get("lock", {}).get("digest"):
+            errors.append(f"{path}.runtime_lock_digest: must match runtime/personal-extension.json")
+        for binding in required_provider_bindings(bound_runtime):
+            provider_id = str(binding.get("provider_id"))
+            required_provider_ids.add(provider_id)
+            required_provider_stages[provider_id] = set(binding.get("stages", []))
 
     provider_lock = evidence.get("provider_lock")
     _require_keys(provider_lock, {"lock_id", "snapshots", "lock_sha256"}, f"{path}.provider_lock", errors)
@@ -237,8 +269,15 @@ def validate_index_evidence(
     snapshot_by_id = {item.get("provider_id"): item for item in snapshots}
     if "builtin-catalog" not in snapshot_by_id:
         errors.append(f"{path}.provider_lock.snapshots: builtin-catalog is required")
-    if mode == "owner-personal" and not OWNER_REQUIRED_PROVIDER_IDS.issubset(snapshot_by_id):
-        errors.append(f"{path}.provider_lock.snapshots: owner-personal mode requires {sorted(OWNER_REQUIRED_PROVIDER_IDS)}")
+    if mode == "owner-personal" and not required_provider_ids.issubset(snapshot_by_id):
+        errors.append(f"{path}.provider_lock.snapshots: owner-personal mode requires {sorted(required_provider_ids)}")
+    if mode == "owner-personal":
+        for provider_id in sorted(required_provider_ids - {"task-private-learning"}):
+            snapshot = snapshot_by_id.get(provider_id)
+            if isinstance(snapshot, Mapping) and snapshot.get("record_count", 0) < 1:
+                errors.append(
+                    f"{path}.provider_lock.snapshots: required Provider {provider_id} must bind a non-empty snapshot"
+                )
 
     materialization = evidence.get("owner_materialization")
     _require_keys(
@@ -317,6 +356,13 @@ def validate_index_evidence(
                 errors.append(f"{spath}[{index}]: receipt must select at least one record")
             selected_sources.update(sources)
             selected_providers.update(providers)
+        for provider_id, stages in sorted(required_provider_stages.items()):
+            if stage in stages and provider_id not in snapshot_by_id:
+                errors.append(f"{spath}: required runtime Provider {provider_id} is absent from the shared snapshot lock")
+            elif stage in stages and provider_id not in selected_providers:
+                errors.append(
+                    f"{spath}: required runtime Provider {provider_id} must be selected by a finalized receipt"
+                )
         if mode == "owner-personal":
             required_sources = requirements.get(stage, set())
             if not required_sources.issubset(materialized_ids):

@@ -23,7 +23,7 @@ The installer uses `--no-index`, `--only-binary`, and `--require-hashes`. It nev
 
 Both public Light archives contain the same `public_core_sha256`, bundled public Provider manifest/index, and five-stage method. They exclude Experience Center cases, examples, tests, presentation/PDF files, showcase media, fonts, caches, private Profiles, private Provider manifests, private indexes, and release working files. Cloud Light additionally excludes local execution adapters and platform packs. The Windows offline archive contains only reviewed dependency wheels, an exact hash lock, an installer, a machine-readable manifest, and third-party notices. PowerPoint, WPS, Poppler, and Python itself are never redistributed by these archives.
 
-`scripts/compose_personal_light.py` is a separate local-only workflow. It reads private inputs outside the repository and writes a private cloud ZIP under `dist/private/`; that ZIP is not a public release artifact. See [`chatgpt-personal-light.md`](chatgpt-personal-light.md).
+`scripts/compose_personal_light.py` is a separate local-only workflow. It reads private inputs outside the repository and writes a private cloud ZIP under `dist/private/`. Its default artifact is one self-contained Skill for the ChatGPT Skills uploader; the five stages remain internal modules rather than five detached uploads. That ZIP is not a public release artifact. See [`chatgpt-personal-light.md`](chatgpt-personal-light.md).
 
 Every completed ZIP is reopened and scanned. Packaging fails and deletes the candidate archive if any term from the repository-external `CLAYZ_RELEASE_DENYLIST` is found in a member path, readable payload, nested wheel path, or nested wheel license/metadata text. The denylist itself is never committed or packaged.
 

@@ -1,13 +1,42 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:clayz:presentation:schema:runtime-preflight:1.0",
+  "$id": "urn:clayz:presentation:schema:runtime-preflight:1.2",
   "title": "Clayz locked runtime preflight",
   "type": "object",
   "additionalProperties": false,
-  "required": ["contract", "scan_id", "created_at", "platform", "model", "required_capabilities", "dependencies", "selected_route", "fallback_routes", "budgets", "guards", "warnings"],
+  "required": ["contract", "scan_id", "run_binding", "config_binding", "created_at", "platform", "model", "required_capabilities", "dependencies", "selected_route", "fallback_routes", "target_application_checks", "budgets", "guards", "warnings"],
   "properties": {
-    "contract": {"const": "io.clayz.presentation.runtime-preflight/1.0"},
+    "contract": {"const": "io.clayz.presentation.runtime-preflight/1.2"},
     "scan_id": {"type": "string", "minLength": 1},
+    "run_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "task_request_sha256", "nonce", "issued_at", "expires_at", "challenge_sha256", "task_root_sha256", "binding_source", "issuance_receipt", "issuance_receipt_sha256", "consumption_receipt", "consumption_receipt_sha256"],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "task_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "nonce": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "issued_at": {"type": "string", "minLength": 1},
+        "expires_at": {"type": "string", "minLength": 1},
+        "challenge_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "task_root_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "binding_source": {"enum": ["script-issued-challenge", "direct-api-unattested"]},
+        "issuance_receipt": {"type": "string", "minLength": 1},
+        "issuance_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "consumption_receipt": {"type": "string", "minLength": 1},
+        "consumption_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "config_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "source"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source": {"enum": ["personal-resolved", "public-default", "in-memory"]}
+      }
+    },
     "created_at": {"type": "string", "minLength": 1},
     "platform": {"type": "object"},
     "model": {
@@ -21,21 +50,83 @@
       }
     },
     "required_capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "dependencies": {"type": "object"},
+    "dependencies": {
+      "type": "object",
+      "required": ["host_tools"],
+      "properties": {
+        "host_tools": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["host", "available", "capabilities", "observation"],
+          "properties": {
+            "host": {"type": "string", "minLength": 1},
+            "available": {"type": "boolean"},
+            "capabilities": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+            "observation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["run_id", "task_request_sha256", "challenge_sha256", "source", "observed_at", "evidence_receipts", "verification_status", "assurance_level", "route_eligible"],
+              "properties": {
+                "run_id": {"type": "string", "minLength": 1},
+                "task_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                "challenge_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                "source": {"type": "string", "minLength": 1},
+                "observed_at": {"type": "string", "minLength": 1},
+                "evidence_receipts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["artifact", "sha256", "contract"],
+                    "properties": {
+                      "artifact": {"type": "string", "minLength": 1},
+                      "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                      "contract": {"const": "io.clayz.presentation.host-tool-inventory/1.0"}
+                    }
+                  }
+                },
+                "verification_status": {"enum": ["challenge-bound-host-declaration", "runtime-probed"]},
+                "assurance_level": {"enum": ["host-declared-unverified", "runtime-probed-absent"]},
+                "route_eligible": {"const": false}
+              }
+            }
+          }
+        }
+      }
+    },
     "selected_route": {
       "type": "object",
-      "required": ["route_id", "authoring_backend", "render_backend", "available", "missing_capabilities", "host_model_private_tool_required", "locked"],
+      "required": ["route_id", "authoring_backend", "render_backend", "available", "attemptable", "assurance_level", "missing_capabilities", "host_model_private_tool_required", "locked"],
       "properties": {
         "route_id": {"type": "string"},
         "authoring_backend": {"enum": ["native-presentation-tool", "python-pptx", "artifact-tool", "powerpoint-com", "spec-only"]},
         "render_backend": {"enum": ["native-presentation-tool", "powerpoint-com", "libreoffice", "artifact-tool", "none"]},
         "available": {"type": "boolean"},
+        "attemptable": {"type": "boolean"},
+        "assurance_level": {"enum": ["runtime-probed", "host-declared-unverified", "insufficient"]},
         "missing_capabilities": {"type": "array", "items": {"type": "string"}},
         "host_model_private_tool_required": {"type": "boolean"},
         "locked": {"const": true}
       }
     },
     "fallback_routes": {"type": "array", "items": {"type": "object"}},
+    "target_application_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["application", "capability", "availability", "disposition", "blocks_authoring", "evidence"],
+        "properties": {
+          "application": {"type": "string", "minLength": 1},
+          "capability": {"type": "string", "minLength": 1},
+          "availability": {"enum": ["available", "unavailable"]},
+          "disposition": {"enum": ["eligible-after-output", "deferred-and-recorded"]},
+          "blocks_authoring": {"const": false},
+          "evidence": {"type": "string", "minLength": 1}
+        }
+      }
+    },
     "budgets": {"type": "object"},
     "guards": {"type": "object"},
     "warnings": {"type": "array", "items": {"type": "string"}}

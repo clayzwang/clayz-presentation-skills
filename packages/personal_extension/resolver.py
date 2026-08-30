@@ -524,10 +524,32 @@ def resolve_personal_extension(
     return resolved, validate_personal_extension_runtime(runtime, resolved_config=resolved)
 
 
+def required_provider_bindings(runtime: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Return the immutable required-Provider surface for an external pack lock."""
+
+    providers = runtime.get("providers") if isinstance(runtime, Mapping) else None
+    _require(isinstance(providers, list), "runtime.providers must be an array")
+    bindings: list[dict[str, Any]] = []
+    for index, provider in enumerate(providers):
+        _require(isinstance(provider, Mapping), f"runtime.providers[{index}] must be an object")
+        if provider.get("required") is not True:
+            continue
+        bindings.append({
+            "provider_id": provider.get("provider_id"),
+            "visibility": provider.get("visibility"),
+            "manifest_uri": provider.get("manifest_uri"),
+            "mount_id": provider.get("mount_id"),
+            "stages": provider.get("stages"),
+            "snapshot_policy": provider.get("snapshot_policy"),
+        })
+    return sorted(bindings, key=lambda item: str(item.get("provider_id")))
+
+
 def validate_personal_extension_runtime(
     runtime: Mapping[str, Any],
     *,
     resolved_config: Mapping[str, Any] | None = None,
+    runtime_pack_lock: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Validate the generated cloud/local runtime envelope and embedded lock."""
 
@@ -620,4 +642,27 @@ def validate_personal_extension_runtime(
     unlocked = copy.deepcopy(normalized)
     unlocked.pop("lock", None)
     _require(lock.get("digest") == sha256_json(unlocked), "runtime.lock.digest mismatch")
+    if runtime_pack_lock is not None:
+        _require(isinstance(runtime_pack_lock, Mapping), "runtime pack lock must be an object")
+        _require(
+            runtime_pack_lock.get("contract") == "io.clayz.presentation.runtime-pack-lock/1.2",
+            "runtime pack lock contract is unsupported",
+        )
+        _require(
+            runtime_pack_lock.get("personal_extension_digest") == lock.get("digest"),
+            "runtime pack lock personal_extension_digest mismatch",
+        )
+        _require(
+            runtime_pack_lock.get("resolved_config_digest") == digest,
+            "runtime pack lock resolved_config_digest mismatch",
+        )
+        expected_bindings = required_provider_bindings(normalized)
+        _require(
+            runtime_pack_lock.get("required_provider_bindings") == expected_bindings,
+            "runtime pack lock required Provider bindings mismatch",
+        )
+        _require(
+            runtime_pack_lock.get("required_provider_set_sha256") == sha256_json(expected_bindings),
+            "runtime pack lock required Provider set digest mismatch",
+        )
     return normalized

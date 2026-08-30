@@ -2,9 +2,17 @@
 
 ## 一次扫描，一条路线
 
-开始写盘前，每次运行必须且只能执行一次 `../../../scripts/runtime_preflight.py`。把生成的 `runtime-preflight.json` 与本次任务证据放在一起，并把 `selected_route.locked=true` 视为执行不变量。
+进入 Logic 前，由根 Supervisor 保存规范化任务请求的原始字节，先用 `../../../scripts/runtime_preflight.py --issue-challenge` 签发新鲜运行挑战，再用同一任务字节和挑战执行且只执行一次能力扫描。签发与消费分别写入同一任务根下按 run/challenge 锁定的两份规范台账；预检库会重读两份文件并核对其字节哈希，因此复制或改名挑战文件不能重放，移动到另一任务根也会被拒绝。Output 只能消费同一份任务级 `runtime-preflight.json`，不得再次扫描。报告必须绑定脚本签发的运行 ID、任务请求 SHA-256、nonce、task-root SHA-256、签发/消费回执哈希，以及实际 resolved config 文件的 SHA-256；`selected_route.locked=true` 是执行不变量。
 
 运行中不得重新发现工具、重新选择依赖或切换后端。锁定后端发生硬失败时，应结束本次运行；最多允许重新从预检开始一次，并从已报告的备选路线中选择。重新预检属于新运行，不是中途换路。
+
+## 路线门槛与目标应用验收分离
+
+`renderer.required_capabilities` 只描述能够制作、写盘、检查和渲染 PPTX 的路线硬条件。`renderer.target_applications` 描述希望观察的兼容性目标，不得把 `powerpoint-reopen-render`、`wps-reopen-render` 等逐应用验收能力自动并入路线硬条件。预检必须逐项记录所有目标应用，无论其能力存在还是缺失；“可用”的宿主声明必须绑定同一 run/task/nonce/challenge，并附带经哈希校验的结构化 inventory 回执，但仍只属于 `host-declared-unverified`，只能产生 `provisional`/`attemptable` 路线，不能把路线写成 `ready`。Output 可按锁定路线尝试一次，只有最终 PPTX、对象与渲染校验通过才可交付。输出后，已执行目标记为 `pass`/`fail`，可用但未执行记为 `not-selected`，不可用记为 `deferred`，并全部进入最终 Supervisor 审计。
+
+预检必须在 `target_application_checks` 中逐一记录每个目标应用的 `available` 或 `unavailable`，并固定 `blocks_authoring=false`。任何“可用”的宿主能力声明还必须携带同一运行 ID、实测来源、观察时间和证据引用；未绑定声明不可信。Output 写盘后，对可用且入选的应用执行重开渲染并记录 `pass` 或 `fail`；可用但未入选的应用记录 `not-selected`；不可用的应用记录 `deferred`。Supervisor 将这些事实和证据写进最终审计报告，用于限制兼容性声明和后续归因，而不是据此阻断 Logic。
+
+`required_capabilities` 必须取绑定 resolved config 与本任务追加要求的并集。调用方只可追加要求，不得借覆盖参数删除 Personal Extension 已声明的要求。
 
 ## 不依赖宿主模型的基础链
 

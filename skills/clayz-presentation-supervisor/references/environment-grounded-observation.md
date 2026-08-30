@@ -12,6 +12,14 @@ This route is informed by execution history, error feedback, slide inspection, a
 
 Item 5 may identify anomalies worth review but cannot override items 1–4. “Tool succeeded,” an HTML check, an existing object, or one healthy previewer never replaces observation of the final reopened PPTX.
 
+## Environment facts belong in the final audit
+
+Supervisor must embed the `runtime-preflight.json` scan ID, raw-file SHA-256, script-issued run ID, task-request SHA-256, nonce, task-root SHA-256, issue/expiry timestamps, challenge SHA-256, canonical issuance- and consumption-ledger SHA-256 values, resolved-config SHA-256, locked route, satisfied, declared-unverified, and missing route requirements, and every target application's available/unavailable state in `ppt-supervision-report.json.environment_observation`. Both ledger files must exist at their canonical paths under the bound task root and their actual bytes must match the preflight binding. Any available host capability must also preserve its challenge-bound run/task values, inspected source, observation time, and structured receipts for hash-checked inventory files. Never relabel an ordinary declaration as `verified: true`: it may make a native route provisional/attemptable but never ready. A filename-only reference, unbound capability claim, generic lifecycle placeholder, or conversational summary is not a complete record.
+
+Target-application acceptance is not a pre-Logic gate. Scan every configured target even when absent. Record unavailable PowerPoint, WPS, or LibreOffice native reopen capability as `deferred`, an available but unused target as `not-selected`, and an executed target as `pass` or `fail`. Every target needs evidence references and `authoring_gate=false`. Only failure of the authoring, write, inspection, or rendering route itself may block production during preflight.
+
+When any target is `deferred` or `not-selected` and no other issue exists, use root status `complete-with-deferred-acceptance`. The PPTX and audit report may still be delivered as a pair, but the report must not claim certification for an unexecuted application. A provisional native route remains provisional in the preflight section even after Output; delivery becomes ready only because the publisher independently validates the written PPTX, object inventory, QA evidence, and final renders. Final handoff is valid only after `scripts/publish_supervised_pair.py` revalidates these bindings and materializes the PPTX, report, and `delivery-manifest.json` in one new bundle.
+
 ## Audit questions
 
 - Is each repair bound to affected slides and stable target IDs rather than an untargeted whole-deck rewrite?

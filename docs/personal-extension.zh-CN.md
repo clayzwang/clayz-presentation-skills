@@ -34,7 +34,7 @@ Cloud Public Light（脑）
 - `stricter_only` 只能提高字号阈值或打开验证门禁，不能降低阈值或关闭已有门禁；
 - workflow、namespace、版本、公开署名、路线预算、学习准入和核心合同字段全部 sealed。
 
-每个生效的覆盖项都会写入 origin map。生成的 runtime 同时绑定 resolved config 哈希和自身确定性 lock digest。
+每个生效的覆盖项都会写入 origin map。生成的 runtime 同时绑定 resolved config 哈希和自身确定性 lock digest；Personal 组合包还会写出一份外部 runtime-pack lock，绑定上述两个摘要及全部 `required: true` Provider 的精确排序集合。验证时三者缺一不可，不能通过同步缩减 runtime/config 并重算内部摘要来删掉必选 Provider。
 
 ## 逻辑 Library 挂载
 
@@ -73,6 +73,10 @@ python scripts/build_provider_manifest.py \
 - 没有生成 runtime 时，五个 Skill 读取 `config/default.json` 和随包公共 Provider；
 - 可选私有 Provider 不可用时，显式记录 public-core fallback；
 - 任务所需的必选 Provider、母版、字体或品牌资产不可用时，必须 fail closed；
+- `renderer.required_capabilities` 只追加制作路线真实需要的能力；PowerPoint/WPS 等逐应用原生重开验收通过 `target_applications` 和预检观察管理，不得追加为 Logic 前硬条件；
+- owner-personal 模式下，预检必须读取生成后的 resolved config，根据规范化任务请求原始字节签发新鲜挑战并写入规范任务根签发台账；唯一一次扫描必须再次提交同一字节，以排他方式写入规范任务根消费台账，重读两份台账并绑定其文件哈希与配置原始 SHA-256；任务级要求只能追加。调用方自选 run/task 值、缺失或仅在内存伪造的回执、复制/重放/跨任务根挑战、退回公共 `config/default.json` 或缩减 Personal Extension 要求都属于集成失败；
+- runtime pack lock 与任务 Index 证据必须为每个必选私有 Provider 保留非空 snapshot；每个必选 Provider 还必须在其适用治理阶段被 finalized receipt 实际选中，并复用同一个 Provider snapshot lock。仅在共享 snapshot 中列名不算完成对接；
+- 最终交付只能由 `scripts/publish_supervised_pair.py` 物化；发布器会用同一 resolved config 和预检重新验证审计报告，再生成 PPTX/报告双文件及清单；
 - 私有记录不能绕过权限、哈希、准入、receipt 或物化检查；
 - Provider 发现和 snapshot 锁定只在 Logic 前发生一次，后续阶段复用同一任务锁；
 - 公共 Provider manifest 显式把 `continuous_learning`、`community_aggregation`、`automatic_update` 和 `cross_source_fusion` 四种方法标为 `deferred`，但现有公共资料本身没有被延期或禁用。

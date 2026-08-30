@@ -4,7 +4,13 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
-- Nothing yet.
+- Upgrade the supervision report contract to v3.3 with explicit initiator, mediator, recorder, and final-auditor accountability; a unique canonical preflight-before-Logic lifecycle; hash-bound governed evidence; run/issue/time-bound mediation checkpoints; and receipt-backed target-application outcomes.
+- Upgrade runtime preflight to v1.2 with a fresh script-issued challenge, exact task-byte resubmission, task-root-bound issuance and canonical one-use consumption ledgers whose files and hashes are reopened, structured host-inventory receipts without self-verified claims, and additive-only task requirements so Personal Extension capabilities cannot be removed by a caller.
+- Add an external Personal runtime-pack lock that binds the resolved config, runtime digest, and exact required-Provider set; require non-empty snapshots and actual finalized-receipt selection of every required Provider in each applicable governed stage.
+- Bind every normal presentation handoff to both the final PPTX and `ppt-supervision-report.json`, including a validated final-PPTX SHA-256 and a recorded pre-Logic environment/resource brief; enforce the pair through an atomic publisher and `delivery-manifest.json`.
+- Compile the five governed source Skills into one self-contained ChatGPT Skills upload with one root `SKILL.md`, five internal stage modules, a fail-closed composite mount contract, and no embedded private Library bodies or indexes; retain the explicit multi-Skill plugin form for marketplace hosts.
+- Separate hard authoring/rendering route requirements from post-output PowerPoint/WPS/LibreOffice acceptance; unavailable native applications are recorded as deferred evidence instead of blocking Logic.
+- Keep host-declared native routes explicitly provisional until independently validated PPTX objects and final renders establish delivery evidence; require role/lifecycle entries to resolve to concrete governed artifacts, and validate staged and published PPTX/report bytes to close generic-record and copy-time drift gaps.
 
 ## 0.6.0 — 2026-08-29
 

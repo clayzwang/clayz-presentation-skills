@@ -27,8 +27,36 @@ def compile_sources() -> None:
         compile(path.read_text(encoding="utf-8"), str(path), "exec")
 
 
+def validate_standalone_skill() -> None:
+    """Run the self-contained checks that apply to a ChatGPT Skill archive.
+
+    The standalone artifact intentionally omits marketplace metadata, source
+    tests, release workflows, and the Experience Center. Repository-only
+    validation would therefore report those deliberate absences as defects.
+    """
+
+    run("scripts/validate_config.py", "config/default.json")
+    run("scripts/validate_config.py", "config/personal-extension-resolved.json")
+    run("scripts/validate_provenance.py", "provenance/manifest.yaml")
+    run("scripts/validate_knowledge_scaffold.py", ".")
+    run("scripts/validate_index_foundation.py")
+    run("scripts/validate_composite_skill_mount.py", "--root", ".")
+    run(
+        "scripts/validate_personal_extension.py",
+        "runtime/personal-extension.json",
+        "--config",
+        "config/personal-extension-resolved.json",
+        "--runtime-lock",
+        "runtime/runtime-lock.json",
+    )
+
+
 def main() -> int:
     compile_sources()
+    if (ROOT / "SKILL.md").is_file() and not (ROOT / ".codex-plugin" / "plugin.json").is_file():
+        validate_standalone_skill()
+        print("standalone Skill validations passed")
+        return 0
     run("scripts/validate_version.py", ".")
     run("scripts/validate_config.py", "config/default.json")
     run("scripts/validate_runtime.py", ".")

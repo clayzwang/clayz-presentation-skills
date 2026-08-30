@@ -4,7 +4,7 @@ v0.6.0 保留 v0.5.2 对演示推理、受治理检索与执行的分离，并�
 
 ## 固定生命周期
 
-`自然语言请求 → 五阶段批准产物 → 一次预检 → 锁定路线 → 一次性收集并缓存来源 → 一次构建 → 最终渲染 QA → 最多一次定向修复 → 交付`
+`自然语言请求 → Supervisor签发新鲜任务挑战并绑定配置 → 一次预检与资源简报 → 锁定路线/来源 → Logic → Copy → Art Direction → Output构建 → Supervisor最终渲染审计 → 最多一次定向修复 → 经校验的成对发布目录`
 
 运行中不换路线。后端发生硬失败时结束本次运行；中央配置最多允许从新预检开始一次备选路线重启。
 
@@ -12,9 +12,13 @@ v0.6.0 保留 v0.5.2 对演示推理、受治理检索与执行的分离，并�
 
 A—D 是能力分级，不是模型品牌排名。A、B 可直接编排 Runtime；C 输出内部结构化交接，由外部适配器执行；D 有窄工具能力时只调用一次，否则复用 C 的路线。用户不需要手写 JSON。
 
-宿主应把“生成 PPT”的意图绑定到五个 Clayz Skill：新文稿从 Logic 开始，再按批准状态逐层交接。只暴露本地 PowerPoint 自动化、但不经过这些 Skill，不属于符合本架构的接入。
+Codex 与 marketplace 插件宿主应把“生成 PPT”的意图绑定到五个 Clayz Skill，由 Supervisor 起点把新文稿路由到 Logic，再按批准状态逐层交接。ChatGPT Skills 宿主使用一个复合根 Skill 执行同样的 Supervisor 前置控制，并在每次转换时只读取所需内部阶段模块。只暴露演示工具、但不经过这些受治理阶段，不属于符合本架构的接入。
 
-云端宿主先检查当前真实可用的演示能力，再向预检传入任务级 `host_capabilities` 声明；只有这样，Runtime 才能把 `native-presentation-tool` 锁定为作者／渲染路线。该声明只是当前宿主能力证据，不是随包工具，也不是永久可用承诺。
+云端宿主先检查当前真实可用的演示能力，再向预检传入任务级 `host_capabilities` 声明；声明“可用”时，必须携带相同 run/task/nonce/challenge 字段，以及指向预检脚本已校验 inventory 文件的结构化 SHA-256 回执。Runtime 只能据此把 `native-presentation-tool` 锁定为 provisional/attemptable 路线；声明必须保持 `host-declared-unverified`，不得标记为 `verified: true`，也不能把路线写成 ready。该路线可继续非制作阶段并锁定尝试一次 Output，但只有写盘 PPTX 对象和最终渲染被独立校验后才可交付；宿主声明本身既不是随包工具，也不是永久可用承诺。
+
+运行时预检合同 1.2 根据规范化任务请求的实际字节签发运行 ID、任务请求 SHA-256、nonce、任务根摘要和有限有效期。签发器写入 `.clayz-run-challenges/<run>.issued.json`；唯一一次扫描必须再次提交同一任务字节和同一任务根，重读并校验该签发台账，再以排他写入方式生成 `.clayz-run-challenges/consumed/<challenge-sha>.json`。预检库会重新读取两份台账并核对其字节哈希，因此复制或改名挑战不能形成第二次运行，移动到另一任务根也会被拒绝。随后预检绑定实际 resolved config SHA-256。`required_capabilities` 必须取 resolved config 与任务追加要求的并集，调用方不得缩减配置要求。预检再把这些制作路线硬条件与目标应用验收分开：`target_application_checks` 无论有无都逐项记录配置中的 PowerPoint、WPS、LibreOffice 等目标，结果为 `available`/`unavailable`，且始终 `blocks_authoring=false`。目标应用不可用时继续制作并在最终审计中记录 `deferred`；能力可用但未入选时记录 `not-selected`；只有实际执行后才能记录 `pass` 或 `fail`。
+
+最终报告校验通过后，`scripts/publish_supervised_pair.py` 是唯一正常交付路径。它先把 PPTX 与报告复制到全新暂存目录，对暂存字节做语义校验，再原子发布目录，并对发布后字节重复哈希与语义校验。目录中只包含 PPTX、`ppt-supervision-report.json` 和 `delivery-manifest.json`。人工单独复制 PPTX 或报告不构成完成交付。
 
 ## 依赖层级
 

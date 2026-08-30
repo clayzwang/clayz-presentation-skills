@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:supervised-delivery-manifest:1.0",
+  "title": "Clayz supervised delivery manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "run_id", "task_request_sha256", "created_at", "required_artifacts", "files", "validation"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.supervised-delivery-manifest/1.0"},
+    "run_id": {"type": "string", "minLength": 1},
+    "task_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "created_at": {"type": "string", "minLength": 1},
+    "required_artifacts": {"const": ["pptx", "supervision-report"]},
+    "files": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {"$ref": "#/$defs/pptx"},
+        {"$ref": "#/$defs/report"}
+      ],
+      "items": false
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["report_contract_version", "publisher", "validated"],
+      "properties": {
+        "report_contract_version": {"const": "3.3"},
+        "publisher": {"const": "scripts/publish_supervised_pair.py"},
+        "validated": {"const": true}
+      }
+    }
+  },
+  "$defs": {
+    "baseFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path", "sha256", "bytes"],
+      "properties": {
+        "role": {"type": "string"},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "bytes": {"type": "integer", "minimum": 0}
+      }
+    },
+    "pptx": {
+      "allOf": [
+        {"$ref": "#/$defs/baseFile"},
+        {"properties": {"role": {"const": "pptx"}}}
+      ]
+    },
+    "report": {
+      "allOf": [
+        {"$ref": "#/$defs/baseFile"},
+        {"properties": {"role": {"const": "supervision-report"}}}
+      ]
+    }
+  }
+}

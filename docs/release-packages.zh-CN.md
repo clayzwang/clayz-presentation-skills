@@ -23,7 +23,7 @@ python install_offline_dependencies.py
 
 两个公共 Light 都包含相同的 `public_core_sha256`、随包公共 Provider manifest/index 与五阶段方法，并排除体验中心案例、示例、测试、PPT/PDF、展示媒体、字体、缓存、私有 Profile、私有 Provider manifest、私有索引和发版工作文件。Cloud Light 还排除本地执行适配器与系统包。Windows 离线包只包含经过审阅的依赖 wheel、精确哈希锁、离线安装器、机器可读清单及第三方许可说明。PowerPoint、WPS、Poppler 和 Python 本身都不随这些压缩包分发。
 
-`scripts/compose_personal_light.py` 是独立的本地私有流程。它只读取仓库外的私有输入，并把私有云端 ZIP 写入 `dist/private/`；该 ZIP 不是公共 release artifact。详见[`chatgpt-personal-light.zh-CN.md`](chatgpt-personal-light.zh-CN.md)。
+`scripts/compose_personal_light.py` 是独立的本地私有流程。它只读取仓库外的私有输入，并把私有云端 ZIP 写入 `dist/private/`；默认产物是供 ChatGPT Skills 上传的单一自包含 Skill，五阶段以内部模块保留，不是五个分拆上传物。该 ZIP 不是公共 release artifact。详见[`chatgpt-personal-light.zh-CN.md`](chatgpt-personal-light.zh-CN.md)。
 
 每个 ZIP 生成后都会重新打开并扫描。如果成员路径、可读文本、嵌套 wheel 路径或 wheel 中的许可/元数据命中仓库外 `CLAYZ_RELEASE_DENYLIST`，构建立即失败并删除候选压缩包。denylist 本身永不提交、也不进入发布包。
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Validate v0.5.1 runtime contracts, packs, adapters, and bounded-route policy."""
+"""Validate runtime contracts, packs, adapters, bounded routes, and acceptance observations."""
 
 from __future__ import annotations
 
@@ -74,6 +74,30 @@ def validate(root: Path) -> list[str]:
             errors.append("runtime preflight did not emit a locked contract")
         if report.get("guards", {}).get("no_mid_run_backend_switch") is not True:
             errors.append("runtime preflight must forbid mid-run backend switching")
+        if report.get("guards", {}).get("configured_capabilities_cannot_be_reduced") is not True:
+            errors.append("runtime preflight must preserve every configured required capability")
+        if report.get("guards", {}).get("host_capabilities_bound_to_run") is not True:
+            errors.append("runtime preflight must bind host capabilities to the run")
+        if not isinstance(report.get("run_binding"), dict) or not report["run_binding"].get("run_id"):
+            errors.append("runtime preflight must bind a run_id")
+        if not isinstance(report.get("config_binding"), dict) or not report["config_binding"].get("sha256"):
+            errors.append("runtime preflight must bind the exact config")
+        host_observation = report.get("dependencies", {}).get("host_tools", {}).get("observation", {})
+        if host_observation.get("verification_status") != "runtime-probed":
+            errors.append("runtime preflight must distinguish runtime probes from host declarations")
+        if host_observation.get("route_eligible") is not False:
+            errors.append("an absent or unverified host declaration must not authorize route readiness")
+        if report.get("guards", {}).get("host_declarations_never_self_authorize_route_readiness") is not True:
+            errors.append("runtime preflight must not let host declarations self-authorize route readiness")
+        if report.get("guards", {}).get("run_challenge_has_nonce_and_freshness_window") is not True:
+            errors.append("runtime preflight must require nonce and freshness semantics")
+        if report.get("guards", {}).get("run_challenge_requires_issuance_and_canonical_consumption_ledgers") is not True:
+            errors.append("runtime preflight must require issuance and canonical consumption ledgers")
+        checks = report.get("target_application_checks")
+        if not isinstance(checks, list) or not checks:
+            errors.append("runtime preflight must observe every target application")
+        elif any(item.get("blocks_authoring") is not False for item in checks if isinstance(item, dict)):
+            errors.append("target-application acceptance must not block authoring")
     except (OSError, ValueError) as exc:
         errors.append(f"runtime preflight failure: {exc}")
     return errors

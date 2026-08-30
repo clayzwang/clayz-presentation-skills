@@ -4,7 +4,7 @@ v0.6.0 preserves the v0.5.2 separation of presentation reasoning, governed retri
 
 ## Fixed lifecycle
 
-`natural-language request → five-stage approved artifacts → one preflight scan → locked route → one cached source collection → one build → final render QA → at most one targeted repair → delivery`
+`natural-language request → Supervisor issues a fresh task-bound challenge and binds config → one preflight and resource brief → locked route/sources → Logic → Copy → Art Direction → Output build → Supervisor final-render audit → at most one targeted repair → validated paired publisher bundle`
 
 The route does not change mid-run. A hard backend failure closes the run; one configured fallback restart may begin from a fresh preflight report.
 
@@ -12,9 +12,13 @@ The route does not change mid-run. A hard backend failure closes the run; one co
 
 A–D are capability profiles, not a brand ranking. A and B can orchestrate the runtime directly. C emits the internal structured handoff for an adapter. D uses one narrow tool invocation when possible, otherwise the C route. Users never need to write the JSON handoff.
 
-Hosts should bind presentation-generation intent to the five Clayz skills, beginning with Logic for a new deck and following the approved stage handoffs. Merely exposing local PowerPoint automation without the skills is not a conforming integration.
+Codex and marketplace-plugin hosts bind presentation-generation intent to the five Clayz Skills, beginning at Supervisor and routing a new deck into Logic before the approved stage handoffs. The ChatGPT Skills host uses one composite root Skill that performs the same Supervisor-first control and reads only the needed internal stage module at each transition. Merely exposing presentation automation without these governed stages is not a conforming integration.
 
-Cloud hosts inspect their actually available presentation capabilities and pass a task-local `host_capabilities` declaration into preflight. Only then may the runtime lock `native-presentation-tool` as its authoring/render route. The declaration is evidence about the current host, not a bundled tool or a permanent promise.
+Cloud hosts inspect their actually available presentation capabilities and pass a task-local `host_capabilities` declaration into preflight. An available declaration is accepted only when it carries the same run/task/nonce/challenge fields and structured SHA-256 receipts for inventory files checked by the preflight script. The runtime may then lock `native-presentation-tool` only as a provisional, attemptable route. The declaration stays `host-declared-unverified`; it is not `verified: true`, cannot make the route ready, and is neither a bundled tool nor a permanent promise. A provisional route permits the non-authoring stages and one locked Output attempt, but delivery still requires independently validated written PPTX objects and final renders.
+
+Runtime preflight contract 1.2 issues the run ID, task-request SHA-256, nonce, task-root digest, and bounded validity window from the actual canonical task bytes. The issuer writes `.clayz-run-challenges/<run>.issued.json`; the single scan must receive the same task bytes and the same task root, reopen and hash-check that issuance record, and exclusively create `.clayz-run-challenges/consumed/<challenge-sha>.json`. Both ledger files are reopened and byte-hash validated by the preflight library. Copying or renaming the challenge therefore cannot create a second run, and moving it to another task root is rejected. The scan then binds the exact resolved-config SHA-256. Its `required_capabilities` is the union of the resolved configuration and any additive task requirements; callers cannot shrink the configured set. Preflight separates those route requirements from target-application acceptance. `target_application_checks` records every configured PowerPoint, WPS, LibreOffice, or other target as `available` or `unavailable` with `blocks_authoring=false`. An unavailable target is produced and audited as `deferred`; an available but unused target is `not-selected`; only an executed check may be `pass` or `fail`.
+
+After final report validation, `scripts/publish_supervised_pair.py` is the only normal handoff path. It first copies the PPTX and report into a new staging bundle, performs semantic validation on those staged bytes, atomically publishes the directory, and repeats hash and semantic validation on the published bytes. The bundle contains exactly the PPTX, `ppt-supervision-report.json`, and `delivery-manifest.json`. A manually copied PPTX or report does not establish completed delivery.
 
 ## Dependency levels
 
