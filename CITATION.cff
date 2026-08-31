@@ -4,8 +4,8 @@ title: "Clayz Presentation Skills"
 type: software
 authors:
   - name: "clayz"
-version: 0.7.0
-date-released: 2026-08-30
+version: 0.7.1
+date-released: 2026-08-31
 license: Apache-2.0
 keywords:
   - presentation
