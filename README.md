@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.7.1**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.8.0**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -41,6 +41,8 @@ Clayz Presentation Skills is an open, five-stage system for producing evidence-b
 This is not a larger pile of layout rules. It gives Art Direction a stronger repertoire while keeping every move accountable to the current content:
 
 - **Inventory before authoring:** Supervisor scans the complete plugin runtime, task inputs, owner Library, public Index, brand assets, host capabilities, and font environment before Logic. It tells the user what was found, what will be used, what is unavailable, and which authoring/render route is locked—then authoring may start.
+- **Latest components first:** Supervisor checks the official GitHub Latest Release and prints the Public Core, config, runtime, and five-stage contract table. A stale or missing component, an old report, or unavailable freshness evidence fails runtime preflight.
+- **One private learning run per version:** the first run reads admitted private knowledge, templates, standards, and methods, builds a persistent index, exercises retrieval probes, and emits a separate learning audit. Later tasks verify hashes and reuse it; same-version source drift never overwrites the first audit silently.
 - **First-class Index execution:** one Provider snapshot is locked for the run. Owner learning is materialized from a task-supplied manifest and each stage must attach finalized Retrieval Receipts proving which registered records were actually selected; “reviewed the library” is not evidence.
 - **Substance and object gates:** deck-level validators reject mechanical wording and grammar repetition, generic first visuals, unjustified silhouette or structure reuse, shape-only pseudo-charts, missing connectors, and duplicated slide-agnostic QA boilerplate.
 - **Content-aware composition:** image-led slides must inspect subject protection, usable copy zones, crop, contrast, directional flow, and overlay necessity before placing text. A remembered advertising layout is never accepted as the answer by itself.
@@ -75,9 +77,9 @@ The v0.5.2 foundation added one optional, owner-private extension decision befor
 
 The repository is more than a light archive: one Public Core, the canonical public Provider manifest/index, public Library payloads, shared contracts, and host adapters produce separate Cloud Public Light and Local Public Light targets. The cloud target attaches a resolved Personal Extension Profile and private Library routes to Cloud Public Light; it is not a parallel set of private skills. See [`docs/personal-extension.md`](docs/personal-extension.md) and [`docs/chatgpt-personal-light.md`](docs/chatgpt-personal-light.md). Public material remains usable now. What is deferred is the method for its continuous learning, community aggregation, automatic update, and cross-source fusion, together with Task Overlay, remote MCP Providers, and automatic private Library ingestion.
 
-This public release contains the extension contracts and composition method only. It contains no real owner Profile, private Provider, private index, organization master, font, presentation, PDF, or prior-learning body. v0.7.0 is Windows-first for local execution; Cloud Public Light remains host-managed. No macOS, Linux, or iOS release package is produced or claimed as validated in this version.
+This public release contains the extension contracts and composition method only. It contains no real owner Profile, private Provider, private index, organization master, font, presentation, PDF, or prior-learning body. v0.8.0 is Windows-first for local execution; Cloud Public Light remains host-managed. No macOS, Linux, or iOS release package is produced or claimed as validated in this version.
 
-On an owner-personal run, Supervisor now creates the owner-learning source manifest from the resources discovered for that task. The manifest and source bytes stay outside the public repository and release bundles; only the generic materialization contract, receipt gates, and synthetic regression fixtures are public.
+On an owner-personal run, Supervisor creates the owner-learning source manifest from discovered resources and stores the real materialization in a repository-external, version-bound private state. The manifest, source bytes, persistent index, and learning audit remain outside public source and release bundles; only the generic materialization/one-time-learning contracts, receipt gates, and synthetic regression fixtures are public.
 
 ## Repository layout
 
@@ -193,10 +195,10 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 - The core scripts require Python 3.10 or later. The host-model-independent baseline authoring route uses `python-pptx`; Pillow supports raster, rhythm, and size inspection; PyYAML validates machine-readable manifests.
 - GitHub Actions tests Python 3.10, 3.11, and 3.12 and starts every public command-line entry point with `--help` before release.
 - Run `scripts/runtime_preflight.py` exactly once per production run. It classifies A–D interaction capabilities, scans dependencies, locks one authoring/render route, and records the configured call budgets. Model brands are not part of the classification.
-- The validated local production route for v0.7.0 is Windows with one persistent PowerPoint COM process. Cloud Public Light uses inspected host capabilities. Other local operating-system routes remain future compatibility work and are not release claims.
+- The validated local production route for v0.8.0 is Windows with one persistent PowerPoint COM process. Cloud Public Light uses inspected host capabilities. Other local operating-system routes remain future compatibility work and are not release claims.
 - PDF and Poppler are lazy dependencies: they are needed for PDF page input or a selected LibreOffice PDF-to-PNG render path, not ordinary PPTX authoring.
 - Run `python scripts/build_runtime_packs.py --bundle light` to create Cloud Public Light and Local Public Light from the same public-core digest. Cloud Light relies on ChatGPT host tools and omits local adapters and platform packs; Local Light retains them. Neither archive contains third-party wheels, Experience Center cases, presentation files, or showcase media.
-- The only CPython 3.12 offline dependency add-on published for v0.7.0 is Windows x86-64. Maintainers fetch reviewed Windows wheels and build the two Light archives plus the Windows add-on; exact installation, hashes, and licensing are documented in [`docs/release-packages.md`](docs/release-packages.md).
+- The only CPython 3.12 offline dependency add-on published for v0.8.0 is Windows x86-64. Maintainers fetch reviewed Windows wheels and build the two Light archives plus the Windows add-on; exact installation, hashes, and licensing are documented in [`docs/release-packages.md`](docs/release-packages.md).
 - C and D models use the same internal contracts through an adapter; users continue to interact in natural language and never need to author render manifests or preflight JSON.
 - MCP is optional. A capable model host can read the skills and call local tools directly; add MCP only when you want a portable interface to remote storage, search, rendering, or another external service.
 

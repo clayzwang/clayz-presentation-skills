@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:clayz:presentation:schema:personal-extension-runtime:1.0",
+  "$id": "urn:clayz:presentation:schema:personal-extension-runtime:1.1",
   "title": "Clayz resolved Personal Extension Runtime",
   "type": "object",
   "additionalProperties": false,
-  "required": ["contract", "core", "extension", "config", "mounts", "providers", "resource_inventory", "index_execution", "origin_map", "guards", "lock"],
+  "required": ["contract", "core", "extension", "config", "mounts", "providers", "resource_inventory", "index_execution", "version_learning", "origin_map", "guards", "lock"],
   "properties": {
-    "contract": {"const": "io.clayz.presentation.personal-extension-runtime/1.0"},
+    "contract": {"const": "io.clayz.presentation.personal-extension-runtime/1.1"},
     "core": {
       "type": "object",
       "additionalProperties": false,
@@ -85,11 +85,28 @@
         "required_receipt_stages": {"const": ["logic", "copy", "art-direction", "output", "supervisor"]}
       }
     },
+    "version_learning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "mode", "state_root", "bootstrap_script", "audit_contract", "audit_schema", "required_knowledge_kinds", "reuse_requires_hash_match", "source_drift_fails_closed", "fail_closed"],
+      "properties": {
+        "contract": {"const": "io.clayz.presentation.version-private-learning-policy/1.0"},
+        "mode": {"const": "first-run-once-per-core-version"},
+        "state_root": {"const": "runtime-input://owner-private-version-learning-state"},
+        "bootstrap_script": {"const": "scripts/bootstrap_owner_learning.py"},
+        "audit_contract": {"const": "io.clayz.presentation.version-private-learning-audit/1.0"},
+        "audit_schema": {"const": "packages/contracts/version-private-learning-audit.schema.json"},
+        "required_knowledge_kinds": {"const": ["private-knowledge", "template", "standard", "method"]},
+        "reuse_requires_hash_match": {"const": true},
+        "source_drift_fails_closed": {"const": true},
+        "fail_closed": {"const": true}
+      }
+    },
     "origin_map": {"type": "array"},
     "guards": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["single_public_workflow", "no_sixth_stage", "public_fallback_when_optional_provider_unavailable", "required_private_provider_fails_closed", "provider_snapshot_locked_per_run", "public_material_evolution_methods_deferred", "resource_inventory_required", "resource_brief_before_logic", "resource_usage_reconciliation_required", "first_class_index_required", "stage_receipts_fail_closed"],
+      "required": ["single_public_workflow", "no_sixth_stage", "public_fallback_when_optional_provider_unavailable", "required_private_provider_fails_closed", "provider_snapshot_locked_per_run", "public_material_evolution_methods_deferred", "resource_inventory_required", "resource_brief_before_logic", "resource_usage_reconciliation_required", "first_class_index_required", "stage_receipts_fail_closed", "latest_version_guard_required", "version_private_learning_required", "one_learning_run_per_version", "source_drift_fails_closed"],
       "properties": {
         "single_public_workflow": {"const": true},
         "no_sixth_stage": {"const": true},
@@ -101,7 +118,11 @@
         "resource_brief_before_logic": {"const": true},
         "resource_usage_reconciliation_required": {"const": true},
         "first_class_index_required": {"const": true},
-        "stage_receipts_fail_closed": {"const": true}
+        "stage_receipts_fail_closed": {"const": true},
+        "latest_version_guard_required": {"const": true},
+        "version_private_learning_required": {"const": true},
+        "one_learning_run_per_version": {"const": true},
+        "source_drift_fails_closed": {"const": true}
       }
     },
     "lock": {

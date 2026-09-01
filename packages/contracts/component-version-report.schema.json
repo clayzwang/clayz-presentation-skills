@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:component-version-report:1.0",
+  "title": "Clayz presentation component version freshness report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract", "generated_at", "repository", "status", "local_release_version",
+    "latest_release", "manifest_sha256", "local_manifest_sha256", "components", "error_codes", "user_brief"
+  ],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.component-version-report/1.0"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "repository": {"const": "clayzwang/clayz-presentation-skills"},
+    "status": {"enum": ["latest", "blocked"]},
+    "local_release_version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
+    "latest_release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "tag_name", "html_url", "observed_at", "source"],
+      "properties": {
+        "version": {"type": "string"},
+        "tag_name": {"type": "string"},
+        "html_url": {"type": "string"},
+        "observed_at": {"type": "string"},
+        "source": {"enum": ["official-github-latest-release", "official-host-fetched-github-response"]}
+      }
+    },
+    "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "local_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["component_id", "actual_version", "expected_version", "status", "evidence"],
+        "properties": {
+          "component_id": {"type": "string", "minLength": 1},
+          "actual_version": {"type": ["string", "null"]},
+          "expected_version": {"type": "string", "minLength": 1},
+          "status": {"enum": ["current", "missing", "drift"]},
+          "evidence": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "personal_extension": {"type": ["object", "null"]},
+    "error_codes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "user_brief": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  }
+}

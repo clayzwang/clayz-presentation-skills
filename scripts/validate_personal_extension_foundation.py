@@ -20,7 +20,7 @@ from packages.personal_extension import PersonalExtensionError, validate_provide
 SCHEMAS = {
     "packages/contracts/personal-extension-profile.schema.json": "urn:clayz:presentation:schema:personal-extension-profile:1.0",
     "packages/contracts/provider-manifest.schema.json": "urn:clayz:presentation:schema:provider-manifest:1.0",
-    "packages/contracts/personal-extension-runtime.schema.json": "urn:clayz:presentation:schema:personal-extension-runtime:1.0",
+    "packages/contracts/personal-extension-runtime.schema.json": "urn:clayz:presentation:schema:personal-extension-runtime:1.1",
 }
 SKILLS = (
     "clayz-presentation-logic",

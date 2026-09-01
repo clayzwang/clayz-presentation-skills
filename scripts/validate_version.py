@@ -24,6 +24,7 @@ REQUIRED_FILES = (
     "README.md",
     "README.zh-CN.md",
     "config/default.json",
+    "config/component-versions.json",
     "experience/index.html",
 )
 
@@ -46,6 +47,7 @@ def validate(root: Path) -> list[str]:
     try:
         plugin = read_json(root / ".codex-plugin/plugin.json")
         config = read_json(root / "config/default.json")
+        component_versions = read_json(root / "config/component-versions.json")
         citation = yaml.safe_load((root / "CITATION.cff").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError, yaml.YAMLError) as exc:
         return [f"version surface parse failure: {exc}"]
@@ -55,6 +57,10 @@ def validate(root: Path) -> list[str]:
         "config/default.json identity.version": config.get("identity", {}).get("version"),
         "config/default.json ClayzVersion": config.get("identity", {}).get("attribution", {}).get("custom_properties", {}).get("ClayzVersion"),
         "CITATION.cff version": str(citation.get("version")) if isinstance(citation, dict) else None,
+        "config/component-versions.json release_version": component_versions.get("release_version"),
+        "config/component-versions.json public-core": component_versions.get("components", {}).get("public-core"),
+        "config/component-versions.json plugin-manifest": component_versions.get("components", {}).get("plugin-manifest"),
+        "config/component-versions.json central-config": component_versions.get("components", {}).get("central-config"),
     }
     for label, actual in comparisons.items():
         if actual != version:

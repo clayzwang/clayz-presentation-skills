@@ -2,18 +2,19 @@
 
 The Index is an execution dependency, not background reading. In owner-personal mode, a stage may not be approved from prose claims such as “the library was reviewed” or “the plan and render are consistent.”
 
-## Root materialization inside the resource inventory
+## First-run version learning and task reuse
 
 Before Logic, perform this work as part of the pre-Logic resource scan and record every source in `ppt-resource-inventory.json`:
 
 1. Validate `runtime/personal-extension.json` and read its `index_execution` policy.
-2. Build a task-local `io.clayz.presentation.owner-learning-sources/1.0` manifest from the owner resources discovered during the scan. The manifest is a runtime input; it is never bundled into the public plugin.
-3. Through the selected owner Library mounts, read every source marked `required` for the stages in this run. Reading only locator metadata is insufficient.
-4. Preserve the exact bytes task-locally and run `scripts/materialize_owner_index.py --manifest <task-manifest>` with one `source_id=path` binding per source. The materializer hashes the bytes and creates the ephemeral `task-private-learning` Index provider.
-5. Combine `builtin-catalog`, the locked owner-private Providers, and `task-private-learning` into one `CompositeIndex`. Sort and hash the Provider snapshots once; never replace them mid-run.
-6. Create `index_evidence` under `io.clayz.presentation.index-execution-evidence/1.0`, add the materialized Provider and source pools to the selected resource inventory, present the resource brief to the user, and carry both locks through every handoff.
+2. Build an `io.clayz.presentation.owner-learning-sources/1.0` manifest from the owner resources discovered during the scan. Every source declares `knowledge_kinds`; the complete manifest covers at least `private-knowledge`, `template`, `standard`, and `method`. The manifest remains a runtime input outside the public plugin.
+3. Resolve each required source through the locked owner Library mount and read its real bytes. Resolve a persistent owner-private version-learning state root; an ephemeral task directory is not persistent state.
+4. Run `scripts/bootstrap_owner_learning.py`. On the first run of the current Public Core version, it hashes every source, builds `task-private-learning`, exercises real CompositeIndex retrieval probes for the four required knowledge kinds, and writes a separate JSON and Markdown learning audit. The audit lists sources, record counts, kinds, stages, digests, representative titles, provider snapshot, probes, and gaps.
+5. On later tasks for the same version, verify and reuse the exact index and audit without learning again. Changed source bytes under the same version are `PRIVATE_LEARNING_SOURCE_DRIFT`; do not overwrite the first-run audit silently.
+6. Combine `builtin-catalog`, the locked owner-private Providers, and the version-bound `task-private-learning` into one `CompositeIndex`. Sort and hash the Provider snapshots once; never replace them mid-run.
+7. Create `index_evidence` under `io.clayz.presentation.index-execution-evidence/1.0`. `owner_materialization.learning_mode` is `first-run` or `reused-version-index` and binds both `learning_key` and `version_learning_audit_sha256`. Add the source pools to the selected resource inventory, present the learning/resource brief to the user, and carry both locks through every handoff.
 
-If a required Library source cannot be read, decompressed, parsed, hashed, or materialized, stop before the affected stage with `first-class-index-unavailable`. Do not replace it with memory, generic defaults, the inventory locator, or an unreceipted web search.
+If a required Library source cannot be read, decompressed, parsed, hashed, learned on first run, persisted, or verified for reuse, stop before the affected stage. Do not replace it with memory, generic defaults, the inventory locator, per-task rematerialization, or an unreceipted web search.
 
 ## Per-stage gate
 

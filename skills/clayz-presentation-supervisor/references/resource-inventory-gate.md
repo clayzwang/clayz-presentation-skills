@@ -2,6 +2,8 @@
 
 Resource discovery is root control-plane work, not a sixth presentation stage. Supervisor owns it before Logic so a user can see what this host and account can actually use before quality depends on hidden assets.
 
+Before inventory, run `scripts/component_version_guard.py`, compare the mounted component table with the official GitHub Latest Release, and print the table to the user. An unavailable freshness observation, an older component, or any version drift is blocking; do not reduce it to an inventory warning.
+
 ## Scan before authoring
 
 For every new build, revision, or audit, scan and evidence all seven scopes:
@@ -13,6 +15,8 @@ For every new build, revision, or audit, scan and evidence all seven scopes:
 5. theme, master, template, logo, icon, brand, and other visual assets;
 6. host authoring, rendering, inspection, and target-application capabilities; and
 7. the actual font environment, including deferred-native fonts.
+
+Owner-personal mode also records the version-private-learning state under the owner-Library scope: public-core version, learning key, first-run or reuse mode, separate learning-audit digest, persistent index digest, and source-set digest. The first run reads the admitted source bytes and builds the index. Later runs verify and reuse it. A nonpersistent state root, missing audit, changed source bytes, or incomplete knowledge-kind coverage blocks Logic.
 
 Do not count a locator, manifest entry, remembered capability, or unavailable tool as an available resource. Collapse large pools into named, hash-bound entries with a quantity; do not dump hundreds of records into the user message.
 
@@ -29,6 +33,8 @@ python ../../scripts/finalize_resource_inventory.py \
 After Provider materialization and route locking, but before any Logic, Copy, Art Direction, or Output work, send one concise commentary update that states:
 
 - what was found, grouped by task material, owner resources, public resources, brand assets, fonts, and execution capabilities;
+- the complete core-component version table and official latest version, after the gate has passed;
+- whether private learning ran for the first time or reused the version-bound index, and which knowledge, template, standard, and method categories the learning audit covers;
 - what is selected for this task and why;
 - what is unavailable, deliberately not selected, or only conditionally useful; and
 - the locked authoring/rendering route and that governed authoring is now starting.

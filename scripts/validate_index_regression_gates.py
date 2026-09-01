@@ -59,6 +59,16 @@ def _manifest() -> dict[str, Any]:
         ("demo-output-learning", "markdown", "learning", ["output"]),
         ("demo-reviewed-counterexamples", "json", "failure-pattern", ["supervisor"]),
     )
+    knowledge_kinds = {
+        "demo-logic-learning": ["private-knowledge", "method"],
+        "demo-copy-learning": ["standard"],
+        "demo-art-learning": ["method"],
+        "demo-visual-preferences": ["preference"],
+        "demo-visual-reference-index": ["template", "example"],
+        "demo-purpose-index": ["method"],
+        "demo-output-learning": ["standard", "method"],
+        "demo-reviewed-counterexamples": ["failure-pattern"],
+    }
     return {
         "contract": "io.clayz.presentation.owner-learning-sources/1.0",
         "provider_id": "task-private-learning",
@@ -73,6 +83,7 @@ def _manifest() -> dict[str, Any]:
                 "stages": stages,
                 "required": True,
                 "purpose_tags": ["regression-fixture"],
+                "knowledge_kinds": knowledge_kinds[source_id],
             }
             for source_id, format_name, record_type, stages in source_specs
         ],

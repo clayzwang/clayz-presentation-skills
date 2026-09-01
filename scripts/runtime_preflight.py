@@ -201,6 +201,43 @@ def _validate_task_request(task_request_path: Path, challenge: dict[str, object]
         raise ValueError("current task request does not match the fresh run challenge")
 
 
+def _validate_component_version_report(path: Path, config: dict[str, object]) -> dict[str, object]:
+    raw = path.read_bytes()
+    report = json.loads(raw)
+    if not isinstance(report, dict) or report.get("contract") != "io.clayz.presentation.component-version-report/1.0":
+        raise ValueError("component version report contract is unsupported")
+    if report.get("status") != "latest" or report.get("error_codes") != []:
+        raise ValueError("component version report did not establish latest components")
+    configured_version = config.get("identity", {}).get("version") if isinstance(config.get("identity"), dict) else None
+    latest = report.get("latest_release")
+    latest_version = latest.get("version") if isinstance(latest, dict) else None
+    if report.get("local_release_version") != configured_version or latest_version != configured_version:
+        raise ValueError("component version report does not match the resolved configuration")
+    components = report.get("components")
+    if not isinstance(components, list) or not components or any(
+        not isinstance(item, dict) or item.get("status") != "current" for item in components
+    ):
+        raise ValueError("component version report contains missing or drifting components")
+    generated_at = report.get("generated_at")
+    try:
+        generated = datetime.fromisoformat(str(generated_at).replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("component version report generated_at is invalid") from exc
+    age_seconds = abs((datetime.now(timezone.utc) - generated.astimezone(timezone.utc)).total_seconds()) if generated.tzinfo else float("inf")
+    if age_seconds > 900:
+        raise ValueError("component version report is not fresh for this task")
+    return {
+        "artifact": path.resolve().as_posix(),
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "generated_at": generated_at,
+        "status": "latest",
+        "local_release_version": report.get("local_release_version"),
+        "latest_release_version": latest_version,
+        "manifest_sha256": report.get("manifest_sha256"),
+        "all_components_current": True,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--issue-challenge", action="store_true", help="Issue a fresh run challenge before the single capability scan")
@@ -210,6 +247,7 @@ def main() -> int:
     parser.add_argument("--model-profile", choices=["A", "B", "C", "D"])
     parser.add_argument("--model-capabilities", type=Path, help="JSON object used only when --model-profile is omitted")
     parser.add_argument("--host-capabilities", type=Path, help="JSON object declaring inspected host presentation-tool capabilities")
+    parser.add_argument("--component-version-report", type=Path, help="fresh report emitted by component_version_guard.py")
     parser.add_argument("--require", action="append", default=[], help="Add a stricter required capability; repeat as needed")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
@@ -233,6 +271,9 @@ def main() -> int:
         _validate_task_request(args.task_request, challenge)
         config_raw = args.config.read_bytes()
         config = json.loads(config_raw)
+        if args.component_version_report is None:
+            raise ValueError("the capability scan requires --component-version-report")
+        component_version_gate = _validate_component_version_report(args.component_version_report, config)
         model_caps = json.loads(args.model_capabilities.read_text(encoding="utf-8")) if args.model_capabilities else None
         host_caps = json.loads(args.host_capabilities.read_text(encoding="utf-8")) if args.host_capabilities else None
         host_context = _validate_host_evidence(host_caps, args.host_capabilities, challenge, challenge_sha256)
@@ -253,6 +294,7 @@ def main() -> int:
                 "sha256": hashlib.sha256(config_raw).hexdigest(),
                 "source": "personal-resolved" if args.config.name == "personal-extension-resolved.json" else "public-default",
             },
+            component_version_gate=component_version_gate,
         )
         _write_payload(report, args.output)
     except (OSError, ValueError, json.JSONDecodeError) as exc:

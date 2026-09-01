@@ -669,16 +669,31 @@ def validate_environment_observation(
         if not isinstance(runtime_preflight, dict):
             errors.append("runtime_preflight: must be an object")
             return errors
-        if runtime_preflight.get("contract") != "io.clayz.presentation.runtime-preflight/1.2":
-            errors.append("runtime_preflight.contract: expected io.clayz.presentation.runtime-preflight/1.2")
+        if runtime_preflight.get("contract") != "io.clayz.presentation.runtime-preflight/1.3":
+            errors.append("runtime_preflight.contract: expected io.clayz.presentation.runtime-preflight/1.3")
         run_binding = runtime_preflight.get("run_binding", {})
         config_binding = runtime_preflight.get("config_binding", {})
+        component_version_gate = runtime_preflight.get("component_version_gate", {})
         if not isinstance(run_binding, dict):
             errors.append("runtime_preflight.run_binding: must be an object")
             run_binding = {}
         if not isinstance(config_binding, dict):
             errors.append("runtime_preflight.config_binding: must be an object")
             config_binding = {}
+        if not isinstance(component_version_gate, dict):
+            errors.append("runtime_preflight.component_version_gate: must be an object")
+            component_version_gate = {}
+        if component_version_gate.get("status") != "latest" or component_version_gate.get("all_components_current") is not True:
+            errors.append("runtime_preflight.component_version_gate: final delivery requires latest mounted components")
+        if any(not valid_sha256(component_version_gate.get(key)) for key in ("sha256", "manifest_sha256")):
+            errors.append("runtime_preflight.component_version_gate: report and manifest SHA-256 are required")
+        if isinstance(resolved_config, dict):
+            configured_version = resolved_config.get("identity", {}).get("version")
+            if nonempty(configured_version) and (
+                component_version_gate.get("local_release_version") != configured_version
+                or component_version_gate.get("latest_release_version") != configured_version
+            ):
+                errors.append("runtime_preflight.component_version_gate: versions must match the resolved configuration")
         if isinstance(preflight_record, dict):
             if preflight_record.get("run_id") != run_binding.get("run_id"):
                 errors.append("report.environment_observation.preflight.run_id: must match runtime-preflight.json")

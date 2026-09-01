@@ -290,6 +290,14 @@ def validate_index_evidence(
     requirements = {stage: set() for stage in STAGE_ORDER}
     required_ids: set[str] = set()
     if isinstance(materialization, Mapping):
+        version_learning_required = isinstance(bound_runtime, Mapping) and isinstance(bound_runtime.get("version_learning"), Mapping)
+        if version_learning_required:
+            if materialization.get("learning_mode") not in {"first-run", "reused-version-index"}:
+                errors.append(f"{path}.owner_materialization.learning_mode: version-bound private learning evidence is required")
+            for key in ("learning_key", "version_learning_audit_sha256"):
+                value = materialization.get(key)
+                if not isinstance(value, str) or not SHA256.fullmatch(value):
+                    errors.append(f"{path}.owner_materialization.{key}: must bind the version learning audit")
         if mode == "owner-personal" and materialization.get("status") != "materialized":
             errors.append(f"{path}.owner_materialization.status: owner-personal execution must materialize task-supplied owner learning")
         if mode == "public-core" and materialization.get("status") != "not-applicable":

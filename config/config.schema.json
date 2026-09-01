@@ -36,7 +36,7 @@
       "additionalProperties": false,
       "required": ["contract_version", "preflight_script", "model_profiles", "classification_basis", "route_policy", "fallback_policy", "platform_packs", "pdf_support", "budgets"],
       "properties": {
-        "contract_version": {"const": "1.2"},
+        "contract_version": {"const": "1.3"},
         "preflight_script": {"const": "scripts/runtime_preflight.py"},
         "model_profiles": {"const": ["A", "B", "C", "D"]},
         "classification_basis": {"const": "capabilities-not-model-brands"},

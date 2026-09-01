@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:version-private-learning-audit:1.0",
+  "title": "Clayz version-bound private learning audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract", "status", "mode", "core_version", "learning_key", "generated_at",
+    "source_manifest_sha256", "source_set_sha256", "required_knowledge_kinds",
+    "observed_knowledge_kinds", "missing_knowledge_kinds", "source_inventory",
+    "learned_content", "retrieval_probes", "index", "guards"
+  ],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.version-private-learning-audit/1.0"},
+    "status": {"enum": ["complete", "blocked"]},
+    "mode": {"const": "first-run"},
+    "core_version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
+    "learning_key": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "source_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_set_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "required_knowledge_kinds": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "observed_knowledge_kinds": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "missing_knowledge_kinds": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "source_inventory": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "learned_content": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "retrieval_probes": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "index": {
+      "type": "object",
+      "required": ["provider_id", "snapshot", "artifact", "sha256", "record_count"]
+    },
+    "guards": {
+      "type": "object",
+      "required": ["one_learning_run_per_version", "source_drift_fails_closed", "private_content_stays_private", "retrieval_verified"]
+    }
+  }
+}
