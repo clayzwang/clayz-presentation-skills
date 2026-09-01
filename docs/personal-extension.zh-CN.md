@@ -56,6 +56,10 @@ Skill 和私有索引记录只能保存 `library://<namespace>/...`。真实路�
 
 ## 私有索引生命周期
 
+每次演示任务开始先运行组件版本门禁，核对官方最新 Release 与当前 Public Core、配置、运行时及各阶段合同，并由 Supervisor 把版本表展示给用户。Personal Runtime 还声明 `version_learning` 政策：宿主必须提供仓库外、可跨任务持久化的 owner-private 状态根，任务临时目录不能冒充。
+
+某个 Public Core 版本首次运行时，所有者学习清单中的每个来源都要声明 `knowledge_kinds`，整体至少覆盖私人知识、模板、规范和方法。宿主物化已准入原始字节后，`scripts/bootstrap_owner_learning.py` 计算来源集合摘要、调用现有 Index 物化器、执行四类检索探针，并生成独立 `version-private-learning-audit.json` 和 Markdown 简报。后续任务只复核来源、审计和索引哈希并复用。来源在同一核心版本下发生变化时停止，不自动重学；需要通过新版本或单独迁移治理处理。
+
 在公共仓库之外维护已准入的私有 IndexRecord，然后用共享契约生成 manifest：
 
 ```bash

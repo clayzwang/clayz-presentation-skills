@@ -206,8 +206,8 @@ def validate(config: dict[str, Any]) -> list[str]:
         errors.append("workflow.maximum_technical_cycles: expected integer from 1 to 10")
 
     runtime = require_mapping(config.get("runtime"), "runtime", errors)
-    if runtime.get("contract_version") != "1.2":
-        errors.append("runtime.contract_version: expected 1.2")
+    if runtime.get("contract_version") != "1.3":
+        errors.append("runtime.contract_version: expected 1.3")
     if runtime.get("preflight_script") != "scripts/runtime_preflight.py":
         errors.append("runtime.preflight_script: expected scripts/runtime_preflight.py")
     if runtime.get("model_profiles") != ["A", "B", "C", "D"]:

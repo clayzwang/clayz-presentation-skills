@@ -2,6 +2,8 @@
 
 `VERSION` is the only release-version source of truth. Plugin metadata, central configuration, PPTX custom properties, citation metadata, README badges, the Experience Center current-release marker, and the dated Changelog section must match it.
 
+`config/component-versions.json` is the per-release core-component table used by the startup freshness gate. `prepare_release.py` updates its release-level version surfaces together with `VERSION`; contract component versions change only when their contracts actually change. Do not hand-edit the table in a built package.
+
 ## Prepare a release
 
 1. Keep completed changes under `## Unreleased` in `CHANGELOG.md`.

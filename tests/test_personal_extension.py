@@ -82,7 +82,7 @@ def profile(core_version: str) -> dict:
         "profile_version": "1.0.0",
         "compatibility": {
             "minimum_core_version": core_version,
-            "maximum_core_version_exclusive": "0.8.0",
+            "maximum_core_version_exclusive": "0.9.0",
         },
         "overrides": [
             {"path": "theme.profile", "policy": "replace", "value": "owner-private-theme"},

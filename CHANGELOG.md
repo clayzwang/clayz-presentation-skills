@@ -6,6 +6,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.8.0 — 2026-09-01
+
+- Add a fail-closed startup component-version gate that checks the official GitHub Latest Release on every presentation run, prints the mounted core-component table, and binds the fresh report into runtime preflight.
+- Add one audited owner-private learning run per Public Core version: hash real admitted knowledge, templates, standards, and methods; build and retrieval-test the persistent private index; emit separate JSON/Markdown learning audits; reuse on later tasks; and fail on same-version source drift.
+
 ## 0.7.1 — 2026-08-31
 
 - Model localized and English font-family names as one canonical font identity, reject alias collisions in fallback stacks, and require one explicit PPTX family name across Latin and East Asian fields so `华文楷体` and `STKaiti` cannot be misclassified as separate fonts.

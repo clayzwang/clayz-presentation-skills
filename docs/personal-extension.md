@@ -56,6 +56,10 @@ The same logical URI can resolve to a local file or a ChatGPT Library item witho
 
 ## Private index lifecycle
 
+Every presentation task first runs the component-version gate, compares the official latest release with the mounted Public Core, config, runtime, and stage contracts, and shows the version table to the user. Personal Runtime also declares a `version_learning` policy. The host supplies an owner-private state root that persists outside task sandboxes.
+
+On the first run of a Public Core version, every owner-learning source declares `knowledge_kinds` and the complete set covers private knowledge, templates, standards, and methods. After the host materializes admitted bytes, `scripts/bootstrap_owner_learning.py` hashes the source set, invokes the existing Index materializer, runs four retrieval probes, and writes separate JSON and Markdown learning audits. Later tasks verify and reuse the same audit and index. Source drift under the same core version stops the run; it never triggers silent re-learning.
+
 Create or update admitted private IndexRecords outside this repository, then build their manifest with the shared contract:
 
 ```bash

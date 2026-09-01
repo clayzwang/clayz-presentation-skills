@@ -25,6 +25,7 @@ TEXT_SURFACES = (
     "README.md",
     "README.zh-CN.md",
     "config/default.json",
+    "config/component-versions.json",
     "experience/index.html",
 )
 
@@ -76,6 +77,17 @@ def prepare(root: Path, new_version: str, release_date: str) -> None:
         if updated[config_path].count(old) != 1:
             raise RuntimeError(f"central configuration marker is ambiguous: {old}")
         updated[config_path] = updated[config_path].replace(old, new, 1)
+
+    component_versions_path = root / "config/component-versions.json"
+    component_versions = json.loads(updated[component_versions_path])
+    if component_versions.get("release_version") != current:
+        raise RuntimeError("component version manifest does not match current VERSION")
+    component_versions["release_version"] = new_version
+    for component_id in ("public-core", "plugin-manifest", "central-config"):
+        if component_versions.get("components", {}).get(component_id) != current:
+            raise RuntimeError(f"component version manifest {component_id} does not match current VERSION")
+        component_versions["components"][component_id] = new_version
+    updated[component_versions_path] = json.dumps(component_versions, ensure_ascii=False, indent=2) + "\n"
 
     citation_path = root / "CITATION.cff"
     citation = updated[citation_path]

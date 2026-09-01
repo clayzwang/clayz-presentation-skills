@@ -1,0 +1,29 @@
+{
+  "contract": "io.clayz.presentation.component-version-manifest/1.0",
+  "repository": "clayzwang/clayz-presentation-skills",
+  "latest_release_api": "https://api.github.com/repos/clayzwang/clayz-presentation-skills/releases/latest",
+  "release_version": "0.8.0",
+  "components": {
+    "public-core": "0.8.0",
+    "plugin-manifest": "0.8.0",
+    "central-config": "0.8.0",
+    "workflow-contract": "3.1-open",
+    "runtime-preflight": "1.3",
+    "personal-extension-runtime": "1.1",
+    "resource-inventory": "1.0",
+    "index-execution-evidence": "1.0",
+    "logic-package": "2.3",
+    "copy-package": "2.3",
+    "art-direction-plan": "1.6",
+    "output-qa": "3.9",
+    "supervision-report": "3.3",
+    "owner-index-materialization": "1.0",
+    "version-private-learning-audit": "1.0"
+  },
+  "guards": {
+    "official_latest_release_required": true,
+    "all_components_must_match_manifest": true,
+    "user_visible_before_work": true,
+    "unverified_latest_fails_closed": true
+  }
+}

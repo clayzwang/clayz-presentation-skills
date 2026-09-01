@@ -62,3 +62,5 @@ while migration converts only unchanged admitted legacy records. These feedback
 and release-readiness services support the five stages; they do not add a sixth
 stage or transfer approval authority. See
 [`feedback-benchmark-release-readiness.md`](feedback-benchmark-release-readiness.md).
+
+Every presentation run starts with a fail-closed component-version report tied to the official latest release. In owner-personal mode, the first run of each Public Core version builds and retrieval-tests one persistent, version-bound private index and emits a separate learning audit. Later tasks verify and reuse that index; they do not rematerialize the private corpus on every run. This is a derived private execution index, not another canonical knowledge source.

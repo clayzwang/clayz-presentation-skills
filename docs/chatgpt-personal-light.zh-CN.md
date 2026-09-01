@@ -42,11 +42,13 @@ python scripts/compose_personal_light.py <private-profile.json> \
   --provider-manifest <private-provider.manifest.json>
 ```
 
-默认输出写入 `dist/private/`；该目录不进入公共 release scan，也不应被 Git 跟踪。可直接上传到 ChatGPT Skills 的 ZIP 只含一个根 `SKILL.md`，并包含 `agents/openai.yaml`、唯一 Public Core、公共 Provider manifest/index、五个内部阶段模块、一份生成的 resolved config、`runtime/personal-extension.json`、外部 `runtime/runtime-lock.json`、`runtime/skill-mount-contract.json`、运行时预检合同 1.2、监督报告合同 3.3 和成对发布器。外部 pack lock 锁定全部必选 Provider 的精确集合与 snapshot，防止 runtime 与 config 被同时缩减后自洽通过。ZIP 不包含 `.codex-plugin/plugin.json`、嵌套 `SKILL.md`、本地适配器、系统包、源 Profile、源私有 manifest、私有 JSONL 索引、附件、母版、字体或案例。
+默认输出写入 `dist/private/`；该目录不进入公共 release scan，也不应被 Git 跟踪。可直接上传到 ChatGPT Skills 的 ZIP 只含一个根 `SKILL.md`，并包含 `agents/openai.yaml`、唯一 Public Core、公共 Provider manifest/index、五个内部阶段模块、一份生成的 resolved config、`runtime/personal-extension.json`、外部 `runtime/runtime-lock.json`、`runtime/skill-mount-contract.json`、运行时预检合同 1.3、监督报告合同 3.3 和成对发布器。外部 pack lock 锁定全部必选 Provider 的精确集合与 snapshot，防止 runtime 与 config 被同时缩减后自洽通过。ZIP 不包含 `.codex-plugin/plugin.json`、嵌套 `SKILL.md`、本地适配器、系统包、源 Profile、源私有 manifest、私有 JSONL 索引、附件、母版、字体或案例。
 
 仓库和 Codex 插件仍以五个独立 Skill 作为源码与运行结构。只有 ChatGPT Skills 上传适配器把它们编译为一个发布单元；这不会新增公共核心，也不会合并五阶段的责任边界。若确实要生成 marketplace 插件形态，可显式传入 `--artifact-kind plugin --plugin-name clayz-presentation-skills-personal`，该包不得再交给 ChatGPT Skills 上传器。
 
 演示文稿任务开始时，Supervisor 会盘点已挂载运行时、任务输入、所有者 Library、公共 Index、品牌资产、主机能力和字体，并在 Logic 前向用户说明发现与选用情况。所有者学习来源清单根据该次盘点在任务目录生成，再交给 `scripts/materialize_owner_index.py`；该清单及原始字节不会进入公开仓库。
+
+在盘点之前，根 Skill 必须运行 `scripts/component_version_guard.py`，取得官方 GitHub Latest Release，打印完整核心组件版本表，并把新鲜报告交给运行时预检再次绑定。owner-personal 模式还必须解析一个可跨任务持久化的私有学习状态根。某版本首次运行时，根 Skill 调用 `scripts/bootstrap_owner_learning.py`，真实物化并索引已准入的知识、模板、规范和方法，执行检索验证并把独立学习审计交给用户；后续任务只复用。若 ChatGPT 宿主不能把该状态持久保存到 Library 或等价 owner-private 存储，必须在 Logic 前报告 `version-private-learning-state-unavailable`，不能每次重新学习来伪装满足要求。
 
 ## 上传和更新规则
 
@@ -67,6 +69,7 @@ python scripts/runtime_preflight.py --issue-challenge \
   --task-request <canonical-task-request.txt> --output <run-challenge.json>
 python scripts/runtime_preflight.py --challenge <run-challenge.json> \
   --task-request <canonical-task-request.txt> \
+  --component-version-report <component-version-report.json> \
   --host-capabilities <host-capability-attestation.json> \
   --output <runtime-preflight.json>
 ```

@@ -17,7 +17,7 @@ from packages.index_runtime.utils import sha256_json
 
 PERSONAL_EXTENSION_PROFILE_CONTRACT = "io.clayz.presentation.personal-extension-profile/1.0"
 PROVIDER_MANIFEST_CONTRACT = "io.clayz.presentation.provider-manifest/1.0"
-PERSONAL_EXTENSION_RUNTIME_CONTRACT = "io.clayz.presentation.personal-extension-runtime/1.0"
+PERSONAL_EXTENSION_RUNTIME_CONTRACT = "io.clayz.presentation.personal-extension-runtime/1.1"
 WORKFLOW_STAGES = ["logic", "copy", "art-direction", "output", "supervisor"]
 SUPPORTED_HOSTS = {"local", "chatgpt-personal"}
 ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9._-]{2,127}$")
@@ -506,6 +506,18 @@ def resolve_personal_extension(
             "fail_closed_stages": WORKFLOW_STAGES,
             "required_receipt_stages": WORKFLOW_STAGES,
         },
+        "version_learning": {
+            "contract": "io.clayz.presentation.version-private-learning-policy/1.0",
+            "mode": "first-run-once-per-core-version",
+            "state_root": "runtime-input://owner-private-version-learning-state",
+            "bootstrap_script": "scripts/bootstrap_owner_learning.py",
+            "audit_contract": "io.clayz.presentation.version-private-learning-audit/1.0",
+            "audit_schema": "packages/contracts/version-private-learning-audit.schema.json",
+            "required_knowledge_kinds": ["private-knowledge", "template", "standard", "method"],
+            "reuse_requires_hash_match": True,
+            "source_drift_fails_closed": True,
+            "fail_closed": True,
+        },
         "origin_map": sorted(origin_map, key=lambda item: item["path"]),
         "guards": {
             "single_public_workflow": True,
@@ -519,6 +531,10 @@ def resolve_personal_extension(
             "resource_usage_reconciliation_required": True,
             "first_class_index_required": True,
             "stage_receipts_fail_closed": True,
+            "latest_version_guard_required": True,
+            "version_private_learning_required": True,
+            "one_learning_run_per_version": True,
+            "source_drift_fails_closed": True,
         },
     }
     runtime["lock"] = {"algorithm": "sha256", "digest": sha256_json(runtime)}
@@ -635,6 +651,22 @@ def validate_personal_extension_runtime(
         "required_receipt_stages": WORKFLOW_STAGES,
     }
     _require(index_execution == expected_index_execution, "runtime.index_execution must enforce the first-class stage-gated Index policy")
+    expected_version_learning = {
+        "contract": "io.clayz.presentation.version-private-learning-policy/1.0",
+        "mode": "first-run-once-per-core-version",
+        "state_root": "runtime-input://owner-private-version-learning-state",
+        "bootstrap_script": "scripts/bootstrap_owner_learning.py",
+        "audit_contract": "io.clayz.presentation.version-private-learning-audit/1.0",
+        "audit_schema": "packages/contracts/version-private-learning-audit.schema.json",
+        "required_knowledge_kinds": ["private-knowledge", "template", "standard", "method"],
+        "reuse_requires_hash_match": True,
+        "source_drift_fails_closed": True,
+        "fail_closed": True,
+    }
+    _require(
+        normalized.get("version_learning") == expected_version_learning,
+        "runtime.version_learning must enforce one audited private learning run per core version",
+    )
     guards = normalized.get("guards")
     _require(isinstance(guards, Mapping) and all(value is True for value in guards.values()), "runtime guards must all be true")
     lock = normalized.get("lock")

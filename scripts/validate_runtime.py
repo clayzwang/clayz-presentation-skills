@@ -39,6 +39,9 @@ def validate(root: Path) -> list[str]:
     if set(MODEL_PROFILES) != {"A", "B", "C", "D"}:
         errors.append("runtime model profiles must remain A-D")
     required_files = [
+        "config/component-versions.json",
+        "packages/contracts/component-version-report.schema.json",
+        "packages/contracts/version-private-learning-audit.schema.json",
         "packages/contracts/runtime-preflight.schema.json",
         "packages/adapters/python_pptx/render.py",
         "packages/adapters/powerpoint_com/render.ps1",
@@ -47,6 +50,8 @@ def validate(root: Path) -> list[str]:
         "packages/runtime/packs/macos/runtime-pack.json",
         "packages/runtime/packs/linux/runtime-pack.json",
         "scripts/fetch_offline_wheels.py",
+        "scripts/component_version_guard.py",
+        "scripts/bootstrap_owner_learning.py",
         "scripts/install_offline_dependencies.py",
         "scripts/verify_release_bundles.py",
         "release/offline-requirements-py312.txt",
@@ -69,7 +74,23 @@ def validate(root: Path) -> list[str]:
         if name != "common" and value.get("offline_dependency_pack", {}).get("python") != "CPython 3.12":
             errors.append(f"{path.relative_to(root)}: offline pack must target CPython 3.12")
     try:
-        report = build_preflight_report(config, model_profile="D", required_capabilities=["structured-spec"])
+        version = config.get("identity", {}).get("version")
+        component_version_gate = {
+            "artifact": "synthetic-component-version-report.json",
+            "sha256": "a" * 64,
+            "generated_at": "2026-09-01T00:00:00+00:00",
+            "status": "latest",
+            "local_release_version": version,
+            "latest_release_version": version,
+            "manifest_sha256": "b" * 64,
+            "all_components_current": True,
+        }
+        report = build_preflight_report(
+            config,
+            model_profile="D",
+            required_capabilities=["structured-spec"],
+            component_version_gate=component_version_gate,
+        )
         if report.get("contract") != CONTRACT or report.get("selected_route", {}).get("locked") is not True:
             errors.append("runtime preflight did not emit a locked contract")
         if report.get("guards", {}).get("no_mid_run_backend_switch") is not True:
@@ -93,6 +114,8 @@ def validate(root: Path) -> list[str]:
             errors.append("runtime preflight must require nonce and freshness semantics")
         if report.get("guards", {}).get("run_challenge_requires_issuance_and_canonical_consumption_ledgers") is not True:
             errors.append("runtime preflight must require issuance and canonical consumption ledgers")
+        if report.get("guards", {}).get("latest_component_versions_verified_before_preflight") is not True:
+            errors.append("runtime preflight must require a fresh latest-component report")
         checks = report.get("target_application_checks")
         if not isinstance(checks, list) or not checks:
             errors.append("runtime preflight must observe every target application")

@@ -23,6 +23,9 @@ REQUIRED_SKILLS = (
 REQUIRED_SHARED_PATHS = (
     ".codex-plugin/plugin.json",
     "config/default.json",
+    "config/component-versions.json",
+    "scripts/component_version_guard.py",
+    "scripts/bootstrap_owner_learning.py",
     "scripts/runtime_preflight.py",
     "scripts/validate_personal_extension.py",
     "scripts/validate_plugin_mount.py",
@@ -31,6 +34,8 @@ REQUIRED_SHARED_PATHS = (
     "scripts/finalize_resource_inventory.py",
     "scripts/validate_resource_inventory_regression.py",
     "packages/contracts/knowledge-learning.md",
+    "packages/contracts/component-version-report.schema.json",
+    "packages/contracts/version-private-learning-audit.schema.json",
     "packages/contracts/index-execution-evidence.schema.json",
     "packages/contracts/resource-inventory.schema.json",
     "packages/validators/index_evidence.py",

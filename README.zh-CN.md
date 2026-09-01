@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.7.1**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.8.0**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -27,6 +27,8 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 这不是继续堆版式口诀，而是给Art Direction增加一套更强的“招式”，同时要求每一招都服从当前内容：
 
 - **开工前先盘点**：Supervisor 在 Logic 前完整盘点插件运行时、任务输入、所有者 Library、公共 Index、品牌资产、主机能力和字体环境；先告诉用户“发现了什么、将使用什么、哪些不可用、锁定哪条制作与渲染路线”，再允许开工。
+- **每次先验证最新版本**：Supervisor 访问官方 GitHub Latest Release，打印公共核心、配置、运行时和五阶段合同版本表；版本落后、组件缺失、报告不新鲜或无法联网证明最新时，运行时预检失败关闭。
+- **每版本只学习一次私有资料**：某版本首次运行真实读取已准入知识、模板、规范和方法，构建持久索引、执行检索探针并生成独立学习审计；后续任务只验哈希复用，同版本来源漂移不会静默覆盖。
 - **Index 作为一等执行依赖**：整项任务只锁定一份 Provider 快照。所有者学习资料由任务运行时清单物化，各阶段必须提交最终 Retrieval Receipt，证明实际选择了哪些已登记记录；“已阅读资料库”不再算证据。
 - **内容与对象双重门禁**：全篇验证器会拦截机械重复的话术和语法、空泛首要视觉、无理由重复的页面轮廓与结构、以形状冒充图表、缺少连接线，以及跨页复制的泛化质检话术。
 - **内容感知构图**：图像主导页必须先判断主体保护区、文案可放置区、裁切、对比度、视觉方向和遮罩必要性，再决定文字位置；记住一个广告版式本身不能成为答案。
@@ -61,9 +63,9 @@ v0.5.2 奠定了 Logic 前可选的所有者私有扩展判断，同时保持唯
 
 GitHub 公共源不只是一个 light 压缩包：唯一 Public Core、规范公共 Provider manifest/index、公共 Library payload、共享契约与宿主适配器会生成 Cloud Public Light 和 Local Public Light。云端目标是在 Cloud Public Light 上接入已解析的 Personal Extension Profile 与私有 Library 路线，而不是另建一套私有 Skill。详见[`docs/personal-extension.zh-CN.md`](docs/personal-extension.zh-CN.md)和[`docs/chatgpt-personal-light.zh-CN.md`](docs/chatgpt-personal-light.zh-CN.md)。公共资料现在即可使用；本版暂缓的是公共资料持续学习、社区汇聚、自动更新和跨来源融合的方法，以及 Task Overlay、远程 MCP Provider 和私有 Library 自动摄取。
 
-本次公开发布只包含扩展契约与组合方法，不包含任何真实个人 Profile、私有 Provider、私有索引、机构母版、字体、演示文稿、PDF 或前期学习正文。v0.7.0 的本地执行以 Windows 为首发验证环境，Cloud Public Light 继续使用宿主工具；本版不生成、也不宣称已验证 macOS、Linux 或 iOS 发版包。
+本次公开发布只包含扩展契约与组合方法，不包含任何真实个人 Profile、私有 Provider、私有索引、机构母版、字体、演示文稿、PDF 或前期学习正文。v0.8.0 的本地执行以 Windows 为首发验证环境，Cloud Public Light 继续使用宿主工具；本版不生成、也不宣称已验证 macOS、Linux 或 iOS 发版包。
 
-在所有者个人模式下，Supervisor 会根据本次资源盘点结果生成任务级学习来源清单。清单和原始字节始终留在公开仓库与发布包之外；公开部分只有通用物化契约、回执门禁和完全合成的回归样例。
+在所有者个人模式下，Supervisor 会根据资源盘点生成学习来源清单，并把真实物化结果写入仓库外的版本绑定私有状态。清单、原始字节、持久索引和学习审计始终留在公开仓库与发布包之外；公开部分只有通用物化/一次性学习合同、回执门禁和完全合成的回归样例。
 
 ## 验证
 
@@ -139,10 +141,10 @@ python scripts/validate_feedback_benchmark.py
 - 核心脚本需要Python 3.10或更高版本；不依赖宿主模型的基础作者链使用`python-pptx`，位图准备、视觉节奏和文件体积检查使用Pillow，机器可读清单校验使用PyYAML。
 - GitHub Actions会分别使用Python 3.10、3.11和3.12验证，并在发布前用`--help`启动所有公开命令行入口。
 - 每次生产运行只能执行一次`scripts/runtime_preflight.py`。它按交互能力划分A—D类、扫描依赖、锁定一条作者／渲染路线并写入调用预算；分类不绑定模型品牌。
-- v0.7.0 已验证的本地生产路线是 Windows 加一个常驻 PowerPoint COM 进程；Cloud Public Light 使用检查后的宿主能力。其他本地操作系统路线属于后续兼容工作，不是本版发布承诺。
+- v0.8.0 已验证的本地生产路线是 Windows 加一个常驻 PowerPoint COM 进程；Cloud Public Light 使用检查后的宿主能力。其他本地操作系统路线属于后续兼容工作，不是本版发布承诺。
 - PDF与Poppler按需加载：只有输入包含PDF页面，或锁定的LibreOffice路线需要PDF→PNG时才需要，普通PPTX作者过程不依赖它们。
 - 运行`python scripts/build_runtime_packs.py --bundle light`，从同一 public-core digest 生成 Cloud Public Light 与 Local Public Light。Cloud Light 使用 ChatGPT 宿主工具，不携带本地适配器和系统包；Local Light 保留这些内容。两者都不包含第三方wheel、体验中心案例、PPT/PDF或展示媒体。
-- v0.7.0 只发布 Windows x86-64 的 CPython 3.12 离线依赖附加包。维护者获取经过锁定的 Windows wheel，并生成两个 Light 包与一个 Windows 附加包；安装、哈希与许可见[`docs/release-packages.zh-CN.md`](docs/release-packages.zh-CN.md)。
+- v0.8.0 只发布 Windows x86-64 的 CPython 3.12 离线依赖附加包。维护者获取经过锁定的 Windows wheel，并生成两个 Light 包与一个 Windows 附加包；安装、哈希与许可见[`docs/release-packages.zh-CN.md`](docs/release-packages.zh-CN.md)。
 - C、D类模型通过适配器消费相同的内部合同；用户仍用自然语言交互，不需要手写render manifest或预检JSON。
 - MCP不是必需依赖。能读取Skill并调用本地工具的大模型宿主可直接运行；只有需要统一接入远程存储、检索、渲染或其他外部服务时，才需要另建MCP接口。
 

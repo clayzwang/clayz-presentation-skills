@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.7.1",
+    "version": "0.8.0",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.7.1",
+        "ClayzVersion": "0.8.0",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -27,7 +27,7 @@
     "maximum_technical_cycles": 3
   },
   "runtime": {
-    "contract_version": "1.2",
+    "contract_version": "1.3",
     "preflight_script": "scripts/runtime_preflight.py",
     "model_profiles": ["A", "B", "C", "D"],
     "classification_basis": "capabilities-not-model-brands",

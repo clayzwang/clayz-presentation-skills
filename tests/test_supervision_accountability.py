@@ -50,7 +50,7 @@ def _publisher_module():
 
 def _preflight() -> dict:
     return {
-        "contract": "io.clayz.presentation.runtime-preflight/1.2",
+        "contract": "io.clayz.presentation.runtime-preflight/1.3",
         "scan_id": "runtime-synthetic-audit",
         "run_binding": {
             "run_id": RUN_ID,
@@ -67,6 +67,16 @@ def _preflight() -> dict:
             "consumption_receipt_sha256": RUN_CONSUMPTION_SHA256,
         },
         "config_binding": {"path": "config/personal-extension-resolved.json", "sha256": RESOLVED_CONFIG_SHA256, "source": "personal-resolved"},
+        "component_version_gate": {
+            "artifact": "component-version-report.json",
+            "sha256": "9" * 64,
+            "generated_at": "2026-08-12T20:44:00+08:00",
+            "status": "latest",
+            "local_release_version": "0.7.1",
+            "latest_release_version": "0.7.1",
+            "manifest_sha256": "8" * 64,
+            "all_components_current": True,
+        },
         "required_capabilities": ["editable-text", "render-preview"],
         "dependencies": {
             "host_tools": {

@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:clayz:presentation:schema:runtime-preflight:1.2",
+  "$id": "urn:clayz:presentation:schema:runtime-preflight:1.3",
   "title": "Clayz locked runtime preflight",
   "type": "object",
   "additionalProperties": false,
-  "required": ["contract", "scan_id", "run_binding", "config_binding", "created_at", "platform", "model", "required_capabilities", "dependencies", "selected_route", "fallback_routes", "target_application_checks", "budgets", "guards", "warnings"],
+  "required": ["contract", "scan_id", "run_binding", "config_binding", "component_version_gate", "created_at", "platform", "model", "required_capabilities", "dependencies", "selected_route", "fallback_routes", "target_application_checks", "budgets", "guards", "warnings"],
   "properties": {
-    "contract": {"const": "io.clayz.presentation.runtime-preflight/1.2"},
+    "contract": {"const": "io.clayz.presentation.runtime-preflight/1.3"},
     "scan_id": {"type": "string", "minLength": 1},
     "run_binding": {
       "type": "object",
@@ -35,6 +35,21 @@
         "path": {"type": "string", "minLength": 1},
         "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "source": {"enum": ["personal-resolved", "public-default", "in-memory"]}
+      }
+    },
+    "component_version_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact", "sha256", "generated_at", "status", "local_release_version", "latest_release_version", "manifest_sha256", "all_components_current"],
+      "properties": {
+        "artifact": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "generated_at": {"type": "string", "minLength": 1},
+        "status": {"const": "latest"},
+        "local_release_version": {"type": "string"},
+        "latest_release_version": {"type": "string"},
+        "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "all_components_current": {"const": true}
       }
     },
     "created_at": {"type": "string", "minLength": 1},

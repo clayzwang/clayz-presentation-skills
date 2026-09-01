@@ -38,6 +38,9 @@
       "required": ["status", "source_manifest_sha256", "materialization_report_sha256", "provider_id", "record_count", "required_sources", "materialized_source_ids", "missing_source_ids"],
       "properties": {
         "status": {"enum": ["materialized", "not-applicable", "blocked"]},
+        "learning_mode": {"enum": ["first-run", "reused-version-index", "not-applicable", "blocked"]},
+        "learning_key": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "version_learning_audit_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
         "source_manifest_sha256": {"type": ["string", "null"]},
         "materialization_report_sha256": {"type": ["string", "null"]},
         "provider_id": {"const": "task-private-learning"},

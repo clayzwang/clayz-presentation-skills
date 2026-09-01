@@ -34,6 +34,10 @@ MANIFEST_CONTRACT = "io.clayz.presentation.owner-learning-sources/1.0"
 STAGES = {"logic", "copy", "art-direction", "output", "supervisor"}
 FORMATS = {"jsonl", "jsonl-gzip", "json", "markdown"}
 RECORD_TYPES = {"learning", "reference", "failure-pattern", "knowledge"}
+KNOWLEDGE_KINDS = {
+    "private-knowledge", "template", "standard", "method", "preference",
+    "example", "brand-asset", "failure-pattern", "other",
+}
 
 
 class MaterializationError(ValueError):
@@ -137,6 +141,10 @@ def _records_for_source(source: Mapping[str, Any], path: Path) -> tuple[list[dic
     record_type = str(source["record_type"])
     stages = list(source["stages"])
     configured_tags = _strings(source.get("purpose_tags"))
+    knowledge_kinds = _strings(source.get("knowledge_kinds"))
+    _require(bool(knowledge_kinds), f"{source_id}: knowledge_kinds must identify what this source teaches")
+    _require(set(knowledge_kinds).issubset(KNOWLEDGE_KINDS), f"{source_id}: unsupported knowledge_kinds")
+    kind_tags = [f"knowledge-kind:{item}" for item in knowledge_kinds]
     records: list[dict[str, Any]] = []
     used_ids: set[str] = set()
     for index, row in enumerate(rows):
@@ -192,7 +200,7 @@ def _records_for_source(source: Mapping[str, Any], path: Path) -> tuple[list[dic
                 "task_modes": task_modes,
                 "page_roles": page_roles,
                 "semantic_relations": semantic_relations,
-                "purpose_tags": list(dict.fromkeys([*configured_tags, *row_tags])),
+                "purpose_tags": list(dict.fromkeys([*configured_tags, *kind_tags, *row_tags])),
                 "languages": ["zh-CN"],
                 "failure_signals": failure_signals,
                 "asset_class": "owner-private-learning" if record_type == "learning" else "owner-private-reference-metadata",
@@ -217,6 +225,7 @@ def _records_for_source(source: Mapping[str, Any], path: Path) -> tuple[list[dic
         "bytes": len(payload),
         "record_count": len(records),
         "stages": stages,
+        "knowledge_kinds": knowledge_kinds,
     }
 
 
@@ -247,6 +256,12 @@ def materialize(
         _require(isinstance(source, Mapping), f"sources[{index}] must be an object")
         _require(source.get("format") in FORMATS, f"sources[{index}].format is unsupported")
         _require(source.get("record_type") in RECORD_TYPES, f"sources[{index}].record_type is unsupported")
+        kinds = source.get("knowledge_kinds")
+        _require(
+            isinstance(kinds, list) and bool(kinds) and all(isinstance(item, str) for item in kinds)
+            and set(kinds).issubset(KNOWLEDGE_KINDS),
+            f"sources[{index}].knowledge_kinds is invalid",
+        )
         declared_stages = set(source.get("stages", []))
         _require(bool(declared_stages) and declared_stages.issubset(STAGES), f"sources[{index}].stages is invalid")
         if declared_stages.intersection(stages):

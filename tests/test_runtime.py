@@ -15,6 +15,16 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 RUN_ID = "run-test-runtime"
 TASK_REQUEST_SHA256 = "a" * 64
+COMPONENT_VERSION_GATE = {
+    "artifact": "component-version-report.json",
+    "sha256": "b" * 64,
+    "generated_at": "2026-09-01T00:00:00+00:00",
+    "status": "latest",
+    "local_release_version": "0.8.0",
+    "latest_release_version": "0.8.0",
+    "manifest_sha256": "c" * 64,
+    "all_components_current": True,
+}
 
 
 def inspected_host(module, capabilities: list[str]) -> tuple[dict[str, object], dict[str, str], str, dict[str, object]]:
@@ -94,6 +104,12 @@ def load_module(name: str, path: Path):
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_preflight_rejects_missing_component_version_gate(self) -> None:
+        module = load_module("runtime_preflight_requires_latest_components", ROOT / "packages" / "runtime" / "preflight.py")
+        config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
+        with self.assertRaisesRegex(ValueError, "component version report"):
+            module.build_preflight_report(config, model_profile="D")
+
     def test_model_profiles_are_capability_based(self) -> None:
         module = load_module("runtime_preflight_unit", ROOT / "packages" / "runtime" / "preflight.py")
         self.assertEqual(module.classify_model_profile({"tool_calling": True, "structured_output": True, "visual_inspection": True}), "A")
@@ -111,8 +127,8 @@ class RuntimeTests(unittest.TestCase):
             mock.patch.object(module, "_windows_powerpoint", return_value={"available": True, "evidence": "synthetic"}),
             mock.patch.object(module, "_command", return_value=None),
         ):
-            report = module.build_preflight_report(config, model_profile="D")
-        self.assertEqual(report["contract"], "io.clayz.presentation.runtime-preflight/1.2")
+            report = module.build_preflight_report(config, model_profile="D", component_version_gate=COMPONENT_VERSION_GATE)
+        self.assertEqual(report["contract"], "io.clayz.presentation.runtime-preflight/1.3")
         self.assertEqual(report["model"]["profile"], "D")
         self.assertEqual(report["selected_route"]["authoring_backend"], "python-pptx")
         self.assertEqual(report["selected_route"]["render_backend"], "powerpoint-com")
@@ -145,6 +161,7 @@ class RuntimeTests(unittest.TestCase):
             host, challenge, challenge_sha256, binding = inspected_host(module, private_capabilities)
             report = module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 model_profile="A",
                 host_capabilities=host,
                 run_challenge=challenge,
@@ -176,6 +193,7 @@ class RuntimeTests(unittest.TestCase):
         ):
             report = module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 model_profile="A",
                 required_capabilities=["structured-spec"],
                 run_id=RUN_ID,
@@ -192,6 +210,7 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "run challenge run_id"):
             module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 model_profile="A",
                 host_capabilities=host,
                 run_challenge=challenge,
@@ -209,6 +228,7 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "file-validated evidence receipts"):
             module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 model_profile="A",
                 host_capabilities=host,
                 run_challenge=challenge,
@@ -324,6 +344,7 @@ class RuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "receipt file is missing"):
                 module.build_preflight_report(
                     config,
+                    component_version_gate=COMPONENT_VERSION_GATE,
                     run_challenge=challenge,
                     run_challenge_sha256=challenge_sha256,
                     run_challenge_issuance=issuance,
@@ -348,6 +369,7 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "issuance receipt"):
             module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 run_challenge=challenge,
                 run_challenge_sha256=challenge_sha256,
                 run_challenge_consumption=consumption,
@@ -383,6 +405,7 @@ class RuntimeTests(unittest.TestCase):
             host, challenge, challenge_sha256, binding = inspected_host(module, authoring_only)
             report = module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 model_profile="A",
                 host_capabilities=host,
                 run_challenge=challenge,
@@ -418,6 +441,7 @@ class RuntimeTests(unittest.TestCase):
         ):
             report = module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 model_profile="A",
             )
         self.assertEqual(report["selected_route"]["route_id"], "powerpoint-com+powerpoint-com")
@@ -437,6 +461,7 @@ class RuntimeTests(unittest.TestCase):
             host, challenge, challenge_sha256, binding = inspected_host(module, capabilities)
             report = module.build_preflight_report(
                 config,
+                component_version_gate=COMPONENT_VERSION_GATE,
                 model_profile="A",
                 host_capabilities=host,
                 run_challenge=challenge,

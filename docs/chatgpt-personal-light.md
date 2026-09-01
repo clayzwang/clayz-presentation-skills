@@ -42,11 +42,13 @@ python scripts/compose_personal_light.py <private-profile.json> \
   --provider-manifest <private-provider.manifest.json>
 ```
 
-The default output is written under `dist/private/`, which is excluded from public release scans and Git tracking. The ChatGPT Skills-ready ZIP has exactly one root `SKILL.md` and contains `agents/openai.yaml`, the one Public Core, public Provider manifest/index, five internal stage modules, generated resolved config, `runtime/personal-extension.json`, external `runtime/runtime-lock.json`, `runtime/skill-mount-contract.json`, runtime preflight contract 1.2, supervision report contract 3.3, and the paired publisher. The external pack lock binds the exact set and snapshots of every required Provider so a runtime and config cannot be consistently shrunk together. The ZIP contains no `.codex-plugin/plugin.json`, nested `SKILL.md`, local adapter, platform pack, source Profile, source private manifest, private JSONL index, attachment, master, font, or case.
+The default output is written under `dist/private/`, which is excluded from public release scans and Git tracking. The ChatGPT Skills-ready ZIP has exactly one root `SKILL.md` and contains `agents/openai.yaml`, the one Public Core, public Provider manifest/index, five internal stage modules, generated resolved config, `runtime/personal-extension.json`, external `runtime/runtime-lock.json`, `runtime/skill-mount-contract.json`, runtime preflight contract 1.3, supervision report contract 3.3, and the paired publisher. The external pack lock binds the exact set and snapshots of every required Provider so a runtime and config cannot be consistently shrunk together. The ZIP contains no `.codex-plugin/plugin.json`, nested `SKILL.md`, local adapter, platform pack, source Profile, source private manifest, private JSONL index, attachment, master, font, or case.
 
 The repository and Codex plugin continue to use five independent Skills as source and runtime modules. Only the ChatGPT Skills host adapter compiles them into one publication unit; it creates neither a second public core nor merged stage authority. To build the marketplace plugin form explicitly, pass `--artifact-kind plugin --plugin-name clayz-presentation-skills-personal`. Do not upload that form through the ChatGPT Skills uploader.
 
 At the start of a presentation task, Supervisor inventories the mounted runtime, task inputs, owner Library, public Index, brand assets, host capabilities, and fonts; it reports what was found and selected before Logic begins. Any owner-learning source manifest is generated task-locally from that inventory and passed to `scripts/materialize_owner_index.py`; the manifest and source bytes are never part of this public repository.
+
+Before inventory, the root Skill runs `scripts/component_version_guard.py`, obtains the official GitHub Latest Release, prints the complete core-component table, and passes the fresh report into runtime preflight. Owner-personal mode also resolves a persistent private learning-state root. On the first run of each version, `scripts/bootstrap_owner_learning.py` materially indexes admitted private knowledge, templates, standards, and methods, executes retrieval probes, and returns a separate learning audit. Later tasks reuse it. If the ChatGPT host cannot persist that state in Library or equivalent owner-private storage, it fails before Logic with `version-private-learning-state-unavailable`; per-task relearning is not an acceptable substitute.
 
 ## Upload and update rules
 
@@ -67,6 +69,7 @@ python scripts/runtime_preflight.py --issue-challenge \
   --task-request <canonical-task-request.txt> --output <run-challenge.json>
 python scripts/runtime_preflight.py --challenge <run-challenge.json> \
   --task-request <canonical-task-request.txt> \
+  --component-version-report <component-version-report.json> \
   --host-capabilities <host-capability-attestation.json> \
   --output <runtime-preflight.json>
 ```

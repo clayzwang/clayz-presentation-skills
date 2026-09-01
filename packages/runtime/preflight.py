@@ -10,6 +10,7 @@ import importlib.util
 import json
 import os
 import platform
+import re
 import secrets
 import shutil
 import sys
@@ -19,7 +20,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Mapping
 
 
-CONTRACT = "io.clayz.presentation.runtime-preflight/1.2"
+CONTRACT = "io.clayz.presentation.runtime-preflight/1.3"
 RUN_CHALLENGE_CONTRACT = "io.clayz.presentation.run-challenge/1.0"
 RUN_CHALLENGE_ISSUANCE_CONTRACT = "io.clayz.presentation.run-challenge-issuance/1.0"
 RUN_CHALLENGE_CONSUMPTION_CONTRACT = "io.clayz.presentation.run-challenge-consumption/1.0"
@@ -409,6 +410,27 @@ def _config_binding(config: Mapping[str, Any], value: Mapping[str, Any] | None) 
     return {"path": path, "sha256": sha256, "source": source}
 
 
+def _component_version_gate(config: Mapping[str, Any], value: Mapping[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(value, Mapping):
+        raise ValueError("a fresh component version report is required before runtime preflight")
+    required = {
+        "artifact", "sha256", "generated_at", "status", "local_release_version",
+        "latest_release_version", "manifest_sha256", "all_components_current",
+    }
+    if not required.issubset(value):
+        raise ValueError("component version gate is incomplete")
+    identity = config.get("identity") if isinstance(config, Mapping) else None
+    configured_version = identity.get("version") if isinstance(identity, Mapping) else None
+    if value.get("status") != "latest" or value.get("all_components_current") is not True:
+        raise ValueError("component version gate did not establish latest components")
+    if value.get("local_release_version") != configured_version or value.get("latest_release_version") != configured_version:
+        raise ValueError("component version gate does not match the resolved configuration release")
+    for key in ("sha256", "manifest_sha256"):
+        if not isinstance(value.get(key), str) or not re.fullmatch(r"[0-9a-f]{64}", str(value.get(key))):
+            raise ValueError(f"component version gate {key} must be lowercase SHA-256")
+    return dict(value)
+
+
 def _host_tools(
     value: Mapping[str, Any] | None,
     run_binding: Mapping[str, str],
@@ -609,6 +631,7 @@ def build_preflight_report(
     run_challenge_consumption: Mapping[str, Any] | None = None,
     host_attestation_context: Mapping[str, Any] | None = None,
     config_binding: Mapping[str, Any] | None = None,
+    component_version_gate: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     profile = classify_model_profile(model_capabilities, model_profile)
     runtime = config.get("runtime", {}) if isinstance(config, Mapping) else {}
@@ -632,6 +655,7 @@ def build_preflight_report(
         run_challenge_consumption,
     )
     resolved_config_binding = _config_binding(config, config_binding)
+    resolved_component_version_gate = _component_version_gate(config, component_version_gate)
     resolved_host_tools = _host_tools(host_capabilities, resolved_run_binding, host_attestation_context)
     dependencies = {
         "python": {"executable": sys.executable, "version": platform.python_version()},
@@ -686,6 +710,7 @@ def build_preflight_report(
     stable = {
         "run_binding": resolved_run_binding,
         "config_binding": resolved_config_binding,
+        "component_version_gate": resolved_component_version_gate,
         "platform": platform.system().lower(),
         "profile": profile,
         "required": sorted(required),
@@ -699,6 +724,7 @@ def build_preflight_report(
         "scan_id": f"runtime-{scan_id}",
         "run_binding": resolved_run_binding,
         "config_binding": resolved_config_binding,
+        "component_version_gate": resolved_component_version_gate,
         "created_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "platform": {"system": platform.system(), "release": platform.release(), "machine": platform.machine()},
         "model": {"profile": profile, **MODEL_PROFILES[profile]},
@@ -720,6 +746,7 @@ def build_preflight_report(
             "host_declarations_never_self_authorize_route_readiness": True,
             "run_challenge_has_nonce_and_freshness_window": True,
             "run_challenge_requires_issuance_and_canonical_consumption_ledgers": True,
+            "latest_component_versions_verified_before_preflight": True,
         },
         "warnings": warnings,
     }
