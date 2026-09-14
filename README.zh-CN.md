@@ -2,11 +2,16 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.8.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.16.0**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
 ## Clayz 的三项核心优势
+
+0.10.0 是本地开发交付，未发布到 GitHub 或 ChatGPT。插件现在提供
+资源检查、讨论式学习与知识持久化、PPT 赋能三种入口。
+操作方式见[本地插件说明](docs/plugin-system.zh-CN.md)。知识与附件保存在
+插件目录外的个人 Library，治理 skill 是独立管理组件，不随插件打包。
 
 | 核心优势 | 带来的能力 |
 | --- | --- |
@@ -20,16 +25,19 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 2. **Copy**：锁定全部可见文字、数字、断句和原子文案。
 3. **Art Direction**：在不修改内容的前提下形成视觉制作计划。
 4. **Output**：按照批准计划制作可编辑的演示文稿。
-5. **Supervisor**：独立审计跨层漂移和证据，不静默重做设计。
+5. **Supervisor**：协调并校准跨层要求，汇总 Independent Auditor 的实际文件／渲染审计，不静默重做设计。
 
 ## 本轮能力升级
 
 这不是继续堆版式口诀，而是给Art Direction增加一套更强的“招式”，同时要求每一招都服从当前内容：
 
 - **开工前先盘点**：Supervisor 在 Logic 前完整盘点插件运行时、任务输入、所有者 Library、公共 Index、品牌资产、主机能力和字体环境；先告诉用户“发现了什么、将使用什么、哪些不可用、锁定哪条制作与渲染路线”，再允许开工。
-- **每次先验证最新版本**：Supervisor 访问官方 GitHub Latest Release，打印公共核心、配置、运行时和五阶段合同版本表；版本落后、组件缺失、报告不新鲜或无法联网证明最新时，运行时预检失败关闭。
-- **每版本只学习一次私有资料**：某版本首次运行真实读取已准入知识、模板、规范和方法，构建持久索引、执行检索探针并生成独立学习审计；后续任务只验哈希复用，同版本来源漂移不会静默覆盖。
-- **Index 作为一等执行依赖**：整项任务只锁定一份 Provider 快照。所有者学习资料由任务运行时清单物化，各阶段必须提交最终 Retrieval Receipt，证明实际选择了哪些已登记记录；“已阅读资料库”不再算证据。
+- **离线检查已安装组件**：日常使用检查安装包完整性与内部兼容性，不因远端版本不同或无法联网而阻止制作。远端发布核验属于开发管理。
+- **按来源修订保存知识**：讨论共识经用户确认后，与附件和索引一起持久化。新修订保留历史快照；制作中的任务保持原快照。
+- **任务验收与审计回放**：页面职责、故事链、字体、兼容、交付和速度要求进入同一份哈希合同；最终报告内嵌 Logic、Copy、Art Direction 不可变决策快照，并逐条追踪到成品证据。
+- **按相关性排序的 Index 执行**：整项任务只锁定一份 Provider 快照。各阶段使用实质任务问题、内容/格式分项评分、阈值、候选预算和具体实质采用目标；“已阅读资料库”不再算证据。
+- **受治理的生成效率**：逐阶段耗时、检索量、写盘/渲染/修复次数和冷暖启动模式全部进入任务预算；文件体积小不能掩盖生成缓慢。
+- **ChatGPT先于Release**：GitHub Release改为手工受保护流程，必须先完成绑定精确提交的ChatGPT候选包上传、版本/首次学习验收、用户确认和私有环境回执。
 - **内容与对象双重门禁**：全篇验证器会拦截机械重复的话术和语法、空泛首要视觉、无理由重复的页面轮廓与结构、以形状冒充图表、缺少连接线，以及跨页复制的泛化质检话术。
 - **内容感知构图**：图像主导页必须先判断主体保护区、文案可放置区、裁切、对比度、视觉方向和遮罩必要性，再决定文字位置；记住一个广告版式本身不能成为答案。
 - **模板与Icon语法**：模板、图表、表格、Icon和外部样例只作为经过审阅的候选。页面必须从Logic和Copy重新推导构图，说明每项资产的语义角色，保持图标家族判断一致，并记录来源与许可证据。
@@ -63,7 +71,7 @@ v0.5.2 奠定了 Logic 前可选的所有者私有扩展判断，同时保持唯
 
 GitHub 公共源不只是一个 light 压缩包：唯一 Public Core、规范公共 Provider manifest/index、公共 Library payload、共享契约与宿主适配器会生成 Cloud Public Light 和 Local Public Light。云端目标是在 Cloud Public Light 上接入已解析的 Personal Extension Profile 与私有 Library 路线，而不是另建一套私有 Skill。详见[`docs/personal-extension.zh-CN.md`](docs/personal-extension.zh-CN.md)和[`docs/chatgpt-personal-light.zh-CN.md`](docs/chatgpt-personal-light.zh-CN.md)。公共资料现在即可使用；本版暂缓的是公共资料持续学习、社区汇聚、自动更新和跨来源融合的方法，以及 Task Overlay、远程 MCP Provider 和私有 Library 自动摄取。
 
-本次公开发布只包含扩展契约与组合方法，不包含任何真实个人 Profile、私有 Provider、私有索引、机构母版、字体、演示文稿、PDF 或前期学习正文。v0.8.0 的本地执行以 Windows 为首发验证环境，Cloud Public Light 继续使用宿主工具；本版不生成、也不宣称已验证 macOS、Linux 或 iOS 发版包。
+本次公开候选只包含扩展契约与组合方法，不包含任何真实个人 Profile、私有 Provider、私有索引、机构母版、字体、演示文稿、PDF 或前期学习正文。v0.9.0 的本地执行以 Windows 为首发验证环境，Cloud Public Light 继续使用宿主工具；本版不生成、也不宣称已验证 macOS、Linux 或 iOS 发版包。
 
 在所有者个人模式下，Supervisor 会根据资源盘点生成学习来源清单，并把真实物化结果写入仓库外的版本绑定私有状态。清单、原始字节、持久索引和学习审计始终留在公开仓库与发布包之外；公开部分只有通用物化/一次性学习合同、回执门禁和完全合成的回归样例。
 

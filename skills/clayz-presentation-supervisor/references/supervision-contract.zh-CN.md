@@ -1,8 +1,23 @@
-# PPT监督报告合同 v3.3
+# PPT监督报告合同 v3.6
 
-`ppt-supervision-report.json` 是独立事后审计记录，不表示用户批准返工，也不得写回任何上游产物。
+v3.5 和 v3.4 报告仅作为 legacy 读取；下面的 JSON 示例仍是 legacy v3.4
+结构。新运行使用 report3.6，并从阶段记录和实际主要产物汇总完整工作报告。
+
+`ppt-supervision-report.json` 是 Supervisor 的协调、对账、完整工作报告和放行记录。新 report3.6 运行在顶层附加权威 `work_report` 对象及规范的 `work_report_sha256`。实际文件／渲染的独立审计由共享的 `io.clayz.presentation.independent-audit/1.0` 产物完成，并以 `auditor_artifact` 绑定；该产物不批准返工，也不得写回任何上游产物。Supervisor 必须保留其中的发现，不能改写结论。
+
+正式 JSON 是可读 Markdown 报告的确定性来源；Markdown 与同一已验证目录一起发布。Markdown 可以比 PPTX 更丰富，因为它记录任务、证据、决策和审计，但不是另一个自行撰写的事实源。完整报告应让未读过对话的读者理解任务要求；验收要求；证据、来源和反证；假设与不确定性；故事线和有意义的排除；最终 copy；逐页设计意图；三轮 Supervisor 校准及下游吸收；实际 PPTX 统计、页面文字和备注；Independent Auditor 观察；放行、局限和改进。缺失的 notes 或未观察的检查必须明确标为 `not-recorded`、`deferred` 或 `uncertain`，不得凭记忆补写。
+
+历史 v3.4 报告中由 Supervisor 承担 `final_auditor` 的旧结构只用于读取
+legacy 记录。新运行必须使用 Independent Auditor 产物，并披露真实审计上下文。
+当前交付政策先保证绑定和证据完整：质量问题可以随 `issues-found` 交付；绑定、
+身份、格式或必需证据缺失仍阻止已验证的成对交付。用户明确的“不满足就不交付”
+条件写入 `acceptance.release_conditions`；默认是空数组，硬分类或 legacy
+`blocking=true` 不会自动生成放行条件。
 
 过程监督使用独立的 `ppt-supervision-checkpoint.json`，不改变本文件的最终报告合同。Checkpoint只用于诊断和沟通，不是闸门、批准单或拒绝推进凭证。
+
+下面的 JSON 仅保留用于读取使用旧 `final_auditor` 角色的 legacy v3.4 报告；新运行
+遵循示例之后的 `auditor_artifact` 与生命周期规则。
 
 ```json
 {
@@ -30,17 +45,22 @@
 
 ```json
 {
-  "contract_version": "3.3",
+  "contract_version": "3.4",
   "origin_namespace": "io.clayz.presentation",
   "status": "supervised",
   "run_id": "run-0123456789ab4def8123456789abcdef",
   "task_request_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
   "package_id": "example-deck",
   "package_version": "2.1.0",
-  "art_direction_plan_contract_version": "1.6",
-  "output_qa_contract_version": "3.9",
+  "art_direction_plan_contract_version": "1.7",
+  "output_qa_contract_version": "4.0",
   "supervised_at": "2026-08-12T22:30:00+08:00",
   "run_status": "complete-with-deferred-acceptance",
+  "acceptance_contract": {},
+  "stage_snapshots": {},
+  "requirement_traceability": [],
+  "retrieval_quality": {},
+  "generation_efficiency": {},
   "index_evidence": {},
   "resource_usage": {},
   "environment_observation": {
@@ -84,6 +104,7 @@
     "object_inventory": "ppt-object-inventory.json",
     "build_deviation_log": "ppt-build-deviation-log.json",
     "font_environment_report": "font-environment-report.json",
+    "font_name_audit_report": "pptx-font-name-audit.json",
     "cjk_render_report": "cjk-render-report.json",
     "size_audit_report": "ppt-size-audit.json",
     "final_reopen_render_root": "output/final-reopen-render"
@@ -117,23 +138,87 @@
 }
 ```
 
-`resource_usage` 遵循 `io.clayz.presentation.resource-usage/1.0`：必须把用户在 Logic 前看过的全部已选资源逐项对账为“实际使用”或“明确未用”，将已用资源映射到五个治理阶段及具体证据，并提供最终用户可见摘要。缺失或锁不一致时必须标为 `incomplete-evidence`。
+`resource_usage` 在出现时遵循 `io.clayz.presentation.resource-usage/1.0`：必须把用户在 Logic 前看过的全部已选资源逐项对账为“实际使用”或“明确未用”，将已用资源映射到五个治理阶段及具体证据，并提供最终用户可见摘要。它是 report3.6 的补充证据；出现时缺失或锁不一致应记录为证据问题。
 
-`supervisor_roles` 必填且只能包含 `initiator`、`mediator`、`recorder`、`final_auditor`。发起人、记录人和终审人必须为 `complete`；只有在没有任何问题时，调解人才可为 `not-needed`。一旦存在问题，调解人必须完成，必须存在 v1.1 `ppt-supervision-checkpoint.json`，并且只能出现一次 `mediation-recorded` 生命周期事件。Checkpoint 必须绑定同一 run ID、任务请求 SHA-256、报告中的完整问题 ID 集合和调解时间。所有外部角色及生命周期证据引用必须带 `sha256=<实际文件哈希>`，解析到任务根内非空、合同有效的受治理产物；报告内部自引用则与当前内存报告核对。每个角色记录简明结果与证据引用，不记录私有思维链。
+`stage_snapshots` 必须嵌入 Logic（`brief` 与 `logic_layer`）、Copy（`copy_layer`）和 Art Direction（沟通合同、视觉命题、决策日志、字体、节奏和逐页计划）的不可变决策快照。每份快照同时绑定原文件 SHA-256 和规范化快照 SHA-256，并与实际验证过的上游产物逐字一致。`requirement_traceability` 恰好覆盖每条任务验收要求，并把它映射到 Logic、Copy、Art Direction、Output 和 Supervisor 证据。
 
-`lifecycle_events` 是按时间排序的任务级记录。每个治理动作必须唯一，并使用固定的阶段、Supervisor 角色和状态。规范顺序是：发起监督 → 环境预检完成 → Logic 前资源简报 → Logic → Copy → Art Direction → Output → 可选调解 → 终审 → 联合交付锁定 → 控制权交还，从而可证明预检与简报发生在 Logic 之前。资源简报事件时间必须与盘点记录一致，证据同时绑定盘点文件 SHA-256 和 `user_brief.content_sha256`。只有真实问题才允许调解事件；无问题运行不得虚构。
+`calibration_artifacts` 记录 Logic→Copy、Copy→Art Direction 和 Art Direction→Output
+之间由 Supervisor 返回并汇总的哈希绑定评价。每份产物使用
+`io.clayz.presentation.supervisor-calibration/1.0`，绑定 run、任务请求、验收合同和
+来源产物映射，并记录具体发现。消费方阶段记录通过 `calibration_bindings` 写入回执
+SHA，以及 `accepted`、`partially-accepted` 或 `declined` 和理由。来源哈希陈旧时，下游
+绑定失效。
+
+`retrieval_quality` 与 `generation_efficiency` 仅在提供 Index／运行对账字段时校验。它们在 report3.6 交付中仍是可选字段；保留真实值，不创建占位回执、耗时或预算声明。文件体积效率不能替代运行时间效率。
+
+新运行的 `supervisor_roles` 记录 Supervisor 的 `initiator`、`mediator` 和
+`recorder` 职责。兼容字段 `final_auditor` 保持 `not-needed` 或 `incomplete`，不能
+暗示 Supervisor 编写了审计。第五份阶段记录使用 `auditor` 角色；Independent Auditor
+单独以 `auditor_artifact` 绑定，包含路径、SHA-256、`audited_at` 和
+`independent_context`。质量问题不要求用户 Checkpoint 或调解；只有
+实质业务选择、范围变更或用户明确的“不满足就不交付”条件才创建 v1.1
+`ppt-supervision-checkpoint.json`，并绑定同一 run、任务请求和受影响问题 ID。所有
+外部角色及生命周期证据引用必须带 `sha256=<实际文件哈希>`，解析到任务根内非空、
+合同有效的受治理产物；报告内部自引用则与当前内存报告核对。每个角色记录简明结果
+与证据引用，不记录私有思维链。
+
+`core_sequence` 是 report3.6 必需的生命周期摘要，由五份阶段记录、三个
+`calibration_artifacts`、Auditor 产物和 Supervisor 放行派生，顺序为：
+`supervision-started` → `logic-to-copy-calibrated` →
+`copy-to-art-direction-calibrated` → `art-direction-to-output-calibrated` →
+`independent-audit-completed` → `supervisor-release`。旧的 `lifecycle_events` 列表在
+此分支是可选补充证据；若提供，每个事件必须真实且有绑定，不为满足 legacy 读取器
+虚构预检／资源简报／调解序列。只有实质决策、范围变更或明确“不满足就不交付”条件
+才记录调解。
 
 `environment_observation` 必须逐字绑定 `runtime-preflight.json` 的扫描 ID、文件 SHA-256、运行 ID、规范化任务请求 SHA-256、任务根 SHA-256、规范签发/消费台账哈希、实际 resolved config SHA-256、锁定路线、路线必需能力状态和全部目标应用。报告根与预检的运行/任务绑定必须一致，且预检不得遗漏已校验 resolved config 声明的任何必需能力；宿主提供的“可用”能力还必须具有同一运行的实测来源，但仍保持 `host-declared-unverified`：这些能力写入 `declared_unverified` 而不是 `satisfied`，路线保持 `provisional`。不可用目标只能记为 `deferred`，可用但未执行记为 `not-selected`，实际执行后才可记为 `pass` 或 `fail`；所有目标固定 `authoring_gate=false`。`deferred`/`not-selected` 必须绑定经哈希校验的预检记录；`pass`/`fail` 必须提供 `io.clayz.presentation.target-application-check/1.0` 回执，绑定同一 run、任务请求、目标应用和最终 PPTX SHA-256，且 `observed_at` 必须同时落在 challenge 有效窗口内以及 Output 交接至最终审计之间。`compatibility_scope` 根据最终状态计算为 `full`、`partial` 或 `none`，用于约束兼容性声明和问题归因。
 
-`run_status`：`clean`、`complete-with-deferred-acceptance`、`issues-found`、`incomplete-evidence`。没有其他问题但至少一个目标应用为 `deferred` 或 `not-selected` 时使用 `complete-with-deferred-acceptance`，PPTX 与报告仍可成对交付。缺少艺术指导、PPTX、锁定路线渲染、制作偏差、一等公民 Index 物化、资源使用对账或任一阶段回执时使用 `incomplete-evidence`，且不得正常交付。
+`run_status`：`clean`、`complete-with-deferred-acceptance`、`issues-found`、`incomplete-evidence`。没有其他问题但至少一个目标应用为 `deferred` 或 `not-selected` 时使用 `complete-with-deferred-acceptance`，PPTX、正式报告和派生 Markdown 仍可一起交付。质量缺陷、未满足要求或渲染覆盖不可用／未选用时，在用户政策允许时使用 `issues-found` 并如实交付。report3.6 中，五份记录装配、三个校准产物、Auditor 产物、`supervisor_release`、`core_sequence`、`work_report`／`work_report_sha256` 或必需绑定／证据完整性缺失时使用 `incomplete-evidence` 并阻止已验证成对单元。派生 Markdown／manifest 格式错误或不匹配属于发布证据失败，不新增 `delivery_pair` 成员。旧生命周期、Index／检索、性能、Library 和渲染证据可以缺失；缺失时记录限制，不得虚构。可选阶段 notes 缺失记为 `not-recorded`，不单独阻止绑定完整的成对单元。
 
 `origin_namespace` 必须为 `io.clayz.presentation`，`status` 必须为 `supervised`，`control_returned_to` 记录终审后接收控制权的用户或责任流程。`artifact_paths` 必须把环境预检和 Logic 前资源盘点作为一等证据，而不是只记录下游制作文件。
 
 `delivery_efficiency.status` 只能为 `pass`、`fail` 或 `uncertain`。用户未提前指定时 `profile` 必须为 `lightweight`；`uncertain` 时根状态必须为 `incomplete-evidence`。`ppt-size-audit.json` 必须绑定最终PPTX哈希，并与 `ppt-object-inventory.json.package_media` 的文件大小、媒体数量、重复项、字体和附件事实相互印证。超出总体软预算但单项效率已通过时，可以 `pass`，但 `exception_reason` 必须写出具体业务必要性；重复、未使用、超分辨率或意外嵌入内容不能用例外理由放行。
 
-`delivery_pair` 将 PPTX 和审计报告定义为一个交付单元。`required_artifacts` 必须恰好为 `["pptx", "supervision-report"]`；PPTX 项记录文件名和已核验 SHA-256，报告项记录本报告文件名，`delivery_manifest.path` 必须为 `delivery-manifest.json`，`publisher` 必须为 `scripts/publish_supervised_pair.py`。根状态为 `incomplete-evidence` 时必须 `blocked`，否则通过校验后为 `ready`。Output 只能暂存文件；只有发布器可以物化新的已验证交付目录，且 Supervisor 只能从该目录同时交付 PPTX 与 `ppt-supervision-report.json`。人工复制或单文件交付不算完成。
+`delivery_pair` 将 PPTX 和正式审计报告保持为已验证的主要成对单元。发布器写出确定性的 `work-report.md`，并将它放入 manifest 的 `derived_files` 集合；它从同一已验证目录随正式成对单元交付，但不加入 `delivery_pair.required_artifacts`。`required_artifacts` 仍必须恰好为 `["pptx", "supervision-report"]`；PPTX 项记录文件名和已核验 SHA-256，报告项记录本报告文件名，`delivery_manifest.path` 必须为 `delivery-manifest.json`，`publisher` 必须为 `scripts/publish_supervised_pair.py`。新运行必须有有效的 `auditor_artifact` 绑定且 `audited_at <= released_at` 才能为 `ready`。由必需绑定／证据缺失造成的 `incomplete-evidence` 必须 `blocked`；带延期渲染覆盖的绑定完整 `issues-found` 报告在默认政策下仍可 `ready`。Output 只能暂存文件；只有发布器可以物化新的已验证交付目录，且 Supervisor 只能从该目录同时交付 PPTX、正式报告与 `work-report.md`。manifest 的 `derived_files` 条目把 Markdown 路径、字节和哈希绑定到正式 JSON，且不形成循环报告哈希。人工复制或单文件交付不算完成。
 
 `asset_observations` 只记录本次实际使用资产的软反馈，可含 `asset_id`、`task_fit`、`execution_effect`、`conflict_signal`、`neighbor_value`、`reuse_note` 和证据。1—5分只代表本任务情境，不得解释为全局质量分，不得自动改变参考准入、分类、检索权重或把生成物升级为参考。
+
+## 完整工作报告指引
+
+report3.6 JSON 是本任务的完整工作记录。它从阶段主要产物、简短阶段
+记录、可选且已绑定的 `work-notes`、三份 Supervisor 校准产物、独立
+Auditor 产物和最终 PPTX 的实际检查汇总而来，并在顶层附加 `work_report`
+及 `work_report_sha256`。核心的 `render_work_report_markdown` 路径从同一
+JSON 确定性派生 `work-report.md`，并将它写入 `manifest.derived_files`；
+不能再单独编辑一份叙事来充当事实源。
+
+汇总记录应让未读过对话的读者理解任务和验收要求、证据和来源、反证及其
+处理、假设和不确定性、故事线、决策、取舍与有意义的排除、最终可见 copy
+和备注、逐页设计意图及内容到视觉的关系、三轮 Supervisor 评价及 Logic、
+Copy、Art Direction 或 Output 各自吸收的内容、实际 PPTX 页数／对象／
+媒体统计、页面文字和 speaker notes、实际偏差、Independent Auditor 的
+观察与审计局限、放行决定、问题、局限和改进。可以使用 `task`、
+`evidence`、`story`、`copy`、`design`、`calibration`、`actual`、`audit`、
+`release` 等标题帮助阅读，但它们不是固定故事类型或版式配额。Markdown 应围绕
+已保存的研究、观点、排除、视觉意图和实际结果组织可读叙述，不能只是键名清单、
+原始 JSON dump 或旧的泛化摘要。没有对应证据时省略空断言，并写明 `not-recorded`
+或具体限制。
+
+外部来源和上游 snapshot 的身份、定位、权利及哈希 trace 保留在任务本地证据中。
+任务事实和 work notes 归任务本地记录及派生报告所有；不能写入插件公共源，也不能
+把公共源当作任务报告。
+
+Art Direction 必须说明内容关系如何变成视觉关系，媒介为何适合证据和受众，
+以及在文字主导时为何文字比图表、图片、表格或图示更清楚。报告记录模型
+负责的专业视觉判断，包括入选和排除路径；脚本只负责绑定字节、统计、从
+实际 PPTX 提取可观察的文字／备注并汇总，不能代替艺术判断。每页不要求
+必须有图表、图片、表格或轮廓变化。
+
+相关 notes 或观察没有被记录时，使用 `not-recorded` 并说明由此产生的
+限制。不能从主要产物完整、后续阶段记忆、填充的 JSON 字段或 PPTX 存在，
+推断完整历史。只有摘要的 legacy 报告属于证据不完整；这不证明此前阶段没有
+执行。`deferred`、`uncertain` 和质量 `fail` 都要保持真实；在绑定证据完整且
+现有政策允许时可以交付。
 
 ## 逐页结构
 
@@ -212,7 +297,7 @@
 }
 ```
 
-检查状态：`pass`、`fail`、`not-applicable`、`uncertain`。`uncertain` 只用于证据不足，根状态必须为 `incomplete-evidence`。`not-applicable` 也要写具体证据。每条检查证据必须包含稳定的 slide ID，并且对该页、该检查唯一；跨检查或跨页重复同一句话判无效。Supervisor 必须针对最终 PPTX 重跑完整 Output QA，不能用自己写的“一致”代替对象和渲染证据。
+检查状态：`pass`、`fail`、`not-applicable`、`uncertain`。`uncertain` 只用于证据不足，根状态必须为 `incomplete-evidence`。`not-applicable` 也要写具体证据。每条检查证据必须包含稳定的 slide ID，并且对该页、该检查唯一；跨检查或跨页重复同一句话判无效。Independent Auditor 针对最终 PPTX 执行完整文件／对象／渲染审计；Supervisor 校验报告与绑定，不能用自己写的“一致”代替对象和渲染证据。
 
 `planned.audience_detail_min_pt`、`chart_text_min_pt`、`data_chart_contract` 与 `quantitative_execution_contract` 必须逐字继承艺术指导计划。正文页 `rendered.minimum_audience_text_pt_observed` 必须记录实际最小受众字号，`nonconforming_point_sizes_observed` 记录所有违反中央字号令牌政策的值；低于配置下限或列表非空时 `typography_legibility` 必须失败并生成对应问题。
 
@@ -280,6 +365,10 @@
 - `FONT_SIZE_BELOW_MINIMUM`
 - `FONT_SIZE_NONCONFORMING_TOKEN`
 - `CJK_GLYPH_RENDER_MISSING`
+- `CJK_FONT_FAMILY_MISMATCH`
+- `ACCEPTANCE_REQUIREMENT_FAILED`
+- `RETRIEVAL_RELEVANCE_OR_BUDGET_FAILURE`
+- `GENERATION_PERFORMANCE_BUDGET_EXCEEDED`
 - `PPTX_LIGHTWEIGHT_PROFILE_MISSING`
 - `PPTX_DUPLICATE_OR_UNUSED_MEDIA`
 - `PPTX_RASTER_OVERSIZED`

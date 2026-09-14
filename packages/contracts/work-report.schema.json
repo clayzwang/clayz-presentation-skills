@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:work-report:1.0",
+  "title": "Clayz durable presentation work report",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "contract", "version", "task", "substantive_content", "storyline", "evidence",
+    "copy", "art_direction", "calibrations", "supervisor_reviews", "stages",
+    "stage_record_refs", "stage_artifact_bindings", "actual_pptx", "auditor",
+    "release", "source_snapshots", "provenance"
+  ],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.work-report/1.0"},
+    "version": {"const": "3.6"},
+    "task": {"type": "object"},
+    "substantive_content": {"type": "object"},
+    "storyline": {},
+    "evidence": {},
+    "copy": {"type": "object"},
+    "art_direction": {"type": "object"},
+    "calibrations": {"type": "array"},
+    "supervisor_reviews": {"type": "array"},
+    "stages": {"type": "array"},
+    "stage_record_refs": {"type": "array"},
+    "stage_artifact_bindings": {"type": "array"},
+    "actual_pptx": {"type": "object"},
+    "auditor": {"type": "object"},
+    "release": {"type": "object"},
+    "source_snapshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "path", "sha256", "bytes", "kind"],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "bytes": {"type": "integer", "minimum": 0},
+          "kind": {"enum": ["json", "text", "binary"]}
+        }
+      }
+    },
+    "provenance": {"type": "object"}
+  }
+}

@@ -31,6 +31,18 @@ Maintain a knowledge-needs list with the question, why it matters, current evide
 
 Completeness is not unlimited expansion. For a summary statement, drill down to the smallest evidence set that supports judgment. For “the next five months,” list the five monthly targets, baselines, assumptions, and results. For “a combination of two options,” list each option's efficiency, stability, cost, and boundary. Stop when added detail would change none of the main conclusion, relationship judgment, decision choice, or final expression. Keep useful audit detail in working papers, notes, or an appendix.
 
+### Think sufficiently and effectively
+
+Sufficient thought is not long prose. It means not skipping the audience's starting knowledge, why the topic matters now, how the current state works, which actors and objects participate, where the problem occurs, what target state is required, how the mechanism and sequence reach it, and which conditions and risks remain. Effective thought does not rush to a conclusion; it concentrates on distinctions that can change claims, relations, slide order, or the decision. Repeated retrieval, repeated restatement, and fields with no decision value are not reasoning depth.
+
+An owner-private Library supplies facts, terms, counterexamples, methods, and history, but it cannot perform Logic's synthesis. Before choosing slides, connect three answers:
+
+- **Where are we?** Current process, actors, information/fund/decision flows, and why the audience should care.
+- **Where are we going?** Target state, decision outcome, and non-negotiable boundaries.
+- **How do we get there?** Change mechanism, action sequence, conditions, failure risks, and validation.
+
+Unless the user explicitly asks to skip context, even a knowledgeable audience needs a concise current-state anchor. By default, the cover establishes topic, situation, and communication purpose; the closing resolves the opening with a decision, action, or synthesis. A body-slide count must not be mistaken for the total including those two roles.
+
 ### Research boundaries
 
 - Prefer user-owned primary material, raw data, formal rules, and authoritative sources.

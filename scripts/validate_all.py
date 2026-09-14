@@ -40,6 +40,7 @@ def validate_standalone_skill() -> None:
     run("scripts/validate_provenance.py", "provenance/manifest.yaml")
     run("scripts/validate_knowledge_scaffold.py", ".")
     run("scripts/validate_index_foundation.py")
+    run("scripts/validate_index_regression_gates.py")
     run("scripts/validate_composite_skill_mount.py", "--root", ".")
     run(
         "scripts/validate_personal_extension.py",

@@ -14,6 +14,7 @@ from pathlib import Path, PurePosixPath
 
 
 ROOT = Path(__file__).resolve().parents[1]
+TASK_SELECTION_V2_CONTRACT = "io.clayz.presentation.task-resource-selection/2.0"
 sys.path.insert(0, str(ROOT))
 
 from packages.runtime.preflight import (  # noqa: E402
@@ -201,18 +202,73 @@ def _validate_task_request(task_request_path: Path, challenge: dict[str, object]
         raise ValueError("current task request does not match the fresh run challenge")
 
 
+def _unified_workflow_required() -> bool:
+    lock_path = ROOT / "runtime" / "runtime-lock.json"
+    if not lock_path.is_file():
+        return False
+    try:
+        lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ValueError("runtime lock is not valid JSON") from exc
+    if not isinstance(lock, dict):
+        raise ValueError("runtime lock must be an object")
+    return lock.get("unified_workflow_required") is True
+
+
+def _validate_task_selection(
+    selection_path: Path,
+    config_path: Path,
+    *,
+    require_unified: bool = False,
+) -> dict[str, object]:
+    """Validate a task-local visual configuration against the bundled sources."""
+
+    try:
+        from packages.personal_extension.resolver import validate_task_selection
+    except ImportError as exc:  # pragma: no cover - task selection requires the updated resolver
+        raise ValueError("task selection validation is unavailable") from exc
+    selection = validate_task_selection(
+        selection_path.resolve(),
+        config_path.resolve(),
+        ROOT.resolve(),
+    )
+    if not isinstance(selection, dict):
+        raise ValueError("task selection validator returned an invalid selection")
+    if selection.get("contract") == TASK_SELECTION_V2_CONTRACT:
+        valid_selection = selection.get("workflow") == "unified" and "mode" not in selection and "visual_source" not in selection
+    else:
+        valid_selection = selection.get("mode") in {"public-core", "owner-personal"}
+    if require_unified:
+        valid_selection = selection.get("contract") == TASK_SELECTION_V2_CONTRACT and selection.get("workflow") == "unified" and "mode" not in selection and "visual_source" not in selection
+    if not valid_selection:
+        raise ValueError("task selection validator returned an invalid knowledge mode")
+    return selection
+
+
 def _validate_component_version_report(path: Path, config: dict[str, object]) -> dict[str, object]:
     raw = path.read_bytes()
     report = json.loads(raw)
     if not isinstance(report, dict) or report.get("contract") != "io.clayz.presentation.component-version-report/1.0":
         raise ValueError("component version report contract is unsupported")
-    if report.get("status") != "latest" or report.get("error_codes") != []:
-        raise ValueError("component version report did not establish latest components")
+    if report.get("status") not in {"installed", "latest", "candidate"} or report.get("error_codes") != []:
+        raise ValueError("component version report did not establish consistent installed components")
+    if report.get("status") == "installed":
+        from scripts.component_version_guard import build_application_report
+        current = build_application_report(ROOT)
+        for key in ("status", "local_release_version", "manifest_sha256", "local_manifest_sha256", "components", "personal_extension"):
+            if report.get(key) != current.get(key):
+                raise ValueError(f"installed component report no longer matches mounted {key}")
     configured_version = config.get("identity", {}).get("version") if isinstance(config.get("identity"), dict) else None
     latest = report.get("latest_release")
     latest_version = latest.get("version") if isinstance(latest, dict) else None
-    if report.get("local_release_version") != configured_version or latest_version != configured_version:
+    if report.get("local_release_version") != configured_version:
         raise ValueError("component version report does not match the resolved configuration")
+    if report.get("status") == "latest" and latest_version != configured_version:
+        raise ValueError("latest component report does not match the official release")
+    if report.get("status") == "candidate":
+        candidate = report.get("candidate_manifest")
+        if not isinstance(candidate, dict) or candidate.get("candidate_version") != configured_version or candidate.get("base_latest_version") != latest_version:
+            raise ValueError("candidate component report is not bound to the staged local version and official base release")
     components = report.get("components")
     if not isinstance(components, list) or not components or any(
         not isinstance(item, dict) or item.get("status") != "current" for item in components
@@ -230,7 +286,7 @@ def _validate_component_version_report(path: Path, config: dict[str, object]) ->
         "artifact": path.resolve().as_posix(),
         "sha256": hashlib.sha256(raw).hexdigest(),
         "generated_at": generated_at,
-        "status": "latest",
+        "status": report.get("status"),
         "local_release_version": report.get("local_release_version"),
         "latest_release_version": latest_version,
         "manifest_sha256": report.get("manifest_sha256"),
@@ -243,6 +299,7 @@ def main() -> int:
     parser.add_argument("--issue-challenge", action="store_true", help="Issue a fresh run challenge before the single capability scan")
     parser.add_argument("--task-request", type=Path, help="Canonical current task-request bytes required for issuance and scan binding")
     parser.add_argument("--challenge", type=Path, help="Fresh run challenge emitted by --issue-challenge")
+    parser.add_argument("--task-selection", type=Path, help="Validated task-local knowledge and visual-source selection")
     parser.add_argument("--config", type=Path, default=default_config_path())
     parser.add_argument("--model-profile", choices=["A", "B", "C", "D"])
     parser.add_argument("--model-capabilities", type=Path, help="JSON object used only when --model-profile is omitted")
@@ -271,6 +328,26 @@ def main() -> int:
         _validate_task_request(args.task_request, challenge)
         config_raw = args.config.read_bytes()
         config = json.loads(config_raw)
+        unified_required = _unified_workflow_required()
+        if unified_required and args.task_selection is None:
+            raise ValueError("current runtime requires --task-selection with unified workflow")
+        task_selection_binding: dict[str, str] | None = None
+        if args.task_selection is not None:
+            _validate_task_selection(args.task_selection, args.config, require_unified=unified_required)
+            selection_raw = args.task_selection.read_bytes()
+            task_selection_binding = {
+                "selection_path": args.task_selection.resolve().as_posix(),
+                "selection_sha256": hashlib.sha256(selection_raw).hexdigest(),
+            }
+        config_binding: dict[str, str] = {
+            "path": args.config.resolve().as_posix(),
+            "sha256": hashlib.sha256(config_raw).hexdigest(),
+            "source": "task-selected" if task_selection_binding is not None else (
+                "personal-resolved" if args.config.name == "personal-extension-resolved.json" else "public-default"
+            ),
+        }
+        if task_selection_binding is not None:
+            config_binding.update(task_selection_binding)
         if args.component_version_report is None:
             raise ValueError("the capability scan requires --component-version-report")
         component_version_gate = _validate_component_version_report(args.component_version_report, config)
@@ -289,11 +366,7 @@ def main() -> int:
             run_challenge_issuance=issuance,
             run_challenge_consumption=consumption,
             host_attestation_context=host_context,
-            config_binding={
-                "path": args.config.resolve().as_posix(),
-                "sha256": hashlib.sha256(config_raw).hexdigest(),
-                "source": "personal-resolved" if args.config.name == "personal-extension-resolved.json" else "public-default",
-            },
+            config_binding=config_binding,
             component_version_gate=component_version_gate,
         )
         _write_payload(report, args.output)

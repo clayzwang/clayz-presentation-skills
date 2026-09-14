@@ -2,7 +2,12 @@
 
 Resource discovery is root control-plane work, not a sixth presentation stage. Supervisor owns it before Logic so a user can see what this host and account can actually use before quality depends on hidden assets.
 
-Before inventory, run `scripts/component_version_guard.py`, compare the mounted component table with the official GitHub Latest Release, and print the table to the user. An unavailable freshness observation, an older component, or any version drift is blocking; do not reduce it to an inventory warning.
+Use runtime_mode `unified` for new tasks and the same merged configuration
+throughout. Record actual Library availability without changing known settings.
+All seven scopes remain visible; unavailable optional knowledge does not stop
+the task, while individual explicitly required resources and the real
+authoring/rendering route still have to pass. Check installed components with
+the existing offline application guard; release freshness is not a task gate.
 
 ## Scan before authoring
 
@@ -16,7 +21,7 @@ For every new build, revision, or audit, scan and evidence all seven scopes:
 6. host authoring, rendering, inspection, and target-application capabilities; and
 7. the actual font environment, including deferred-native fonts.
 
-Owner-personal mode also records the version-private-learning state under the owner-Library scope: public-core version, learning key, first-run or reuse mode, separate learning-audit digest, persistent index digest, and source-set digest. The first run reads the admitted source bytes and builds the index. Later runs verify and reuse it. A nonpersistent state root, missing audit, changed source bytes, or incomplete knowledge-kind coverage blocks Logic.
+Record persistent-learning evidence only when actually used. Ordinary tasks may materialize selected sources without a persistent version-learning prerequisite.
 
 Do not count a locator, manifest entry, remembered capability, or unavailable tool as an available resource. Collapse large pools into named, hash-bound entries with a quantity; do not dump hundreds of records into the user message.
 
@@ -41,7 +46,12 @@ After Provider materialization and route locking, but before any Logic, Copy, Ar
 
 Use user-facing names and counts, never private physical paths, credentials, or an unbounded record dump. The brief's structured resource-ID coverage must bind every inventoried, selected, non-selected, and unavailable resource; a generic “inventory complete” sentence cannot satisfy the gate. Say "will use" at this point; reserve "actually used" for the final reconciliation.
 
-If the gate is ready, continue automatically after the message. Do not require a ceremonial confirmation. If a required resource is missing or inaccessible, show the exact gap and stop before Logic; ask only for the material choice or access needed to proceed. Never silently switch an owner-personal request to public-core mode.
+If the gate is ready, continue automatically after the message. Do not require a ceremonial confirmation. If a required resource is missing or inaccessible, show the exact gap and stop before Logic; ask only for the material choice or access needed to proceed. Never claim to have used unavailable knowledge.
+
+Quality defects discovered after authoring do not reopen this gate or refuse
+generation. Carry the concrete finding into the Independent Auditor and final
+report; only a missing required input or a binding/authoring capability failure
+stops the affected work.
 
 ## Preserve the lock
 

@@ -29,6 +29,27 @@ HOST_INVENTORY_CONTRACT = "io.clayz.presentation.host-tool-inventory/1.0"
 RUN_CHALLENGE_TTL = timedelta(hours=24)
 SHA256_HEX = set("0123456789abcdef")
 
+# These are the small, format-level prerequisites for an executable editable
+# PPTX route. Other configured capabilities are retained in the report and
+# validated from the actual Output artifact; an unregistered static capability
+# is not evidence that a real writer cannot attempt the task.
+CALIBRATED_AUTHORING_CORE_CAPABILITIES = frozenset({
+    "editable-text",
+    "editable-shapes",
+})
+
+# These capabilities describe checks performed after a writer has emitted an
+# inspectable PPTX. They remain in the resolved required list and in route
+# evidence, but calibrated delivery may attempt a real writer while Output and
+# the Auditor establish them from the actual master, objects, fonts, and
+# renders. Legacy route selection keeps treating every requirement strictly.
+CALIBRATED_POST_AUTHORING_CAPABILITIES = frozenset({
+    "master-preservation",
+    "layout-inheritance",
+    "east-asian-font-name",
+    "render-preview",
+})
+
 MODEL_PROFILES: dict[str, dict[str, Any]] = {
     "A": {
         "label": "full-agent",
@@ -407,7 +428,25 @@ def _config_binding(config: Mapping[str, Any], value: Mapping[str, Any] | None) 
         raise ValueError("config binding sha256 must be a lower-case SHA-256")
     if not isinstance(source, str) or not source.strip():
         raise ValueError("config binding source must be a non-empty string")
-    return {"path": path, "sha256": sha256, "source": source}
+    selection_path = raw.get("selection_path")
+    selection_sha256 = raw.get("selection_sha256")
+    if selection_path is None and selection_sha256 is None:
+        if source == "task-selected":
+            raise ValueError("task-selected config binding requires a selection path and SHA-256")
+        return {"path": path, "sha256": sha256, "source": source}
+    if source != "task-selected":
+        raise ValueError("selection pointer requires config binding source task-selected")
+    if not isinstance(selection_path, str) or not selection_path.strip():
+        raise ValueError("config binding selection path must be a non-empty string")
+    if not _valid_sha256(selection_sha256):
+        raise ValueError("config binding selection sha256 must be a lower-case SHA-256")
+    return {
+        "path": path,
+        "sha256": sha256,
+        "source": source,
+        "selection_path": selection_path,
+        "selection_sha256": selection_sha256,
+    }
 
 
 def _component_version_gate(config: Mapping[str, Any], value: Mapping[str, Any] | None) -> dict[str, Any]:
@@ -421,10 +460,12 @@ def _component_version_gate(config: Mapping[str, Any], value: Mapping[str, Any] 
         raise ValueError("component version gate is incomplete")
     identity = config.get("identity") if isinstance(config, Mapping) else None
     configured_version = identity.get("version") if isinstance(identity, Mapping) else None
-    if value.get("status") != "latest" or value.get("all_components_current") is not True:
-        raise ValueError("component version gate did not establish latest components")
-    if value.get("local_release_version") != configured_version or value.get("latest_release_version") != configured_version:
+    if value.get("status") not in {"installed", "latest", "candidate"} or value.get("all_components_current") is not True:
+        raise ValueError("component version gate did not establish consistent installed components")
+    if value.get("local_release_version") != configured_version:
         raise ValueError("component version gate does not match the resolved configuration release")
+    if value.get("status") == "latest" and value.get("latest_release_version") != configured_version:
+        raise ValueError("latest component version gate does not match the official release")
     for key in ("sha256", "manifest_sha256"):
         if not isinstance(value.get(key), str) or not re.fullmatch(r"[0-9a-f]{64}", str(value.get(key))):
             raise ValueError(f"component version gate {key} must be lowercase SHA-256")
@@ -505,7 +546,13 @@ def _host_tools(
     }
 
 
-def _route_candidates(dependencies: Mapping[str, Any], required: set[str]) -> list[dict[str, Any]]:
+def _route_candidates(
+    dependencies: Mapping[str, Any],
+    required: set[str],
+    *,
+    allow_deferred_render: bool = False,
+    calibrated: bool = False,
+) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     authoring_caps = {
         "artifact-tool": {
@@ -529,8 +576,14 @@ def _route_candidates(dependencies: Mapping[str, Any], required: set[str]) -> li
     }
     host_present = bool(dependencies["host_tools"]["available"])
     host_verified = bool(dependencies["host_tools"]["observation"]["route_eligible"])
+    host_capabilities = set(dependencies["host_tools"]["capabilities"]) if host_present else set()
+    # A host declaration can provide an authoring body without proving that it
+    # can render. Do not pair that declaration with itself as a renderer merely
+    # because a calibrated no-render fallback removed render-preview from its
+    # temporary feasibility check.
+    host_render_present = host_present and "render-preview" in host_capabilities
     renderers: list[tuple[str, bool, bool]] = [
-        ("native-presentation-tool", host_present, host_verified),
+        ("native-presentation-tool", host_render_present, host_verified),
         ("powerpoint-com", bool(dependencies["powerpoint_com"]["available"]), bool(dependencies["powerpoint_com"]["available"])),
         ("libreoffice", bool(dependencies["commands"]["libreoffice"]), bool(dependencies["commands"]["libreoffice"])),
         ("artifact-tool", bool(dependencies["artifact_tool"]["available"]), bool(dependencies["artifact_tool"]["available"])),
@@ -550,15 +603,30 @@ def _route_candidates(dependencies: Mapping[str, Any], required: set[str]) -> li
             if not renderer_present:
                 continue
             missing = sorted(required - (authoring_caps[author] | renderer_caps[renderer]))
-            if "render-preview" in required and renderer == "none":
+            if "render-preview" in required and renderer == "none" and not allow_deferred_render:
                 continue
-            attemptable = not missing
-            available = attemptable and author_verified and renderer_verified
+            executable_missing = set(missing)
+            if calibrated:
+                # Only format-level writer prerequisites are hard at this
+                # point. Inspection, charts, tables, images, master behavior,
+                # font naming, render coverage, and any future capability
+                # remain explicit pending evidence until Output/Auditor
+                # observes the emitted PPTX. A writer capability must be
+                # supplied by the author, rather than borrowed from a renderer.
+                executable_missing = set(CALIBRATED_AUTHORING_CORE_CAPABILITIES)
+                executable_missing.difference_update(authoring_caps[author])
+            # ``spec-only`` is an internal planning fallback. It cannot be
+            # advertised as a route that writes an editable PPTX, even when a
+            # caller asks only for structured-spec output.
+            attemptable = author != "spec-only" and not executable_missing
+            available = attemptable and not missing and author_verified and renderer_verified
             assurance = (
                 "runtime-probed"
                 if available
                 else "host-declared-unverified"
                 if attemptable and "native-presentation-tool" in {author, renderer}
+                else "runtime-probed"
+                if attemptable
                 else "insufficient"
             )
             route_id = f"{author}+{renderer}"
@@ -636,6 +704,9 @@ def build_preflight_report(
     profile = classify_model_profile(model_capabilities, model_profile)
     runtime = config.get("runtime", {}) if isinstance(config, Mapping) else {}
     renderer = config.get("renderer", {}) if isinstance(config, Mapping) else {}
+    workflow = config.get("workflow", {}) if isinstance(config, Mapping) else {}
+    delivery_policy = workflow.get("delivery_policy", {}) if isinstance(workflow, Mapping) else {}
+    calibrated_delivery = isinstance(delivery_policy, Mapping) and delivery_policy.get("mode") == "calibrated"
     configured_capabilities = renderer.get("required_capabilities", [])
     if not isinstance(configured_capabilities, list) or any(
         not isinstance(item, str) or not item for item in configured_capabilities
@@ -673,18 +744,52 @@ def build_preflight_report(
             "pdftoppm": _command("pdftoppm"),
         },
     }
-    candidates = _route_candidates(dependencies, required)
-    selected = next((item for item in candidates if item["available"]), None)
-    if selected is None:
-        selected = next((item for item in candidates if item["attemptable"]), None)
+    if calibrated_delivery:
+        # First retain strict candidates for any backend that really satisfies
+        # the complete requirement set. Calibrated candidates then let a real
+        # writer proceed while static/unobserved quality requirements remain
+        # pending. The final group allows render-preview to be deferred, but
+        # never drops any requirement from the report.
+        candidate_groups = [
+            _route_candidates(dependencies, required, calibrated=True),
+            _route_candidates(dependencies, required, calibrated=True, allow_deferred_render=True),
+        ]
+        by_route: dict[str, dict[str, Any]] = {}
+        route_order: list[str] = []
+        for group in candidate_groups:
+            for candidate in group:
+                route_id = str(candidate["route_id"])
+                existing = by_route.get(route_id)
+                if existing is None:
+                    route_order.append(route_id)
+                    by_route[route_id] = candidate
+                    continue
+                # The calibrated view is a more useful description of the same
+                # route when it makes a real writer attemptable while retaining
+                # the full missing-capability list.
+                if (
+                    bool(candidate.get("available")) and not bool(existing.get("available"))
+                ) or (
+                    bool(candidate.get("attemptable")) and not bool(existing.get("attemptable"))
+                ):
+                    by_route[route_id] = candidate
+        candidates = [by_route[route_id] for route_id in route_order]
+        selected = next((item for item in candidates if item["available"]), None)
+        if selected is None:
+            selected = next((item for item in candidates if item["attemptable"]), None)
+    else:
+        candidates = _route_candidates(dependencies, required)
+        selected = next((item for item in candidates if item["available"]), None)
+        if selected is None:
+            selected = next((item for item in candidates if item["attemptable"]), None)
     if selected is None:
         selected = {
             "route_id": "spec-only+none",
             "authoring_backend": "spec-only",
             "render_backend": "none",
-            "available": required.issubset({"structured-spec"}),
-            "attemptable": required.issubset({"structured-spec"}),
-            "assurance_level": "runtime-probed" if required.issubset({"structured-spec"}) else "insufficient",
+            "available": False,
+            "attemptable": False,
+            "assurance_level": "insufficient",
             "missing_capabilities": sorted(required - {"structured-spec"}),
             "host_model_private_tool_required": False,
         }
@@ -692,13 +797,36 @@ def build_preflight_report(
     warnings: list[str] = []
     if selected["authoring_backend"] == "spec-only":
         warnings.append("No executable PPTX authoring route satisfies the requested capabilities; emit an internal spec only.")
-    if selected.get("attemptable") is True and selected.get("available") is not True:
+    pending_capabilities = sorted(set(selected.get("missing_capabilities", [])))
+    pending_quality = sorted(
+        set(pending_capabilities) & CALIBRATED_POST_AUTHORING_CAPABILITIES
+    )
+    if calibrated_delivery and pending_capabilities and selected.get("attemptable") is True:
+        pending_labels = ", ".join(pending_capabilities)
         warnings.append(
-            "The locked native route is provisional because it rests on an unverified host declaration; "
-            "it cannot establish delivery readiness without independently validated final PPTX and render evidence."
+            "A real PPTX authoring route is available for an Output attempt; the static capability table does not "
+            "establish that the backend lacks the configured capabilities. They remain unverified/pending until "
+            f"observed in the actual task: {pending_labels}. Use the selected master when supplied and record "
+            "actual object, font, and render evidence in Output and the Auditor."
         )
+    if selected.get("attemptable") is True and selected.get("available") is not True:
+        if selected.get("assurance_level") == "host-declared-unverified":
+            warnings.append(
+                "The locked native route is provisional because it rests on an unverified host declaration; "
+                "it cannot establish delivery readiness without independently validated final PPTX and any "
+                "available/selected render evidence. Unavailable render coverage remains deferred/not-run."
+            )
+        elif not pending_quality:
+            warnings.append(
+                "The locked authoring route is attemptable but not delivery-ready; independently validate the "
+                "written PPTX and any selected render evidence before release."
+            )
     if "render-preview" in required and selected["render_backend"] == "none":
-        warnings.append("No final-render backend is available; production delivery is blocked.")
+        warnings.append(
+            "No final-render backend is available; render acceptance is deferred and calibrated authoring may continue."
+            if calibrated_delivery
+            else "No final-render backend is available; production delivery is blocked."
+        )
     if dependencies["commands"]["pdfinfo"] is None or dependencies["commands"]["pdftoppm"] is None:
         warnings.append("PDF page ingestion is unavailable; ordinary PPTX authoring is unaffected.")
     for check in target_application_checks:
@@ -746,7 +874,7 @@ def build_preflight_report(
             "host_declarations_never_self_authorize_route_readiness": True,
             "run_challenge_has_nonce_and_freshness_window": True,
             "run_challenge_requires_issuance_and_canonical_consumption_ledgers": True,
-            "latest_component_versions_verified_before_preflight": True,
+            "installed_component_consistency_verified_before_preflight": True,
         },
         "warnings": warnings,
     }

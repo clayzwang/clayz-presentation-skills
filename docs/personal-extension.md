@@ -56,9 +56,9 @@ The same logical URI can resolve to a local file or a ChatGPT Library item witho
 
 ## Private index lifecycle
 
-Every presentation task first runs the component-version gate, compares the official latest release with the mounted Public Core, config, runtime, and stage contracts, and shows the version table to the user. Personal Runtime also declares a `version_learning` policy. The host supplies an owner-private state root that persists outside task sandboxes.
+Every presentation task checks the installed Public Core, config, runtime and stage contracts against their own bundled component table offline; remote release differences and candidate expiry are not authoring gates. Personal Runtime also declares a `version_learning` policy. The host supplies an owner-private state root that persists outside task sandboxes.
 
-On the first run of a Public Core version, every owner-learning source declares `knowledge_kinds` and the complete set covers private knowledge, templates, standards, and methods. After the host materializes admitted bytes, `scripts/bootstrap_owner_learning.py` hashes the source set, invokes the existing Index materializer, runs four retrieval probes, and writes separate JSON and Markdown learning audits. Later tasks verify and reuse the same audit and index. Source drift under the same core version stops the run; it never triggers silent re-learning.
+Owner-learning sources declare `knowledge_kinds`. After materializing admitted bytes, `scripts/bootstrap_owner_learning.py` hashes the source set, invokes the existing Index materializer, runs retrieval probes, and writes JSON and Markdown learning audits. Unchanged sources reuse cached extraction. A newly admitted source set creates a new immutable revision even within the same core version; old task snapshots remain usable. Changed bytes under an old revision fail verification. The local [discussion workflow](plugin-system.md) can also produce a confirmed private Provider snapshot for this same Index engine.
 
 Create or update admitted private IndexRecords outside this repository, then build their manifest with the shared contract:
 

@@ -1,32 +1,48 @@
 # First-class Index gate
 
-The Index is an execution dependency, not background reading. In owner-personal mode, a stage may not be approved from prose claims such as “the library was reviewed” or “the plan and render are consistent.”
+New production has one unified workflow. Always bind the public methods
+Provider plus actually selected usable sources in the same CompositeIndex.
+An installed personal settings document does not impose private Provider IDs,
+private-learning categories or a persistent-learning prerequisite.
 
-## First-run version learning and task reuse
+Record mode `unified` in new Index evidence. If task sources are materialized,
+use the existing source manifest/materializer with real source bytes, origin,
+rights, hashes and applicable-stage requirements. Verify every actually
+required source; incomplete materialization cannot be marked successful. With
+no such source set, use not-applicable owner materialization and empty/null
+source bookkeeping as required by the existing evidence structure. Optional
+Library unavailability is a recorded limitation, not another runtime mode.
 
-Before Logic, perform this work as part of the pre-Logic resource scan and record every source in `ppt-resource-inventory.json`:
+Settings layer provenance is configuration evidence, not topic knowledge.
+Persistent source snapshots may be reused only when actually available and
+verified; creation of durable knowledge continues through the existing
+discussion/admission and real host write/readback flow. Ordinary PPT tasks do
+not require a persistent version-learning store. Old mode values remain valid
+only for historical artifact inspection; never choose them for new production.
 
-1. Validate `runtime/personal-extension.json` and read its `index_execution` policy.
-2. Build an `io.clayz.presentation.owner-learning-sources/1.0` manifest from the owner resources discovered during the scan. Every source declares `knowledge_kinds`; the complete manifest covers at least `private-knowledge`, `template`, `standard`, and `method`. The manifest remains a runtime input outside the public plugin.
-3. Resolve each required source through the locked owner Library mount and read its real bytes. Resolve a persistent owner-private version-learning state root; an ephemeral task directory is not persistent state.
-4. Run `scripts/bootstrap_owner_learning.py`. On the first run of the current Public Core version, it hashes every source, builds `task-private-learning`, exercises real CompositeIndex retrieval probes for the four required knowledge kinds, and writes a separate JSON and Markdown learning audit. The audit lists sources, record counts, kinds, stages, digests, representative titles, provider snapshot, probes, and gaps.
-5. On later tasks for the same version, verify and reuse the exact index and audit without learning again. Changed source bytes under the same version are `PRIVATE_LEARNING_SOURCE_DRIFT`; do not overwrite the first-run audit silently.
-6. Combine `builtin-catalog`, the locked owner-private Providers, and the version-bound `task-private-learning` into one `CompositeIndex`. Sort and hash the Provider snapshots once; never replace them mid-run.
-7. Create `index_evidence` under `io.clayz.presentation.index-execution-evidence/1.0`. `owner_materialization.learning_mode` is `first-run` or `reused-version-index` and binds both `learning_key` and `version_learning_audit_sha256`. Add the source pools to the selected resource inventory, present the learning/resource brief to the user, and carry both locks through every handoff.
-
-If a required Library source cannot be read, decompressed, parsed, hashed, learned on first run, persisted, or verified for reuse, stop before the affected stage. Do not replace it with memory, generic defaults, the inventory locator, per-task rematerialization, or an unreceipted web search.
+Use real relevance-ranked retrieval receipts for the current stage and retain
+one snapshot lock across handoffs. No-match is valid, and record counts or
+claims of having read the Library do not prove content quality.
 
 ## Per-stage gate
 
 Before approving each stage:
 
-1. Issue stage-specific Retrieval Requests against the locked CompositeIndex.
-2. Finalize every Retrieval Receipt with selected and rejected registered records plus concrete reasons.
-3. In owner-personal mode, select every `task-private-learning` source declared for that stage by the task manifest. Stage requirements come from the locked evidence, never from hard-coded source names or counts.
+1. Issue no more than three stage-specific Retrieval Requests against the locked CompositeIndex. Each request uses a substantive task question, concrete stage/slide decision targets, a content/format/implementation/failure ranking profile, a minimum score, and bounded candidates. Empty and source-name-only ceremonial queries cannot satisfy the gate.
+2. Record decomposed relevance scores and ranks. Select only candidates above threshold, suppress redundant candidates, and bind every selection to concrete adoption targets plus `planned` or `material` adoption status.
+3. For actually selected task sources, select every `task-private-learning` source declared for that stage by the task manifest. Stage requirements come from the locked evidence, never from hard-coded source names or counts.
 4. Append the full finalized receipts to `index_evidence.stage_receipts.<stage>`.
-5. Run the current stage validator. Missing selections, missing source coverage, fallback use, invented records, changed snapshots, or receipt-free assertions fail closed.
+5. Run the current stage validator. Missing selections, missing source coverage,
+   invented records, changed snapshots, receipt-free assertions, or a stale
+   calibration/binding fail closed. A quality finding, an optional-source
+   no-match or a deferred check remains visible in the stage evidence and may
+   travel with the artifact; it must not be relabeled `pass`.
 
-The Index may influence decisions only through selected receipt-bound records. Record IDs, source IDs, hashes, Provider snapshots, `never_copy` boundaries, and adoption outcomes remain visible evidence.
+The Index may influence decisions only through selected receipt-bound records.
+The Independent Auditor may read the same locked Index for an audit question but
+does not create a parallel retrieval path. Record IDs, source IDs, hashes,
+Provider snapshots, `never_copy` boundaries, and adoption outcomes remain
+visible evidence.
 
 ## Substance gate
 

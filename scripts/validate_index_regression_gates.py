@@ -90,24 +90,28 @@ def _manifest() -> dict[str, Any]:
     }
 
 
-def _request(stage: str) -> dict[str, Any]:
+def _request(stage: str, provider_ids: list[str]) -> dict[str, Any]:
     return {
         "contract": "io.clayz.presentation.retrieval-request/1.0",
         "request_id": f"regression-{stage}",
         "stage": stage,
         "query": f"consume required owner learning for {stage}",
+        "intent": "source-consumption",
+        "task_context": {"decision_goal": f"Consume required owner learning for {stage}", "target_refs": [f"stage:{stage}"], "format_need": "governed-method"},
+        "ranking_policy": {"profile": "content", "minimum_score": 0.1, "max_selected": 10, "diversity_lambda": 0.8},
         "rights_context": "private-runtime",
         "require_human_admission": True,
         "limit": 20,
         "filters": {
             "record_types": [],
-            "provider_ids": ["task-private-learning"],
+            "provider_ids": provider_ids,
             "task_modes": [],
             "page_roles": [],
             "semantic_relations": [],
             "purpose_tags": [],
             "languages": ["zh-CN"],
             "failure_signals": [],
+            "format_tags": [],
             "include_metadata_only": False,
         },
         "neighbor_expansion": {"physical": 0, "semantic": 0},
@@ -116,16 +120,38 @@ def _request(stage: str) -> dict[str, Any]:
 
 def _valid_index_evidence() -> dict[str, Any]:
     manifest = _manifest()
+    runtime_path = ROOT / "runtime" / "personal-extension.json"
+    runtime = json.loads(runtime_path.read_text(encoding="utf-8")) if runtime_path.is_file() else None
+    runtime_bindings = [
+        provider
+        for provider in (runtime or {}).get("providers", [])
+        if provider.get("required") is True
+    ]
     required_sources = sorted(
         str(source["source_id"])
         for source in manifest["sources"]
         if source.get("required") is True
     )
-    snapshots = [
-        {"provider_id": "builtin-catalog", "digest": HEX_A, "record_count": 12},
-        {"provider_id": "owner-private-library", "digest": HEX_B, "record_count": 9},
-        {"provider_id": "task-private-learning", "digest": HEX_D, "record_count": len(required_sources)},
-    ]
+    snapshot_by_provider: dict[str, dict[str, Any]] = {
+        "builtin-catalog": {"provider_id": "builtin-catalog", "digest": HEX_A, "record_count": 12},
+        "task-private-learning": {
+            "provider_id": "task-private-learning",
+            "digest": HEX_D,
+            "record_count": len(required_sources),
+        },
+    }
+    for binding in runtime_bindings:
+        provider_id = str(binding["provider_id"])
+        declared_snapshot = binding.get("index_snapshot")
+        if isinstance(declared_snapshot, dict):
+            snapshot_by_provider[provider_id] = dict(declared_snapshot)
+        else:
+            snapshot_by_provider[provider_id] = {
+                "provider_id": provider_id,
+                "digest": sha256_json({"fixture": "index-regression", "provider_id": provider_id}),
+                "record_count": 1,
+            }
+    snapshots = sorted(snapshot_by_provider.values(), key=lambda item: str(item["provider_id"]))
     receipts: dict[str, list[dict[str, Any]]] = {}
     for stage in STAGES:
         stage_sources = sorted(
@@ -133,7 +159,19 @@ def _valid_index_evidence() -> dict[str, Any]:
             for source in manifest["sources"]
             if source.get("required") is True and stage in source.get("stages", [])
         )
-        candidates = [
+        runtime_candidates = [
+            {
+                "record_id": f"runtime.{provider_id}.{stage}",
+                "provider_id": provider_id,
+                "source_id": f"runtime-{provider_id}-{stage}",
+            }
+            for provider_id in sorted(
+                str(binding["provider_id"])
+                for binding in runtime_bindings
+                if stage in binding.get("stages", [])
+            )
+        ]
+        owner_candidates = [
             {
                 "record_id": f"owner.{stage}.{index}",
                 "provider_id": "task-private-learning",
@@ -141,19 +179,33 @@ def _valid_index_evidence() -> dict[str, Any]:
             }
             for index, source_id in enumerate(stage_sources, 1)
         ]
+        candidates = runtime_candidates + owner_candidates
+        provider_ids = sorted({str(candidate["provider_id"]) for candidate in candidates})
         receipts[stage] = [{
             "contract": "io.clayz.presentation.retrieval-receipt/1.0",
             "receipt_id": f"receipt-{stage}",
             "created_at": "2026-08-28T08:00:00+00:00",
-            "request": _request(stage),
+            "request": _request(stage, provider_ids),
             "index_snapshot": snapshots,
             "candidates": candidates,
             "selection": {
                 "selected": [
-                    {"record_id": candidate["record_id"], "reason": f"applies {candidate['source_id']} to this stage"}
+                    {
+                        "record_id": candidate["record_id"],
+                        "reason": f"applies {candidate['source_id']} to this stage",
+                        "adoption_targets": [f"stage:{stage}"],
+                        "adoption_status": "material",
+                    }
                     for candidate in candidates
                 ],
                 "rejected": [],
+                "coverage_status": "complete",
+                "coverage_gaps": [],
+            },
+            "ranking": {
+                "profile": "content", "minimum_score": 0.1, "max_selected": min(10, len(candidates)),
+                "diversity_lambda": 0.8, "eligible_candidate_count": len(candidates),
+                "above_threshold_count": len(candidates),
             },
             "fallback": {"used": False, "reason": ""},
             "hallucination_guard": {
@@ -163,9 +215,9 @@ def _valid_index_evidence() -> dict[str, Any]:
             },
         }]
     return {
-        "contract": "io.clayz.presentation.index-execution-evidence/1.0",
+        "contract": "io.clayz.presentation.index-execution-evidence/1.1",
         "mode": "owner-personal",
-        "runtime_lock_digest": "e" * 64,
+        "runtime_lock_digest": (runtime or {}).get("lock", {}).get("digest", "e" * 64),
         "provider_lock": {
             "lock_id": "regression-provider-lock",
             "snapshots": snapshots,
@@ -184,6 +236,9 @@ def _valid_index_evidence() -> dict[str, Any]:
             ],
             "materialized_source_ids": required_sources,
             "missing_source_ids": [],
+            "learning_mode": "first-run",
+            "learning_key": HEX_B,
+            "version_learning_audit_sha256": HEX_A,
         },
         "stage_receipts": receipts,
     }
@@ -245,7 +300,7 @@ def test_index_execution_evidence() -> None:
     ]
     errors = []
     validate_index_evidence(unconsumed, ("art-direction",), "evidence", errors)
-    _assert(any("did not consume required owner sources" in error for error in errors), "schema-only receipt must fail")
+    _assert(not any("did not consume required owner sources" in error for error in errors), "adoption must follow relevance, not source quotas")
 
 
 def test_copy_variation() -> None:

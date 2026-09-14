@@ -31,7 +31,7 @@
     },
     "guards": {
       "type": "object",
-      "required": ["one_learning_run_per_version", "source_drift_fails_closed", "private_content_stays_private", "retrieval_verified"]
+      "required": ["one_learning_run_per_source_revision", "source_drift_fails_closed", "private_content_stays_private", "retrieval_verified"]
     }
   }
 }

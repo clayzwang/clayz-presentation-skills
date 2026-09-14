@@ -11,6 +11,7 @@
     "index_snapshot",
     "candidates",
     "selection",
+    "ranking",
     "fallback",
     "hallucination_guard"
   ],
@@ -42,6 +43,8 @@
           "provider_id",
           "title",
           "score",
+          "rank",
+          "score_breakdown",
           "match_basis",
           "rights_decision",
           "materializable",
@@ -57,7 +60,21 @@
           "record_type": {"type": "string", "minLength": 1},
           "provider_id": {"type": "string", "minLength": 1},
           "title": {"type": "string", "minLength": 1},
-          "score": {"type": "number", "minimum": 0},
+          "score": {"type": "number", "minimum": 0, "maximum": 1},
+          "rank": {"type": "integer", "minimum": 1},
+          "score_breakdown": {
+            "type": "object",
+            "required": ["semantic", "stage", "task_context", "relation_purpose", "format_fit", "evidence_quality"],
+            "properties": {
+              "semantic": {"type": "number", "minimum": 0, "maximum": 1},
+              "stage": {"type": "number", "minimum": 0, "maximum": 1},
+              "task_context": {"type": "number", "minimum": 0, "maximum": 1},
+              "relation_purpose": {"type": "number", "minimum": 0, "maximum": 1},
+              "format_fit": {"type": "number", "minimum": 0, "maximum": 1},
+              "evidence_quality": {"type": "number", "minimum": 0, "maximum": 1}
+            },
+            "additionalProperties": false
+          },
           "match_basis": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
           "rights_decision": {"type": "string", "minLength": 1},
           "materializable": {"type": "boolean"},
@@ -73,10 +90,25 @@
     },
     "selection": {
       "type": "object",
-      "required": ["selected", "rejected"],
+      "required": ["selected", "rejected", "coverage_status", "coverage_gaps"],
       "properties": {
         "selected": {"$ref": "#/$defs/decisions"},
-        "rejected": {"$ref": "#/$defs/decisions"}
+        "rejected": {"$ref": "#/$defs/decisions"},
+        "coverage_status": {"enum": ["complete", "partial", "unresolved"]},
+        "coverage_gaps": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "ranking": {
+      "type": "object",
+      "required": ["profile", "minimum_score", "max_selected", "diversity_lambda", "eligible_candidate_count", "above_threshold_count"],
+      "properties": {
+        "profile": {"enum": ["content", "format", "implementation", "failure"]},
+        "minimum_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "max_selected": {"type": "integer", "minimum": 1, "maximum": 10},
+        "diversity_lambda": {"type": "number", "minimum": 0, "maximum": 1},
+        "eligible_candidate_count": {"type": "integer", "minimum": 0},
+        "above_threshold_count": {"type": "integer", "minimum": 0}
       },
       "additionalProperties": false
     },
@@ -105,10 +137,12 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["record_id", "reason"],
+        "required": ["record_id", "reason", "adoption_targets", "adoption_status"],
         "properties": {
           "record_id": {"type": "string", "minLength": 1},
-          "reason": {"type": "string", "minLength": 1}
+          "reason": {"type": "string", "minLength": 1},
+          "adoption_targets": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "adoption_status": {"enum": ["planned", "material", "not-adopted"]}
         },
         "additionalProperties": false
       }

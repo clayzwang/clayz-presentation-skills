@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:task-acceptance:1.0",
+  "title": "Clayz task acceptance contract",
+  "type": "object",
+  "required": ["contract", "requirements", "cover_policy", "narrative_policy", "typography_policy", "performance_budget", "contract_sha256"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.task-acceptance/1.0"},
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["requirement_id", "category", "statement", "owner_stage", "verification_method", "blocking"],
+        "properties": {
+          "requirement_id": {"type": "string", "minLength": 1},
+          "category": {"enum": ["content", "narrative", "copy", "visual", "typography", "compatibility", "performance", "delivery"]},
+          "statement": {"type": "string", "minLength": 1},
+          "owner_stage": {"enum": ["root", "logic", "copy", "art-direction", "output", "supervisor", "system"]},
+          "verification_method": {"type": "string", "minLength": 1},
+          "blocking": {"type": "boolean"},
+          "classification": {"enum": ["hard", "soft"]},
+          "commitment_kind": {"type": "string", "minLength": 1},
+          "expected": {},
+          "source": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "cover_policy": {
+      "type": "object",
+      "required": ["mode", "conclusion_allowed_roles"],
+      "properties": {
+        "mode": {"enum": ["topic-only", "verdict-allowed", "not-applicable"]},
+        "cover_required": {"type": "boolean"},
+        "closing_required": {"type": "boolean"},
+        "conclusion_allowed_roles": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "narrative_policy": {
+      "type": "object",
+      "required": ["problem_before_recommendation", "minimum_friction_impact_pairs", "required_relation_types"],
+      "properties": {
+        "problem_before_recommendation": {"type": "boolean"},
+        "minimum_friction_impact_pairs": {"type": "integer", "minimum": 0},
+        "required_relation_types": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "typography_policy": {
+      "type": "object",
+      "required": ["mode", "required_cjk_families", "exceptions"],
+      "properties": {
+        "mode": {"enum": ["configured-family", "explicit-family", "no-explicit-requirement"]},
+        "required_cjk_families": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "exceptions": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "performance_budget": {
+      "type": "object",
+      "required": ["run_mode", "max_total_seconds", "stage_seconds", "max_receipts_per_stage", "max_candidates_per_stage", "max_selected_per_stage", "max_write_count", "max_render_count", "max_repair_count"],
+      "properties": {
+        "enforcement": {"enum": ["advisory", "hard"]},
+        "run_mode": {"enum": ["warm", "cold", "either"]},
+        "max_total_seconds": {"type": "integer", "minimum": 0},
+        "stage_seconds": {
+          "type": "object",
+          "required": ["root", "preflight", "logic", "copy", "art-direction", "output", "supervisor", "delivery"],
+          "properties": {
+            "root": {"type": "integer", "minimum": 0}, "preflight": {"type": "integer", "minimum": 0},
+            "logic": {"type": "integer", "minimum": 0}, "copy": {"type": "integer", "minimum": 0},
+            "art-direction": {"type": "integer", "minimum": 0}, "output": {"type": "integer", "minimum": 0},
+            "supervisor": {"type": "integer", "minimum": 0}, "delivery": {"type": "integer", "minimum": 0}
+          },
+          "additionalProperties": false
+        },
+        "max_receipts_per_stage": {"type": "integer", "minimum": 1, "maximum": 3},
+        "max_candidates_per_stage": {"type": "integer", "minimum": 1, "maximum": 60},
+        "max_selected_per_stage": {"type": "integer", "minimum": 1, "maximum": 10},
+        "max_write_count": {"type": "integer", "minimum": 1, "maximum": 2},
+        "max_render_count": {"type": "integer", "minimum": 1, "maximum": 2},
+        "max_repair_count": {"type": "integer", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "release_conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["condition_id", "requirement_id", "statement", "source", "action"],
+        "properties": {
+          "condition_id": {"type": "string", "minLength": 1},
+          "requirement_id": {"type": "string", "minLength": 1},
+          "statement": {"type": "string", "minLength": 1},
+          "source": {"type": "string", "minLength": 1, "pattern": "^[Uu][Ss][Ee][Rr]"},
+          "action": {"const": "no-delivery"}
+        }
+      }
+    },
+    "contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

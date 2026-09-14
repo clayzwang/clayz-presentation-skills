@@ -34,4 +34,4 @@ Do not install or run the dependency from this public version for untrusted or p
 
 ## Required verification
 
-PptxGenJS writing success proves only that a file was emitted. Reopen the written PPTX, inspect object names and types, render every slide in at least one configured target application, verify CJK glyph pixels where relevant, and run the existing deviation, legibility, size, rhythm, Output QA, and Supervisor checks. Never advertise compatibility that was not observed.
+PptxGenJS writing success proves only that a file was emitted. Reopen the written PPTX and inspect object names and types. Render every slide in at least one configured target application when that route is available and selected; otherwise record deferred/not-run coverage and never advertise compatibility or render quality that was not observed. Run the existing deviation, legibility, size, rhythm, Output QA and Independent Auditor checks.

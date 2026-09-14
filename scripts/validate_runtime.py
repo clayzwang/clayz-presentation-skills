@@ -41,6 +41,8 @@ def validate(root: Path) -> list[str]:
     required_files = [
         "config/component-versions.json",
         "packages/contracts/component-version-report.schema.json",
+        "packages/contracts/component-candidate-manifest.schema.json",
+        "packages/contracts/chatgpt-release-acceptance.schema.json",
         "packages/contracts/version-private-learning-audit.schema.json",
         "packages/contracts/runtime-preflight.schema.json",
         "packages/adapters/python_pptx/render.py",
@@ -51,6 +53,8 @@ def validate(root: Path) -> list[str]:
         "packages/runtime/packs/linux/runtime-pack.json",
         "scripts/fetch_offline_wheels.py",
         "scripts/component_version_guard.py",
+        "scripts/build_component_candidate_manifest.py",
+        "scripts/validate_chatgpt_release_acceptance.py",
         "scripts/bootstrap_owner_learning.py",
         "scripts/install_offline_dependencies.py",
         "scripts/verify_release_bundles.py",
@@ -114,8 +118,8 @@ def validate(root: Path) -> list[str]:
             errors.append("runtime preflight must require nonce and freshness semantics")
         if report.get("guards", {}).get("run_challenge_requires_issuance_and_canonical_consumption_ledgers") is not True:
             errors.append("runtime preflight must require issuance and canonical consumption ledgers")
-        if report.get("guards", {}).get("latest_component_versions_verified_before_preflight") is not True:
-            errors.append("runtime preflight must require a fresh latest-component report")
+        if report.get("guards", {}).get("installed_component_consistency_verified_before_preflight") is not True:
+            errors.append("runtime preflight must require a fresh installed-component report")
         checks = report.get("target_application_checks")
         if not isinstance(checks, list) or not checks:
             errors.append("runtime preflight must observe every target application")

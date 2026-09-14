@@ -6,6 +6,96 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.16.0 — 2026-09-14
+
+- Add the report3.6 work record: preserve task requirements, research facts,
+  evidence, definitions, assumptions, unknowns, storyline, copy, design
+  intent, stage notes, calibration dispositions, Auditor observations, and
+  release limitations in one source-bound JSON report.
+- Inspect the final PPTX OOXML in its real slide order, including page text,
+  notes, slide-owned object counts, and separate master/unused media evidence.
+  Publish a deterministic `work-report.md` companion and verify the exact
+  handoff paths, hashes, title, slide count, and object statistics.
+## 0.15.1 — 2026-09-14
+
+- Keep calibrated preflight's full capability evidence while allowing a real
+  PPTX writer to be attempted when fidelity, render, or other unobserved
+  conditions remain pending. Reject spec-only and render-only routes as
+  editable PPTX authoring, and preserve honest master/template verification.
+## 0.15.0 — 2026-09-14
+
+- Prepare the 0.15.0 workflow contract for hash-bound Supervisor calibration
+  receipts between production stages and dual-recipient handoffs. Keep the
+  existing five production stages and one unified default → saved personal
+  layer → task override path.
+- Add the shared `independent-audit/1.0` post-Output module. It reads the
+  immutable user request, acceptance rules, Supervisor commitments and actual
+  PPTX/render evidence, discloses its review context, preserves findings, and
+  returns the audit artifact to Supervisor without creating a sixth stage,
+  second Index or learning silo.
+- Clarify that binding/identity/format/evidence failures can block a verified
+  pair, while quality findings, unavailable optional knowledge and deferred
+  target-application checks remain accurately reportable and deliverable by
+  default. A user explicitly requiring no delivery on a named failure adds that
+  release condition; no per-finding approval or endless repair loop is implied.
+## 0.14.0 — 2026-09-14
+
+- Unify new production into one layered configuration flow: defaults, saved personal preferences and task overrides. Library use is optional input availability, not a public/private route; new runtimes require unified task selections while historical records remain readable. Preserve loaded settings when optional source access changes.
+## 0.13.0 — 2026-09-13
+
+- Separate knowledge mode from visual configuration with validated task-local selections. Preserve visuals when adding or changing a Library locator, support public-first use and profile-free private references, and retain full JSON audit delivery for each variant. Locator selection remains distinct from actual file access.
+## 0.12.1 — 2026-09-13
+
+- Clarify outcome-focused evidence for quantitative comparisons and exact final delivery: preserve observation windows, scope, denominators and visible limitations through existing stage records, and link only the actual validated PPTX/report pair. No new workflow, schema or approval step.
+## 0.12.0 — 2026-09-13
+
+- Record immutable work evidence at each stage handoff, collect the four stage records and Supervisor's independent record into the full existing supervision report, and require validated collection before publication in newly built runtimes. Preserve legacy audit compatibility without relaxing content, template or render checks.
+## 0.11.0 — 2026-09-13
+
+- Distinguish faithful execution from research-led content generation, with mixed sections when needed. Make old communication taxonomies optional guidance and allow truthful agent-inferred brief metadata without a mandatory classification confirmation. Preserve source, content, master, render and supervision evidence requirements.
+## 0.10.4 — 2026-09-13
+
+- Make owner Library selection optional at task entry: use the public-core route when no private configuration is selected, and retain all existing private Provider and source gates when personal mode is explicitly selected. Bind the chosen configuration throughout the five-stage workflow without silently switching modes after a private-resource failure.
+## 0.10.3 — 2026-09-13
+
+- Separate external private resource prerequisites from the task-generated owner learning manifest. Preserve task-bound attachments, report exact remaining dependencies, and keep deferred font/native acceptance and research collection distinct from missing private sources.
+## 0.10.2 — 2026-09-13
+
+- Resolve native Library access from current tool inventory, real resource references and successful byte reads. Ignore name-only plugin permission lookups as proof of native access; preserve task-only attachment fallback and stop unchanged authorization/discovery loops.
+## 0.10.1 — 2026-09-13
+
+- Add the same-name ChatGPT composite Skill upgrade with global Chat/Work routing, native Library discussion draft/confirmation, host write plans and fresh readback verification. Preserve the existing private Library mount, five-stage methods, and external management boundary.
+## 0.10.0 — 2026-09-13
+
+- Add local resource inspection, discussion-based exact-draft confirmation, transactional knowledge/attachment snapshots, and shared-engine PPT retrieval. Keep maintenance governance external and all owner content outside the plugin.
+- Add a discoverable production tool catalog and a local command facade. Retain five stage responsibilities and distinguish advice/learning from full production.
+- Bind local package files to a content inventory for installed-byte checks. This version is a local development delivery; no remote publication is implied.
+
+- Make authoring version checks offline and installation-local by default. GitHub freshness and expiring candidate acceptance are explicit developer release checks. Carry the new installed status through preflight and final delivery while retaining package integrity and internal compatibility validation.
+
+- Connect the separate stage responsibilities through artifact-led Library iteration: draft, concrete question, inspected source/case, applicability judgment, revision and observed verification. Review content, visual plans and final renders at their actual handoffs; route defects to the earliest owner and invalidate only affected dependencies. Keep existing Provider/index truth, compact decision notes and truthful no-match outcomes.
+
+- Separate strict archive validation from installed-runtime validation: ChatGPT-reserialized UI metadata and untracked host files are reported as observations, while all immutable runtime hashes, dependencies, component versions and Provider locks remain enforced. Reproduce observed UI normalization in regression tests rather than assuming uploaded ZIP bytes survive unchanged on the host.
+
+- Preserve every component-version reader dependency during locale pruning, including the genuine English Copy contract. Share the dependency table between version checking, packaging and mount validation.
+- Bind all delivered files to hashes in the existing runtime lock, validate actual mounted component versions, and reopen the finished archive before accepting a Personal package. Regression tests run the extracted guard and reject each missing component plus same-version byte drift.
+
+- Add a ChatGPT context-and-visibility guard with early progress, artifact-backed stage checkpoints, excerpt-only long-source loading, hash-bound resume after failed long conversations, and delivery-first compact responses.
+- Reframe the five stages as enablement rather than restriction: preserve deep Logic reasoning, restore cover/closing roles by default, bind the required Storyline to the active master while making any smaller supporting line optional, enforce cumulative retrieval budgets before stage approval, and prepare one-write/one-render Output execution.
+- Reduce the ChatGPT Personal upload package by excluding repository-maintenance files and routing internal stage modules to one retained reference tree instead of duplicating every stage reference.
+- Use 192 members as a conservative packaging target from successful user trials, not a proven ChatGPT platform limit.
+- Separate required Provider availability from relevant adoption; allow truthful no-match receipts without forcing irrelevant private content into a deck.
+- Cache unchanged parsed private sources and retain immutable source-revision snapshots independently of core releases.
+- Automate measured deterministic-check reuse, exact decision snapshots and compact checkpoints; invalidate reuse on input/output drift.
+- Make cover and closing requirements independent, distinguish meaningful friction-impact links from generic sequence, and permit natural sibling sentence grammar.
+- Define advisory execution budgets and responsible-stage backflow; review the actual deck before upstream approval claims. Automated validation does not establish real-deck quality or speed improvement.
+## 0.9.0 — 2026-09-02
+
+- Add a task-acceptance contract that carries explicit page-role, narrative, typography, compatibility, delivery, and performance requirements through every governed stage.
+- Make retrieval substantive and bounded with non-empty task questions, decomposed relevance scores, stage-specific ranking profiles, thresholds, adoption targets, and at most three receipts per stage.
+- Upgrade supervision to embed immutable Logic, Copy, and Art Direction decision snapshots; trace every acceptance requirement; and audit retrieval quality plus per-stage generation efficiency.
+- Add deterministic PPTX East Asian font-name auditing so deferred native rendering cannot hide an explicitly written wrong font family.
+- Require a protected, private ChatGPT candidate-upload and user-acceptance receipt before the GitHub Release workflow can run.
 ## 0.8.0 — 2026-09-01
 
 - Add a fail-closed startup component-version gate that checks the official GitHub Latest Release on every presentation run, prints the mounted core-component table, and binds the fresh report into runtime preflight.

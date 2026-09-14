@@ -1,4 +1,4 @@
-# PPT v2.3逻辑层合同
+# PPT v2.4逻辑层合同
 
 `ppt-design-package.json` 是 Logic、Copy、Output 共用的唯一交接文件。Logic 只写根信息和 `logic_layer`；Copy 在同一文件追加 `copy_layer`。不得维护两个平行包。
 
@@ -6,10 +6,11 @@
 
 ```json
 {
-  "contract_version": "2.3",
+  "contract_version": "2.4",
   "package_id": "example-deck",
   "version": "2.1.0",
   "status": "logic-approved",
+  "acceptance_contract": {},
   "brief": {},
   "resource_inventory": {},
   "index_evidence": {},
@@ -24,7 +25,11 @@
 
 `resource_inventory` 遵循 `io.clayz.presentation.resource-inventory/1.0`。Supervisor 必须先完成七域盘点，把“发现了什么、选用什么、哪些不可用、走哪条制作与渲染路线”展示给用户并锁定为 ready，Logic 才能启动。所有非主机资源都需绑定内容指纹；中途新增资源必须修订盘点并再次向用户简报。
 
-`index_evidence` 遵循 `io.clayz.presentation.index-execution-evidence/1.0`。`logic-approved` 时必须包含锁定的 Provider 快照、适用时已完成的任务级所有者资料物化以及最终 Logic 检索回执；`copy-approved` 时继续增加 Copy 回执，并保持同一份锁。
+`acceptance_contract` 遵循 `io.clayz.presentation.task-acceptance/1.0`，在 Logic 前把明确的页面职责、故事链、字体、兼容、交付和速度要求转成稳定阻断条件，后续阶段逐字节保留。
+
+除非用户明确要求同时省略封面和尾页，`cover_policy.mode` 不得使用 `not-applicable`：Logic页序必须以一个 `narrative_role=cover` 开始，并以一个 `narrative_role=closing` 收束。封面、正文和尾页是不同页面职责；用户给出的正文页数不得被自动解释为包含首尾页的总页数。`not-applicable` 只表示用户明确选择同时省略这两个角色。
+
+`index_evidence` 遵循 `io.clayz.presentation.index-execution-evidence/1.1`。`logic-approved` 时必须包含锁定的 Provider 快照、适用时已完成的任务级所有者资料物化，以及不超过三份带相关性分项评分、阈值和采用目标的 Logic 回执；`copy-approved` 时继续增加 Copy 回执，并保持同一份锁。
 
 `status` 只能沿 `draft → logic-approved → copy-approved` 前进。逻辑发生实质变化时，必须删除旧 `copy_layer`，把状态退回 `draft` 或重新审批为 `logic-approved`。
 
@@ -36,16 +41,14 @@
   "initiator_stance": "提出改进方案",
   "preflight": {
     "audience": {"primary": "产品与运营决策团队"},
+    "generation_mode": "execution",
     "material_type": "management-report",
     "management_stage": "monitoring-diagnosis",
     "narrative_archetype": "operating-diagnosis",
     "desired_outcome": {"mode": "approve", "target": "批准试点资源"},
     "confirmation": {
       "audience": "user-provided",
-      "material_type": "user-confirmed",
-      "management_stage": "user-confirmed",
-      "narrative_archetype": "user-confirmed",
-      "desired_outcome": "user-confirmed"
+      "generation_mode": "agent-inferred"
     }
   },
   "usage_context": "会议投屏并会后流转",
@@ -54,11 +57,27 @@
 }
 ```
 
-`material_type` 是沟通场景：`management-report`、`business-analysis`、`strategy-deployment`、`sales-training`。
+`brief.preflight.generation_mode` 在新制作运行中必填，取值为
+`execution`、`research` 或 `mixed`；旧包可以省略。应根据实际任务和输入
+材料的成熟度自动推断。Execution 保留用户提供的有意义主张、数据、限定、
+关系和信息覆盖，在组织为页面时补齐常规过渡，并把实质性的未核实新增内容
+在现有证据、主张状态或未决项字段中区分出来；不得为了大标题丢掉细节，或
+进行无关研究。Research 先定义待理解的问题，再查找可信证据，比较定义、
+时间窗口和单位，调查反证、回应和机制，在确定页数或设计前合成实质内容。
+网站数量、字数、耗时或页数都不等于研究深度；没有证据的主张仍须保持为
+没有证据的主张。Mixed 用现有 scope 或 notes 字段按章节分配两类职责，
+不得新增平行模式结构。
 
-`management_stage` 是管理闭环位置：`strategic-framing`、`mechanism-design`、`campaign-deployment`、`operating-system`、`monitoring-diagnosis`、`experiment-review`、`skill-enablement`。
+`material_type`、`management_stage` 和 `narrative_archetype` 是可选的、自由
+描述的任务上下文标签；`narrative.management_stage_path` 同样可选且只作
+描述。示例中的取值仅为说明，不是枚举、路由闸门或必需分类。可选的
+`confirmation` 只记录真实来源，可以写 `agent-inferred`；任何字段都不得
+要求用户确认分类。受众和预期结果仍指导工作，任务足够明确时可以合理推断。
 
-`narrative_archetype` 是叙事原型：`operating-diagnosis`、`policy-reform`、`strategy-map`、`operating-system-design`、`experiment-learning`、`annual-mobilization`、`decision-proposal`、`training-sop`。三者共同构成双层路由，不能用单一“PPT类型”代替。`mode`：`understand`、`approve`、`execute`。
+运行时 知识库可用状态与
+`brief.preflight.generation_mode` 相互独立，继续沿用现有 Provider 和证据
+路径。generation mode 不新增权限、审批或确认流程。`desired_outcome.mode`
+仍必需，取值为 `understand`、`approve` 或 `execute`。
 
 ## logic_layer
 
@@ -111,6 +130,11 @@
   ]
 }
 ```
+
+`opening`、`progression` 和 `closing` 共同回答“在哪里、去哪里、怎么去”。第一页正文不得假定受众已知现状流程、问题动机或关键参与者；即使采用高管摘要，也必须先提供足以理解结论的情境锚点。私人知识可加强证据与方法，但不能替代这条逻辑链。
+
+`management_stage_path` 是可选的描述性上下文，可以使用任务专用标签；是否
+存在或采用何种写法，都不得成为生成或审批闸门。
 
 `cross_slide_contract`：
 

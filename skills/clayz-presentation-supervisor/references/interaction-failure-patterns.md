@@ -102,7 +102,7 @@ Regression: audit semantic load per region, not area percentages alone. Primary 
 
 Symptoms: Output replaces a locked first visual, partition, medium, rhythm, series persistence, motif, or whitespace because another slide type is easier or fits better.
 
-Regression: any change to an Art Direction baseline becomes a challenge. Produce a new plan only after user adjudication, then compare the render against it.
+Regression: any change to an Art Direction baseline becomes a challenge. Produce a new plan only after the required material baseline decision, then compare the render against it. A quality defect that leaves the baseline intact is an audit finding and does not require another user approval.
 
 ### Build collapses into cards
 

@@ -46,10 +46,11 @@ def main() -> int:
         raise PersonalExtensionError("public material evolution methods must remain explicitly deferred")
     for skill in SKILLS:
         text = (ROOT / "skills" / skill / "SKILL.md").read_text(encoding="utf-8")
-        if "Personal Extension Runtime" not in text:
-            raise PersonalExtensionError(f"{skill}: missing Personal Extension Runtime route")
-    if "Task Overlay" in (ROOT / "packages" / "personal_extension" / "resolver.py").read_text(encoding="utf-8"):
-        raise PersonalExtensionError("Task Overlay is deferred and must not enter the v0.5.2 runtime")
+        if "unified merger" not in text or "task-config" not in text:
+            raise PersonalExtensionError(f"{skill}: missing unified merged task configuration")
+    resolver_source = (ROOT / "packages" / "personal_extension" / "resolver.py").read_text(encoding="utf-8")
+    if "def prepare_unified_task_selection(" not in resolver_source:
+        raise PersonalExtensionError("unified task configuration factory is missing")
     print("personal extension foundation valid")
     return 0
 

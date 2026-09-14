@@ -2,7 +2,7 @@
 
 ## Core principle
 
-Output turns a plan into objects; it does not reinterpret objects into a new plan. The approved plan is the execution baseline. Changing composition, medium, area, density, reading path, series persistence, motif, semantic whitespace, or persistent navigation merely “to look better” is out of scope without adjudication. Native implementation may expose an upstream problem; Output may challenge it through Supervisor and user adjudication, but may not silently change it.
+Output turns a plan into objects; it does not reinterpret objects into a new plan. The approved plan is the execution baseline. Changing composition, medium, area, density, reading path, series persistence, motif, semantic whitespace, or persistent navigation merely “to look better” is out of scope without a material baseline decision. Native implementation may expose an upstream problem; Output may challenge it through Supervisor and the required user decision, but may not silently change it. A quality defect can remain an evidenced finding for Independent Auditor and does not by itself require another approval or refuse delivery.
 
 ## Object-production order
 

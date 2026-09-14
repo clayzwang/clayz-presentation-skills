@@ -49,7 +49,7 @@ python ../../packages/layout/solve_relative_layout.py layout-tree.json resolved-
 1. 在批准区域内优化换行、弹性轨道和同构间距；
 2. 检查固定轨道是否错误占用可用空间；
 3. 生成溢出诊断与布局证据；
-4. 回流 Art Direction／Copy／Logic，由上游或用户裁决。
+4. 回流 Art Direction／Copy／Logic 处理上游变更；只有涉及实质基准／范围决定或明确“不满足就不交付”条件时才询问用户。
 
 不得缩到 `typography_contract` 下限以下，不得挪用 `semantic_whitespace`，不得擅自删字、换媒介、改面积或拆并模块。
 

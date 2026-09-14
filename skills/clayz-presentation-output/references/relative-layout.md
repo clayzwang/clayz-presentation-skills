@@ -49,7 +49,7 @@ Disable automatic fitting that silently shrinks type, spacing, or the whole slid
 1. optimize line breaks, flexible tracks, and peer spacing inside approved regions;
 2. verify that fixed tracks do not consume space incorrectly;
 3. produce overflow diagnostics and layout evidence; and
-4. return to Art Direction, Copy, or Logic for upstream or user adjudication.
+4. return to Art Direction, Copy, or Logic for an upstream change; ask the user only when the change is a material baseline/scope decision or an explicit no-delivery condition.
 
 Never go below `typography_contract`, consume `semantic_whitespace`, delete copy, switch medium, change area, or split/merge modules without approval.
 

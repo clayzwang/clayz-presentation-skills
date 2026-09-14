@@ -1,0 +1,149 @@
+{
+  "contract": "io.clayz.presentation.tool-catalog/1.0",
+  "version": "1",
+  "policy_scope": "discovery-only",
+  "network_policy": "no-network-during-discovery",
+  "arbitrary_executor": false,
+  "tools": [
+    {
+      "tool_id": "runtime.component-consistency",
+      "kind": "installed-code",
+      "purpose": "Check the mounted Public Core against its local component table.",
+      "stage": "shared",
+      "entrypoints": ["scripts/component_version_guard.py"],
+      "prerequisites": ["Python 3.10 or later"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "knowledge.discussion-draft",
+      "kind": "installed-code",
+      "purpose": "Prepare an immutable review object from discussion content and attachment metadata before confirmation.",
+      "stage": "shared",
+      "entrypoints": ["packages/knowledge_session/discussion.py"],
+      "prerequisites": ["Python 3.10 or later", "owner-provided attachment bindings when attachments are declared"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "knowledge.snapshot-store",
+      "kind": "installed-code",
+      "purpose": "Publish and verify one immutable confirmed knowledge snapshot outside the plugin root.",
+      "stage": "shared",
+      "entrypoints": ["packages/knowledge_session/store.py"],
+      "prerequisites": ["Python 3.10 or later", "external owner Library directory"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "knowledge.snapshot-retrieval",
+      "kind": "installed-code",
+      "purpose": "Retrieve confirmed knowledge through the shared CompositeIndex and return a pinned receipt.",
+      "stage": "shared",
+      "entrypoints": ["packages/runtime/plugin_session.py", "packages/index_runtime/retrieval.py"],
+      "prerequisites": ["Python 3.10 or later", "verified owner Library snapshot"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "knowledge.receipt-finalization",
+      "kind": "installed-code",
+      "purpose": "Record explicit selected and rejected candidate decisions for an existing retrieval receipt.",
+      "stage": "shared",
+      "entrypoints": ["scripts/index_runtime_cli.py"],
+      "prerequisites": ["Python 3.10 or later", "a retrieval receipt and explicit stage-owner decisions"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "presentation.resource-inventory",
+      "kind": "installed-code",
+      "purpose": "Finalize the pre-Logic resource inventory and user-visible resource brief.",
+      "stage": "supervisor",
+      "entrypoints": ["scripts/finalize_resource_inventory.py", "packages/validators/resource_inventory.py"],
+      "prerequisites": ["Python 3.10 or later", "task-local inventory draft"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "presentation.runtime-preflight",
+      "kind": "installed-code",
+      "purpose": "Lock one authoring and render route for an already authorized production run.",
+      "stage": "supervisor",
+      "entrypoints": ["scripts/runtime_preflight.py", "packages/runtime/preflight.py"],
+      "prerequisites": ["Python 3.10 or later", "fresh task challenge", "installed component report"],
+      "host_capability": {"required": true, "capability_id": "authoring-and-render-route", "status": "host-dependent"},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "presentation.author-python-pptx",
+      "kind": "installed-code",
+      "purpose": "Build editable PowerPoint objects from the approved render manifest.",
+      "stage": "output",
+      "entrypoints": ["packages/adapters/python_pptx/render.py"],
+      "prerequisites": ["Python 3.10 or later", "python-pptx dependency", "approved render manifest"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "presentation.render-powerpoint",
+      "kind": "installed-code-with-host-capability",
+      "purpose": "Reopen and render an editable deck through the Windows PowerPoint COM adapter.",
+      "stage": "output",
+      "entrypoints": ["packages/adapters/powerpoint_com/render.ps1"],
+      "prerequisites": ["Windows", "Microsoft PowerPoint installed", "PowerPoint COM access", "approved PPTX"],
+      "host_capability": {"required": true, "capability_id": "powerpoint-com", "status": "host-dependent"},
+      "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}
+    },
+    {
+      "tool_id": "stage.logic",
+      "kind": "stage-reference",
+      "purpose": "Develop evidence, claims, question chain and slide sequence before wording or design.",
+      "stage": "logic",
+      "entrypoints": ["skills/clayz-presentation-logic/SKILL.md"],
+      "prerequisites": ["Supervisor inventory and task acceptance"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "stage-owned-reasoning", "arbitrary": false, "network": "task-authorized-host-tools"}
+    },
+    {
+      "tool_id": "stage.copy",
+      "kind": "stage-reference",
+      "purpose": "Lock visible copy and atomic copy units after Logic approval.",
+      "stage": "copy",
+      "entrypoints": ["skills/clayz-presentation-copy/SKILL.md"],
+      "prerequisites": ["approved Logic package"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "stage-owned-reasoning", "arbitrary": false, "network": "task-authorized-host-tools"}
+    },
+    {
+      "tool_id": "stage.art-direction",
+      "kind": "stage-reference",
+      "purpose": "Turn approved copy into a content-aware visual and composition plan.",
+      "stage": "art-direction",
+      "entrypoints": ["skills/clayz-presentation-art-direction/SKILL.md"],
+      "prerequisites": ["approved Copy package"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "stage-owned-reasoning", "arbitrary": false, "network": "task-authorized-host-tools"}
+    },
+    {
+      "tool_id": "stage.output",
+      "kind": "stage-reference",
+      "purpose": "Build editable PPTX objects from the approved Art Direction handoff.",
+      "stage": "output",
+      "entrypoints": ["skills/clayz-presentation-output/SKILL.md"],
+      "prerequisites": ["approved Art Direction plan", "locked runtime route"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "stage-owned-reasoning", "arbitrary": false, "network": "task-authorized-host-tools"}
+    },
+    {
+      "tool_id": "stage.supervisor",
+      "kind": "stage-reference",
+      "purpose": "Independently audit evidence, objects, renders and paired delivery.",
+      "stage": "supervisor",
+      "entrypoints": ["skills/clayz-presentation-supervisor/SKILL.md"],
+      "prerequisites": ["Supervisor stage rules and the artifacts relevant to the requested audit"],
+      "host_capability": {"required": false, "capability_id": null},
+      "execution": {"mode": "stage-owned-reasoning", "arbitrary": false, "network": "task-authorized-host-tools"}
+    }
+  ]
+}

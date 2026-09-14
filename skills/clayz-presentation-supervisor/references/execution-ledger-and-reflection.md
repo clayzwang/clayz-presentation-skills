@@ -33,8 +33,18 @@ For each failure, classify the owning boundary before suggesting a response:
 - coordinates, object API, media, font, compatibility, or file repair → Output;
 - missing capability, dependency, permission, or renderer → environment/user.
 
-Supervisor reports the conflict and route. It does not execute a new composition, invent approval, or repeat until a favorable result appears.
+Supervisor reports the conflict and route. The Independent Auditor records the
+actual file/render finding; Supervisor does not execute a new composition,
+invent approval, alter that finding, or repeat until a favorable result
+appears.
 
 ## Stop conditions
 
-Stop the technical loop when it passes, reaches the configured cycle limit, repeats the same error without new evidence, requires an upstream baseline change, or lacks a required capability. Close as `known-risk` or `incomplete` rather than hiding the gap. Automated scores remain diagnostic; the written PPTX and actual render evidence take precedence.
+Stop the technical loop when it passes, reaches the configured cycle limit,
+repeats the same error without new evidence, requires an upstream baseline
+change, or lacks a required authoring/write/render capability. An optional
+Library, target-application or native-font check may close as `deferred` while
+production continues. Close a missing required evidence/binding as
+`incomplete`; close a quality defect as `known-risk` or `issues-found` rather
+than hiding the gap. Automated scores remain diagnostic; the written PPTX and
+actual render evidence take precedence.

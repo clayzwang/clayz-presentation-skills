@@ -1,8 +1,8 @@
-# PPT v2.3文案层合同
+# PPT v2.4文案层合同
 
 Copy 在状态为 `logic-approved` 的同一 `ppt-design-package.json` 中追加 `copy_layer`。完成后根状态为 `copy-approved`；`logic_layer` 不得发生任何变化。
 
-根包合同升级为 `2.3`，必须逐字节保留 Logic 启动前锁定的 `resource_inventory`，并在 `index_evidence` 追加最终 Copy 检索回执。Copy 只能使用已选资源；若发现新来源，必须交还 Supervisor 修订盘点并再次向用户简报。Copy 审批还会执行全篇表达检查：非系列页面不得机械重复相同标题/故事线、同一过渡话术、同一整页语法向量或同一段实质性短语。
+根包合同升级为 `2.4`，必须逐字节保留根级 `acceptance_contract` 和 Logic 启动前锁定的 `resource_inventory`，并在 `index_evidence` 追加带相关性评分、阈值和具体采用目标的最终 Copy 检索回执。Copy 只能使用已选资源；若发现新来源，必须交还 Supervisor 修订盘点并再次向用户简报。Copy 审批还会执行全篇表达检查：非系列页面不得机械重复相同标题/故事线、同一过渡话术、同一整页语法向量或同一段实质性短语。
 
 ## copy_layer
 
@@ -154,7 +154,7 @@ Copy 在状态为 `logic-approved` 的同一 `ppt-design-package.json` 中追加
 
 `title_mode`：`cover`、`factual-status`、`analytical-judgment`、`mechanism-rule`、`action-directive`、`transition-assertion`、`instructional-action`、`closing`。
 
-`storyline_function`：`none`、`evidence-bridge`、`mechanism-explanation`、`action-bridge`、`audience-transition`、`instruction-bridge`、`scope-qualification`。封面与尾页使用 `none`；普通正文不得使用 `none`。
+`storyline_function`：`none`、`evidence-bridge`、`mechanism-explanation`、`action-bridge`、`audience-transition`、`instruction-bridge`、`scope-qualification`。封面与尾页使用 `none`；普通正文不得使用 `none`。正文Storyline按当前母版规定的语义职责填写；Storyline下面若还有一段较小辅助文字，应另用可选 `subtitle` 或 `annotation` 单元，只有提供独立信息时才创建，不得固定补齐。
 
 `series_copy_review.series_id` 必须与Logic一致。非系列页使用 `null`，但三个检查仍写 `true`，表示没有制造跨页漂移；系列页必须能从标题、Storyline或正文识别本页新增认识。
 
@@ -182,7 +182,7 @@ Copy 在状态为 `logic-approved` 的同一 `ppt-design-package.json` 中追加
 
 - 封面允许 `title_copy_id` 和可选 `subtitle`，`storyline_copy_id` 可为 `null`。
 - 尾页使用 `closing`；具体文字由本次任务的用户要求或批准文案决定，不得由框架、主题或历史案例预设。
-- 正文页必须有标题和单句Storyline；Storyline不得含主动换行。
+- 正文页必须有标题和单句Storyline；Storyline不得含主动换行，并按母版占位呈现。Storyline下方的小字不是必备单元；没有独立信息价值时不创建，也不预留假文字。
 - 低内容负载、高决策重量的转场页允许没有常规正文清单，但必须用 `transition-assertion` 与 `audience-transition` 真实推动受众状态。
 - 高密度分析页标题允许两段式表达和主动断句，不得为了单行缩小字号；断点仍通过字符索引锁定。
 - 系列页不得改写 `invariant_renderings.visible_terms` 的名称与顺序；如业务确需别名，必须回流Logic修改不变量。

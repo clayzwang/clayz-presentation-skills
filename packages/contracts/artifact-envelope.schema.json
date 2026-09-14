@@ -8,7 +8,7 @@
     "origin_namespace": {"const": "io.clayz.presentation"},
     "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "artifact_type": {
-      "enum": ["logic-package", "copy-package", "art-direction-plan", "build-report", "supervision-report"]
+      "enum": ["logic-package", "copy-package", "art-direction-plan", "build-report", "supervision-report", "supervisor-calibration", "independent-audit"]
     },
     "status": {
       "enum": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"]

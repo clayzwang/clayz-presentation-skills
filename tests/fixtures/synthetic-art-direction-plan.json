@@ -1,9 +1,26 @@
 {
-  "contract_version": "1.6",
+  "contract_version": "1.7",
   "status": "art-direction-approved",
-  "package_contract_version": "2.3",
+  "package_contract_version": "2.4",
   "package_id": "synthetic-release-regression",
-  "package_version": "2.3.0",
+  "package_version": "2.4.0",
+  "acceptance_contract": {
+    "contract": "io.clayz.presentation.task-acceptance/1.0",
+    "requirements": [
+      {"requirement_id": "REQ-SYN-01", "category": "content", "statement": "Present one synthetic reversible-pilot decision.", "owner_stage": "logic", "verification_method": "logic-claim-and-final-copy", "blocking": true},
+      {"requirement_id": "REQ-SYN-02", "category": "performance", "statement": "Stay within the bounded synthetic execution budget.", "owner_stage": "system", "verification_method": "generation-efficiency", "blocking": true}
+    ],
+    "cover_policy": {"mode": "not-applicable", "conclusion_allowed_roles": ["analysis", "recommendation", "decision", "closing"]},
+    "narrative_policy": {"problem_before_recommendation": false, "minimum_friction_impact_pairs": 0, "required_relation_types": []},
+    "typography_policy": {"mode": "no-explicit-requirement", "required_cjk_families": [], "exceptions": []},
+    "performance_budget": {
+      "run_mode": "warm", "max_total_seconds": 1500,
+      "stage_seconds": {"root": 60, "preflight": 120, "logic": 360, "copy": 180, "art-direction": 240, "output": 480, "supervisor": 180, "delivery": 60},
+      "max_receipts_per_stage": 3, "max_candidates_per_stage": 60, "max_selected_per_stage": 10,
+      "max_write_count": 2, "max_render_count": 2, "max_repair_count": 1
+    },
+    "contract_sha256": "22ab0634ed302b78543d7cad9eea0cd3ee4fff1d167c6ed963e258f5819b29dc"
+  },
   "communication_contract": {
     "audience": {
       "primary": "Synthetic decision team"
@@ -426,7 +443,7 @@
     "digest": "208f0a85ac884d9c9f655c7fb6e46a3e8c8fa387d345b9ce0bc96fdbfb54b4ea"
   },
   "index_evidence": {
-    "contract": "io.clayz.presentation.index-execution-evidence/1.0",
+    "contract": "io.clayz.presentation.index-execution-evidence/1.1",
     "mode": "owner-personal",
     "runtime_lock_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
     "provider_lock": {
@@ -529,6 +546,9 @@
             "request_id": "regression-logic",
             "stage": "logic",
             "query": "consume required owner learning for logic",
+            "intent": "source-consumption",
+            "task_context": {"decision_goal": "Consume required owner learning for Logic", "target_refs": ["stage:logic"], "format_need": "governed-method"},
+            "ranking_policy": {"profile": "content", "minimum_score": 0.1, "max_selected": 5, "diversity_lambda": 0.8},
             "rights_context": "private-runtime",
             "require_human_admission": true,
             "limit": 20,
@@ -545,6 +565,7 @@
                 "zh-CN"
               ],
               "failure_signals": [],
+              "format_tags": [],
               "include_metadata_only": false
             },
             "neighbor_expansion": {
@@ -580,11 +601,16 @@
             "selected": [
               {
                 "record_id": "owner.logic.1",
-                "reason": "applies demo-logic-learning to this stage"
+                "reason": "applies demo-logic-learning to this stage",
+                "adoption_targets": ["stage:logic"],
+                "adoption_status": "material"
               }
             ],
-            "rejected": []
+            "rejected": [],
+            "coverage_status": "complete",
+            "coverage_gaps": []
           },
+          "ranking": {"profile": "content", "minimum_score": 0.1, "max_selected": 5, "diversity_lambda": 0.8, "eligible_candidate_count": 1, "above_threshold_count": 1},
           "fallback": {
             "used": false,
             "reason": ""
@@ -606,6 +632,9 @@
             "request_id": "regression-copy",
             "stage": "copy",
             "query": "consume required owner learning for copy",
+            "intent": "source-consumption",
+            "task_context": {"decision_goal": "Consume required owner learning for Copy", "target_refs": ["stage:copy"], "format_need": "governed-method"},
+            "ranking_policy": {"profile": "content", "minimum_score": 0.1, "max_selected": 5, "diversity_lambda": 0.8},
             "rights_context": "private-runtime",
             "require_human_admission": true,
             "limit": 20,
@@ -622,6 +651,7 @@
                 "zh-CN"
               ],
               "failure_signals": [],
+              "format_tags": [],
               "include_metadata_only": false
             },
             "neighbor_expansion": {
@@ -657,11 +687,16 @@
             "selected": [
               {
                 "record_id": "owner.copy.1",
-                "reason": "applies demo-copy-learning to this stage"
+                "reason": "applies demo-copy-learning to this stage",
+                "adoption_targets": ["stage:copy"],
+                "adoption_status": "material"
               }
             ],
-            "rejected": []
+            "rejected": [],
+            "coverage_status": "complete",
+            "coverage_gaps": []
           },
+          "ranking": {"profile": "content", "minimum_score": 0.1, "max_selected": 5, "diversity_lambda": 0.8, "eligible_candidate_count": 1, "above_threshold_count": 1},
           "fallback": {
             "used": false,
             "reason": ""
@@ -683,6 +718,9 @@
             "request_id": "regression-art-direction",
             "stage": "art-direction",
             "query": "consume required owner learning for art-direction",
+            "intent": "format-reference",
+            "task_context": {"decision_goal": "Select relevant visual methods for Art Direction", "target_refs": ["stage:art-direction", "slide:S01"], "format_need": "comparison-layout"},
+            "ranking_policy": {"profile": "format", "minimum_score": 0.1, "max_selected": 5, "diversity_lambda": 0.7},
             "rights_context": "private-runtime",
             "require_human_admission": true,
             "limit": 20,
@@ -699,6 +737,7 @@
                 "zh-CN"
               ],
               "failure_signals": [],
+              "format_tags": [],
               "include_metadata_only": false
             },
             "neighbor_expansion": {
@@ -749,23 +788,34 @@
             "selected": [
               {
                 "record_id": "owner.art-direction.1",
-                "reason": "applies demo-art-learning to this stage"
+                "reason": "applies demo-art-learning to this stage",
+                "adoption_targets": ["stage:art-direction", "slide:S01"],
+                "adoption_status": "material"
               },
               {
                 "record_id": "owner.art-direction.2",
-                "reason": "applies demo-purpose-index to this stage"
+                "reason": "applies demo-purpose-index to this stage",
+                "adoption_targets": ["stage:art-direction", "slide:S01"],
+                "adoption_status": "material"
               },
               {
                 "record_id": "owner.art-direction.3",
-                "reason": "applies demo-visual-preferences to this stage"
+                "reason": "applies demo-visual-preferences to this stage",
+                "adoption_targets": ["stage:art-direction", "slide:S01"],
+                "adoption_status": "material"
               },
               {
                 "record_id": "owner.art-direction.4",
-                "reason": "applies demo-visual-reference-index to this stage"
+                "reason": "applies demo-visual-reference-index to this stage",
+                "adoption_targets": ["stage:art-direction", "slide:S01"],
+                "adoption_status": "material"
               }
             ],
-            "rejected": []
+            "rejected": [],
+            "coverage_status": "complete",
+            "coverage_gaps": []
           },
+          "ranking": {"profile": "format", "minimum_score": 0.1, "max_selected": 5, "diversity_lambda": 0.7, "eligible_candidate_count": 4, "above_threshold_count": 4},
           "fallback": {
             "used": false,
             "reason": ""

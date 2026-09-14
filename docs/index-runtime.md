@@ -1,5 +1,11 @@
 # Index-native retrieval foundation
 
+## Relevance-ranked stage execution
+
+Stage retrieval is substantive execution evidence, not a source-enumeration ceremony. Every fresh request contains a non-empty task question, decision targets, format need, ranking profile, threshold, selection cap, and diversity setting. Candidates expose bounded 0..1 total scores plus semantic, stage, task-context, relation/purpose, format-fit, and evidence-quality components. Final selections name concrete adoption targets and whether adoption is planned or material.
+
+Each governed stage may use at most three receipts and sixty candidates. Required-source consumption may share a receipt, but every stage still needs task-relevant decision evidence. Empty queries, source-name-only queries without a decision goal, below-threshold selections, generic selection reasons, or selected records without adoption targets fail closed.
+
 v0.4.0 development begins by making retrieval a governed runtime rather than an optional file lookup. This stage does not change the five-stage ownership model and does not publish a new release.
 
 ## What the index owns

@@ -1,4 +1,4 @@
-# Art Direction Plan Contract v1.6
+# Art Direction Plan Contract v1.7
 
 `ppt-art-direction-plan.json` is the sole visual-decision handoff between a `copy-approved` script package and Output. It may not introduce new business content. Set its status to `art-direction-approved` only after every visual decision is locked.
 
@@ -6,11 +6,12 @@
 
 ```json
 {
-  "contract_version": "1.6",
+  "contract_version": "1.7",
   "status": "art-direction-approved",
-  "package_contract_version": "2.3",
+  "package_contract_version": "2.4",
   "package_id": "example-deck",
   "package_version": "2.1.0",
+  "acceptance_contract": {},
   "resource_inventory_lock": {},
   "index_evidence": {},
   "communication_contract": {},
@@ -23,6 +24,8 @@
   "slides": []
 }
 ```
+
+`acceptance_contract` is a verbatim copy of the Logic package contract. The plan must translate its visual and typography requirements into inspectable page decisions. A claimed comparison, cause, matrix, or process without the matching semantic-tree relation and object grammar is a plan contradiction.
 
 `resource_inventory_lock` must equal the pre-Logic inventory signature from the script package. Art Direction may select only themes, templates, visual references, assets, fonts, and providers included in that inventory; any newly discovered resource returns to Supervisor for a revised scan and visible brief.
 

@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import copy
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 import zipfile
@@ -24,6 +26,7 @@ from packages.personal_extension import (
 from scripts.compose_personal_light import compose_personal_light
 from scripts import validate_all as validate_all_script
 from scripts.validate_composite_skill_mount import inspect_composite_skill_mount
+from scripts.component_version_guard import component_dependency_paths
 from packages.validators import index_evidence as index_evidence_validator
 
 
@@ -82,7 +85,7 @@ def profile(core_version: str) -> dict:
         "profile_version": "1.0.0",
         "compatibility": {
             "minimum_core_version": core_version,
-            "maximum_core_version_exclusive": "0.9.0",
+            "maximum_core_version_exclusive": "1.0.0",
         },
         "overrides": [
             {"path": "theme.profile", "policy": "replace", "value": "owner-private-theme"},
@@ -245,7 +248,7 @@ class PersonalExtensionTests(unittest.TestCase):
             )
         self.assertTrue(any("example.private-library" in error for error in errors), errors)
 
-    def test_index_evidence_requires_each_applicable_provider_to_be_selected(self) -> None:
+    def test_index_evidence_does_not_force_irrelevant_provider_adoption(self) -> None:
         _, runtime = resolve_personal_extension(
             self.base,
             profile(self.base["identity"]["version"]),
@@ -274,7 +277,7 @@ class PersonalExtensionTests(unittest.TestCase):
                 "package.index_evidence",
                 errors,
             )
-        self.assertTrue(any("must be selected" in error and "example.private-library" in error for error in errors), errors)
+        self.assertFalse(any("must be selected" in error for error in errors), errors)
 
     def test_required_provider_snapshot_cannot_be_empty(self) -> None:
         _, runtime = resolve_personal_extension(
@@ -327,13 +330,46 @@ class PersonalExtensionTests(unittest.TestCase):
                 )
                 self.assertFalse(any("packages/runtime/packs/" in name for name in names))
                 self.assertFalse(any("packages/adapters/" in name for name in names))
+                self.assertNotIn(".github/workflows/ci.yml", names)
+                self.assertNotIn("README.md", names)
+                self.assertFalse(any(name.startswith("references/stages/") and "/references/" in name for name in names))
+                self.assertLess(len(names), 192)
+                self.assertIn("packages/knowledge_session/store.py", names)
+                self.assertIn("packages/knowledge_session/discussion.py", names)
+                self.assertIn("scripts/cloud_learning_cli.py", names)
+                self.assertIn("packages/contracts/native-library-workflow.md", names)
+                policy = json.loads(archive.read("runtime/native-library-policy.json"))
+                self.assertEqual(policy["adapter"], "host-library")
+                self.assertEqual(policy["logical_root"], "library://clayz-confirmed/")
+                self.assertTrue(policy["host_root"].endswith("/_extension/confirmed-learning"))
+                self.assertNotIn("packages/runtime/plugin_session.py", names)
+                self.assertNotIn("config/tool-catalog.json", names)
+                self.assertIn("native-library-workflow.md", archive.read("SKILL.md").decode("utf-8"))
+                self.assertNotIn(
+                    "skills/clayz-presentation-copy/references/copy-package-contract.zh-CN.md",
+                    names,
+                )
+                self.assertNotIn("scripts/build_runtime_packs.py", names)
+                self.assertIn("scripts/runtime_preflight.py", names)
+                self.assertNotIn("catalog/layout-contracts/README.md", names)
                 self.assertFalse(any("_extension/providers/private/index/records.jsonl" in name for name in names))
                 combined = b"\n".join(archive.read(name) for name in names if name.endswith((".json", ".md")))
                 self.assertNotIn(b"Synthetic private reference", combined)
                 root_skill = archive.read("SKILL.md").decode("utf-8")
                 self.assertIn("name: clayz-presentation-personal", root_skill)
                 self.assertIn("ppt-supervision-report.json", root_skill)
-                self.assertIn("initiator, mediator, recorder, and final auditor", root_skill)
+                self.assertIn(
+                    "Supervisor records the objective, hard/soft requirements and delivery policy as initiator, coordinator/calibrator and recorder.",
+                    root_skill,
+                )
+                self.assertIn(
+                    "The Independent Auditor is a separate shared post-Output module; do not use a Supervisor `final_auditor` role as its substitute in a new run.",
+                    root_skill,
+                )
+                self.assertIn("## Context and visibility guard", root_skill)
+                self.assertIn("run-context-checkpoint.json", root_skill)
+                self.assertIn("answer delivery-first", root_skill)
+                self.assertIn("do not restart completed stages", root_skill)
                 mount = json.loads(archive.read("runtime/skill-mount-contract.json"))
                 self.assertEqual(mount["publication_unit"], "single-skill")
                 self.assertEqual(len(mount["stage_modules"]), 5)
@@ -345,6 +381,11 @@ class PersonalExtensionTests(unittest.TestCase):
                 )
                 for stage_module in mount["stage_modules"]:
                     self.assertIn(stage_module, names)
+                logic_stage = archive.read("references/stages/logic/stage.md").decode("utf-8")
+                self.assertIn(
+                    "../../../skills/clayz-presentation-logic/references/logic-package-contract.md",
+                    logic_stage,
+                )
 
                 archive.extractall(temp / "extracted")
             report = inspect_composite_skill_mount(temp / "extracted")
@@ -401,6 +442,45 @@ class PersonalExtensionTests(unittest.TestCase):
             with self.assertRaisesRegex(PersonalExtensionError, "must not appear in primary_fonts as a fallback"):
                 compose_personal_light(profile_path, [manifest_path], output)
 
+    def test_cloud_composer_keeps_resolved_chinese_route_under_upload_budget(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            temp = Path(directory)
+            profile_path = temp / "personal-profile.json"
+            manifest_path = temp / "provider.manifest.json"
+            output = temp / "personal-cloud-light-zh.zip"
+            candidate = profile(self.base["identity"]["version"])
+            candidate["overrides"].append({"path": "locale.default", "policy": "replace", "value": "zh-CN"})
+            profile_path.write_text(json.dumps(candidate, ensure_ascii=False), encoding="utf-8")
+            manifest_path.write_text(json.dumps(self.manifest, ensure_ascii=False), encoding="utf-8")
+            compose_personal_light(profile_path, [manifest_path], output)
+            with zipfile.ZipFile(output) as archive:
+                names = archive.namelist()
+                self.assertLess(len(names), 192)
+                for omitted in (
+                    "packages/contracts/artifact-envelope.schema.json",
+                    "packages/contracts/capability-resolution.schema.json",
+                    "packages/contracts/learning-record.schema.json",
+                    "packages/contracts/learning-admission.schema.json",
+                    "packages/contracts/runtime-preflight.schema.json",
+                    "packages/contracts/supervised-delivery-manifest.schema.json",
+                ):
+                    self.assertNotIn(omitted, names)
+                self.assertIn(
+                    "skills/clayz-presentation-copy/references/copy-package-contract.zh-CN.md",
+                    names,
+                )
+                self.assertIn(
+                    "skills/clayz-presentation-copy/references/copy-package-contract.md",
+                    names,
+                )
+                self.assertIn(
+                    "skills/clayz-presentation-copy/references/atomic-copy-and-hierarchy.md",
+                    names,
+                )
+                self.assertIn("docs/pattern-dataset-library.zh-CN.md", names)
+                self.assertIn("scripts/runtime_preflight.py", names)
+                self.assertNotIn("scripts/build_runtime_packs.py", names)
+
     def test_validate_all_dispatches_the_standalone_skill_profile(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -414,14 +494,90 @@ class PersonalExtensionTests(unittest.TestCase):
             compile_sources.assert_called_once_with()
             validate_standalone.assert_called_once_with()
 
+    def test_final_chinese_archive_runs_guard_and_rejects_missing_or_changed_components(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            temp = Path(directory)
+            selected_profile = profile(self.base["identity"]["version"])
+            selected_profile["overrides"].append({"path": "locale.default", "policy": "replace", "value": "zh-CN"})
+            profile_path, provider_path = temp / "profile.json", temp / "provider.json"
+            profile_path.write_text(json.dumps(selected_profile), encoding="utf-8")
+            provider_path.write_text(json.dumps(self.manifest), encoding="utf-8")
+            package = compose_personal_light(profile_path, [provider_path], temp / "final.zip")
+            installed = temp / "installed"
+            with zipfile.ZipFile(package) as archive:
+                archive.extractall(installed)
+                contract = "skills/clayz-presentation-copy/references/copy-package-contract.md"
+                self.assertEqual(archive.read(contract), (ROOT / contract).read_bytes())
+            # Offline fixture is intentional here; release acceptance also runs
+            # this exact installed CLI against freshly fetched official JSON.
+            latest = temp / "latest.json"
+            version = self.base["identity"]["version"]
+            latest.write_text(json.dumps({"tag_name": f"v{version}", "html_url": f"https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v{version}"}), encoding="utf-8")
+            result = subprocess.run([sys.executable, "-B", str(installed / "scripts/component_version_guard.py"),
+                "--mode", "release-check",
+                "--latest-release-json", str(latest), "--latest-component-manifest-json", str(installed / "config/component-versions.json"),
+                "--output", str(temp / "report.json")], cwd=temp, capture_output=True, text=True, encoding="utf-8")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads((temp / "report.json").read_text(encoding="utf-8"))["status"], "latest")
+            self.assertTrue(inspect_composite_skill_mount(installed)["complete"])
+            for relative in sorted(component_dependency_paths()):
+                with self.subTest(missing=relative):
+                    path = installed / relative
+                    original = path.read_bytes()
+                    path.unlink()
+                    try:
+                        self.assertFalse(inspect_composite_skill_mount(installed)["complete"])
+                    finally:
+                        path.write_bytes(original)
+            component = installed / contract
+            component.write_bytes(component.read_bytes() + b"\nchanged content\n")
+            report = inspect_composite_skill_mount(installed)
+            self.assertFalse(report["complete"])
+            self.assertTrue(any("hash-mismatch" in error for error in report["errors"]))
+
     def test_standalone_validation_uses_artifact_specific_mount_not_local_runtime_pack(self) -> None:
         with mock.patch.object(validate_all_script, "run") as run:
             validate_all_script.validate_standalone_skill()
         commands = [call.args for call in run.call_args_list]
         self.assertIn(("scripts/validate_composite_skill_mount.py", "--root", "."), commands)
+        self.assertIn(("scripts/validate_index_regression_gates.py",), commands)
         self.assertFalse(any("validate_runtime.py" in command for command in commands))
         self.assertFalse(any("validate_plugin_mount.py" in command for command in commands))
         self.assertFalse(any("validate_personal_extension_foundation.py" in command for command in commands))
+
+    def test_host_ui_normalization_does_not_disable_runtime_integrity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            temp = Path(directory)
+            profile_path, provider_path = temp / "profile.json", temp / "provider.json"
+            profile_path.write_text(json.dumps(profile(self.base["identity"]["version"])), encoding="utf-8")
+            provider_path.write_text(json.dumps(self.manifest), encoding="utf-8")
+            package = compose_personal_light(profile_path, [provider_path], temp / "final.zip")
+            installed = temp / "installed"
+            with zipfile.ZipFile(package) as archive:
+                archive.extractall(installed)
+            self.assertTrue(inspect_composite_skill_mount(installed, mode="archive")["complete"])
+            # Shape observed in the real ChatGPT editor: YAML reserialization,
+            # alternate UI icon paths, and a products list supplied by the host.
+            (installed / "agents/openai.yaml").write_text(
+                "interface:\n  display_name: Clayz Presentation Personal\n  icon_small: assets/icon.svg\n"
+                "  icon_large: assets/icon.svg\npolicy:\n  allow_implicit_invocation: true\n"
+                "products:\n- chatgpt\n- codex\n- api\n- atlas\n", encoding="utf-8")
+            (installed / "host-observation.json").write_text('{"synthetic_host_metadata":true}', encoding="utf-8")
+            report = inspect_composite_skill_mount(installed)
+            self.assertTrue(report["complete"], report)
+            self.assertEqual({item["kind"] for item in report["host_observations"]},
+                             {"untracked-installed-files", "host-ui-metadata-changed"})
+            self.assertFalse(inspect_composite_skill_mount(installed, mode="archive")["complete"])
+            # The same installation must still reject substantive drift and
+            # missing dependencies.
+            protected = installed / "packages/validators/validate_ppt_package.py"
+            original = protected.read_bytes()
+            protected.write_bytes(original + b"\n# altered code\n")
+            self.assertFalse(inspect_composite_skill_mount(installed)["complete"])
+            protected.write_bytes(original)
+            contract = installed / "skills/clayz-presentation-copy/references/copy-package-contract.md"
+            contract.unlink()
+            self.assertFalse(inspect_composite_skill_mount(installed)["complete"])
 
     def test_cloud_composer_retains_explicit_marketplace_plugin_form(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

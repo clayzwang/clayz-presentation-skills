@@ -25,6 +25,8 @@ REQUIRED_FILES = (
     "README.zh-CN.md",
     "config/default.json",
     "config/component-versions.json",
+    "packages/contracts/chatgpt-release-acceptance.schema.json",
+    "scripts/validate_chatgpt_release_acceptance.py",
     "experience/index.html",
 )
 
@@ -88,6 +90,10 @@ def validate(root: Path) -> list[str]:
     workflow = (root / ".github/workflows/release.yml").read_text(encoding="utf-8")
     workflow_checks = {
         'push path "VERSION"': '- "VERSION"',
+        "manual release dispatch": "workflow_dispatch:",
+        "repository validation suite": "scripts/validate_all.py",
+        "archive verification": "scripts/verify_release_bundles.py",
+        "external release denylist": "CLAYZ_RELEASE_DENYLIST_B64",
         "canonical VERSION read": 'root / "VERSION"',
         "immutable tag guard": 'git rev-list -n1 "$TAG"',
     }

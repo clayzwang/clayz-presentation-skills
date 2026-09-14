@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:independent-audit:1.0",
+  "title": "Independent final audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "audit_id", "run_id", "task_request_sha256", "task_request", "acceptance_rules", "supervisor_rules", "source_records", "expected_source_kinds", "final_pptx", "render_evidence", "coverage", "findings", "audit_status", "independent_context", "audited_at", "record_sha256"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.independent-audit/1.0"},
+    "audit_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "task_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "task_request": {"$ref": "#/$defs/fileRecord"}, "acceptance_rules": {"$ref": "#/$defs/fileRecord"}, "supervisor_rules": {"$ref": "#/$defs/fileRecord"},
+    "source_records": {"type": "array", "minItems": 0, "items": {"$ref": "#/$defs/kindRecord"}},
+    "expected_source_kinds": {"type": "array", "minItems": 0, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "final_pptx": {"$ref": "#/$defs/fileRecord"},
+    "render_evidence": {"type": "array", "items": {"$ref": "#/$defs/kindRecord"}},
+    "coverage": {"type": "object", "additionalProperties": false, "required": ["hard_requirement_ids", "soft_requirement_ids", "requirements", "rules", "render_status"], "properties": {
+      "hard_requirement_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+      "soft_requirement_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+      "requirements": {"type": "array", "items": {"$ref": "#/$defs/coverageItem"}},
+      "rules": {"type": "array", "items": {"$ref": "#/$defs/ruleCoverage"}},
+      "render_status": {"enum": ["complete", "partial", "deferred", "not-run"]}
+    }},
+    "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "audit_status": {"enum": ["clean", "issues-found", "incomplete-evidence"]},
+    "independent_context": {"type": "object", "additionalProperties": false, "required": ["execution_mode", "context_id", "model_identity_disclosure", "limitations"], "properties": {
+      "execution_mode": {"enum": ["separate-process", "separate-context", "same-model-new-context", "same-context-limited"]},
+      "context_id": {"type": "string", "minLength": 1},
+      "model_identity_disclosure": {"enum": ["not-attested", "same-model-possible", "provided-by-host"]},
+      "limitations": {"type": "array", "items": {"type": "string"}}
+    }},
+    "audited_at": {"type": "string", "minLength": 1}, "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "fileRecord": {"type": "object", "required": ["path", "sha256", "bytes"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "bytes": {"type": "integer", "minimum": 1}}},
+    "kindRecord": {"allOf": [{"$ref": "#/$defs/fileRecord"}], "required": ["kind"], "properties": {"kind": {"type": "string", "minLength": 1}}, "unevaluatedProperties": false},
+    "coverageItem": {"type": "object", "additionalProperties": false, "required": ["requirement_id", "classification", "status", "evidence_refs", "observation"], "properties": {"requirement_id": {"type": "string"}, "classification": {"enum": ["hard", "soft"]}, "status": {"enum": ["pass", "fail", "deferred", "not-applicable"]}, "evidence_refs": {"type": "array", "items": {"type": "string"}}, "observation": {"type": "string"}}},
+    "ruleCoverage": {"type": "object", "additionalProperties": false, "required": ["rule_id", "source", "status", "evidence_refs", "observation"], "properties": {"rule_id": {"type": "string"}, "source": {"enum": ["fixed_commitment", "explicit_change"]}, "status": {"enum": ["pass", "fail", "deferred", "not-applicable"]}, "evidence_refs": {"type": "array", "items": {"type": "string"}}, "observation": {"type": "string"}}},
+    "finding": {"type": "object", "additionalProperties": false, "required": ["finding_id", "requirement_ids", "rule_ids", "slide_ids", "owner_layer", "severity", "statement", "expected", "actual", "impact", "evidence_refs", "recommended_change"], "properties": {"finding_id": {"type": "string"}, "requirement_ids": {"type": "array", "items": {"type": "string"}}, "rule_ids": {"type": "array", "items": {"type": "string"}}, "slide_ids": {"type": "array", "items": {"type": "string"}}, "owner_layer": {"type": "string"}, "severity": {"enum": ["critical", "major", "moderate", "minor"]}, "statement": {"type": "string"}, "expected": {"type": "string"}, "actual": {"type": "string"}, "impact": {"type": "string"}, "evidence_refs": {"type": "array", "items": {"type": "string"}}, "recommended_change": {"type": "string"}}}
+  }
+}

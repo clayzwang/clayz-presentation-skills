@@ -16,9 +16,10 @@ from config_policy import ValidationPolicy, load_policy
 from index_evidence import index_lock_signature, validate_index_evidence
 from resource_inventory import resource_inventory_signature
 from validate_ppt_package import validate_package
+from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "1.6"
+CONTRACT_VERSION = "1.7"
 TARGET_TYPES = {"shape", "table-cell", "chart-label"}
 VERIFY_METHODS = {"shape-name", "paragraph-exact"}
 VISUAL_ROLES = {"primary", "secondary", "tertiary", "annotation"}
@@ -426,7 +427,7 @@ def validate_plan(
     errors = validate_package(package, "copy-approved")
     require_keys(
         plan,
-        {"contract_version", "status", "package_contract_version", "package_id", "package_version", "resource_inventory_lock", "index_evidence", "communication_contract", "art_direction", "reference_budget", "ab_review", "decision_log", "typography_contract", "deck_rhythm", "slides"},
+        {"contract_version", "status", "package_contract_version", "package_id", "package_version", "acceptance_contract", "resource_inventory_lock", "index_evidence", "communication_contract", "art_direction", "reference_budget", "ab_review", "decision_log", "typography_contract", "deck_rhythm", "slides"},
         "$plan",
         errors,
     )
@@ -440,6 +441,9 @@ def validate_plan(
         errors.append("plan.package_contract_version: must equal package contract_version")
     if plan.get("package_id") != package.get("package_id") or plan.get("package_version") != package.get("version"):
         errors.append("plan package identity/version must match package")
+    validate_acceptance_contract(plan.get("acceptance_contract"), "plan.acceptance_contract", errors)
+    if plan.get("acceptance_contract") != package.get("acceptance_contract"):
+        errors.append("plan.acceptance_contract: must exactly inherit the task acceptance contract")
     if plan.get("resource_inventory_lock") != resource_inventory_signature(package.get("resource_inventory")):
         errors.append("plan.resource_inventory_lock: must preserve the pre-Logic resource inventory signature")
     if plan.get("communication_contract") != communication_contract(package):
@@ -449,6 +453,10 @@ def validate_plan(
         ["logic", "copy", "art-direction"],
         "plan.index_evidence",
         errors,
+    )
+    validate_stage_retrieval_budget(
+        plan.get("index_evidence"), plan.get("acceptance_contract"),
+        ["logic", "copy", "art-direction"], "plan.index_evidence", errors,
     )
     if index_lock_signature(plan.get("index_evidence")) != index_lock_signature(package.get("index_evidence")):
         errors.append("plan.index_evidence: must preserve the package Provider lock and owner materialization")
@@ -1231,6 +1239,20 @@ def validate_slide_plan(
         f"{path}.semantic_layout_tree",
         errors,
     )
+    logic_relations = {
+        relation.get("type")
+        for relation in logic_slide.get("semantic_relations", [])
+        if isinstance(relation, dict)
+    }
+    tree_relations = {
+        relation.get("type")
+        for relation in semantic_tree.get("relations", [])
+        if isinstance(semantic_tree, dict) and isinstance(relation, dict)
+    }
+    if logic_relations.intersection({"contrast", "maps-to"}) and not tree_relations.intersection({"compares", "anchors", "supports"}):
+        errors.append(f"{path}.semantic_layout_tree.relations: comparison/mapping Logic requires a visible comparison or anchor relation")
+    if logic_relations.intersection({"cause", "supports"}) and not tree_relations.intersection({"cause", "supports"}):
+        errors.append(f"{path}.semantic_layout_tree.relations: causal/support Logic requires a visible cause or support relation")
 
     references = plan.get("reference_selection")
     if not isinstance(references, list) or len(references) > 6:

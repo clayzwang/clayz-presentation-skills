@@ -41,14 +41,14 @@ Targeted repair is limited to:
 - `remove-duplicate-object`
 - `restore-master-inheritance`
 
-Every action binds a `slide_id`, stable `target_ids`, preconditions, execution status, and evidence. `authority` is always `output-technical`; `changes_approved_content` and `changes_art_direction` are always `false`. If the approved baseline must change, create a `challenge` instead of an action and route it to Supervisor and the user.
+Every action binds a `slide_id`, stable `target_ids`, preconditions, execution status, and evidence. `authority` is always `output-technical`; `changes_approved_content` and `changes_art_direction` are always `false`. If the approved baseline or an explicit no-delivery condition must change, create a `challenge` instead of an action and route it to Supervisor and the user. A quality defect that leaves the baseline intact is recorded for the Auditor and does not require a new approval by itself.
 
 ## Cycle
 
-1. `initial-render`: write and reopen the current PPTX; record object, font, compatibility, size, and slide-render evidence. It may contain no repair action.
+1. `initial-render`: when a locked render route is available, write and reopen the current PPTX; record object, font, compatibility, size, and slide-render evidence. If no route is available, write the PPTX and record `deferred`/`not-run` render coverage instead. It may contain no repair action.
 2. `targeted-repair`: repair only affected slides and objects. Declare `repair_of`; do not rewrite the whole deck to conceal a local failure. The central runtime budget permits at most one targeted-repair cycle.
-3. After each repair, rewrite, reopen, and render affected slides. Record machine evidence separately from visual interpretation.
-4. `final-reopen`: reopen the final written file, render the complete deck, and bind its final hash. Only this cycle can produce final `pass`.
+3. After each repair, rewrite, reopen, and render affected slides when the route is available. Record machine evidence separately from visual interpretation; otherwise retain the deferred coverage.
+4. `final-reopen`: when a route is available, reopen the final written file, render the complete deck, and bind its final hash. Only this cycle can produce final render `pass`; without a route, keep the audit explicitly deferred.
 
 Any failed or partially successful cycle must lead to the single permitted targeted repair, an upstream challenge, or a documented decision to proceed with visible risk. Failure cannot remain only in console output or model context. Repeating capability discovery or switching the locked backend is never a repair action.
 

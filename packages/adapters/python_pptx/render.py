@@ -6,10 +6,13 @@
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import sys
+import zipfile
 from pathlib import Path
 from typing import Any, Mapping
+from xml.etree import ElementTree as ET
 
 
 def _imports() -> dict[str, Any]:
@@ -98,6 +101,55 @@ def _style_text_frame(text_frame: Any, text: str, options: Mapping[str, Any], ap
             font.italic = bool(options.get("italic", False))
             if options.get("color"):
                 font.color.rgb = _color(options["color"], api)
+
+
+def _ensure_east_asian_run_fonts(pptx_path: Path) -> None:
+    """Mirror explicit Latin run fonts to EA runs when no EA is present.
+
+    ``python-pptx`` writes ``font.name`` to ``a:latin`` only.  Mirroring that
+    concrete request to ``a:ea`` makes newly generated CJK runs inspectable by
+    the font audit.  An existing explicit East Asian typeface is preserved.
+    Theme or inherited fonts remain unresolved and are handled as deferred by
+    the audit; this helper does not claim that inheritance is effective.
+    """
+
+    namespace = "http://schemas.openxmlformats.org/drawingml/2006/main"
+    ns = {"a": namespace}
+    ET.register_namespace("a", namespace)
+    source = pptx_path.read_bytes()
+    output = io.BytesIO()
+    changed = False
+    with zipfile.ZipFile(io.BytesIO(source), "r") as archive, zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as target:
+        for name in archive.namelist():
+            payload = archive.read(name)
+            if name.startswith("ppt/slides/") and name.endswith(".xml"):
+                try:
+                    root = ET.fromstring(payload)
+                except ET.ParseError:
+                    target.writestr(name, payload)
+                    continue
+                slide_changed = False
+                for run in root.findall(".//a:r", ns) + root.findall(".//a:fld", ns):
+                    properties = run.find("a:rPr", ns)
+                    if properties is None:
+                        continue
+                    latin = properties.find("a:latin", ns)
+                    if latin is None or not str(latin.attrib.get("typeface", "")).strip():
+                        continue
+                    east_asian = properties.find("a:ea", ns)
+                    if east_asian is not None and str(east_asian.attrib.get("typeface", "")).strip():
+                        continue
+                    if east_asian is None:
+                        east_asian = ET.Element(f"{{{namespace}}}ea")
+                        properties.append(east_asian)
+                    east_asian.set("typeface", str(latin.attrib["typeface"]))
+                    slide_changed = True
+                if slide_changed:
+                    payload = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+                    changed = True
+            target.writestr(name, payload)
+    if changed:
+        pptx_path.write_bytes(output.getvalue())
 
 
 def _shape_type(name: str, api: Mapping[str, Any]) -> Any:
@@ -237,6 +289,7 @@ def render(manifest_path: Path, output_path: Path) -> None:
                 notes_frame.text = "\n".join(str(item) for item in notes)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     pptx.save(output_path)
+    _ensure_east_asian_run_fonts(output_path)
 
 
 def main() -> int:

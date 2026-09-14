@@ -1,8 +1,8 @@
-# PPT v2.3 Copy-layer contract
+# PPT v2.4 Copy-layer contract
 
 Copy appends `copy_layer` to the same `ppt-design-package.json` while its status is `logic-approved`. On completion, root status becomes `copy-approved`; `logic_layer` remains byte-for-byte unchanged.
 
-The root package uses contract `2.3`, preserves the pre-Logic `resource_inventory` byte-for-byte, and adds finalized Copy receipts to `index_evidence`. Copy may consume only selected resources; discovering a new source returns control to Supervisor for a revised inventory and another user-visible brief. Copy approval also runs deck-level expression checks: non-series pages may not repeat identical titles/storylines, one transition formula, one complete grammar vector, or one substantial phrase mechanically.
+The root package uses contract `2.4`, preserves the root `acceptance_contract` and pre-Logic `resource_inventory` byte-for-byte, and adds finalized relevance-ranked Copy receipts with concrete adoption targets to `index_evidence`. Copy may consume only selected resources; discovering a new source returns control to Supervisor for a revised inventory and another user-visible brief. Copy approval also runs deck-level expression checks: non-series pages may not repeat identical titles/storylines, one transition formula, one complete grammar vector, or one substantial phrase mechanically.
 
 ## `copy_layer`
 
@@ -154,7 +154,7 @@ The root package uses contract `2.3`, preserves the pre-Logic `resource_inventor
 
 `title_mode` is `cover`, `factual-status`, `analytical-judgment`, `mechanism-rule`, `action-directive`, `transition-assertion`, `instructional-action`, or `closing`.
 
-`storyline_function` is `none`, `evidence-bridge`, `mechanism-explanation`, `action-bridge`, `audience-transition`, `instruction-bridge`, or `scope-qualification`. Cover and closing slides use `none`; ordinary body slides do not.
+`storyline_function` is `none`, `evidence-bridge`, `mechanism-explanation`, `action-bridge`, `audience-transition`, `instruction-bridge`, or `scope-qualification`. Cover and closing slides use `none`; ordinary body slides do not. A body Storyline follows the active master's semantic role. Any smaller supporting copy beneath it uses a separate optional `subtitle` or `annotation` unit and exists only when it adds independent information; never create it as filler.
 
 `series_copy_review.series_id` equals Logic. Standalone slides use `null` but retain three `true` checks to prove that no cross-slide drift was introduced. For a series slide, its new learning must be visible in the title, storyline, or body.
 
@@ -182,7 +182,7 @@ The root package uses contract `2.3`, preserves the pre-Logic `resource_inventor
 
 - A cover has `title_copy_id` and an optional subtitle; `storyline_copy_id` may be `null`.
 - A closing slide uses `closing`; its text comes from the user or approved copy, never from a framework, theme, or historical example.
-- A body slide has a title and one-sentence storyline with no intentional break.
+- A body slide has a title and one-sentence Storyline with no intentional break, bound to the master-defined role. Smaller copy beneath the Storyline is not required; omit the optional unit and its placeholder content when it adds no independent meaning.
 - A low-load, high-decision transition slide may omit a conventional body list but must advance audience state through `transition-assertion` and `audience-transition`.
 - A dense analytical title may use a two-part expression and intentional break; do not reduce font size merely to force one line.
 - Series slides preserve the names and order in `invariant_renderings.visible_terms`. A required alias change returns to Logic.

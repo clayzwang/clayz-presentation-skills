@@ -1,4 +1,4 @@
-# 艺术指导计划合同 v1.6
+# 艺术指导计划合同 v1.7
 
 `ppt-art-direction-plan.json` 是 `copy-approved` 脚本包与Output之间唯一视觉决策文件。它不新增业务内容，状态只能在全部视觉决策锁定后设为 `art-direction-approved`。
 
@@ -6,11 +6,12 @@
 
 ```json
 {
-  "contract_version": "1.6",
+  "contract_version": "1.7",
   "status": "art-direction-approved",
-  "package_contract_version": "2.3",
+  "package_contract_version": "2.4",
   "package_id": "example-deck",
   "package_version": "2.1.0",
+  "acceptance_contract": {},
   "resource_inventory_lock": {},
   "index_evidence": {},
   "communication_contract": {},
@@ -23,6 +24,8 @@
   "slides": []
 }
 ```
+
+`acceptance_contract` 必须逐字继承 Logic 包。计划须把其中的视觉与字体要求转成可检查的逐页决策；声称使用比较、因果、矩阵或流程，却没有相应语义树关系和对象语法时，属于计划矛盾，不得批准。
 
 `resource_inventory_lock` 必须与脚本包中 Logic 启动前的资源盘点签名完全一致。Art Direction 只能选用盘点内的主题、模板、视觉参考、资产、字体和 Provider；若发现新资源，必须交还 Supervisor 修订盘点并向用户重新简报。
 

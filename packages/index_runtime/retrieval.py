@@ -92,6 +92,7 @@ class CompositeIndex:
             ("purpose_tags", set(classification["purpose_tags"]), "purpose_tag"),
             ("languages", set(classification["languages"]), "language"),
             ("failure_signals", set(classification["failure_signals"]), "failure_signal"),
+            ("format_tags", set(classification.get("format_tags", [])), "format_tag"),
         )
         for filter_key, record_values, basis_name in direct_pairs:
             requested = set(filters.get(filter_key, []))
@@ -111,7 +112,40 @@ class CompositeIndex:
             " ".join(classification["task_modes"]), " ".join(classification["page_roles"]),
             " ".join(classification["semantic_relations"]), " ".join(classification["purpose_tags"]),
             " ".join(classification["failure_signals"]), payload_text,
+            " ".join(classification.get("format_tags", [])),
         ])
+
+    @staticmethod
+    def _candidate_similarity(left: Mapping[str, Any], right: Mapping[str, Any]) -> float:
+        if left.get("record_id") == right.get("record_id"):
+            return 1.0
+        source_penalty = 1.0 if left.get("source_id") == right.get("source_id") else 0.0
+        type_penalty = 0.35 if left.get("record_type") == right.get("record_type") else 0.0
+        left_tokens = set(tokenize(str(left.get("title", ""))))
+        right_tokens = set(tokenize(str(right.get("title", ""))))
+        union = left_tokens | right_tokens
+        lexical = len(left_tokens & right_tokens) / len(union) if union else 0.0
+        return min(1.0, max(source_penalty, type_penalty * lexical))
+
+    def _diversify(self, ranked: list[dict[str, Any]], request: Mapping[str, Any]) -> list[dict[str, Any]]:
+        if len(ranked) < 2:
+            return ranked
+        relevance_weight = float(request["ranking_policy"]["diversity_lambda"])
+        selected: list[dict[str, Any]] = []
+        remaining = list(ranked)
+        while remaining:
+            candidate = max(
+                remaining,
+                key=lambda item: (
+                    relevance_weight * float(item["score"])
+                    - (1 - relevance_weight) * max((self._candidate_similarity(item, chosen) for chosen in selected), default=0.0),
+                    float(item["score"]),
+                    str(item["record_id"]),
+                ),
+            )
+            selected.append(candidate)
+            remaining.remove(candidate)
+        return selected
 
     def _rank(self, request: Mapping[str, Any]) -> list[dict[str, Any]]:
         eligible: list[tuple[str, dict[str, Any], list[str], bool, str]] = []
@@ -131,7 +165,6 @@ class CompositeIndex:
             document_frequency.update(counts.keys())
         average_length = sum(sum(counts.values()) for counts in document_tokens) / max(document_count, 1)
         ranked: list[dict[str, Any]] = []
-        has_structured_filters = any(request["filters"].get(key) for key in request["filters"] if key != "include_metadata_only")
         for item, counts in zip(eligible, document_tokens):
             provider_id, record, match_basis, materializable, rights_decision = item
             length = max(sum(counts.values()), 1)
@@ -144,15 +177,33 @@ class CompositeIndex:
                 inverse = math.log(1 + (document_count - df + 0.5) / (df + 0.5))
                 denominator = frequency + 1.2 * (1 - 0.75 + 0.75 * length / max(average_length, 1))
                 lexical_score += query_count * inverse * frequency * 2.2 / denominator
-            structured_score = 0.22 * len(match_basis)
-            if not query_tokens and not has_structured_filters:
-                structured_score += 0.1
-            score = lexical_score + structured_score
+            semantic = 1 - math.exp(-max(lexical_score, 0.0))
+            task_context = sum(name in match_basis for name in ("task_mode", "page_role", "language")) / 3
+            relation_purpose = sum(name in match_basis for name in ("semantic_relation", "purpose_tag", "failure_signal")) / 3
+            format_fit = 1.0 if "format_tag" in match_basis else (0.25 if request["ranking_policy"]["profile"] == "content" else 0.0)
+            evidence_quality = 1.0 if materializable else 0.6
+            components = {
+                "semantic": semantic,
+                "stage": 1.0,
+                "task_context": task_context,
+                "relation_purpose": relation_purpose,
+                "format_fit": format_fit,
+                "evidence_quality": evidence_quality,
+            }
+            weights = {
+                "content": {"semantic": 0.40, "stage": 0.10, "task_context": 0.20, "relation_purpose": 0.15, "format_fit": 0.05, "evidence_quality": 0.10},
+                "format": {"semantic": 0.25, "stage": 0.10, "task_context": 0.15, "relation_purpose": 0.15, "format_fit": 0.25, "evidence_quality": 0.10},
+                "implementation": {"semantic": 0.25, "stage": 0.10, "task_context": 0.15, "relation_purpose": 0.10, "format_fit": 0.25, "evidence_quality": 0.15},
+                "failure": {"semantic": 0.35, "stage": 0.10, "task_context": 0.10, "relation_purpose": 0.25, "format_fit": 0.10, "evidence_quality": 0.10},
+            }[request["ranking_policy"]["profile"]]
+            score = sum(components[key] * weights[key] for key in components)
             if score <= 0:
                 continue
             ranked.append({
                 "record_id": record["record_id"], "record_type": record["record_type"], "provider_id": provider_id,
-                "title": record["title"], "score": round(score, 6),
+                "title": record["title"], "score": round(min(score, 1.0), 6),
+                "rank": 0,
+                "score_breakdown": {key: round(value, 6) for key, value in components.items()},
                 "match_basis": sorted(set(match_basis + (["lexical"] if lexical_score > 0 else []))),
                 "rights_decision": rights_decision, "materializable": materializable,
                 "source_id": record["source"]["source_id"], "source_revision": record["source"]["source_revision"],
@@ -160,6 +211,9 @@ class CompositeIndex:
                 "neighbor_of": None, "neighbor_type": None,
             })
         ranked.sort(key=lambda item: (-item["score"], item["provider_id"], item["record_id"]))
+        ranked = self._diversify(ranked, request)
+        for rank, candidate in enumerate(ranked, start=1):
+            candidate["rank"] = rank
         return ranked
 
     def _expand_neighbors(self, ranked: list[dict[str, Any]], request: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -183,6 +237,11 @@ class CompositeIndex:
                     expanded.append({
                         "record_id": neighbor_id, "record_type": neighbor["record_type"], "provider_id": provider_id,
                         "title": neighbor["title"], "score": 0.0,
+                        "rank": len(expanded) + 1,
+                        "score_breakdown": {
+                            "semantic": 0.0, "stage": 1.0, "task_context": 0.0,
+                            "relation_purpose": 0.0, "format_fit": 0.0, "evidence_quality": 1.0 if materializable else 0.6,
+                        },
                         "match_basis": sorted(set(match_basis + [f"{field}-neighbor"])),
                         "rights_decision": rights_decision, "materializable": materializable,
                         "source_id": neighbor["source"]["source_id"], "source_revision": neighbor["source"]["source_revision"],
@@ -204,11 +263,19 @@ class CompositeIndex:
             "index_snapshot": self.snapshots(),
             "candidates": candidates,
             "selection": {"selected": [], "rejected": []},
+            "ranking": {
+                **normalized_request["ranking_policy"],
+                "eligible_candidate_count": len(candidates),
+                "above_threshold_count": sum(
+                    candidate["score"] >= normalized_request["ranking_policy"]["minimum_score"]
+                    for candidate in candidates
+                ),
+            },
             "fallback": {"used": False, "reason": "no-eligible-registered-record" if not candidates else ""},
             "hallucination_guard": {"only_registered_records": True, "invented_record_count": 0, "candidate_count": len(candidates)},
         }
 
-    def finalize_receipt(self, receipt: Mapping[str, Any], *, selected: Mapping[str, str], rejected: Mapping[str, str] | None = None) -> dict[str, Any]:
+    def finalize_receipt(self, receipt: Mapping[str, Any], *, selected: Mapping[str, Any], rejected: Mapping[str, Any] | None = None) -> dict[str, Any]:
         require(receipt.get("contract") == RECEIPT_CONTRACT, "invalid receipt contract")
         candidate_ids = {candidate["record_id"] for candidate in receipt.get("candidates", [])}
         unknown = set(selected) - candidate_ids
@@ -218,12 +285,39 @@ class CompositeIndex:
         require(not unknown_rejected, f"cannot reject unregistered or unretrieved records: {sorted(unknown_rejected)}")
         overlap = set(selected).intersection(rejected)
         require(not overlap, f"records cannot be both selected and rejected: {sorted(overlap)}")
-        for record_id, reason in list(selected.items()) + list(rejected.items()):
-            require_nonempty_string(reason, f"selection reason for {record_id}")
+        candidate_by_id = {candidate["record_id"]: candidate for candidate in receipt.get("candidates", [])}
+        threshold = float(receipt.get("ranking", {}).get("minimum_score", 0.0))
+        maximum = int(receipt.get("ranking", {}).get("max_selected", 10))
+        require(len(selected) <= maximum, f"selection exceeds ranking max_selected={maximum}")
+
+        def decision(record_id: str, raw: Any, *, selected_record: bool) -> dict[str, Any]:
+            if isinstance(raw, Mapping):
+                reason = require_nonempty_string(raw.get("reason"), f"selection reason for {record_id}")
+                adoption_targets = list(raw.get("adoption_targets", []))
+                adoption_status = raw.get("adoption_status", "planned" if selected_record else "not-adopted")
+            else:
+                reason = require_nonempty_string(raw, f"selection reason for {record_id}")
+                adoption_targets = list(receipt.get("request", {}).get("task_context", {}).get("target_refs", [])) if selected_record else []
+                adoption_status = "planned" if selected_record else "not-adopted"
+            require(all(isinstance(item, str) and item.strip() for item in adoption_targets), f"adoption targets for {record_id} must be strings")
+            if selected_record:
+                require(bool(adoption_targets), f"selected record {record_id} requires at least one adoption target")
+                require(candidate_by_id[record_id].get("score", 0) >= threshold, f"selected record {record_id} is below minimum_score={threshold}")
+                require(adoption_status in {"planned", "material"}, f"selected record {record_id} has invalid adoption status")
+            else:
+                require(adoption_status == "not-adopted", f"rejected record {record_id} must be not-adopted")
+            return {
+                "record_id": record_id,
+                "reason": reason,
+                "adoption_targets": sorted(set(adoption_targets)),
+                "adoption_status": adoption_status,
+            }
         finalized = copy.deepcopy(dict(receipt))
         finalized["selection"] = {
-            "selected": [{"record_id": record_id, "reason": selected[record_id]} for record_id in sorted(selected)],
-            "rejected": [{"record_id": record_id, "reason": rejected[record_id]} for record_id in sorted(rejected)],
+            "selected": [decision(record_id, selected[record_id], selected_record=True) for record_id in sorted(selected)],
+            "rejected": [decision(record_id, rejected[record_id], selected_record=False) for record_id in sorted(rejected)],
+            "coverage_status": "complete" if selected else "unresolved",
+            "coverage_gaps": [] if selected else ["no-record-selected"],
         }
         finalized["fallback"] = {"used": not bool(selected), "reason": "no-record-selected" if finalized.get("candidates") and not selected else finalized["fallback"].get("reason", "")}
         return finalized

@@ -8,11 +8,21 @@ Do not rediscover tools, reopen dependency selection, or switch backends during 
 
 ## Separate route gates from target-application acceptance
 
-`renderer.required_capabilities` describes only the hard requirements for a route that can author, write, inspect, and render the PPTX. `renderer.target_applications` describes compatibility targets to observe. Never promote application-specific capabilities such as `powerpoint-reopen-render` or `wps-reopen-render` into the route-required set merely because those applications are targets.
+`renderer.required_capabilities` describes the hard requirements for a route that can author, write and inspect the PPTX; rendering is used when a render route is available and selected. `renderer.target_applications` describes compatibility targets to observe. Never promote application-specific capabilities such as `powerpoint-reopen-render` or `wps-reopen-render` into the route-required set merely because those applications are targets.
 
-Preflight records every target as `available` or `unavailable` in `target_application_checks` with `blocks_authoring=false`. Any available host-provided capability declaration must carry the same run/task/nonce/challenge values plus structured receipts for hash-checked inventory files; it remains `host-declared-unverified`, cannot set route readiness, and can create only a `provisional`/`attemptable` route. Output may make one locked attempt on that route. Only actual PPTX, object, and render validation can authorize final delivery. After writing the deck, Output records an available and selected target as `pass` or `fail`, an available but unused target as `not-selected`, and an unavailable target as `deferred`. Supervisor embeds all results—including absences—and their evidence in the final report to bound compatibility claims and support attribution; they do not block Logic.
+Preflight records every target as `available` or `unavailable` in `target_application_checks` with `blocks_authoring=false`. Any available host-provided capability declaration must carry the same run/task/nonce/challenge values plus structured receipts for hash-checked inventory files; it remains `host-declared-unverified`, cannot set route readiness, and can create only a `provisional`/`attemptable` route. Output may make one locked attempt on that route. When the render capability is available and selected, actual PPTX, object and render validation supports final delivery; when it is unavailable or unselected, record `deferred` or `not-run` coverage and continue with the written PPTX. Never claim a render pass or invent pixels. After writing the deck, Output records an available and selected target as `pass` or `fail`, an available but unused target as `not-selected`, and an unavailable target as `deferred`. Supervisor embeds all results—including absences—and their evidence in the final report to bound compatibility claims and support attribution; they do not block Logic.
 
 `required_capabilities` is the union of the bound resolved configuration and any task-local additive requirements. A caller may add a requirement but may never use an override to remove a Personal Extension requirement.
+
+In calibrated delivery, preflight retains that complete list while checking a
+small format-level writer core for route attemptability. A real
+writer may therefore be `attemptable` with `available=false` when master
+preservation, layout inheritance, East Asian font naming, render coverage, or
+another configured capability is still unverified. Treat those entries as
+pending evidence rather than as proof that the writer is absent. Use the actual
+selected master in Output and record observed load, object, font, render, and
+failure results; `spec-only` is never an editable PPTX route. Legacy routing
+continues to require every configured capability before selecting a route.
 
 ## Host-model-independent baseline
 
@@ -33,7 +43,7 @@ The user interacts in natural language. `runtime-preflight.json`, render manifes
 
 ## Bounded execution
 
-Read budgets from central configuration. The normal path performs one capability scan, one source-collection round, one authoring write, one persistent Office process when Office is selected, and one full-deck final render. A detected technical defect may use one targeted repair, one additional write, and one additional full-deck render. No technical repair may rewrite approved Logic, Copy, or Art Direction.
+Read budgets from central configuration. The normal path performs one capability scan, one source-collection round and one authoring write. When a render route is available, use one persistent Office process when Office is selected and one full-deck final render; a detected technical defect may use one targeted repair, one additional write and one additional full-deck render. When no render route is available, record the deferred coverage and do not fabricate a render. No technical repair may rewrite approved Logic, Copy, or Art Direction.
 
 ## Platform packs and PDF support
 

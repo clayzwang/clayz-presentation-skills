@@ -26,9 +26,19 @@
       "additionalProperties": false,
       "required": ["report_contract_version", "publisher", "validated"],
       "properties": {
-        "report_contract_version": {"const": "3.3"},
+        "report_contract_version": {"enum": ["3.5", "3.6"]},
         "publisher": {"const": "scripts/publish_supervised_pair.py"},
         "validated": {"const": true}
+      }
+    },
+    "derived_files": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "allOf": [
+          {"$ref": "#/$defs/baseFile"},
+          {"properties": {"role": {"const": "work-report-markdown"}}}
+        ]
       }
     }
   },
