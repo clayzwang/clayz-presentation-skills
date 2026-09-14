@@ -41,14 +41,14 @@
 - `remove-duplicate-object`
 - `restore-master-inheritance`
 
-每个动作必须绑定 `slide_id`、稳定 `target_ids`、前置条件、执行状态和证据；`authority` 固定为 `output-technical`，`changes_approved_content` 与 `changes_art_direction` 必须为 `false`。需要改变批准基准时，不生成动作，改写入 `challenges` 并交 Supervisor 与用户裁决。
+每个动作必须绑定 `slide_id`、稳定 `target_ids`、前置条件、执行状态和证据；`authority` 固定为 `output-technical`，`changes_approved_content` 与 `changes_art_direction` 必须为 `false`。需要改变批准基准或用户明确的“不满足就不交付”条件时，不生成动作，改写入 `challenges` 并交 Supervisor 与用户裁决。保持基准不变的质量缺陷交给 Auditor 记录，不单独触发再次审批。
 
 ## 循环
 
-1. `initial-render`：写盘并重开当前PPTX，记录对象、字体、兼容、体积和逐页渲染证据；可以没有修复动作。
+1. `initial-render`：有锁定渲染路线时，写盘并重开当前PPTX，记录对象、字体、兼容、体积和逐页渲染证据；无可用路线时写盘 PPTX，并记录 `deferred`／`not-run` 渲染覆盖。可以没有修复动作。
 2. `targeted-repair`：只修受影响页面和对象；必须声明 `repair_of`，不得整稿重写来掩盖局部失败。中央运行预算最多允许一次定向修复循环。
-3. 每次修复后重新写盘、重开并渲染受影响页；机器证据与画面解释分开记录。
-4. `final-reopen`：从最终写盘文件重开并整稿渲染，绑定最终PPTX哈希；只有这一步可以形成最终 `pass`。
+3. 每次修复后在路线可用时重新写盘、重开并渲染受影响页；机器证据与画面解释分开记录，否则保留延期覆盖。
+4. `final-reopen`：路线可用时从最终写盘文件重开并整稿渲染，绑定最终PPTX哈希；只有这一步可以形成最终渲染 `pass`，无路线时保持明确 deferred。
 
 如果某轮执行失败或部分成功，必须进入唯一允许的一轮定点修复、上游挑战或带可见风险继续的决定。失败不能只留在控制台或模型上下文中。重新扫描能力或切换已经锁定的后端不属于修复动作。
 

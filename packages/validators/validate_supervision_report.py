@@ -18,8 +18,26 @@ from config_policy import ValidationPolicy, load_policy
 from index_evidence import index_lock_signature, validate_index_evidence
 from resource_inventory import resource_inventory_signature, validate_resource_usage
 import validate_output_qa as output_qa_validator
+from acceptance_contract import requirement_ids, validate_acceptance_contract, validate_stage_retrieval_budget
+from stage_work_records import validate_calibration_chain, validate_records
+try:
+    from independent_audit import IndependentAuditError, validate_auditor_artifact
+except ImportError:  # package import path
+    from packages.validators.independent_audit import IndependentAuditError, validate_auditor_artifact
+try:
+    from work_report import validate_work_report
+except ImportError:  # package import path
+    from packages.validators.work_report import validate_work_report
 
-CONTRACT_VERSION = "3.3"
+CONTRACT_VERSION = "3.6"
+LEGACY_CONTRACT_VERSION = "3.5"
+REPORT_REQUIRED_FIELDS = {
+    "contract_version", "origin_namespace", "status", "run_id", "task_request_sha256", "package_id", "package_version", "art_direction_plan_contract_version",
+    "output_qa_contract_version", "supervised_at", "run_status", "artifact_paths", "slides",
+    "issues", "deck_findings", "responsibility_attribution", "recommendations", "delivery_efficiency", "generation_efficiency",
+    "acceptance_contract", "stage_snapshots", "requirement_traceability", "retrieval_quality", "index_evidence", "resource_usage",
+    "supervisor_roles", "lifecycle_events", "environment_observation", "delivery_pair", "control_returned_to",
+}
 RUN_STATUS = {"clean", "complete-with-deferred-acceptance", "issues-found", "incomplete-evidence"}
 CHECK_STATUS = {"pass", "fail", "not-applicable", "uncertain"}
 TARGET_AVAILABILITY = {"available", "unavailable"}
@@ -43,6 +61,195 @@ MEDIA_LABELS = {
 SEVERITIES = {"critical", "major", "moderate", "minor"}
 OWNERS = {"logic", "copy", "art-direction", "output-build", "output-qa", "interface", "system"}
 CONFIDENCE = {"high", "medium", "low"}
+
+
+def _canonical_sha256(value: Any) -> str:
+    payload = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def validate_stage_snapshots(
+    value: Any,
+    package: dict[str, Any],
+    plan: dict[str, Any],
+    errors: list[str],
+    *,
+    evidence_root: Path | None = None,
+    artifact_paths: Any = None,
+) -> None:
+    require_keys(value, {"logic", "copy", "art_direction"}, "report.stage_snapshots", errors)
+    if not isinstance(value, dict):
+        return
+    expected = {
+        "logic": {"brief": package.get("brief"), "logic_layer": package.get("logic_layer")},
+        "copy": package.get("copy_layer"),
+        "art_direction": {
+            key: plan.get(key)
+            for key in ("communication_contract", "art_direction", "decision_log", "typography_contract", "deck_rhythm", "slides")
+        },
+    }
+    for stage, expected_snapshot in expected.items():
+        record = value.get(stage)
+        path = f"report.stage_snapshots.{stage}"
+        require_keys(record, {"artifact_sha256", "snapshot_sha256", "snapshot"}, path, errors)
+        if not isinstance(record, dict):
+            continue
+        if not valid_sha256(record.get("artifact_sha256")):
+            errors.append(f"{path}.artifact_sha256: must be a lower-case SHA-256")
+        elif evidence_root is not None and isinstance(artifact_paths, dict):
+            relative = artifact_paths.get("package" if stage in {"logic", "copy"} else "art_direction_plan")
+            artifact = evidence_root / str(relative) if nonempty(relative) else None
+            if artifact is None or not artifact.is_file():
+                errors.append(f"{path}.artifact_sha256: governed stage artifact is unavailable")
+            elif hashlib.sha256(artifact.read_bytes()).hexdigest() != record.get("artifact_sha256"):
+                errors.append(f"{path}.artifact_sha256: does not match the governed stage artifact")
+        if record.get("snapshot") != expected_snapshot:
+            errors.append(f"{path}.snapshot: must be a verbatim immutable copy of the approved stage decisions")
+        if record.get("snapshot_sha256") != _canonical_sha256(record.get("snapshot")):
+            errors.append(f"{path}.snapshot_sha256: must match the canonical embedded snapshot")
+
+
+def validate_requirement_traceability(value: Any, acceptance: Any, errors: list[str]) -> set[str]:
+    expected_ids = requirement_ids(acceptance)
+    if not isinstance(value, list):
+        errors.append("report.requirement_traceability: must be an array")
+        return set()
+    observed_ids: set[str] = set()
+    failed: set[str] = set()
+    for index, item in enumerate(value):
+        path = f"report.requirement_traceability[{index}]"
+        require_keys(
+            item,
+            {"requirement_id", "logic_refs", "copy_refs", "art_direction_refs", "output_refs", "supervisor_refs", "status", "evidence", "earliest_owner"},
+            path,
+            errors,
+        )
+        if not isinstance(item, dict):
+            continue
+        requirement_id = item.get("requirement_id")
+        if not nonempty(requirement_id) or requirement_id in observed_ids:
+            errors.append(f"{path}.requirement_id: must be non-empty and unique")
+        else:
+            observed_ids.add(requirement_id)
+        for key in ("logic_refs", "copy_refs", "art_direction_refs", "output_refs", "supervisor_refs"):
+            refs = item.get(key)
+            if not isinstance(refs, list) or not refs or any(not nonempty(ref) for ref in refs):
+                errors.append(f"{path}.{key}: must be a non-empty string array; use an explicit not-applicable reference when appropriate")
+        if item.get("status") not in {"pass", "fail", "uncertain", "not-applicable"}:
+            errors.append(f"{path}.status: invalid value")
+        elif item.get("status") in {"fail", "uncertain"} and nonempty(requirement_id):
+            failed.add(requirement_id)
+        if not nonempty(item.get("evidence")):
+            errors.append(f"{path}.evidence: must be non-empty")
+        if item.get("earliest_owner") not in OWNERS | {"root", "supervisor"}:
+            errors.append(f"{path}.earliest_owner: invalid value")
+    if observed_ids != expected_ids:
+        errors.append("report.requirement_traceability: must cover every acceptance requirement exactly once")
+    return failed
+
+
+def _retrieval_totals(index_evidence: Any) -> dict[str, Any]:
+    totals = {"receipts": 0, "candidates": 0, "selected": 0, "unique_selected": set(), "material_adoptions": 0}
+    stages: dict[str, dict[str, int]] = {}
+    receipts_by_stage = index_evidence.get("stage_receipts", {}) if isinstance(index_evidence, dict) else {}
+    for stage, receipts in (receipts_by_stage.items() if isinstance(receipts_by_stage, dict) else []):
+        stage_totals = {"receipts": 0, "candidates": 0, "selected": 0, "material_adoptions": 0}
+        for receipt in receipts if isinstance(receipts, list) else []:
+            if not isinstance(receipt, dict):
+                continue
+            candidates = receipt.get("candidates", []) if isinstance(receipt.get("candidates"), list) else []
+            selected = receipt.get("selection", {}).get("selected", []) if isinstance(receipt.get("selection"), dict) else []
+            stage_totals["receipts"] += 1
+            stage_totals["candidates"] += len(candidates)
+            stage_totals["selected"] += len(selected)
+            totals["receipts"] += 1
+            totals["candidates"] += len(candidates)
+            totals["selected"] += len(selected)
+            for item in selected:
+                if isinstance(item, dict) and nonempty(item.get("record_id")):
+                    totals["unique_selected"].add(item["record_id"])
+                    if item.get("adoption_status") == "material":
+                        totals["material_adoptions"] += 1
+                        stage_totals["material_adoptions"] += 1
+        stages[stage] = stage_totals
+    totals["stage_summaries"] = stages
+    totals["unique_selected"] = len(totals["unique_selected"])
+    return totals
+
+
+def validate_retrieval_quality(value: Any, index_evidence: Any, acceptance: Any, errors: list[str]) -> dict[str, Any]:
+    required = {"status", "total_receipts", "total_candidates", "total_selected", "unique_selected", "material_adoptions", "stage_summaries", "evidence"}
+    require_keys(value, required, "report.retrieval_quality", errors)
+    totals = _retrieval_totals(index_evidence)
+    if not isinstance(value, dict):
+        return totals
+    comparisons = {
+        "total_receipts": totals["receipts"], "total_candidates": totals["candidates"],
+        "total_selected": totals["selected"], "unique_selected": totals["unique_selected"],
+        "material_adoptions": totals["material_adoptions"], "stage_summaries": totals["stage_summaries"],
+    }
+    for key, expected in comparisons.items():
+        if value.get(key) != expected:
+            errors.append(f"report.retrieval_quality.{key}: must match the finalized Index evidence")
+    if value.get("status") not in {"pass", "fail", "uncertain"}:
+        errors.append("report.retrieval_quality.status: invalid value")
+    if not nonempty(value.get("evidence")):
+        errors.append("report.retrieval_quality.evidence: must be non-empty")
+    budget = acceptance.get("performance_budget", {}) if isinstance(acceptance, dict) else {}
+    over_budget = any(
+        summary["receipts"] > budget.get("max_receipts_per_stage", summary["receipts"])
+        or summary["candidates"] > budget.get("max_candidates_per_stage", summary["candidates"])
+        or summary["selected"] > budget.get("max_selected_per_stage", summary["selected"])
+        for summary in totals["stage_summaries"].values()
+    )
+    if value.get("status") == "pass" and over_budget:
+        errors.append("report.retrieval_quality.status: cannot pass when a stage exceeds the acceptance retrieval budget")
+    if value.get("status") == "pass" and any(
+        summary["selected"] > 0 and summary["material_adoptions"] < 1
+        for summary in totals["stage_summaries"].values()
+    ):
+        errors.append("report.retrieval_quality.status: every stage with selected records requires material adoption evidence")
+    return totals
+
+
+def validate_generation_efficiency(value: Any, acceptance: Any, retrieval_totals: dict[str, Any], errors: list[str]) -> bool:
+    required = {
+        "status", "run_mode", "total_seconds", "stage_seconds", "retrieval_receipt_count",
+        "candidate_count", "selected_count", "write_count", "render_count", "repair_count", "evidence",
+    }
+    require_keys(value, required, "report.generation_efficiency", errors)
+    if not isinstance(value, dict):
+        return False
+    if value.get("status") not in {"pass", "fail", "uncertain"}:
+        errors.append("report.generation_efficiency.status: invalid value")
+    if value.get("run_mode") not in {"warm", "cold"}:
+        errors.append("report.generation_efficiency.run_mode: invalid value")
+    for key in ("total_seconds", "retrieval_receipt_count", "candidate_count", "selected_count", "write_count", "render_count", "repair_count"):
+        if not isinstance(value.get(key), (int, float)) or value.get(key, -1) < 0:
+            errors.append(f"report.generation_efficiency.{key}: must be non-negative")
+    stages = value.get("stage_seconds")
+    expected_stages = {"root", "preflight", "logic", "copy", "art-direction", "output", "supervisor", "delivery"}
+    require_keys(stages, expected_stages, "report.generation_efficiency.stage_seconds", errors)
+    if isinstance(stages, dict) and any(not isinstance(stages.get(stage), (int, float)) or stages.get(stage, -1) < 0 for stage in expected_stages):
+        errors.append("report.generation_efficiency.stage_seconds: every stage must be non-negative")
+    elif isinstance(stages, dict) and abs(sum(float(stages[stage]) for stage in expected_stages) - float(value.get("total_seconds", 0))) > 1:
+        errors.append("report.generation_efficiency.total_seconds: must equal the sum of stage seconds")
+    if value.get("retrieval_receipt_count") != retrieval_totals.get("receipts") or value.get("candidate_count") != retrieval_totals.get("candidates") or value.get("selected_count") != retrieval_totals.get("selected"):
+        errors.append("report.generation_efficiency: retrieval counts must match report.retrieval_quality")
+    budget = acceptance.get("performance_budget", {}) if isinstance(acceptance, dict) else {}
+    if budget.get("run_mode") not in {"either", value.get("run_mode")}:
+        errors.append("report.generation_efficiency.run_mode: must match the task acceptance budget")
+    stage_budget = budget.get("stage_seconds", {}) if isinstance(budget, dict) else {}
+    over_budget = value.get("total_seconds", 0) > budget.get("max_total_seconds", value.get("total_seconds", 0))
+    if isinstance(stages, dict):
+        over_budget = over_budget or any(stages.get(stage, 0) > stage_budget.get(stage, stages.get(stage, 0)) for stage in expected_stages)
+    for key in ("write_count", "render_count", "repair_count"):
+        over_budget = over_budget or value.get(key, 0) > budget.get(f"max_{key}", value.get(key, 0))
+    if value.get("status") == "pass" and over_budget:
+        errors.append("report.generation_efficiency.status: cannot pass when the acceptance performance budget is exceeded")
+    if not nonempty(value.get("evidence")):
+        errors.append("report.generation_efficiency.evidence: must be non-empty")
+    return over_budget
 REQUIRED_INVENTORY = {
     "shapes", "text_shapes", "connectors", "pictures", "graphic_frames", "tables", "charts", "diagrams"
 }
@@ -55,6 +262,8 @@ OBJECT_INVENTORY_MAP = {
     "diagram": "diagrams",
 }
 SUPERVISOR_ROLES = {"initiator", "mediator", "recorder", "final_auditor"}
+AUDITOR_ROLE = "auditor"
+ACTOR_ROLES = SUPERVISOR_ROLES | {AUDITOR_ROLE}
 ROLE_STATUS = {"complete", "not-needed", "incomplete"}
 ROLE_EVIDENCE_REQUIREMENTS = {
     "initiator": ("ppt-resource-inventory.json", "ppt-supervision-report.json"),
@@ -62,6 +271,14 @@ ROLE_EVIDENCE_REQUIREMENTS = {
     "recorder": ("ppt-supervision-report.json#lifecycle_events",),
     "final_auditor": ("ppt-output-qa.json", "ppt-supervision-report.json#slides"),
 }
+AUDITOR_REQUIRED_FIELDS = {"auditor_artifact", "calibration_artifacts", "supervisor_release"}
+CALIBRATED_REPORT_REQUIRED_FIELDS = {
+    "contract_version", "origin_namespace", "status", "run_id", "task_request_sha256", "package_id", "package_version",
+    "art_direction_plan_contract_version", "output_qa_contract_version", "supervised_at", "run_status", "artifact_paths",
+    "acceptance_contract", "stage_snapshots", "requirement_traceability", "supervisor_roles",
+    "environment_observation", "delivery_pair", "control_returned_to",
+    "core_sequence",
+} | AUDITOR_REQUIRED_FIELDS
 LIFECYCLE_PHASES = {
     "root", "preflight", "logic", "copy", "art-direction", "output",
     "mediation", "supervision", "delivery",
@@ -449,24 +666,36 @@ def validate_evidence_reference(
     mediation_event: dict[str, Any] | None,
     path: str,
     errors: list[str],
+    self_report_path: Path | None = None,
 ) -> None:
     """Resolve, hash, and minimally validate one governed evidence reference."""
 
     artifact = evidence_artifact(reference, evidence_root)
-    if artifact is None or not artifact.is_file():
+    self_reference = reference.split("#", 1)[0].split(" ", 1)[0].casefold() == "ppt-supervision-report.json"
+    if self_reference and self_report_path is not None:
+        artifact = self_report_path.resolve()
+    if artifact is None or (not artifact.is_file() and not self_reference):
         errors.append(f"{path}: referenced evidence artifact does not exist: {reference}")
         return
     artifact_name = artifact.name.casefold()
     if artifact_name == "ppt-supervision-report.json":
+        if self_report_path is not None and not self_report_path.is_file():
+            # assemble-report validates a report before opening its exclusive
+            # output file; its in-memory report is the source of truth at this
+            # point, so a self-reference is checked after materialization.
+            return
         try:
-            persisted = json.loads(artifact.read_text(encoding="utf-8"))
+            persisted_path = self_report_path if self_report_path is not None else artifact
+            persisted = json.loads(persisted_path.read_text(encoding="utf-8"))
         except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
             errors.append(f"{path}: supervision report self-evidence is unreadable: {reference}: {exc}")
             return
         if persisted != report:
             errors.append(f"{path}: supervision report self-evidence must match the report under validation")
         fragment = reference.split("#", 1)[1].split(" ", 1)[0] if "#" in reference else None
-        if fragment and fragment not in report:
+        if fragment and fragment not in report and not (
+            is_calibrated_report(report) and fragment in {"issues", "lifecycle_events", "slides"}
+        ):
             errors.append(f"{path}: supervision report fragment does not exist: {reference}")
         return
 
@@ -516,20 +745,20 @@ def validate_evidence_reference(
         if "#user_brief" in reference and (not isinstance(parsed, dict) or "user_brief" not in parsed):
             errors.append(f"{path}: resource-inventory user_brief fragment does not exist")
     elif artifact_name == "ppt-design-package.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") != "2.3" or parsed.get("status") != "copy-approved":
-            errors.append(f"{path}: design-package evidence must be contract 2.3 and copy-approved")
+        if not isinstance(parsed, dict) or parsed.get("contract_version") != "2.4" or parsed.get("status") != "copy-approved":
+            errors.append(f"{path}: design-package evidence must be contract 2.4 and copy-approved")
         if parsed != package:
             errors.append(f"{path}: design-package evidence must match the package under validation")
         if "#copy_layer" in reference and (not isinstance(parsed, dict) or "copy_layer" not in parsed):
             errors.append(f"{path}: design-package copy_layer fragment does not exist")
     elif artifact_name == "ppt-art-direction-plan.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") != "1.6" or parsed.get("status") != "art-direction-approved":
-            errors.append(f"{path}: art-direction evidence must be contract 1.6 and art-direction-approved")
+        if not isinstance(parsed, dict) or parsed.get("contract_version") != "1.7" or parsed.get("status") != "art-direction-approved":
+            errors.append(f"{path}: art-direction evidence must be contract 1.7 and art-direction-approved")
         if plan is not None and parsed != plan:
             errors.append(f"{path}: art-direction evidence must match the plan under validation")
     elif artifact_name == "ppt-output-qa.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") != "3.9":
-            errors.append(f"{path}: Output QA evidence must use contract 3.9")
+        if not isinstance(parsed, dict) or parsed.get("contract_version") != "4.0":
+            errors.append(f"{path}: Output QA evidence must use contract 4.0")
         if qa is not None and parsed != qa:
             errors.append(f"{path}: Output QA evidence must match the QA document under validation")
     elif artifact_name == "ppt-supervision-checkpoint.json":
@@ -683,15 +912,15 @@ def validate_environment_observation(
         if not isinstance(component_version_gate, dict):
             errors.append("runtime_preflight.component_version_gate: must be an object")
             component_version_gate = {}
-        if component_version_gate.get("status") != "latest" or component_version_gate.get("all_components_current") is not True:
-            errors.append("runtime_preflight.component_version_gate: final delivery requires latest mounted components")
+        if component_version_gate.get("status") not in {"installed", "latest", "candidate"} or component_version_gate.get("all_components_current") is not True:
+            errors.append("runtime_preflight.component_version_gate: final delivery requires consistent installed components")
         if any(not valid_sha256(component_version_gate.get(key)) for key in ("sha256", "manifest_sha256")):
             errors.append("runtime_preflight.component_version_gate: report and manifest SHA-256 are required")
         if isinstance(resolved_config, dict):
             configured_version = resolved_config.get("identity", {}).get("version")
             if nonempty(configured_version) and (
                 component_version_gate.get("local_release_version") != configured_version
-                or component_version_gate.get("latest_release_version") != configured_version
+                or (component_version_gate.get("status") == "latest" and component_version_gate.get("latest_release_version") != configured_version)
             ):
                 errors.append("runtime_preflight.component_version_gate: versions must match the resolved configuration")
         if isinstance(preflight_record, dict):
@@ -820,6 +1049,179 @@ def has_deferred_target_acceptance(report: Any) -> bool:
     )
 
 
+def is_calibrated_report(report: Any) -> bool:
+    """Identify the new delivery path without reinterpreting legacy reports."""
+
+    return isinstance(report, dict) and (
+        report.get("contract_version") == CONTRACT_VERSION
+        or any(key in report for key in ("calibration_artifacts", "auditor_artifact", "supervisor_release"))
+    )
+
+
+def is_legacy_readable_report(report: Any) -> bool:
+    """Allow historical 3.5 evidence to be inspected without publishing it."""
+
+    return isinstance(report, dict) and report.get("contract_version") == LEGACY_CONTRACT_VERSION and "work_report" not in report
+
+
+def _artifact_meta_errors(value: Any, path: str, errors: list[str], *, verify_files: bool = True) -> Path | None:
+    required = {"path", "sha256", "bytes"}
+    if not isinstance(value, dict) or set(value) != required:
+        errors.append(f"{path}: must contain exactly {sorted(required)}")
+        return None
+    artifact_path = value.get("path")
+    if not nonempty(artifact_path) or not Path(str(artifact_path)).is_absolute():
+        errors.append(f"{path}.path: must be an absolute path")
+        return None
+    if not valid_sha256(value.get("sha256")):
+        errors.append(f"{path}.sha256: must be a lower-case SHA-256")
+    if isinstance(value.get("bytes"), bool) or not isinstance(value.get("bytes"), int) or value.get("bytes", 0) < 1:
+        errors.append(f"{path}.bytes: must be a positive integer")
+    resolved = Path(str(artifact_path)).resolve()
+    if verify_files:
+        try:
+            raw = resolved.read_bytes()
+        except OSError as exc:
+            errors.append(f"{path}: file cannot be read: {exc}")
+            return resolved
+        if not raw:
+            errors.append(f"{path}: file must not be empty")
+        if valid_sha256(value.get("sha256")) and hashlib.sha256(raw).hexdigest() != value.get("sha256"):
+            errors.append(f"{path}.sha256: does not match current file bytes")
+        if isinstance(value.get("bytes"), int) and len(raw) != value.get("bytes"):
+            errors.append(f"{path}.bytes: does not match current file bytes")
+    return resolved
+
+
+def validate_calibrated_delivery(
+    package: Any,
+    report: Any,
+    pptx: Path | None,
+    report_path: Path | None,
+    *,
+    evidence_root: Path | None,
+) -> list[str]:
+    """Validate the three calibrations, independent Auditor, and release order."""
+
+    errors: list[str] = []
+    if not isinstance(report, dict):
+        return ["report: must be an object"]
+    root = evidence_root.resolve() if evidence_root is not None else None
+    calibration_entries = report.get("calibration_artifacts")
+    if not isinstance(calibration_entries, list) or len(calibration_entries) != 3:
+        errors.append("report.calibration_artifacts: new delivery requires exactly three calibration artifacts")
+        calibration_entries = []
+    calibration_values: list[dict[str, Any]] = []
+    for index, entry in enumerate(calibration_entries):
+        path = f"report.calibration_artifacts[{index}]"
+        if not isinstance(entry, dict) or set(entry) != {"step", "path", "sha256", "bytes"}:
+            errors.append(f"{path}: fields must be exactly ['bytes', 'path', 'sha256', 'step']")
+            continue
+        if entry.get("step") not in {"logic-to-copy", "copy-to-art-direction", "art-direction-to-output"}:
+            errors.append(f"{path}.step: invalid calibration step")
+        artifact_path = _artifact_meta_errors({key: entry.get(key) for key in ("path", "sha256", "bytes")}, path, errors)
+        if artifact_path is None:
+            continue
+        try:
+            value = json.loads(artifact_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+            errors.append(f"{path}: cannot read calibration JSON: {exc}")
+            continue
+        if not isinstance(value, dict):
+            errors.append(f"{path}: calibration must be a JSON object")
+            continue
+        calibration_values.append(value)
+        if value.get("step") != entry.get("step"):
+            errors.append(f"{path}.step: must match calibration artifact")
+    if len({item.get("step") for item in calibration_values}) != len(calibration_values):
+        errors.append("report.calibration_artifacts: calibration steps must be unique")
+    if len(calibration_values) == 3:
+        try:
+            validate_calibration_chain(
+                calibration_values,
+                report.get("run_id"),
+                report.get("task_request_sha256"),
+                verify_files=True,
+            )
+        except (ValueError, OSError, TypeError, KeyError) as exc:
+            errors.append(f"report.calibration_artifacts: {exc}")
+
+    auditor_ref = report.get("auditor_artifact")
+    auditor_path = _artifact_meta_errors(auditor_ref, "report.auditor_artifact", errors)
+    auditor_value: dict[str, Any] | None = None
+    if auditor_path is not None:
+        try:
+            auditor_value = json.loads(auditor_path.read_text(encoding="utf-8"))
+            validate_auditor_artifact(
+                auditor_value,
+                expected_run_id=report.get("run_id"),
+                expected_task_request_sha256=report.get("task_request_sha256"),
+                expected_pptx_sha256=hashlib.sha256(pptx.read_bytes()).hexdigest() if pptx is not None and pptx.is_file() else None,
+            )
+        except (OSError, UnicodeError, json.JSONDecodeError, IndependentAuditError) as exc:
+            errors.append(f"report.auditor_artifact: {exc}")
+    if auditor_value is not None:
+        final_pptx = auditor_value.get("final_pptx")
+        if isinstance(final_pptx, dict) and isinstance(report.get("delivery_pair"), dict):
+            report_pptx = report["delivery_pair"].get("pptx", {})
+            if final_pptx.get("sha256") != report_pptx.get("sha256"):
+                errors.append("report.auditor_artifact: final PPTX hash must match delivery_pair")
+        audit_status = auditor_value.get("audit_status")
+        if audit_status == "issues-found" and report.get("run_status") not in {"issues-found", "incomplete-evidence"}:
+            errors.append("report.run_status: must disclose Auditor issues-found status")
+        if audit_status == "incomplete-evidence" and report.get("run_status") != "incomplete-evidence":
+            errors.append("report.run_status: incomplete-evidence is required when Auditor coverage is incomplete")
+        acceptance = report.get("acceptance_contract")
+        coverage = auditor_value.get("coverage")
+        conditions = acceptance.get("release_conditions", []) if isinstance(acceptance, dict) else []
+        coverage_rows = coverage.get("requirements", []) if isinstance(coverage, dict) else []
+        coverage_by_id = {
+            item.get("requirement_id"): item
+            for item in coverage_rows
+            if isinstance(item, dict)
+        }
+        for condition in conditions if isinstance(conditions, list) else []:
+            if not isinstance(condition, dict):
+                continue
+            row = coverage_by_id.get(condition.get("requirement_id"))
+            if not isinstance(row, dict) or row.get("status") in {"fail", "deferred"}:
+                errors.append(
+                    f"report.supervisor_release: user no-delivery condition {condition.get('condition_id')} "
+                    "prevents release while its requirement is failed or deferred"
+                )
+
+    release = report.get("supervisor_release")
+    require_keys(
+        release,
+        {"status", "released_at", "auditor_artifact_sha256", "pptx_sha256", "evidence"},
+        "report.supervisor_release",
+        errors,
+    )
+    if isinstance(release, dict):
+        if release.get("status") not in {"released", "released-with-limitations"}:
+            errors.append("report.supervisor_release.status: must be released or released-with-limitations")
+        release_at = parse_timestamp(release.get("released_at"), "report.supervisor_release.released_at", errors)
+        if not valid_sha256(release.get("auditor_artifact_sha256")):
+            errors.append("report.supervisor_release.auditor_artifact_sha256: must be a lower-case SHA-256")
+        elif isinstance(auditor_ref, dict) and release.get("auditor_artifact_sha256") != auditor_ref.get("sha256"):
+            errors.append("report.supervisor_release.auditor_artifact_sha256: must match the Auditor artifact bytes")
+        if not valid_sha256(release.get("pptx_sha256")):
+            errors.append("report.supervisor_release.pptx_sha256: must be a lower-case SHA-256")
+        elif isinstance(auditor_value, dict) and release.get("pptx_sha256") != auditor_value.get("final_pptx", {}).get("sha256"):
+            errors.append("report.supervisor_release.pptx_sha256: must match the Auditor final PPTX")
+        if not nonempty(release.get("evidence")):
+            errors.append("report.supervisor_release.evidence: must be non-empty")
+        audit_at = parse_timestamp(auditor_value.get("audited_at"), "report.auditor_artifact.audited_at", errors) if isinstance(auditor_value, dict) else None
+        if isinstance(auditor_value, dict) and auditor_value.get("audit_status") in {"issues-found", "incomplete-evidence"} and release.get("status") != "released-with-limitations":
+            errors.append("report.supervisor_release.status: must preserve Auditor issues-found or incomplete-evidence as released-with-limitations")
+        if release_at is not None and audit_at is not None and release_at < audit_at:
+            errors.append("report.supervisor_release.released_at: must be later than or equal to Auditor audited_at")
+
+    if report.get("contract_version") != CONTRACT_VERSION and not is_legacy_readable_report(report):
+        errors.append(f"report.contract_version: calibrated delivery requires {CONTRACT_VERSION}")
+    return errors
+
+
 def validate_supervisor_accountability(
     package: Any,
     report: Any,
@@ -845,6 +1247,14 @@ def validate_supervisor_accountability(
         resolved_config,
         resolved_config_sha256,
     ))
+    if is_calibrated_report(report):
+        errors.extend(validate_calibrated_delivery(
+            package,
+            report,
+            pptx,
+            report_path,
+            evidence_root=evidence_root if evidence_root is not None else (report_path.resolve().parent if report_path else None),
+        ))
 
     roles = report.get("supervisor_roles")
     require_keys(roles, SUPERVISOR_ROLES, "report.supervisor_roles", errors)
@@ -861,8 +1271,13 @@ def validate_supervisor_accountability(
             status = role.get("status")
             if status not in ROLE_STATUS:
                 errors.append(f"{path}.status: invalid value")
-            if role_name in {"initiator", "recorder", "final_auditor"} and status != "complete":
+            if role_name in {"initiator", "recorder"} and status != "complete":
                 errors.append(f"{path}.status: must be complete")
+            if role_name == "final_auditor" and (
+                (not is_calibrated_report(report) and status != "complete")
+                or (is_calibrated_report(report) and status not in {"not-needed", "incomplete"})
+            ):
+                errors.append(f"{path}.status: Supervisor must not author the independent Auditor result")
             summary = role.get("summary")
             if not nonempty(summary) or len(str(summary).strip()) < 12:
                 errors.append(f"{path}.summary: must contain a concrete accountability summary of at least 12 characters")
@@ -871,18 +1286,27 @@ def validate_supervisor_accountability(
                 errors.append(f"{path}.evidence_refs: must be a non-empty string array")
             else:
                 refs_text = "\n".join(str(item) for item in evidence_refs)
-                missing_tokens = [
-                    token for token in ROLE_EVIDENCE_REQUIREMENTS.get(role_name, ())
-                    if token not in refs_text
-                ]
+                role_tokens = ROLE_EVIDENCE_REQUIREMENTS.get(role_name, ())
+                if is_calibrated_report(report) and role_name == "final_auditor":
+                    role_tokens = (Path(str(report.get("auditor_artifact", {}).get("path", ""))).name,)
+                missing_tokens = [token for token in role_tokens if token and token not in refs_text]
                 if missing_tokens:
                     errors.append(f"{path}.evidence_refs: must bind concrete role evidence tokens {missing_tokens}")
                 # Concrete evidence is validated after lifecycle parsing so a checkpoint
                 # can be bound to the one canonical mediation event.
+        if is_calibrated_report(report) and isinstance(roles.get("final_auditor"), dict):
+            final_auditor = roles["final_auditor"]
+            if final_auditor.get("status") == "complete":
+                errors.append("report.supervisor_roles.final_auditor: Supervisor cannot author the independent Auditor result")
+            auditor_ref = report.get("auditor_artifact", {})
+            refs_text = "\n".join(str(item) for item in final_auditor.get("evidence_refs", []))
+            if isinstance(auditor_ref, dict) and nonempty(auditor_ref.get("path")) and Path(str(auditor_ref["path"])).name not in refs_text:
+                errors.append("report.supervisor_roles.final_auditor.evidence_refs: must point to the independent Auditor artifact")
 
     events = report.get("lifecycle_events")
     if not isinstance(events, list) or not events:
-        errors.append("report.lifecycle_events: must be a non-empty array")
+        if not is_calibrated_report(report):
+            errors.append("report.lifecycle_events: must be a non-empty array")
         events = []
     event_ids: set[str] = set()
     actions: set[str] = set()
@@ -905,13 +1329,16 @@ def validate_supervisor_accountability(
         else:
             event_ids.add(str(event_id))
         timestamp = parse_timestamp(event.get("occurred_at"), f"{path}.occurred_at", errors)
-        if timestamp is not None and previous_time is not None and timestamp < previous_time:
+        allow_fixed_auditor_clock = is_calibrated_report(report) and event.get("action") == "final-audit-completed"
+        if timestamp is not None and previous_time is not None and timestamp < previous_time and not allow_fixed_auditor_clock:
             errors.append(f"{path}.occurred_at: lifecycle events must be chronological")
-        if timestamp is not None:
+        if timestamp is not None and (previous_time is None or timestamp >= previous_time):
             previous_time = timestamp
         if event.get("phase") not in LIFECYCLE_PHASES:
             errors.append(f"{path}.phase: invalid value")
-        if event.get("actor_role") not in SUPERVISOR_ROLES:
+        if event.get("actor_role") not in SUPERVISOR_ROLES and not (
+            is_calibrated_report(report) and event.get("actor_role") == AUDITOR_ROLE
+        ):
             errors.append(f"{path}.actor_role: invalid Supervisor role")
         action = event.get("action")
         if not nonempty(action):
@@ -926,7 +1353,9 @@ def validate_supervisor_accountability(
                 expected_phase, expected_role, expected_status = expected
                 if event.get("phase") != expected_phase:
                     errors.append(f"{path}.phase: action {action} requires {expected_phase}")
-                if event.get("actor_role") != expected_role:
+                new_flow = is_calibrated_report(report)
+                allowed_auditor = new_flow and action == "final-audit-completed" and event.get("actor_role") == AUDITOR_ROLE
+                if event.get("actor_role") != expected_role and not allowed_auditor:
                     errors.append(f"{path}.actor_role: action {action} requires {expected_role}")
                 if event.get("status") != expected_status:
                     errors.append(f"{path}.status: action {action} requires {expected_status}")
@@ -939,18 +1368,23 @@ def validate_supervisor_accountability(
             errors.append(f"{path}.evidence_refs: must be a non-empty string array")
         elif nonempty(action):
             refs_text = "\n".join(str(item) for item in evidence_refs)
-            missing_tokens = [
-                token for token in LIFECYCLE_EVIDENCE_REQUIREMENTS.get(str(action), ())
-                if token not in refs_text
-            ]
+            event_tokens = LIFECYCLE_EVIDENCE_REQUIREMENTS.get(str(action), ())
+            if is_calibrated_report(report) and action == "final-audit-completed":
+                event_tokens = (Path(str(report.get("auditor_artifact", {}).get("path", ""))).name,)
+            missing_tokens = [token for token in event_tokens if token and token not in refs_text]
             if missing_tokens:
                 errors.append(
                     f"{path}.evidence_refs: action {action} must bind concrete evidence tokens {missing_tokens}"
                 )
+            if is_calibrated_report(report) and action == "final-audit-completed":
+                auditor_ref = report.get("auditor_artifact")
+                auditor_name = Path(str(auditor_ref.get("path"))).name if isinstance(auditor_ref, dict) and auditor_ref.get("path") else None
+                if auditor_name and auditor_name not in refs_text:
+                    errors.append(f"{path}.evidence_refs: final audit must bind independent Auditor artifact {auditor_name}")
             # Concrete evidence is validated below after the canonical event set is known.
 
     missing_actions = sorted(REQUIRED_LIFECYCLE_ACTIONS - actions)
-    if missing_actions:
+    if missing_actions and not (is_calibrated_report(report) and not events):
         errors.append(f"report.lifecycle_events: missing required actions {missing_actions}")
     duplicate_actions = sorted(action for action, count in action_counts.items() if count != 1)
     if duplicate_actions:
@@ -993,7 +1427,7 @@ def validate_supervisor_accountability(
                 validate_evidence_reference(
                     str(reference), evidence_root, package, plan, qa, report, pptx, runtime_preflight,
                     runtime_preflight_sha256, mediation_event,
-                    f"report.supervisor_roles.{role_name}.evidence_refs", errors,
+                    f"report.supervisor_roles.{role_name}.evidence_refs", errors, report_path,
                 )
         for index, event in enumerate(events):
             if not isinstance(event, dict):
@@ -1002,7 +1436,7 @@ def validate_supervisor_accountability(
                 validate_evidence_reference(
                     str(reference), evidence_root, package, plan, qa, report, pptx, runtime_preflight,
                     runtime_preflight_sha256, mediation_event,
-                    f"report.lifecycle_events[{index}].evidence_refs", errors,
+                    f"report.lifecycle_events[{index}].evidence_refs", errors, report_path,
                 )
         observation = report.get("environment_observation")
         targets = observation.get("target_applications", []) if isinstance(observation, dict) else []
@@ -1013,7 +1447,7 @@ def validate_supervisor_accountability(
                 validate_evidence_reference(
                     str(reference), evidence_root, package, plan, qa, report, pptx, runtime_preflight,
                     runtime_preflight_sha256, mediation_event,
-                    f"report.environment_observation.target_applications[{index}].evidence_refs", errors,
+                    f"report.environment_observation.target_applications[{index}].evidence_refs", errors, report_path,
                 )
             validate_target_application_evidence(target, index, evidence_root, report, errors)
 
@@ -1064,7 +1498,7 @@ def validate_supervisor_accountability(
         errors,
     )
     if isinstance(delivery, dict):
-        expected_status = "blocked" if report.get("run_status") == "incomplete-evidence" else "ready"
+        expected_status = "blocked" if report.get("run_status") == "incomplete-evidence" and not is_calibrated_report(report) else "ready"
         if delivery.get("status") != expected_status:
             errors.append(f"report.delivery_pair.status: expected {expected_status}")
         if delivery.get("required_artifacts") != ["pptx", "supervision-report"]:
@@ -1164,6 +1598,136 @@ def missing_required_object_types(execution: Any, actual: Any) -> list[str]:
     return sorted(missing)
 
 
+def _validate_new_issue_shape(report: Mapping[str, Any], errors: list[str]) -> list[dict[str, Any]]:
+    """Validate issue records without re-running legacy quality gates."""
+
+    issues = report.get("issues")
+    if issues is None:
+        return []
+    if not isinstance(issues, list):
+        errors.append("report.issues: must be an array")
+        return []
+    valid: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    required = {
+        "issue_id", "finding_code", "slide_id", "severity", "owner_layer", "confidence",
+        "failed_checks", "source_artifacts", "evidence", "expected", "actual", "impact",
+        "recommended_change", "regression_rule",
+    }
+    for index, issue in enumerate(issues):
+        path = f"report.issues[{index}]"
+        require_keys(issue, required, path, errors)
+        if not isinstance(issue, dict):
+            continue
+        valid.append(issue)
+        issue_id = issue.get("issue_id")
+        if not nonempty(issue_id) or issue_id in seen:
+            errors.append(f"{path}.issue_id: must be non-empty and unique")
+        else:
+            seen.add(str(issue_id))
+        if issue.get("severity") not in SEVERITIES:
+            errors.append(f"{path}.severity: invalid value")
+        if issue.get("owner_layer") not in OWNERS:
+            errors.append(f"{path}.owner_layer: invalid value")
+        if issue.get("confidence") not in CONFIDENCE:
+            errors.append(f"{path}.confidence: invalid value")
+        if not isinstance(issue.get("failed_checks"), list) or any(key not in CHECK_KEYS for key in issue.get("failed_checks", [])):
+            errors.append(f"{path}.failed_checks: invalid check reference")
+        if not isinstance(issue.get("source_artifacts"), list) or not issue.get("source_artifacts"):
+            errors.append(f"{path}.source_artifacts: must be a non-empty array")
+        for key in ("evidence", "expected", "actual", "impact", "recommended_change", "regression_rule"):
+            if not nonempty(issue.get(key)):
+                errors.append(f"{path}.{key}: must be non-empty")
+    return valid
+
+
+def validate_calibrated_report(
+    package: Any,
+    plan: Any,
+    qa: Any,
+    inventory: Any,
+    report: Any,
+    policy: ValidationPolicy,
+    *,
+    pptx: Path | None,
+    render_root: Path | None,
+    report_path: Path | None,
+    runtime_preflight: Any | None,
+    runtime_preflight_sha256: str | None,
+    resolved_config: Any | None,
+    resolved_config_sha256: str | None,
+    evidence_root: Path | None,
+) -> list[str]:
+    """Validate the new delivery contract while keeping quality findings reportable."""
+
+    errors: list[str] = []
+    if not all(isinstance(item, dict) for item in (package, plan, qa, inventory, report)):
+        return ["calibrated report inputs must all be JSON objects"]
+    require_keys(report, CALIBRATED_REPORT_REQUIRED_FIELDS, "$report", errors)
+    if report.get("contract_version") == CONTRACT_VERSION:
+        if not isinstance(report.get("work_report"), dict):
+            errors.append("report.work_report: 3.6 calibrated delivery requires the assembled work report")
+        else:
+            errors.extend(validate_work_report(report, pptx=pptx))
+    if report.get("contract_version") != CONTRACT_VERSION and not is_legacy_readable_report(report):
+        errors.append(f"report.contract_version: calibrated delivery requires {CONTRACT_VERSION}")
+    if report.get("status") != "supervised":
+        errors.append("report.status: expected supervised")
+    if report.get("run_status") not in RUN_STATUS:
+        errors.append("report.run_status: invalid value")
+    if report.get("package_id") != package.get("package_id") or report.get("package_version") != package.get("version"):
+        errors.append("report package identity/version must match package")
+    if report.get("art_direction_plan_contract_version") != plan.get("contract_version"):
+        errors.append("report.art_direction_plan_contract_version: must match plan")
+    if report.get("output_qa_contract_version") != qa.get("contract_version"):
+        errors.append("report.output_qa_contract_version: must match QA")
+    sequence = report.get("core_sequence")
+    require_keys(sequence, {"contract", "steps"}, "report.core_sequence", errors)
+    if isinstance(sequence, dict):
+        if sequence.get("contract") != "io.clayz.presentation.calibrated-core-sequence/1.0":
+            errors.append("report.core_sequence.contract: invalid calibrated sequence contract")
+        steps = sequence.get("steps")
+        expected_steps = [
+            "supervision-started", "logic-to-copy-calibrated", "copy-to-art-direction-calibrated",
+            "art-direction-to-output-calibrated", "independent-audit-completed", "supervisor-release",
+        ]
+        if not isinstance(steps, list) or [item.get("step") for item in steps if isinstance(item, dict)] != expected_steps:
+            errors.append("report.core_sequence.steps: must preserve the six derived core transitions in order")
+    validate_acceptance_contract(report.get("acceptance_contract"), "report.acceptance_contract", errors)
+    for source, label in ((package, "package"), (plan, "plan"), (qa, "qa")):
+        if report.get("acceptance_contract") != source.get("acceptance_contract"):
+            errors.append(f"report.acceptance_contract: must exactly preserve the task acceptance contract from {label}")
+    validate_stage_snapshots(
+        report.get("stage_snapshots"), package, plan, errors,
+        evidence_root=evidence_root,
+        artifact_paths=report.get("artifact_paths"),
+    )
+    failed_requirements = validate_requirement_traceability(
+        report.get("requirement_traceability"), report.get("acceptance_contract"), errors
+    )
+    valid_issues = _validate_new_issue_shape(report, errors)
+    if failed_requirements and not valid_issues:
+        errors.append("report.issues: failed or uncertain requirements require explicit Auditor or Supervisor findings")
+    if report.get("run_status") == "issues-found" and not valid_issues:
+        errors.append("report.run_status: issues-found requires at least one finding")
+    if report.get("run_status") in {"clean", "complete-with-deferred-acceptance"} and valid_issues:
+        errors.append("report.run_status: quality findings must be disclosed as issues-found or incomplete-evidence")
+    # These are accounting checks; they do not turn a quality finding or an
+    # unavailable optional Library/application into a publication blocker.
+    if "retrieval_quality" in report and "index_evidence" in report:
+        validate_retrieval_quality(report.get("retrieval_quality"), report.get("index_evidence"), report.get("acceptance_contract"), errors)
+    if "generation_efficiency" in report:
+        validate_generation_efficiency(
+            report.get("generation_efficiency"), report.get("acceptance_contract"),
+            _retrieval_totals(report.get("index_evidence")), errors,
+        )
+    errors.extend(validate_supervisor_accountability(
+        package, report, pptx, report_path, runtime_preflight, runtime_preflight_sha256,
+        resolved_config, resolved_config_sha256, evidence_root, plan, qa,
+    ))
+    return errors
+
+
 def validate_report(
     package: Any,
     plan: Any,
@@ -1181,6 +1745,18 @@ def validate_report(
     evidence_root: Path | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
+    if is_calibrated_report(report):
+        return validate_calibrated_report(
+            package, plan, qa, inventory, report, policy,
+            pptx=pptx,
+            render_root=render_root,
+            report_path=report_path,
+            runtime_preflight=runtime_preflight,
+            runtime_preflight_sha256=runtime_preflight_sha256,
+            resolved_config=resolved_config,
+            resolved_config_sha256=resolved_config_sha256,
+            evidence_root=evidence_root if evidence_root is not None else (report_path.resolve().parent if report_path is not None else None),
+        )
     errors: list[str] = output_qa_validator.validate_qa(
         package,
         plan,
@@ -1189,14 +1765,20 @@ def validate_report(
         pptx=pptx,
         policy=policy,
     )
-    require_keys(report, {
-        "contract_version", "origin_namespace", "status", "run_id", "task_request_sha256", "package_id", "package_version", "art_direction_plan_contract_version",
-        "output_qa_contract_version", "supervised_at", "run_status", "artifact_paths", "slides",
-        "issues", "deck_findings", "responsibility_attribution", "recommendations", "delivery_efficiency", "index_evidence", "resource_usage",
-        "supervisor_roles", "lifecycle_events", "environment_observation", "delivery_pair", "control_returned_to",
-    }, "$report", errors)
+    require_keys(report, REPORT_REQUIRED_FIELDS, "$report", errors)
     if not all(isinstance(item, dict) for item in (package, plan, qa, inventory, report)):
         return errors
+    work_policy = Path(__file__).resolve().parents[2] / "runtime" / "runtime-lock.json"
+    try:
+        if work_policy.is_file() and json.loads(work_policy.read_text(encoding="utf-8")).get("stage_work_records_required") is True and "work_records" not in report:
+            errors.append("report.work_records: this runtime requires all five stage work records")
+    except (OSError, ValueError, AttributeError) as exc:
+        errors.append(f"report.work_records: invalid runtime policy: {exc}")
+    if "work_records" in report:
+        try:
+            validate_records(report["work_records"], report.get("run_id"), report.get("task_request_sha256"))
+        except (ValueError, OSError, TypeError, KeyError) as exc:
+            errors.append(f"report.work_records: {exc}")
     errors.extend(validate_supervisor_accountability(
         package,
         report,
@@ -1210,12 +1792,18 @@ def validate_report(
         plan,
         qa,
     ))
-    if report.get("contract_version") != CONTRACT_VERSION:
-        errors.append(f"report.contract_version: expected {CONTRACT_VERSION}")
+    if report.get("contract_version") not in {CONTRACT_VERSION, LEGACY_CONTRACT_VERSION}:
+        errors.append(f"report.contract_version: expected {CONTRACT_VERSION} or legacy {LEGACY_CONTRACT_VERSION}")
+    if is_calibrated_report(report) and report.get("contract_version") != CONTRACT_VERSION and not is_legacy_readable_report(report):
+        errors.append(f"report.contract_version: calibrated delivery requires {CONTRACT_VERSION}")
     if report.get("origin_namespace") != "io.clayz.presentation":
         errors.append("report.origin_namespace: expected io.clayz.presentation")
     if report.get("status") != "supervised":
         errors.append("report.status: expected supervised")
+    if is_calibrated_report(report):
+        missing_new = sorted(AUDITOR_REQUIRED_FIELDS - set(report))
+        if missing_new:
+            errors.append("report: calibrated delivery is missing " + ", ".join(missing_new))
     if not nonempty(report.get("run_id")):
         errors.append("report.run_id: must be non-empty")
     if not valid_sha256(report.get("task_request_sha256")):
@@ -1228,6 +1816,17 @@ def validate_report(
         errors.append("report.art_direction_plan_contract_version: must match plan")
     if report.get("output_qa_contract_version") != qa.get("contract_version"):
         errors.append("report.output_qa_contract_version: must match QA")
+    validate_acceptance_contract(report.get("acceptance_contract"), "report.acceptance_contract", errors)
+    if report.get("acceptance_contract") != package.get("acceptance_contract") or report.get("acceptance_contract") != plan.get("acceptance_contract") or report.get("acceptance_contract") != qa.get("acceptance_contract"):
+        errors.append("report.acceptance_contract: must exactly preserve the task acceptance contract across all stages")
+    validate_stage_snapshots(
+        report.get("stage_snapshots"), package, plan, errors,
+        evidence_root=evidence_root if evidence_root is not None else (report_path.resolve().parent if report_path is not None else None),
+        artifact_paths=report.get("artifact_paths"),
+    )
+    failed_requirements = validate_requirement_traceability(
+        report.get("requirement_traceability"), report.get("acceptance_contract"), errors
+    )
     expected_resource_lock = resource_inventory_signature(package.get("resource_inventory"))
     if qa.get("resource_inventory_lock") != expected_resource_lock:
         errors.append("qa.resource_inventory_lock: must preserve the pre-Logic inventory")
@@ -1243,15 +1842,25 @@ def validate_report(
         "report.index_evidence",
         errors,
     )
+    validate_stage_retrieval_budget(
+        report.get("index_evidence"), report.get("acceptance_contract"),
+        ["logic", "copy", "art-direction", "output", "supervisor"], "report.index_evidence", errors,
+    )
     if index_lock_signature(report.get("index_evidence")) != index_lock_signature(qa.get("index_evidence")):
         errors.append("report.index_evidence: must preserve the Output QA Provider lock and owner materialization")
+    retrieval_totals = validate_retrieval_quality(
+        report.get("retrieval_quality"), report.get("index_evidence"), report.get("acceptance_contract"), errors
+    )
+    performance_over_budget = validate_generation_efficiency(
+        report.get("generation_efficiency"), report.get("acceptance_contract"), retrieval_totals, errors
+    )
     if report.get("run_status") not in RUN_STATUS:
         errors.append("report.run_status: invalid value")
     if not nonempty(report.get("supervised_at")):
         errors.append("report.supervised_at: must be non-empty")
     require_keys(report.get("artifact_paths"), {
         "runtime_preflight", "resource_inventory", "package", "art_direction_plan", "pptx", "render_root", "output_qa", "object_inventory", "build_deviation_log",
-        "font_environment_report", "cjk_render_report", "final_reopen_render_root",
+        "font_environment_report", "font_name_audit_report", "cjk_render_report", "final_reopen_render_root",
         "size_audit_report",
     }, "report.artifact_paths", errors)
 
@@ -1291,6 +1900,15 @@ def validate_report(
         for key in ("evidence", "expected", "actual", "impact", "recommended_change", "regression_rule"):
             if not nonempty(issue.get(key)):
                 errors.append(f"{path}.{key}: must be non-empty")
+
+    if failed_requirements and not valid_issues:
+        errors.append("report.issues: failed or uncertain acceptance requirements require explicit findings")
+    if performance_over_budget and not any(issue.get("finding_code") == "GENERATION_PERFORMANCE_BUDGET_EXCEEDED" for issue in valid_issues):
+        errors.append("report.issues: performance budget overrun requires GENERATION_PERFORMANCE_BUDGET_EXCEEDED")
+    if isinstance(report.get("retrieval_quality"), dict) and report["retrieval_quality"].get("status") == "fail" and not any(
+        issue.get("finding_code") == "RETRIEVAL_RELEVANCE_OR_BUDGET_FAILURE" for issue in valid_issues
+    ):
+        errors.append("report.issues: retrieval-quality failure requires RETRIEVAL_RELEVANCE_OR_BUDGET_FAILURE")
 
     cjk_qa_ok = qa.get("final_reopen_cjk_render_reviewed") == "pass"
     if not cjk_qa_ok and not any(issue.get("finding_code") == "CJK_GLYPH_RENDER_MISSING" for issue in valid_issues):

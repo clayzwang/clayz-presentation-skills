@@ -34,7 +34,9 @@
       "properties": {
         "path": {"type": "string", "minLength": 1},
         "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-        "source": {"enum": ["personal-resolved", "public-default", "in-memory"]}
+        "source": {"enum": ["personal-resolved", "public-default", "in-memory", "task-selected"]},
+        "selection_path": {"type": "string", "minLength": 1},
+        "selection_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
       }
     },
     "component_version_gate": {
@@ -45,9 +47,9 @@
         "artifact": {"type": "string", "minLength": 1},
         "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "generated_at": {"type": "string", "minLength": 1},
-        "status": {"const": "latest"},
+        "status": {"enum": ["installed", "latest", "candidate"]},
         "local_release_version": {"type": "string"},
-        "latest_release_version": {"type": "string"},
+        "latest_release_version": {"type": ["string", "null"]},
         "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "all_components_current": {"const": true}
       }

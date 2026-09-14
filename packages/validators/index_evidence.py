@@ -20,11 +20,15 @@ from packages.index_runtime.validation import validate_request  # noqa: E402
 from packages.personal_extension import required_provider_bindings, validate_personal_extension_runtime  # noqa: E402
 
 
-CONTRACT = "io.clayz.presentation.index-execution-evidence/1.0"
+CONTRACT = "io.clayz.presentation.index-execution-evidence/1.1"
 RECEIPT_CONTRACT = "io.clayz.presentation.retrieval-receipt/1.0"
 STAGE_ORDER = ("logic", "copy", "art-direction", "output", "supervisor")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 OWNER_REQUIRED_PROVIDER_IDS = {"builtin-catalog", "task-private-learning"}
+RUNTIME_MODES = {"owner-personal", "public-core", "unified"}
+UNIFIED_RECEIPT_RIGHTS_CONTEXTS = {"public-open-source", "private-runtime"}
+MAX_RECEIPTS_PER_STAGE = 3
+MAX_CANDIDATES_PER_STAGE = 60
 
 
 def nonempty(value: Any) -> bool:
@@ -135,7 +139,7 @@ def _validate_receipt(
 ) -> tuple[set[str], set[str], set[str]]:
     _require_keys(
         receipt,
-        {"contract", "receipt_id", "created_at", "request", "index_snapshot", "candidates", "selection", "fallback", "hallucination_guard"},
+        {"contract", "receipt_id", "created_at", "request", "index_snapshot", "candidates", "selection", "ranking", "fallback", "hallucination_guard"},
         path,
         errors,
     )
@@ -155,17 +159,42 @@ def _validate_receipt(
         errors.append(f"{path}.request.stage: must be {stage}")
     if normalized_request and normalized_request.get("require_human_admission") is not True:
         errors.append(f"{path}.request.require_human_admission: must be true")
-    expected_rights_context = "private-runtime" if mode == "owner-personal" else "public-open-source"
-    if normalized_request and normalized_request.get("rights_context") != expected_rights_context:
-        errors.append(f"{path}.request.rights_context: {mode} execution must be {expected_rights_context}")
+    if normalized_request:
+        if mode == "unified":
+            if normalized_request.get("rights_context") not in UNIFIED_RECEIPT_RIGHTS_CONTEXTS:
+                errors.append(
+                    f"{path}.request.rights_context: unified execution must use public-open-source or private-runtime"
+                )
+        else:
+            expected_rights_context = "private-runtime" if mode == "owner-personal" else "public-open-source"
+            if normalized_request.get("rights_context") != expected_rights_context:
+                errors.append(f"{path}.request.rights_context: {mode} execution must be {expected_rights_context}")
     if receipt.get("index_snapshot") != snapshots:
         errors.append(f"{path}.index_snapshot: must exactly match the task Provider lock")
+
+    ranking = receipt.get("ranking")
+    _require_keys(
+        ranking,
+        {"profile", "minimum_score", "max_selected", "diversity_lambda", "eligible_candidate_count", "above_threshold_count"},
+        f"{path}.ranking",
+        errors,
+    )
+    if isinstance(ranking, Mapping):
+        if ranking.get("profile") not in {"content", "format", "implementation", "failure"}:
+            errors.append(f"{path}.ranking.profile: invalid value")
+        for key in ("minimum_score", "diversity_lambda"):
+            if not isinstance(ranking.get(key), (int, float)) or not 0 <= ranking.get(key) <= 1:
+                errors.append(f"{path}.ranking.{key}: must be between 0 and 1")
+        if not isinstance(ranking.get("max_selected"), int) or not 1 <= ranking.get("max_selected") <= 10:
+            errors.append(f"{path}.ranking.max_selected: must be between 1 and 10")
 
     candidates = receipt.get("candidates")
     candidate_by_id: dict[str, Mapping[str, Any]] = {}
     if not isinstance(candidates, list):
         errors.append(f"{path}.candidates: must be an array")
     else:
+        if len(candidates) > MAX_CANDIDATES_PER_STAGE:
+            errors.append(f"{path}.candidates: exceeds bounded candidate budget {MAX_CANDIDATES_PER_STAGE}")
         for index, candidate in enumerate(candidates):
             cpath = f"{path}.candidates[{index}]"
             _require_keys(candidate, {"record_id", "provider_id", "source_id"}, cpath, errors)
@@ -182,18 +211,18 @@ def _validate_receipt(
                 errors.append(f"{cpath}.provider_id: must belong to the locked Provider snapshots")
 
     selection = receipt.get("selection")
-    _require_keys(selection, {"selected", "rejected"}, f"{path}.selection", errors)
+    _require_keys(selection, {"selected", "rejected", "coverage_status", "coverage_gaps"}, f"{path}.selection", errors)
     selected_ids: set[str] = set()
     selected_sources: set[str] = set()
     selected_providers: set[str] = set()
     if isinstance(selection, Mapping):
         selected = selection.get("selected")
-        if not isinstance(selected, list) or not selected:
-            errors.append(f"{path}.selection.selected: must contain at least one selected Index record")
+        if not isinstance(selected, list):
+            errors.append(f"{path}.selection.selected: must be an array")
         else:
             for index, item in enumerate(selected):
                 ipath = f"{path}.selection.selected[{index}]"
-                _require_keys(item, {"record_id", "reason"}, ipath, errors)
+                _require_keys(item, {"record_id", "reason", "adoption_targets", "adoption_status"}, ipath, errors)
                 if not isinstance(item, Mapping):
                     continue
                 record_id = item.get("record_id")
@@ -202,12 +231,26 @@ def _validate_receipt(
                     continue
                 if not nonempty(item.get("reason")):
                     errors.append(f"{ipath}.reason: must be non-empty")
+                targets = item.get("adoption_targets")
+                if not isinstance(targets, list) or not targets or any(not nonempty(target) for target in targets):
+                    errors.append(f"{ipath}.adoption_targets: must identify at least one concrete stage, slide, or decision")
+                if item.get("adoption_status") not in {"planned", "material"}:
+                    errors.append(f"{ipath}.adoption_status: must be planned or material")
                 selected_ids.add(record_id)
                 selected_sources.add(str(candidate_by_id[record_id].get("source_id")))
                 selected_providers.add(str(candidate_by_id[record_id].get("provider_id")))
         rejected = selection.get("rejected")
         if not isinstance(rejected, list):
             errors.append(f"{path}.selection.rejected: must be an array")
+        if selection.get("coverage_status") not in {"complete", "partial", "unresolved"}:
+            errors.append(f"{path}.selection.coverage_status: invalid value")
+        if not isinstance(selection.get("coverage_gaps"), list):
+            errors.append(f"{path}.selection.coverage_gaps: must be an array")
+        if selected == []:
+            if selection.get("coverage_status") == "complete":
+                errors.append(f"{path}.selection: empty selection cannot claim complete knowledge coverage")
+            if not selection.get("coverage_gaps") or any(not nonempty(gap) for gap in selection.get("coverage_gaps", [])):
+                errors.append(f"{path}.selection: empty selection needs a concrete knowledge gap or non-applicability explanation")
 
     fallback = receipt.get("fallback")
     _require_keys(fallback, {"used", "reason"}, f"{path}.fallback", errors)
@@ -242,12 +285,12 @@ def validate_index_evidence(
     if evidence.get("contract") != CONTRACT:
         errors.append(f"{path}.contract: expected {CONTRACT}")
     mode = evidence.get("mode")
-    if mode not in {"owner-personal", "public-core"}:
+    if not isinstance(mode, str) or mode not in RUNTIME_MODES:
         errors.append(f"{path}.mode: invalid value")
     if not isinstance(evidence.get("runtime_lock_digest"), str) or not SHA256.fullmatch(evidence["runtime_lock_digest"]):
         errors.append(f"{path}.runtime_lock_digest: must be lowercase SHA-256")
     bound_runtime = _bound_personal_runtime(path, errors) if mode == "owner-personal" else None
-    required_provider_ids = set(OWNER_REQUIRED_PROVIDER_IDS)
+    required_provider_ids = set(OWNER_REQUIRED_PROVIDER_IDS) if mode != "unified" else {"builtin-catalog"}
     required_provider_stages: dict[str, set[str]] = {}
     if isinstance(bound_runtime, Mapping):
         if evidence.get("runtime_lock_digest") != bound_runtime.get("lock", {}).get("digest"):
@@ -269,6 +312,14 @@ def validate_index_evidence(
     snapshot_by_id = {item.get("provider_id"): item for item in snapshots}
     if "builtin-catalog" not in snapshot_by_id:
         errors.append(f"{path}.provider_lock.snapshots: builtin-catalog is required")
+    if mode == "unified":
+        builtin_snapshot = snapshot_by_id.get("builtin-catalog")
+        if (
+            not isinstance(builtin_snapshot, Mapping)
+            or not isinstance(builtin_snapshot.get("record_count"), int)
+            or builtin_snapshot.get("record_count", 0) < 1
+        ):
+            errors.append(f"{path}.provider_lock.snapshots: unified mode requires a non-empty builtin-catalog snapshot")
     if mode == "owner-personal" and not required_provider_ids.issubset(snapshot_by_id):
         errors.append(f"{path}.provider_lock.snapshots: owner-personal mode requires {sorted(required_provider_ids)}")
     if mode == "owner-personal":
@@ -298,12 +349,21 @@ def validate_index_evidence(
                 value = materialization.get(key)
                 if not isinstance(value, str) or not SHA256.fullmatch(value):
                     errors.append(f"{path}.owner_materialization.{key}: must bind the version learning audit")
-        if mode == "owner-personal" and materialization.get("status") != "materialized":
+        materialization_status = materialization.get("status")
+        if mode == "unified" and materialization_status not in {"materialized", "not-applicable"}:
+            errors.append(f"{path}.owner_materialization.status: unified mode cannot claim blocked or unsupported materialization")
+        if mode == "owner-personal" and materialization_status != "materialized":
             errors.append(f"{path}.owner_materialization.status: owner-personal execution must materialize task-supplied owner learning")
-        if mode == "public-core" and materialization.get("status") != "not-applicable":
+        if mode == "public-core" and materialization_status != "not-applicable":
             errors.append(f"{path}.owner_materialization.status: public-core mode must be not-applicable")
         for key in ("source_manifest_sha256", "materialization_report_sha256"):
             value = materialization.get(key)
+            if mode == "unified" and materialization_status == "materialized" and (
+                not isinstance(value, str) or not SHA256.fullmatch(value)
+            ):
+                errors.append(f"{path}.owner_materialization.{key}: materialized unified mode requires lowercase SHA-256")
+            if mode == "unified" and materialization_status == "not-applicable" and value is not None:
+                errors.append(f"{path}.owner_materialization.{key}: unified not-applicable mode must use null")
             if mode == "owner-personal" and (not isinstance(value, str) or not SHA256.fullmatch(value)):
                 errors.append(f"{path}.owner_materialization.{key}: must be lowercase SHA-256")
             if mode == "public-core" and value is not None:
@@ -313,6 +373,10 @@ def validate_index_evidence(
         record_count = materialization.get("record_count")
         if not isinstance(record_count, int) or (mode == "owner-personal" and record_count < 1):
             errors.append(f"{path}.owner_materialization.record_count: materialized owner mode requires a positive count")
+        if mode == "unified" and materialization_status == "materialized" and isinstance(record_count, int) and record_count < 1:
+            errors.append(f"{path}.owner_materialization.record_count: materialized unified mode requires a positive count")
+        if mode == "unified" and materialization_status == "not-applicable" and record_count != 0:
+            errors.append(f"{path}.owner_materialization.record_count: unified not-applicable mode must be zero")
         if mode == "public-core" and record_count != 0:
             errors.append(f"{path}.owner_materialization.record_count: public-core mode must be zero")
         requirements, required_ids = _source_requirements(
@@ -329,6 +393,16 @@ def validate_index_evidence(
             errors.append(f"{path}.owner_materialization.required_sources: owner-personal mode requires at least one task-supplied source")
         if mode == "owner-personal" and (materialization.get("missing_source_ids") or not required_ids.issubset(materialized_ids)):
             errors.append(f"{path}.owner_materialization: every required source must be materialized with no missing source")
+        if mode == "unified" and materialization_status == "materialized" and not required_ids:
+            errors.append(f"{path}.owner_materialization.required_sources: materialized unified mode requires at least one task-supplied source")
+        if mode == "unified" and materialization_status == "materialized" and (
+            materialization.get("missing_source_ids") or not required_ids.issubset(materialized_ids)
+        ):
+            errors.append(f"{path}.owner_materialization: every required source must be materialized with no missing source")
+        if mode == "unified" and materialization_status == "not-applicable" and (
+            required_ids or materialized_ids or materialization.get("missing_source_ids")
+        ):
+            errors.append(f"{path}.owner_materialization: unified not-applicable mode must not declare owner sources")
         if mode == "public-core" and (required_ids or materialized_ids or materialization.get("missing_source_ids")):
             errors.append(f"{path}.owner_materialization: public-core mode must not declare owner sources")
         task_snapshot = snapshot_by_id.get("task-private-learning", {})
@@ -336,6 +410,19 @@ def validate_index_evidence(
             task_snapshot.get("record_count") != record_count or task_snapshot.get("record_count", 0) < 1
         ):
             errors.append(f"{path}.owner_materialization.record_count: must match the task-private-learning snapshot")
+        if mode == "unified":
+            task_snapshot_present = "task-private-learning" in snapshot_by_id
+            if materialization_status == "materialized" or task_snapshot_present:
+                if (
+                    not isinstance(task_snapshot, Mapping)
+                    or not isinstance(task_snapshot.get("record_count"), int)
+                    or task_snapshot.get("record_count", 0) < 1
+                ):
+                    errors.append(f"{path}.owner_materialization: materialized unified mode requires a non-empty task-private-learning snapshot")
+                elif materialization_status == "materialized" and task_snapshot.get("record_count") != record_count:
+                    errors.append(f"{path}.owner_materialization.record_count: must match the task-private-learning snapshot")
+            if materialization_status == "not-applicable" and task_snapshot_present:
+                errors.append(f"{path}.owner_materialization: task-private-learning snapshot requires materialization")
 
     stage_receipts = evidence.get("stage_receipts")
     if not isinstance(stage_receipts, Mapping):
@@ -350,6 +437,8 @@ def validate_index_evidence(
         if not isinstance(receipts, list) or not receipts:
             errors.append(f"{spath}: must contain at least one finalized retrieval receipt")
             continue
+        if len(receipts) > MAX_RECEIPTS_PER_STAGE:
+            errors.append(f"{spath}: exceeds bounded receipt budget {MAX_RECEIPTS_PER_STAGE}")
         receipt_ids: set[str] = set()
         selected_sources: set[str] = set()
         selected_providers: set[str] = set()
@@ -360,25 +449,26 @@ def validate_index_evidence(
                 errors.append(f"{spath}[{index}].receipt_id: duplicate within stage")
             elif nonempty(receipt_id):
                 receipt_ids.add(receipt_id)
-            if not selected:
-                errors.append(f"{spath}[{index}]: receipt must select at least one record")
             selected_sources.update(sources)
             selected_providers.update(providers)
         for provider_id, stages in sorted(required_provider_stages.items()):
             if stage in stages and provider_id not in snapshot_by_id:
                 errors.append(f"{spath}: required runtime Provider {provider_id} is absent from the shared snapshot lock")
-            elif stage in stages and provider_id not in selected_providers:
-                errors.append(
-                    f"{spath}: required runtime Provider {provider_id} must be selected by a finalized receipt"
-                )
         if mode == "owner-personal":
             required_sources = requirements.get(stage, set())
             if not required_sources.issubset(materialized_ids):
                 errors.append(f"{spath}: required owner sources were not materialized: {sorted(required_sources - materialized_ids)}")
-            if not required_sources.issubset(selected_sources):
-                errors.append(f"{spath}: finalized receipts did not consume required owner sources: {sorted(required_sources - selected_sources)}")
-            if required_sources and "task-private-learning" not in selected_providers:
-                errors.append(f"{spath}: must select first-class records from task-private-learning")
+            # Availability and immutable source identity are hard requirements.
+            # Adoption is a relevance decision, not a quota for every Provider.
+        if mode == "unified":
+            for provider_id in sorted(selected_providers):
+                snapshot = snapshot_by_id.get(provider_id)
+                if (
+                    not isinstance(snapshot, Mapping)
+                    or not isinstance(snapshot.get("record_count"), int)
+                    or snapshot.get("record_count", 0) < 1
+                ):
+                    errors.append(f"{spath}: selected Provider {provider_id} must bind a non-empty snapshot")
 
 
 def index_lock_signature(evidence: Any) -> Any:

@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.8.0",
+    "version": "0.16.0",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.8.0",
+        "ClayzVersion": "0.16.0",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -24,7 +24,15 @@
     "stages": ["logic", "copy", "art-direction", "output", "supervisor"],
     "approval_states": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"],
     "execution_ledger_contract": "io.clayz.presentation.execution-ledger/1.0",
-    "maximum_technical_cycles": 3
+    "maximum_technical_cycles": 3,
+    "delivery_policy": {
+      "mode": "calibrated",
+      "calibration_contract": "io.clayz.presentation.supervisor-calibration/1.0",
+      "independent_audit_contract": "io.clayz.presentation.independent-audit/1.0",
+      "require_calibration_chain": true,
+      "require_independent_auditor": true,
+      "legacy_reports": "read-only"
+    }
   },
   "runtime": {
     "contract_version": "1.3",
@@ -73,14 +81,29 @@
     },
     "typography": {
       "primary_fonts": ["Aptos", "Arial", "Noto Sans CJK SC", "sans-serif"],
+      "cjk_fonts": ["Noto Sans CJK SC"],
+      "latin_fonts": ["Aptos"],
+      "digit_fonts": ["Aptos"],
+      "chart_fonts": ["Aptos"],
+      "title_minimum_pt": 24,
       "body_minimum_pt": 18,
       "minimum_audience_text_pt": 12,
       "minimum_chart_text_pt": 12,
+      "footnote_minimum_pt": 12,
+      "page_number_minimum_pt": 10,
       "prefer_even_point_sizes": false,
       "allow_fractional_point_sizes": true,
       "minimum_exception_policy": "technical-fields-only",
       "fail_on_missing_primary_font": false,
       "font_validation": null
+    },
+    "page_number_policy": {
+      "required": true,
+      "position": "footer-right",
+      "scope": "body-and-closing",
+      "start": 1,
+      "cover_counting": false,
+      "mechanism": "editable-footer-field"
     }
   },
   "layout": {

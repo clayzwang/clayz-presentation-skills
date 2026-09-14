@@ -19,7 +19,10 @@ VALIDATORS = ROOT / "packages" / "validators"
 if str(VALIDATORS) not in sys.path:
     sys.path.insert(0, str(VALIDATORS))
 
-from validate_supervision_report import CONTRACT_VERSION, validate_supervisor_accountability  # noqa: E402
+# This file is the pre-calibrated 3.4 fixture suite.  Keep it on the
+# read-only legacy contract so it does not accidentally exercise the new
+# calibrated release gate while testing historical accountability mechanics.
+from validate_supervision_report import LEGACY_CONTRACT_VERSION, validate_supervisor_accountability  # noqa: E402
 
 
 BRIEF_DIGEST = "a" * 64
@@ -189,7 +192,7 @@ def _environment_observation(root: Path) -> dict:
 
 def _package() -> dict:
     return {
-        "contract_version": "2.3",
+        "contract_version": "2.4",
         "package_id": "synthetic-supervision-test",
         "version": "1.0.0",
         "status": "copy-approved",
@@ -248,7 +251,7 @@ def _report(pptx: Path, report_path: Path) -> dict:
         _hashed_ref(root, "ppt-resource-inventory.json", "user_brief", f"content_sha256={BRIEF_DIGEST}")
     ]
     return {
-        "contract_version": CONTRACT_VERSION,
+        "contract_version": LEGACY_CONTRACT_VERSION,
         "run_id": RUN_ID,
         "task_request_sha256": TASK_REQUEST_SHA256,
         "supervised_at": "2026-08-30T00:08:00+00:00",
@@ -288,13 +291,13 @@ class SupervisionAccountabilityTests(unittest.TestCase):
         (self.root / "ppt-resource-inventory.json").write_bytes(_json_bytes(_package()["resource_inventory"]))
         (self.root / "ppt-design-package.json").write_bytes(_json_bytes(_package()))
         (self.root / "ppt-art-direction-plan.json").write_bytes(_json_bytes({
-            "contract_version": "1.6",
+            "contract_version": "1.7",
             "status": "art-direction-approved",
             "package_id": _package()["package_id"],
             "package_version": _package()["version"],
         }))
         (self.root / "ppt-output-qa.json").write_bytes(_json_bytes({
-            "contract_version": "3.9",
+            "contract_version": "4.0",
             "package_id": _package()["package_id"],
             "package_version": _package()["version"],
         }))
@@ -331,6 +334,23 @@ class SupervisionAccountabilityTests(unittest.TestCase):
 
     def test_valid_accountability_record(self) -> None:
         self.assertEqual(self.validate(_report(self.pptx, self.report_path)), [])
+
+    def test_offline_installed_components_allow_final_delivery(self) -> None:
+        from unittest import mock
+        preflight = _preflight()
+        preflight["component_version_gate"].update(status="installed", latest_release_version=None)
+        with mock.patch(__name__ + "._preflight", return_value=preflight):
+            (self.root / "runtime-preflight.json").write_bytes(_json_bytes(preflight))
+            self.assertEqual(self.validate(_report(self.pptx, self.report_path)), [])
+
+    def test_offline_internal_component_failure_still_blocks_delivery(self) -> None:
+        from unittest import mock
+        preflight = _preflight()
+        preflight["component_version_gate"].update(status="blocked", latest_release_version=None)
+        with mock.patch(__name__ + "._preflight", return_value=preflight):
+            (self.root / "runtime-preflight.json").write_bytes(_json_bytes(preflight))
+            errors = self.validate(_report(self.pptx, self.report_path))
+            self.assertTrue(any("consistent installed components" in error for error in errors))
 
     def test_missing_role_is_rejected(self) -> None:
         report = _report(self.pptx, self.report_path)

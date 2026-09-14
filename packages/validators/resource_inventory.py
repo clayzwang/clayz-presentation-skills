@@ -22,7 +22,7 @@ from packages.index_runtime.utils import sha256_json  # noqa: E402
 CONTRACT = "io.clayz.presentation.resource-inventory/1.0"
 USAGE_CONTRACT = "io.clayz.presentation.resource-usage/1.0"
 TASK_MODES = {"new-build", "revision", "audit"}
-RUNTIME_MODES = {"owner-personal", "public-core"}
+RUNTIME_MODES = {"owner-personal", "public-core", "unified"}
 SCAN_SCOPES = {
     "plugin-runtime",
     "task-inputs",

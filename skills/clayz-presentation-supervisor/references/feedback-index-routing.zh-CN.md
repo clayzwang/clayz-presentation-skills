@@ -1,6 +1,6 @@
 # 反馈索引路由
 
-Supervisor 负责诊断和路由证据，不拥有反馈存储，也不负责判断某条观察已经成为可复用真值。
+Supervisor 与 Independent Auditor 负责诊断和路由证据，均不拥有反馈存储，也不负责判断某条观察已经成为可复用真值。Auditor 如需知识支持检查，使用同一份锁定 CompositeIndex，不建立第五个 Provider 或学习库。
 
 1. 把每条 learning candidate 退回最早责任层：Logic、Copy、Art Direction 或 Output。
 2. 来源记录必须保持 `promotion_status=observation`。

@@ -1,6 +1,6 @@
 # Material Routes
 
-Choose one primary route for the deck. A mixed deck may use secondary routes, but the slide's management stage has priority when stage and communication setting conflict.
+Use these routes as optional references, not a required classification. Design from the audience, intended outcome, actual Logic content and page responsibilities. Management-stage and archetype labels may be omitted or freely described; no user confirmation is needed to choose a visual approach. `material_type_fit` means fit to the actual communication need, not membership in a fixed taxonomy.
 
 | Route | Primary task | First visual | Typical silhouettes | Density | Forbidden defaults |
 |---|---|---|---|---|---|

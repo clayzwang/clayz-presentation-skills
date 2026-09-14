@@ -44,11 +44,15 @@ def _request(stage: str, task_mode: str, signal: str, rights_context: str, langu
     return {
         "contract": REQUEST_CONTRACT, "request_id": request_id, "stage": stage,
         "query": f"{task_mode} {signal}", "rights_context": rights_context,
+        "intent": "task-reference",
+        "task_context": {"decision_goal": f"Resolve capability signal {signal} for {stage}", "target_refs": [f"stage:{stage}"], "format_need": "governed-method"},
+        "ranking_policy": {"profile": "content", "minimum_score": 0.1, "max_selected": min(limit, 5), "diversity_lambda": 0.7},
         "require_human_admission": True, "limit": limit,
         "filters": {
             "record_types": ["capability"], "provider_ids": ["builtin-catalog"], "task_modes": [task_mode],
             "page_roles": [], "semantic_relations": [], "purpose_tags": [signal], "languages": list(languages),
             "failure_signals": [], "include_metadata_only": False,
+            "format_tags": [],
         },
         "neighbor_expansion": {"physical": 0, "semantic": 0},
     }

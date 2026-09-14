@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:clayz:presentation:schema:index-execution-evidence:1.0",
+  "$id": "urn:clayz:presentation:schema:index-execution-evidence:1.1",
   "title": "Clayz first-class Index execution evidence",
   "type": "object",
   "additionalProperties": false,
   "required": ["contract", "mode", "runtime_lock_digest", "provider_lock", "owner_materialization", "stage_receipts"],
   "properties": {
-    "contract": {"const": "io.clayz.presentation.index-execution-evidence/1.0"},
-    "mode": {"enum": ["owner-personal", "public-core"]},
+    "contract": {"const": "io.clayz.presentation.index-execution-evidence/1.1"},
+    "mode": {"enum": ["owner-personal", "public-core", "unified"]},
     "runtime_lock_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "provider_lock": {
       "type": "object",
@@ -82,6 +82,7 @@
     "receipts": {
       "type": "array",
       "minItems": 1,
+      "maxItems": 3,
       "items": {"type": "object"}
     }
   }

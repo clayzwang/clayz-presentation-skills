@@ -19,16 +19,17 @@ from config_policy import ValidationPolicy, load_policy
 from index_evidence import index_lock_signature, validate_index_evidence
 from resource_inventory import resource_inventory_signature
 from validate_art_direction_plan import OBJECT_TYPES, STRUCTURE_TYPES, validate_plan
+from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "3.9"
+CONTRACT_VERSION = "4.0"
 CHECK_KEYS = {
     "exact_text", "copy_id_traceability", "atomic_copy_separation",
     "parent_child_hierarchy", "peer_parallelism", "visual_hierarchy",
     "thumbnail_review", "full_size_review", "storyline_single_line",
     "list_alignment", "object_types_preserved", "icon_execution",
     "image_weight", "kpi_layout", "connectors", "collision_and_tangency",
-    "notes_subordinate", "font_size_discipline", "scatter_semantics_and_labels", "grid_alignment",
+    "notes_subordinate", "font_size_discipline", "font_name_conformance", "scatter_semantics_and_labels", "grid_alignment",
     "whitespace_scale", "material_type_fit", "medium_plan_object_render_consistency",
     "anti_cardification", "art_direction_first_visual_fidelity",
     "art_direction_area_plan_fidelity", "art_direction_rhythm_fidelity",
@@ -96,24 +97,37 @@ def pptx_inventories(pptx: Path) -> list[dict[str, int]]:
 
 
 def validate_final_cjk_evidence(qa: dict[str, Any], pptx: Path, errors: list[str]) -> None:
-    for key in ("font_environment_report", "cjk_render_report", "final_reopen_render_root"):
+    for key in ("font_environment_report", "font_name_audit_report", "cjk_render_report", "final_reopen_render_root"):
         if not nonempty(qa.get(key)):
             errors.append(f"qa.{key}: must be a non-empty path")
     if qa.get("final_reopen_cjk_render_reviewed") != "pass":
         errors.append("qa.final_reopen_cjk_render_reviewed: must be pass")
-    if errors and any(error.startswith("qa.font_environment_report") or error.startswith("qa.cjk_render_report") for error in errors):
+    if errors and any(
+        error.startswith("qa.font_environment_report")
+        or error.startswith("qa.font_name_audit_report")
+        or error.startswith("qa.cjk_render_report")
+        for error in errors
+    ):
         return
     font_path = Path(qa.get("font_environment_report", ""))
+    font_name_path = Path(qa.get("font_name_audit_report", ""))
     cjk_path = Path(qa.get("cjk_render_report", ""))
     if not font_path.is_absolute():
         font_path = qa_path_parent / font_path
     if not cjk_path.is_absolute():
         cjk_path = qa_path_parent / cjk_path
+    if not font_name_path.is_absolute():
+        font_name_path = qa_path_parent / font_name_path
     try:
         font = json.loads(font_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         errors.append(f"qa.font_environment_report: cannot read evidence: {exc}")
         font = {}
+    try:
+        font_name = json.loads(font_name_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"qa.font_name_audit_report: cannot read evidence: {exc}")
+        font_name = {}
     try:
         cjk = json.loads(cjk_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -122,6 +136,10 @@ def validate_final_cjk_evidence(qa: dict[str, Any], pptx: Path, errors: list[str
     for key in ("ok", "font_identity_ok", "cjk_glyphs_ok", "render_active"):
         if font.get(key) is not True:
             errors.append(f"qa.font_environment_report.{key}: must be true")
+    if font_name.get("contract") != "io.clayz.presentation.pptx-font-name-audit/1.0" or font_name.get("ok") is not True:
+        errors.append("qa.font_name_audit_report: visible CJK font names must conform before render acceptance")
+    if font_name.get("visible_cjk_chars") != font_name.get("conforming_cjk_chars") or font_name.get("violations"):
+        errors.append("qa.font_name_audit_report: every visible CJK character must preserve an approved family or alias")
     if cjk.get("ok") is not True or cjk.get("final_pptx_reopened") is not True:
         errors.append("qa.cjk_render_report: must prove a successful final-PPTX reopen render")
     expected_hash = cjk.get("pptx_sha256")
@@ -130,6 +148,8 @@ def validate_final_cjk_evidence(qa: dict[str, Any], pptx: Path, errors: list[str
         actual_hash = hashlib.sha256(pptx.read_bytes()).hexdigest()
         if expected_hash != actual_hash:
             errors.append("qa.cjk_render_report.pptx_sha256: does not match final PPTX")
+        if font_name.get("pptx_sha256") != actual_hash:
+            errors.append("qa.font_name_audit_report.pptx_sha256: does not match final PPTX")
     else:
         errors.append("qa.cjk_render_report.pptx_sha256: must be non-empty")
     slides = cjk.get("slides")
@@ -153,7 +173,7 @@ def validate_qa(
     errors = validate_plan(package, plan, policy)
     require_keys(
         qa,
-        {"contract_version", "package_id", "package_version", "art_direction_plan_contract_version", "resource_inventory_lock", "index_evidence", "communication_contract_reviewed", "typography_contract_reviewed", "legibility_audit_reviewed", "font_environment_report", "cjk_render_report", "final_reopen_render_root", "final_reopen_cjk_render_reviewed", "delivery_profile", "size_audit_report", "size_audit_reviewed", "size_budget_exception_reason", "slides"},
+        {"contract_version", "package_id", "package_version", "art_direction_plan_contract_version", "acceptance_contract", "resource_inventory_lock", "index_evidence", "communication_contract_reviewed", "typography_contract_reviewed", "legibility_audit_reviewed", "font_environment_report", "font_name_audit_report", "cjk_render_report", "final_reopen_render_root", "final_reopen_cjk_render_reviewed", "delivery_profile", "size_audit_report", "size_audit_reviewed", "size_budget_exception_reason", "slides"},
         "$qa",
         errors,
     )
@@ -174,6 +194,9 @@ def validate_qa(
         errors.append("qa package identity/version must match package")
     if qa.get("art_direction_plan_contract_version") != plan.get("contract_version"):
         errors.append("qa.art_direction_plan_contract_version: must match plan")
+    validate_acceptance_contract(qa.get("acceptance_contract"), "qa.acceptance_contract", errors)
+    if qa.get("acceptance_contract") != package.get("acceptance_contract") or qa.get("acceptance_contract") != plan.get("acceptance_contract"):
+        errors.append("qa.acceptance_contract: must exactly preserve the task acceptance contract")
     expected_resource_lock = resource_inventory_signature(package.get("resource_inventory"))
     if qa.get("resource_inventory_lock") != expected_resource_lock or plan.get("resource_inventory_lock") != expected_resource_lock:
         errors.append("qa.resource_inventory_lock: package, Art Direction, and Output QA must preserve one inventory signature")
@@ -182,6 +205,10 @@ def validate_qa(
         ["logic", "copy", "art-direction", "output"],
         "qa.index_evidence",
         errors,
+    )
+    validate_stage_retrieval_budget(
+        qa.get("index_evidence"), qa.get("acceptance_contract"),
+        ["logic", "copy", "art-direction", "output"], "qa.index_evidence", errors,
     )
     if index_lock_signature(qa.get("index_evidence")) != index_lock_signature(plan.get("index_evidence")):
         errors.append("qa.index_evidence: must preserve the Art Direction Provider lock and owner materialization")
@@ -427,7 +454,7 @@ def validate_qa(
                 errors.append(f"{path}.checks.semantic_layout_tree_fidelity: cannot pass when hierarchy flattening is observed or uncertain")
             if is_body:
                 for key in (
-                    "font_size_discipline",
+                    "font_size_discipline", "font_name_conformance",
                     "object_types_preserved", "medium_plan_object_render_consistency", "anti_cardification",
                     "art_direction_first_visual_fidelity", "art_direction_area_plan_fidelity",
                     "art_direction_rhythm_fidelity", "purposeful_series_fidelity",
@@ -461,6 +488,10 @@ def validate_qa(
                 marker in folded for marker in ("字号", "字体大小", "font size", "minimum text", "minimum type")
             ):
                 errors.append(f"{path}.review_evidence: passed font_size_discipline must cite the rendered font-size check")
+            if isinstance(checks, dict) and checks.get("font_name_conformance") == "pass" and not any(
+                marker in folded for marker in ("字体名称", "字体名", "font family", "font name", "east asian")
+            ):
+                errors.append(f"{path}.review_evidence: passed font_name_conformance must cite the written PPTX font-name audit")
             if isinstance(checks, dict) and checks.get("scatter_semantics_and_labels") == "pass":
                 has_label = any(marker in folded for marker in ("实体标签", "实体名", "direct label", "entity label"))
                 has_line = any(marker in folded for marker in ("连线", "阈值线", "参考线", "point connection", "semantic line"))

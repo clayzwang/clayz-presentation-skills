@@ -74,6 +74,7 @@ def record(
             "purpose_tags": purpose_tags or ["high-density"],
             "languages": ["en-US", "zh-CN"],
             "failure_signals": [],
+            "format_tags": [asset_class],
             "asset_class": asset_class,
             "brand_scope": brand_scope,
         },
@@ -88,6 +89,9 @@ def request(*, context: str = "public-open-source", query: str = "comparison evi
         "request_id": "req-stage-1",
         "stage": "art-direction",
         "query": query,
+        "intent": "format-reference",
+        "task_context": {"decision_goal": "Resolve a comparison evidence format", "target_refs": ["slide:S01", "decision:primary-format"], "format_need": "comparison"},
+        "ranking_policy": {"profile": "format", "minimum_score": 0.1, "max_selected": 3, "diversity_lambda": 0.7},
         "rights_context": context,
         "require_human_admission": True,
         "limit": 5,
@@ -100,6 +104,7 @@ def request(*, context: str = "public-open-source", query: str = "comparison evi
             "purpose_tags": [],
             "languages": ["zh-CN"],
             "failure_signals": [],
+            "format_tags": [],
             "include_metadata_only": True,
         },
         "neighbor_expansion": {"physical": 0, "semantic": 0},
@@ -107,6 +112,34 @@ def request(*, context: str = "public-open-source", query: str = "comparison evi
 
 
 class IndexRuntimeTests(unittest.TestCase):
+    def test_ranked_receipt_explains_relevance_and_adoption(self) -> None:
+        provider = IndexProvider(
+            "public",
+            [record("layout.compare.generic", provider_id="public", asset_class="layout-contract")],
+        )
+        runtime = CompositeIndex([provider])
+        receipt = runtime.search(request())
+        candidate = receipt["candidates"][0]
+        self.assertEqual(candidate["rank"], 1)
+        self.assertGreaterEqual(candidate["score"], 0)
+        self.assertLessEqual(candidate["score"], 1)
+        self.assertEqual(
+            set(candidate["score_breakdown"]),
+            {"semantic", "stage", "task_context", "relation_purpose", "format_fit", "evidence_quality"},
+        )
+        finalized = runtime.finalize_receipt(
+            receipt,
+            selected={
+                candidate["record_id"]: {
+                    "reason": "Best semantic and format fit for the comparison decision.",
+                    "adoption_targets": ["slide:S01", "decision:primary-format"],
+                    "adoption_status": "material",
+                }
+            },
+        )
+        self.assertEqual(finalized["selection"]["coverage_status"], "complete")
+        self.assertEqual(finalized["selection"]["selected"][0]["adoption_status"], "material")
+
     def test_provider_identity_and_snapshot_are_stable(self) -> None:
         first = record("layout.compare.alpha", provider_id="builtin-catalog", sha="1" * 64)
         second = record("layout.compare.beta", provider_id="builtin-catalog", sha="2" * 64)

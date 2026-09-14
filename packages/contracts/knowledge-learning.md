@@ -1,5 +1,13 @@
 # Knowledge and learning contract
 
+For interactive material learning, follow [the plugin system contract](plugin-system.md).
+The assistant discusses a candidate with the owner before recording an exact
+hash-bound confirmation. `scripts/plugin_cli.py` saves the confirmed content,
+original attachments and provider index as one immutable Library snapshot.
+These records use the existing IndexRecord/CompositeIndex runtime. This is an
+additional producer for the same reference system, not a competing search cache.
+The old observation/admission commands remain available for legacy records.
+
 The portable knowledge scaffold is an optional persistence layer, not a second source of truth for the current presentation.
 
 1. Resolve the reference provider, source roots, registries, learning root, and admission policy from the central configuration.
@@ -9,6 +17,10 @@ The portable knowledge scaffold is an optional persistence layer, not a second s
 5. Record evidence, applicability, uncertainty, user rulings, and rejected alternatives. Do not convert a score, similarity, frequency, generated artifact, or model opinion into quality truth.
 6. Keep new records at `promotion_status=observation` unless a human explicitly admits them. Never auto-promote.
 7. If the configured store is unavailable, emit a task-local learning candidate and report that persistence did not occur; never pretend a write succeeded.
+
+Retrieval exists to improve judgment, not to create ceremonial evidence volume. Start each stage with one focused, substantive request. Issue a second or third receipt only when a material question remains unresolved, and treat the acceptance candidate/selection budget as cumulative for the whole stage rather than a fresh allowance per query. Rank compact metadata first, materialize only selected records or relevant excerpts, and keep rejected records as IDs, scores, and reasons rather than loading their full bodies. Reuse locked sources and stage artifacts by path plus hash instead of retrieving or restating them again.
+
+These efficiency rules remove redundant transport and execution. They do not cap the depth of Logic deliberation. Owner-private knowledge supplies evidence, counterexamples, terminology, and methods; Logic must still connect them into a complete current-state, target-state, mechanism, and decision argument.
 
 An observation can enter retrieval only through a second, hash-bound admission
 record. The admission identifies the exact `record_id`, canonical SHA-256,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Validate the v2.3 PPT logic layer with only the Python standard library."""
+"""Validate the v2.4 PPT logic layer with only the Python standard library."""
 
 from __future__ import annotations
 
@@ -14,15 +14,17 @@ from typing import Any
 
 from index_evidence import validate_index_evidence
 from resource_inventory import validate_resource_inventory
+from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "2.3"
+CONTRACT_VERSION = "2.4"
 STATUS_RANK = {"draft": 0, "logic-approved": 1, "copy-approved": 2}
 MATERIAL_TYPES = {
     "management-report", "business-analysis", "strategy-deployment", "sales-training"
 }
 OUTCOME_MODES = {"understand", "approve", "execute"}
 CONFIRMATIONS = {"user-provided", "user-confirmed"}
+GENERATION_MODES = {"execution", "research", "mixed"}
 MANAGEMENT_STAGES = {
     "strategic-framing", "mechanism-design", "campaign-deployment",
     "operating-system", "monitoring-diagnosis", "experiment-review",
@@ -136,7 +138,7 @@ def validate_brief(brief: Any, errors: list[str]) -> None:
     preflight = brief.get("preflight")
     require_keys(
         preflight,
-        {"audience", "material_type", "management_stage", "narrative_archetype", "desired_outcome", "confirmation"},
+        {"audience", "desired_outcome"},
         "brief.preflight",
         errors,
     )
@@ -145,22 +147,28 @@ def validate_brief(brief: Any, errors: list[str]) -> None:
     audience = preflight.get("audience")
     if not isinstance(audience, dict) or not is_nonempty_string(audience.get("primary")):
         errors.append("brief.preflight.audience.primary: must be a non-empty string")
-    if preflight.get("material_type") not in MATERIAL_TYPES:
-        errors.append(f"brief.preflight.material_type: must be one of {sorted(MATERIAL_TYPES)}")
-    if preflight.get("management_stage") not in MANAGEMENT_STAGES:
-        errors.append(f"brief.preflight.management_stage: must be one of {sorted(MANAGEMENT_STAGES)}")
-    if preflight.get("narrative_archetype") not in NARRATIVE_ARCHETYPES:
-        errors.append(f"brief.preflight.narrative_archetype: must be one of {sorted(NARRATIVE_ARCHETYPES)}")
+    for key in ("material_type", "management_stage", "narrative_archetype"):
+        if key in preflight and not is_nonempty_string(preflight.get(key)):
+            errors.append(f"brief.preflight.{key}: must be a non-empty string when provided")
     outcome = preflight.get("desired_outcome")
     if not isinstance(outcome, dict) or outcome.get("mode") not in OUTCOME_MODES or not is_nonempty_string(outcome.get("target")):
         errors.append("brief.preflight.desired_outcome: requires a valid mode and non-empty target")
-    confirmation = preflight.get("confirmation")
-    if not isinstance(confirmation, dict):
-        errors.append("brief.preflight.confirmation: must be an object")
-    else:
-        for key in ("audience", "material_type", "management_stage", "narrative_archetype", "desired_outcome"):
-            if confirmation.get(key) not in CONFIRMATIONS:
-                errors.append(f"brief.preflight.confirmation.{key}: must be user-provided or user-confirmed")
+    generation_mode = preflight.get("generation_mode")
+    if "generation_mode" in preflight and (
+        not isinstance(generation_mode, str) or generation_mode not in GENERATION_MODES
+    ):
+        errors.append(f"brief.preflight.generation_mode: must be one of {sorted(GENERATION_MODES)}")
+    if "confirmation" in preflight:
+        confirmation = preflight.get("confirmation")
+        if not isinstance(confirmation, dict):
+            errors.append("brief.preflight.confirmation: must be an object when provided")
+        else:
+            confirmation_statuses = CONFIRMATIONS | {"agent-inferred"}
+            for key, value in confirmation.items():
+                if not isinstance(value, str) or value not in confirmation_statuses:
+                    errors.append(
+                        f"brief.preflight.confirmation.{key}: must be user-provided, user-confirmed, or agent-inferred"
+                    )
 
 
 def validate_slide(slide: Any, path: str, errors: list[str]) -> None:
@@ -466,9 +474,83 @@ def validate_slide(slide: Any, path: str, errors: list[str]) -> None:
                 errors.append(f"{path}.reasoning_contracts.experiment_learning.observation_refs: must reference node: or data: ids")
 
 
+def validate_acceptance_against_logic(acceptance: Any, slides: Any, errors: list[str]) -> None:
+    if not isinstance(acceptance, dict) or not isinstance(slides, list):
+        return
+    cover_policy = acceptance.get("cover_policy", {})
+    cover_mode = cover_policy.get("mode") if isinstance(cover_policy, dict) else None
+    cover_slides = [slide for slide in slides if isinstance(slide, dict) and slide.get("narrative_role") == "cover"]
+    closing_slides = [slide for slide in slides if isinstance(slide, dict) and slide.get("narrative_role") == "closing"]
+    cover_required = cover_policy.get("cover_required", cover_mode in {"topic-only", "verdict-allowed"})
+    closing_required = cover_policy.get("closing_required", cover_mode in {"topic-only", "verdict-allowed"})
+    if cover_required:
+        if len(cover_slides) != 1:
+            errors.append(f"acceptance_contract.cover_policy: {cover_mode} requires exactly one Logic cover slide")
+    if closing_required:
+        if len(closing_slides) != 1:
+            errors.append(f"acceptance_contract.cover_policy: {cover_mode} requires exactly one Logic closing slide")
+    if cover_required or closing_required:
+        if cover_slides and slides and slides[0] is not cover_slides[0]:
+            errors.append("acceptance_contract.cover_policy: the cover must be first")
+        if closing_slides and slides and slides[-1] is not closing_slides[0]:
+            errors.append("acceptance_contract.cover_policy: the closing slide must be last")
+    if cover_mode == "topic-only":
+        for slide in cover_slides:
+            if slide.get("claim_status") in {"recommendation", "forecast", "target", "causal-claim"}:
+                errors.append(f"logic_layer.slides[{slide.get('slide_id')}]: topic-only cover cannot carry a verdict or recommendation")
+            if slide.get("decision_weight") in {"high", "critical"}:
+                errors.append(f"logic_layer.slides[{slide.get('slide_id')}]: topic-only cover cannot carry high decision weight")
+    if cover_mode == "not-applicable" and cover_slides:
+        errors.append("acceptance_contract.cover_policy: not-applicable cannot be used when Logic contains a cover")
+
+    allowed_conclusion_roles = set(cover_policy.get("conclusion_allowed_roles", [])) if isinstance(cover_policy, dict) else set()
+    for slide in slides:
+        if not isinstance(slide, dict):
+            continue
+        if slide.get("claim_status") in {"recommendation", "forecast", "target"} and allowed_conclusion_roles and slide.get("narrative_role") not in allowed_conclusion_roles:
+            errors.append(f"logic_layer.slides[{slide.get('slide_id')}]: conclusion appears in a role not allowed by acceptance_contract")
+
+    narrative_policy = acceptance.get("narrative_policy", {})
+    if not isinstance(narrative_policy, dict):
+        return
+    minimum_pairs = narrative_policy.get("minimum_friction_impact_pairs", 0)
+    relation_types = set(narrative_policy.get("required_relation_types", []))
+    recommendation_index = next(
+        (
+            index
+            for index, slide in enumerate(slides)
+            if isinstance(slide, dict)
+            and (
+                slide.get("narrative_role") in {"recommendation", "decision", "action"}
+                or slide.get("claim_status") in {"recommendation", "forecast", "target"}
+            )
+        ),
+        len(slides),
+    )
+    eligible_slides = slides[:recommendation_index] if narrative_policy.get("problem_before_recommendation") else slides
+    # Count only actual friction-to-consequence links; a generic sequence or
+    # three peer relationships cannot prove that the problem was explained.
+    pair_count = 0
+    for slide in eligible_slides:
+        if not isinstance(slide, dict):
+            continue
+        objects = {o.get("object_id"): o for o in slide.get("logic_map", {}).get("objects", []) if isinstance(o, dict)}
+        for relation in slide.get("semantic_relations", []):
+            if not isinstance(relation, dict) or relation.get("type") not in {"cause", "maps-to", "supports"}:
+                continue
+            if relation_types and relation.get("type") not in relation_types:
+                continue
+            source_types = {objects.get(i, {}).get("type") for i in relation.get("source_object_ids", [])}
+            target_types = {objects.get(i, {}).get("type") for i in relation.get("target_object_ids", [])}
+            if "risk" in source_types and target_types.intersection({"result", "need"}):
+                pair_count += 1
+    if isinstance(minimum_pairs, int) and pair_count < minimum_pairs:
+        errors.append("acceptance_contract.narrative_policy: Logic does not establish the required friction-impact relations before recommendation")
+
+
 def validate_package(data: Any, require_status: str = "logic-approved") -> list[str]:
     errors: list[str] = []
-    required_root = {"contract_version", "package_id", "version", "status", "brief", "resource_inventory", "logic_layer", "copy_layer", "approvals", "index_evidence"}
+    required_root = {"contract_version", "package_id", "version", "status", "acceptance_contract", "brief", "resource_inventory", "logic_layer", "copy_layer", "approvals", "index_evidence"}
     require_keys(data, required_root, "$", errors)
     if not isinstance(data, dict):
         return errors
@@ -484,6 +566,8 @@ def validate_package(data: Any, require_status: str = "logic-approved") -> list[
         errors.append(f"status: requires at least {require_status}, got {status}")
     if status == "logic-approved" and data.get("copy_layer") is not None:
         errors.append("copy_layer: must be null while status is logic-approved")
+
+    validate_acceptance_contract(data.get("acceptance_contract"), "acceptance_contract", errors)
 
     validate_resource_inventory(
         data.get("resource_inventory"),
@@ -503,6 +587,9 @@ def validate_package(data: Any, require_status: str = "logic-approved") -> list[
     if status == "copy-approved":
         required_index_stages.append("copy")
     validate_index_evidence(data.get("index_evidence"), required_index_stages, "index_evidence", errors)
+    validate_stage_retrieval_budget(
+        data.get("index_evidence"), data.get("acceptance_contract"), required_index_stages, "index_evidence", errors
+    )
 
     validate_brief(data.get("brief"), errors)
     logic = data.get("logic_layer")
@@ -534,6 +621,7 @@ def validate_package(data: Any, require_status: str = "logic-approved") -> list[
     require_keys(deck_tree, {"root_claim", "section_order", "slide_order"}, "logic_layer.deck_message_tree", errors)
     slides = logic.get("slides")
     slide_ids = unique_ids(slides, "slide_id", "logic_layer.slides", errors)
+    validate_acceptance_against_logic(data.get("acceptance_contract"), slides, errors)
     if isinstance(deck_tree, dict):
         if not is_nonempty_string(deck_tree.get("root_claim")):
             errors.append("logic_layer.deck_message_tree.root_claim: must be non-empty")
@@ -545,7 +633,7 @@ def validate_package(data: Any, require_status: str = "logic-approved") -> list[
     narrative = logic.get("narrative")
     require_keys(
         narrative,
-        {"opening", "progression", "turning_points", "closing", "management_stage_path", "audience_state_arc"},
+        {"opening", "progression", "turning_points", "closing", "audience_state_arc"},
         "logic_layer.narrative",
         errors,
     )
@@ -555,9 +643,12 @@ def validate_package(data: Any, require_status: str = "logic-approved") -> list[
                 errors.append(f"logic_layer.narrative.{key}: must be non-empty")
         if not isinstance(narrative.get("turning_points"), list):
             errors.append("logic_layer.narrative.turning_points: must be an array")
-        stages = narrative.get("management_stage_path")
-        if not isinstance(stages, list) or not stages or any(stage not in MANAGEMENT_STAGES for stage in stages):
-            errors.append("logic_layer.narrative.management_stage_path: must contain valid management stages")
+        if "management_stage_path" in narrative:
+            stages = narrative.get("management_stage_path")
+            if not isinstance(stages, list) or any(not is_nonempty_string(stage) for stage in stages):
+                errors.append(
+                    "logic_layer.narrative.management_stage_path: must be an array of non-empty strings when provided"
+                )
         arc = narrative.get("audience_state_arc")
         slide_order = [slide.get("slide_id") for slide in slides if isinstance(slide, dict)]
         if not isinstance(arc, list) or [item.get("slide_id") for item in arc if isinstance(item, dict)] != slide_order:

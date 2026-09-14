@@ -4,13 +4,17 @@ v0.8.0 preserves the v0.5.2 separation of presentation reasoning, governed retri
 
 ## Fixed lifecycle
 
-`natural-language request → official latest-version/component gate → first private learning for this version or hash-verified reuse → Supervisor issues a fresh task-bound challenge and binds config → one preflight and resource brief → locked route/sources → Logic → Copy → Art Direction → Output build → Supervisor final-render audit → at most one targeted repair → validated paired publisher bundle`
+`presentation request → offline installed-component check → immutable source-revision learning or hash-verified reuse → Supervisor issues a fresh task-bound challenge and binds config → one preflight and resource brief → locked route/sources → Logic → Copy → Art Direction → Output build → Supervisor final-render audit → at most one targeted repair → validated paired publisher bundle`
+
+Resource inspection and discussion learning use the separate entry modes in
+[the local plugin system](plugin-system.md); they do not require a production
+renderer or fabricated stage artifacts.
 
 The route does not change mid-run. A hard backend failure closes the run; one configured fallback restart may begin from a fresh preflight report.
 
-Every task checks the official GitHub Latest Release and prints the mounted core-component table before other presentation work. Runtime preflight re-binds a report generated within the last 15 minutes. Unavailable freshness evidence, a stale core, a missing component, or within-package version drift fails before Logic.
+Every task checks installed components offline against the bundled component table. Runtime preflight re-binds a report generated within the last 15 minutes. Missing or internally inconsistent components fail before Logic; remote release differences, GitHub unavailability and candidate expiry do not. Developers explicitly use --mode release-check for publication verification.
 
-In owner-personal mode, `scripts/bootstrap_owner_learning.py` keys a persistent private index by Public Core version and the real private source-set hash. The first run reads admitted knowledge, templates, standards, and methods, builds the index, exercises retrieval probes, and writes a separate JSON/Markdown learning audit. Later tasks verify and reuse it. Source drift under the same core version fails closed instead of silently replacing the first-run evidence. “Learning” here means persistent, retrievable, audited private indexing—not model-weight modification.
+In owner-personal mode, `scripts/bootstrap_owner_learning.py` keys a persistent private index by Public Core version and admitted source revision. Unchanged sources reuse cached extraction; a newly admitted source set creates a new immutable snapshot. Existing snapshots are never silently replaced, and changed bytes under an old revision fail verification. Discussion-based knowledge uses the same IndexRecord engine via its own hash-confirmed snapshot producer. “Learning” means persistent, retrievable private knowledge, not model-weight modification.
 
 ## Model interaction
 

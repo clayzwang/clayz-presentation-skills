@@ -1,6 +1,6 @@
 {
   "contract": "io.clayz.presentation.retrieval-benchmark-report/1.0",
-  "report_id": "benchmark-report-4d7c5f9b8f8d3294f67b",
+  "report_id": "benchmark-report-d53c2d476af5e394eab1",
   "benchmark_id": "benchmark.stage5-synthetic-feedback",
   "created_at": "2026-08-23T12:00:00Z",
   "provider_snapshots": [
@@ -22,12 +22,16 @@
       "expected_status": "matched",
       "actual_status": "matched",
       "top_k": 3,
-      "expected_candidate_ids": ["pattern.asymmetric-evidence-to-decision"],
-      "actual_candidate_ids": ["pattern.asymmetric-evidence-to-decision"],
+      "expected_candidate_ids": [
+        "pattern.asymmetric-evidence-to-decision"
+      ],
+      "actual_candidate_ids": [
+        "pattern.asymmetric-evidence-to-decision"
+      ],
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-2f3b8c06ef1db77a4e13",
+      "receipt_id": "receipt-2974e2f6b90aca0cc6f0",
       "passed": true,
       "reasons": []
     },
@@ -36,12 +40,16 @@
       "expected_status": "matched",
       "actual_status": "matched",
       "top_k": 3,
-      "expected_candidate_ids": ["failure.semantic-visual-mismatch"],
-      "actual_candidate_ids": ["failure.semantic-visual-mismatch"],
+      "expected_candidate_ids": [
+        "failure.semantic-visual-mismatch"
+      ],
+      "actual_candidate_ids": [
+        "failure.semantic-visual-mismatch"
+      ],
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-f4c34255d37e8b4249f4",
+      "receipt_id": "receipt-cc9d9a142df247d53504",
       "passed": true,
       "reasons": []
     },
@@ -50,12 +58,16 @@
       "expected_status": "matched",
       "actual_status": "matched",
       "top_k": 3,
-      "expected_candidate_ids": ["learning.synthetic-label-offset"],
-      "actual_candidate_ids": ["learning.synthetic-label-offset"],
+      "expected_candidate_ids": [
+        "learning.synthetic-label-offset"
+      ],
+      "actual_candidate_ids": [
+        "learning.synthetic-label-offset"
+      ],
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-ec8e33fed92d35d3ee93",
+      "receipt_id": "receipt-936006b6dc8d13eaa00b",
       "passed": true,
       "reasons": []
     },
@@ -69,7 +81,7 @@
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-09f87a1952ac05ced549",
+      "receipt_id": "receipt-f3a5ac6b5269fc67cb1d",
       "passed": true,
       "reasons": []
     }

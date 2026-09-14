@@ -1,7 +1,7 @@
 {
   "name": "clayz-presentation-skills",
-  "version": "0.8.0",
-  "description": "A five-stage presentation system with pre-Logic resource inventory, first-class Index evidence, editable production, and render-grounded supervision.",
+  "version": "0.16.0",
+  "description": "Inspect resources, discuss and persist confirmed knowledge with attachments, then enable five-stage presentation work through one shared Index and production runtime.",
   "author": {
     "name": "clayz"
   },
@@ -17,8 +17,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Clayz Presentation Skills",
-    "shortDescription": "Five-stage presentation design, production, and QA",
-    "longDescription": "Inventory available resources and report what will be used before Logic, then turn evidence into an approved presentation through separate Logic, Copy, Art Direction, Output, and Supervisor stages with one locked Index and render-grounded QA.",
+    "shortDescription": "Resource discovery, discussed knowledge, and PPT enablement",
+    "longDescription": "Inspect local resources, discuss source material with the owner, save only exact confirmed knowledge with original attachments, and retrieve it through the shared Index for Logic, Copy, Art Direction, Output, and Supervisor. Filesystem persistence is included; ChatGPT Library connectivity depends on the host. Maintenance governance is a separate management component.",
     "developerName": "clayz",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
@@ -26,6 +26,8 @@
     "composerIcon": "./assets/clayz-mark.svg",
     "logo": "./assets/clayz-mark.svg",
     "defaultPrompt": [
+      "Inspect my available presentation resources and knowledge Library.",
+      "Discuss this material with me and save our confirmed understanding with its attachments.",
       "Use the Clayz five-stage workflow to create a presentation from my source material.",
       "Audit this deck with the Clayz Supervisor skill."
     ]

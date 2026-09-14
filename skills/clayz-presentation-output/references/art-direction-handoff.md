@@ -26,6 +26,6 @@ Output accepts only `ppt-art-direction-plan.json` contract 1.3 with status `art-
 - To change medium, silhouette, main backbone, region, reading path, series backbone, motif, semantic whitespace, or persistent navigation: return to Art Direction.
 - To delete, rewrite, or re-break copy: return to Copy.
 - To change a relationship, hierarchy, number, or slide order: return to Logic.
-- If upstream baselines cannot all be satisfied: stop production, record the conflict, evidence, expected drift, and feasible alternatives, then send it to Supervisor for synthesis and user adjudication.
+- If satisfying the request would require changing an upstream baseline or an explicit user no-delivery condition: stop that change, record the conflict, evidence, expected drift, and feasible alternatives, then send it to Supervisor for synthesis and the required user decision. A quality defect may remain a reported finding and continue to the Auditor when the artifact bindings are complete.
 
 Record every deviation in `ppt-build-deviation-log.json`. If `changes_art_direction=true`, a new Art Direction version and the user's approval basis are both required. The log cannot approve itself. A challenge does not alter the baseline; only the adjudicated new version does.

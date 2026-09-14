@@ -1,8 +1,44 @@
-# Presentation Supervision Report Contract v3.3
+# Presentation Supervision Report Contract v3.6
 
-`ppt-supervision-report.json` is an independent post-production audit. It does not approve rework and may not write back to upstream artifacts.
+v3.5 and v3.4 reports remain readable as legacy; the JSON illustration below is
+a legacy v3.4 shape. New runs use report3.6 and include a full work report
+assembled from the stage records and actual primary artifacts.
+
+`ppt-supervision-report.json` is the Supervisor's coordination, reconciliation,
+full-work-report and release record. New report3.6 runs attach the authoritative
+`work_report` object and its canonical top-level `work_report_sha256`. The
+independent file/render audit is the shared
+`io.clayz.presentation.independent-audit/1.0` artifact bound as
+`auditor_artifact`; it does not approve rework and may not write back to
+upstream artifacts. Supervisor preserves its findings and cannot rewrite them.
+
+The formal JSON is the source for a deterministic readable Markdown report,
+published with the same validated bundle. The Markdown may be richer than the
+PPTX because it records the task, evidence, decisions and audit, but it is not
+an independently authored source of facts. The full report must remain useful
+to a reader who did not see the conversation: it covers task requirements;
+evidence, source trace and contrary evidence; assumptions and uncertainty;
+storyline and meaningful exclusions; final copy; page-level design intent;
+three Supervisor calibrations and downstream absorption; actual PPTX
+statistics/text/notes; Independent Auditor observations; release, limitations
+and improvements. Missing notes or unobserved checks are explicitly
+`not-recorded`, `deferred`, or `uncertain`; they are never filled from memory.
+
+The former report shape that names Supervisor as `final_auditor` is retained
+only for reading historical v3.4 reports. New runs use the Independent Auditor
+artifact and disclose its actual review context. The current delivery policy is
+binding and evidence integrity first: quality findings may be delivered with
+`issues-found`, while missing or mismatched bindings, identities, formats or
+required evidence still prevent a verified pair. Explicit user no-delivery
+conditions are stored in `acceptance.release_conditions`; the default is an
+empty array, and hard classification or legacy `blocking=true` does not create
+a release condition.
 
 Process supervision uses `ppt-supervision-checkpoint.json`; a checkpoint is diagnostic communication, not a gate, approval form, or veto.
+
+The JSON illustration below is retained for legacy v3.4 report reading because
+it uses the former `final_auditor` role. New runs follow the current
+`auditor_artifact` and lifecycle rules stated after the example.
 
 ```json
 {
@@ -41,17 +77,22 @@ An approved artifact is the current execution baseline, not an unchallengeable p
 
 ```json
 {
-  "contract_version": "3.3",
+  "contract_version": "3.4",
   "origin_namespace": "io.clayz.presentation",
   "status": "supervised",
   "run_id": "run-0123456789ab4def8123456789abcdef",
   "task_request_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
   "package_id": "example-deck",
   "package_version": "2.1.0",
-  "art_direction_plan_contract_version": "1.6",
-  "output_qa_contract_version": "3.9",
+  "art_direction_plan_contract_version": "1.7",
+  "output_qa_contract_version": "4.0",
   "supervised_at": "2026-08-12T22:30:00+08:00",
   "run_status": "complete-with-deferred-acceptance",
+  "acceptance_contract": {},
+  "stage_snapshots": {},
+  "requirement_traceability": [],
+  "retrieval_quality": {},
+  "generation_efficiency": {},
   "index_evidence": {},
   "resource_usage": {},
   "environment_observation": {
@@ -95,6 +136,7 @@ An approved artifact is the current execution baseline, not an unchallengeable p
     "object_inventory": "ppt-object-inventory.json",
     "build_deviation_log": "ppt-build-deviation-log.json",
     "font_environment_report": "font-environment-report.json",
+    "font_name_audit_report": "pptx-font-name-audit.json",
     "cjk_render_report": "cjk-render-report.json",
     "size_audit_report": "ppt-size-audit.json",
     "final_reopen_render_root": "output/final-reopen-render"
@@ -128,23 +170,124 @@ An approved artifact is the current execution baseline, not an unchallengeable p
 }
 ```
 
-`resource_usage` follows `io.clayz.presentation.resource-usage/1.0`. It reconciles every resource selected in the user-visible pre-Logic inventory as actually used or intentionally unused, maps used resources to all five governed stages with concrete evidence, and carries a final user-visible summary. A missing or mismatched reconciliation requires `incomplete-evidence`.
+`resource_usage` follows `io.clayz.presentation.resource-usage/1.0` when it is
+included. It reconciles every resource selected in the user-visible pre-Logic
+inventory as actually used or intentionally unused, maps used resources to all
+five governed stages with concrete evidence, and carries a final user-visible
+summary. It is supporting evidence in report3.6 when supplied; when present, a
+missing or mismatched reconciliation is an evidence finding.
 
-`supervisor_roles` is mandatory and contains exactly `initiator`, `mediator`, `recorder`, and `final_auditor`. Initiator, recorder, and final auditor must be `complete`. Mediator may be `not-needed` only when the report has no issues; any issue requires completed mediation, a v1.1 `ppt-supervision-checkpoint.json`, and one `mediation-recorded` lifecycle event. The checkpoint binds the same run ID, task-request SHA-256, exact report issue IDs, and mediation timestamp. Every external role and lifecycle evidence reference includes `sha256=<actual-file-sha256>` and resolves to a non-empty, contract-valid task-local artifact; report self-references are verified against the report in memory. Each role records a concise outcome and evidence references, never private chain-of-thought.
+`stage_snapshots` embeds immutable decision-bearing snapshots from Logic (`brief` and `logic_layer`), Copy (`copy_layer`), and Art Direction (communication, visual thesis, decision log, typography, rhythm, and slides). Every snapshot carries the original artifact SHA-256 plus a canonical snapshot SHA-256 and must match the validated upstream artifact exactly. `requirement_traceability` covers every task-acceptance requirement once and maps it through Logic, Copy, Art Direction, Output, and Supervisor evidence.
 
-`lifecycle_events` is a chronological, task-local record. Each governed action is unique and uses its fixed phase, Supervisor role, and status. The canonical order is `supervision-started` → `runtime-preflight-completed` → `resource-brief-presented` → Logic → Copy → Art Direction → Output → optional `mediation-recorded` → `final-audit-completed` → `delivery-pair-locked` → `control-returned`. This makes environment preflight and the resource brief provably precede Logic. The resource-brief event timestamp must match the pre-Logic inventory and its evidence binds both the inventory file SHA-256 and `user_brief.content_sha256`. Mediation exists only for real issues and is never invented for a clean run.
+`calibration_artifacts` records the assembled, hash-bound Supervisor
+evaluations between Logic and Copy, Copy and Art Direction, and Art Direction
+and Output. Each artifact uses
+`io.clayz.presentation.supervisor-calibration/1.0`, binds the run, task request,
+acceptance contract and source artifact map, and records concrete findings. The
+consuming stage work record carries `calibration_bindings` with the receipt SHA
+and an `accepted`, `partially-accepted`, or `declined` decision plus its reason.
+A stale source hash invalidates the downstream binding.
+
+`retrieval_quality` and `generation_efficiency` reconcile Index and runtime
+accounting when those optional fields are supplied. They remain optional in the
+report3.6 delivery envelope; preserve actual values and never create placeholder
+receipts, timing, or budget claims. File-size efficiency never substitutes for
+runtime efficiency.
+
+For a new run, `supervisor_roles` records Supervisor's `initiator`,
+`mediator` and `recorder` responsibilities. The compatibility
+`final_auditor` entry remains `not-needed` or `incomplete` and must not imply
+that Supervisor authored the audit. The stage-five work record uses role
+`auditor`, and the independent Auditor is bound separately as
+`auditor_artifact` with its path, SHA-256, `audited_at` and
+`independent_context`. A quality finding does not require a user checkpoint or
+mediation. Create a v1.1
+`ppt-supervision-checkpoint.json` only for a material business choice, scope
+change or explicit no-delivery condition, and bind it to the same run, task
+request and affected issue IDs. Every external role and lifecycle evidence
+reference includes `sha256=<actual-file-sha256>` and resolves to a non-empty,
+contract-valid task-local artifact; report self-references are verified against
+the report in memory. Each role records a concise outcome and evidence
+references, never private chain-of-thought.
+
+`core_sequence` is the required report3.6 lifecycle summary. It is derived from the
+five work records, the three `calibration_artifacts`, the Auditor artifact and
+Supervisor release, in this order: `supervision-started` →
+`logic-to-copy-calibrated` → `copy-to-art-direction-calibrated` →
+`art-direction-to-output-calibrated` → `independent-audit-completed` →
+`supervisor-release`. The older `lifecycle_events` list is optional supporting
+evidence in this branch. If supplied, each event must be real and bound; do not
+invent the former preflight/resource-brief/mediation sequence merely to satisfy
+legacy readers. Mediation is recorded only for a material decision, scope
+change or explicit no-delivery condition.
 
 `environment_observation` exactly binds the `runtime-preflight.json` scan ID, raw-file SHA-256, run ID, normalized task-request SHA-256, task-root SHA-256, canonical issuance- and consumption-ledger hashes, exact resolved-config SHA-256, locked route, route-requirement status, and every target application. The report root and preflight run/task bindings must match, and preflight may not omit any capability required by the validated resolved config. Available host-provided capabilities require same-run inspection provenance but remain `host-declared-unverified`: their capabilities appear under `declared_unverified`, not `satisfied`, and their route stays `provisional`. An unavailable target is `deferred`, an available but unexecuted target is `not-selected`, and only an executed check may be `pass` or `fail`; every item fixes `authoring_gate=false`. Deferred and not-selected outcomes bind the hash-checked preflight record. Pass/fail outcomes require a hash-bound `io.clayz.presentation.target-application-check/1.0` receipt tied to the same run, task request, target application, and final PPTX SHA-256; its `observed_at` must be inside the challenge window and between Output handoff and final audit. `compatibility_scope` is derived as `full`, `partial`, or `none` and bounds compatibility claims and attribution.
 
-`run_status` is `clean`, `complete-with-deferred-acceptance`, `issues-found`, or `incomplete-evidence`. Use `complete-with-deferred-acceptance` when there are no other issues but at least one target is `deferred` or `not-selected`; the PPTX and report may still be delivered together. Missing Art Direction, PPTX, the locked-route render, build-deviation evidence, first-class Index materialization, resource-use reconciliation, or any stage receipt requires `incomplete-evidence` and prevents normal delivery.
+`run_status` is `clean`, `complete-with-deferred-acceptance`, `issues-found`, or `incomplete-evidence`. Use `complete-with-deferred-acceptance` when there are no other issues but at least one target is `deferred` or `not-selected`; the PPTX, formal report and derived Markdown may still be delivered together. Use `issues-found` for accurately recorded quality defects, unmet soft/hard requirements or unavailable/unselected render coverage when the user's policy permits delivery. In report3.6, missing or invalid five-record assembly, one of the three calibration artifacts, the Auditor artifact, `supervisor_release`, `core_sequence`, `work_report`/`work_report_sha256`, or required binding/evidence integrity uses `incomplete-evidence` and prevents a verified pair. A malformed or mismatched derived Markdown/manifest is a publication evidence failure, not a new `delivery_pair` member. Optional lifecycle, Index/retrieval, performance, Library and render evidence may be absent; if absent, record the limitation rather than fabricate it. Missing optional stage notes are `not-recorded` and do not by themselves block a binding-complete pair.
 
 `origin_namespace` is exactly `io.clayz.presentation`, `status` is exactly `supervised`, and `control_returned_to` names the user or responsible process that received control after audit. `artifact_paths` includes the runtime-preflight and pre-Logic resource-inventory records as first-class evidence, not only downstream build artifacts.
 
 `delivery_efficiency.status` is `pass`, `fail`, or `uncertain`; `uncertain` requires root `incomplete-evidence`. Unless the user specified otherwise, `profile` is `lightweight`. The size audit binds the final PPTX hash and reconciles file size, media counts, duplicates, fonts, and attachments with `ppt-object-inventory.json.package_media`. A deck over its total soft budget may pass when item-level efficiency passes and `exception_reason` states the business need. Duplicate, unused, over-resolution, or accidentally embedded content cannot be excepted.
 
-`delivery_pair` makes the PPTX and supervision report one delivery unit. `required_artifacts` is exactly `["pptx", "supervision-report"]`; the PPTX record contains the filename and verified SHA-256, the report record names this report, `delivery_manifest.path` is exactly `delivery-manifest.json`, and `publisher` is exactly `scripts/publish_supervised_pair.py`. `incomplete-evidence` requires `blocked`; otherwise the validated pair is `ready`. Output stages may stage files, but only the publisher may materialize a new verified bundle and only Supervisor may hand off the two validated artifacts from it. A manually copied or single-file handoff is not a completed delivery.
+`delivery_pair` keeps the PPTX and formal supervision report as the validated
+primary pair. The publisher writes the deterministic `work-report.md` companion
+and records it in the manifest's `derived_files` collection; this companion is
+delivered from the same verified bundle without being added to
+`delivery_pair.required_artifacts`.
+`required_artifacts` is exactly `["pptx", "supervision-report"]`; the PPTX
+record contains the filename and verified SHA-256, the report record names
+this report, `delivery_manifest.path` is exactly `delivery-manifest.json`, and
+`publisher` is exactly `scripts/publish_supervised_pair.py`. A valid
+`auditor_artifact` binding and `audited_at <= released_at` are required for a
+new-run `ready` pair. `incomplete-evidence` caused by missing required
+bindings/evidence requires `blocked`; a binding-complete `issues-found` report
+with deferred render coverage may still be `ready` under the default policy.
+Output stages may stage files, but only the publisher may materialize a new
+verified bundle and only Supervisor may hand off the validated PPTX, formal
+report and `work-report.md` from it. A manually copied or single-file handoff
+is not a completed delivery. The manifest's `derived_files` entry binds the
+Markdown path, bytes and hash to the formal JSON without a circular report hash.
 
 `asset_observations` records soft feedback only for assets used in this task, such as `asset_id`, `task_fit`, `execution_effect`, `conflict_signal`, `neighbor_value`, `reuse_note`, and evidence. A 1–5 task score is not global quality and may not alter admission, classification, retrieval weight, or promote output to a reference automatically.
+
+## Full work report guidance
+
+The report3.6 JSON is the complete work record for the task. It is assembled
+from existing primary stage artifacts, short stage records, optional bound
+`work-notes`, the three Supervisor calibration artifacts, the independent
+Auditor artifact, and actual final PPTX inspection. The core's
+`render_work_report_markdown` path deterministically derives `work-report.md`
+from that JSON and publishes it in `manifest.derived_files`; it is not edited
+into a second narrative source. The canonical JSON hash is retained in
+`work_report_sha256` and in the derived Markdown's binding metadata.
+
+The assembled record should make the work understandable without the chat. Use
+the evidence that exists to cover the task and acceptance requirements; source
+facts and research scope; contrary evidence and responses; assumptions,
+definitions and uncertainty; storyline, decisions, tradeoffs and meaningful
+exclusions; final visible copy and notes; per-page design intent and the
+content-to-visual relationship; three Supervisor evaluations and what Logic,
+Copy, Art Direction or Output absorbed; actual PPTX slide/object/media counts,
+page text and speaker notes; actual deviations; Independent Auditor
+observations and review limits; release decision, findings, limitations and
+improvements. Headings such as `task`, `evidence`, `story`, `copy`, `design`,
+`calibration`, `actual`, `audit`, and `release` are useful reading aids, not a
+required story type or page formula.
+
+Art Direction must explain why a medium expresses the content relationship and
+why text-led presentation is appropriate when it is. The report records the
+model's professional visual judgment, including selected and rejected routes;
+scripts only bind bytes, calculate statistics, extract observable PPTX text or
+notes, and aggregate the report. It does not require a chart, image, table, or
+silhouette change on every page.
+
+When a relevant note or observation was not captured, use `not-recorded` and
+state the resulting limitation. Do not infer a complete history from a full
+primary artifact, later memory, a populated JSON field, or the presence of a
+PPTX. A summary-only legacy report is evidence-incomplete; that limitation does
+not prove that an earlier stage did not run. `deferred`, `uncertain`, and
+quality `fail` remain truthful statuses and may be delivered under the existing
+policy when binding evidence is complete.
 
 ## Per-slide structure
 
@@ -183,7 +326,7 @@ Required checks include:
 
 Check status is `pass`, `fail`, `not-applicable`, or `uncertain`. `uncertain` requires root `incomplete-evidence`. `not-applicable` still needs specific evidence.
 
-Every check evidence string cites the stable slide ID and is unique to that slide and check. Reusing one sentence across checks or pages is invalid. Supervisor reruns the complete Output QA validator against the final PPTX; a self-authored “consistent” statement cannot replace object or render evidence.
+Every check evidence string cites the stable slide ID and is unique to that slide and check. Reusing one sentence across checks or pages is invalid. The Independent Auditor runs the complete file/object/render audit against the final PPTX; Supervisor validates the report and bindings, and a self-authored “consistent” statement cannot replace object or render evidence.
 
 `planned.audience_detail_min_pt`, `chart_text_min_pt`, and `data_chart_contract` reproduce the Art Direction plan exactly. On body slides, record `rendered.minimum_audience_text_pt_observed` and every central type-token violation in `nonconforming_point_sizes_observed`. Below-minimum text or a nonempty violation list fails `typography_legibility` and creates an issue.
 
@@ -252,6 +395,10 @@ TITLE_CHROME_DUPLICATED
 FONT_SIZE_BELOW_MINIMUM
 FONT_SIZE_NONCONFORMING_TOKEN
 CJK_GLYPH_RENDER_MISSING
+CJK_FONT_FAMILY_MISMATCH
+ACCEPTANCE_REQUIREMENT_FAILED
+RETRIEVAL_RELEVANCE_OR_BUDGET_FAILURE
+GENERATION_PERFORMANCE_BUDGET_EXCEEDED
 PPTX_LIGHTWEIGHT_PROFILE_MISSING
 PPTX_DUPLICATE_OR_UNUSED_MEDIA
 PPTX_RASTER_OVERSIZED

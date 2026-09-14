@@ -58,6 +58,7 @@
         "purpose_tags": {"$ref": "#/$defs/stringSet"},
         "languages": {"$ref": "#/$defs/stringSet"},
         "failure_signals": {"$ref": "#/$defs/stringSet"},
+        "format_tags": {"$ref": "#/$defs/stringSet"},
         "asset_class": {"type": "string", "minLength": 1},
         "brand_scope": {"enum": ["none", "generic", "brand-specific"]}
       },

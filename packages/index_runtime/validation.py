@@ -70,6 +70,7 @@ def validate_record(record: Mapping[str, Any]) -> dict[str, Any]:
     require(all(stage in STAGES for stage in stages), "record.classification.stages contains an unsupported stage")
     for key in ("task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages", "failure_signals"):
         require_string_list(classification.get(key, []), f"record.classification.{key}")
+    require_string_list(classification.get("format_tags", []), "record.classification.format_tags")
     asset_class = require_nonempty_string(classification.get("asset_class"), "record.classification.asset_class")
     brand_scope = require_nonempty_string(classification.get("brand_scope"), "record.classification.brand_scope")
     require(brand_scope in {"none", "generic", "brand-specific"}, "record.classification.brand_scope is invalid")
@@ -105,7 +106,15 @@ def validate_request(request: Mapping[str, Any]) -> dict[str, Any]:
     require_nonempty_string(normalized.get("request_id"), "request.request_id")
     stage = require_nonempty_string(normalized.get("stage"), "request.stage")
     require(stage in STAGES, f"unsupported request stage: {stage}")
-    require(isinstance(normalized.get("query", ""), str), "request.query must be a string")
+    query = require_nonempty_string(normalized.get("query"), "request.query")
+    require(len(query.strip()) >= 8, "request.query must contain a substantive task question of at least 8 characters")
+    normalized["query"] = query.strip()
+    intent = require_nonempty_string(normalized.get("intent", "task-reference"), "request.intent")
+    require(
+        intent in {"task-reference", "format-reference", "implementation-reference", "failure-diagnosis", "source-consumption"},
+        "request.intent is unsupported",
+    )
+    normalized["intent"] = intent
     rights_context = require_nonempty_string(normalized.get("rights_context"), "request.rights_context")
     require(rights_context in RIGHTS_CONTEXTS, f"unsupported rights_context: {rights_context}")
     limit = normalized.get("limit", 5)
@@ -116,7 +125,7 @@ def validate_request(request: Mapping[str, Any]) -> dict[str, Any]:
     filters = normalized.get("filters", {})
     require(isinstance(filters, Mapping), "request.filters must be an object")
     resolved_filters = dict(filters)
-    for key in ("record_types", "provider_ids", "task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages", "failure_signals"):
+    for key in ("record_types", "provider_ids", "task_modes", "page_roles", "semantic_relations", "purpose_tags", "languages", "failure_signals", "format_tags"):
         values = require_string_list(filters.get(key, []), f"request.filters.{key}")
         if key == "record_types":
             require(all(value in RECORD_TYPES for value in values), "request.filters.record_types contains an unsupported value")
@@ -125,6 +134,51 @@ def validate_request(request: Mapping[str, Any]) -> dict[str, Any]:
     require(isinstance(include_metadata_only, bool), "request.filters.include_metadata_only must be boolean")
     resolved_filters["include_metadata_only"] = include_metadata_only
     normalized["filters"] = resolved_filters
+
+    task_context = normalized.get("task_context")
+    if task_context is None:
+        task_context = {
+            "decision_goal": query.strip(),
+            "target_refs": [f"stage:{stage}"],
+            "format_need": intent,
+        }
+    require(isinstance(task_context, Mapping), "request.task_context must be an object")
+    decision_goal = require_nonempty_string(task_context.get("decision_goal"), "request.task_context.decision_goal")
+    target_refs = require_string_list(task_context.get("target_refs", []), "request.task_context.target_refs")
+    require(bool(target_refs), "request.task_context.target_refs must identify at least one stage or slide decision")
+    format_need = require_nonempty_string(task_context.get("format_need"), "request.task_context.format_need")
+    normalized["task_context"] = {
+        "decision_goal": decision_goal,
+        "target_refs": target_refs,
+        "format_need": format_need,
+    }
+
+    ranking = normalized.get("ranking_policy")
+    if ranking is None:
+        profile_by_intent = {
+            "task-reference": "content", "source-consumption": "content",
+            "format-reference": "format", "implementation-reference": "implementation",
+            "failure-diagnosis": "failure",
+        }
+        ranking = {
+            "profile": profile_by_intent[intent], "minimum_score": 0.1,
+            "max_selected": min(limit, 5), "diversity_lambda": 0.7,
+        }
+    require(isinstance(ranking, Mapping), "request.ranking_policy must be an object")
+    profile = require_nonempty_string(ranking.get("profile"), "request.ranking_policy.profile")
+    require(profile in {"content", "format", "implementation", "failure"}, "request.ranking_policy.profile is unsupported")
+    minimum_score = ranking.get("minimum_score")
+    require(isinstance(minimum_score, (int, float)) and 0 <= minimum_score <= 1, "request.ranking_policy.minimum_score must be between 0 and 1")
+    max_selected = ranking.get("max_selected")
+    require(isinstance(max_selected, int) and 1 <= max_selected <= 10, "request.ranking_policy.max_selected must be between 1 and 10")
+    diversity_lambda = ranking.get("diversity_lambda")
+    require(isinstance(diversity_lambda, (int, float)) and 0 <= diversity_lambda <= 1, "request.ranking_policy.diversity_lambda must be between 0 and 1")
+    normalized["ranking_policy"] = {
+        "profile": profile,
+        "minimum_score": float(minimum_score),
+        "max_selected": max_selected,
+        "diversity_lambda": float(diversity_lambda),
+    }
 
     expansion = normalized.get("neighbor_expansion", {"physical": 0, "semantic": 0})
     require(isinstance(expansion, Mapping), "request.neighbor_expansion must be an object")

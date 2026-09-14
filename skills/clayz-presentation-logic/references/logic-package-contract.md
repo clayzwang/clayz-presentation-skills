@@ -1,4 +1,4 @@
-# PPT v2.3 Logic package contract
+# PPT v2.4 Logic package contract
 
 `ppt-design-package.json` is the single handoff file shared by Logic, Copy, and Output. Logic writes the root fields and `logic_layer`; Copy appends `copy_layer` to the same file. Never maintain parallel packages.
 
@@ -6,10 +6,11 @@
 
 ```json
 {
-  "contract_version": "2.3",
+  "contract_version": "2.4",
   "package_id": "example-deck",
   "version": "2.1.0",
   "status": "logic-approved",
+  "acceptance_contract": {},
   "brief": {},
   "resource_inventory": {},
   "index_evidence": {},
@@ -24,7 +25,11 @@
 
 `resource_inventory` follows `io.clayz.presentation.resource-inventory/1.0`. Supervisor must finish the seven-scope scan, show the user what was found, selected, unavailable, and which execution route will be used, then lock the ready inventory before Logic starts. Every selected non-host resource carries a content fingerprint; a new resource requires a revised inventory and another visible brief.
 
-`index_evidence` follows `io.clayz.presentation.index-execution-evidence/1.0`. At `logic-approved`, it contains the locked Provider snapshots, completed task-local owner materialization when applicable, and finalized Logic Retrieval Receipts. At `copy-approved`, it additionally contains finalized Copy receipts while preserving the same lock.
+`acceptance_contract` follows `io.clayz.presentation.task-acceptance/1.0`. It converts explicit page-role, narrative, typography, compatibility, delivery, and speed expectations into stable blocking requirements before Logic and is preserved byte-for-byte afterward.
+
+Unless the user explicitly omits both cover and closing, `cover_policy.mode` must not be `not-applicable`: the Logic sequence starts with one `narrative_role=cover` and ends with one `narrative_role=closing`. Cover, body, and closing are distinct page responsibilities; a requested body-slide count is never silently treated as the total including the two boundary roles. `not-applicable` means the user explicitly chose to omit both.
+
+`index_evidence` follows `io.clayz.presentation.index-execution-evidence/1.1`. At `logic-approved`, it contains the locked Provider snapshots, completed task-local owner materialization when applicable, and at most three relevance-ranked Logic receipts with concrete adoption targets. At `copy-approved`, it additionally contains finalized Copy receipts while preserving the same lock.
 
 Advance `status` only through `draft -> logic-approved -> copy-approved`. After a material Logic change, remove the stale `copy_layer` and return the package to `draft`, or obtain a new `logic-approved` decision.
 
@@ -36,16 +41,14 @@ Advance `status` only through `draft -> logic-approved -> copy-approved`. After 
   "initiator_stance": "Propose an improvement plan",
   "preflight": {
     "audience": {"primary": "Product and operations decision team"},
+    "generation_mode": "execution",
     "material_type": "management-report",
     "management_stage": "monitoring-diagnosis",
     "narrative_archetype": "operating-diagnosis",
     "desired_outcome": {"mode": "approve", "target": "Approve pilot resources"},
     "confirmation": {
       "audience": "user-provided",
-      "material_type": "user-confirmed",
-      "management_stage": "user-confirmed",
-      "narrative_archetype": "user-confirmed",
-      "desired_outcome": "user-confirmed"
+      "generation_mode": "agent-inferred"
     }
   },
   "usage_context": "Presented in a meeting and circulated afterward",
@@ -54,11 +57,32 @@ Advance `status` only through `draft -> logic-approved -> copy-approved`. After 
 }
 ```
 
-`material_type` describes the communication setting: `management-report`, `business-analysis`, `strategy-deployment`, or `sales-training`.
+`brief.preflight.generation_mode` is required for new production runs and is
+one of `execution`, `research`, or `mixed`; legacy packages may omit it. Infer
+it from the actual task and the maturity of the supplied material. Execution
+preserves meaningful supplied claims, data, caveats, relationships, and
+information coverage while organizing them for slides, fills routine
+transitions, and distinguishes substantive unverified additions. Research
+defines questions, gathers credible evidence, compares definitions, windows,
+and units, investigates counterevidence, responses, and mechanisms, and
+synthesizes substantive content before slide count or design. Mixed assigns
+these responsibilities by section using existing scope or notes fields; it
+does not add a new schema. Website or word count does not establish research
+depth, and unsupported claims remain unsupported.
 
-`management_stage` locates the deck in the management loop: `strategic-framing`, `mechanism-design`, `campaign-deployment`, `operating-system`, `monitoring-diagnosis`, `experiment-review`, or `skill-enablement`.
+`material_type`, `management_stage`, and `narrative_archetype` are optional,
+free descriptive labels for task context. `narrative.management_stage_path`
+is likewise optional and descriptive. Their example values are illustrative,
+not an enum, route gate, or mandatory classification. Optional `confirmation`
+metadata may record `agent-inferred` or another truthful provenance; no field
+requires user-confirmed classification. Audience and desired outcome still
+guide the work and may be inferred when the task supports it.
 
-`narrative_archetype` describes the story pattern: `operating-diagnosis`, `policy-reform`, `strategy-map`, `operating-system-design`, `experiment-learning`, `annual-mobilization`, `decision-proposal`, or `training-sop`. These fields form a two-layer route and must not be collapsed into one generic "PPT type." `desired_outcome.mode` is `understand`, `approve`, or `execute`.
+The runtime Library availability is independent
+of `brief.preflight.generation_mode` and follows the existing Provider and
+evidence route. No new permission, approval, or confirmation workflow is
+created by generation mode. `desired_outcome.mode` remains `understand`,
+`approve`, or `execute` when supplied.
 
 ## `logic_layer`
 
@@ -111,6 +135,12 @@ At `logic-approved`, every field below must be `true`:
   ]
 }
 ```
+
+`opening`, `progression`, and `closing` together answer where the audience is now, where it must go, and how it gets there. The first body slide must not assume that the audience already knows the current process, motivation, or critical actors; even an executive summary needs enough context to understand its conclusion. Private knowledge strengthens evidence and methods but does not replace this reasoning chain.
+
+`management_stage_path` is optional descriptive context. It may contain
+task-specific labels, and its presence or wording must not gate generation or
+approval.
 
 `cross_slide_contract`:
 

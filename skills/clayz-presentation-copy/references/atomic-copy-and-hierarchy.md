@@ -25,9 +25,9 @@ When commas, slashes, “and,” or similar conjunctions join items that can be 
 ## Titles and storylines
 
 - A title answers “What is the most important judgment on this slide?” Prefer a conclusion over empty labels such as “Overview” or “Next steps.”
-- A storyline answers “How does one sentence connect the claim to the body?” It is one complete, single-line, verbatim-locked sentence.
-- Title and storyline may map to the same root node but use different `copy_id` values. The title is normally the root's primary copy; the storyline is supplemental.
-- Do not paraphrase the title in the storyline or concatenate the body list into a long sentence.
+- A Storyline answers “How does one sentence connect the claim to the body?” It is one complete, single-line, verbatim-locked sentence used according to the active master's Storyline role.
+- Title and Storyline may map to the same root node but use different `copy_id` values. The title is normally the root's primary copy; the Storyline is supplemental.
+- Smaller copy beneath the Storyline is a different optional support unit, not the Storyline itself; omit it when it adds no independent meaning. Do not paraphrase the title in the Storyline or concatenate the body list into a long sentence.
 
 ### Title-mode routing
 

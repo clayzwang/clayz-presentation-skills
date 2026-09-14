@@ -14,7 +14,7 @@
     "inventory_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
     "revision": {"type": "integer", "minimum": 1},
     "task_mode": {"enum": ["new-build", "revision", "audit"]},
-    "runtime_mode": {"enum": ["owner-personal", "public-core"]},
+    "runtime_mode": {"enum": ["owner-personal", "public-core", "unified"]},
     "created_at": {"type": "string", "minLength": 1},
     "scan_scope": {
       "type": "array",

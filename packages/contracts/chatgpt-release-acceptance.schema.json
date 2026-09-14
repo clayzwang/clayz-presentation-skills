@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:chatgpt-release-acceptance:1.0",
+  "title": "ChatGPT candidate upload and user acceptance receipt",
+  "type": "object",
+  "required": ["contract", "status", "version", "candidate_commit", "personal_candidate_sha256", "component_manifest_sha256", "chatgpt_skill_id", "acceptance_url", "accepted_by", "accepted_at", "startup_gate_status", "private_learning_status", "learning_audit_sha256", "user_acceptance"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.chatgpt-release-acceptance/1.0"},
+    "status": {"const": "accepted"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "candidate_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "personal_candidate_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "component_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "chatgpt_skill_id": {"type": "string", "minLength": 1},
+    "acceptance_url": {"type": "string", "pattern": "^https://chatgpt\\.com/"},
+    "accepted_by": {"type": "string", "minLength": 1},
+    "accepted_at": {"type": "string", "minLength": 1},
+    "startup_gate_status": {"enum": ["candidate-validated", "latest"]},
+    "private_learning_status": {"const": "READY-FOR-LOGIC"},
+    "learning_audit_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "user_acceptance": {"const": true}
+  },
+  "additionalProperties": false
+}

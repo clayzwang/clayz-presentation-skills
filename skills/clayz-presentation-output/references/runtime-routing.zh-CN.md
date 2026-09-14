@@ -8,11 +8,13 @@
 
 ## 路线门槛与目标应用验收分离
 
-`renderer.required_capabilities` 只描述能够制作、写盘、检查和渲染 PPTX 的路线硬条件。`renderer.target_applications` 描述希望观察的兼容性目标，不得把 `powerpoint-reopen-render`、`wps-reopen-render` 等逐应用验收能力自动并入路线硬条件。预检必须逐项记录所有目标应用，无论其能力存在还是缺失；“可用”的宿主声明必须绑定同一 run/task/nonce/challenge，并附带经哈希校验的结构化 inventory 回执，但仍只属于 `host-declared-unverified`，只能产生 `provisional`/`attemptable` 路线，不能把路线写成 `ready`。Output 可按锁定路线尝试一次，只有最终 PPTX、对象与渲染校验通过才可交付。输出后，已执行目标记为 `pass`/`fail`，可用但未执行记为 `not-selected`，不可用记为 `deferred`，并全部进入最终 Supervisor 审计。
+`renderer.required_capabilities` 只描述能够制作、写盘和检查 PPTX 的路线硬条件；渲染能力可用且选中时才作为渲染验收证据。`renderer.target_applications` 描述希望观察的兼容性目标，不得把 `powerpoint-reopen-render`、`wps-reopen-render` 等逐应用验收能力自动并入路线硬条件。预检必须逐项记录所有目标应用，无论其能力存在还是缺失；“可用”的宿主声明必须绑定同一 run/task/nonce/challenge，并附带经哈希校验的结构化 inventory 回执，但仍只属于 `host-declared-unverified`，只能产生 `provisional`/`attemptable` 路线，不能把路线写成 `ready`。Output 可按锁定路线尝试一次；有渲染时记录实际 PPTX、对象与渲染证据，无渲染时记录 deferred/not-run 并继续使用写盘 PPTX，不得虚构像素。输出后，已执行目标记为 `pass`/`fail`，可用但未执行记为 `not-selected`，不可用记为 `deferred`，并全部进入最终 Supervisor 审计。
 
-预检必须在 `target_application_checks` 中逐一记录每个目标应用的 `available` 或 `unavailable`，并固定 `blocks_authoring=false`。任何“可用”的宿主能力声明还必须携带同一运行 ID、实测来源、观察时间和证据引用；未绑定声明不可信。Output 写盘后，对可用且入选的应用执行重开渲染并记录 `pass` 或 `fail`；可用但未入选的应用记录 `not-selected`；不可用的应用记录 `deferred`。Supervisor 将这些事实和证据写进最终审计报告，用于限制兼容性声明和后续归因，而不是据此阻断 Logic。
+预检必须在 `target_application_checks` 中逐一记录每个目标应用的 `available` 或 `unavailable`，并固定 `blocks_authoring=false`。任何“可用”的宿主能力声明还必须携带同一运行 ID、实测来源、观察时间和证据引用；未绑定声明不可信。Output 写盘后，对可用且入选的应用执行重开渲染并记录 `pass` 或 `fail`；可用但未入选的应用记录 `not-selected`；不可用的应用记录 `deferred`。如果没有可用或入选的渲染路线，记录 `deferred` 或 `not-run`，继续交付写盘 PPTX，不得虚构渲染通过或像素；Supervisor 将这些事实和证据写进最终审计报告，用于限制兼容性声明和后续归因，而不是据此阻断 Logic。
 
 `required_capabilities` 必须取绑定 resolved config 与本任务追加要求的并集。调用方只可追加要求，不得借覆盖参数删除 Personal Extension 已声明的要求。
+
+在 calibrated 路线中，预检仍保留这份完整清单，同时只用少量格式级作者前置能力判断是否可以尝试。因此真实作者可能呈现为 `attemptable` 且 `available=false`：母版保留、布局继承、东亚字体名称、PPTX 检查、渲染覆盖或其他配置能力尚未被实际观察时，仍应记录为待验／未验证，不能据此断言作者不存在。Output 必须使用实际选定的母版，并记录加载、对象、字体、渲染和真实失败结果；`spec-only` 永远不是可编辑 PPTX 路线。legacy 路由仍要求选定路线满足全部配置能力。
 
 ## 不依赖宿主模型的基础链
 

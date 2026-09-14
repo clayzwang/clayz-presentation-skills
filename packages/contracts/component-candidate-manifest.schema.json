@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:component-candidate-manifest:1.0",
+  "title": "Clayz staged component candidate manifest",
+  "type": "object",
+  "required": ["contract", "repository", "status", "candidate_version", "base_latest_version", "candidate_commit", "component_manifest_sha256", "expires_at"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.component-candidate-manifest/1.0"},
+    "repository": {"const": "clayzwang/clayz-presentation-skills"},
+    "status": {"const": "staged-candidate"},
+    "candidate_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "base_latest_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "candidate_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "component_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "expires_at": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

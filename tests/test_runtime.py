@@ -15,13 +15,14 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 RUN_ID = "run-test-runtime"
 TASK_REQUEST_SHA256 = "a" * 64
+TEST_VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 COMPONENT_VERSION_GATE = {
     "artifact": "component-version-report.json",
     "sha256": "b" * 64,
     "generated_at": "2026-09-01T00:00:00+00:00",
     "status": "latest",
-    "local_release_version": "0.8.0",
-    "latest_release_version": "0.8.0",
+    "local_release_version": TEST_VERSION,
+    "latest_release_version": TEST_VERSION,
     "manifest_sha256": "c" * 64,
     "all_components_current": True,
 }

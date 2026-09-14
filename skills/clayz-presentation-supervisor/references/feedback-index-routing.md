@@ -1,7 +1,9 @@
 # Feedback index routing
 
-Supervisor diagnoses and routes evidence; it does not own the feedback store or
-decide that an observation has become reusable truth.
+Supervisor and the Independent Auditor diagnose and route evidence; neither
+owns the feedback store or decides that an observation has become reusable
+truth. The Auditor uses the same locked CompositeIndex when a knowledge-backed
+check is needed and does not create a fifth provider or learning silo.
 
 1. Route each learning candidate to the earliest responsible stage: Logic,
    Copy, Art Direction, or Output.

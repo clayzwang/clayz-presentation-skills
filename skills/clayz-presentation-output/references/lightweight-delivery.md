@@ -60,4 +60,9 @@ For an ordinary 10–15 slide deck, 1–2 MB is a preferred target. Image-heavy,
 - large opaque PNGs that can safely be JPEG; and
 - large media retained only in hidden slides, off-canvas objects, or source caches.
 
-After optimization, reopen and render the final PPTX. Inspect text, transparency edges, skin tones, gradients, screenshot text, QR codes, slide numbers, and masters. Reduced size never overrides a rendering or compatibility failure.
+After optimization, reopen and render the final PPTX when the locked render
+route is available. Inspect text, transparency edges, skin tones, gradients,
+screenshot text, QR codes, slide numbers, and masters. If the route is
+unavailable or unselected, record deferred/not-run coverage and continue with
+the written PPTX; never claim a render pass or invent pixels. Reduced size
+never overrides a rendering or compatibility failure.

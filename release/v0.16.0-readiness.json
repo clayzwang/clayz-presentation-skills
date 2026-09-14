@@ -1,0 +1,40 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.16.0",
+  "current_public_version": "0.16.0",
+  "state": "release-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": true,
+    "tag": true,
+    "publish": true,
+    "experience_center_update": true
+  },
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "authorized_at": "2026-09-14T06:26:03Z",
+    "scope": "merge-tag-publish-experience-center",
+    "notes": "Recording time for this readiness document; it does not claim to be the exact time of the user's authorization."
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python scripts/validate_all.py",
+    "experience_validation": "python scripts/validate_experience.py",
+    "presentation_overflow_check": "Hash, byte-count, page-count, object-count, and CJK-font-field checks matched for the user-supplied v0.16.0 generated output; the formal report3.6 process record is not included, and comprehensive visual or host acceptance was not performed.",
+    "node_chart_build": "Not required; work-report core reads final PPTX OOXML and does not add a chart renderer."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

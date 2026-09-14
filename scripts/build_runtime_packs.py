@@ -38,7 +38,7 @@ CLOUD_EXCLUDED_PREFIXES = {
     ("scripts", "install_offline_dependencies.py"),
 }
 PUBLIC_CORE_PREFIXES = {"catalog", "config", "skills"}
-PUBLIC_CORE_PACKAGE_PREFIXES = {"contracts", "index_runtime", "layout", "patterns", "personal_extension", "validators"}
+PUBLIC_CORE_PACKAGE_PREFIXES = {"contracts", "index_runtime", "knowledge_session", "layout", "patterns", "personal_extension", "validators"}
 REQUIRED_DISTRIBUTIONS = {
     "Pillow": "12.3.0",
     "PyYAML": "6.0.3",
@@ -151,6 +151,11 @@ def _runtime_lock(version: str, target: str) -> dict[str, object]:
         "public_core_sha256": public_core_digest(),
         "tool_boundary": "host-provided" if target == "cloud" else "local-adapters",
         "preflight": "scripts/runtime_preflight.py",
+        "stage_work_records_required": True,
+        "unified_workflow_required": True,
+        "artifact_sha256": {
+            "config/default.json": hashlib.sha256((ROOT / "config" / "default.json").read_bytes()).hexdigest(),
+        },
     }
     if target == "local":
         lock["dependency_payload"] = "external requirements or matching offline add-on"
@@ -178,6 +183,20 @@ def build_light(output_dir: Path, version: str, target: str = "local") -> Path:
             f"{LIGHT_ROOT}/runtime/runtime-lock.json",
             json.dumps(_runtime_lock(version, target), ensure_ascii=False, indent=2).encode("utf-8") + b"\n",
         )
+        if target == "local":
+            # Verify delivered code, not merely matching version labels. This is
+            # an integrity inventory, not a signature or publisher identity.
+            content = {
+                "contract": "io.clayz.presentation.plugin-content/1.0",
+                "files": {
+                    name.removeprefix(LIGHT_ROOT + "/"): hashlib.sha256(archive.read(name)).hexdigest()
+                    for name in sorted(archive.namelist())
+                },
+            }
+            _write_bytes(
+                archive, f"{LIGHT_ROOT}/runtime/plugin-content-manifest.json",
+                json.dumps(content, ensure_ascii=False, indent=2).encode("utf-8") + b"\n",
+            )
     audit_archive(archive_path)
     return archive_path
 

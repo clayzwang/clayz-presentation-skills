@@ -106,7 +106,10 @@ def _probe(provider: IndexProvider, kind: str) -> dict[str, Any]:
         "contract": "io.clayz.presentation.retrieval-request/1.0",
         "request_id": f"version-learning-{kind}",
         "stage": stage,
-        "query": kind.replace("-", " "),
+        "query": f"verify private learning coverage for {kind.replace('-', ' ')}",
+        "intent": "source-consumption",
+        "task_context": {"decision_goal": f"Verify learned {kind} retrieval", "target_refs": [f"learning-probe:{kind}"], "format_need": kind},
+        "ranking_policy": {"profile": "content", "minimum_score": 0.1, "max_selected": min(5, len(matching)), "diversity_lambda": 0.8},
         "rights_context": "private-runtime",
         "require_human_admission": True,
         "limit": min(5, len(matching)),
@@ -119,6 +122,7 @@ def _probe(provider: IndexProvider, kind: str) -> dict[str, Any]:
             "purpose_tags": [f"knowledge-kind:{kind}"],
             "languages": ["zh-CN"],
             "failure_signals": [],
+            "format_tags": [],
             "include_metadata_only": False,
         },
         "neighbor_expansion": {"physical": 0, "semantic": 0},
@@ -202,7 +206,9 @@ def bootstrap(
         "source_manifest_sha256": source_manifest_sha256,
         "source_set_sha256": source_set_sha256,
     })
-    version_root = state_root.resolve() / "version-learning" / f"v{core_version}"
+    # A new admitted manifest/source revision gets its own immutable snapshot.
+    # Existing tasks retain their old paths; no old current.json is overwritten.
+    version_root = state_root.resolve() / "version-learning" / f"v{core_version}" / source_manifest_sha256 / source_set_sha256
     pointer_path = version_root / "current.json"
     if pointer_path.is_file():
         pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
@@ -237,7 +243,10 @@ def bootstrap(
     run_root.mkdir(parents=True, exist_ok=False)
     index_path = run_root / "version-private-learning.jsonl"
     materialization_path = run_root / "owner-index-materialization.json"
-    materialized = materialize(manifest, bindings, {"logic", "copy", "art-direction", "output", "supervisor"}, index_path, materialization_path)
+    materialized = materialize(
+        manifest, bindings, {"logic", "copy", "art-direction", "output", "supervisor"},
+        index_path, materialization_path, cache_root=state_root.resolve() / "source-cache",
+    )
     provider = IndexProvider.from_jsonl("task-private-learning", index_path)
     observed = sorted({kind for item in inventory for kind in item["knowledge_kinds"]})
     missing = sorted(set(required) - set(observed))
@@ -269,7 +278,7 @@ def bootstrap(
             "materialization_report_sha256": _sha256_file(materialization_path),
         },
         "guards": {
-            "one_learning_run_per_version": True,
+            "one_learning_run_per_source_revision": True,
             "source_drift_fails_closed": True,
             "private_content_stays_private": True,
             "retrieval_verified": not missing,

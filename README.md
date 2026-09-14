@@ -2,11 +2,17 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.8.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.16.0**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
 ## Why Clayz stands out
+
+0.10.0 is a local development delivery, not a GitHub or ChatGPT publication.
+It adds resource inspection, discussion-based knowledge persistence, and PPT
+enablement. See [local plugin usage](docs/plugin-system.md). Owner knowledge and
+attachments stay outside the plugin. Maintenance governance is a separate
+management component and is excluded from the package.
 
 | Core advantage | What it enables |
 | --- | --- |
@@ -43,7 +49,10 @@ This is not a larger pile of layout rules. It gives Art Direction a stronger rep
 - **Inventory before authoring:** Supervisor scans the complete plugin runtime, task inputs, owner Library, public Index, brand assets, host capabilities, and font environment before Logic. It tells the user what was found, what will be used, what is unavailable, and which authoring/render route is locked—then authoring may start.
 - **Latest components first:** Supervisor checks the official GitHub Latest Release and prints the Public Core, config, runtime, and five-stage contract table. A stale or missing component, an old report, or unavailable freshness evidence fails runtime preflight.
 - **One private learning run per version:** the first run reads admitted private knowledge, templates, standards, and methods, builds a persistent index, exercises retrieval probes, and emits a separate learning audit. Later tasks verify hashes and reuse it; same-version source drift never overwrites the first audit silently.
-- **First-class Index execution:** one Provider snapshot is locked for the run. Owner learning is materialized from a task-supplied manifest and each stage must attach finalized Retrieval Receipts proving which registered records were actually selected; “reviewed the library” is not evidence.
+- **Task acceptance and audit replay:** explicit page-role, narrative, typography, compatibility, delivery, and speed requirements become one hash-bound contract. The final report embeds immutable Logic, Copy, and Art Direction decision snapshots and traces every requirement to final evidence.
+- **Relevance-ranked Index execution:** one Provider snapshot is locked for the run. Each stage uses substantive task questions, decomposed content/format relevance scores, thresholds, bounded candidates, and concrete material-adoption targets; “reviewed the library” is not evidence.
+- **Governed generation efficiency:** stage duration, retrieval volume, write/render/repair counts, and warm/cold mode are measured against the task budget. File-size efficiency cannot hide a slow run.
+- **ChatGPT-before-Release:** GitHub Release is manual and protected. It requires an exact-commit ChatGPT candidate upload, startup/private-learning acceptance, explicit user approval, and a private environment-scoped receipt.
 - **Substance and object gates:** deck-level validators reject mechanical wording and grammar repetition, generic first visuals, unjustified silhouette or structure reuse, shape-only pseudo-charts, missing connectors, and duplicated slide-agnostic QA boilerplate.
 - **Content-aware composition:** image-led slides must inspect subject protection, usable copy zones, crop, contrast, directional flow, and overlay necessity before placing text. A remembered advertising layout is never accepted as the answer by itself.
 - **Template and icon grammar:** templates, charts, tables, icons, and sample decks enter as reviewed candidates. The plan must re-derive the composition from Logic and Copy, explain every selected asset's semantic role, keep icon-family decisions coherent, and record source and license evidence.
@@ -77,7 +86,7 @@ The v0.5.2 foundation added one optional, owner-private extension decision befor
 
 The repository is more than a light archive: one Public Core, the canonical public Provider manifest/index, public Library payloads, shared contracts, and host adapters produce separate Cloud Public Light and Local Public Light targets. The cloud target attaches a resolved Personal Extension Profile and private Library routes to Cloud Public Light; it is not a parallel set of private skills. See [`docs/personal-extension.md`](docs/personal-extension.md) and [`docs/chatgpt-personal-light.md`](docs/chatgpt-personal-light.md). Public material remains usable now. What is deferred is the method for its continuous learning, community aggregation, automatic update, and cross-source fusion, together with Task Overlay, remote MCP Providers, and automatic private Library ingestion.
 
-This public release contains the extension contracts and composition method only. It contains no real owner Profile, private Provider, private index, organization master, font, presentation, PDF, or prior-learning body. v0.8.0 is Windows-first for local execution; Cloud Public Light remains host-managed. No macOS, Linux, or iOS release package is produced or claimed as validated in this version.
+This public candidate contains the extension contracts and composition method only. It contains no real owner Profile, private Provider, private index, organization master, font, presentation, PDF, or prior-learning body. v0.9.0 is Windows-first for local execution; Cloud Public Light remains host-managed. No macOS, Linux, or iOS release package is produced or claimed as validated in this version.
 
 On an owner-personal run, Supervisor creates the owner-learning source manifest from discovered resources and stores the real materialization in a repository-external, version-bound private state. The manifest, source bytes, persistent index, and learning audit remain outside public source and release bundles; only the generic materialization/one-time-learning contracts, receipt gates, and synthetic regression fixtures are public.
 

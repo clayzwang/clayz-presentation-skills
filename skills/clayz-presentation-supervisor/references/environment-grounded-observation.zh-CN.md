@@ -1,16 +1,17 @@
 # 环境落地观察与修复历史审计
 
-本路由受 [PPTAgent](https://github.com/icip-cas/PPTAgent) 与 [DeepPresenter](https://arxiv.org/abs/2602.22839) 的执行历史、错误反馈、页面检查和内容／设计／连贯性分面观察启发，但保持 Supervisor 的独立性：只诊断，不修改，不把自动分数当真值。引用性质与再分发边界见仓库 `provenance/manifest.yaml`。
+本路由受 [PPTAgent](https://github.com/icip-cas/PPTAgent) 与 [DeepPresenter](https://arxiv.org/abs/2602.22839) 的执行历史、错误反馈、页面检查和内容／设计／连贯性分面观察启发。共享 Independent Auditor 模块负责独立检查实际文件和渲染；Supervisor 负责协调、记录和放行，不改写阶段产物或审计结论。自动分数不是真值。引用性质与再分发边界见仓库 `provenance/manifest.yaml`。
 
 ## 证据顺序
 
-1. 批准的 `ppt-design-package.json` 与 `ppt-art-direction-plan.json`；
-2. `ppt-build-deviation-log.json` 中的源哈希、观察循环、受控动作、失败和挑战；
-3. 写盘后的PPTX对象、最终重开渲染、字体、配置目标应用、体积和兼容性机器事实；
-4. Output QA自评；
-5. 自动分数与外部案例对照。
+1. 不可变的用户原始请求与规范化验收规则；
+2. 批准的 `ppt-design-package.json` 与 `ppt-art-direction-plan.json`；
+3. `ppt-build-deviation-log.json` 中的源哈希、观察循环、受控动作、失败和挑战；
+4. 写盘后的PPTX对象、最终重开渲染、字体、配置目标应用、体积和兼容性机器事实；
+5. Output QA自评；
+6. 自动分数与外部案例对照。
 
-第5项只可发现值得复核的异常，不得覆盖前四项。任何“工具成功”“HTML校验通过”“对象存在”或单一预览器正常，都不能替代最终PPTX重开后的真实画面。
+第6项只可发现值得复核的异常，不得覆盖前五项。任何“工具成功”“HTML校验通过”“对象存在”或单一预览器正常，都不能替代最终PPTX重开后的真实画面。
 
 ## 环境事实必须进入最终审计
 
@@ -18,7 +19,7 @@ Supervisor 必须把 `runtime-preflight.json` 的扫描 ID、原始文件 SHA-25
 
 目标应用验收不是 Logic 前闸门；无论应用存在还是缺失，都必须扫描配置中的每一项。PowerPoint、WPS 或 LibreOffice 原生重开能力不可用时，记录 `deferred`；能力可用但本轮未选择时记录 `not-selected`；实际执行后记录 `pass` 或 `fail`。所有项目都必须有证据引用，且 `authoring_gate=false`。只有制作、写盘、检查或渲染路线本身无法满足配置硬条件时，才可在预检阶段阻止制作。
 
-当存在 `deferred` 或 `not-selected` 且没有其他问题时，根状态使用 `complete-with-deferred-acceptance`，PPTX 与审计报告仍可成对交付，但报告不得宣称未执行应用已通过兼容认证。原生路线即使 Output 成功，也必须在预检段继续标为 provisional；交付之所以可变为 ready，只能因为发布器独立验证了写盘 PPTX、对象清单、QA 证据和最终渲染。只有 `scripts/publish_supervised_pair.py` 复核上述绑定，并在一个全新目录中物化 PPTX、报告和 `delivery-manifest.json` 后，最终交付才成立。
+当存在 `deferred` 或 `not-selected` 且没有其他问题时，根状态使用 `complete-with-deferred-acceptance`，PPTX 与审计报告仍可成对交付，但报告不得宣称未执行应用已通过兼容认证。原生路线即使 Output 成功，也必须在预检段继续标为 provisional；交付变为 ready 前，Independent Auditor 必须先记录实际文件／渲染审计，发布器还要独立验证写盘 PPTX、对象清单、QA 证据、审计绑定和最终渲染。只有 `scripts/publish_supervised_pair.py` 复核上述绑定，并在一个全新目录中物化 PPTX、报告和 `delivery-manifest.json` 后，最终交付才成立。
 
 ## 审计问题
 
@@ -37,4 +38,4 @@ Supervisor 必须把 `runtime-preflight.json` 的扫描 ID、原始文件 SHA-25
 - `BUILD_ERROR_HISTORY_DROPPED`：失败或部分成功未进入运行日志；
 - `QA_SCORE_TREATED_AS_TRUTH`：自动评分覆盖合同、对象或真实渲染。
 
-这些finding code是诊断标签，不是自动拒绝推进的依据。问题仍按严重度、证据、影响、责任层和用户裁决处理。
+这些 finding code 是诊断标签，不是自动拒绝推进的依据。问题仍按严重度、证据、影响、责任层和交付处置处理。只有实质业务选择、范围变更或用户明确的“不满足就不交付”条件才询问用户；绑定完整的成品可以带着质量问题交付，不能把发现改写为通过。

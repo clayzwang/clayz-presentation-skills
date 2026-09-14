@@ -246,6 +246,8 @@ def materialize(
     stages: set[str],
     output: Path,
     report_path: Path,
+    *,
+    cache_root: Path | None = None,
 ) -> dict[str, Any]:
     _require(manifest.get("contract") == MANIFEST_CONTRACT, "owner-learning source manifest contract is unsupported")
     _require(manifest.get("provider_id") == "task-private-learning", "owner-learning source provider_id must be task-private-learning")
@@ -280,7 +282,28 @@ def materialize(
         if path is None:
             continue
         _require(path.is_file(), f"{source_id}: materialized file not found: {path}")
-        source_records, source_report = _records_for_source(source, path)
+        source_hash = _sha256_bytes(path.read_bytes())
+        expected_hash = source.get("expected_sha256")
+        _require(expected_hash is None or expected_hash == source_hash, f"{source_id}: admission source hash mismatch")
+        cache_key = sha256_json({"parser": "owner-source-v1", "source": source, "sha256": source_hash, "admission_basis": manifest.get("admission_basis")})
+        cache_path = cache_root / f"{cache_key}.json" if cache_root is not None else None
+        if cache_path is not None and cache_path.is_file():
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            body = cached.get("body")
+            _require(isinstance(body, dict) and sha256_json(body) == cached.get("sha256"), f"{source_id}: cached records failed hash verification")
+            _require(body.get("cache_key") == cache_key, f"{source_id}: cached identity mismatch")
+            source_records, source_report = body["records"], dict(body["report"])
+            source_report["local_path"] = str(path.resolve())
+            source_report["cache_status"] = "reused"
+        else:
+            source_records, source_report = _records_for_source(source, path)
+            _require(source_report["sha256"] == source_hash, f"{source_id}: source changed during parsing")
+            if cache_path is not None:
+                cache_path.parent.mkdir(parents=True, exist_ok=True)
+                body = {"cache_key": cache_key, "records": source_records, "report": source_report}
+                with cache_path.open("x", encoding="utf-8") as handle:
+                    json.dump({"body": body, "sha256": sha256_json(body)}, handle, ensure_ascii=False)
+            source_report["cache_status"] = "parsed"
         records.extend(source_records)
         source_reports.append(source_report)
 

@@ -460,11 +460,10 @@ def validate_copy_slide(
     for (parent_node_id, group_id), group_units in sibling_groups.items():
         if len(group_units) < 2:
             continue
-        signatures = {unit.get("grammar_signature") for unit in group_units}
         roles = {unit.get("role") for unit in group_units}
         modes = {unit.get("text_mode") for unit in group_units}
-        if len(signatures) != 1 or len(roles) != 1 or len(modes) != 1:
-            errors.append(f"{path}: sibling group {group_id} under {parent_node_id} must use one grammar_signature, role, and text_mode")
+        if len(roles) != 1 or len(modes) != 1:
+            errors.append(f"{path}: sibling group {group_id} under {parent_node_id} must use one role and text_mode; sentence grammar may vary")
 
     relation_types = {
         relation.get("type")

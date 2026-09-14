@@ -1,16 +1,17 @@
 # Environment-Grounded Observation and Repair-History Audit
 
-This route is informed by execution history, error feedback, slide inspection, and content/design/coherence facets described by [PPTAgent](https://github.com/icip-cas/PPTAgent) and [DeepPresenter](https://arxiv.org/abs/2602.22839). Supervisor remains independent: it diagnoses but does not modify, and automated scores are never ground truth. See `provenance/manifest.yaml` for attribution and redistribution boundaries.
+This route is informed by execution history, error feedback, slide inspection, and content/design/coherence facets described by [PPTAgent](https://github.com/icip-cas/PPTAgent) and [DeepPresenter](https://arxiv.org/abs/2602.22839). The shared Independent Auditor module performs the independent file/render review; Supervisor coordinates, records and releases but does not rewrite stage artifacts or the audit result. Automated scores are never ground truth. See `provenance/manifest.yaml` for attribution and redistribution boundaries.
 
 ## Evidence order
 
-1. Approved `ppt-design-package.json` and `ppt-art-direction-plan.json`.
-2. Source hashes, observation cycles, controlled actions, failures, and challenges in `ppt-build-deviation-log.json`.
-3. Written PPTX objects, final-reopen renders, fonts, configured target-application facts, size, and compatibility evidence.
-4. Output QA self-assessment.
-5. Automated scores and external-case comparisons.
+1. The immutable original user request and the canonical acceptance rules.
+2. Approved `ppt-design-package.json` and `ppt-art-direction-plan.json`.
+3. Source hashes, observation cycles, controlled actions, failures, and challenges in `ppt-build-deviation-log.json`.
+4. Written PPTX objects, final-reopen renders, fonts, configured target-application facts, size, and compatibility evidence.
+5. Output QA self-assessment.
+6. Automated scores and external-case comparisons.
 
-Item 5 may identify anomalies worth review but cannot override items 1–4. “Tool succeeded,” an HTML check, an existing object, or one healthy previewer never replaces observation of the final reopened PPTX.
+Item 6 may identify anomalies worth review but cannot override items 1–5. “Tool succeeded,” an HTML check, an existing object, or one healthy previewer never replaces observation of the final reopened PPTX.
 
 ## Environment facts belong in the final audit
 
@@ -18,7 +19,7 @@ Supervisor must embed the `runtime-preflight.json` scan ID, raw-file SHA-256, sc
 
 Target-application acceptance is not a pre-Logic gate. Scan every configured target even when absent. Record unavailable PowerPoint, WPS, or LibreOffice native reopen capability as `deferred`, an available but unused target as `not-selected`, and an executed target as `pass` or `fail`. Every target needs evidence references and `authoring_gate=false`. Only failure of the authoring, write, inspection, or rendering route itself may block production during preflight.
 
-When any target is `deferred` or `not-selected` and no other issue exists, use root status `complete-with-deferred-acceptance`. The PPTX and audit report may still be delivered as a pair, but the report must not claim certification for an unexecuted application. A provisional native route remains provisional in the preflight section even after Output; delivery becomes ready only because the publisher independently validates the written PPTX, object inventory, QA evidence, and final renders. Final handoff is valid only after `scripts/publish_supervised_pair.py` revalidates these bindings and materializes the PPTX, report, and `delivery-manifest.json` in one new bundle.
+When any target is `deferred` or `not-selected` and no other issue exists, use root status `complete-with-deferred-acceptance`. The PPTX and audit report may still be delivered as a pair, but the report must not claim certification for an unexecuted application. A provisional native route remains provisional in the preflight section even after Output; delivery becomes ready only after the Independent Auditor records its actual file/object audit plus available render evidence (or explicit deferred/not-run coverage) and the publisher independently validates the written PPTX, object inventory, QA evidence, audit binding and final artifacts. Final handoff is valid only after `scripts/publish_supervised_pair.py` revalidates these bindings and materializes the PPTX, report, and `delivery-manifest.json` in one new bundle.
 
 ## Audit questions
 
@@ -37,4 +38,8 @@ When any target is `deferred` or `not-selected` and no other issue exists, use r
 - `BUILD_ERROR_HISTORY_DROPPED`: a failure or partial success is absent from the execution log.
 - `QA_SCORE_TREATED_AS_TRUTH`: an automated score overrides a contract, object fact, or real render.
 
-Finding codes are diagnostic labels, not automatic stop decisions. Handle each issue through severity, evidence, impact, responsible layer, and user adjudication.
+Finding codes are diagnostic labels, not automatic stop decisions. Handle each
+issue through severity, evidence, impact, responsible layer and delivery
+disposition. Ask the user only for a material business choice, scope change or
+an explicit no-delivery condition. A quality finding may remain open while the
+binding-complete artifact is delivered; never rewrite it as a pass.

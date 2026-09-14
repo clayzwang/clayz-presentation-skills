@@ -26,6 +26,6 @@ Output只接受合同1.3、状态 `art-direction-approved` 的 `ppt-art-directio
 - 要换媒介、轮廓、主骨架、区域、动线、系列骨架、母题、语义留白或持续导航：回Art Direction；
 - 要删字、改字、改断句：回Copy；
 - 要改关系、层级、数字或页序：回Logic；
-- 上游基准无法同时满足：停止制作，记录冲突、证据、预期漂移和可行替代方案，交Supervisor汇总、用户裁决。
+- 如果满足请求需要改变上游基准或用户明确的“不满足就不交付”条件：停止该项变更，记录冲突、证据、预期漂移和可行替代方案，交 Supervisor 汇总并取得必要的用户决定。成品质量缺陷在绑定完整时可以作为审计发现继续交给 Auditor。
 
 所有偏差写入 `ppt-build-deviation-log.json`。若字段 `changes_art_direction=true`，必须同时有Art Direction新版本和用户批准依据；不得只在偏差日志中自我批准。挑战本身不修改基准，用户裁决后才形成新版本。

@@ -22,6 +22,6 @@ python scripts/execution_ledger.py close run-ledger.json --final-status incomple
 - 坐标、对象 API、媒体、字体、兼容性或文件修复归 Output；
 - 缺少能力、依赖、权限或渲染器归环境/用户。
 
-Supervisor 只报告冲突与路由，不创作新构图、不替用户批准，也不重复执行直到偶然出现好结果。
+Supervisor 只报告冲突与路由。实际文件和渲染发现由 Independent Auditor 记录；Supervisor 不创作新构图、不替用户批准、不改写审计发现，也不重复执行直到偶然出现好结果。
 
-当技术检查通过、达到轮次上限、同一错误无新增证据地重复、必须修改上游基准或缺少必需能力时停止。应如实关闭为 `known-risk` 或 `incomplete`，不能掩盖缺口。自动分数只作诊断，最终 PPTX 与真实渲染证据优先。
+当技术检查通过、达到轮次上限、同一错误无新增证据地重复、必须修改上游基准或缺少必需的制作／写盘／渲染能力时停止。可选知识库、目标应用或本机字体检查可以记为 `deferred` 并继续制作。缺少必需证据或绑定时如实关闭为 `incomplete`；质量缺陷记为 `known-risk` 或 `issues-found`，不能掩盖缺口。自动分数只作诊断，最终 PPTX 与真实渲染证据优先。
