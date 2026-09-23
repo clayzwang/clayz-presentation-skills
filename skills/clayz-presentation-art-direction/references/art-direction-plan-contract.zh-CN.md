@@ -1,5 +1,11 @@
 # 艺术指导计划合同 v1.7
 
+## v0.17.0 current contract
+
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+
+## Legacy / compatibility field reference
+
 `ppt-art-direction-plan.json` 是 `copy-approved` 脚本包与Output之间唯一视觉决策文件。它不新增业务内容，状态只能在全部视觉决策锁定后设为 `art-direction-approved`。
 
 ## 根结构

@@ -1,5 +1,11 @@
 # Art Direction Handoff Contract
 
+## v0.17.0 current contract
+
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+
+## Legacy / compatibility field reference
+
 Output accepts only `ppt-art-direction-plan.json` contract 1.3 with status `art-direction-approved`.
 
 ## Baseline fields that require adjudication before change

@@ -1,5 +1,13 @@
 # PPT v2.4文案层合同
 
+## v0.17.0 current contract
+
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+
+同级项目的 grammar_signature 描述实际表达；语义可比较时允许句式和长度不同。可读性与证据准确优先于整齐口号。
+
+## Legacy / compatibility field reference
+
 Copy 在状态为 `logic-approved` 的同一 `ppt-design-package.json` 中追加 `copy_layer`。完成后根状态为 `copy-approved`；`logic_layer` 不得发生任何变化。
 
 根包合同升级为 `2.4`，必须逐字节保留根级 `acceptance_contract` 和 Logic 启动前锁定的 `resource_inventory`，并在 `index_evidence` 追加带相关性评分、阈值和具体采用目标的最终 Copy 检索回执。Copy 只能使用已选资源；若发现新来源，必须交还 Supervisor 修订盘点并再次向用户简报。Copy 审批还会执行全篇表达检查：非系列页面不得机械重复相同标题/故事线、同一过渡话术、同一整页语法向量或同一段实质性短语。
@@ -176,7 +184,7 @@ Copy 在状态为 `logic-approved` 的同一 `ppt-design-package.json` 中追加
 - `primary_copy_id` 的 `source_logic_node_ids` 必须只包含对应节点。
 - 父节点主文案不得包含任一子节点主文案的完整文本。
 - 子节点主文案的 `parent_copy_id` 必须等于父节点的 `primary_copy_id`。
-- 同一逻辑兄弟组的主文案必须保持相同 `sibling_group_id`、`grammar_signature`、`role` 和 `text_mode`；确有语义差异时应先在 Logic 中拆组。
+- 同一语义兄弟组的主文案保持相同 `sibling_group_id`、`role` 和 `text_mode`；`grammar_signature` 可随自然表达不同。实质语义差异由 Logic 处理，措辞和分页由 Copy 负责。
 
 ## 页面特例
 

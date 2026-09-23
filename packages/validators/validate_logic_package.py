@@ -17,7 +17,8 @@ from resource_inventory import validate_resource_inventory
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "2.4"
+CONTRACT_VERSION = "3.0"
+LEGACY_CONTRACT_VERSION = "2.4"
 STATUS_RANK = {"draft": 0, "logic-approved": 1, "copy-approved": 2}
 MATERIAL_TYPES = {
     "management-report", "business-analysis", "strategy-deployment", "sales-training"
@@ -549,12 +550,26 @@ def validate_acceptance_against_logic(acceptance: Any, slides: Any, errors: list
 
 
 def validate_package(data: Any, require_status: str = "logic-approved") -> list[str]:
+    if isinstance(data, dict) and data.get("contract_version") == CONTRACT_VERSION:
+        from story_handoff import validate_logic_story, validate_copy_trace
+        errors = validate_logic_story(data, require_status)
+        if data.get("status") == "copy-approved":
+            errors.extend(validate_copy_trace(data))
+            # Copy owns pagination. Existing renderers consume this derived page
+            # projection; the immutable Logic story remains separately bound.
+            projection = dict(data, contract_version=LEGACY_CONTRACT_VERSION)
+            errors.extend(validate_legacy_package(projection, require_status))
+        return errors
+    return validate_legacy_package(data, require_status)
+
+
+def validate_legacy_package(data: Any, require_status: str = "logic-approved") -> list[str]:
     errors: list[str] = []
     required_root = {"contract_version", "package_id", "version", "status", "acceptance_contract", "brief", "resource_inventory", "logic_layer", "copy_layer", "approvals", "index_evidence"}
     require_keys(data, required_root, "$", errors)
     if not isinstance(data, dict):
         return errors
-    if data.get("contract_version") != CONTRACT_VERSION:
+    if data.get("contract_version") != LEGACY_CONTRACT_VERSION:
         errors.append(f"contract_version: expected {CONTRACT_VERSION}")
     for key in ("package_id", "version"):
         if not is_nonempty_string(data.get(key)):

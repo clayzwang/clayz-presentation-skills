@@ -10,9 +10,29 @@ PPTX matches its contracts. Consume Art Direction's artifact and the
 Supervisor calibration as separate inputs; send the completed evidence to both
 Supervisor and the shared Independent Auditor module.
 
+## Reader understanding (v0.17.1)
+
+Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
+according to the task locale. Necessary explanation and evidence fidelity take
+priority over shortness; use existing records for review observations.
+
+Preserve the complete approved wording, including causal/comparison links
+and qualifiers. Do not silently abbreviate, shrink illegibly or move necessary
+body explanation into notes to solve overflow. Realize approved adjustments or
+return the specific capacity problem to Art Direction/Copy with evidence.
+
+## Story and visual handoff (v0.17.0)
+
+Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.0 and Art
+Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+report documents apply even when optional Library or A/B capabilities are absent.
+Legacy page-first contracts remain readable only for existing runs. Preserve
+the existing Supervisor calibration and Independent Auditor handoffs.
+
 ## Boundaries
 
-Own object creation, coordinates, groups, charts, tables, SVG, media preparation, theme application, compatibility repair, package optimization, artifact metadata, and final write/reopen/render QA when the locked render route is available. Record deferred/not-run coverage when it is not.
+Own native object creation and technical coordinate realization within Art Direction tolerances, groups, charts, tables, SVG, media preparation, theme application, compatibility repair, package optimization, artifact metadata, and final write/reopen/render QA when the locked render route is available. Record deferred/not-run coverage when it is not.
 
 Do not change approved text, data, relationships, page sequence, composition, or visual intent. Return material conflicts upstream with evidence.
 
@@ -56,6 +76,15 @@ not grant reuse or public-distribution rights. A draft, unconfirmed consensus,
 or attachment outside that snapshot cannot be cited as committed learned knowledge.
 Current task attachments remain usable under the normal task-input rules.
 Output never creates or commits a discussion record during production.
+
+## Consume the visual baseline
+
+Inspect all locked drafts together with the specification before building.
+Record `output_started_at` and `visual_baseline_sha256` in QA. Do not start
+without a complete valid baseline or replace native pages with preview images.
+Preserve editable text, data-bound charts/tables and editable diagram objects;
+photographs remain image assets. Log permitted micro-adjustments; return
+changes to content, hierarchy or composition to the responsible upstream stage.
 
 ## Workflow
 

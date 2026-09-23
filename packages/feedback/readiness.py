@@ -65,7 +65,7 @@ def validate_release_readiness(root: Path, document: Mapping[str, Any]) -> dict[
         _require(authorization.get("decision") == "explicit-user-authorization", "release requires an explicit user decision")
         _require(authorization.get("scope") == "merge-tag-publish-experience-center", "release authorization scope is incomplete")
     else:
-        _require(authorization.get("decision") == "explicit-user-restriction", "local build requires an explicit no-publish restriction")
+        _require(authorization.get("decision") in {"explicit-user-restriction", "explicit-user-authorization"}, "local build requires explicit authorization within local scope")
         _require(authorization.get("scope") == "local-build-no-github-push", "local build scope must forbid GitHub push")
     authorized_at = authorization.get("authorized_at")
     _require(isinstance(authorized_at, str) and authorized_at.endswith("Z"), "release authorized_at must be UTC")

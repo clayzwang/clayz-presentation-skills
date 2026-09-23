@@ -1,5 +1,11 @@
 # 纯制作合同
 
+## v0.17.0 current contract
+
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+
+## Legacy / compatibility field reference
+
 ## 核心原则
 
 Output把计划变成对象，不把对象重新解释成计划。批准计划是当前执行基准；任何未经实质基准决定、仅以“为了更好看”为由更改构图、媒介、面积、密度、动线、系列持久元素、母题、语义留白或持续导航的行为都属于越权。若原生实现暴露出上游问题，可以提出挑战并交 Supervisor 记录、取得必要的用户决定，但不得静默改变。质量缺陷可以带证据交给 Independent Auditor，不单独触发再次审批或拒绝交付。

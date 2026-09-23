@@ -6,6 +6,45 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.17.1 — 2026-09-21
+
+### Changed
+- Prioritize complete supported reasoning and natural reader-facing language over premature compression.
+- Give necessary explanation adequate page space and review language independently of data, objects and layout.
+- Clarify sentence-level atomic copy, numerical prose and semantic parallelism without grammar quotas.
+- Stop rejecting package 3.0 solely because three pages share a grammar vector; retain legacy replay and other integrity checks.
+- Reuse existing calibration, work notes and audit findings; preserve story/image handoffs and schemas.
+
+### 中文
+- Logic 充分展开已有证据支持的分析；Copy先写自然解释，再处理分页和上屏文字。
+- 必要解释可以较长，由排版容纳；Supervisor与Auditor实际阅读全文，区分分析不足、表达生硬与视觉丢失。
+- 不增加黑话禁词表、字数门槛、对仗配额、语言自动评分或额外审批表。
+- 新版内容包不再因为三页句式结构相同而被要求改写；旧版校验回放及其他完整性检查保留。
+## 0.17.0 — 2026-09-20
+
+### Added
+- Complete chaptered Logic narrative and Copy-owned pagination with immutable story traceability.
+- Mandatory full-deck Art Direction image drafts, element specifications and pre-Output baseline lock.
+- Exact three-document report embedding, portable preview evidence and per-page design/final-render comparison.
+- New package 3.0 / Art Direction 2.0 validation with legacy artifact readability.
+
+### 中文
+- Logic 交付完整论述，Copy 负责分页和结构化呈现文字，保留不可变来源与必保内容映射。
+- Art Direction 锁定整套图片稿及逐元素视觉规格，Output 据此制作原生可编辑 PPT。
+- Supervisor 保留三份实际交接文档、图片证据和逐页对照，分别审计内容、视觉实现、原生对象与设计质量。
+## 0.16.1 — 2026-09-16
+
+- Local-only iteration candidate, displayed as v0.16.01; no GitHub, NAS,
+  installed-plugin, or private-control-plane release is implied.
+- R01-LUNA-001: repair Windows PowerPoint rendering startup and preserve
+  safe COM lifecycle handling; the unchanged baseline deck produced eight
+  decoded pages in the local regression run.
+- R01-LUNA-002: allow current calibrated report3.6 archives to retain issues
+  without fabricating legacy mediation events. Keep legacy gates and all
+  stage, calibration, Auditor, identity, and byte-integrity checks.
+- Retain known presentation, page-number checker, and QA findings. Successful
+  baseline archiving does not relabel incomplete evidence as visual approval.
+
 ## 0.16.0 — 2026-09-14
 
 - Add the report3.6 work record: preserve task requirements, research facts,

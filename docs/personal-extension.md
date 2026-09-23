@@ -39,7 +39,7 @@ Every resolved override receives an origin-map entry. The generated runtime bind
 
 ## Logical Library mounts
 
-Skills and private index records use only `library://<namespace>/...` URIs. Native paths exist only in a host binding selected by the composer:
+Skills and private index records use only `library://<namespace>/...` URIs. This example uses the synthetic host Library root `ExampleLibrary`; actual host roots are selected by the composer:
 
 ```json
 {
@@ -47,7 +47,7 @@ Skills and private index records use only `library://<namespace>/...` URIs. Nati
   "logical_root": "library://example-presentation/",
   "bindings": {
     "local": {"adapter": "filesystem", "root": "${CLAYZ_PRESENTATION_LIBRARY_ROOT}"},
-    "chatgpt-personal": {"adapter": "host-library", "root": "PPT"}
+    "chatgpt-personal": {"adapter": "host-library", "root": "ExampleLibrary"}
   }
 }
 ```
@@ -67,7 +67,7 @@ python scripts/build_provider_manifest.py \
   --provider-id example.private-library \
   --visibility owner-private \
   --records <private-path>/records.jsonl \
-  --index-uri library://example-presentation/_extension/providers/private/index/records.jsonl \
+  --index-uri library://example-presentation/_extension/providers/example.private-library/index/records.jsonl \
   --output <private-path>/provider.manifest.json
 ```
 

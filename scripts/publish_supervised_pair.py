@@ -253,7 +253,7 @@ def validate_work_record_assembly(report: dict[str, Any], pptx: Path | None = No
                  "acceptance_contract", "stage_snapshots", "work_records", "assembly",
                  "auditor_artifact", "calibration_artifacts", "supervisor_release", "workflow_contract",
                  "auditor_result", "auditor_status", "auditor_findings", "auditor_coverage", "auditor_limitations",
-                 "core_sequence", "work_report", "work_report_sha256"}
+                 "core_sequence", "work_report", "work_report_sha256", "stage_documents", "design_comparison"}
     for key in (set(draft) | set(report)) - generated:
         if draft.get(key) != report.get(key):
             raise ValueError(f"supervisor finding differs from its recorded draft: {key}")
@@ -272,8 +272,30 @@ def validate_work_record_assembly(report: dict[str, Any], pptx: Path | None = No
         raise ValueError("Logic work record must bind its immutable package")
     original_logic = _read_object(Path(logic_evidence["path"]))
     package = _read_object(Path(inputs["package"]["path"]))
-    if {k: original_logic.get(k) for k in ("brief", "logic_layer")} != {k: package.get(k) for k in ("brief", "logic_layer")}:
+    logic_keys = ("brief", "story") if package.get("contract_version") == "3.0" else ("brief", "logic_layer")
+    if {k: original_logic.get(k) for k in logic_keys} != {k: package.get(k) for k in logic_keys}:
         raise ValueError("Copy package no longer matches the recorded Logic; revise dependent records")
+    if package.get("contract_version") == "3.0":
+        from story_handoff import build_stage_documents, embed_final_renders, timestamp
+        if logic_evidence != package.get("logic_artifact"):
+            raise ValueError("Copy must bind the actual recorded original Logic artifact")
+        plan = _read_object(Path(inputs["plan"]["path"]))
+        qa = _read_object(Path(inputs["qa"]["path"]))
+        if report.get("stage_documents") != build_stage_documents(package, plan):
+            raise ValueError("stage documents differ from actual recorded handoffs")
+        # Materialization may add image bytes, never rewrite review observations.
+        expected_comparison = json.loads(json.dumps(draft))
+        embed_final_renders(expected_comparison)
+        if report.get("design_comparison") != expected_comparison.get("design_comparison"):
+            raise ValueError("design comparison differs from the Supervisor's recorded observations")
+        lock_time = timestamp(plan["visual_baseline"]["locked_at"])
+        start_time = timestamp(qa.get("output_started_at"))
+        # Existing work records have second precision; compare at that precision
+        # while validate_output_baseline checks the precise lock/start ordering.
+        if not lock_time.replace(microsecond=0) <= timestamp(records[2]["recorded_at"]) <= start_time.replace(microsecond=0) <= timestamp(records[3]["recorded_at"]):
+            raise ValueError("visual baseline must be recorded by Art Direction before Output starts")
+    elif report.get("design_comparison") != draft.get("design_comparison") or report.get("stage_documents") != draft.get("stage_documents"):
+        raise ValueError("legacy report cannot invent handoff extensions during assembly")
     if pptx is not None and sha256_file(pptx) != inputs["pptx"]["sha256"]:
         raise ValueError("final PPTX differs from the Output/Supervisor work records")
     if calibrated:
@@ -527,6 +549,14 @@ def _record_commands(argv: list[str]) -> int:
         result["stage_snapshots"] = {stage: {"artifact_sha256": sha256_file(args.plan if stage == "art_direction" else args.package),
                                                     "snapshot_sha256": _json_hash(snapshot), "snapshot": snapshot}
                                      for stage, snapshot in snapshots.items()}
+        if package.get("contract_version") == "3.0":
+            from story_handoff import build_stage_documents, embed_final_renders, load_logic_origin
+            result["stage_documents"] = build_stage_documents(package, plan)
+            embed_final_renders(result)
+            original_logic = load_logic_origin(package)
+            result["stage_snapshots"]["logic"] = {"artifact_sha256": package["logic_artifact"]["sha256"],
+                "snapshot_sha256": _json_hash(original_logic), "snapshot": original_logic}
+            result["stage_snapshots"]["art_direction"].update(snapshot=plan, snapshot_sha256=_json_hash(plan))
         result["work_records"] = records
         paths = {"package": args.package, "plan": args.plan, "qa": args.qa, "inventory": args.inventory,
                  "pptx": args.pptx, "runtime_preflight": args.runtime_preflight, "config": args.config, "supervisor_draft": args.draft}
@@ -628,6 +658,10 @@ def build_manifest(
                 "bytes": markdown_path.stat().st_size,
             }
         )
+    if isinstance(report.get("stage_documents"), dict):
+        companion = report_path.parent / "stage-handoff.zip"
+        manifest["derived_files"].append({"role": "stage-handoff-archive", "path": companion.name,
+                                          "sha256": sha256_file(companion), "bytes": companion.stat().st_size})
     return manifest
 
 
@@ -667,7 +701,7 @@ def validate_published_bundle(bundle: Path) -> list[str]:
             errors.append("delivery manifest derived_files entries must be objects")
             continue
         role = item.get("role")
-        if role != DERIVED_ROLE or role in derived_roles:
+        if role not in {DERIVED_ROLE, "stage-handoff-archive"} or role in derived_roles:
             errors.append(f"unsupported or duplicate derived delivery role: {role}")
             continue
         derived_roles.append(role)
@@ -687,6 +721,15 @@ def validate_published_bundle(bundle: Path) -> list[str]:
             errors.append(f"published {role} hash mismatch")
         if path.stat().st_size != item.get("bytes"):
             errors.append(f"published {role} byte count mismatch")
+    try:
+        report_record = next(item for item in records if item.get("role") == "supervision-report")
+        report_value = _read_object(bundle / report_record["path"])
+        if "stage_documents" in report_value:
+            from story_handoff import handoff_archive_bytes
+            if "stage-handoff-archive" not in derived_roles or (bundle / "stage-handoff.zip").read_bytes() != handoff_archive_bytes(report_value):
+                errors.append("stage handoff companion must exactly derive from report")
+    except (OSError, ValueError, KeyError, StopIteration) as exc:
+        errors.append(f"stage handoff companion: {exc}")
     actual_names = {item.name for item in bundle.iterdir() if item.is_file()}
     if actual_names != expected_names:
         errors.append(f"delivery bundle contains unexpected or missing files: {sorted(actual_names ^ expected_names)}")
@@ -1034,6 +1077,9 @@ def publish_supervised_pair(
         if _records_required() or "work_records" in staged_report_value:
             validate_work_record_assembly(staged_report_value, staged_pptx)
         staged_markdown: Path | None = None
+        if isinstance(staged_report_value.get("stage_documents"), dict):
+            from story_handoff import handoff_archive_bytes
+            (staging / "stage-handoff.zip").write_bytes(handoff_archive_bytes(staged_report_value))
         if isinstance(staged_report_value.get("work_report"), Mapping):
             staged_markdown = staging / "work-report.md"
             staged_markdown.write_text(

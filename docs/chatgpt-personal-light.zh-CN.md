@@ -3,7 +3,7 @@
 ## 0.10.1 同名升级与全局调用
 
 升级包沿用 `clayz-presentation-personal`，可以在普通聊天或 Work 中启用，不依赖
-某个 ChatGPT 项目。`PPT` 是现有原生 Library 根目录。根 Skill 按请求选择资源检查、
+某个 ChatGPT 项目。宿主 Library 根目录通过资源 binding 接入。根 Skill 按请求选择资源检查、
 讨论学习或五阶段 PPT 工作，工具能力不足时明确报告当次缺口。
 
 包内新增共享讨论/快照代码及 `scripts/cloud_learning_cli.py`。composer 从原有
@@ -21,13 +21,13 @@ host-library 挂载生成 `runtime/native-library-policy.json`，把可选的已
 
 ## 必需控制面与推荐内容结构
 
-使用一个名为 `PPT` 的 Library 根目录。物理路径属于宿主细节，严禁写进 Skill、index record 或可复用的 Profile 字段。云端私有控制面真正必需的只有 `_extension/providers/<provider>/provider.manifest.json` 及 manifest 声明的索引位置；下面的 `references`、`assets` 和 `cases` 是新资料与渐进迁移的推荐规范结构。源 Profile 保存在本地私有控制面，由 composer 解析后把结果写入 ZIP，不需要再次作为 Library 文件上传。
+本示例使用虚构的 Library 根目录名 `ExampleLibrary`。物理路径属于宿主细节，严禁写进 Skill、index record 或可复用的 Profile 字段。云端私有控制面真正必需的只有 `_extension/providers/<provider>/provider.manifest.json` 及 manifest 声明的索引位置；下面的 `references`、`assets` 和 `cases` 是新资料与渐进迁移的推荐规范结构。源 Profile 保存在本地私有控制面，由 composer 解析后把结果写入 ZIP，不需要再次作为 Library 文件上传。
 
 ```text
-PPT/
+ExampleLibrary/
 ├── _extension/
 │   └── providers/
-│       └── private/
+│       └── <provider-id>/
 │           ├── provider.manifest.json
 │           └── index/
 │               └── records.jsonl
@@ -46,7 +46,7 @@ PPT/
     └── rejected/
 ```
 
-索引 payload ref 只使用以 `library://<profile-namespace>/` 为根的逻辑 URI。Profile 的 `chatgpt-personal` mount 把这个逻辑根绑定到 `PPT`。
+索引 payload ref 只使用以 `library://<profile-namespace>/` 为根的逻辑 URI。Profile 的 `chatgpt-personal` mount 在本示例中把这个逻辑根绑定到虚构宿主根目录 `ExampleLibrary`。
 
 第一次测试前不必移动已有私有资料。只要已准入 index record 通过正确的逻辑 URI 指向当前 Library 位置，旧目录可以继续使用。移动或改名时，应同步更新 source URI 与 payload URI，重建 `records.jsonl` 和 `provider.manifest.json`，再把两者替换到稳定控制面位置；禁止先移动文件却保留陈旧索引。
 

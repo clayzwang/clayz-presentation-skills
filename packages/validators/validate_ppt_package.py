@@ -92,6 +92,8 @@ def validate_deck_expression_variation(
     logic_slides: list[Any],
     copy_slides: list[Any],
     errors: list[str],
+    *,
+    enforce_grammar_variation: bool = True,
 ) -> None:
     """Reject mechanical Copy shells that are not backed by a Logic series."""
 
@@ -164,10 +166,13 @@ def validate_deck_expression_variation(
                     phrase_occurrences.setdefault(phrase, set()).add(slide_id)
         if vector:
             grammar_vectors.append((slide_id, "|".join(vector)))
-    for _, slide_ids in repeated_groups(grammar_vectors, 3):
-        errors.append(
-            f"copy_layer: one complete grammar vector is repeated across non-series slides {slide_ids}; vary syntax or declare a Logic series"
-        )
+    if enforce_grammar_variation:
+        # Legacy replay only. Identical sentence structure does not establish
+        # empty reasoning or awkward language in a story-first package.
+        for _, slide_ids in repeated_groups(grammar_vectors, 3):
+            errors.append(
+                f"copy_layer: one complete grammar vector is repeated across non-series slides {slide_ids}; vary syntax or declare a Logic series"
+            )
     for slide_ids in phrase_occurrences.values():
         if len(slide_ids) >= 3:
             errors.append(
@@ -254,7 +259,10 @@ def validate_copy_layer(data: dict[str, Any], errors: list[str]) -> None:
     global_copy_ids: set[str] = set()
     for index, (logic_slide, copy_slide) in enumerate(zip(logic_slides, copy_slides)):
         validate_copy_slide(logic_slide, copy_slide, f"copy_layer.slides[{index}]", global_copy_ids, errors)
-    validate_deck_expression_variation(logic_slides, copy_slides, errors)
+    validate_deck_expression_variation(
+        logic_slides, copy_slides, errors,
+        enforce_grammar_variation=data.get("contract_version") != "3.0",
+    )
 
 
 def validate_copy_slide(

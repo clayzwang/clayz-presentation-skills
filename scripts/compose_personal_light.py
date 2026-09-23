@@ -55,6 +55,7 @@ COMPOSITE_EXCLUDED_TOP_LEVEL = {
     "knowledge", "provenance",
 }
 COMPOSITE_RUNTIME_SCRIPTS = {
+    "stage_documents.py",
     "cloud_learning_cli.py",
     "task_runtime.py",
     "bootstrap_owner_learning.py",

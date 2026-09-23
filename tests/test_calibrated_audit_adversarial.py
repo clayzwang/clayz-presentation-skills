@@ -1637,6 +1637,64 @@ class RealCliReleaseTests(unittest.TestCase):
         self.assertIn("AUD-F-SYNTHETIC-RENDER", embedded_text)
         self.assertIn("Native Office render was not executed", embedded_text)
 
+    def _assemble_calibrated_issue_case(self, *, omit_lifecycle_events: bool) -> Path:
+        stages = self._record_stages_and_calibrations()
+        auditor_path = self._write_audit_inputs(stages=stages)
+        draft_path = self._build_report(stages=stages, auditor_path=auditor_path)
+        draft = json.loads(draft_path.read_text(encoding="utf-8"))
+        draft["issues"] = [{
+            "issue_id": "AUD-F-SYNTHETIC-RENDER",
+            "finding_code": "AUD-F-SYNTHETIC-RENDER",
+            "slide_id": "S01",
+            "severity": "moderate",
+            "owner_layer": "output-qa",
+            "confidence": "medium",
+            "failed_checks": ["target_app_compatibility"],
+            "source_artifacts": [self._ref(auditor_path), self._ref(self.render)],
+            "evidence": "The independent Auditor records uncertain native render coverage for S01.",
+            "expected": "Native Office rendering is complete or its limitation is retained explicitly.",
+            "actual": "Native Office rendering was not executed; the compatibility status is uncertain.",
+            "impact": "Native pixel compatibility remains unverified for this synthetic fixture.",
+            "recommended_change": "Run the native renderer and inspect every page before quality sign-off.",
+            "regression_rule": "Never publish incomplete native render coverage as a clean quality result.",
+        }]
+        if omit_lifecycle_events:
+            draft.pop("lifecycle_events")
+        else:
+            draft["lifecycle_events"] = []
+        write_json(draft_path, draft)
+        self._record_supervisor(stages, draft_path, auditor_path)
+        return self._assemble_report(stages, draft_path, auditor_path)
+
+    def _assert_calibrated_issue_delivery(self, report_path: Path) -> None:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        self.assertTrue(report.get("issues"), "the calibrated fixture must retain its audit issue")
+        self.assertEqual(report["issues"][0]["issue_id"], "AUD-F-SYNTHETIC-RENDER")
+        self.assertEqual(report["run_status"], "incomplete-evidence")
+        output_dir = self.work / "published-issue-case"
+        result = self._run_cli(
+            self.package_path, self.plan_path, self.qa_path, self.inventory_path, report_path,
+            "--pptx", self.pptx, "--runtime-preflight", self.preflight_path, "--config", self.config_path,
+            "--render-root", self.render_root, "--output-dir", output_dir,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        delivered = json.loads((output_dir / "ppt-supervision-report.json").read_text(encoding="utf-8"))
+        self.assertIn("AUD-F-SYNTHETIC-RENDER", json.dumps(delivered, ensure_ascii=False))
+        markdown = (output_dir / "work-report.md").read_text(encoding="utf-8")
+        self.assertIn("AUD-F-SYNTHETIC-RENDER", markdown)
+
+    def test_calibrated_issues_can_be_archived_without_legacy_mediation_event(self) -> None:
+        report_path = self._assemble_calibrated_issue_case(omit_lifecycle_events=True)
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        self.assertNotIn("lifecycle_events", report)
+        self._assert_calibrated_issue_delivery(report_path)
+
+    def test_calibrated_issues_can_be_archived_with_empty_lifecycle_events(self) -> None:
+        report_path = self._assemble_calibrated_issue_case(omit_lifecycle_events=False)
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        self.assertEqual(report.get("lifecycle_events"), [])
+        self._assert_calibrated_issue_delivery(report_path)
+
     def test_real_cli_rejects_calibrated_release_without_new_auditor_record(self) -> None:
         stages = self._record_stages_and_calibrations()
         auditor_path = self._write_audit_inputs(stages=stages)

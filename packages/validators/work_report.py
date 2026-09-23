@@ -252,9 +252,9 @@ def _substantive(report: Mapping[str, Any], content: Mapping[str, Any]) -> dict[
     logic_sources = []
     for key, value in content.items():
         if (key == "logic" or key.startswith("logic:")) and isinstance(value, Mapping):
-            candidate = value.get("logic_layer") if isinstance(value.get("logic_layer"), Mapping) else value
+            candidate = value.get("story") if isinstance(value.get("story"), Mapping) else (value.get("logic_layer") if isinstance(value.get("logic_layer"), Mapping) else value)
             logic_sources.append(candidate)
-    package_logic = package.get("logic_layer") if isinstance(package.get("logic_layer"), Mapping) else None
+    package_logic = package.get("story") if isinstance(package.get("story"), Mapping) else (package.get("logic_layer") if isinstance(package.get("logic_layer"), Mapping) else None)
     logic = next(iter(logic_sources), package_logic if isinstance(package_logic, Mapping) else {})
     plan = content.get("plan") if isinstance(content.get("plan"), Mapping) else {}
     candidates = [report, package, logic, plan]
@@ -2015,6 +2015,15 @@ def render_work_report_markdown(report_or_work_report: Mapping[str, Any]) -> str
     _render_release(lines, work)
     _render_additional(lines, work)
     _render_source_trace(lines, work)
+    if isinstance(report.get("stage_documents"), Mapping):
+        lines.extend(["## 三份阶段交接文档 / Stage handoff documents", ""])
+        for stage, document in report["stage_documents"].get("documents", {}).items():
+            lines.extend([f"### {stage}", "", document.get("markdown", ""), ""])
+        lines.extend(["## 图片稿与成品对照 / Design comparison", ""])
+        for preview in report["stage_documents"].get("previews", []):
+            mime = "image/png" if preview['base64'].startswith('iVBOR') else "image/jpeg"
+            lines.extend([f"### {preview['slide_id']}", "", f"![Locked design](data:{mime};base64,{preview['base64']})", ""])
+        _block(lines, "### 审计观察 / Audit observations", report.get("design_comparison"))
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -2061,8 +2070,8 @@ def verify_handoff(
         raise WorkReportError("delivery manifest files must bind exactly PPTX then supervision-report")
     by_role = {item.get("role"): item for item in files if isinstance(item, Mapping)}
     derived = manifest.get("derived_files", [])
-    if not isinstance(derived, list) or [item.get("role") for item in derived if isinstance(item, Mapping)] != ["work-report-markdown"]:
-        raise WorkReportError("delivery manifest derived_files must bind exactly work-report-markdown")
+    if not isinstance(derived, list) or [item.get("role") for item in derived if isinstance(item, Mapping)] not in (["work-report-markdown"], ["work-report-markdown", "stage-handoff-archive"]):
+        raise WorkReportError("delivery manifest derived_files must bind work-report-markdown and optional stage-handoff-archive")
     derived_by_role = {item.get("role"): item for item in derived if isinstance(item, Mapping)}
     required = {role: by_role.get(role) for role in ("pptx", "supervision-report")}
     required["work-report-markdown"] = derived_by_role.get("work-report-markdown")
@@ -2103,6 +2112,14 @@ def verify_handoff(
         raise WorkReportError(f"supervision report cannot be read: {exc}") from exc
     if not isinstance(report_value, Mapping):
         raise WorkReportError("supervision report must be an object")
+    if "stage_documents" in report_value:
+        from story_handoff import handoff_archive_bytes
+        companion = derived_by_role.get("stage-handoff-archive")
+        if not isinstance(companion, Mapping):
+            raise WorkReportError("story handoff report requires its companion archive")
+        artifact_records.append(_manifest_record(root, companion, "stage-handoff-archive"))
+        if (root / str(companion.get("path"))).read_bytes() != handoff_archive_bytes(report_value):
+            raise WorkReportError("stage handoff companion differs from report")
     run_id = report_value.get("run_id")
     task_sha = report_value.get("task_request_sha256")
     if not isinstance(run_id, str) or not run_id.strip():
