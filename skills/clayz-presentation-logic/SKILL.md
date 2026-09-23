@@ -1,6 +1,6 @@
 ---
 name: clayz-presentation-logic
-description: Build the evidence, question chain, claims, management logic, and slide sequence for a presentation before wording or design. Use for presentation planning, management reports, business analysis, strategy, proposals, and training decks when the facts, decision outcome, argument structure, or page order must be established. Do not use to write final visible copy, choose composition, or build a PPTX.
+description: Build the evidence, question chain, claims, management logic, and a complete chaptered narrative for a presentation before wording or design. Use for presentation planning, management reports, business analysis, strategy, proposals, and training decks when the facts, decision outcome, argument structure, or page order must be established. Do not use to write final visible copy, choose composition, or build a PPTX.
 ---
 
 # Clayz Presentation Logic
@@ -11,6 +11,26 @@ shared hard/soft acceptance commitments; Logic owns substantive meaning and
 does not invent a stronger requirement or change the user's precedence.
 
 Logic is the most reasoning-intensive stage. Think sufficiently to reconstruct the subject, audience starting point, current state, target state, causal or operating mechanism, path, conditions, alternatives, and uncertainty; think effectively by concentrating on distinctions that can change the conclusion, page sequence, or decision. Private knowledge is evidence and method support, never a substitute for this synthesis.
+
+## Reader understanding (v0.17.1)
+
+Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
+according to the task locale. Necessary explanation and evidence fidelity take
+priority over shortness; use existing records for review observations.
+
+Before handoff, read the full narrative as an explanation, not an agenda.
+Develop the available facts, comparisons, mechanisms and supported judgment.
+Keep remaining unknowns explicit; do not let “what to verify” replace analysis
+that the evidence already permits. Do not invent a cause to make the story flow.
+
+## Story and visual handoff (v0.17.0)
+
+Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.0 and Art
+Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+report documents apply even when optional Library or A/B capabilities are absent.
+Legacy page-first contracts remain readable only for existing runs. Preserve
+the existing Supervisor calibration and Independent Auditor handoffs.
 
 ## Generation mode
 
@@ -42,7 +62,7 @@ existing source, evidence, master, visual, or five-stage checks.
 
 ## Boundaries
 
-Own audience, desired outcome, scope, source inventory, content sufficiency, current state, target state, path and mechanism, definitions, claims, evidence, uncertainty, question chain, page responsibilities, cross-slide invariants, and the analysis still required.
+Own audience, desired outcome, scope, source inventory, content sufficiency, current state, target state, path and mechanism, definitions, claims, evidence, uncertainty, question chain, chapter responsibilities, semantic invariants, and the analysis still required.
 
 Do not finalize wording, punctuation, line breaks, typography, composition, theme, coordinates, or PPTX objects.
 
@@ -87,12 +107,12 @@ copy or layout exposes missing meaning or excessive page scope, reopen this
 stage and update the affected dependencies; do not prescribe a smaller font.
 
 1. Validate and bind the Supervisor task-acceptance contract and resource-inventory lock, then lock the audience, desired outcome, scope, production profile, cover/conclusion policy, narrative requirements, typography identity, and performance budget. Preserve the user's hard and soft requirement classification and delivery policy as shared inputs. Capture `material_type`, `management_stage`, `narrative_archetype`, and `narrative.management_stage_path` only as optional task-specific descriptive labels; infer them when useful, never use them as enum gates, and never require user confirmation. Preserve the inferred or supplied `brief.preflight.generation_mode` on new runs. Unless the user explicitly omits them, distinguish body-page count from total-page count and require one opening cover plus one closing synthesis/action page; never infer their omission from a short page budget.
-2. Translate every blocking acceptance requirement into page responsibilities, questions, claims, relation counts, conclusion placement, and cross-slide invariants. The contract is task-specific; do not universalize one user's cover or storyline preference.
+2. Translate blocking acceptance requirements into chapter responsibilities, questions, claims, relationships, conclusion constraints and semantic invariants; preserve explicit user page constraints for Copy. The contract is task-specific; do not universalize one user's cover or storyline preference.
 3. Interpret only task material marked selected in that inventory. Use owner-private Logic knowledge and any confirmed committed discussion knowledge to deepen facts, counterexamples, mechanisms, terminology, and methods, then reason independently. Preserve each source's provenance and limits; user agreement does not turn an interpretation into an externally verified fact. Separate facts, calculations, interpretations, causal claims, targets, recommendations, hypotheses, and missing data, and keep unresolved questions unresolved.
 4. Before choosing pages, establish three connected answers: where the audience is now and why the issue matters; where the decision or understanding must go; and how the mechanism, sequence, conditions, and risks move from the first state to the second. Do not assume the audience already knows the prior process, motive, or stakes unless the user explicitly says so.
 5. Define terms, metrics, time windows, dimensions, exclusions, and comparison bases.
-6. Build a natural question chain. Each page must answer one necessary question and create a justified next question. When problem-before-recommendation is required, establish the current-state friction, audience impact, and mechanism before any recommendation, even when an executive-summary role is used.
-7. Specify every slide's responsibility, evidence, decision weight, management stage, and relationship to adjacent slides. Copy must be able to express each page naturally without inventing missing actors, relationships, motivation, or transitions.
+6. Write a complete opening, connected chapter paragraphs and conclusion in `story`; each chapter advances a natural question chain. Tag paragraphs with stable story IDs, sources, evidence status, qualifiers and preservation requirements. When problem-before-recommendation is required, establish the current-state friction, audience impact, and mechanism before any recommendation, even when an executive-summary role is used.
+7. Finish the argument before pagination. Copy owns splitting and combining pages; provide complete actors, mechanisms, evidence and transitions without locked slides or page message trees. `logic_layer` and `copy_layer` are null in the Logic handoff.
 8. Define cross-slide invariants and series only when repetition carries meaning.
 9. Record missing inputs and research questions in the existing open-item, scope, and notes fields. Consolidate only truly blocking missing inputs into the smallest useful user interaction; generation-mode and taxonomy classification never require an interaction or confirmation. Never invent data or imply approval.
 10. Emit task-local learning candidates with evidence and limits; persist them only through the configured Logic learning route and never auto-promote them. Candidates remain observation-only; discussion confirmation and immutable commit belong to the root facade and require the actual user's decision.

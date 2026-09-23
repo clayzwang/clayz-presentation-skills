@@ -47,6 +47,18 @@ The five stages give the model better questions, evidence, decision authority, t
 
 Efficiency compresses transport and removes repeated retrieval, evidence copying, writes, and renders. It must never mean shallow Logic reasoning. Validators protect facts, authority, provenance, and observable quality; they do not prescribe one universal narrative, storyline placement, or slide shell.
 
+## Reader understanding (v0.17.1)
+
+[Reader-quality guidance](../packages/contracts/reader-quality.md) makes substantive explanation and natural language explicit across the same five stages. Existing work notes and findings carry the review; no new schema, word ban, brevity quota or automatic language score is introduced.
+
+## Story-first and visual handoffs (v0.17.0)
+
+See [the current handoff contract](../packages/contracts/story-visual-handoff.md).
+Logic writes a complete story before pagination. Copy owns the page projection
+used by existing renderers. Art Direction produces and locks image drafts plus
+visual tags. Supervisor compares actual final renders against that baseline and
+delivers the three real handoff documents with the images and audit evidence.
+
 ## Stage ownership
 
 Production remains a continuous content -> layout/composition -> editable-PPT
@@ -61,9 +73,9 @@ require separate agents or prohibit evidence-driven upstream revision.
 
 | Stage | Owns | Must not silently change |
 | --- | --- | --- |
-| Logic | audience, content sufficiency, current state, target state, path, question chain, claims, evidence, slide sequence | source facts or user constraints |
-| Copy | precise audience-facing wording, master-required Storyline, optional supporting copy, numbers, punctuation, intentional breaks, notes | logic, evidence status, slide order or visual placement |
-| Art Direction | first visual, visual anchor, medium, area plan, semantic layout tree, optional supporting-copy treatment, rhythm | approved meaning, wording, or master-defined Storyline placement |
+| Logic | audience, complete chaptered narrative, claims, evidence, qualifiers, semantic relationships | source facts or user constraints |
+| Copy | pagination, page responsibilities, structured audience-facing wording, master-required Storyline, optional supporting copy, numbers, punctuation, intentional breaks, notes | logic, evidence status, chapter order or visual placement |
+| Art Direction | locked full-deck image drafts, target coordinates, element specifications and tolerances, first visual, visual anchor, medium, area plan, semantic layout tree, optional supporting-copy treatment, rhythm | approved meaning, wording, or master-defined Storyline placement |
 | Output | editable objects, coordinates, theme application, technical repair, final files | approved content or visual intent |
 | Supervisor | task initiation, requirement/calibration coordination, evidence reconciliation, release disposition, and challenge record | any upstream or downstream artifact or Auditor finding |
 
@@ -77,7 +89,7 @@ authority.
 Theme and Visual Variant remain configuration and Art Direction concerns.
 Registered Layout Contracts provide reusable semantic topology, while the
 task-local Layout Tree binds approved Semantic Layout Tree nodes and copy IDs.
-Only Output resolves coordinates and creates objects. See
+Art Direction specifies target coordinates and bounded adjustments in the task plan; Output realizes them and creates native objects. See
 [`layout-contracts.md`](layout-contracts.md).
 
 ## Composition and dataset metadata layers

@@ -1,5 +1,11 @@
 # Build-Only Contract
 
+## v0.17.0 current contract
+
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+
+## Legacy / compatibility field reference
+
 ## Core principle
 
 Output turns a plan into objects; it does not reinterpret objects into a new plan. The approved plan is the execution baseline. Changing composition, medium, area, density, reading path, series persistence, motif, semantic whitespace, or persistent navigation merely “to look better” is out of scope without a material baseline decision. Native implementation may expose an upstream problem; Output may challenge it through Supervisor and the required user decision, but may not silently change it. A quality defect can remain an evidenced finding for Independent Auditor and does not by itself require another approval or refuse delivery.

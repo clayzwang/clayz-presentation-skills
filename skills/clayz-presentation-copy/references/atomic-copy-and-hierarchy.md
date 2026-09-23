@@ -1,8 +1,12 @@
 # Atomic copy and hierarchical writing
 
-## Read the tree before the sentence
+## Explain the meaning before structuring the copy
 
-List `node_id -> primary_copy_id -> text` before drafting a slide. A sentence that states both a parent category and its children may flatten the hierarchy.
+Read the complete Logic story and rewrite the argument in natural language for
+the reader before deciding page text and hierarchy. Then map
+`node_id -> primary_copy_id -> text`. A complete explanatory sentence can be one
+unit; do not split necessary grammar into isolated labels merely to fill a tree.
+Model genuine parent/child distinctions without suppressing their explanation.
 
 ### Colon test
 
@@ -44,7 +48,7 @@ Titles are not always short. A dense operating slide may use “topic label + co
 
 ## Parallel peers
 
-Assign every sibling group a `grammar_signature`.
+Give each unit a `grammar_signature` describing its actual wording. Compare peers for semantic granularity; their sentence patterns and lengths need not match.
 
 | Signature | Structure | Example |
 |---|---|---|
@@ -58,7 +62,7 @@ Within a group, check part of speech, subject, tense, voice, granularity, punctu
 
 ## Numbers and labels
 
-Do not bury numbers in generic sentences. Split a KPI into at least metric label, display value, and unit. Place benchmark, period, and definition in adjacent annotations or footnotes. Copy locks displayed values and punctuation; Output controls spatial relationship and visual weight.
+For a standalone KPI display, separate metric label, value and unit as needed for mapping. Numerical explanatory prose may remain a complete sentence with its metric, unit and period intact. Keep necessary comparison bases and qualifications visible; footnotes are for supporting detail. Copy locks wording and numbers; Art Direction chooses visual relationships and Output realizes them.
 
 ## Intentional line breaks
 
@@ -85,4 +89,4 @@ Keep `text` as standard text without newline characters. Record deliberate break
 
 ## Return conditions
 
-Return to Logic when a parent cannot summarize its children, siblings cannot share one grammar, one node carries two semantic roles, copy becomes valid only after adding new facts, title strength exceeds evidence, or the slide has two content centers that do not share one claim.
+Return to Logic for missing reasoning, incompatible meanings, required new facts or judgments stronger than the evidence. Copy owns awkward wording and pagination; different sibling grammar alone is not a Logic defect. Fix expression without hiding a substantive gap or inventing support.

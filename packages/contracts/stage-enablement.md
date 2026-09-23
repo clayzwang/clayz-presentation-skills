@@ -207,8 +207,10 @@ retrieve only that snapshot. A failed, concurrent, or stale-parent commit
 leaves the previous verified snapshot usable; a missing store is unavailable,
 not an empty successful Library.
 
-Logic owns the substantive meaning of every page. Before slide allocation,
-develop a concise business explanation connecting current operation and actors,
+New runs follow [the story and visual handoff contract](story-visual-handoff.md).
+Logic owns the complete chaptered argument; Copy owns pagination and structured
+visible wording; Art Direction locks every page image with its visual tags.
+Before slide allocation, develop a complete business explanation connecting current operation and actors,
 motivation and stakes, target state, change mechanism, options, evidence,
 conditions and uncertainty. Use where/where-to/how as a reasoning lens, not three
 mandatory slides. Test the explanation as if the audience had not read the chat.
@@ -216,6 +218,13 @@ Can it explain who replaces whom, which function remains, why the change helps,
 and what could invalidate the recommendation? Resolve these gaps before Copy.
 When more research cannot change a material decision or uncertainty, synthesize.
 Depth is assessed by the explanation, never by elapsed thinking time or prose length.
+
+Apply [reader-quality guidance](reader-quality.md) (Chinese peer for zh-CN).
+Necessary explanation and evidence fidelity take priority over brevity.
+Logic must develop supported analysis rather than hand off only open questions.
+Copy rewrites the full argument for readers before compressing it; Art Direction
+provides space and Supervisor reads the actual language separately from technical
+checks. Record specific observations through existing findings/work notes.
 
 Copy makes that explanation precise and natural. Parallel semantics need not
 force identical sentence grammar. Art Direction follows the master's Storyline
@@ -453,8 +462,9 @@ an already authorized resource.
 Approval applies to an artifact revision, not an irreversible stage boundary.
 When a downstream check exposes an upstream problem, send the concrete defect,
 affected slide/copy IDs and desired outcome to the earliest responsible stage.
-Logic changes meaning or page sequence; Copy changes wording; Art Direction
-changes visual hierarchy or composition; Output changes technical realization.
+Logic changes meaning or chapter sequence; Copy changes pagination and wording;
+Art Direction changes image drafts and visual specifications; Output changes
+technical realization within the approved adjustment bounds.
 The owner updates its artifact, validates it and refreshes dependent hashes and
 checks. Preserve superseded evidence; do not present it as current. Reuse only
 unchanged portions whose dependencies still match. A content revision does not

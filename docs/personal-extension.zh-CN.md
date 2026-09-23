@@ -39,7 +39,7 @@ Cloud Public Light（脑）
 
 ## 逻辑 Library 挂载
 
-Skill 和私有索引记录只能保存 `library://<namespace>/...`。真实路径只存在于 composer 选择的宿主 binding 中：
+Skill 和私有索引记录只能保存 `library://<namespace>/...`。本示例用虚构宿主 Library 根目录 `ExampleLibrary` 展示 composer 选择的 binding：
 
 ```json
 {
@@ -47,7 +47,7 @@ Skill 和私有索引记录只能保存 `library://<namespace>/...`。真实路�
   "logical_root": "library://example-presentation/",
   "bindings": {
     "local": {"adapter": "filesystem", "root": "${CLAYZ_PRESENTATION_LIBRARY_ROOT}"},
-    "chatgpt-personal": {"adapter": "host-library", "root": "PPT"}
+    "chatgpt-personal": {"adapter": "host-library", "root": "ExampleLibrary"}
   }
 }
 ```
@@ -67,7 +67,7 @@ python scripts/build_provider_manifest.py \
   --provider-id example.private-library \
   --visibility owner-private \
   --records <private-path>/records.jsonl \
-  --index-uri library://example-presentation/_extension/providers/private/index/records.jsonl \
+  --index-uri library://example-presentation/_extension/providers/example.private-library/index/records.jsonl \
   --output <private-path>/provider.manifest.json
 ```
 

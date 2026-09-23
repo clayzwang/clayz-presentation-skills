@@ -21,7 +21,16 @@ preserve the Auditor's findings and statuses verbatim. A quality defect is not
 the same as an artifact binding, identity, format, or evidence-integrity
 failure.
 
+Read [reader-quality guidance](reader-quality.md) during final review. Inspect the actual argument and reader-facing text separately from numerical/object/layout checks. Cite the sentence or copy ID, preserve evidence strength, and distinguish missing analysis from awkward wording. Record findings in the existing audit artifact; do not infer fluency from completed fields.
+
 ## Required evidence and interface
+
+For package 3.0, also inspect the locked full-deck Art Direction drafts and
+matching specification under [the visual handoff contract](story-visual-handoff.md).
+Compare actual final renders to those drafts, then independently check content,
+native editability and design quality. A faithfully reproduced bad design is
+still a finding. Report comparison limits explicitly; the Supervisor records
+the final design comparison without altering this module's findings.
 
 The audit artifact uses the contract name above and binds, by actual path,
 byte count and SHA-256 where applicable:

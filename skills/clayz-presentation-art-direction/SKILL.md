@@ -6,13 +6,34 @@ description: Convert a copy-approved presentation package into an art-direction-
 # Clayz Presentation Art Direction
 
 Create an `art-direction-approved` plan that makes visual judgment explicit
-without becoming a second copy source or a coordinate engine. Consume the
+with a complete readable image draft and matching element-level visual specification. Consume the
 Copy artifact and Supervisor's calibration as separate inputs; Supervisor
 coordinates the decision and does not design the page for Art Direction.
 
+## Reader understanding (v0.17.1)
+
+Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
+according to the task locale. Necessary explanation and evidence fidelity take
+priority over shortness; use existing records for review observations.
+
+Allocate room for necessary explanations. Adjust hierarchy, grouping and
+width, or return pagination to Copy, within actual master/user constraints.
+Do not demand shorter copy merely to fill a symmetrical layout or fixed card
+count. Check the readable full-deck drafts with actual text; refresh both drafts
+and specifications after approved wording or pagination changes.
+
+## Story and visual handoff (v0.17.0)
+
+Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.0 and Art
+Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+report documents apply even when optional Library or A/B capabilities are absent.
+Legacy page-first contracts remain readable only for existing runs. Preserve
+the existing Supervisor calibration and Independent Auditor handoffs.
+
 ## Boundaries
 
-Own reference selection, first visual, visual anchor, dominant medium, hierarchy, area plan, content-aware canvas analysis, asset strategy, semantic layout tree, optional supporting-copy treatment, silhouette, density, reading path, whitespace, motif, series behavior, and cross-slide rhythm. Preserve the active master's Storyline placeholder and role.
+Own full-deck image drafts, target coordinates and dimensions, typography and bounded adjustment tolerances, reference selection, first visual, visual anchor, dominant medium, hierarchy, area plan, content-aware canvas analysis, asset strategy, semantic layout tree, optional supporting-copy treatment, silhouette, density, reading path, whitespace, motif, series behavior, and cross-slide rhythm. Preserve the active master's Storyline placeholder and role.
 
 Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page order, management stage, or cross-slide invariants. Do not create final PPTX objects.
 
@@ -93,6 +114,20 @@ chart, or silhouette change on every page.
 13. Judge the deck as a sequence, not a collection of isolated pages. Reference and Sequence records are metadata-only evidence and never authorize copying source content or media.
 14. Emit task-local learning candidates with rendered evidence, applicability, and `never_copy` boundaries; persist them only through the configured Art Direction learning route and never auto-promote them. Candidates remain observation-only; discussion confirmation and immutable commit belong to the root facade and require the actual user's decision.
 15. Emit one plan with `origin_namespace: io.clayz.presentation`, status `art-direction-approved`, root `acceptance_contract`, root `resource_inventory_lock`, and root `index_evidence`. `reference_budget.query_log` must bind every loaded record to an Art Direction receipt, relevance score, threshold, and material adoption outcome. Generic first visuals such as “主图/主表/结论结构”, relation names without matching semantic-tree relations, and multi-value shape pseudo-charts fail validation. Non-series silhouette or structure reuse is an observable quality question: explain its semantic purpose and record the actual effect; it is not an automatic validation failure or delivery blocker.
+
+## Lock the visual handoff
+
+Create a real readable PNG/JPEG draft for every Copy page with exact approved
+text, numbers and relationships. Rendering tools or image generation may be
+used; this does not depend on optional A/B testing. Inspect and correct image
+generation text/data errors. Refine the visual specification from the drafts,
+reconcile all elements, and lock both together before Output. Do not reverse
+engineer facts from pixels. Each element, including added icons, images and
+symbols, has an ID, purpose, normalized box, native type, grouping and adjustment
+policy; text has resolved typography and charts bind approved data IDs.
+Use `scripts/stage_documents.py lock-design` to bind the final Copy and plan.
+New captions return to Copy; new claims/calculations return to Logic. A later
+design revision invalidates the baseline, Output and affected audit evidence.
 
 ## Validation
 

@@ -9,6 +9,29 @@ Act as the presentation task control plane, then produce an evidence-backed
 supervision report and readable full work report that identify the earliest
 layer able to prevent each problem.
 
+## Reader understanding (v0.17.1)
+
+Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
+according to the task locale. Necessary explanation and evidence fidelity take
+priority over shortness; use existing records for review observations.
+
+Read Logic for substantive completeness, Copy for natural continuous prose,
+and the final pages for actual readability. Judge whether the intended reader
+can understand without reconstructing the research notes. Data/object/layout
+checks do not establish language quality. Prioritize material content repair
+over tidying audit records; quote exact text/copy IDs and route missing analysis
+to Logic, awkward expression to Copy, and visual loss to the responsible visual
+stage. Preserve the existing independent-audit and delivery policy.
+
+## Story and visual handoff (v0.17.0)
+
+Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.0 and Art
+Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+report documents apply even when optional Library or A/B capabilities are absent.
+Legacy page-first contracts remain readable only for existing runs. Preserve
+the existing Supervisor calibration and Independent Auditor handoffs.
+
 ## Root orchestration contract
 
 Supervisor is the required entry point for presentation intent and the
@@ -172,6 +195,22 @@ Read `../../packages/contracts/stage-enablement.md` for task authority, relevanc
 9. Reconcile every initially selected resource as used or unused with a reason, cover all five stages with evidence, and present the user with a concise actual-use summary. Late unlisted resources are invalid; new material requires a revised pre-Logic inventory and another brief before use.
 10. Emit one report3.6 JSON with `origin_namespace: io.clayz.presentation`, status `supervised`, the same challenge-bound run/task/config values as preflight, the real five stage records, any bound `work-notes`, three `calibration_artifacts`, `auditor_artifact`, `supervisor_release` and derived `core_sequence`. The collector attaches the authoritative top-level `work_report` and `work_report_sha256` from existing primary artifacts and records. Assemble the full work report from those inputs: preserve task requirements, evidence and source trace, counterevidence, assumptions, uncertainty, storyline and exclusions, final copy, page-level design intent, calibration responses, actual PPTX statistics/page text/notes, Auditor observations, release, limitations and improvements when observed. Use `not-recorded` for missing stage notes or unavailable observations; never backfill them from memory. `stage_snapshots` and requirement traceability remain bound when required by the assembled report. Optional historical lifecycle, Index, retrieval, performance or Library fields are preserved only when real. Record Supervisor as initiator, coordinator/calibrator and recorder. Keep the compatibility `supervisor_roles.final_auditor` entry `not-needed` or `incomplete` so it cannot imply that Supervisor authored the audit; the stage-five work record and actual audit artifact use role `auditor`. The derived core sequence is `supervision-started`, `logic-to-copy-calibrated`, `copy-to-art-direction-calibrated`, `art-direction-to-output-calibrated`, `independent-audit-completed`, `supervisor-release`. A quality issue does not require a user checkpoint; create one only for a material business choice, scope change or explicit no-delivery condition. A target pass/fail requires a same-run `target-application-check/1.0` receipt bound to the final PPTX hash and observed inside the challenge window between Output handoff and final audit. Do not record private chain-of-thought; record actions, decisions, evidence references, and outcomes.
 11. Bind `delivery_pair` to the final PPTX filename and SHA-256, this supervision-report filename, `delivery-manifest.json`, `scripts/publish_supervised_pair.py`, and the `auditor_artifact` hash/timestamp. The publisher manifest also records `work-report.md` in its `derived_files` collection and binds its bytes to the formal JSON without a circular report hash. Binding, identity, format, missing-required-artifact or evidence-integrity failure requires a blocked pair. A binding-complete pair may be published with accurately recorded quality issues, deferred checks or optional Library limitations under the default policy. Run the publisher only after report and audit validation, then run the current `verify-handoff` against the newly published bundle and use only its returned exact PPTX/report/Markdown paths, hashes, task/run identity and PPTX summary for final delivery. Never glob a task directory or link an older report. A missing formal report, invalid derived Markdown/manifest, missing core-sequence step, missing stage/calibration/Auditor/release binding, mismatched binding or hash, absent manifest, publisher bypass, or single-artifact handoff proves Supervisor completion was not established. Missing optional lifecycle, Index, retrieval or performance fields does not by itself block the report3.6 path. A summary-only legacy report is insufficient evidence of work history; `not-recorded` means the evidence was not captured, not that a prior stage did not run.
+
+## Design baseline audit and delivered documents
+
+Compare each reopened final PPTX render against the locked Art Direction image.
+Retain content fidelity, visual fidelity, native editability and design quality
+as separate observed checks. A faithful implementation of a bad design remains
+an Art Direction finding. Route defects to the earliest responsible stage and
+record downstream detection failures separately. Never equate image similarity
+with approval. Retain the Independent Auditor's own observations unchanged.
+Provide `design_comparison` in the report draft. `assemble-report` embeds the
+actual original Logic handoff, final Copy, Art Direction specification and all
+locked preview bytes as `stage_documents`; it derives readable documents from
+those same inputs. Do not reconstruct earlier handoffs after seeing the PPTX.
+Absent final renders mean explicitly deferred comparison, never a visual pass.
+The existing publisher also exports the documents and side-by-side comparison
+as report companions; these do not replace the PPTX/report pair.
 
 ## Validation
 

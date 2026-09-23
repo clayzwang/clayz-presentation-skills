@@ -1,6 +1,6 @@
 ---
 name: clayz-presentation-copy
-description: Turn a logic-approved presentation package into final visible copy with locked titles, storylines, numbers, punctuation, line breaks, notes, and atomic copy units. Use after presentation logic is approved and before visual composition. Do not change facts, evidence status, slide order, or business relationships, and do not design or build the PPTX.
+description: Turn a logic-approved presentation package into final visible copy with locked titles, storylines, numbers, punctuation, line breaks, notes, and atomic copy units. Use after presentation logic is approved and before visual composition. Own pagination while preserving facts, evidence status, chapter order and business relationships, and do not design or build the PPTX.
 ---
 
 # Clayz Presentation Copy
@@ -8,6 +8,28 @@ description: Turn a logic-approved presentation package into final visible copy 
 Create a `copy-approved` package in which every visible character is intentional
 and traceable. Consume the Logic artifact and Supervisor's calibration as
 separate inputs; Supervisor evaluates and coordinates but does not write Copy.
+
+## Reader understanding (v0.17.1)
+
+Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
+according to the task locale. Necessary explanation and evidence fidelity take
+priority over shortness; use existing records for review observations.
+
+Before titles/tables, rewrite the substantive argument in complete natural
+language for the intended reader. Preserve necessary actors, actions, links and
+qualifiers while removing redundancy. Read body text as well as titles. Prefer
+a longer clear explanation to an ambiguous compressed label; brevity, parallel
+grammar and slogans are optional. Record concrete language observations in the
+existing semantic_preservation_review or work notes, not another approval form.
+
+## Story and visual handoff (v0.17.0)
+
+Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.0 and Art
+Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+report documents apply even when optional Library or A/B capabilities are absent.
+Legacy page-first contracts remain readable only for existing runs. Preserve
+the existing Supervisor calibration and Independent Auditor handoffs.
 
 ## Generation mode
 
@@ -32,9 +54,9 @@ the production path remains unified.
 
 ## Boundaries
 
-Own precise wording for titles, the Storyline required by the active master, optional supporting copy, numbers, units, punctuation, intentional breaks, notes, copy hierarchy, and stable `copy_id` values. Do not decide master placeholder position or visual layout.
+Own pagination, page responsibilities, the derived semantic page projection, and precise wording for titles, the Storyline required by the active master, optional supporting copy, numbers, units, punctuation, intentional breaks, notes, copy hierarchy, and stable `copy_id` values. Do not decide master placeholder position or visual layout.
 
-Do not change Logic-approved facts, claims, relationships, page responsibilities, management stages, cross-slide invariants, or slide order. Do not choose visual layout or create PPTX objects.
+Do not change Logic-approved facts, claims, qualifiers, relationships, chapter order or semantic invariants. Split/combine presentation pages within that argument and user constraints; return substantive logic changes upstream. Do not choose visual layout or create PPTX objects.
 
 ## Required context
 
@@ -73,7 +95,7 @@ draft with a concrete rejection reason is valid. When a rendered page is too
 dense, shorten or redistribute copy within Logic's meaning, then return it to
 Art Direction; meaning or page-sequence changes belong to Logic.
 
-1. Preserve every approved claim, evidence qualifier, task acceptance requirement, and generation-mode responsibility, including the provenance, limits, and unresolved questions carried by confirmed discussion knowledge. Absorb the Supervisor's Logic calibration before locking Copy; record an `accepted`, `partially-accepted`, or `declined` calibration binding with a reason. In execution sections, keep supplied information coverage and fill only routine editorial gaps; in research sections, keep the Logic synthesis and its evidence boundaries explicit.
+1. Read the full Logic story, paginate it, bind `logic_artifact`, trace every unit/note to `source_story_ids`, and populate the Copy-owned compatibility page projection. Preserve every approved claim, evidence qualifier, task acceptance requirement, and generation-mode responsibility, including the provenance, limits, and unresolved questions carried by confirmed discussion knowledge. Absorb the Supervisor's Logic calibration before locking Copy; record an `accepted`, `partially-accepted`, or `declined` calibration binding with a reason. In execution sections, keep supplied information coverage and fill only routine editorial gaps; in research sections, keep the Logic synthesis and its evidence boundaries explicit.
 2. If Logic does not contain enough concrete evidence or relations to satisfy a Copy-owned requirement, raise an upstream conflict instead of replacing the gap with abstract benefit language.
 3. Write titles that state the page function or conclusion without exaggeration and respect the task's cover and conclusion-placement policy.
 4. Write the required Storyline according to the active master's semantic role. A smaller supporting sentence beneath it is optional: add one only when it contributes independent information, and omit it entirely when it would merely restate the Storyline or fill space. Do not treat this optional support line as a mandatory Storyline field.
@@ -82,7 +104,7 @@ Art Direction; meaning or page-sequence changes belong to Logic.
 7. Keep charts and tables supplied with complete labels, units, sources, and explanation text.
 8. Raise upstream conflicts instead of silently fixing Logic. Generic phrases such as reduced experience, weakened certainty, or better coordination do not satisfy a requirement unless the Copy units identify the responsible operation and audience consequence.
 9. Emit task-local learning candidates with language, audience, evidence, and limits; persist them only through the configured Copy learning route and never auto-promote them. Candidates remain observation-only; discussion confirmation and immutable commit belong to the root facade and require the actual user's decision.
-10. Emit one package with `origin_namespace: io.clayz.presentation` and status `copy-approved`; preserve root `acceptance_contract` and `resource_inventory`, and add bounded relevance-ranked Copy receipts to root `index_evidence`. Every selected record must name the concrete title, storyline, copy unit, or language decision it materially influenced. Passing structure alone is insufficient: cross-slide duplicate titles, storylines, transition formulas, grammar vectors, and substantial phrases must pass deterministic variation checks unless Logic declared a purposeful series.
+10. Emit one package with `origin_namespace: io.clayz.presentation` and status `copy-approved`; preserve root `acceptance_contract` and `resource_inventory`, and add bounded relevance-ranked Copy receipts to root `index_evidence`. Every selected record must name the concrete title, storyline, copy unit, or language decision it materially influenced. Passing structure alone is insufficient: cross-slide duplicate titles, storylines, transition formulas and substantial phrases must pass applicable deterministic checks unless Logic declared a purposeful series. Package 3.0 does not require different grammar vectors across pages; judge actual language through reader-quality review.
 
 ## Validation
 

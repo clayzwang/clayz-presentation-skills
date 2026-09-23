@@ -1,5 +1,11 @@
 # PPT v2.4逻辑层合同
 
+## v0.17.0 current contract
+
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+
+## Legacy / compatibility field reference
+
 `ppt-design-package.json` 是 Logic、Copy、Output 共用的唯一交接文件。Logic 只写根信息和 `logic_layer`；Copy 在同一文件追加 `copy_layer`。不得维护两个平行包。
 
 ## 根结构

@@ -21,6 +21,21 @@ Read `packages/contracts/stage-enablement.md` and
 read `packages/contracts/independent-audit.md` when the post-Output audit is
 required.
 
+For v0.17.1, read `packages/contracts/reader-quality.md` (Chinese peer for
+zh-CN) during the current stage. Complete the reasoning, then rewrite it for the
+reader before compressing. Necessary explanation may be longer; provide an
+orderly readable layout. Check actual language separately from data, objects
+and layout, and repair material content before polishing process records.
+Use the existing reviews/findings; no word ban, brevity quota or new approval
+form establishes language quality.
+
+For new production runs on v0.17.0 and later, also read
+`packages/contracts/story-visual-handoff.md` (Chinese peer for zh-CN). Logic
+hands off a complete story; Copy owns pagination; Art Direction must lock a
+readable image draft for every page and matching visual tags before Output.
+Supervisor retains the three real documents and compares the final PPTX renders
+against those images. Optional A/B capabilities do not waive these drafts.
+
 Classify only the work requested: inspection, discussion/learning, capability
 advice, or production. Production uses execution/research/mixed content
 responsibilities according to material maturity, not separate product editions.

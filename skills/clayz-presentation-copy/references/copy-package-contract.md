@@ -1,4 +1,12 @@
-# PPT v2.4 Copy-layer contract
+# PPT v3.0 Copy-layer contract
+
+## v0.17.0 current contract
+
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+
+Sibling grammar_signature values describe actual wording and may differ when meanings remain parallel. Readability and evidence fidelity take priority over uniform length or slogans.
+
+## Legacy / compatibility field reference
 
 Copy appends `copy_layer` to the same `ppt-design-package.json` while its status is `logic-approved`. On completion, root status becomes `copy-approved`; `logic_layer` remains byte-for-byte unchanged.
 
@@ -176,7 +184,7 @@ The root package uses contract `2.4`, preserves the root `acceptance_contract` a
 - The primary unit's `source_logic_node_ids` contains only its mapped node.
 - A parent's primary text does not contain the full primary text of any child.
 - A child's `parent_copy_id` equals the parent's `primary_copy_id`.
-- Primary units in one Logic sibling group share `sibling_group_id`, `grammar_signature`, `role`, and `text_mode`. Split semantically different members in Logic first.
+- Primary units in one semantic sibling group share `sibling_group_id`, `role`, and `text_mode`; `grammar_signature` may differ to preserve natural wording. Resolve substantive semantic differences in Logic; Copy owns expression and pagination.
 
 ## Slide exceptions
 

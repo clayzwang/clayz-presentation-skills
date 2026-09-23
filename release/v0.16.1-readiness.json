@@ -1,0 +1,39 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.16.1",
+  "current_public_version": "0.16.0",
+  "state": "local-build-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": false,
+    "tag": false,
+    "publish": false,
+    "experience_center_update": false
+  },
+  "authorization": {
+    "decision": "explicit-user-restriction",
+    "scope": "local-build-no-github-push",
+    "authorized_at": "2026-09-15T16:57:44Z"
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python -B scripts/validate_all.py",
+    "experience_validation": "Current version markers are prepared for local validation only; the final full suite is pending. No Experience Center deployment is authorized or claimed.",
+    "presentation_overflow_check": "The repaired renderer produced eight after images of the unchanged baseline PPTX. Independent visual inspection found writer and layout issues; overflow and overall visual quality are not declared pass.",
+    "node_chart_build": "Chart writer behavior was not changed by R01-LUNA-001 or R01-LUNA-002. Existing chart, object, QA and visual findings remain recorded."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

@@ -88,6 +88,13 @@ def validate_stage_snapshots(
             for key in ("communication_contract", "art_direction", "decision_log", "typography_contract", "deck_rhythm", "slides")
         },
     }
+    if package.get("contract_version") == "3.0":
+        from story_handoff import load_logic_origin
+        try:
+            expected["logic"] = load_logic_origin(package)
+            expected["art_direction"] = plan
+        except (OSError, ValueError, TypeError) as exc:
+            errors.append(f"report.stage_snapshots.logic: {exc}")
     for stage, expected_snapshot in expected.items():
         record = value.get(stage)
         path = f"report.stage_snapshots.{stage}"
@@ -96,6 +103,9 @@ def validate_stage_snapshots(
             continue
         if not valid_sha256(record.get("artifact_sha256")):
             errors.append(f"{path}.artifact_sha256: must be a lower-case SHA-256")
+        elif stage == "logic" and package.get("contract_version") == "3.0":
+            if record.get("artifact_sha256") != package.get("logic_artifact", {}).get("sha256"):
+                errors.append(f"{path}: must bind original Logic artifact, not Copy projection")
         elif evidence_root is not None and isinstance(artifact_paths, dict):
             relative = artifact_paths.get("package" if stage in {"logic", "copy"} else "art_direction_plan")
             artifact = evidence_root / str(relative) if nonempty(relative) else None
@@ -745,14 +755,14 @@ def validate_evidence_reference(
         if "#user_brief" in reference and (not isinstance(parsed, dict) or "user_brief" not in parsed):
             errors.append(f"{path}: resource-inventory user_brief fragment does not exist")
     elif artifact_name == "ppt-design-package.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") != "2.4" or parsed.get("status") != "copy-approved":
+        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"2.4", "3.0"} or parsed.get("status") != "copy-approved":
             errors.append(f"{path}: design-package evidence must be contract 2.4 and copy-approved")
         if parsed != package:
             errors.append(f"{path}: design-package evidence must match the package under validation")
         if "#copy_layer" in reference and (not isinstance(parsed, dict) or "copy_layer" not in parsed):
             errors.append(f"{path}: design-package copy_layer fragment does not exist")
     elif artifact_name == "ppt-art-direction-plan.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") != "1.7" or parsed.get("status") != "art-direction-approved":
+        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"1.7", "2.0"} or parsed.get("status") != "art-direction-approved":
             errors.append(f"{path}: art-direction evidence must be contract 1.7 and art-direction-approved")
         if plan is not None and parsed != plan:
             errors.append(f"{path}: art-direction evidence must match the plan under validation")
@@ -1475,16 +1485,17 @@ def validate_supervisor_accountability(
     issues = report.get("issues")
     mediator = roles.get("mediator") if isinstance(roles, dict) else None
     if isinstance(issues, list) and issues:
-        if not isinstance(mediator, dict) or mediator.get("status") != "complete":
-            errors.append("report.supervisor_roles.mediator.status: issues require completed mediation")
-        elif "ppt-supervision-checkpoint.json" not in "\n".join(
-            str(item) for item in mediator.get("evidence_refs", [])
-        ):
-            errors.append(
-                "report.supervisor_roles.mediator.evidence_refs: issues require ppt-supervision-checkpoint.json"
-            )
-        if "mediation-recorded" not in actions:
-            errors.append("report.lifecycle_events: issues require a mediation-recorded event")
+        if not is_calibrated_report(report):
+            if not isinstance(mediator, dict) or mediator.get("status") != "complete":
+                errors.append("report.supervisor_roles.mediator.status: issues require completed mediation")
+            elif "ppt-supervision-checkpoint.json" not in "\n".join(
+                str(item) for item in mediator.get("evidence_refs", [])
+            ):
+                errors.append(
+                    "report.supervisor_roles.mediator.evidence_refs: issues require ppt-supervision-checkpoint.json"
+                )
+            if "mediation-recorded" not in actions:
+                errors.append("report.lifecycle_events: issues require a mediation-recorded event")
     elif isinstance(mediator, dict) and mediator.get("status") not in {"complete", "not-needed"}:
         errors.append("report.supervisor_roles.mediator.status: no-issue runs may be complete or not-needed")
     elif "mediation-recorded" in actions:
@@ -1745,6 +1756,11 @@ def validate_report(
     evidence_root: Path | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
+    if isinstance(package, dict) and package.get("contract_version") == "3.0":
+        from story_handoff import validate_design_audit
+        handoff_errors = validate_design_audit(package, plan, qa, report, pptx)
+        if handoff_errors:
+            return handoff_errors
     if is_calibrated_report(report):
         return validate_calibrated_report(
             package, plan, qa, inventory, report, policy,

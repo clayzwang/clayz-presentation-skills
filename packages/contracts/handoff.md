@@ -1,5 +1,10 @@
 # Cross-stage handoff
 
+For new runs, [Story and visual handoff](story-visual-handoff.md) defines
+package 3.0 and plan 2.0. Logic supplies the complete chaptered narrative, Copy
+owns pagination, and Art Direction locks full-deck image drafts with matching
+element specifications before Output. Existing Supervisor calibrations remain.
+
 Every stage artifact carries:
 
 - `origin_namespace: io.clayz.presentation`;

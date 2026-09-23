@@ -179,6 +179,8 @@ def validate_qa(
     )
     if not isinstance(package, dict) or not isinstance(plan, dict) or not isinstance(qa, dict):
         return errors
+    from story_handoff import validate_output_baseline
+    errors.extend(validate_output_baseline(package, plan, qa))
     inventories: list[dict[str, int]] = []
     if pptx is None:
         errors.append("qa validation requires final PPTX object evidence")

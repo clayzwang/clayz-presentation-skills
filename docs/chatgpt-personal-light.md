@@ -20,13 +20,13 @@ This is the host handoff for the private ZIP produced by `scripts/compose_person
 
 ## Required control plane and recommended content layout
 
-Use one Library root named `PPT`. Physical paths are host details and must never appear in a Skill, index record, or reusable Profile field. Only `_extension/providers/<provider>/provider.manifest.json` and its declared index location are required by the private cloud control plane. The `references`, `assets`, and `cases` branches below are the recommended normalized layout for new or gradually migrated content. Keep the source Profile in the local private control plane; the composer embeds only its resolved result, so the source Profile does not need to be uploaded as a Library file.
+Use the synthetic Library root name `ExampleLibrary` in this example. Physical paths are host details and must never appear in a Skill, index record, or reusable Profile field. Only `_extension/providers/<provider>/provider.manifest.json` and its declared index location are required by the private cloud control plane. The `references`, `assets`, and `cases` branches below are the recommended normalized layout for new or gradually migrated content. Keep the source Profile in the local private control plane; the composer embeds only its resolved result, so the source Profile does not need to be uploaded as a Library file.
 
 ```text
-PPT/
+ExampleLibrary/
 ├── _extension/
 │   └── providers/
-│       └── private/
+│       └── <provider-id>/
 │           ├── provider.manifest.json
 │           └── index/
 │               └── records.jsonl
@@ -45,7 +45,7 @@ PPT/
     └── rejected/
 ```
 
-Index payload refs use logical URIs rooted at `library://<profile-namespace>/`. The profile's `chatgpt-personal` mount binds that logical root to `PPT`.
+Index payload refs use logical URIs rooted at `library://<profile-namespace>/`. The profile's `chatgpt-personal` mount binds that logical root to the synthetic host root `ExampleLibrary`.
 
 Existing private material does not have to move before the first test. It may remain in its current Library folders as long as admitted index records point to the correct logical URIs under the mounted root. When moving or renaming an item, update its source and payload URIs, rebuild `records.jsonl` and `provider.manifest.json`, and replace both at their stable control-plane locations. Do not move files first and leave stale index records behind.
 

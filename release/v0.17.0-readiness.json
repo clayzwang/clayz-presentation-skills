@@ -1,0 +1,39 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.17.0",
+  "current_public_version": "0.16.0",
+  "state": "local-build-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": false,
+    "tag": false,
+    "publish": false,
+    "experience_center_update": false
+  },
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "scope": "local-build-no-github-push",
+    "authorized_at": "2026-09-20T10:32:16Z"
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python -B scripts/validate_all.py",
+    "experience_validation": "Current version metadata prepared for a local package; no Experience Center deployment is claimed. The public version field records the inherited public baseline, not a live remote check.",
+    "presentation_overflow_check": "This release changes stage handoffs. Synthetic contract tests do not establish production deck aesthetics or overflow quality; final deck review remains required per task.",
+    "node_chart_build": "Native chart writers are unchanged. New image/spec/object audit bindings supplement existing native-object checks."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

@@ -19,7 +19,8 @@ from validate_ppt_package import validate_package
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "1.7"
+CONTRACT_VERSION = "2.0"
+LEGACY_CONTRACT_VERSION = "1.7"
 TARGET_TYPES = {"shape", "table-cell", "chart-label"}
 VERIFY_METHODS = {"shape-name", "paragraph-exact"}
 VISUAL_ROLES = {"primary", "secondary", "tertiary", "annotation"}
@@ -433,8 +434,12 @@ def validate_plan(
     )
     if not isinstance(package, dict) or not isinstance(plan, dict):
         return errors
-    if plan.get("contract_version") != CONTRACT_VERSION:
-        errors.append(f"plan.contract_version: expected {CONTRACT_VERSION}")
+    expected_version = CONTRACT_VERSION if package.get("contract_version") == "3.0" else LEGACY_CONTRACT_VERSION
+    if plan.get("contract_version") != expected_version:
+        errors.append(f"plan.contract_version: expected {expected_version}")
+    if package.get("contract_version") == "3.0":
+        from story_handoff import validate_visual_baseline
+        errors.extend(validate_visual_baseline(package, plan))
     if plan.get("status") != "art-direction-approved":
         errors.append("plan.status: expected art-direction-approved")
     if plan.get("package_contract_version") != package.get("contract_version"):

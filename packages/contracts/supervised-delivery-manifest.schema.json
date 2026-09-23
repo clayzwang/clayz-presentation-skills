@@ -33,11 +33,11 @@
     },
     "derived_files": {
       "type": "array",
-      "maxItems": 1,
+      "maxItems": 2,
       "items": {
         "allOf": [
           {"$ref": "#/$defs/baseFile"},
-          {"properties": {"role": {"const": "work-report-markdown"}}}
+          {"properties": {"role": {"enum": ["work-report-markdown", "stage-handoff-archive"]}}}
         ]
       }
     }

@@ -333,7 +333,11 @@ class PersonalExtensionTests(unittest.TestCase):
                 self.assertNotIn(".github/workflows/ci.yml", names)
                 self.assertNotIn("README.md", names)
                 self.assertFalse(any(name.startswith("references/stages/") and "/references/" in name for name in names))
-                self.assertLess(len(names), 192)
+                # Required handoff files expand the conservative upload budget;
+                # this is not a proven platform hard limit.
+                self.assertLess(len(names), 200)
+                self.assertIn('packages/validators/story_handoff.py', names)
+                self.assertIn('scripts/stage_documents.py', names)
                 self.assertIn("packages/knowledge_session/store.py", names)
                 self.assertIn("packages/knowledge_session/discussion.py", names)
                 self.assertIn("scripts/cloud_learning_cli.py", names)
@@ -455,7 +459,9 @@ class PersonalExtensionTests(unittest.TestCase):
             compose_personal_light(profile_path, [manifest_path], output)
             with zipfile.ZipFile(output) as archive:
                 names = archive.namelist()
-                self.assertLess(len(names), 192)
+                self.assertLess(len(names), 200)
+                self.assertIn('packages/validators/story_handoff.py', names)
+                self.assertIn('scripts/stage_documents.py', names)
                 for omitted in (
                     "packages/contracts/artifact-envelope.schema.json",
                     "packages/contracts/capability-resolution.schema.json",

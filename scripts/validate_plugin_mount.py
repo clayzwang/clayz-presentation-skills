@@ -21,6 +21,12 @@ REQUIRED_SKILLS = (
     "clayz-presentation-supervisor",
 )
 REQUIRED_SHARED_PATHS = (
+    "packages/contracts/reader-quality.md",
+    "packages/contracts/reader-quality.zh-CN.md",
+    "scripts/stage_documents.py",
+    "packages/validators/story_handoff.py",
+    "packages/contracts/story-visual-handoff.md",
+    "packages/contracts/story-visual-handoff.zh-CN.md",
     ".codex-plugin/plugin.json",
     "config/default.json",
     "config/component-versions.json",

@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.16.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.17.1**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -208,3 +208,8 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 参考架构综合方法还特别感谢 [IBM Think Architectures](https://www.ibm.com/think/architectures)、[Microsoft Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/)、[Google Cloud Architecture Center](https://cloud.google.com/architecture)、[AWS Architecture Center](https://aws.amazon.com/architecture/)、[Oracle Architecture Center](https://docs.oracle.com/solutions/)、[SAP Architecture Center](https://architecture.learning.sap.com/)、[NVIDIA Enterprise Reference Architectures](https://docs.nvidia.com/enterprise-reference-architectures/)、[Databricks 参考架构](https://docs.databricks.com/aws/en/lakehouse-architecture/reference)、[Snowflake 架构指南](https://www.snowflake.com/en/developers/guides) 与 [Apple Platform Security](https://support.apple.com/guide/security/welcome/web) 背后的架构师、技术作者、设计师、工程师和审阅者。索引只记录链接和提炼后的关系，不再分发任何源架构图、原文、图标、品牌视觉、母版、模板、坐标或媒体。
 
 本项目采用 Apache-2.0 许可证，来源和引用见 `NOTICE`、`CITATION.cff` 与 `provenance/`。
+
+
+## v0.17.0 — Story and image-draft handoffs / 完整故事与图片稿交接
+
+Logic → 完整章节论述；Copy → 分页结构化文稿；Art Direction → 全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。

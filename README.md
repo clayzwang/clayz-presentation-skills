@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.16.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.17.1**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -255,3 +255,8 @@ For the reference-architecture synthesis method, Clayz also thanks the architect
 ## License and citation
 
 Licensed under Apache-2.0. See `NOTICE`, `CITATION.cff`, and `provenance/THIRD_PARTY_NOTICES.md`.
+
+
+## v0.17.0 — Story and image-draft handoffs / 完整故事与图片稿交接
+
+Logic → 完整章节论述；Copy → 分页结构化文稿；Art Direction → 全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。
