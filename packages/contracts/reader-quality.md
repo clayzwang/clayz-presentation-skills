@@ -7,7 +7,7 @@ must make them readable. Remove redundancy without treating shortness as a score
 
 ## Logic: answer what the available evidence can answer
 
-Write a complete argument before Copy paginates it. Explain the subject, change,
+Write a complete argument and allocate it to pages in Logic. Explain the subject, change,
 comparison basis, interpretation and its limits, and what the evidence means for
 the task. For comparisons, develop each object's facts and mechanisms before
 stating similarities, differences and supported judgments. Shared analytical
@@ -18,10 +18,6 @@ the evidence already supports. When it cannot establish a cause or conclusion,
 explain what is known, what remains unknown and which evidence is missing;
 preserve hypothesis status. Do not invent causality to complete a narrative.
 Research agendas and diligence plans may legitimately center on open questions.
-
-What happened, why it matters or might have happened, and what it implies are
-review questions, not three mandatory boxes on each page. Covers, tables and
-process pages have their own jobs. More words or more questions do not prove depth.
 
 ## Copy: explain in natural sentences before compressing
 
@@ -78,7 +74,7 @@ These are synthetic language exercises, not business facts or fixed templates.
 ## Art Direction and Output: provide space for necessary meaning
 
 Decide whether text is necessary before allocating space. Adjust hierarchy,
-grouping or width, or ask Copy to split pages within user/master constraints.
+grouping or width, or ask Logic to revise page allocation within user/master constraints.
 Symmetry, oversized type, whitespace ratios and fixed card counts never justify
 removing a necessary argument. Smaller fonts or hidden notes are not a substitute
 for readable body text.

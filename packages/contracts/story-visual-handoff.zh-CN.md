@@ -1,39 +1,22 @@
-# 完整故事与图片稿交接 — v0.17.0
+# 完整故事、页面安排与图片稿交接 — v0.17.2
 
-所有新任务读取本契约。使用内容包 `3.0`、Art Direction 计划 `2.0`、交接扩展 `1.0`。
-五阶段、Supervisor 三次校准、Independent Auditor、任务要求、Library/Index、配置与发布权保持原有机制。
+新任务使用内容包 `3.1`、Art Direction 计划 `2.0`、交接扩展 `1.1`。保留五阶段、校准、Independent Auditor、配置、资源盘点、Index 回执和真实阶段工作记录。
 
-v0.17.1 同时遵循[内容充分与自然表达](reader-quality.zh-CN.md)：先把分析展开，再改写为读者能理解的文字；必要解释可以较长，由排版妥善容纳。使用已有阶段观察和发现记录，不新增字段、字数门槛或审批环节。
+## Logic：完整故事与放置位置
 
-## Logic：先把完整论述写成立
+`story` 保存完整实质论述：title、thesis、audience、desired_outcome、opening、conclusion、有序 chapters（chapter_id、title、purpose、blocks，transition 可选）、sources、glossary、metric_dictionary、open_items、invariants。每段包含 story_id、完整 text、claim_status、source_ids、qualifiers、must_preserve。事实和计算绑定选中资源与来源定位，保留口径和不确定性。
 
-产出可脱离 PPT 阅读的完整论述：主旨、开篇、各章节的实际段落、证据、机制、限定条件、过渡和结论。
-可以按历史、诊断、比较、提案等适合任务的方式组织，不强制时间线，也不能以目录、标题列表或字段标签代替故事。
+`logic_layer.slides` 按页序包含 slide_id、chapter_id、narrative_role、claim、source_story_ids、data。全部 story 段落都有放置位置，不提前剪裁。Logic 决定总论点、章节、逐页主张、页面职责和正文页数；`logic_layer.lock.slide_order_locked` 为 true，copy_layer 为 null。除用户明确省略，默认一页封面、一页尾页；具体文字由 Copy 决定。Art Direction 宜采用贴合内容的形象配图，按实际显示尺寸控制分辨率、裁切、压缩和体积，文字保持原生可编辑；整页图片不算原生生成。
 
-Logic JSON 保留包身份、版本、状态、acceptance_contract、brief、resource_inventory、approvals 和 index_evidence。
-`contract_version` 为 `3.0`；`logic_layer`、`copy_layer` 均为 null。权威内容放入 `story`：
+工具不内置分析路线、父子推理合同或兄弟分组配额。方法来自任务、个人配置或选中外部知识。各阶段不主动生成演讲备注或附录；用户要求及历史备注仍可读取，研究与阶段工作记录保留。
 
-- `title`、`thesis`、`audience`、`desired_outcome`、`opening`、`conclusion`；
-- `sources` 沿用来源 ID、选中资源 ID 和 locator；保留 `glossary`、`metric_dictionary`、`open_items`、`invariants`；
-- 有序 `chapters`：各章包含 `chapter_id`、`title`、`purpose`、完整 `blocks` 和 `transition`；
-- 每段包含稳定 `story_id`、完整 `text`、`claim_status`、`source_ids`、明确 `qualifiers` 及布尔 `must_preserve`。
+## Copy：措辞、剪裁与内容打标
 
-数字、计算及证据沿用原有口径与证据机制。Logic 决定论证和章节顺序，不锁死分页。
-用户明确的页数等约束交由 Copy 落实。Copy 开始前保存并记录真实 Logic 修订，不能事后从成品补写。
+先读完整 story，保留原文和页面安排。logic_artifact 用绝对路径、sha256、bytes 绑定真实原始 Logic 文件。story、logic_layer、brief、acceptance_contract、resource_inventory、包身份原样保留。页数、顺序、页面职责或含义变化回 Logic；每页具体文字、剪裁和内容分组由 Copy 决定。
 
-## Copy：分页并转化为演示文字
+copy_layer 包含 logic_version、pagination_owner: "logic"、story_sha256、chapter_order、semantic_preservation_review 和有序 slides。每页含 slide_id、title_copy_id、可选 storyline_copy_id、footnote_copy_ids、copy_units。每个可见单元含全稿唯一 copy_id、text、role、text_mode、本页范围内的 source_story_ids、parent_copy_id、sibling_group_id、非负整数 logic_level（Copy 层级）、order、render_separately: true、merge_with_children: false、intentional_line_breaks。父级和组标记可为 null。Copy 自主分组和措辞，不依赖旧 Logic 节点映射；node_copy_map、source_logic_node_ids 仅为可选历史字段，不作为新任务要求。不新增语法或分组配额。必保信息应可见；已有备注须可追溯，不得用来隐藏必要限定条件。用 semantic_preservation_review 记录实际内容保真检查。
 
-阅读全文，决定分页、单页职责、标题和正文层级、精简和语言节奏。对仗、平仄、口号是可选手段，准确清楚优先。
-文字的平行结构归 Copy，空间对齐归 Art Direction。可以拆页、合并展示单元，但不能改变事实、结论强度、限定条件、章节顺序和论证关系。
-实质内容变化回传 Logic。
-
-Copy 保留原始 `story`、`brief`、任务要求、来源盘点及包身份。`logic_artifact` 使用任务内绝对路径及 `{path, sha256, bytes}` 指向真实 Logic 文件。
-`copy_layer` 增加 `pagination_owner: "copy"`、规范 JSON 的 `story_sha256`、`chapter_order`、实质 `semantic_preservation_review`。
-每个文字单元及备注都添加非空 `source_story_ids`。必保段落必须映射到可见文字或明确备注；不能为了字段通过把必要的可见限定条件藏进备注。
-
-兼容既有渲染器时，Copy 在分页后填充旧名 `logic_layer`，其含义是 **Copy 负责的派生页面语义投影**：页面 ID、单页观点、数据与关系、message tree、页序和跨页约束等。
-其中 sources、glossary、metric_dictionary、open_items 与 story 完全一致。页面锁从 Copy 批准时开始。
-该字段绝不是原始 Logic 交接文档，不转移事实与推理责任；具体字段沿用旧 v2.4 参考。
+3.1 中 Art Direction 的 visual_layers.node_id 使用 Copy ID，page_message_tree_depth 记录 Copy 层级深度，logic_statement 绑定逐页 claim。内容密度、注意力分配由 Art Direction 判断，不再强制 Logic 打旧标签。copy_unit_map 和 semantic_layout_tree 承接 Copy 分组，visual_baseline 继续视觉打标，Output 负责实施。
 
 ## Art Direction：整套图片稿与一致的视觉规格
 
@@ -75,4 +58,4 @@ Output 开始前锁定图片稿与规格。设计变化生成新修订并使受�
 
 `assemble-report` 自动从真实原始 Logic、最终 Copy、Art Direction 计划生成 `stage_documents`，同时嵌入完整数据、同源可读 Markdown 和锁定图片字节；最终渲染字节随对照记录保存。
 既有原子发布器继续交付 PPTX/报告，并导出 `stage-handoff.zip`：三份文档、图片和可离线查看的并排对照 HTML。
-旧版 2.4/1.7 可读，不允许新任务借兼容绕过 3.0/2.0 必交内容。校验器证明绑定与覆盖，专业审阅判断论证、措辞、可读性和设计质量。
+历史内容包 2.4、3.0 按原版本兼容读取；v0.17.2 新任务使用 3.1/2.0，不以兼容替代新交接。校验器证明绑定与覆盖，专业审阅判断论证、措辞、可读性和设计质量。

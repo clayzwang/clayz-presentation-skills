@@ -21,22 +21,27 @@ from packages.validators.story_handoff import digest, spec_digest
 
 class StoryRun(helpers.RealCliReleaseTests):
     # Helper subclass is instantiated directly, not discovered as a TestCase.
-    def configure_story(self):
+    def configure_story(self, version="3.0"):
         _,package,new_plan,_=synthetic_handoff(self.work)
         for key in ('acceptance_contract','resource_inventory','brief','index_evidence'):
             package[key]=copy.deepcopy(self.package[key])
         from packages.validators.resource_inventory import resource_inventory_signature, finalize_resource_inventory
         package['resource_inventory']['gate']['authoring_started_at']=datetime.now(timezone.utc).isoformat()
         package['resource_inventory']=finalize_resource_inventory(package['resource_inventory'])
+        if version == "3.1":
+            from tests.test_page_allocation_handoff import convert_to_page_handoff
+            convert_to_page_handoff(package, self.plan)
         origin=copy.deepcopy(package)
-        origin.update(status='logic-approved',logic_layer=None,copy_layer=None)
+        origin.update(status='logic-approved',copy_layer=None)
+        if version == '3.0':
+            origin['logic_layer']=None
         origin.pop('logic_artifact',None)
         self.original_logic=self.work/'original-logic.json'
         self.original_logic.write_text(json.dumps(origin,ensure_ascii=False),encoding='utf-8')
         package['logic_artifact']=reference(self.original_logic)
         self.package=package
         self.package_path.write_text(json.dumps(package,ensure_ascii=False),encoding='utf-8')
-        self.plan.update(contract_version='2.0',package_contract_version='3.0',visual_baseline=new_plan['visual_baseline'])
+        self.plan.update(contract_version='2.0',package_contract_version=version,visual_baseline=new_plan['visual_baseline'])
         self.plan['resource_inventory_lock']=resource_inventory_signature(package['resource_inventory'])
         self.resource_inventory_path.write_text(json.dumps(package['resource_inventory'],ensure_ascii=False),encoding='utf-8')
         self.plan['visual_baseline'].update(copy_package_sha256=digest(package),spec_sha256=spec_digest(self.plan),
@@ -74,10 +79,16 @@ def load_tests(loader, tests, pattern):
 
 class StoryDeliveryTests(unittest.TestCase):
     def test_real_cli_preserves_original_logic_and_publishes_companion(self):
+        self.run_handoff("3.0")
+
+    def test_real_cli_page_allocation_and_copy_tags_publish_companion(self):
+        self.run_handoff("3.1")
+
+    def run_handoff(self, version):
         case=StoryRun('runTest')
         case.setUp()
         self.addCleanup(case.tearDown)
-        case.configure_story()
+        case.configure_story(version)
         stages=case._record_stages_and_calibrations()
         auditor=case._write_audit_inputs(stages=stages)
         draft=case._build_report(stages=stages,auditor_path=auditor)
@@ -85,7 +96,12 @@ class StoryDeliveryTests(unittest.TestCase):
         report_path=case._assemble_report(stages,draft,auditor)
         report=json.loads(report_path.read_text(encoding='utf-8'))
         self.assertEqual(report['stage_snapshots']['logic']['snapshot']['status'],'logic-approved')
-        self.assertIsNone(report['stage_documents']['documents']['logic']['content']['logic_layer'])
+        layer=report['stage_documents']['documents']['logic']['content']['logic_layer']
+        if version == '3.0':
+            self.assertIsNone(layer)
+        else:
+            self.assertEqual(layer,case.package['logic_layer'])
+            self.assertNotIn('page_message_tree',layer['slides'][0])
         output=case.work/'published-story'
         case._run_cli(case.package_path,case.plan_path,case.qa_path,case.inventory_path,report_path,
                       '--pptx',case.pptx,'--runtime-preflight',case.preflight_path,'--config',case.config_path,

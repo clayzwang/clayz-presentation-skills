@@ -272,10 +272,12 @@ def validate_work_record_assembly(report: dict[str, Any], pptx: Path | None = No
         raise ValueError("Logic work record must bind its immutable package")
     original_logic = _read_object(Path(logic_evidence["path"]))
     package = _read_object(Path(inputs["package"]["path"]))
-    logic_keys = ("brief", "story") if package.get("contract_version") == "3.0" else ("brief", "logic_layer")
+    logic_keys = ("brief", "story") if package.get("contract_version") in {"3.0", "3.1"} else ("brief", "logic_layer")
+    if package.get("contract_version") == "3.1":
+        logic_keys += ("logic_layer",)
     if {k: original_logic.get(k) for k in logic_keys} != {k: package.get(k) for k in logic_keys}:
         raise ValueError("Copy package no longer matches the recorded Logic; revise dependent records")
-    if package.get("contract_version") == "3.0":
+    if package.get("contract_version") in {"3.0", "3.1"}:
         from story_handoff import build_stage_documents, embed_final_renders, timestamp
         if logic_evidence != package.get("logic_artifact"):
             raise ValueError("Copy must bind the actual recorded original Logic artifact")
@@ -549,7 +551,7 @@ def _record_commands(argv: list[str]) -> int:
         result["stage_snapshots"] = {stage: {"artifact_sha256": sha256_file(args.plan if stage == "art_direction" else args.package),
                                                     "snapshot_sha256": _json_hash(snapshot), "snapshot": snapshot}
                                      for stage, snapshot in snapshots.items()}
-        if package.get("contract_version") == "3.0":
+        if package.get("contract_version") in {"3.0", "3.1"}:
             from story_handoff import build_stage_documents, embed_final_renders, load_logic_origin
             result["stage_documents"] = build_stage_documents(package, plan)
             embed_final_renders(result)

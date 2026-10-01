@@ -1,8 +1,8 @@
 # Art Direction Handoff Contract
 
-## v0.17.0 current contract
+## v0.17.2 current contract
 
-New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns the complete narrative and page allocation; Copy owns wording, trimming and content tags; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. Package 3.1 uses the current story/page contract; the older field examples below are historical and must not impose retired Logic rules on new work. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
 
 ## Legacy / compatibility field reference
 
@@ -31,7 +31,7 @@ Output accepts only `ppt-art-direction-plan.json` contract 1.3 with status `art-
 
 - To change medium, silhouette, main backbone, region, reading path, series backbone, motif, semantic whitespace, or persistent navigation: return to Art Direction.
 - To delete, rewrite, or re-break copy: return to Copy.
-- To change a relationship, hierarchy, number, or slide order: return to Logic.
+- To change facts, substantive relationships, numbers or page order: return to Logic. Content grouping/hierarchy returns to Copy; visual hierarchy returns to Art Direction.
 - If satisfying the request would require changing an upstream baseline or an explicit user no-delivery condition: stop that change, record the conflict, evidence, expected drift, and feasible alternatives, then send it to Supervisor for synthesis and the required user decision. A quality defect may remain a reported finding and continue to the Auditor when the artifact bindings are complete.
 
 Record every deviation in `ppt-build-deviation-log.json`. If `changes_art_direction=true`, a new Art Direction version and the user's approval basis are both required. The log cannot approve itself. A challenge does not alter the baseline; only the adjudicated new version does.

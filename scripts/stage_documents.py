@@ -33,8 +33,8 @@ def main():
     args = parser.parse_args()
     try:
         package = json.loads(args.package.read_text(encoding='utf-8'))
-        if package.get('contract_version') != '3.0':
-            raise ValueError('new story handoffs require package 3.0')
+        if package.get('contract_version') not in {'3.0', '3.1'}:
+            raise ValueError('story handoffs require package 3.0 or 3.1')
         if args.command == 'logic-document':
             errors = validate_package(package, 'logic-approved')
             if package.get('status') != 'logic-approved':

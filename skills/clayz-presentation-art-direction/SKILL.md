@@ -22,10 +22,10 @@ Do not demand shorter copy merely to fill a symmetrical layout or fixed card
 count. Check the readable full-deck drafts with actual text; refresh both drafts
 and specifications after approved wording or pagination changes.
 
-## Story and visual handoff (v0.17.0)
+## Story and visual handoff (v0.17.2)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.0 and Art
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.1 and Art
 Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve

@@ -155,7 +155,7 @@ _DEFAULT_SPECS: tuple[dict[str, Any], ...] = (
         "requirement_id": "COMMIT-CLOSING",
         "category": "delivery",
         "owner_stage": "logic",
-        "statement": "Honor the closing policy independently: include one closing synthesis/action page when required and do not add one when explicitly excluded.",
+        "statement": "Honor the closing policy independently: include one closing page when required and do not add one when explicitly excluded.",
         "verification_method": "compare the Logic page-role sequence with cover_policy and final slide order",
         "kind": "closing",
     },
@@ -691,7 +691,7 @@ def enrich_task_acceptance(
     default_cover = mode != "not-applicable"
     cover_policy.setdefault("cover_required", default_cover)
     # Cover and closing are independent commitments.  A not-applicable cover
-    # mode does not silently remove the closing synthesis/action page.
+    # mode does not silently remove the closing page.
     cover_policy.setdefault("closing_required", True)
     result["cover_policy"] = cover_policy
 

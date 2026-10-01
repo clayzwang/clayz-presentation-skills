@@ -4,9 +4,25 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
+- Nothing yet.
+
+## 0.17.2 — 2026-10-01
+
+- Introduce content package 3.1 and handoff 1.1: Logic owns complete story, thesis, chapters, page claims and locked page allocation; Copy owns wording, trimming and content grouping.
+- Remove built-in analytical routes, Logic node/reasoning contracts and proactive notes/appendices from new runs; retain evidence reliability, source/calculation trace, uncertainty and isolated historical replay.
+- Preserve Copy content tags, Art visual tags, native Output verification, real stage work records, calibration and independent audit. Default to native cover/closing text with appropriately sized illustrative assets when useful.
+- Add end-to-end 3.1 calibration, report assembly and verified delivery regression coverage while retaining 3.0 compatibility tests.
+
+### 中文
+- Logic 输出完整 story 及其页面放置、总论点、章节、逐页主张并锁分页；Copy 自主剪裁、写具体文字和分组打标，Art 继续视觉打标，Output 实施。
+- 删除工具内置分析套路、旧 Logic 节点／推理合同和主动备注／附录生成；保留事实、数字、来源可靠性、不确定性及真实阶段记录。
+- 默认原生封面和尾页，正文页数由 Logic 决定；适配内容的配图控制分辨率和体积，不用整页图片代替原生文字。
+- 兼容历史 2.4／3.0 产物，新任务使用 3.1／2.0；STKAITI.TTF 锁定用户确认文件身份，字体二进制不公开发布。
+
+### Font identity
+
 - Use the confirmed STKAITI.TTF Version 1.02 as the default CJK, Latin, digit and chart identity; pin its SHA-256 and byte length rather than accepting the family name alone.
 - Font auditing reports missing pinned files as deferred and mismatched bytes as fail; file identity and renderer/native acceptance remain separate. Font binaries stay in owner-private assets.
-
 ## 0.17.1 — 2026-09-21
 
 ### Changed

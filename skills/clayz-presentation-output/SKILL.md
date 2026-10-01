@@ -21,10 +21,10 @@ and qualifiers. Do not silently abbreviate, shrink illegibly or move necessary
 body explanation into notes to solve overflow. Realize approved adjustments or
 return the specific capacity problem to Art Direction/Copy with evidence.
 
-## Story and visual handoff (v0.17.0)
+## Story and visual handoff (v0.17.2)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.0 and Art
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.1 and Art
 Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
