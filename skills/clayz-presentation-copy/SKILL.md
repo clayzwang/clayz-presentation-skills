@@ -54,7 +54,7 @@ the production path remains unified.
 
 ## Boundaries
 
-Own trimming, content grouping, and precise wording for titles, the Storyline required by the active master, optional supporting copy, numbers, units, punctuation, intentional breaks, copy hierarchy, and stable `copy_id` values. Do not decide master placeholder position or visual layout.
+Own trimming, content grouping, and precise wording for titles, optional Storyline (required only by an explicit user-selected master constraint), optional supporting copy, numbers, units, punctuation, intentional breaks, copy hierarchy, and stable `copy_id` values. Do not decide master placeholder position or visual layout.
 
 Do not change Logic-approved facts, claims, qualifiers, relationships, chapter order or semantic invariants. Preserve Logic page count, order and responsibilities; return page changes and substantive logic changes upstream. Do not choose visual layout or create PPTX objects.
 
@@ -98,7 +98,7 @@ Art Direction; meaning or page-sequence changes belong to Logic.
 1. Read the full Logic story and its locked page allocation, bind `logic_artifact`, trace each visible unit to its page’s `source_story_ids`, then write and group the presentation text without changing the original story or logic_layer. Preserve every approved claim, evidence qualifier, task acceptance requirement, and generation-mode responsibility, including the provenance, limits, and unresolved questions carried by confirmed discussion knowledge. Absorb the Supervisor's Logic calibration before locking Copy; record an `accepted`, `partially-accepted`, or `declined` calibration binding with a reason. In execution sections, keep supplied information coverage and fill only routine editorial gaps; in research sections, keep the Logic synthesis and its evidence boundaries explicit.
 2. If Logic does not contain enough concrete evidence or relations to satisfy a Copy-owned requirement, raise an upstream conflict instead of replacing the gap with abstract benefit language.
 3. Write titles that state the page function or conclusion without exaggeration and respect the task's cover and conclusion-placement policy.
-4. Write the required Storyline according to the active master's semantic role. A smaller supporting sentence beneath it is optional: add one only when it contributes independent information, and omit it entirely when it would merely restate the Storyline or fill space. Do not treat this optional support line as a mandatory Storyline field.
+4. Decide whether a Storyline adds independent meaning; there is no default Storyline field, fixed body subtitle, sentence count or line count. Copy owns its wording and intentional breaks; Art Direction owns placement. Honor only explicit Storyline requirements of a user-selected master. A smaller supporting sentence beneath it is optional: add one only when it contributes independent information, and omit it entirely when it would merely restate the Storyline or fill space. Do not treat this optional support line as a mandatory Storyline field.
 5. Break visible text into atomic units. Assign one stable `copy_id` to each unit and express parent-child and peer relationships explicitly.
 6. Lock exact text, numbers, units, punctuation and intentional breaks. Do not proactively generate speaker notes or appendices; preserve requested/historical notes when present.
 7. Keep charts and tables supplied with complete labels, units, sources, and explanation text.

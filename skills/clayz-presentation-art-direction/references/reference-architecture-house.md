@@ -88,7 +88,7 @@ Draft the relationship graph first. Then choose house geometry if it makes those
 3. Give roof, floors, rails, foundation, and decision gate distinct visual jobs.
 4. Use a small number of sub-capabilities to demonstrate each layer's responsibility.
 5. Use native editable shapes and the user-approved theme.
-6. Put source IDs and representative citations in speaker notes or the task source record.
+6. Put source IDs and representative citations in the task source record; include them in speaker notes only when notes are explicitly requested.
 
 ### 7. Diagnose the draft
 

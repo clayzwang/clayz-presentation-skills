@@ -56,6 +56,47 @@ class PageAllocationTests(unittest.TestCase):
         self.assertNotIn('reasoning_contracts',self.origin['logic_layer']['slides'][0])
         self.assertNotIn('speaker_notes',self.package['copy_layer']['slides'][0])
 
+    def test_storyline_optional_and_copy_breaks_independent(self):
+        page = self.package['copy_layer']['slides'][0]
+        for unit in page['copy_units']:
+            unit['intentional_line_breaks'] = [2, 5]
+        for mapping in self.plan['slides'][0]['copy_unit_map']:
+            mapping['intentional_line_breaks'] = [2, 5]
+        self.bind()
+        self.assertEqual([], validate_copy(self.package))
+        page.pop('storyline_copy_id', None)
+        for unit in page['copy_units']:
+            if unit['role'] == 'storyline':
+                unit['role'] = 'evidence'
+            unit['intentional_line_breaks'] = [2, 5]
+        for mapping in self.plan['slides'][0]['copy_unit_map']:
+            mapping['intentional_line_breaks'] = [2, 5]
+        self.bind()
+        self.assertEqual([], validate_copy(self.package))
+        self.assertEqual([], validate_plan(self.package, self.plan))
+        self.assertEqual(self.origin['logic_layer'], self.package['logic_layer'])
+        page['storyline_copy_id'] = None
+        self.bind()
+        self.assertEqual([], validate_copy(self.package))
+
+    def test_single_line_qa_check_optional_only_for_current_contract(self):
+        from validate_output_qa import validate_qa, CHECK_KEYS
+        qa = copy.deepcopy(self.qa)
+        qa['slides'] = [{'slide_id': self.package['logic_layer']['slides'][0]['slide_id'],
+                         'checks': {key: 'pass' for key in CHECK_KEYS - {'storyline_single_line'}},
+                         'not_applicable_reasons': {}}]
+        # This deliberately partial QA has unrelated missing evidence; isolate
+        # the required-key behavior while using the real QA validator.
+        errors = validate_qa(self.package, self.plan, qa)
+        self.assertFalse(any('storyline_single_line' in e for e in errors), errors)
+        qa['slides'][0]['checks']['storyline_single_line'] = 'not-applicable'
+        self.assertTrue(any('storyline_single_line' in e for e in validate_qa(self.package, self.plan, qa)))
+        qa['slides'][0]['not_applicable_reasons']['storyline_single_line'] = 'No user-selected master imposes a single-line Storyline.'
+        self.assertFalse(any('storyline_single_line' in e for e in validate_qa(self.package, self.plan, qa)))
+        qa['slides'][0]['checks'].pop('storyline_single_line')
+        self.package['contract_version'] = '3.0'
+        self.assertTrue(any('storyline_single_line' in e for e in validate_qa(self.package, self.plan, qa)))
+
     def test_copy_cannot_rewrite_page_claim_or_allocation(self):
         self.package['logic_layer']['slides'][0]['claim']='Different claim'
         self.assertTrue(any('immutable Logic logic_layer' in e for e in validate_copy(self.package)))
