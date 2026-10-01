@@ -208,7 +208,7 @@ leaves the previous verified snapshot usable; a missing store is unavailable,
 not an empty successful Library.
 
 New runs follow [the story and visual handoff contract](story-visual-handoff.md).
-Logic owns the complete chaptered argument and locked page allocation; Copy owns
+Logic owns complete research and supported findings; Copy owns presentation content structure, pagination and
 visible wording, trimming and content groups; Art Direction locks every page image
 with its visual tags. Develop the subject from actual evidence and task needs.
 Analytical frameworks come from selected external knowledge or personal settings.
@@ -458,7 +458,7 @@ an already authorized resource.
 Approval applies to an artifact revision, not an irreversible stage boundary.
 When a downstream check exposes an upstream problem, send the concrete defect,
 affected slide/copy IDs and desired outcome to the earliest responsible stage.
-Logic changes meaning, chapter sequence and page allocation; Copy changes wording and grouping;
+Logic changes research meaning and evidence; Copy changes chapter/page sequence, pagination, titles, conclusion wording and grouping;
 Art Direction changes image drafts and visual specifications; Output changes
 technical realization within the approved adjustment bounds.
 The owner updates its artifact, validates it and refreshes dependent hashes and

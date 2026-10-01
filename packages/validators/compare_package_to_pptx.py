@@ -148,7 +148,7 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
 
         node_primary = {item["logic_node_id"]: item["primary_copy_id"] for item in copy_slide.get("node_copy_map", [])}
         node_map = {node["node_id"]: node for node in logic_slide.get("page_message_tree", {}).get("nodes", [])}
-        if package.get("contract_version") == "3.1":
+        if package.get("contract_version") in {"3.1", "3.2"}:
             node_primary = {cid: cid for cid in units}
             node_map = {cid: {"parent_node_id": unit.get("parent_copy_id")} for cid, unit in units.items()}
         for node_id, node in node_map.items():

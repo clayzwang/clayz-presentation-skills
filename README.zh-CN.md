@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.17.3**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.17.4**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -21,8 +21,8 @@
 
 Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 
-1. **Logic**：建立问题链、论证关系、证据和跨页不变量。
-2. **Copy**：锁定全部可见文字、数字、断句和原子文案。
+1. **Logic**：完成研究并输出有证据的发现、研究结论及不确定性，不分页。
+2. **Copy**：组织内容结构、章节、分页、标题和结论文字，交给 Art 决定呈现结构。
 3. **Art Direction**：在不修改内容的前提下形成视觉制作计划。
 4. **Output**：按照批准计划制作可编辑的演示文稿。
 5. **Supervisor**：协调并校准跨层要求，汇总 Independent Auditor 的实际文件／渲染审计，不静默重做设计。
@@ -210,6 +210,6 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 本项目采用 Apache-2.0 许可证，来源和引用见 `NOTICE`、`CITATION.cff` 与 `provenance/`。
 
 
-## v0.17.0 — Story and image-draft handoffs / 完整故事与图片稿交接
+## v0.17.4 — Research, content and presentation / 研究、内容与呈现
 
-Logic → 完整章节论述；Copy → 分页结构化文稿；Art Direction → 全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。
+Logic → 完整研究成果；Copy → 内容结构与适合 PPT 的文字（含分页、标题、结论表达）；Art Direction → 呈现结构、全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。

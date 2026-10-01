@@ -252,9 +252,9 @@ def _substantive(report: Mapping[str, Any], content: Mapping[str, Any]) -> dict[
     logic_sources = []
     for key, value in content.items():
         if (key == "logic" or key.startswith("logic:")) and isinstance(value, Mapping):
-            candidate = value.get("story") if isinstance(value.get("story"), Mapping) else (value.get("logic_layer") if isinstance(value.get("logic_layer"), Mapping) else value)
+            candidate = value.get("research") if isinstance(value.get("research"), Mapping) else value.get("story") if isinstance(value.get("story"), Mapping) else (value.get("logic_layer") if isinstance(value.get("logic_layer"), Mapping) else value)
             logic_sources.append(candidate)
-    package_logic = package.get("story") if isinstance(package.get("story"), Mapping) else (package.get("logic_layer") if isinstance(package.get("logic_layer"), Mapping) else None)
+    package_logic = package.get("research") if isinstance(package.get("research"), Mapping) else package.get("story") if isinstance(package.get("story"), Mapping) else (package.get("logic_layer") if isinstance(package.get("logic_layer"), Mapping) else None)
     logic = next(iter(logic_sources), package_logic if isinstance(package_logic, Mapping) else {})
     plan = content.get("plan") if isinstance(content.get("plan"), Mapping) else {}
     candidates = [report, package, logic, plan]
@@ -282,11 +282,14 @@ def _substantive(report: Mapping[str, Any], content: Mapping[str, Any]) -> dict[
             "deck_message_tree": logic.get("deck_message_tree", {"status": MISSING_STATUS}),
             "narrative": logic.get("narrative", {"status": MISSING_STATUS}),
         }
+    if package.get("contract_version") == "3.2":
+        storyline = {"owner": "copy", "chapters": (package.get("copy_layer") or {}).get("chapters", []),
+                     "page_allocation": (package.get("logic_layer") or {}).get("slides", [])}
     if storyline is None:
         storyline = find("storyline", "story_line", "narrative_arc", "communication_contract")
     return {
         "logic_layer": logic if logic else {"status": MISSING_STATUS},
-        "facts": find("facts", "established_facts", "key_facts", "knowledge_requirements"),
+        "facts": find("findings", "facts", "established_facts", "key_facts", "knowledge_requirements"),
         "evidence": find("evidence", "evidence_map", "research_evidence", "sources"),
         "contradictions": find("contradictions", "counterevidence", "counter_evidence", "counterarguments"),
         "definitions": definitions,

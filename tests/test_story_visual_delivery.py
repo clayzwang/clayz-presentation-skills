@@ -28,9 +28,13 @@ class StoryRun(helpers.RealCliReleaseTests):
         from packages.validators.resource_inventory import resource_inventory_signature, finalize_resource_inventory
         package['resource_inventory']['gate']['authoring_started_at']=datetime.now(timezone.utc).isoformat()
         package['resource_inventory']=finalize_resource_inventory(package['resource_inventory'])
-        if version == "3.1":
+        if version in {"3.1", "3.2"}:
             from tests.test_page_allocation_handoff import convert_to_page_handoff
-            convert_to_page_handoff(package, self.plan)
+            if version == "3.2":
+                from tests.test_research_content_handoff import convert_to_research_handoff
+                convert_to_research_handoff(package, self.plan)
+            else:
+                convert_to_page_handoff(package, self.plan)
             # Current delivery has no mandatory Storyline or single-line QA gate.
             for page in package['copy_layer']['slides']:
                 page.pop('storyline_copy_id', None)
@@ -42,7 +46,7 @@ class StoryRun(helpers.RealCliReleaseTests):
                 slide.get('not_applicable_reasons', {}).pop('storyline_single_line', None)
         origin=copy.deepcopy(package)
         origin.update(status='logic-approved',copy_layer=None)
-        if version == '3.0':
+        if version in {'3.0', '3.2'}:
             origin['logic_layer']=None
         origin.pop('logic_artifact',None)
         self.original_logic=self.work/'original-logic.json'
@@ -93,6 +97,9 @@ class StoryDeliveryTests(unittest.TestCase):
     def test_real_cli_page_allocation_and_copy_tags_publish_companion(self):
         self.run_handoff("3.1")
 
+    def test_real_cli_research_content_and_art_publish_companion(self):
+        self.run_handoff("3.2")
+
     def run_handoff(self, version):
         case=StoryRun('runTest')
         case.setUp()
@@ -106,7 +113,7 @@ class StoryDeliveryTests(unittest.TestCase):
         report=json.loads(report_path.read_text(encoding='utf-8'))
         self.assertEqual(report['stage_snapshots']['logic']['snapshot']['status'],'logic-approved')
         layer=report['stage_documents']['documents']['logic']['content']['logic_layer']
-        if version == '3.0':
+        if version in {'3.0', '3.2'}:
             self.assertIsNone(layer)
         else:
             self.assertEqual(layer,case.package['logic_layer'])

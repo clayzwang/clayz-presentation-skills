@@ -1,0 +1,40 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.17.4",
+  "current_public_version": "0.17.4",
+  "state": "release-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": true,
+    "tag": true,
+    "publish": true,
+    "experience_center_update": true
+  },
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "scope": "merge-tag-publish-experience-center",
+    "authorized_at": "2026-10-01T13:42:20.377255Z",
+    "notes": "Explicit user instruction: adjust Logic to research only, Copy to PPT-suitable content structure/text, Art to presentation structure; publish v0.17.4 and release."
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python -B scripts/validate_all.py",
+    "experience_validation": "python scripts/validate_experience.py",
+    "presentation_overflow_check": "Synthetic 3.2 research/content ownership and real CLI handoff tests, plus historical replay. No native PowerPoint/WPS visual acceptance claimed.",
+    "node_chart_build": "Existing native writers retained; Copy-owned content hierarchy and Art presentation requests preserve evidence, asset and visual-baseline constraints."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

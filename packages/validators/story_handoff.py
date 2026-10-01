@@ -18,9 +18,9 @@ import zipfile
 from datetime import datetime
 from pathlib import Path
 
-CONTRACT_VERSION = "1.1"
-PACKAGE_VERSION = "3.1"
-STORY_PACKAGE_VERSIONS = {"3.0", PACKAGE_VERSION}
+CONTRACT_VERSION = "1.2"
+PACKAGE_VERSION = "3.2"
+STORY_PACKAGE_VERSIONS = {"3.0", "3.1", PACKAGE_VERSION}
 PLAN_VERSION = "2.0"
 
 
@@ -125,6 +125,9 @@ def validate_story(story, *, legacy=False):
 
 
 def validate_logic_story(package, require_status):
+    if package.get("contract_version") == "3.2":
+        from research_handoff import validate_research_package
+        return validate_research_package(package, require_status)
     from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
     from resource_inventory import validate_resource_inventory
     from index_evidence import validate_index_evidence
@@ -169,6 +172,9 @@ def load_logic_origin(package):
 
 
 def validate_copy_trace(package):
+    if package.get("contract_version") == "3.2":
+        from research_handoff import validate_research_copy
+        return validate_research_copy(package)
     errors = []
     story = package.get("story") or {}
     try:
@@ -302,7 +308,13 @@ def validate_output_baseline(package, plan, qa):
 
 def render_document(stage, value):
     lines = [f"# {stage}", ""]
-    if stage == "logic":
+    if stage == "logic" and value.get("contract_version") == "3.2":
+        research = value["research"]
+        lines += [research["research_question"], "", research["scope"], "", research["summary"], ""]
+        for finding in research["findings"]:
+            lines += [f"## {finding['finding_id']}: {finding['question']}", "", finding["text"], "",
+                      f"[{finding['claim_status']}; sources: {', '.join(finding['source_ids'])}]", ""]
+    elif stage == "logic":
         story = value["story"]
         lines += [story["title"], "", story["thesis"], "", story["opening"], ""]
         for chapter in story["chapters"]:
@@ -422,7 +434,7 @@ def validate_embedded_documents(report):
         copy = documents["copy"]["content"]
         logic = documents["logic"]["content"]
         baseline = plan["visual_baseline"]
-        if baseline.get("spec_sha256") != spec_digest(plan) or baseline.get("copy_package_sha256") != digest(copy) or copy.get("story") != logic.get("story"):
+        if baseline.get("spec_sha256") != spec_digest(plan) or baseline.get("copy_package_sha256") != digest(copy) or copy.get("story") != logic.get("story") or copy.get("research") != logic.get("research"):
             errors.append("embedded cross-stage source bindings mismatch")
         expected = baseline["slides"]
         previews = rows(bundle.get("previews"))
@@ -556,6 +568,8 @@ def validate_copy_tags(package):
     """3.1 keeps Copy grouping and provenance without the retired Logic node contract."""
     from validate_ppt_package import ROLES, TEXT_MODES
     errors = []
+    research_mode = package.get('contract_version') == '3.2'
+    ref_key = 'source_finding_ids' if research_mode else 'source_story_ids'
     copy = package.get('copy_layer')
     if not isinstance(copy, dict):
         return ['copy_layer: required']
@@ -567,7 +581,7 @@ def validate_copy_tags(package):
     expected = rows((package.get('logic_layer') or {}).get('slides'))
     slides = rows(copy.get('slides'))
     if [s.get('slide_id') for s in slides if isinstance(s, dict)] != [s.get('slide_id') for s in expected if isinstance(s, dict)]:
-        errors.append('copy_layer.slides: order must exactly match Logic page allocation')
+        errors.append('copy_layer.slides: order must exactly match the approved page allocation')
     global_ids = set()
     for page, allocated in zip(slides, expected):
         if not isinstance(page, dict):
@@ -611,8 +625,8 @@ def validate_copy_tags(package):
             if not isinstance(breaks, list) or any(not isinstance(n, int) or n <= 0 or n >= len(unit.get('text') or '') for n in breaks):
                 errors.append(f'copy unit {cid}: valid intentional_line_breaks required')
             orders.append(unit.get('order'))
-            if any(r not in allocated.get('source_story_ids', []) for r in rows(unit.get('source_story_ids'))):
-                errors.append(f'copy unit {cid}: story source is allocated to a different Logic page')
+            if any(r not in allocated.get(ref_key, []) for r in rows(unit.get(ref_key))):
+                errors.append(f'copy unit {cid}: source is allocated to a different approved page')
         if any(not isinstance(n, int) for n in orders) or sorted(orders) != list(range(1, len(units)+1)):
             errors.append('copy_units.order: unique contiguous order required')
         if page.get('title_copy_id') not in local:

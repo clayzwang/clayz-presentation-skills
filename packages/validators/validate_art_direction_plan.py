@@ -434,12 +434,14 @@ def validate_plan(
     )
     if not isinstance(package, dict) or not isinstance(plan, dict):
         return errors
-    expected_version = CONTRACT_VERSION if package.get("contract_version") in {"3.0", "3.1"} else LEGACY_CONTRACT_VERSION
+    expected_version = CONTRACT_VERSION if package.get("contract_version") in {"3.0", "3.1", "3.2"} else LEGACY_CONTRACT_VERSION
     if plan.get("contract_version") != expected_version:
         errors.append(f"plan.contract_version: expected {expected_version}")
-    if package.get("contract_version") in {"3.0", "3.1"}:
+    if package.get("contract_version") in {"3.0", "3.1", "3.2"}:
         from story_handoff import validate_visual_baseline
         errors.extend(validate_visual_baseline(package, plan))
+        from research_handoff import validate_art_requests
+        errors.extend(validate_art_requests(package, plan))
     if plan.get("status") != "art-direction-approved":
         errors.append("plan.status: expected art-direction-approved")
     if plan.get("package_contract_version") != package.get("contract_version"):
@@ -683,7 +685,7 @@ def validate_plan(
 
     global_targets: set[str] = set()
     for index, (logic_slide, copy_slide, slide_plan) in enumerate(zip(logic_slides, copy_slides, plan_slides)):
-        validate_slide_plan(dict(logic_slide, _copy_owned_tags=True) if package.get("contract_version") == "3.1" else logic_slide, copy_slide, slide_plan, f"plan.slides[{index}]", allowed_tokens, global_targets, loaded_record_ids, loaded_sequence_ids, required_ab_ids, policy, errors)
+        validate_slide_plan(dict(logic_slide, _copy_owned_tags=True) if package.get("contract_version") in {"3.1", "3.2"} else logic_slide, copy_slide, slide_plan, f"plan.slides[{index}]", allowed_tokens, global_targets, loaded_record_ids, loaded_sequence_ids, required_ab_ids, policy, errors)
 
     if isinstance(art_direction, dict):
         sequence_checks = {

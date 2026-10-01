@@ -22,16 +22,18 @@ Do not demand shorter copy merely to fill a symmetrical layout or fixed card
 count. Check the readable full-deck drafts with actual text; refresh both drafts
 and specifications after approved wording or pagination changes.
 
-## Story and visual handoff (v0.17.2)
+## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.1 and Art
-Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.2 and Art
+Direction plan 2.0. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
 
 ## Boundaries
+
+Copy owns content structure; Art owns presentation structure. Choose paragraphs, tables, charts, diagrams, logos and numbering from approved content and governed assets. Copy may request these through presentation_requests; record accepted/adapted/declined with a reason in each page's presentation_request_resolutions. An explicit user requirement remains binding. Preserve semantic grouping without forcing it into identical visual containers. Visual ordinals must not invent rank or sequence, and logos must not invent relationships. New explanatory wording returns to Copy; new research facts/calculations return to Logic.
 
 Own full-deck image drafts, target coordinates and dimensions, typography and bounded adjustment tolerances, reference selection, first visual, visual anchor, dominant medium, hierarchy, area plan, content-aware canvas analysis, asset strategy, semantic layout tree, optional supporting-copy treatment, silhouette, density, reading path, whitespace, motif, series behavior, and cross-slide rhythm. Honor Storyline placeholders and roles only when explicitly required by a user-selected master; otherwise arrange Copy's approved content without assuming a fixed subtitle.
 

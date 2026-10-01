@@ -7,7 +7,7 @@ must make them readable. Remove redundancy without treating shortness as a score
 
 ## Logic: answer what the available evidence can answer
 
-Write a complete argument and allocate it to pages in Logic. Explain the subject, change,
+Logic writes complete research findings. Copy organizes chapters, pagination, titles and conclusion wording; Art decides presentation structure. Explain the subject, change,
 comparison basis, interpretation and its limits, and what the evidence means for
 the task. For comparisons, develop each object's facts and mechanisms before
 stating similarities, differences and supported judgments. Shared analytical
@@ -74,7 +74,7 @@ These are synthetic language exercises, not business facts or fixed templates.
 ## Art Direction and Output: provide space for necessary meaning
 
 Decide whether text is necessary before allocating space. Adjust hierarchy,
-grouping or width, or ask Logic to revise page allocation within user/master constraints.
+grouping or width, or ask Copy to revise page allocation within user/master constraints.
 Symmetry, oversized type, whitespace ratios and fixed card counts never justify
 removing a necessary argument. Smaller fonts or hidden notes are not a substitute
 for readable body text.

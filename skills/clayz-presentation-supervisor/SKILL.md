@@ -23,11 +23,11 @@ over tidying audit records; quote exact text/copy IDs and route missing analysis
 to Logic, awkward expression to Copy, and visual loss to the responsible visual
 stage. Preserve the existing independent-audit and delivery policy.
 
-## Story and visual handoff (v0.17.2)
+## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.1 and Art
-Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.2 and Art
+Direction plan 2.0. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.

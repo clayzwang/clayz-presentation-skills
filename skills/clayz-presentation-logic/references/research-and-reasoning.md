@@ -2,7 +2,7 @@
 
 Research the subject according to the task. Prefer original data, formal documents and authoritative sources; verify currency and limitations. Mark unverifiable material as uncertainty. Analytical methods belong to personal configuration or selected external knowledge, not a built-in question sequence, management route, action template or page quota.
 
-Logic develops the complete story, thesis, chapters and page claims and allocates the story under the current contract. Copy then trims, groups and writes exact presentation text. Do not proactively generate speaker notes or appendices.
+Logic develops complete research answers, evidence and substantive judgments without page allocation. Copy organizes presentation content, chapters, pagination, titles and exact text; Art organizes the visual presentation. Do not proactively generate speaker notes or appendices.
 
 ## 2. Build a source and evidence ledger
 
