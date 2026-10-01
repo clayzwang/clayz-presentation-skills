@@ -131,17 +131,17 @@ def validate_acceptance_contract(value: Any, path: str, errors: list[str]) -> No
     narrative = value.get("narrative_policy")
     _require_keys(
         narrative,
-        {"problem_before_recommendation", "minimum_friction_impact_pairs", "required_relation_types"},
+        set(),  # Historical policy keys are optional; no built-in analytical route.
         f"{path}.narrative_policy",
         errors,
     )
     if isinstance(narrative, Mapping):
-        if not isinstance(narrative.get("problem_before_recommendation"), bool):
+        if not isinstance(narrative.get("problem_before_recommendation", False), bool):
             errors.append(f"{path}.narrative_policy.problem_before_recommendation: must be boolean")
-        pairs = narrative.get("minimum_friction_impact_pairs")
+        pairs = narrative.get("minimum_friction_impact_pairs", 0)
         if not isinstance(pairs, int) or pairs < 0:
             errors.append(f"{path}.narrative_policy.minimum_friction_impact_pairs: must be a non-negative integer")
-        relation_types = narrative.get("required_relation_types")
+        relation_types = narrative.get("required_relation_types", [])
         if not isinstance(relation_types, list) or len(relation_types) != len(set(relation_types)) or any(not _nonempty(item) for item in relation_types):
             errors.append(f"{path}.narrative_policy.required_relation_types: must be a unique string array")
 

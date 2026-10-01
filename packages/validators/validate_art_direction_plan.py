@@ -434,10 +434,10 @@ def validate_plan(
     )
     if not isinstance(package, dict) or not isinstance(plan, dict):
         return errors
-    expected_version = CONTRACT_VERSION if package.get("contract_version") == "3.0" else LEGACY_CONTRACT_VERSION
+    expected_version = CONTRACT_VERSION if package.get("contract_version") in {"3.0", "3.1"} else LEGACY_CONTRACT_VERSION
     if plan.get("contract_version") != expected_version:
         errors.append(f"plan.contract_version: expected {expected_version}")
-    if package.get("contract_version") == "3.0":
+    if package.get("contract_version") in {"3.0", "3.1"}:
         from story_handoff import validate_visual_baseline
         errors.extend(validate_visual_baseline(package, plan))
     if plan.get("status") != "art-direction-approved":
@@ -683,7 +683,7 @@ def validate_plan(
 
     global_targets: set[str] = set()
     for index, (logic_slide, copy_slide, slide_plan) in enumerate(zip(logic_slides, copy_slides, plan_slides)):
-        validate_slide_plan(logic_slide, copy_slide, slide_plan, f"plan.slides[{index}]", allowed_tokens, global_targets, loaded_record_ids, loaded_sequence_ids, required_ab_ids, policy, errors)
+        validate_slide_plan(dict(logic_slide, _copy_owned_tags=True) if package.get("contract_version") == "3.1" else logic_slide, copy_slide, slide_plan, f"plan.slides[{index}]", allowed_tokens, global_targets, loaded_record_ids, loaded_sequence_ids, required_ab_ids, policy, errors)
 
     if isinstance(art_direction, dict):
         sequence_checks = {
@@ -863,15 +863,16 @@ def validate_slide_plan(
         return
     if plan.get("slide_id") != logic_slide.get("slide_id"):
         errors.append(f"{path}.slide_id: mismatch")
-    if plan.get("logic_statement") != logic_slide.get("logic_map", {}).get("statement"):
+    current = logic_slide.get("_copy_owned_tags", False)
+    if plan.get("logic_statement") != (logic_slide.get("claim") if current else logic_slide.get("logic_map", {}).get("statement")):
         errors.append(f"{path}.logic_statement: must be verbatim")
-    tree_nodes = logic_slide.get("page_message_tree", {}).get("nodes", [])
+    tree_nodes = ([{"node_id": u.get("copy_id"), "level": u.get("logic_level"), "parent_node_id": u.get("parent_copy_id"), "sibling_group_id": u.get("sibling_group_id")} for u in copy_slide.get("copy_units", [])] if current else logic_slide.get("page_message_tree", {}).get("nodes", []))
     depth = max((node.get("level", 0) for node in tree_nodes), default=0)
     if plan.get("page_message_tree_depth") != depth:
         errors.append(f"{path}.page_message_tree_depth: expected {depth}")
-    if plan.get("content_load_class_repeated") != logic_slide.get("content_load_class"):
+    if not current and plan.get("content_load_class_repeated") != logic_slide.get("content_load_class"):
         errors.append(f"{path}.content_load_class_repeated: must match Logic")
-    if plan.get("decision_weight_repeated") != logic_slide.get("decision_weight"):
+    if not current and plan.get("decision_weight_repeated") != logic_slide.get("decision_weight"):
         errors.append(f"{path}.decision_weight_repeated: must match Logic")
     for key in ("main_backbone", "structure_signature", "silhouette_family", "density_class", "visual_anchor"):
         if not nonempty(plan.get(key)):
@@ -1501,6 +1502,8 @@ def validate_slide_plan(
                 errors.append(f"{path}.copy_unit_map[{copy_id}].visual_role: must match visual_hierarchy bucket")
         root_id = logic_slide.get("page_message_tree", {}).get("root_node_id")
         root_primary = next((item.get("primary_copy_id") for item in copy_slide.get("node_copy_map", []) if item.get("logic_node_id") == root_id), None)
+        if current:
+            root_primary = copy_slide.get("title_copy_id")
         if root_primary not in hierarchy.get("primary_copy_ids", []):
             errors.append(f"{path}.visual_hierarchy: root primary copy must be primary")
         anchors = hierarchy.get("anchor_copy_ids")
@@ -1517,6 +1520,8 @@ def validate_slide_plan(
                 errors.append(f"{path}.atomicity_review.{key}: must be true")
 
     node_primary = {item.get("logic_node_id"): item.get("primary_copy_id") for item in copy_slide.get("node_copy_map", [])}
+    if current:
+        node_primary = {u.get("copy_id"): u.get("copy_id") for u in copy_slide.get("copy_units", [])}
     sibling_groups: dict[tuple[str, str], list[str]] = {}
     for node in tree_nodes:
         if node.get("parent_node_id") and node.get("sibling_group_id"):

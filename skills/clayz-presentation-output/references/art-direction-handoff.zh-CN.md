@@ -1,8 +1,8 @@
 # 艺术指导交接合同
 
-## v0.17.0 current contract
+## v0.17.2 current contract
 
-New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns the complete narrative and page allocation; Copy owns wording, trimming and content tags; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. Package 3.1 uses the current story/page contract; the older field examples below are historical and must not impose retired Logic rules on new work. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
 
 ## Legacy / compatibility field reference
 
@@ -31,7 +31,7 @@ Output只接受合同1.3、状态 `art-direction-approved` 的 `ppt-art-directio
 
 - 要换媒介、轮廓、主骨架、区域、动线、系列骨架、母题、语义留白或持续导航：回Art Direction；
 - 要删字、改字、改断句：回Copy；
-- 要改关系、层级、数字或页序：回Logic；
+- 要改事实、实质关系、数字或页序：回 Logic；内容分组／层级回 Copy，视觉层级回 Art Direction；
 - 如果满足请求需要改变上游基准或用户明确的“不满足就不交付”条件：停止该项变更，记录冲突、证据、预期漂移和可行替代方案，交 Supervisor 汇总并取得必要的用户决定。成品质量缺陷在绑定完整时可以作为审计发现继续交给 Auditor。
 
 所有偏差写入 `ppt-build-deviation-log.json`。若字段 `changes_art_direction=true`，必须同时有Art Direction新版本和用户批准依据；不得只在偏差日志中自我批准。挑战本身不修改基准，用户裁决后才形成新版本。

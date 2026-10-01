@@ -208,16 +208,12 @@ leaves the previous verified snapshot usable; a missing store is unavailable,
 not an empty successful Library.
 
 New runs follow [the story and visual handoff contract](story-visual-handoff.md).
-Logic owns the complete chaptered argument; Copy owns pagination and structured
-visible wording; Art Direction locks every page image with its visual tags.
-Before slide allocation, develop a complete business explanation connecting current operation and actors,
-motivation and stakes, target state, change mechanism, options, evidence,
-conditions and uncertainty. Use where/where-to/how as a reasoning lens, not three
-mandatory slides. Test the explanation as if the audience had not read the chat.
-Can it explain who replaces whom, which function remains, why the change helps,
-and what could invalidate the recommendation? Resolve these gaps before Copy.
-When more research cannot change a material decision or uncertainty, synthesize.
-Depth is assessed by the explanation, never by elapsed thinking time or prose length.
+Logic owns the complete chaptered argument and locked page allocation; Copy owns
+visible wording, trimming and content groups; Art Direction locks every page image
+with its visual tags. Develop the subject from actual evidence and task needs.
+Analytical frameworks come from selected external knowledge or personal settings.
+Retain source reliability, numbers, definitions and uncertainty. Depth is assessed
+by substantive explanation, never by elapsed time or prose length.
 
 Apply [reader-quality guidance](reader-quality.md) (Chinese peer for zh-CN).
 Necessary explanation and evidence fidelity take priority over brevity.
@@ -462,7 +458,7 @@ an already authorized resource.
 Approval applies to an artifact revision, not an irreversible stage boundary.
 When a downstream check exposes an upstream problem, send the concrete defect,
 affected slide/copy IDs and desired outcome to the earliest responsible stage.
-Logic changes meaning or chapter sequence; Copy changes pagination and wording;
+Logic changes meaning, chapter sequence and page allocation; Copy changes wording and grouping;
 Art Direction changes image drafts and visual specifications; Output changes
 technical realization within the approved adjustment bounds.
 The owner updates its artifact, validates it and refreshes dependent hashes and

@@ -18,8 +18,9 @@ import zipfile
 from datetime import datetime
 from pathlib import Path
 
-CONTRACT_VERSION = "1.0"
-PACKAGE_VERSION = "3.0"
+CONTRACT_VERSION = "1.1"
+PACKAGE_VERSION = "3.1"
+STORY_PACKAGE_VERSIONS = {"3.0", PACKAGE_VERSION}
 PLAN_VERSION = "2.0"
 
 
@@ -70,7 +71,7 @@ def story_blocks(story):
             for block in rows(chapter.get("blocks")) if isinstance(block, dict)]
 
 
-def validate_story(story):
+def validate_story(story, *, legacy=False):
     errors = []
     if not isinstance(story, dict):
         return ["story: complete narrative document is required"]
@@ -96,7 +97,7 @@ def validate_story(story):
         if not text(cid) or cid in chapter_ids:
             errors.append("story: unique chapter_id required")
         chapter_ids.add(cid)
-        for key in ("title", "purpose", "transition"):
+        for key in (("title", "purpose", "transition") if legacy else ("title", "purpose")):
             if not text(chapter.get(key)):
                 errors.append(f"story.chapter.{key}: prose required")
         if not rows(chapter.get("blocks")):
@@ -128,7 +129,7 @@ def validate_logic_story(package, require_status):
     from resource_inventory import validate_resource_inventory
     from index_evidence import validate_index_evidence
     from validate_logic_package import validate_brief
-    errors = validate_story(package.get("story"))
+    errors = validate_story(package.get("story"), legacy=package.get("contract_version") == "3.0")
     rank = {"draft": 0, "logic-approved": 1, "copy-approved": 2}
     if rank.get(package.get("status"), -1) < rank.get(require_status, 100):
         errors.append("story package: approval status insufficient")
@@ -150,8 +151,10 @@ def validate_logic_story(package, require_status):
         if not isinstance(source, dict) or source.get("resource_id") not in selected or not text(source.get("locator")):
             errors.append("story.sources: each source must bind a selected resource and locator")
     if package.get("status") == "logic-approved":
-        if package.get("copy_layer") is not None or package.get("logic_layer") is not None:
+        if package.get("copy_layer") is not None or (package.get("contract_version") == "3.0" and package.get("logic_layer") is not None):
             errors.append("Logic hands off a story, not a locked page projection")
+    if package.get("contract_version") == "3.1":
+        errors.extend(validate_page_allocation(package))
     approval = package.get("approvals", {}).get("logic", {})
     if package.get("status") != "draft" and (approval.get("status") != "approved" or not text(approval.get("approved_by"))):
         errors.append("approvals.logic: approved stage decision required")
@@ -160,8 +163,8 @@ def validate_logic_story(package, require_status):
 
 def load_logic_origin(package):
     origin = json.loads(file_bytes(package.get("logic_artifact")))
-    if origin.get("contract_version") != PACKAGE_VERSION or origin.get("status") != "logic-approved":
-        raise ValueError("logic_artifact must be the original 3.0 Logic handoff")
+    if origin.get("contract_version") not in STORY_PACKAGE_VERSIONS or origin.get("status") != "logic-approved":
+        raise ValueError("logic_artifact must be the original versioned Logic handoff")
     return origin
 
 
@@ -171,19 +174,24 @@ def validate_copy_trace(package):
     try:
         origin = load_logic_origin(package)
         errors.extend(validate_logic_story(origin, "logic-approved"))
-        for key in ("story", "brief", "acceptance_contract", "resource_inventory", "package_id"):
+        if origin.get("contract_version") != package.get("contract_version"):
+            errors.append("Copy must preserve the original package contract version")
+        keys = ("story", "brief", "acceptance_contract", "resource_inventory", "package_id")
+        if package.get("contract_version") == "3.1":
+            keys += ("logic_layer",)
+        for key in keys:
             if origin.get(key) != package.get(key):
                 errors.append(f"Copy changed the immutable Logic {key}")
     except (OSError, ValueError, TypeError) as exc:
         errors.append(f"logic_artifact: {exc}")
     copy = package.get("copy_layer") or {}
-    if copy.get("pagination_owner") != "copy" or copy.get("story_sha256") != digest(story):
+    if copy.get("pagination_owner") != ("logic" if package.get("contract_version") == "3.1" else "copy") or copy.get("story_sha256") != digest(story):
         errors.append("Copy pagination must bind the original story SHA-256")
     chapter_order = [c.get("chapter_id") for c in rows(story.get("chapters")) if isinstance(c, dict)]
     if copy.get("chapter_order") != chapter_order:
         errors.append("Copy must preserve Logic chapter order")
     projection = package.get("logic_layer") or {}
-    for key in ("sources", "glossary", "metric_dictionary", "open_items"):
+    for key in (("sources", "glossary", "metric_dictionary", "open_items") if package.get("contract_version") == "3.0" else ()):
         if projection.get(key) != story.get(key):
             errors.append(f"Copy page projection must preserve story.{key}")
     blocks = {b.get("story_id"): b for b in story_blocks(story)}
@@ -194,7 +202,8 @@ def validate_copy_trace(package):
             if not isinstance(refs, list) or not refs or any(r not in blocks for r in refs):
                 errors.append("every Copy unit/note must trace to valid story IDs")
             else:
-                covered.update(refs)
+                if package.get("contract_version") != "3.1" or unit in rows(slide.get("copy_units")):
+                    covered.update(refs)
             # Review paraphrase equivalence professionally; no string-similarity gate.
     for bid, block in blocks.items():
         if block.get("must_preserve") and bid not in covered:
@@ -277,7 +286,7 @@ def validate_visual_baseline(package, plan):
 
 
 def validate_output_baseline(package, plan, qa):
-    if package.get("contract_version") != PACKAGE_VERSION:
+    if package.get("contract_version") not in STORY_PACKAGE_VERSIONS:
         return []
     errors = validate_visual_baseline(package, plan)
     baseline = plan.get("visual_baseline") or {}
@@ -300,8 +309,11 @@ def render_document(stage, value):
             lines += [f"## {chapter['title']}", "", chapter["purpose"], ""]
             for block in chapter["blocks"]:
                 lines += [block["text"], "", f"[{block['story_id']}; {block['claim_status']}; sources: {', '.join(block['source_ids'])}]", ""]
-            lines += [chapter["transition"], ""]
+            if chapter.get("transition"):
+                lines += [chapter["transition"], ""]
         lines += [story["conclusion"], ""]
+        for page in rows((value.get("logic_layer") or {}).get("slides")):
+            lines += [f"## {page['slide_id']}: {page['claim']}", "", ", ".join(page["source_story_ids"]), ""]
     elif stage == "copy":
         for page in value["copy_layer"]["slides"]:
             lines += [f"## {page['slide_id']}", ""]
@@ -331,7 +343,7 @@ def build_stage_documents(package, plan):
 
 
 def validate_design_audit(package, plan, qa, report, pptx=None):
-    if package.get("contract_version") != PACKAGE_VERSION:
+    if package.get("contract_version") not in STORY_PACKAGE_VERSIONS:
         return []
     errors = validate_logic_story(package, "copy-approved") + validate_copy_trace(package)
     errors.extend(validate_output_baseline(package, plan, qa))
@@ -471,3 +483,146 @@ def handoff_archive_bytes(report):
             info.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(info, payload)
     return buffer.getvalue()
+
+
+def validate_page_allocation(package):
+    """3.1: Logic owns the complete story and its page allocation, not Copy trees."""
+    errors = []
+    layer = package.get('logic_layer')
+    if not isinstance(layer, dict):
+        return ['logic_layer: Logic page allocation required in package 3.1']
+    story = package.get('story') or {}
+    blocks = {b.get('story_id'): b for b in story_blocks(story)}
+    chapters = {c.get('chapter_id') for c in rows(story.get('chapters')) if isinstance(c, dict)}
+    sources = {s.get('source_id') for s in rows(story.get('sources')) if isinstance(s, dict)}
+    if (layer.get('lock') or {}).get('slide_order_locked') is not True:
+        errors.append('logic_layer.lock.slide_order_locked: true required')
+    slides = rows(layer.get('slides'))
+    if not slides:
+        errors.append('logic_layer.slides: complete page allocation required')
+    ids, covered, data_ids = set(), set(), set()
+    for page in slides:
+        if not isinstance(page, dict):
+            errors.append('logic_layer.slides: objects required')
+            continue
+        sid = page.get('slide_id')
+        if not text(sid) or sid in ids:
+            errors.append('logic_layer.slides: unique slide_id required')
+        ids.add(sid)
+        for key in ('claim', 'narrative_role'):
+            if not text(page.get(key)):
+                errors.append(f'logic_layer.{sid}.{key}: required')
+        if page.get('chapter_id') not in chapters and page.get('chapter_id') is not None:
+            errors.append(f'logic_layer.{sid}.chapter_id: unknown chapter')
+        refs = page.get('source_story_ids')
+        if not isinstance(refs, list) or not refs or any(r not in blocks for r in refs):
+            errors.append(f'logic_layer.{sid}: valid source_story_ids required')
+        else:
+            covered.update(refs)
+        # Evidence is independent of analytical templates and rhetorical roles.
+        if not isinstance(page.get('data'), list):
+            errors.append(f'logic_layer.{sid}.data: array required')
+        for item in rows(page.get('data')):
+            if not isinstance(item, dict):
+                errors.append('page data: objects required')
+                continue
+            did = item.get('data_id')
+            if not text(did) or did in data_ids:
+                errors.append('page data: unique data_id required')
+            data_ids.add(did)
+            for key in ('metric_name', 'display_value', 'unit', 'period', 'definition_ref'):
+                if not text(item.get(key)):
+                    errors.append(f'page data.{did}.{key}: required')
+            refs = item.get('source_ids')
+            if not isinstance(refs, list) or any(r not in sources for r in refs):
+                errors.append(f'page data.{did}: unknown source')
+            if item.get('evidence_status') in {'source-fact', 'direct-calculation'} and not refs:
+                errors.append(f'page data.{did}: facts/calculations require sources')
+            if item.get('evidence_status') not in {'source-fact', 'direct-calculation', 'interpretation', 'causal-claim', 'forecast', 'recommendation', 'target', 'hypothesis', 'missing-data'}:
+                errors.append(f'page data.{did}: explicit evidence status required')
+            if 'raw_value' not in item:
+                errors.append(f'page data.{did}.raw_value: required (null when unavailable)')
+    if covered != set(blocks):
+        errors.append('logic_layer: every story block must have a page allocation before Copy trims it')
+    cover = (package.get('acceptance_contract') or {}).get('cover_policy') or {}
+    for role, key, index in (('cover', 'cover_required', 0), ('closing', 'closing_required', -1)):
+        required = cover.get(key, cover.get('mode') != 'not-applicable')
+        if required and (sum(p.get('narrative_role') == role for p in slides if isinstance(p, dict)) != 1 or not slides or slides[index].get('narrative_role') != role):
+            errors.append(f'logic_layer: one {role} page required at its sequence boundary')
+    return errors
+
+
+def validate_copy_tags(package):
+    """3.1 keeps Copy grouping and provenance without the retired Logic node contract."""
+    from validate_ppt_package import ROLES, TEXT_MODES
+    errors = []
+    copy = package.get('copy_layer')
+    if not isinstance(copy, dict):
+        return ['copy_layer: required']
+    if copy.get('logic_version') != package.get('version'):
+        errors.append('copy_layer.logic_version: must bind root version')
+    approval = (package.get('approvals') or {}).get('copy') or {}
+    if approval.get('status') != 'approved' or not text(approval.get('approved_by')):
+        errors.append('approvals.copy: approved stage decision required')
+    expected = rows((package.get('logic_layer') or {}).get('slides'))
+    slides = rows(copy.get('slides'))
+    if [s.get('slide_id') for s in slides if isinstance(s, dict)] != [s.get('slide_id') for s in expected if isinstance(s, dict)]:
+        errors.append('copy_layer.slides: order must exactly match Logic page allocation')
+    global_ids = set()
+    for page, allocated in zip(slides, expected):
+        if not isinstance(page, dict):
+            errors.append('copy_layer.slides: objects required')
+            continue
+        units = rows(page.get('copy_units'))
+        if not units:
+            errors.append('copy_units: visible tagged content required')
+        local = {u.get('copy_id'): u for u in units if isinstance(u, dict)}
+        orders = []
+        for unit in units:
+            if not isinstance(unit, dict):
+                errors.append('copy_units: objects required')
+                continue
+            cid = unit.get('copy_id')
+            if not text(cid) or cid in global_ids:
+                errors.append('copy_id: unique nonempty ID required across deck')
+            global_ids.add(cid)
+            if not text(unit.get('text')) or unit.get('role') not in ROLES or unit.get('text_mode') not in TEXT_MODES:
+                errors.append(f'copy unit {cid}: text, role and text_mode required')
+            if 'parent_copy_id' not in unit or (unit['parent_copy_id'] is not None and unit['parent_copy_id'] not in local):
+                errors.append(f'copy unit {cid}: parent_copy_id must resolve on this page')
+            parent_unit = local.get(unit.get('parent_copy_id'))
+            if parent_unit and isinstance(unit.get('logic_level'), int) and isinstance(parent_unit.get('logic_level'), int) and unit['logic_level'] <= parent_unit['logic_level']:
+                errors.append(f'copy unit {cid}: child hierarchy level must be deeper than its Copy parent')
+            if 'sibling_group_id' not in unit or (unit['sibling_group_id'] is not None and not text(unit['sibling_group_id'])):
+                errors.append(f'copy unit {cid}: sibling_group_id must be null or a group tag')
+            ancestors = {cid}
+            parent = unit.get('parent_copy_id')
+            while parent in local:
+                if parent in ancestors:
+                    errors.append(f'copy unit {cid}: cyclic Copy hierarchy')
+                    break
+                ancestors.add(parent)
+                parent = local[parent].get('parent_copy_id')
+            if not isinstance(unit.get('logic_level'), int) or unit.get('logic_level', -1) < 0:
+                errors.append(f'copy unit {cid}: nonnegative Copy hierarchy level required')
+            if unit.get('render_separately') is not True or unit.get('merge_with_children') is not False:
+                errors.append(f'copy unit {cid}: preserve independently tagged rendering')
+            breaks = unit.get('intentional_line_breaks')
+            if not isinstance(breaks, list) or any(not isinstance(n, int) or n <= 0 or n >= len(unit.get('text') or '') for n in breaks):
+                errors.append(f'copy unit {cid}: valid intentional_line_breaks required')
+            orders.append(unit.get('order'))
+            if any(r not in allocated.get('source_story_ids', []) for r in rows(unit.get('source_story_ids'))):
+                errors.append(f'copy unit {cid}: story source is allocated to a different Logic page')
+        if any(not isinstance(n, int) for n in orders) or sorted(orders) != list(range(1, len(units)+1)):
+            errors.append('copy_units.order: unique contiguous order required')
+        if page.get('title_copy_id') not in local:
+            errors.append('title_copy_id: must reference a visible Copy unit')
+        if page.get('storyline_copy_id') is not None and page.get('storyline_copy_id') not in local:
+            errors.append('storyline_copy_id: unknown Copy unit')
+        if any(cid not in local for cid in rows(page.get('footnote_copy_ids'))):
+            errors.append('footnote_copy_ids: unknown Copy unit')
+        # Optional historical/requested notes remain readable; no default generation.
+        for note in rows(page.get('speaker_notes')):
+            if not isinstance(note, dict) or not text(note.get('text')):
+                errors.append('speaker_notes: supplied notes must contain text')
+    return errors

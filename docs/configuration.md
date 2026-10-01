@@ -16,6 +16,38 @@ The only deliberate duplication is plugin UI metadata (`agents/openai.yaml` and 
 - delivery profile and media limits;
 - deterministic QA toggles.
 
+## Default STKaiti file identity
+
+The default theme uses the owner's confirmed **STKAITI.TTF, Version 1.02**
+for CJK, Latin, digits and charts. `华文楷体` is the canonical family;
+`STKaiti` is its alias and the exact family written to both Latin and East
+Asian PPTX fields. They are one identity, not alternative fallback fonts.
+
+`theme.typography.font_validation.deferred_font_identities[].font_asset`
+pins the materialized bytes: 12,717,992 bytes and SHA-256
+`c6f6d5b894a22e21a2153231f37db0136950503ac18bf846721739bfa8de56c2`.
+A same-name STKaiti file, another KaiTi face, a substituted cloud font, or a
+different version is not equivalent to this file.
+
+The public source and release packages retain only this identity metadata;
+the uploaded font binary stays in the owner's private assets. Materialize
+the font from the selected task input or private host binding and run:
+
+```sh
+python packages/validators/audit_ppt_font_names.py deck.pptx \
+  --config selected-config.json --font-file 'STKaiti=private-assets/STKAITI.TTF' \
+  --output font-name-and-file-audit.json
+```
+
+A missing pinned file returns `deferred`, even when every CJK run says
+STKaiti; mismatched bytes return `fail`. A matching file proves identity,
+not that a renderer loaded it. Output must separately register/load that
+verified file in the selected renderer, record its actual resolved file and
+hash, and inspect the resulting pixels. Native PowerPoint/WPS acceptance
+remains a separate check. Do not silently substitute a font or label a
+missing file as passed. An explicitly selected different user font must
+replace the corresponding font lists and identity policy together.
+
 ## Keep out of configuration
 
 - facts and conclusions for one presentation;

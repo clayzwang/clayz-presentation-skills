@@ -1,8 +1,8 @@
 # PPT监督报告合同 v3.6
 
-## v0.17.0 current contract
+## v0.17.2 current contract
 
-New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns a complete narrative; Copy owns pagination; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. In package 3.0 Copy creates that projection; it is not the original Logic artifact. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns the complete narrative and page allocation; Copy owns wording, trimming and content tags; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. Package 3.1 uses the current story/page contract; the older field examples below are historical and must not impose retired Logic rules on new work. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
 
 ## Legacy / compatibility field reference
 

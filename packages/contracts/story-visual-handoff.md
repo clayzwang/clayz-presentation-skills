@@ -1,69 +1,58 @@
-# Story and visual handoff — v0.17.0
+# Story, page allocation and visual handoff — v0.17.2
 
-Read for every new presentation run. This is the current cross-stage contract,
-using package `3.0`, Art Direction plan `2.0`, and handoff extension `1.0`.
-It changes artifact ownership without changing the five stages, Supervisor's
-three calibration handoffs, Independent Auditor, task commitments, configuration,
-Library/Index or publication authority. Read the Chinese peer for zh-CN tasks.
+New runs use content package `3.1`, Art Direction plan `2.0` and handoff extension
+`1.1`. Preserve the five stages, calibration, Independent Auditor, configuration,
+resource inventory, Index receipts and actual stage work records.
 
-For language and substantive-content review, also read [reader-quality guidance](reader-quality.md). Prefer a sufficient natural explanation to premature compression; review real passages through existing stage records. This adds no schema, word-count gate or extra approval stage.
+## Logic: complete story and page allocation
 
-## Logic: a complete argument, before pages
+Write a complete substantive narrative in `story`: title, thesis, audience,
+desired_outcome, opening, conclusion, ordered chapters (chapter_id, title,
+purpose, blocks; transition optional), sources, glossary, metric_dictionary,
+open_items and invariants. Each block has story_id, full text, claim_status,
+source_ids, qualifiers and must_preserve. Facts/calculations bind selected
+resources and source locators; retain definitions and uncertainty.
 
-Write a coherent narrative that can be read without a slide deck. Choose an
-argument suited to the task: chronology, diagnosis, comparison or proposal are
-possibilities, not prescribed templates. Include actual substantive paragraphs,
-evidence, mechanisms, qualifications, transitions and a conclusion. An outline,
-slide title list or collection of schema labels is not a complete story.
+Write `logic_layer.slides` in page order, with slide_id, chapter_id, narrative_role,
+claim, source_story_ids and data. Allocate every story block without trimming it.
+Logic owns the thesis, chapters, page claims, page responsibilities and body-page
+count. Set `logic_layer.lock.slide_order_locked: true`; `copy_layer` remains null.
+Default to one cover and one closing page unless the user explicitly omits them.
+Final bookend text belongs to Copy. Art Direction should favor fitting illustrative
+imagery when useful, size/crop/compress it for its placed resolution and budget,
+and keep text native. A whole-slide picture is not native generation.
 
-The original Logic JSON contains `contract_version: "3.0"`, the existing package
-identity, version, status, acceptance contract, brief, resource inventory,
-approvals and Index evidence. Set `logic_layer` and `copy_layer` to null.
-Its authoritative `story` contains:
+No built-in analytical route, parent/child reasoning contract or sibling quota
+applies. Methods come from the task, personal settings or selected external knowledge.
+No stage proactively generates speaker notes or appendices; requested or historical
+notes remain readable. Existing research/work records are retained.
 
-- `title`, `thesis`, `audience`, `desired_outcome`, `opening`, `conclusion`;
-- `sources` using existing source IDs, selected resource IDs and locators;
-- `glossary`, `metric_dictionary`, `open_items`, `invariants`;
-- ordered `chapters`, each with stable `chapter_id`, `title`, `purpose`,
-  substantive `blocks`, and a `transition` (including a closing transition);
-- each block has stable `story_id`, full `text`, `claim_status`, `source_ids`,
-  explicit `qualifiers` and boolean `must_preserve`.
+## Copy: wording, trimming and content tags
 
-Claims, calculations and evidence retain their original status and definitions.
-Use the existing source/calculation evidence facilities; prose does not replace
-them. Logic owns chapter/argument order and semantic invariants, not fixed page
-boundaries. Preserve user page constraints for Copy. Save the real approved
-Logic revision before Copy begins and record it with the existing stage recorder.
+Read the complete story and preserve its original content and page allocation.
+Bind `logic_artifact` to the actual original file using absolute path, sha256 and
+bytes. Preserve story, logic_layer, brief, acceptance_contract, resource_inventory
+and package identity exactly. Changes to page order/count/responsibility or meaning
+return to Logic. Copy owns exact text, trimming and content grouping on each page.
 
-## Copy: pagination and structured presentation language
+`copy_layer` contains logic_version, pagination_owner: "logic", story_sha256,
+chapter_order, semantic_preservation_review and ordered slides. Each page has
+slide_id, title_copy_id, optional storyline_copy_id and footnote_copy_ids, and
+copy_units. Each visible unit has globally unique copy_id, text, role, text_mode,
+source_story_ids (within that page allocation), parent_copy_id, sibling_group_id,
+nonnegative logic_level (Copy hierarchy), order, render_separately: true,
+merge_with_children: false, intentional_line_breaks. Null parent/group tags are
+valid. Copy decides grouping and wording without old Logic node mappings;
+node_copy_map and source_logic_node_ids are historical optional fields, not
+new-run requirements. Do not add a grammar or grouping quota. Required story
+content remains visible; supplied notes are traceable but cannot hide required
+visible caveats. Review actual fidelity through semantic_preservation_review.
 
-Read the whole story, choose page boundaries and hierarchy, and write exact
-presentation text. Parallel construction, rhythm and slogans are optional
-language techniques, subordinate to accuracy and audience understanding.
-Spatial alignment belongs to Art Direction. Split or combine pages within the
-approved argument; return changes to evidence, meaning or chapter order to Logic.
-
-The Copy package preserves `story`, `brief`, `acceptance_contract`, source
-inventory and package identity from Logic. `logic_artifact` is an absolute
-task-local `{path, sha256, bytes}` reference to the actual original Logic file.
-`copy_layer` adds `pagination_owner: "copy"`, canonical `story_sha256`,
-`chapter_order` and a substantive `semantic_preservation_review` covering
-numbers, qualifiers, coverage and relationships. Its existing page/copy-unit
-structure remains editable by Copy; every visible unit and note adds nonempty
-`source_story_ids`. Required blocks must appear in visible copy or explicitly
-traced speaker notes. Do not hide a necessary visible caveat in notes merely to
-pass coverage. Review semantic fidelity; hashes do not prove paraphrase quality.
-
-### Compatibility projection, not a second Logic document
-
-After pagination, Copy populates `logic_layer` with the existing v2.4 semantic
-page data consumed by existing layout/render tools: slide IDs, page message
-trees, slide claims/data/relationships, narrative and cross-page invariants.
-That field is a **Copy-owned derived page projection** in package 3.0. Its
-sources, glossary, metric dictionary and open items exactly preserve `story`.
-Its page-order locks begin at Copy approval. It never replaces the original
-Logic artifact or transfers substantive reasoning authority to Copy.
-The old v2.4 field reference documents its shape; new Logic does not create it.
+Art Direction's visual_layers use Copy IDs as node_id in 3.1 and its existing
+page_message_tree_depth records the Copy hierarchy depth. logic_statement binds
+the page claim. Content density and attention are Art Direction judgments, not
+mandatory Logic labels. The copy_unit_map and semantic_layout_tree retain the
+Copy grouping; visual_baseline adds real visual tags. Output implements them.
 
 ## Art Direction: image drafts and matching visual specification
 
@@ -150,7 +139,6 @@ call them original handoffs. The existing atomic publisher retains the formal
 PPTX/report pair and exports `stage-handoff.zip` as a derived companion containing
 the three documents, images and a portable side-by-side comparison HTML.
 
-Historical 2.4/1.7 artifacts remain readable. New tasks on v0.17.0 use 3.0/2.0;
-legacy validation is not permission to skip story or visual evidence. Validators
-check bindings, coverage and files; reviewers still judge reasoning, wording,
-image readability and design quality.
+Historical 2.4 and 3.0 content packages retain their original replay validation.
+New tasks on v0.17.2 use 3.1/2.0. Bindings, coverage and files are machine checked;
+reasoning, wording, readability and design remain professional judgments.

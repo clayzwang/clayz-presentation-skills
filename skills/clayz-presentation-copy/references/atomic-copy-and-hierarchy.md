@@ -73,8 +73,6 @@ Keep `text` as standard text without newline characters. Record deliberate break
 - Preserve fixed segment, product, role, metric, and stage names in Logic-locked order.
 - Retain a recognizable series motif in titles while stating each slide's new judgment.
 - Progressive-reveal slides may repeat established short labels but not long explanations.
-- A policy series may progress through upgrade -> policy design -> expected effect.
-- From/To copy states old constraint, rule change, behavior change, and result; “complex -> simple” is not a mechanism.
 - Outside a meaningful series, do not replicate a hollow “four-word label + explanation” template.
 
 ## Remove generic AI wording
@@ -89,4 +87,4 @@ Keep `text` as standard text without newline characters. Record deliberate break
 
 ## Return conditions
 
-Return to Logic for missing reasoning, incompatible meanings, required new facts or judgments stronger than the evidence. Copy owns awkward wording and pagination; different sibling grammar alone is not a Logic defect. Fix expression without hiding a substantive gap or inventing support.
+Return to Logic for missing reasoning, incompatible meanings, required new facts or judgments stronger than the evidence. Copy owns awkward wording and grouping; different sibling grammar alone is not a Logic defect. Fix expression without hiding a substantive gap or inventing support.

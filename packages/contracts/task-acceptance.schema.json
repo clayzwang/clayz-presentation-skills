@@ -40,7 +40,7 @@
     },
     "narrative_policy": {
       "type": "object",
-      "required": ["problem_before_recommendation", "minimum_friction_impact_pairs", "required_relation_types"],
+      "description": "Task-specific narrative settings; historical analytical-policy keys are optional replay metadata.",
       "properties": {
         "problem_before_recommendation": {"type": "boolean"},
         "minimum_friction_impact_pairs": {"type": "integer", "minimum": 0},

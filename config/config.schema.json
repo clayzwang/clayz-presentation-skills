@@ -125,7 +125,18 @@
                         "uniqueItems": true,
                         "items": {"type": "string", "minLength": 1}
                       },
-                      "pptx_family": {"type": "string", "minLength": 1}
+                      "pptx_family": {"type": "string", "minLength": 1},
+                      "font_asset": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["file_name", "sha256", "bytes", "font_version"],
+                        "properties": {
+                          "file_name": {"type": "string", "pattern": "^[^/\\\\]+\\.(?:[Tt][Tt][Ff]|[Oo][Tt][Ff]|[Tt][Tt][Cc])$"},
+                          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                          "bytes": {"type": "integer", "minimum": 1},
+                          "font_version": {"type": "string", "minLength": 1}
+                        }
+                      }
                     }
                   }
                 },

@@ -146,8 +146,11 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
         if unexpected_names:
             errors.append(f"slide {index}: unexpected COPY shape names {sorted(unexpected_names)}")
 
-        node_primary = {item["logic_node_id"]: item["primary_copy_id"] for item in copy_slide["node_copy_map"]}
-        node_map = {node["node_id"]: node for node in logic_slide["page_message_tree"]["nodes"]}
+        node_primary = {item["logic_node_id"]: item["primary_copy_id"] for item in copy_slide.get("node_copy_map", [])}
+        node_map = {node["node_id"]: node for node in logic_slide.get("page_message_tree", {}).get("nodes", [])}
+        if package.get("contract_version") == "3.1":
+            node_primary = {cid: cid for cid in units}
+            node_map = {cid: {"parent_node_id": unit.get("parent_copy_id")} for cid, unit in units.items()}
         for node_id, node in node_map.items():
             parent_id = node.get("parent_node_id")
             if not parent_id:
