@@ -31,6 +31,15 @@ class StoryRun(helpers.RealCliReleaseTests):
         if version == "3.1":
             from tests.test_page_allocation_handoff import convert_to_page_handoff
             convert_to_page_handoff(package, self.plan)
+            # Current delivery has no mandatory Storyline or single-line QA gate.
+            for page in package['copy_layer']['slides']:
+                page.pop('storyline_copy_id', None)
+                for unit in page['copy_units']:
+                    if unit['role'] == 'storyline':
+                        unit['role'] = 'evidence'
+            for slide in self.qa.get('slides', []):
+                slide['checks'].pop('storyline_single_line', None)
+                slide.get('not_applicable_reasons', {}).pop('storyline_single_line', None)
         origin=copy.deepcopy(package)
         origin.update(status='logic-approved',copy_layer=None)
         if version == '3.0':

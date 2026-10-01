@@ -81,7 +81,7 @@ for readable body text.
 
 Respect approved wording and stage ownership. Text, pagination or material
 composition changes return to their owner and refresh images/specifications;
-Output does not rewrite them. If the active master requires a single-line
+Output does not rewrite them. If a user-selected master explicitly requires a single-line
 Storyline, use a clear short judgment there and provide the necessary explanation
 in readable body text instead of deleting it.
 

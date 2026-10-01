@@ -223,8 +223,8 @@ provides space and Supervisor reads the actual language separately from technica
 checks. Record specific observations through existing findings/work notes.
 
 Copy makes that explanation precise and natural. Parallel semantics need not
-force identical sentence grammar. Art Direction follows the master's Storyline
-requirements; smaller supporting text beneath it is optional and has no reserved
+force identical sentence grammar. Art Direction honors Storyline requirements only when explicitly specified by
+a user-selected master; there is no default Storyline field or fixed subtitle, and smaller supporting text beneath it is optional and has no reserved
 slot that must be filled. Repetition of a visual structure is useful when it makes
 comparison or progression easier. Explain purposeful repetition in existing
 decision notes; do not vary layouts just to satisfy a diversity count.
@@ -547,6 +547,6 @@ the fact.
 Use the same source material, model settings and available knowledge in baseline
 and plugin trials. Measure task completion time, repeated calls and renders;
 evaluate whether a reader can explain the initial situation, stakes, recommendation,
-mechanism and conditions. Check required cover/closing, master Storyline, wrapping,
+mechanism and conditions. Check required cover/closing, any explicit user-selected master Storyline requirement, wrapping,
 overlap and traceable claims. Repeat trials to avoid treating one fast run as proof.
 Report automated checks, host installation, and real-deck outcomes separately.

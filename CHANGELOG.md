@@ -6,6 +6,16 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.17.3 — 2026-10-01
+
+- Remove the remaining prescribed three-question Logic route and mandatory single-sentence/single-line Storyline instructions.
+- Make Storyline optional by default across Copy, Art and Output; only explicit requirements of a user-selected master constrain it. Preserve Copy wording/breaks, Art layout, locked Logic allocation and historical replay.
+- Keep source citations in task records; generate speaker notes only when explicitly requested.
+
+### 中文
+- 清除残留的 Logic 三问套路及 Storyline 单句、单行硬规则；默认不要求固定 Storyline 或正文副标题。
+- 仅承接用户所选母版的明确要求，保留 Copy 文案与断句自主权、Art 版式责任、Logic 分页锁及历史兼容。
+- 来源引用默认写入任务记录，仅明确要求时写入讲者备注。
 ## 0.17.2 — 2026-10-01
 
 - Introduce content package 3.1 and handoff 1.1: Logic owns complete story, thesis, chapters, page claims and locked page allocation; Copy owns wording, trimming and content grouping.

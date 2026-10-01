@@ -431,7 +431,8 @@ def validate_qa(
             errors.append(f"{path}.render_file: file not found under render root")
 
         checks = qa_slide.get("checks")
-        require_keys(checks, CHECK_KEYS, f"{path}.checks", errors)
+        required_checks = CHECK_KEYS - {"storyline_single_line"} if package.get("contract_version") == "3.1" else CHECK_KEYS
+        require_keys(checks, required_checks, f"{path}.checks", errors)
         reasons = qa_slide.get("not_applicable_reasons")
         if not isinstance(reasons, dict):
             errors.append(f"{path}.not_applicable_reasons: must be an object")
@@ -440,7 +441,7 @@ def validate_qa(
             unknown = sorted(set(checks) - CHECK_KEYS)
             if unknown:
                 errors.append(f"{path}.checks: unknown checks {unknown}")
-            for key in CHECK_KEYS:
+            for key in required_checks | (set(checks) & CHECK_KEYS):
                 value = checks.get(key)
                 if value not in CHECK_STATUS:
                     errors.append(f"{path}.checks.{key}: must be pass or not-applicable")

@@ -101,6 +101,8 @@ changes, create a new revision and invalidate affected downstream evidence.
 
 ## Output: native implementation
 
+For package 3.1, `storyline_single_line` is not a required QA check. A supplied historical check remains valid with its existing status/evidence rules; 2.4/3.0 validation is unchanged. Honor only explicit Storyline constraints of a user-selected master.
+
 Read both the locked images and specification. Record `output_started_at` and
 canonical `visual_baseline_sha256` in QA before authoring. Apply the active
 master and reproduce the design using editable text, native data charts/tables
