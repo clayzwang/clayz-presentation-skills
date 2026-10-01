@@ -119,6 +119,17 @@ python ../../scripts/stamp_pptx_metadata.py <deck.pptx> --config <resolved-confi
 
 ## Validation
 
+For each deferred identity with a configured `font_asset`, materialize that
+exact font file and pass `--font-file <canonical-family-or-alias>=<path>` to
+the font-name audit with the resolved config. The default STKAITI.TTF is
+Version 1.02 and is pinned by SHA-256 and byte length. A same-name file is
+not equivalent: missing bytes yield `deferred`, mismatched bytes yield
+`fail`. Before rendering, register/load the verified file and record the
+renderer-resolved path and hash. File identity alone does not prove the
+renderer used it or that native PowerPoint/WPS acceptance passed. Keep
+uploaded font binaries in private task/host assets, outside the public
+source and release bundles.
+
 Run the object, typography, rhythm, size, deviation, and final-QA validators from `../../packages/validators/`. Pass the exact bound `--config <resolved-config.json>` to policy-aware validators. A successful in-memory write is never a substitute for reopening the final file; when no render route is available, record the deferred/not-run render coverage rather than inventing a render result.
 
 Send all artifacts to both `$clayz-presentation-supervisor` and the shared

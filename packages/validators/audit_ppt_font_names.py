@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Audit effective East Asian font names for visible CJK text in a PPTX."""
+"""Audit explicit CJK font names and configured font-file identities in a PPTX."""
 
 from __future__ import annotations
 
@@ -64,7 +64,47 @@ def _theme_east_asian_fonts(archive: zipfile.ZipFile) -> list[str]:
     return result
 
 
-def audit_font_names(pptx: Path, config: dict[str, Any]) -> dict[str, Any]:
+def audit_font_assets(config: dict[str, Any], font_files: dict[str, Path] | None = None) -> list[dict[str, Any]]:
+    """Verify materialized bytes; this does not prove a renderer loaded them."""
+    supplied = {name.casefold(): Path(path) for name, path in (font_files or {}).items()}
+    validation = config.get("theme", {}).get("typography", {}).get("font_validation")
+    identities = validation.get("deferred_font_identities", []) if isinstance(validation, dict) else []
+    checks: list[dict[str, Any]] = []
+    for identity in identities:
+        asset = identity.get("font_asset") if isinstance(identity, dict) else None
+        if not isinstance(asset, dict):
+            continue
+        names = [identity["canonical_family"], *identity.get("aliases", [])]
+        paths = {supplied[name.casefold()] for name in names if name.casefold() in supplied}
+        check: dict[str, Any] = {
+            "canonical_family": identity["canonical_family"],
+            "expected": asset,
+            "observed": [],
+            "status": "deferred",
+            "renderer_loaded_file": "not-verified",
+        }
+        if not paths:
+            check["reason"] = "Pinned font file was not supplied; family-name equality is insufficient."
+        else:
+            for path in sorted(paths):
+                observed: dict[str, Any] = {"path": str(path), "status": "deferred"}
+                try:
+                    observed["sha256"] = _sha256(path)
+                    observed["bytes"] = path.stat().st_size
+                    observed["status"] = "pass" if (
+                        observed["sha256"] == asset.get("sha256")
+                        and observed["bytes"] == asset.get("bytes")
+                    ) else "fail"
+                except OSError as exc:
+                    observed["reason"] = str(exc)
+                check["observed"].append(observed)
+            statuses = {item["status"] for item in check["observed"]}
+            check["status"] = "fail" if "fail" in statuses else "deferred" if "deferred" in statuses else "pass"
+        checks.append(check)
+    return checks
+
+
+def audit_font_names(pptx: Path, config: dict[str, Any], font_files: dict[str, Path] | None = None) -> dict[str, Any]:
     primary, alias_map = _font_policy(config)
     allowed_canonical = {family.casefold() for family in primary}
     violations: list[dict[str, Any]] = []
@@ -130,7 +170,10 @@ def audit_font_names(pptx: Path, config: dict[str, Any]) -> dict[str, Any]:
                 "violation_count": slide_violations,
             })
 
-    status = "fail" if violations else "deferred" if inherited_cjk else "pass"
+    name_status = "fail" if violations else "deferred" if inherited_cjk else "pass"
+    asset_checks = audit_font_assets(config, font_files)
+    statuses = {name_status, *(item["status"] for item in asset_checks)}
+    status = "fail" if "fail" in statuses else "deferred" if "deferred" in statuses else "pass"
     return {
         "contract": "io.clayz.presentation.pptx-font-name-audit/1.0",
         "pptx": pptx.name,
@@ -143,6 +186,8 @@ def audit_font_names(pptx: Path, config: dict[str, Any]) -> dict[str, Any]:
         "inherited_cjk_chars": inherited_cjk,
         "violations": violations,
         "slides": slide_summaries,
+        "font_name_status": name_status,
+        "font_asset_checks": asset_checks,
         "status": status,
         "ok": status == "pass" and total_cjk == conforming_cjk,
     }
@@ -153,11 +198,21 @@ def main() -> int:
     parser.add_argument("pptx", type=Path)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--font-file", action="append", default=[], metavar="FAMILY=PATH",
+                        help="Materialized file for a pinned font identity; canonical family or alias accepted. Repeat for multiple files.")
     args = parser.parse_args()
     try:
         config = json.loads(args.config.read_text(encoding="utf-8"))
-        report = audit_font_names(args.pptx, config)
-    except (OSError, json.JSONDecodeError, zipfile.BadZipFile, ET.ParseError) as exc:
+        font_files: dict[str, Path] = {}
+        for value in args.font_file:
+            name, separator, path = value.partition("=")
+            if not separator or not name.strip() or not path.strip():
+                raise ValueError("--font-file requires FAMILY=PATH")
+            if name.casefold() in {key.casefold() for key in font_files}:
+                raise ValueError(f"duplicate --font-file identity: {name}")
+            font_files[name] = Path(path)
+        report = audit_font_names(args.pptx, config, font_files)
+    except (OSError, ValueError, json.JSONDecodeError, zipfile.BadZipFile, ET.ParseError) as exc:
         print(f"ERROR: {exc}")
         return 2
     payload = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
@@ -166,9 +221,11 @@ def main() -> int:
     else:
         print(payload, end="")
     if not report["ok"]:
-        print(f"FAILED: {len(report['violations'])} CJK font-name violation(s)")
+        print(f"{report['status'].upper()}: font names={report['font_name_status']}; "
+              f"font files={[item['status'] for item in report['font_asset_checks']]}")
         return 1
-    print(f"PASS: {report['visible_cjk_chars']} visible CJK character(s) preserve configured font identity")
+    print(f"PASS: {report['visible_cjk_chars']} visible CJK character(s) preserve configured font identity; "
+          "any pinned files match. Renderer/native acceptance remains separate.")
     return 0
 
 

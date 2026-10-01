@@ -78,6 +78,15 @@ class CoreTests(unittest.TestCase):
     def test_release_versions_are_consistent(self) -> None:
         module = load_module("validate_version", ROOT / "scripts" / "validate_version.py")
         self.assertEqual(module.validate(ROOT), [])
+
+    def test_invalid_font_asset_lock_is_rejected(self) -> None:
+        module = load_module("validate_config_font_asset", ROOT / "scripts" / "validate_config.py")
+        config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
+        for key, value in (("file_name", "../STKAITI.TTF"), ("sha256", "not-a-hash"), ("bytes", True), ("font_version", "")):
+            with self.subTest(key=key):
+                broken = copy.deepcopy(config)
+                broken["theme"]["typography"]["font_validation"]["deferred_font_identities"][0]["font_asset"][key] = value
+                self.assertTrue(any(f"font_asset.{key}" in error for error in module.validate(broken)))
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
         plugin = json.loads((ROOT / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8"))

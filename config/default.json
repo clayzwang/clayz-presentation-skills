@@ -80,11 +80,11 @@
       "grid": "#D8DCE8"
     },
     "typography": {
-      "primary_fonts": ["Aptos", "Arial", "Noto Sans CJK SC", "sans-serif"],
-      "cjk_fonts": ["Noto Sans CJK SC"],
-      "latin_fonts": ["Aptos"],
-      "digit_fonts": ["Aptos"],
-      "chart_fonts": ["Aptos"],
+      "primary_fonts": ["华文楷体"],
+      "cjk_fonts": ["STKaiti"],
+      "latin_fonts": ["STKaiti"],
+      "digit_fonts": ["STKaiti"],
+      "chart_fonts": ["STKaiti"],
       "title_minimum_pt": 24,
       "body_minimum_pt": 18,
       "minimum_audience_text_pt": 12,
@@ -95,7 +95,29 @@
       "allow_fractional_point_sizes": true,
       "minimum_exception_policy": "technical-fields-only",
       "fail_on_missing_primary_font": false,
-      "font_validation": null
+      "font_validation": {
+        "contract_version": "1.0",
+        "mode": "preserve-name-defer-native",
+        "deferred_font_identities": [
+          {
+            "canonical_family": "华文楷体",
+            "aliases": ["STKaiti"],
+            "pptx_family": "STKaiti",
+            "font_asset": {
+              "file_name": "STKAITI.TTF",
+              "sha256": "c6f6d5b894a22e21a2153231f37db0136950503ac18bf846721739bfa8de56c2",
+              "bytes": 12717992,
+              "font_version": "Version 1.02"
+            }
+          }
+        ],
+        "preserve_requested_font_names": true,
+        "silent_substitution_forbidden": true,
+        "cloud_render_authority": "diagnostic-only",
+        "cloud_pdf_pixel_equivalence": "not-required-when-deferred-font-missing",
+        "native_reopen_required_for_final_font_acceptance": true,
+        "missing_deferred_font_status": "font-validation-pending"
+      }
     },
     "page_number_policy": {
       "required": true,

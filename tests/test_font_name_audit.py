@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import hashlib
 import tempfile
 import unittest
 import zipfile
@@ -66,6 +67,61 @@ class FontNameAuditTests(unittest.TestCase):
             report = audit_font_names(path, _config())
             self.assertFalse(report["ok"])
             self.assertEqual(report["violations"][0]["observed_typeface"], "微软雅黑")
+
+    def _pinned_config(self, payload: bytes) -> dict:
+        config = _config()
+        config["theme"]["typography"]["font_validation"]["deferred_font_identities"][0]["font_asset"] = {
+            "file_name": "STKAITI.TTF",
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "bytes": len(payload),
+            "font_version": "Synthetic binding fixture; not a real font",
+        }
+        return config
+
+    def test_same_family_name_does_not_pass_without_pinned_file(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            pptx = Path(raw) / "deck.pptx"
+            _pptx(pptx, "STKaiti")
+            report = audit_font_names(pptx, self._pinned_config(b"synthetic font bytes"))
+            self.assertEqual(report["font_name_status"], "pass")
+            self.assertEqual(report["status"], "deferred")
+            self.assertFalse(report["ok"])
+
+    def test_same_filename_with_different_bytes_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            pptx, font = Path(raw) / "deck.pptx", Path(raw) / "STKAITI.TTF"
+            _pptx(pptx, "STKaiti")
+            font.write_bytes(b"different font bytes")
+            report = audit_font_names(pptx, self._pinned_config(b"synthetic font bytes"), {"STKaiti": font})
+            self.assertEqual(report["font_name_status"], "pass")
+            self.assertEqual(report["status"], "fail")
+            self.assertFalse(report["ok"])
+
+    def test_correct_bytes_pass_under_renamed_file_and_canonical_alias(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            pptx, font = Path(raw) / "deck.pptx", Path(raw) / "renamed.ttf"
+            _pptx(pptx, "STKaiti")
+            font.write_bytes(b"synthetic font bytes")
+            report = audit_font_names(pptx, self._pinned_config(font.read_bytes()), {"华文楷体": font})
+            self.assertTrue(report["ok"])
+            self.assertEqual(report["font_asset_checks"][0]["renderer_loaded_file"], "not-verified")
+
+    def test_conflicting_alias_file_cannot_hide_behind_correct_file(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            pptx, correct, wrong = root / "deck.pptx", root / "correct.ttf", root / "wrong.ttf"
+            _pptx(pptx, "STKaiti")
+            correct.write_bytes(b"synthetic font bytes")
+            wrong.write_bytes(b"different font bytes")
+            report = audit_font_names(pptx, self._pinned_config(correct.read_bytes()), {"STKaiti": correct, "华文楷体": wrong})
+            self.assertEqual(report["status"], "fail")
+
+    def test_missing_supplied_file_is_deferred(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            pptx = Path(raw) / "deck.pptx"
+            _pptx(pptx, "STKaiti")
+            report = audit_font_names(pptx, self._pinned_config(b"synthetic font bytes"), {"STKaiti": Path(raw) / "missing.ttf"})
+            self.assertEqual(report["status"], "deferred")
 
 
 if __name__ == "__main__":

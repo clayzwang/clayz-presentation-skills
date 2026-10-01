@@ -4,7 +4,8 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
-- Nothing yet.
+- Use the confirmed STKAITI.TTF Version 1.02 as the default CJK, Latin, digit and chart identity; pin its SHA-256 and byte length rather than accepting the family name alone.
+- Font auditing reports missing pinned files as deferred and mismatched bytes as fail; file identity and renderer/native acceptance remain separate. Font binaries stay in owner-private assets.
 
 ## 0.17.1 — 2026-09-21
 

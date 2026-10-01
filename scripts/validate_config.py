@@ -134,6 +134,19 @@ def validate(config: dict[str, Any]) -> list[str]:
                     )
             if pptx_family and pptx_family.casefold() not in identity_keys:
                 errors.append(f"{path}.pptx_family: must equal the canonical family or one of its aliases")
+            asset = identity.get("font_asset")
+            if asset is not None:
+                asset = require_mapping(asset, f"{path}.font_asset", errors)
+                file_name = asset.get("file_name")
+                if not isinstance(file_name, str) or not re.fullmatch(r"[^/\\]+\.(?:ttf|otf|ttc)", file_name, re.IGNORECASE):
+                    errors.append(f"{path}.font_asset.file_name: expected a font basename, not a host path")
+                if not isinstance(asset.get("sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", asset["sha256"]):
+                    errors.append(f"{path}.font_asset.sha256: expected lowercase SHA-256")
+                size = asset.get("bytes")
+                if not isinstance(size, int) or isinstance(size, bool) or size <= 0:
+                    errors.append(f"{path}.font_asset.bytes: expected positive integer")
+                if not isinstance(asset.get("font_version"), str) or not asset["font_version"].strip():
+                    errors.append(f"{path}.font_asset.font_version: expected non-empty string")
             for name in identity_names:
                 if not name:
                     continue

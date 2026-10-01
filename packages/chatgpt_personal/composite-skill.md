@@ -206,6 +206,16 @@ substitute silently. Missing PowerPoint or WPS is likewise deferred
 target-application acceptance and is not a pre-Logic blocker. Limit final
 font-pixel and target-application claims until the deferred checks run.
 
+When that identity has a configured `font_asset`, materialize the exact
+owner-supplied font and pass `--font-file <family>=<materialized-path>` to
+`packages/validators/audit_ppt_font_names.py`. The default is STKAITI.TTF
+Version 1.02, pinned by hash and byte length in the central configuration.
+Family-name equality is not proof of file identity. Missing bytes remain
+`deferred`; mismatched bytes are `fail`. Register/load the verified file in
+the selected renderer and record the actual resolved file/hash separately;
+a font-file hash pass is not a pixel or native-application pass. Keep the
+font binary in private task/host assets rather than the public package.
+
 ## Stop conditions
 
 Before the final answer, run `verify-handoff` on the exact newly published
