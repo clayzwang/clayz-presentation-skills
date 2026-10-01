@@ -1,22 +1,32 @@
-# 完整故事、页面安排与图片稿交接 — v0.17.2
+# 研究成果、内容结构与呈现结构交接 — v0.17.4
 
-新任务使用内容包 `3.1`、Art Direction 计划 `2.0`、交接扩展 `1.1`。保留五阶段、校准、Independent Auditor、配置、资源盘点、Index 回执和真实阶段工作记录。
+新任务使用内容包 `3.2`、Art Direction 计划 `2.0`、交接扩展 `1.2`。历史 2.4/3.0/3.1 按原版本和职责兼容读取，不可只改版本号。五阶段、校准、Independent Auditor、配置、资源盘点、Index 与真实工作记录继续保留。
 
-## Logic：完整故事与放置位置
+## Logic：研究与研究成果
 
-`story` 保存完整实质论述：title、thesis、audience、desired_outcome、opening、conclusion、有序 chapters（chapter_id、title、purpose、blocks，transition 可选）、sources、glossary、metric_dictionary、open_items、invariants。每段包含 story_id、完整 text、claim_status、source_ids、qualifiers、must_preserve。事实和计算绑定选中资源与来源定位，保留口径和不确定性。
+Logic 调查研究对象，交付不依赖页数或版式的完整研究报告。先回答证据支持什么、依据是什么、有哪些反证或其他解释、意味着什么、哪些仍未知。研究结论归 Logic；演示文稿结论的措辞与位置归 Copy。研究成果不能只是待办清单，也不提前写成幻灯片标题、固定章节和页序。保留理解与复核所需的细节。
 
-`logic_layer.slides` 按页序包含 slide_id、chapter_id、narrative_role、claim、source_story_ids、data。全部 story 段落都有放置位置，不提前剪裁。Logic 决定总论点、章节、逐页主张、页面职责和正文页数；`logic_layer.lock.slide_order_locked` 为 true，copy_layer 为 null。除用户明确省略，默认一页封面、一页尾页；具体文字由 Copy 决定。Art Direction 宜采用贴合内容的形象配图，按实际显示尺寸控制分辨率、裁切、压缩和体积，文字保持原生可编辑；整页图片不算原生生成。
+根字段 `research` 包含 research_question、scope、summary、findings、data、sources、glossary、metric_dictionary、open_items、invariants。每项 finding 含 finding_id、question、完整 text、claim_status、source_ids、qualifiers、must_preserve、data_ids。可按研究主题整理，但数组顺序不规定演示顺序。sources 绑定 source_id、已选 resource_id 和 locator；事实、计算须有来源。data 保留 data_id、metric_name、display_value、raw_value（缺失时 null）、unit、period、definition_ref、source_ids、evidence_status，计算与限制可复核。
 
-工具不内置分析路线、父子推理合同或兄弟分组配额。方法来自任务、个人配置或选中外部知识。各阶段不主动生成演讲备注或附录；用户要求及历史备注仍可读取，研究与阶段工作记录保留。
+Logic 批准时 logic_layer、copy_layer 均为 null，story 缺省或 null。Logic 不分页、不写上屏标题、不规定演示章节、封尾页或结论页。用户已有的页数与演示要求保留在 brief/acceptance 中供 Copy 执行；研究主题名称和实质研究结论仍允许，禁止的是把页面组织字段塞进研究报告。
 
-## Copy：措辞、剪裁与内容打标
+## Copy：内容结构与适合 PPT 的文字
 
-先读完整 story，保留原文和页面安排。logic_artifact 用绝对路径、sha256、bytes 绑定真实原始 Logic 文件。story、logic_layer、brief、acceptance_contract、resource_inventory、包身份原样保留。页数、顺序、页面职责或含义变化回 Logic；每页具体文字、剪裁和内容分组由 Copy 决定。
+Copy 先读完整研究，写出可独立理解的自然中文，再决定演示章节、页面职责、页数、页序、标题、开场、结尾与上屏结论。交付物是文字和内容结构，尚不是 PPT 成品或视觉设计。Copy 可合并、拆分、重排研究内容，改写措辞和分组，须守住事实、判断强度、限定条件、必要信息与用户约束。不得为排版删掉关键解释或加强结论。
 
-copy_layer 包含 logic_version、pagination_owner: "logic"、story_sha256、chapter_order、semantic_preservation_review 和有序 slides。每页含 slide_id、title_copy_id、可选 storyline_copy_id、footnote_copy_ids、copy_units。每个可见单元含全稿唯一 copy_id、text、role、text_mode、本页范围内的 source_story_ids、parent_copy_id、sibling_group_id、非负整数 logic_level（Copy 层级）、order、render_separately: true、merge_with_children: false、intentional_line_breaks。父级和组标记可为 null。Copy 自主分组和措辞，不依赖旧 Logic 节点映射；node_copy_map、source_logic_node_ids 仅为可选历史字段，不作为新任务要求。不新增语法或分组配额。必保信息应可见；已有备注须可追溯，不得用来隐藏必要限定条件。用 semantic_preservation_review 记录实际内容保真检查。
+logic_artifact 以绝对路径、sha256、bytes 绑定真实 Logic 文件。research、brief、acceptance、inventory、包身份/版本、配置与运行绑定原样保留。copy_layer 使用 pagination_owner: "copy"、research_sha256、logic_version、自行组织的 chapters（chapter_id/title/purpose）、chapter_order、semantic_preservation_review 和有序 slides。为兼容现有渲染器保留 logic_layer 字段，但它现在是 **Copy 创建的页面投影**，必须标记 owner: "copy"，Logic 交接中不得存在。投影 slides 含 slide_id、chapter_id、narrative_role、完整页面主张 claim、source_finding_ids 和从 research 原样引用的 data；lock.slide_order_locked 锁定 Copy 批准的页序。
 
-3.1 中 Art Direction 的 visual_layers.node_id 使用 Copy ID，page_message_tree_depth 记录 Copy 层级深度，logic_statement 绑定逐页 claim。内容密度、注意力分配由 Art Direction 判断，不再强制 Logic 打旧标签。copy_unit_map 和 semantic_layout_tree 承接 Copy 分组，visual_baseline 继续视觉打标，Output 负责实施。
+每个 Copy 页面含 slide_id、title_copy_id、可选 storyline_copy_id、footnote_copy_ids、copy_units。可见单元含唯一 copy_id、text、role、text_mode、source_finding_ids、parent_copy_id、sibling_group_id、非负 logic_level、order、render_separately:true、merge_with_children:false、intentional_line_breaks。它们表示内容关系，不规定视觉排布。自然完整句可作为一个单元，不强迫对仗口号，不切碎因果解释。必保研究成果应进入正文，不能只放备注。semantic_preservation_review 应记录具体句子与覆盖/限定的实际判断，不能只写“字段已齐全”。
+
+Copy 可按页发出 presentation_requests：request_id、kind（table/chart/logo/ordinal/image/diagram/other）、语义 purpose、相关 copy_ids/data_ids。允许指令添加表格、图表、Logo、序号等，说明表达目的；最终坐标、图表编码、具体素材与视觉形状仍由 Art 决定。Art 对请求记录 accepted/adapted/declined 与理由，用户明确要求仍须遵守。
+
+封面与尾页默认要求由 Copy 执行。分页、章节顺序、标题、结论措辞、分组调整回 Copy，含义不变无需重做研究；新增事实、计算、研究判断或证据缺口回 Logic。不主动生成演讲备注/附录。Storyline 仅在用户所选母版明确要求时为必需。
+
+## Art Direction：呈现结构
+
+Art 决定内容用段落、表格、图表、结构图等怎样呈现，以及分组、阅读路径、视觉层级、配图、Logo 和序号。即使 Copy 未发指令，Art 也可依据已批准数据与受治理素材主动选择。内容关系须保真，但不等于一个内容组必须画成一个框，文字列成行列也不强制最终画成表格。每页以 presentation_request_resolutions（request_id/status/reason）回应 Copy 的请求。
+
+新增 Logo、装饰序号属于呈现决策；序号不得暗示无依据排名或步骤，Logo 不得暗示无依据合作关系。图表刻度、单位和图例应由已批准数据与定义推导。新增解释文字回 Copy；新增事实、计算和判断回 Logic；重新分页回 Copy。Art 不自行改写文案或生成最终 PPTX。
 
 ## Art Direction：整套图片稿与一致的视觉规格
 
@@ -41,7 +51,7 @@ Output 开始前锁定图片稿与规格。设计变化生成新修订并使受�
 
 ## Output：忠实实现原生 PPT
 
-3.1 包不必提供 `storyline_single_line` QA 检查；已有检查仍按其状态与证据规则读取，2.4／3.0 校验保持不变。仅承接用户所选母版的明确 Storyline 约束。
+3.2 包不必提供 `storyline_single_line` QA 检查；已有检查仍按其状态与证据规则读取，2.4／3.0 校验保持不变。仅承接用户所选母版的明确 Storyline 约束。
 
 先读图片稿和规格，在 QA 记录 `output_started_at` 与 `visual_baseline_sha256`。
 按既定设计制作可编辑文字、数据图表、表格及结构图对象；照片仍可作为图片。整页截图不是原生实现。
@@ -60,4 +70,4 @@ Output 开始前锁定图片稿与规格。设计变化生成新修订并使受�
 
 `assemble-report` 自动从真实原始 Logic、最终 Copy、Art Direction 计划生成 `stage_documents`，同时嵌入完整数据、同源可读 Markdown 和锁定图片字节；最终渲染字节随对照记录保存。
 既有原子发布器继续交付 PPTX/报告，并导出 `stage-handoff.zip`：三份文档、图片和可离线查看的并排对照 HTML。
-历史内容包 2.4、3.0 按原版本兼容读取；v0.17.2 新任务使用 3.1/2.0，不以兼容替代新交接。校验器证明绑定与覆盖，专业审阅判断论证、措辞、可读性和设计质量。
+历史内容包 2.4、3.0、3.1 按原版本兼容读取；v0.17.4 新任务使用 3.2/2.0，不以兼容替代新交接。校验器证明绑定与覆盖，专业审阅判断论证、措辞、可读性和设计质量。

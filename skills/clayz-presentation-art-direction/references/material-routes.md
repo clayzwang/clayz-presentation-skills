@@ -1,6 +1,6 @@
 # Material Routes
 
-Use these routes as optional references, not a required classification. Design from the audience, intended outcome, actual Logic content and page responsibilities. Management-stage and archetype labels may be omitted or freely described; no user confirmation is needed to choose a visual approach. `material_type_fit` means fit to the actual communication need, not membership in a fixed taxonomy.
+Use these routes as optional references, not a required classification. Design from the audience, intended outcome, research findings and Copy-owned page responsibilities. Management-stage and archetype labels may be omitted or freely described; no user confirmation is needed to choose a visual approach. `material_type_fit` means fit to the actual communication need, not membership in a fixed taxonomy.
 
 | Route | Primary task | First visual | Typical silhouettes | Density | Forbidden defaults |
 |---|---|---|---|---|---|

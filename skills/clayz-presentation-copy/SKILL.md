@@ -1,6 +1,6 @@
 ---
 name: clayz-presentation-copy
-description: Turn a logic-approved presentation package into final visible copy with locked titles, storylines, numbers, punctuation, line breaks and atomic copy units. Use after presentation logic is approved and before visual composition. Own wording, trimming and content grouping while preserving facts, evidence status, chapter order and business relationships, and do not design or build the PPTX.
+description: Turn a logic-approved presentation package into final visible copy with locked titles, storylines, numbers, punctuation, line breaks and atomic copy units. Use after presentation logic is approved and before visual composition. Own wording, trimming and content grouping while preserving research facts, evidence status and business relationships. Own content structure and pagination; Art owns presentation structure. Do not design or build the PPTX.
 ---
 
 # Clayz Presentation Copy
@@ -22,11 +22,11 @@ a longer clear explanation to an ambiguous compressed label; brevity, parallel
 grammar and slogans are optional. Record concrete language observations in the
 existing semantic_preservation_review or work notes, not another approval form.
 
-## Story and visual handoff (v0.17.2)
+## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.1 and Art
-Direction plan 2.0. The mandatory story, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.2 and Art
+Direction plan 2.0. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
@@ -54,9 +54,9 @@ the production path remains unified.
 
 ## Boundaries
 
-Own trimming, content grouping, and precise wording for titles, optional Storyline (required only by an explicit user-selected master constraint), optional supporting copy, numbers, units, punctuation, intentional breaks, copy hierarchy, and stable `copy_id` values. Do not decide master placeholder position or visual layout.
+Own content structure, presentation chapters, pagination, page order/responsibilities, opening/closing, conclusion wording, trimming, content grouping, and precise wording for titles, optional Storyline (required only by an explicit user-selected master constraint), optional supporting copy, numbers, units, punctuation, intentional breaks, copy hierarchy, and stable `copy_id` values. Do not decide master placeholder position or visual layout.
 
-Do not change Logic-approved facts, claims, qualifiers, relationships, chapter order or semantic invariants. Preserve Logic page count, order and responsibilities; return page changes and substantive logic changes upstream. Do not choose visual layout or create PPTX objects.
+Preserve Logic-approved research facts, claim strength, qualifiers, relationships and semantic invariants. Independently choose and revise presentation structure; page count/order changes remain Copy work. Return new facts, calculations or changed research judgments to Logic. Copy can request tables, charts, logos and ordinals; Art chooses their concrete visual implementation. Do not create PPTX objects.
 
 ## Required context
 
@@ -93,15 +93,15 @@ the affected copy IDs for clarity, evidence qualifiers and on-slide load. Borrow
 an expression principle, not unrelated facts or a stock slogan. An unchanged
 draft with a concrete rejection reason is valid. When a rendered page is too
 dense, shorten or redistribute copy within Logic's meaning, then return it to
-Art Direction; meaning or page-sequence changes belong to Logic.
+Art Direction; meaning changes return to Logic; page-sequence changes remain Copy work.
 
-1. Read the full Logic story and its locked page allocation, bind `logic_artifact`, trace each visible unit to its page’s `source_story_ids`, then write and group the presentation text without changing the original story or logic_layer. Preserve every approved claim, evidence qualifier, task acceptance requirement, and generation-mode responsibility, including the provenance, limits, and unresolved questions carried by confirmed discussion knowledge. Absorb the Supervisor's Logic calibration before locking Copy; record an `accepted`, `partially-accepted`, or `declined` calibration binding with a reason. In execution sections, keep supplied information coverage and fill only routine editorial gaps; in research sections, keep the Logic synthesis and its evidence boundaries explicit.
+1. Read the complete research, bind logic_artifact and preserve research verbatim. Organize chapters, pagination, page responsibilities, titles, opening/closing and conclusion wording. Trace visible text to source_finding_ids. First write natural explanations, then edit for PPT reading without reducing answers to methodology. Create the Copy-owned compatibility page projection and copy_layer. Preserve actual acceptance/configuration/run bindings and absorb the Supervisor calibration with reasons.
 2. If Logic does not contain enough concrete evidence or relations to satisfy a Copy-owned requirement, raise an upstream conflict instead of replacing the gap with abstract benefit language.
 3. Write titles that state the page function or conclusion without exaggeration and respect the task's cover and conclusion-placement policy.
 4. Decide whether a Storyline adds independent meaning; there is no default Storyline field, fixed body subtitle, sentence count or line count. Copy owns its wording and intentional breaks; Art Direction owns placement. Honor only explicit Storyline requirements of a user-selected master. A smaller supporting sentence beneath it is optional: add one only when it contributes independent information, and omit it entirely when it would merely restate the Storyline or fill space. Do not treat this optional support line as a mandatory Storyline field.
 5. Break visible text into atomic units. Assign one stable `copy_id` to each unit and express parent-child and peer relationships explicitly.
 6. Lock exact text, numbers, units, punctuation and intentional breaks. Do not proactively generate speaker notes or appendices; preserve requested/historical notes when present.
-7. Keep charts and tables supplied with complete labels, units, sources, and explanation text.
+7. Supply complete data labels, units, sources and explanation text. Optionally request tables, charts, logos, ordinals or other media via presentation_requests; these are content intentions, and Art owns the final presentation structure.
 8. Raise upstream conflicts instead of silently fixing Logic. Generic phrases such as reduced experience, weakened certainty, or better coordination do not satisfy a requirement unless the Copy units identify the responsible operation and audience consequence.
 9. Emit task-local learning candidates with language, audience, evidence, and limits; persist them only through the configured Copy learning route and never auto-promote them. Candidates remain observation-only; discussion confirmation and immutable commit belong to the root facade and require the actual user's decision.
 10. Emit one package with `origin_namespace: io.clayz.presentation` and status `copy-approved`; preserve root `acceptance_contract` and `resource_inventory`, and add bounded relevance-ranked Copy receipts to root `index_evidence`. Every selected record must name the concrete title, storyline, copy unit, or language decision it materially influenced. Passing structure alone is insufficient; judge actual language through reader-quality review, without imposing a grammar, grouping or word-count quota.

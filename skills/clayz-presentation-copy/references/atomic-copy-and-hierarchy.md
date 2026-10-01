@@ -2,9 +2,7 @@
 
 ## Explain the meaning before structuring the copy
 
-Read the complete Logic story and rewrite the argument in natural language for
-the reader before deciding page text and hierarchy. Then map
-`node_id -> primary_copy_id -> text`. A complete explanatory sentence can be one
+Read the complete Logic research and write natural reader-facing explanations before deciding chapters, pagination, page text and hierarchy. In package 3.2, trace finding_id to source_finding_ids and copy_id; old node maps are historical only. A complete explanatory sentence can be one
 unit; do not split necessary grammar into isolated labels merely to fill a tree.
 Model genuine parent/child distinctions without suppressing their explanation.
 
@@ -70,7 +68,7 @@ Keep `text` as standard text without newline characters. Record deliberate break
 
 ## Series language
 
-- Preserve fixed segment, product, role, metric, and stage names in Logic-locked order.
+- Preserve research definitions for segment, product, role, metric and stage names. Copy chooses presentation order unless a substantive sequence or ranking is part of the research.
 - Retain a recognizable series motif in titles while stating each slide's new judgment.
 - Progressive-reveal slides may repeat established short labels but not long explanations.
 - Outside a meaningful series, do not replicate a hollow “four-word label + explanation” template.

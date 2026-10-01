@@ -507,7 +507,7 @@ def validate_package(data: Any, require_status: str = "copy-approved") -> list[s
     logic_validator = _load_logic_validator()
     errors = logic_validator.validate_package(data, require_status)
     if isinstance(data, dict) and require_status == "copy-approved":
-        if data.get("contract_version") == "3.1":
+        if data.get("contract_version") in {"3.1", "3.2"}:
             from story_handoff import validate_copy_tags
             errors.extend(validate_copy_tags(data))
         else:

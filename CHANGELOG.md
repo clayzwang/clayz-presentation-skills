@@ -6,6 +6,18 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.17.4 — 2026-10-01
+
+- Introduce package 3.2 / handoff 1.2: Logic delivers research results without pages; Copy owns content structure, pagination, titles and presentation conclusion wording; Art owns presentation structure.
+- Bind immutable research findings/data to Copy text; keep historical 2.4/3.0/3.1 validation isolated. Re-pagination no longer restarts research when meaning is unchanged.
+- Allow Copy requests for tables, charts, logos and ordinals, with concrete visual decisions and dispositions owned by Art. Preserve governed assets and evidence fidelity.
+- Update stage documents, full work reports and publication bindings; add positive, adversarial and real CLI delivery regressions. Structural checks do not certify research depth or natural language.
+
+### 中文
+- 新内容包 3.2／交接 1.2：Logic 仅交付研究成果；Copy 负责内容结构、分页、标题和结论表达；Art 负责呈现结构。
+- 研究成果与数据不可静默改写，Copy 文案按 finding_id 追溯；旧合同隔离兼容，含义不变的重新分页不再重启研究。
+- Copy 可指令表格、图表、Logo、序号；Art 决定具体呈现并记录处理，保留素材治理与事实保真。
+- 同步阶段文档、完整工作报告与发布绑定，新增边界及实际 CLI 交付回归；结构通过不等于研究充分或语言通顺。
 ## 0.17.3 — 2026-10-01
 
 - Remove the remaining prescribed three-question Logic route and mandatory single-sentence/single-line Storyline instructions.

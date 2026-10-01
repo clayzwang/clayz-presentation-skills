@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.17.3**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.17.4**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -36,9 +36,9 @@ The same system can adapt its visual language to the task while preserving hiera
 
 Clayz Presentation Skills is an open, five-stage system for producing evidence-based presentations:
 
-1. **Logic** establishes the question chain, claims, evidence, and cross-slide invariants.
-2. **Copy** locks every visible word, number, break, and atomic copy unit.
-3. **Art Direction** turns approved copy into a visual plan without changing content.
+1. **Logic** investigates the subject and delivers supported research findings, evidence and uncertainty, without pages.
+2. **Copy** organizes content chapters, pagination, titles and PPT-suitable text.
+3. **Art Direction** decides presentation structure, including tables, charts, logos, numbering and visual hierarchy, while preserving meaning.
 4. **Output** builds an editable presentation against the approved plan.
 5. **Supervisor** audits drift and evidence without silently redesigning the deck.
 
@@ -257,6 +257,6 @@ For the reference-architecture synthesis method, Clayz also thanks the architect
 Licensed under Apache-2.0. See `NOTICE`, `CITATION.cff`, and `provenance/THIRD_PARTY_NOTICES.md`.
 
 
-## v0.17.0 — Story and image-draft handoffs / 完整故事与图片稿交接
+## v0.17.4 — Research, content and presentation / 研究、内容与呈现
 
-Logic → 完整章节论述；Copy → 分页结构化文稿；Art Direction → 全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。
+Logic → 完整研究成果；Copy → 内容结构与适合 PPT 的文字（含分页、标题、结论表达）；Art Direction → 呈现结构、全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。
