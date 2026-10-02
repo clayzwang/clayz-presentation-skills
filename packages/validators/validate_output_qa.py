@@ -315,28 +315,12 @@ def validate_qa(
             minimum_pt = legibility.get("minimum_audience_text_pt")
             below = legibility.get("below_minimum_items")
             nonconforming = legibility.get("nonconforming_size_items")
-            if is_body and (
-                not isinstance(minimum_pt, (int, float))
-                or minimum_pt < policy.audience_minimum_pt
-                or not policy.size_conforms(minimum_pt)
-            ):
-                errors.append(
-                    f"{path}.legibility_evidence.minimum_audience_text_pt: body slides must meet configured minimum and size-token policy"
-                )
-            if not isinstance(below, list) or below:
-                errors.append(f"{path}.legibility_evidence.below_minimum_items: must be an empty array")
-            if not isinstance(nonconforming, list) or nonconforming:
-                errors.append(f"{path}.legibility_evidence.nonconforming_size_items: must be an empty array")
+            # Readability is an Art observation, never an automatic point-size verdict.
             if not nonempty(legibility.get("evidence")) or len(legibility.get("evidence", "").strip()) < 12:
                 errors.append(f"{path}.legibility_evidence.evidence: must contain specific evidence")
             planned_chart = medium.get("data_chart_contract") if isinstance(medium, dict) else None
             chart_min = legibility.get("chart_text_minimum_pt")
-            if isinstance(planned_chart, dict):
-                required_chart_min = planned_chart.get("audience_text_min_pt", policy.chart_minimum_pt)
-                if not isinstance(chart_min, (int, float)) or chart_min < required_chart_min or not policy.size_conforms(chart_min):
-                    errors.append(f"{path}.legibility_evidence.chart_text_minimum_pt: must meet configured chart minimum and size-token policy")
-            elif chart_min is not None:
-                errors.append(f"{path}.legibility_evidence.chart_text_minimum_pt: non-data-chart slides must use null")
+
 
         planned_chart = medium.get("data_chart_contract") if isinstance(medium, dict) else None
         is_scatter = isinstance(planned_chart, dict) and planned_chart.get("chart_type") == "scatter"
@@ -487,10 +471,6 @@ def validate_qa(
                 has_unique = any(marker in folded for marker in ("唯一", "单一", "only", "single"))
                 if not has_line or not has_unique:
                     errors.append(f"{path}.review_evidence: passed inherited_chrome_uniqueness must cite the unique inherited title-divider check")
-            if isinstance(checks, dict) and checks.get("font_size_discipline") == "pass" and not any(
-                marker in folded for marker in ("字号", "字体大小", "font size", "minimum text", "minimum type")
-            ):
-                errors.append(f"{path}.review_evidence: passed font_size_discipline must cite the rendered font-size check")
             if isinstance(checks, dict) and checks.get("font_name_conformance") == "pass" and not any(
                 marker in folded for marker in ("字体名称", "字体名", "font family", "font name", "east asian")
             ):

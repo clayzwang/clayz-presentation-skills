@@ -481,7 +481,8 @@ class RuntimeTests(unittest.TestCase):
         self.assertFalse(report["selected_route"]["available"])
         self.assertTrue(report["selected_route"]["attemptable"])
 
-    def test_release_builder_separates_light_plugin_and_offline_wheels(self) -> None:
+    @mock.patch("font_bundle.verified_fonts", return_value=[])
+    def test_release_builder_separates_light_plugin_and_offline_wheels(self, _font_inventory) -> None:
         module = load_module("build_runtime_packs_unit", ROOT / "scripts" / "build_runtime_packs.py")
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         with tempfile.TemporaryDirectory() as temporary:

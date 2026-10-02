@@ -22,10 +22,13 @@ CUSTOM_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationship
 CUSTOM_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.custom-properties+xml"
 FMTID = "{D5CDD505-2E9C-101B-9397-08002B2CF9AE}"
 
-ET.register_namespace("", CUSTOM_NS)
 ET.register_namespace("vt", VT_NS)
-ET.register_namespace("", REL_NS)
-ET.register_namespace("", CT_NS)
+
+
+def serialize_part(root: ET.Element, namespace: str) -> bytes:
+    """Each OPC part owns its default namespace; ET's registry is process-global."""
+    ET.register_namespace("", namespace)
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
 
 def qname(namespace: str, local: str) -> str:
@@ -47,7 +50,7 @@ def custom_xml(existing: bytes | None, values: dict[str, str]) -> bytes:
     for pid, node in enumerate(root.findall(qname(CUSTOM_NS, "property")), start=2):
         node.set("pid", str(pid))
         node.set("fmtid", FMTID)
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+    return serialize_part(root, CUSTOM_NS)
 
 
 def custom_xml_without(existing: bytes, names: set[str]) -> bytes | None:
@@ -61,7 +64,7 @@ def custom_xml_without(existing: bytes, names: set[str]) -> bytes | None:
     for pid, node in enumerate(properties, start=2):
         node.set("pid", str(pid))
         node.set("fmtid", FMTID)
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+    return serialize_part(root, CUSTOM_NS)
 
 
 def relationships_xml(existing: bytes) -> bytes:
@@ -69,7 +72,7 @@ def relationships_xml(existing: bytes) -> bytes:
     for rel in root.findall(qname(REL_NS, "Relationship")):
         if rel.get("Type") == CUSTOM_REL:
             rel.set("Target", "docProps/custom.xml")
-            return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            return serialize_part(root, REL_NS)
     used = {rel.get("Id", "") for rel in root.findall(qname(REL_NS, "Relationship"))}
     index = 1
     while f"rId{index}" in used:
@@ -77,7 +80,7 @@ def relationships_xml(existing: bytes) -> bytes:
     ET.SubElement(root, qname(REL_NS, "Relationship"), {
         "Id": f"rId{index}", "Type": CUSTOM_REL, "Target": "docProps/custom.xml",
     })
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+    return serialize_part(root, REL_NS)
 
 
 def content_types_xml(existing: bytes) -> bytes:
@@ -85,11 +88,11 @@ def content_types_xml(existing: bytes) -> bytes:
     for node in root.findall(qname(CT_NS, "Override")):
         if node.get("PartName") == "/docProps/custom.xml":
             node.set("ContentType", CUSTOM_CONTENT_TYPE)
-            return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            return serialize_part(root, CT_NS)
     ET.SubElement(root, qname(CT_NS, "Override"), {
         "PartName": "/docProps/custom.xml", "ContentType": CUSTOM_CONTENT_TYPE,
     })
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+    return serialize_part(root, CT_NS)
 
 
 def relationships_without_custom(existing: bytes) -> bytes:
@@ -97,7 +100,7 @@ def relationships_without_custom(existing: bytes) -> bytes:
     for rel in list(root.findall(qname(REL_NS, "Relationship"))):
         if rel.get("Type") == CUSTOM_REL:
             root.remove(rel)
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+    return serialize_part(root, REL_NS)
 
 
 def content_types_without_custom(existing: bytes) -> bytes:
@@ -105,7 +108,7 @@ def content_types_without_custom(existing: bytes) -> bytes:
     for node in list(root.findall(qname(CT_NS, "Override"))):
         if node.get("PartName") == "/docProps/custom.xml":
             root.remove(node)
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+    return serialize_part(root, CT_NS)
 
 
 def stamp(source: Path, destination: Path, values: dict[str, str]) -> None:

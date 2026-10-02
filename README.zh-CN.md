@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.17.4**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.17.5**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -213,3 +213,7 @@ python scripts/stamp_pptx_metadata.py deck.pptx --config config/default.json --r
 ## v0.17.4 — Research, content and presentation / 研究、内容与呈现
 
 Logic → 完整研究成果；Copy → 内容结构与适合 PPT 的文字（含分页、标题、结论表达）；Art Direction → 呈现结构、全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。
+
+## 0.17.5 交付更新
+
+旧版不打包字体的说明，对已确认再分发权限、由 `assets/fonts/manifest.json` 哈希绑定的 STKaiti 作明确例外。0.17.5 仅携带安装说明，不含未获再分发授权的 STKaiti；任务指定时须使用合法来源在环境中安装。清单中的已授权字体方可随包，其他字体仍禁止随意打包。参见[制作可靠性](packages/contracts/production-reliability.zh-CN.md)。报告默认外置证据，字号可读性和构图重复由 Art 实际判断。

@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.17.4**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.17.5**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -260,3 +260,7 @@ Licensed under Apache-2.0. See `NOTICE`, `CITATION.cff`, and `provenance/THIRD_P
 ## v0.17.4 — Research, content and presentation / 研究、内容与呈现
 
 Logic → 完整研究成果；Copy → 内容结构与适合 PPT 的文字（含分页、标题、结论表达）；Art Direction → 呈现结构、全套图片稿及视觉规格；Output → 原生 PPT；Supervisor → 图片稿与实际成品逐页审计。报告保留三份真实交接文档和图片证据。详见 [handoff contract](packages/contracts/story-visual-handoff.md)。旧任务可读，新任务必须使用新契约。
+
+## 0.17.5 delivery update
+
+The historical no-font policy is superseded for explicitly authorized, hash-bound STKaiti files in `assets/fonts/manifest.json`. 0.17.5 carries installation instructions but no STKaiti bytes because redistribution authorization is unavailable; a licensed local installation is required when a task requests it. Authorized manifest-listed fonts may be bundled; arbitrary fonts remain excluded. See [production reliability](packages/contracts/production-reliability.md). Reports default to external evidence, and Art owns font-size/readability and repetition judgments.

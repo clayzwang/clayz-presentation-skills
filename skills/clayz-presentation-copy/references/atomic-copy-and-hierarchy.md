@@ -1,5 +1,7 @@
 # Atomic copy and hierarchical writing
 
+> From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
+
 ## Explain the meaning before structuring the copy
 
 Read the complete Logic research and write natural reader-facing explanations before deciding chapters, pagination, page text and hierarchy. In package 3.2, trace finding_id to source_finding_ids and copy_id; old node maps are historical only. A complete explanatory sentence can be one

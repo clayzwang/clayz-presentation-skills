@@ -82,6 +82,10 @@ may be delivered alongside it. Neither a hand-written summary nor a Word
 document is a substitute.
 
 
+## Production reliability (v0.17.5)
+
+Read `packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+
 ## 内容、布局、生成的连续改进
 
 按「内容（Logic、Copy）→ 排版与布局（Art Direction）→ 生成 PPT（Output）」

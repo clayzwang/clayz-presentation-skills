@@ -12,6 +12,10 @@ does not invent a stronger requirement or change the user's precedence.
 
 Logic is the most reasoning-intensive stage. Think sufficiently to reconstruct the subject, audience, supported analysis and uncertainty; think effectively by concentrating on distinctions that can change the conclusion, research findings or decision. Private knowledge is evidence and method support, never a substitute for this synthesis.
 
+## Production reliability (v0.17.5)
+
+Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+
 ## Reader understanding (v0.17.1)
 
 Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer

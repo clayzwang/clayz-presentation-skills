@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.17.4",
+    "version": "0.17.5",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.17.4",
+        "ClayzVersion": "0.17.5",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -80,6 +80,7 @@
       "grid": "#D8DCE8"
     },
     "typography": {
+      "size_acceptance": "art-direction-visual-review",
       "primary_fonts": ["华文楷体"],
       "cjk_fonts": ["STKaiti"],
       "latin_fonts": ["STKaiti"],
@@ -183,6 +184,7 @@
     "require_final_reopen_render": true
   },
   "delivery": {
+    "report_storage": "external-evidence",
     "default_profile": "lightweight",
     "profiles": {
       "lightweight": {"raster_scale": 1.75, "jpeg_quality": 86, "max_long_edge": 1600},

@@ -748,6 +748,11 @@ def enrich_task_acceptance(
         skipped.append({"kind": "chart-unit", "reason": "no quantitative chart signal; rule remains not-applicable unless a chart is added"})
     for spec in _DEFAULT_SPECS:
         kind = str(spec["kind"])
+        if kind.startswith("size-") and config_value.get("theme", {}).get("typography", {}).get("size_acceptance") == "art-direction-visual-review":
+            # Do not invent numerical user requirements from style defaults.
+            # Explicit user requirements already in `requirements` are preserved.
+            skipped.append({"kind": kind, "reason": "Art owns actual rendered readability; no automatic size commitment"})
+            continue
         defaults = _commitment(spec, expected=expected_by_kind[kind], source=source_by_kind[kind])
         found_index: int | None = None
         for index, existing in enumerate(requirements):

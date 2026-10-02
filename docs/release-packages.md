@@ -39,3 +39,7 @@ python scripts/verify_release_bundles.py --platform windows
 ```
 
 Do not publish `.release-cache/`; it is only a local wheel staging directory. Preserve wheel contents and license metadata unchanged.
+
+## 0.17.5 delivery update
+
+The historical no-font policy is superseded for explicitly authorized, hash-bound STKaiti files in `assets/fonts/manifest.json`. 0.17.5 carries installation instructions but no STKaiti bytes because redistribution authorization is unavailable; a licensed local installation is required when a task requests it. Authorized manifest-listed fonts may be bundled; arbitrary fonts remain excluded. See [production reliability](../packages/contracts/production-reliability.md). Reports default to external evidence, and Art owns font-size/readability and repetition judgments.

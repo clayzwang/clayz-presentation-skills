@@ -9,6 +9,10 @@ Act as the presentation task control plane, then produce an evidence-backed
 supervision report and readable full work report that identify the earliest
 layer able to prevent each problem.
 
+## Production reliability (v0.17.5)
+
+Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+
 ## Reader understanding (v0.17.1)
 
 Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer

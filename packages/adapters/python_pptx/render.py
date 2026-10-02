@@ -49,6 +49,12 @@ def _name(shape: Any, spec: Mapping[str, Any]) -> None:
 
 
 def _fill_and_line(shape: Any, options: Mapping[str, Any], api: Mapping[str, Any]) -> None:
+    # The theme can otherwise add shadows absent from the approved design.
+    style = shape._element.find("{http://schemas.openxmlformats.org/presentationml/2006/main}style")
+    if style is not None:
+        effect = style.find("{http://schemas.openxmlformats.org/drawingml/2006/main}effectRef")
+        if effect is not None:
+            effect.set("idx", "0")
     fill = options.get("fill")
     if isinstance(fill, Mapping) and fill.get("color"):
         shape.fill.solid()

@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import re
 import sys
@@ -57,6 +58,8 @@ def extract_slide(xml_bytes: bytes) -> tuple[dict[str, list[str]], list[str], di
         paragraphs = element_paragraphs(shape)
         all_paragraphs.extend(paragraphs)
         if name:
+            if name in named:
+                raise ValueError(f"duplicate shape name: {name}")
             named[name] = paragraphs
     for frame in root.findall(".//p:graphicFrame", NS):
         paragraphs = element_paragraphs(frame)
@@ -81,6 +84,29 @@ def extract_slide(xml_bytes: bytes) -> tuple[dict[str, list[str]], list[str], di
     return named, all_paragraphs, inventory
 
 
+def text_locations(xml_bytes: bytes) -> dict[str, str]:
+    """Text bodies and native table cells, never a whole-slide substring search.
+
+    Table coordinates are zero based and stable within the named frame.
+    """
+    root = ET.fromstring(xml_bytes)
+    result = {}
+    for index, shape in enumerate(root.findall(".//p:sp", NS)):
+        props = shape.find("./p:nvSpPr/p:cNvPr", NS)
+        name = props.get("name", "") if props is not None else ""
+        result[f"shape:{index}:{name}"] = "\n".join(element_paragraphs(shape))
+    for index, frame in enumerate(root.findall(".//p:graphicFrame", NS)):
+        props = frame.find("./p:nvGraphicFramePr/p:cNvPr", NS)
+        name = props.get("name", "") if props is not None else str(index)
+        for row, tr in enumerate(frame.findall(".//a:tbl/a:tr", NS)):
+            for col, cell in enumerate(tr.findall("a:tc", NS)):
+                key = f"table:{name}:{row}:{col}"
+                if key in result:
+                    raise ValueError(f"duplicate table location: {key}")
+                result[key] = "\n".join(element_paragraphs(cell))
+    return result
+
+
 def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False) -> list[str]:
     errors = validate_plan(package, plan)
     if errors or not isinstance(package, dict) or not isinstance(plan, dict):
@@ -92,7 +118,8 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
                 key=natural_slide_key,
             )
             extracted = [extract_slide(archive.read(name)) for name in slide_names]
-    except (OSError, zipfile.BadZipFile, KeyError, ET.ParseError) as exc:
+            locations = [text_locations(archive.read(name)) for name in slide_names]
+    except (OSError, zipfile.BadZipFile, KeyError, ValueError, ET.ParseError) as exc:
         return [f"pptx: cannot inspect file: {exc}"]
 
     logic_slides = package["logic_layer"]["slides"]
@@ -112,6 +139,13 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
             for segment in intentional_segments(unit["text"], unit.get("intentional_line_breaks", []))
         }
         expected_shape_names: set[str] = set()
+        available = Counter(normalize(value) for value in locations[index - 1].values() if value)
+        expected_blocks = Counter(normalize(unit["text"]) for unit in units.values()
+                                  if plan_map[unit["copy_id"]]["verification_method"] in {"paragraph-exact", "shape-name", "table-cell"})
+        for value, count in expected_blocks.items():
+            if available[value] != count:
+                errors.append(f"slide {index}: expected {count} text location(s) for {value!r}, found {available[value]}")
+        bound_locations = set()
 
         medium = slide_plan["medium_execution_contract"]
         for object_type, minimum in medium["minimum_object_counts"].items():
@@ -127,17 +161,22 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
             method = mapping["verification_method"]
             if method == "shape-name":
                 shape_name = f"COPY::{copy_id}"
-                expected_shape_names.add(shape_name)
-                matches = [name for name in named if name == shape_name]
+                matches = [name for name in named if name == shape_name or name.startswith(shape_name + "::")]
+                expected_shape_names.update(matches)
                 if len(matches) != 1:
                     errors.append(f"slide {index} {copy_id}: expected exactly one shape named {shape_name}")
                 else:
-                    actual_text = normalize("".join(named[shape_name]))
+                    actual_text = normalize("".join(named[matches[0]]))
                     if actual_text != expected_text:
                         errors.append(f"slide {index} {copy_id}: named shape text differs from locked copy")
-            elif method == "paragraph-exact":
-                if normalized_paragraphs.count(expected_text) != 1:
-                    errors.append(f"slide {index} {copy_id}: expected exactly one matching paragraph")
+            elif method == "table-cell":
+                location = mapping.get("native_location", {})
+                key = f"table:{location.get('shape_name')}:{location.get('row')}:{location.get('column')}"
+                if key in bound_locations:
+                    errors.append(f"slide {index} {copy_id}: duplicate native cell binding")
+                bound_locations.add(key)
+                if key not in locations[index - 1] or normalize(locations[index - 1][key]) != expected_text:
+                    errors.append(f"slide {index} {copy_id}: native table cell text differs from locked copy")
 
         copy_shape_names = [name for name in named if name.startswith("COPY::")]
         if len(copy_shape_names) != len(set(copy_shape_names)):
@@ -146,25 +185,15 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
         if unexpected_names:
             errors.append(f"slide {index}: unexpected COPY shape names {sorted(unexpected_names)}")
 
-        node_primary = {item["logic_node_id"]: item["primary_copy_id"] for item in copy_slide.get("node_copy_map", [])}
-        node_map = {node["node_id"]: node for node in logic_slide.get("page_message_tree", {}).get("nodes", [])}
-        if package.get("contract_version") in {"3.1", "3.2"}:
-            node_primary = {cid: cid for cid in units}
-            node_map = {cid: {"parent_node_id": unit.get("parent_copy_id")} for cid, unit in units.items()}
-        for node_id, node in node_map.items():
-            parent_id = node.get("parent_node_id")
-            if not parent_id:
-                continue
-            parent_copy = units[node_primary[parent_id]]["text"]
-            child_copy = units[node_primary[node_id]]["text"]
-            parent_norm = normalize(parent_copy)
-            child_norm = normalize(child_copy)
-            for paragraph, paragraph_norm in zip(paragraphs, normalized_paragraphs):
-                if parent_norm and child_norm and parent_norm in paragraph_norm and child_norm in paragraph_norm and paragraph_norm not in {parent_norm, child_norm}:
-                    errors.append(f"slide {index}: parent {node_primary[parent_id]} and child {node_primary[node_id]} are flattened in one paragraph: {paragraph!r}")
-                    break
-
+        # Exact object/cell comparisons establish separation; an approved sentence
+        # may legitimately repeat the same category and value elsewhere.
         if not allow_extra_text:
+            # A native cell/text body may contain multiple paragraphs. Accept only
+            # segments of an exactly approved complete body, not arbitrary substrings.
+            approved_whole = {normalize(unit["text"]) for unit in units.values()}
+            for body in locations[index - 1].values():
+                if normalize(body) in approved_whole:
+                    allowed_paragraphs.update(normalize(part) for part in body.split("\n") if part)
             extras = sorted({paragraph for paragraph, value in zip(paragraphs, normalized_paragraphs) if value not in allowed_paragraphs})
             if extras:
                 errors.append(f"slide {index}: extra visible text not found in Copy layer: {extras}")

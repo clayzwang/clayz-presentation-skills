@@ -6,6 +6,18 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.17.5 — 2026-10-02
+
+- Repair OPC namespace stamping, inherited shape effects and table-cell copy comparison; add real LibreOffice smoke coverage and pinned Python dependencies.
+- Make font size and composition repetition Art decisions; record runtime timeouts/repeated failures and enforce the ordinary PPTX delivery size boundary.
+- Store audit narrative with hash-bound external evidence, lossless restoration and legacy report compatibility.
+- Verify provenance and hashes for any bundled fonts. STKaiti is excluded because redistribution authorization is unavailable; retain installation guidance and missing-font disclosure.
+
+### 中文
+- 修复元数据命名空间、形状继承阴影及表格文案比较；加入真实 LibreOffice 冒烟验证并固定 Python 依赖。
+- 字号与构图重复交由 Art 判断；记录超时及重复失败，控制普通交付 PPTX 的体积。
+- 审计报告改为正文、外置证据与 hash，支持无损还原及旧报告兼容。
+- 随包字体核验来源、分发授权和哈希；未取得授权的 STKaiti 不随包，保留安装指引与缺字披露。
 ## 0.17.4 — 2026-10-01
 
 - Introduce package 3.2 / handoff 1.2: Logic delivers research results without pages; Copy owns content structure, pagination, titles and presentation conclusion wording; Art owns presentation structure.

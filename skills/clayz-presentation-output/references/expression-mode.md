@@ -1,5 +1,7 @@
 # Expression Modes: Charts, Shapes, Tables, Icons, and Images
 
+> From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
+
 ## 1. Assign a visual responsibility first
 
 Every visual element must serve one or more responsibilities:
