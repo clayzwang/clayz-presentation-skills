@@ -11,4 +11,6 @@ Before opening a pull request:
 5. Declare every outside source and confirm that no private material is included.
 6. When editing a deep reference, update both the English base file and its `.zh-CN.md` peer without changing contract enums or field names.
 
-Do not submit company templates, confidential decks, bundled fonts, proprietary datasets, screenshots containing personal information, or assets with unclear redistribution rights.
+Do not submit company templates, confidential decks, unmanifested or unauthorized fonts, proprietary datasets, screenshots containing personal information, or assets with unclear redistribution rights.
+
+Release fonts are the narrow exception: only exact `assets/fonts/manifest.json` entries with verified bytes and redistribution authority may be packaged.

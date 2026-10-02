@@ -28,6 +28,17 @@ jobs:
           python -c "import base64,os,pathlib; pathlib.Path(os.environ['RUNNER_TEMP'],'release-denylist').write_bytes(base64.b64decode(os.environ['CLAYZ_RELEASE_DENYLIST_B64']))"
           echo "CLAYZ_RELEASE_DENYLIST=$RUNNER_TEMP/release-denylist" >> "$GITHUB_ENV"
       - run: python scripts/validate_all.py
+      - name: Install actual Office smoke dependencies
+        if: matrix.python-version == '3.12'
+        run: sudo apt-get update && sudo apt-get install -y libreoffice-impress poppler-utils
+      - name: Actual stamped PPTX render regression
+        if: matrix.python-version == '3.12'
+        run: python scripts/runtime_smoke.py --output /tmp/clayz-runtime-smoke.json
+      - uses: actions/upload-artifact@v4
+        if: matrix.python-version == '3.12'
+        with:
+          name: runtime-smoke
+          path: /tmp/clayz-runtime-smoke.json
 
   optional-adapter-contract:
     runs-on: ubuntu-latest

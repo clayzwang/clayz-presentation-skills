@@ -1,5 +1,7 @@
 # Relative Layout Production Contract
 
+> From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
+
 This contract converts approved region relationships into editable coordinates without adding composition judgment. Its relative-layout tree is informed by the Flexbox/Yoga approach in [pom](https://github.com/hirokisakabe/pom); exact provenance and boundaries are in `provenance/manifest.yaml`. Final delivery uses the renderer and theme selected by central configuration and remains subject to Output QA.
 
 The repository includes an original, renderer-neutral solver. It is a small interoperability layer, not copied pom/Yoga code and not a general-purpose Flexbox implementation:

@@ -69,6 +69,12 @@ jobs:
               exit 1
             fi
           fi
+      - name: Verify required STKaiti bytes and redistribution manifest
+        run: python scripts/font_bundle.py
+      - name: Install render acceptance dependencies
+        run: sudo apt-get update && sudo apt-get install -y libreoffice-impress poppler-utils
+      - name: Real Office regression before release
+        run: python scripts/runtime_smoke.py --output /tmp/clayz-release-smoke.json
       - name: Fetch reviewed Windows offline wheels
         run: python scripts/fetch_offline_wheels.py --platform windows
       - name: Build Cloud Light, Local Light, and the Windows offline add-on

@@ -10,6 +10,10 @@ PPTX matches its contracts. Consume Art Direction's artifact and the
 Supervisor calibration as separate inputs; send the completed evidence to both
 Supervisor and the shared Independent Auditor module.
 
+## Production reliability (v0.17.5)
+
+Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+
 ## Reader understanding (v0.17.1)
 
 Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer

@@ -153,29 +153,20 @@ def audit(pptx: Path, plan: dict[str, Any] | None, policy: ValidationPolicy | No
                 if scatter:
                     scatter_records.append(scatter)
 
-            below = [
-                item for item in size_records
-                if item["points"] < (chart_min if "/charts/" in item["part"] else audience_min)
-            ]
-            nonconforming = [
-                item for item in size_records
-                if not policy.size_conforms(item["points"])
-            ]
+            # Retain observed sizes only. Art owns the rendered legibility decision.
+            below = []
+            nonconforming = []
             slide_errors = []
-            if below:
-                slide_errors.append(f"{len(below)} explicit audience font properties below {audience_min}pt")
-            if nonconforming:
-                slide_errors.append(f"{len(nonconforming)} explicit font properties violate configured size-token policy")
 
             expected_scatter = isinstance(chart_contract, dict) and chart_contract.get("chart_type") == "scatter"
             if expected_scatter and not scatter_records:
                 slide_errors.append("Art Direction expects scatter, but no native scatterChart was found")
             if scatter_records and isinstance(chart_contract, dict):
-                policy = chart_contract.get("point_connection_policy")
+                connection_policy = chart_contract.get("point_connection_policy")
                 line_count = sum(item["line_bearing_series_count"] for item in scatter_records)
-                if policy == "markers-only" and line_count:
+                if connection_policy == "markers-only" and line_count:
                     slide_errors.append(f"markers-only scatter has {line_count} line-bearing series")
-                if policy == "semantic-lines-only" and line_count > len(chart_contract.get("semantic_lines", [])):
+                if connection_policy == "semantic-lines-only" and line_count > len(chart_contract.get("semantic_lines", [])):
                     warnings.append(
                         f"slide {index + 1}: line-bearing scatter series exceed declared semantic lines; review rendered line semantics"
                     )
@@ -192,8 +183,8 @@ def audit(pptx: Path, plan: dict[str, Any] | None, policy: ValidationPolicy | No
             slides.append({
                 "slide_index": index + 1,
                 "slide_part": slide_name,
-                "audience_text_minimum_required_pt": audience_min,
-                "chart_text_minimum_required_pt": chart_min,
+                "audience_text_minimum_required_pt": None,
+                "chart_text_minimum_required_pt": None,
                 "explicit_font_sizes_pt": sizes,
                 "minimum_explicit_font_pt": min(sizes) if sizes else None,
                 "below_minimum_items": below,

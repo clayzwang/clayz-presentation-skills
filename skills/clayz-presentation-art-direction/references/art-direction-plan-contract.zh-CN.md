@@ -1,5 +1,7 @@
 # 艺术指导计划合同 v1.7
 
+> 0.17.5 起，历史字号阈值、偶数字号及构图连续次数限制不再作为自动检查；由 Art 对真实页面判断。报告采用正文、证据和 hash。以[生产可靠性合同](../../../packages/contracts/production-reliability.zh-CN.md)为准。
+
 ## v0.17.2 current contract
 
 New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns research; Copy owns content structure, pagination, wording and content tags; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. Package 3.2 uses the current research/content contract; the older field examples below are historical and must not impose retired Logic rules on new work. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.

@@ -2110,7 +2110,9 @@ def verify_handoff(
     if actual_names != expected_basenames:
         raise WorkReportError(f"delivery bundle contains unexpected or missing files: {sorted(actual_names ^ expected_basenames)}")
     try:
-        report_value = json.loads(report_path.read_text(encoding="utf-8"))
+        stored_report = json.loads(report_path.read_text(encoding="utf-8"))
+        from report_evidence import expand_report, render_compact_markdown
+        report_value = expand_report(stored_report, root)
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise WorkReportError(f"supervision report cannot be read: {exc}") from exc
     if not isinstance(report_value, Mapping):
@@ -2131,7 +2133,10 @@ def verify_handoff(
         raise WorkReportError("supervision report task_request_sha256 must be lowercase SHA-256")
     if report_value.get("contract_version") != WORK_REPORT_VERSION:
         raise WorkReportError("verify-handoff requires supervision report contract 3.6")
-    errors = validate_work_report(report_value, pptx=pptx_path, markdown=markdown_path)
+    compact_layout = "evidence_storage" in stored_report
+    if compact_layout and markdown_path.read_text(encoding="utf-8") != render_compact_markdown(stored_report):
+        raise WorkReportError("compact Markdown differs from report/evidence projection")
+    errors = validate_work_report(report_value, pptx=pptx_path, markdown=None if compact_layout else markdown_path)
     if errors:
         raise WorkReportError(errors)
     work = report_value.get("work_report", {})

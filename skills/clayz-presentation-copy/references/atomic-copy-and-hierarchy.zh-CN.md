@@ -1,5 +1,7 @@
 # 原子文案与层级写作
 
+> 0.17.5 起，历史字号阈值、偶数字号及构图连续次数限制不再作为自动检查；由 Art 对真实页面判断。报告采用正文、证据和 hash。以[生产可靠性合同](../../../packages/contracts/production-reliability.zh-CN.md)为准。
+
 ## 先解释清楚，再组织文案层级
 
 先读完整 Logic 研究，改写为面向读者的自然解释，再由 Copy 决定章节、分页和文字层级。新包用 finding_id → source_finding_ids → copy_id 追溯；以下旧节点映射仅用于历史包：

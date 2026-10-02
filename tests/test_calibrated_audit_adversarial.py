@@ -1026,6 +1026,9 @@ class RealCliReleaseTests(unittest.TestCase):
         self.render_root.mkdir()
         self.render = build_synthetic_pixel_render(self.render_root / "slide-01.png", label="synthetic pixel fixture")
         self.config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
+        # These adversarial cases exercise historical embedded report semantics.
+        # The 0.17.5 suite separately runs the external-evidence publisher end-to-end.
+        self.config["delivery"]["report_storage"] = getattr(self, "report_storage", "embedded")
         self.config["renderer"]["required_capabilities"] = ["editable-text", "render-preview"]
         self.config_path = write_json(self.work / "config.json", self.config)
         self.challenge = self._write_challenge()

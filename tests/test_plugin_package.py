@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 import zipfile
 
 from scripts.build_runtime_packs import build_light, ROOT
@@ -15,7 +16,8 @@ from packages.runtime.plugin_session import inspect_plugin
 
 
 class LocalPluginPackageTests(unittest.TestCase):
-    def test_archive_closure_and_integrity(self):
+    @mock.patch("font_bundle.verified_fonts", return_value=[])
+    def test_archive_closure_and_integrity(self, _font_inventory):
         with tempfile.TemporaryDirectory(prefix="clayz-package-") as temporary:
             root = Path(temporary)
             archive_path = build_light(root, (ROOT / "VERSION").read_text().strip(), "local")

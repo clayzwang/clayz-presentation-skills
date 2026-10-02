@@ -22,7 +22,7 @@ from acceptance_contract import validate_acceptance_contract, validate_stage_ret
 CONTRACT_VERSION = "2.0"
 LEGACY_CONTRACT_VERSION = "1.7"
 TARGET_TYPES = {"shape", "table-cell", "chart-label"}
-VERIFY_METHODS = {"shape-name", "paragraph-exact"}
+VERIFY_METHODS = {"shape-name", "paragraph-exact", "table-cell"}
 VISUAL_ROLES = {"primary", "secondary", "tertiary", "annotation"}
 ALIGNMENTS = {"left", "center", "right", "decimal", "grid"}
 AUTO_FIT = {"none", "shrink-text-on-overflow"}
@@ -606,32 +606,13 @@ def validate_plan(
     )
     allowed_tokens: set[str] = set()
     if isinstance(typography, dict):
-        if not isinstance(typography.get("body_min_pt"), (int, float)) or typography.get("body_min_pt", 0) < policy.body_minimum_pt:
-            errors.append(f"plan.typography_contract.body_min_pt: must be at least {policy.body_minimum_pt:g}")
-        minimums = {
-            "audience_detail_min_pt": policy.audience_minimum_pt,
-            "chart_text_min_pt": policy.chart_minimum_pt,
-        }
-        for key, configured_minimum in minimums.items():
-            value = typography.get(key)
-            if not isinstance(value, (int, float)) or value < configured_minimum or not policy.size_conforms(value):
-                errors.append(
-                    f"plan.typography_contract.{key}: must meet configured minimum {configured_minimum:g}pt and size-token policy"
-                )
-        if typography.get("even_point_sizes_required") is not policy.prefer_even_point_sizes:
-            errors.append("plan.typography_contract.even_point_sizes_required: must match central configuration")
-        if typography.get("minimum_exception_policy") != policy.minimum_exception_policy:
-            errors.append("plan.typography_contract.minimum_exception_policy: must match central configuration")
+        # Numeric typography fields are historical design metadata, not quality gates.
+        # Art Direction judges actual rendered legibility, hierarchy and spacing.
         tokens = typography.get("allowed_size_tokens")
         if not isinstance(tokens, list) or not tokens or any(not nonempty(token) for token in tokens):
             errors.append("plan.typography_contract.allowed_size_tokens: must be a non-empty string array")
         else:
             allowed_tokens = set(tokens)
-        variants = typography.get("max_size_variants_per_logic_level")
-        if not isinstance(variants, int) or not 1 <= variants <= 3:
-            errors.append("plan.typography_contract.max_size_variants_per_logic_level: must be 1..3")
-        if typography.get("fractional_point_sizes_allowed") is not policy.allow_fractional_point_sizes:
-            errors.append("plan.typography_contract.fractional_point_sizes_allowed: must match central configuration")
         expected_grid = f"{policy.column_count}-column"
         if typography.get("grid_system") != expected_grid:
             errors.append(f"plan.typography_contract.grid_system: must be {expected_grid}")
@@ -642,7 +623,7 @@ def validate_plan(
     rhythm = plan.get("deck_rhythm")
     require_keys(
         rhythm,
-        {"hero_slide_ids", "section_pulses", "max_consecutive_same_silhouette", "max_consecutive_same_density", "max_bottom_conclusion_band_share", "minimum_dominant_media_for_10_plus_body_slides", "exceptions", "series_groups", "motif_sequence", "motif_contracts", "semantic_whitespace_slide_ids", "purposeful_repetition_review", "review"},
+        {"hero_slide_ids", "section_pulses", "exceptions", "series_groups", "motif_sequence", "motif_contracts", "semantic_whitespace_slide_ids", "purposeful_repetition_review", "review"},
         "plan.deck_rhythm",
         errors,
     )
@@ -650,16 +631,6 @@ def validate_plan(
         for key in ("hero_slide_ids", "section_pulses", "exceptions", "series_groups", "motif_sequence", "motif_contracts", "semantic_whitespace_slide_ids"):
             if not isinstance(rhythm.get(key), list):
                 errors.append(f"plan.deck_rhythm.{key}: must be an array")
-        for key in ("max_consecutive_same_silhouette", "max_consecutive_same_density"):
-            value = rhythm.get(key)
-            if not isinstance(value, int) or not 1 <= value <= 3:
-                errors.append(f"plan.deck_rhythm.{key}: must be an integer from 1 to 3")
-        band_share = rhythm.get("max_bottom_conclusion_band_share")
-        if not isinstance(band_share, (int, float)) or not 0 <= band_share <= 0.35:
-            errors.append("plan.deck_rhythm.max_bottom_conclusion_band_share: must be between 0 and 0.35")
-        media_minimum = rhythm.get("minimum_dominant_media_for_10_plus_body_slides")
-        if not isinstance(media_minimum, int) or not 3 <= media_minimum <= len(DOMINANT_MEDIA):
-            errors.append("plan.deck_rhythm.minimum_dominant_media_for_10_plus_body_slides: must require at least 3 media")
         repetition_review = rhythm.get("purposeful_repetition_review")
         repetition_keys = {
             "purposeful_series_preserved", "nonseries_repetition_reviewed",
@@ -742,32 +713,7 @@ def validate_plan(
             if logic_slide.get("series_id") is None
         ]
 
-        def enforce_run(field: str, maximum_key: str) -> None:
-            maximum = rhythm.get(maximum_key)
-            if not isinstance(maximum, int):
-                return
-            run_value: Any = object()
-            run_ids: list[str] = []
-            for logic_slide, plan_slide in body_pairs:
-                if logic_slide.get("series_id") is not None:
-                    run_value = object()
-                    run_ids = []
-                    continue
-                value = plan_slide.get(field)
-                if value == run_value:
-                    run_ids.append(str(plan_slide.get("slide_id")))
-                else:
-                    run_value = value
-                    run_ids = [str(plan_slide.get("slide_id"))]
-                if len(run_ids) > maximum:
-                    errors.append(
-                        f"plan.deck_rhythm.{maximum_key}: non-series {field} run exceeds {maximum} on {run_ids}"
-                    )
-                    break
-
-        enforce_run("silhouette_family", "max_consecutive_same_silhouette")
-        enforce_run("density_class", "max_consecutive_same_density")
-
+        # Repetition is reviewed by Art; no configured numeric run limit.
         first_visual_reuse: dict[str, list[str]] = {}
         structure_reuse: dict[str, list[str]] = {}
         for _, plan_slide in nonseries_pairs:
@@ -783,28 +729,8 @@ def validate_plan(
             signature = str(plan_slide.get("structure_signature", "")).strip().casefold()
             if signature:
                 structure_reuse.setdefault(signature, []).append(slide_id)
-        for slide_ids in first_visual_reuse.values():
-            if len(slide_ids) >= 3:
-                errors.append(
-                    f"plan.deck_rhythm: one first visual is reused across non-series slides {slide_ids}"
-                )
-        for slide_ids in structure_reuse.values():
-            if len(slide_ids) >= 3:
-                errors.append(
-                    f"plan.deck_rhythm: one structure_signature is reused across non-series slides {slide_ids}"
-                )
-        if len(body_pairs) >= 10 and isinstance(rhythm.get("minimum_dominant_media_for_10_plus_body_slides"), int):
-            media_count = len({plan_slide.get("dominant_medium") for _, plan_slide in body_pairs})
-            if media_count < rhythm["minimum_dominant_media_for_10_plus_body_slides"]:
-                errors.append(
-                    "plan.deck_rhythm.minimum_dominant_media_for_10_plus_body_slides: actual dominant-media diversity is too low"
-                )
-        if body_pairs and isinstance(rhythm.get("max_bottom_conclusion_band_share"), (int, float)):
-            actual_share = sum(bool(plan_slide.get("uses_bottom_conclusion_band")) for _, plan_slide in body_pairs) / len(body_pairs)
-            if actual_share > rhythm["max_bottom_conclusion_band_share"]:
-                errors.append(
-                    f"plan.deck_rhythm.max_bottom_conclusion_band_share: actual share {actual_share:.3f} exceeds the plan limit"
-                )
+        # Art reviews repeated structure, media selection and conclusion placement
+        # together in the actual deck. Historical quotas are not quality gates.
         logic_series = (package.get("logic_layer") or {}).get("cross_slide_contract", {}).get("series", [])
         expected_series = []
         plan_by_id = {slide.get("slide_id"): slide for slide in plan_slides}
@@ -1069,13 +995,6 @@ def validate_slide_plan(
                 chart_type = data_chart.get("chart_type")
                 if not nonempty(chart_type):
                     errors.append(f"{path}.medium_execution_contract.data_chart_contract.chart_type: must be non-empty")
-                text_min = data_chart.get("audience_text_min_pt")
-                if not isinstance(text_min, (int, float)) or text_min < policy.chart_minimum_pt or not policy.size_conforms(text_min):
-                    errors.append(
-                        f"{path}.medium_execution_contract.data_chart_contract.audience_text_min_pt: must meet configured chart minimum and size-token policy"
-                    )
-                if data_chart.get("even_point_sizes_only") is not policy.prefer_even_point_sizes:
-                    errors.append(f"{path}.medium_execution_contract.data_chart_contract.even_point_sizes_only: must match central configuration")
                 semantic_lines = data_chart.get("semantic_lines")
                 if not isinstance(semantic_lines, list):
                     errors.append(f"{path}.medium_execution_contract.data_chart_contract.semantic_lines: must be an array")
@@ -1450,6 +1369,10 @@ def validate_slide_plan(
             global_targets.add(target_id)
         if mapping.get("target_type") not in TARGET_TYPES:
             errors.append(f"{mpath}.target_type: invalid value")
+        if mapping.get("verification_method") == "table-cell":
+            location = mapping.get("native_location")
+            if not isinstance(location, dict) or not isinstance(location.get("shape_name"), str) or not location.get("shape_name") or any(type(location.get(key)) is not int or location[key] < 0 for key in ("row", "column")):
+                errors.append(f"{mpath}.native_location: table-cell requires shape_name and zero-based nonnegative row/column")
         if mapping.get("verification_method") not in VERIFY_METHODS:
             errors.append(f"{mpath}.verification_method: invalid value")
         if mapping.get("target_type") == "shape" and mapping.get("verification_method") != "shape-name":

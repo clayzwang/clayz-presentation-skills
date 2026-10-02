@@ -101,7 +101,10 @@ def include_light(path: Path, target: str = "local") -> bool:
     if relative.parts[:1] == ("release",):
         return False
     if path.suffix.lower() in EXCLUDED_SUFFIXES:
-        return False
+        from font_bundle import verified_fonts
+        allowed = {item['path'] for item in verified_fonts(ROOT, require=False)}
+        if relative.as_posix() not in allowed:
+            return False
     if target == "cloud":
         parts = relative.parts
         if any(parts[:len(prefix)] == prefix for prefix in CLOUD_EXCLUDED_PREFIXES):
@@ -128,7 +131,10 @@ def _is_public_core_file(path: Path) -> bool:
     if any(part in EXCLUDED_PARTS for part in relative.parts):
         return False
     if path.suffix.lower() in EXCLUDED_SUFFIXES:
-        return False
+        from font_bundle import verified_fonts
+        allowed = {item['path'] for item in verified_fonts(ROOT, require=False)}
+        if relative.as_posix() not in allowed:
+            return False
     if relative.parts and relative.parts[0] in PUBLIC_CORE_PREFIXES:
         return True
     return len(relative.parts) > 1 and relative.parts[0] == "packages" and relative.parts[1] in PUBLIC_CORE_PACKAGE_PREFIXES
@@ -173,6 +179,8 @@ def build_light(output_dir: Path, version: str, target: str = "local") -> Path:
     if target not in LIGHT_TARGETS:
         raise ValueError(f"unsupported light target: {target}")
     archive_path = output_dir / f"clayz-presentation-skills-{version}-{target}-light.zip"
+    from font_bundle import verified_fonts
+    verified_fonts(ROOT)
     files = light_files(target)
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for path in files:

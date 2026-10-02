@@ -696,7 +696,8 @@ def validate_evidence_reference(
             return
         try:
             persisted_path = self_report_path if self_report_path is not None else artifact
-            persisted = json.loads(persisted_path.read_text(encoding="utf-8"))
+            from report_evidence import load_report
+            persisted = load_report(persisted_path)
         except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
             errors.append(f"{path}: supervision report self-evidence is unreadable: {reference}: {exc}")
             return
@@ -2183,23 +2184,8 @@ def validate_report(
             }
             if not chrome_codes & pairs:
                 errors.append(f"{path}: inherited chrome failure requires page-number or title-chrome duplication finding")
-        observed_min = rendered.get("minimum_audience_text_pt_observed") if isinstance(rendered, dict) else None
-        observed_nonconforming = rendered.get("nonconforming_point_sizes_observed", []) if isinstance(rendered, dict) else []
-        if isinstance(observed_min, (int, float)) and observed_min < policy.audience_minimum_pt:
-            if "typography_legibility" not in failed_checks:
-                errors.append(f"{path}.checks.typography_legibility: must fail when observed audience text is below configured minimum")
-            required_codes.append("FONT_SIZE_BELOW_MINIMUM")
-        if observed_nonconforming:
-            if "typography_legibility" not in failed_checks:
-                errors.append(f"{path}.checks.typography_legibility: must fail when nonconforming point sizes are observed")
-            required_codes.append("FONT_SIZE_NONCONFORMING_TOKEN")
-        if "typography_legibility" in failed_checks:
-            typography_codes = {
-                ("FONT_SIZE_BELOW_MINIMUM", slide_id),
-                ("FONT_SIZE_NONCONFORMING_TOKEN", slide_id),
-            }
-            if not typography_codes & pairs:
-                errors.append(f"{path}: typography failure requires a minimum-size or nonconforming-token finding")
+        # Font sizes are observations. Art/Supervisor assess rendered readability;
+        # no point-size threshold can manufacture a failure or a passing verdict.
         chart_contract = execution.get("data_chart_contract") if isinstance(execution, dict) else None
         is_scatter = isinstance(chart_contract, dict) and chart_contract.get("chart_type") == "scatter"
         if "scatter_semantics_and_labels" in failed_checks:
@@ -2331,7 +2317,8 @@ def main() -> int:
     parser.add_argument("--runtime-preflight", type=Path, required=True)
     args = parser.parse_args()
     try:
-        documents = [json.loads(path.read_text(encoding="utf-8")) for path in (args.package, args.plan, args.qa, args.inventory, args.report)]
+        from report_evidence import load_report
+        documents = [load_report(path) for path in (args.package, args.plan, args.qa, args.inventory, args.report)]
         runtime_preflight_raw = args.runtime_preflight.read_bytes()
         runtime_preflight = json.loads(runtime_preflight_raw)
         resolved_config_raw = args.config.read_bytes()

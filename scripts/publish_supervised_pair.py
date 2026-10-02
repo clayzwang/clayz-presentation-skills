@@ -70,7 +70,8 @@ def _json_hash(value: Any) -> str:
 
 
 def _read_object(path: Path) -> dict[str, Any]:
-    value = json.loads(path.read_text(encoding="utf-8"))
+    from report_evidence import load_report
+    value = load_report(path)
     if not isinstance(value, dict):
         raise ValueError(f"expected JSON object: {path}")
     return value
@@ -1006,6 +1007,8 @@ def publish_supervised_pair(
         raise RuntimeError("formal supervision report must use a .json suffix")
     if report.get("contract_version") == "3.6" and not isinstance(report.get("work_report"), Mapping):
         raise RuntimeError("3.6 publication requires an assembled work_report and derived Markdown")
+    if pptx.stat().st_size >= 20_000_000:
+        raise RuntimeError("PPTX is 20 MB or larger: Output must optimize before ordinary release; Supervisor must inspect the size report")
     calibrated_required = _calibrated_delivery_required(resolved_config)
     if calibrated_required and not _calibrated_assembly(report):
         raise RuntimeError(
@@ -1116,6 +1119,14 @@ def publish_supervised_pair(
         )
         if errors:
             raise RuntimeError("staged supervision validation failed:\n" + "\n".join(errors))
+        # Validate original semantic records first; only then change transport.
+        if resolved_config.get("delivery", {}).get("report_storage") == "external-evidence":
+            from report_evidence import compact_report, expand_report, render_compact_markdown
+            compact = compact_report(staged_report_value, staging)
+            if expand_report(compact, staging) != staged_report_value:
+                raise RuntimeError("lossless report projection failed")
+            staged_report.write_text(json.dumps(compact, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            staged_markdown.write_text(render_compact_markdown(compact), encoding="utf-8")
         manifest = build_manifest(staged_report_value, staged_pptx, staged_report, staged_markdown)
         (staging / "delivery-manifest.json").write_text(
             json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
@@ -1132,7 +1143,7 @@ def publish_supervised_pair(
     published_pptx = output_dir / pptx.name
     published_report_path = output_dir / report_path.name
     try:
-        published_report = json.loads(published_report_path.read_text(encoding="utf-8"))
+        published_report = _read_object(published_report_path)
     except (OSError, json.JSONDecodeError) as exc:
         raise RuntimeError(f"published supervision report parse failure: {exc}") from exc
     errors = validate_report(
@@ -1158,10 +1169,12 @@ def publish_supervised_pair(
         work_report_errors = validate_work_report(
             published_report,
             pptx=published_pptx,
-            markdown=published_markdown,
+            markdown=None if resolved_config.get("delivery", {}).get("report_storage") == "external-evidence" else published_markdown,
         )
         if work_report_errors:
             raise RuntimeError("published work-report validation failed:\n" + "\n".join(work_report_errors))
+    if resolved_config.get("delivery", {}).get("report_storage") == "external-evidence":
+        verify_work_report_handoff(output_dir)
     return json.loads((output_dir / "delivery-manifest.json").read_text(encoding="utf-8"))
 
 

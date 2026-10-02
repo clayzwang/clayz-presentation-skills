@@ -56,6 +56,8 @@ COMPOSITE_EXCLUDED_TOP_LEVEL = {
 }
 COMPOSITE_RUNTIME_SCRIPTS = {
     "stage_documents.py",
+    "font_bundle.py",
+    "restore_report.py",
     "cloud_learning_cli.py",
     "task_runtime.py",
     "bootstrap_owner_learning.py",
@@ -90,6 +92,18 @@ COMPOSITE_LOCAL_ONLY_FILES = {
 # Keep them in Public Core source and local packs, not the execution-only cloud
 # Skill. This preserves the upload budget without cutting callable dependencies.
 COMPOSITE_DEVELOPMENT_SCHEMAS = {
+    # Runtime index/layout code validates these records directly; repository schema
+    # conformance checks remain in source/local distributions.
+    "packages/contracts/composition-pattern-request.schema.json",
+    "packages/contracts/composition-pattern-resolution.schema.json",
+    "packages/contracts/layout-contract-request.schema.json",
+    "packages/contracts/layout-contract-resolution.schema.json",
+    "packages/contracts/layout-compilation.schema.json",
+    "packages/contracts/composition-pattern.schema.json",
+    "packages/contracts/failure-pattern.schema.json",
+    "packages/contracts/layout-contract.schema.json",
+    "packages/contracts/reference-record.schema.json",
+    "packages/contracts/sequence-record.schema.json",
     # These schemas are consumed only by repository/development validators;
     # standalone cloud execution uses the corresponding code contracts.
     "packages/contracts/artifact-envelope.schema.json",

@@ -1,5 +1,7 @@
 # Presentation Supervision Report Contract v3.6
 
+> From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
+
 ## v0.17.2 current contract
 
 New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns research findings; Copy owns content structure, pagination, wording and content tags; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. Package 3.2 uses the current research/content contract; the older field examples below are historical and must not impose retired Logic rules on new work. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.

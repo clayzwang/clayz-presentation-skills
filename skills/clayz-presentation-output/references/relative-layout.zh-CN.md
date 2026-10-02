@@ -1,5 +1,7 @@
 # 相对布局制作合同
 
+> 0.17.5 起，历史字号阈值、偶数字号及构图连续次数限制不再作为自动检查；由 Art 对真实页面判断。报告采用正文、证据和 hash。以[生产可靠性合同](../../../packages/contracts/production-reliability.zh-CN.md)为准。
+
 本合同把批准的区域关系转成可编辑坐标，不新增构图判断。相对布局树受开源项目 [pom](https://github.com/hirokisakabe/pom) 的 Flexbox/Yoga 思路启发；准确来源与边界见仓库 `provenance/manifest.yaml`。最终交付由中央配置选定的渲染器、主题配置和 Output QA 完成。
 
 仓库提供一个原创、渲染器中立的轻量求解器。它只是互操作层，不复制 pom／Yoga 代码，也不是通用 Flexbox 实现：

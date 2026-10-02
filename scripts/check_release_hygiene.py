@@ -157,6 +157,8 @@ def scan(root: Path, denylist: list[str]) -> list[dict[str, str]]:
     allowed_outputs, manifest_findings = load_public_output_allowlist(root)
     findings.extend(manifest_findings)
 
+    from font_bundle import verified_fonts
+    font_paths = {item["path"] for item in verified_fonts(root, require=False)}
     for path in sorted(root.rglob("*")):
         if ".git" in path.parts:
             continue
@@ -169,7 +171,7 @@ def scan(root: Path, denylist: list[str]) -> list[dict[str, str]]:
             continue
 
         suffix = path.suffix.lower()
-        if suffix in FORBIDDEN_SUFFIXES:
+        if suffix in FORBIDDEN_SUFFIXES and relative.as_posix() not in font_paths:
             if relative in allowed_outputs and suffix == ".pptx":
                 findings.extend(scan_public_pptx(path, relative, denylist))
             else:

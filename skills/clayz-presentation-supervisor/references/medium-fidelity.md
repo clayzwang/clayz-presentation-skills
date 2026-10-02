@@ -1,5 +1,7 @@
 # Medium and Art Direction Fidelity Rules
 
+> From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
+
 ## Six evidence segments are not interchangeable
 
 1. **Art Direction**: locked first visual, zones, medium, density, reading path, and deck rhythm.

@@ -426,7 +426,7 @@ class MasterPreflightRegressionTests(unittest.TestCase):
         )
 
     def test_real_configure_challenge_preflight_binds_readable_master_and_keeps_quality_missing(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="luna-cli-master-", dir=ROOT.parents[1]) as directory:
+        with tempfile.TemporaryDirectory(prefix="luna-cli-master-") as directory:
             root = Path(directory)
             master = root / "synthetic-master.pptx"
             master_sha256 = _write_synthetic_master(master)

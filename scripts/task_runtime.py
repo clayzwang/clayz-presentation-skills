@@ -10,6 +10,7 @@ import json
 import os
 import subprocess
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -53,12 +54,25 @@ def run_check(root, check_id, command, inputs, outputs, *, reuse=False, timeout=
             p.is_file() and receipt.get("outputs", {}).get(str(p)) == digest(p) for p in outputs
         ):
             return {**receipt, "reused": True, "elapsed_seconds_this_call": 0}
+    prior = json.loads(state.read_text(encoding="utf-8")) if state.is_file() else {}
+    repeated_failures = prior.get("consecutive_failures", 0) if prior.get("signature") == signature else 0
+    if repeated_failures >= 2:
+        raise RuntimeError(f"check {check_id}: identical inputs/command failed twice; change the cause before retrying; see {state}")
+    started_at = datetime.now(timezone.utc).isoformat()
     started = time.monotonic()
     # shell=False: no expansion, credential probing, or string-built shell commands.
-    result = subprocess.run(command, cwd=root, timeout=timeout, capture_output=True)
+    timed_out = False
+    try:
+        result = subprocess.run(command, cwd=root, timeout=timeout, capture_output=True)
+    except subprocess.TimeoutExpired as exc:
+        timed_out = True
+        result = subprocess.CompletedProcess(command, 124, exc.stdout or b"", exc.stderr or b"")
     elapsed = time.monotonic() - started
     inputs_unchanged = all(p.is_file() and input_hashes[str(p)] == digest(p) for p in inputs)
     receipt = {
+        "started_at": started_at, "finished_at": datetime.now(timezone.utc).isoformat(),
+        "timed_out": timed_out,
+        "consecutive_failures": repeated_failures + 1 if result.returncode or not inputs_unchanged or not all(p.is_file() for p in outputs) else 0,
         "check_id": check_id, "signature": signature, "returncode": result.returncode if inputs_unchanged else -1,
         "inputs_unchanged": inputs_unchanged,
         "elapsed_seconds_this_call": elapsed, "reused": False,

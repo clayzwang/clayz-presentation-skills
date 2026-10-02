@@ -129,13 +129,18 @@ def chart_linked_workbooks(archive: zipfile.ZipFile) -> set[str]:
 
 def budget_for(slides: int, profile: str) -> int:
     settings = PROFILES[profile]
-    return int(settings["base_budget"] + max(0, slides - 15) * settings["extra_per_slide"])
+    return min(20_000_000, int(settings["base_budget"] + max(0, slides - 15) * settings["extra_per_slide"]))
 
 
 def inspect(pptx: Path, profile: str) -> dict[str, Any]:
     total_bytes = pptx.stat().st_size
     blockers: list[dict[str, Any]] = []
     warnings: list[dict[str, Any]] = []
+    if total_bytes >= 20_000_000:
+        blockers.append({"code": "PPTX_REQUIRES_SIZE_OPTIMIZATION", "actual_bytes": total_bytes,
+                         "review_threshold_bytes": 20_000_000,
+                         "owner": "output", "reviewer": "supervisor",
+                         "action": "Optimize assets without rasterizing editable objects; document any explicit user exception."})
     with zipfile.ZipFile(pptx) as archive:
         names = set(archive.namelist())
         slides = slide_count(archive)
@@ -237,6 +242,10 @@ def inspect(pptx: Path, profile: str) -> dict[str, Any]:
         "total_bytes": total_bytes,
         "preferred_budget_bytes": preferred_budget,
         "media_zip_bytes": media_compressed_bytes,
+        "largest_parts": sorted([
+            {"path": info.filename, "compressed_bytes": info.compress_size, "uncompressed_bytes": info.file_size}
+            for info in archive.infolist() if not info.is_dir()
+        ], key=lambda item: item["compressed_bytes"], reverse=True)[:20],
         "media_share_of_file": round(media_compressed_bytes / total_bytes, 4) if total_bytes else 0,
         "embedded_font_parts": font_parts,
         "embedding_parts": embedding_parts,
