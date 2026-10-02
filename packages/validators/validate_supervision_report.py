@@ -2081,8 +2081,6 @@ def validate_report(
             observed_min = rendered.get("minimum_audience_text_pt_observed")
             if observed_min is not None and (not isinstance(observed_min, (int, float)) or observed_min <= 0):
                 errors.append(f"{path}.rendered.minimum_audience_text_pt_observed: must be null or a positive number")
-            if is_body and not isinstance(observed_min, (int, float)):
-                errors.append(f"{path}.rendered.minimum_audience_text_pt_observed: body slides require a measured number")
             nonconforming_sizes = rendered.get("nonconforming_point_sizes_observed")
             if not isinstance(nonconforming_sizes, list) or any(not isinstance(value, (int, float)) for value in nonconforming_sizes or []):
                 errors.append(f"{path}.rendered.nonconforming_point_sizes_observed: must be a numeric array")

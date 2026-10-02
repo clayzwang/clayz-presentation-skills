@@ -22,6 +22,12 @@ from task_runtime import run_check
 
 
 class Production175Tests(unittest.TestCase):
+    def test_art_judgment_does_not_generate_size_commitments(self):
+        from task_commitments import enrich_task_acceptance
+        config = json.loads((ROOT / 'config/default.json').read_text())
+        enriched, _ = enrich_task_acceptance({}, config)
+        self.assertFalse(any(item['requirement_id'].startswith('COMMIT-SIZE-') for item in enriched['requirements']))
+
     def test_font_manifest_requires_original_authorized_bytes(self):
         from font_bundle import verified_fonts
         with tempfile.TemporaryDirectory() as td:
