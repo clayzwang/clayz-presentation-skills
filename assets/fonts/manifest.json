@@ -1,5 +1,8 @@
 {
   "contract": "io.clayz.presentation.font-bundle/1.0",
-  "required_families": ["STKaiti"],
-  "fonts": []
+  "required_families": [],
+  "fonts": [],
+  "excluded_families": {
+    "STKaiti": "No redistribution authorization supplied; obtain/install separately through a licensed source."
+  }
 }

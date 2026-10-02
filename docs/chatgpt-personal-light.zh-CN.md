@@ -107,4 +107,4 @@ python scripts/runtime_preflight.py --challenge <run-challenge.json> \
 
 ## 0.17.5 交付更新
 
-旧版不打包字体的说明，对已确认再分发权限、由 `assets/fonts/manifest.json` 哈希绑定的 STKaiti 作明确例外。Cloud/Local 代码包均携带该字体和安装说明，其他字体仍禁止随意打包。参见[制作可靠性](../packages/contracts/production-reliability.zh-CN.md)。报告默认外置证据，字号可读性和构图重复由 Art 实际判断。
+旧版不打包字体的说明，对已确认再分发权限、由 `assets/fonts/manifest.json` 哈希绑定的 STKaiti 作明确例外。0.17.5 仅携带安装说明，不含未获再分发授权的 STKaiti；任务指定时须使用合法来源在环境中安装。清单中的已授权字体方可随包，其他字体仍禁止随意打包。参见[制作可靠性](../packages/contracts/production-reliability.zh-CN.md)。报告默认外置证据，字号可读性和构图重复由 Art 实际判断。

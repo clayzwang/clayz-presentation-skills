@@ -17,7 +17,10 @@ Copy 说明具体的信息关系、主次和必要限定，Art 将其落实为�
 
 ## 字体与环境
 
-发布包必须含 manifest 绑定的 STKaiti 原始文件、来源及再分发依据。
+发布包只可携带 manifest 绑定、具有来源和再分发依据的字体。
+0.17.5 不含未获再分发授权的 STKaiti，其缺失不再阻塞版本发布。
+任务指定该字体时从合法来源安装；缺字或替代渲染须明确记录，不能声称原字体验收通过。
+下述随包字体注册命令仅在包中实际存在已授权字体时适用。
 运行 `python scripts/font_bundle.py --prepare <task-root>`，让 Art 和 Output 的渲染进程
 使用回执里的 FONTCONFIG_FILE。工具逐一验证 fc-match 实际路径和字体哈希，不允许替代字体冒充验收。
 Windows/macOS按随包说明安装字体；PowerPoint/WPS仍需实际打开验证，不由Linux替代。

@@ -23,8 +23,9 @@ def verified_fonts(root=ROOT, *, require=True):
         return []
     data = json.loads(manifest.read_text(encoding='utf-8'))
     fonts = data.get('fonts', [])
-    if require and not fonts:
-        raise ValueError('STKaiti release font bytes and redistribution authorization are pending')
+    required = set(data.get('required_families', []))
+    if require and required and not fonts:
+        raise ValueError('required release font bytes and redistribution authorization are pending')
     result = []
     for entry in fonts:
         path = (root / entry['path']).resolve()
@@ -39,13 +40,15 @@ def verified_fonts(root=ROOT, *, require=True):
         if path.stat().st_size != entry['bytes']:
             raise ValueError('font byte count mismatch')
         result.append({**entry, 'resolved_path': str(path)})
-    if require and 'STKaiti' not in {e['family'] for e in result}:
-        raise ValueError('this release requires the original STKaiti family')
+    if require and required - {e['family'] for e in result}:
+        raise ValueError('required font families are missing from the authorized bundle')
     return result
 
 
 def prepare_fontconfig(task_dir, root=ROOT):
     fonts = verified_fonts(root)
+    if not fonts:
+        raise ValueError('No redistributable font is bundled. Install the requested font from a licensed source and verify it in the render environment; missing-font rendering remains diagnostic.')
     directory = Path(task_dir).resolve() / 'font-runtime'
     directory.mkdir(parents=True, exist_ok=True)
     config = directory / 'fonts.conf'

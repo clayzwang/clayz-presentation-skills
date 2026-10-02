@@ -18,7 +18,10 @@ reason and returns issues to the earliest responsible stage.
 
 ## Fonts and environment
 
-Release bundles include manifest-bound original STKaiti bytes, source and redistribution authorization.
+Release bundles may include only manifest-bound fonts with recorded source and redistribution authorization.
+STKaiti is excluded from 0.17.5 because authorization is unavailable; its absence does not block release.
+For tasks requiring it, install from a licensed source and report absence/substitution explicitly.
+The following bundle registration command applies only when authorized fonts are actually bundled.
 Run `python scripts/font_bundle.py --prepare <task-root>` and use its FONTCONFIG_FILE for Art and Output
 render processes. It verifies fc-match resolves to the exact bundled file/hash; substitution is not acceptance.
 Install the supplied fonts in Windows/macOS following the bundle instructions. Actual PowerPoint/WPS reopening

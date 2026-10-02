@@ -69,7 +69,7 @@ jobs:
               exit 1
             fi
           fi
-      - name: Verify required STKaiti bytes and redistribution manifest
+      - name: Verify optional font redistribution manifest
         run: python scripts/font_bundle.py
       - name: Install render acceptance dependencies
         run: sudo apt-get update && sudo apt-get install -y libreoffice-impress poppler-utils

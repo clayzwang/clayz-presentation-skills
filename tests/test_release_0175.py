@@ -33,7 +33,9 @@ class Production175Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td); directory = root / 'assets/fonts'; directory.mkdir(parents=True)
             manifest = directory / 'manifest.json'
-            manifest.write_text('{"fonts": []}')
+            manifest.write_text('{"fonts": [], "required_families": []}')
+            self.assertEqual(verified_fonts(root), [])
+            manifest.write_text('{"fonts": [], "required_families": ["STKaiti"]}')
             with self.assertRaisesRegex(ValueError, 'pending'):
                 verified_fonts(root)
             font = directory / 'synthetic-test.ttf'; font.write_bytes(b'test-only-fixture')

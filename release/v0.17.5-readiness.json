@@ -20,7 +20,7 @@
     "decision": "explicit-user-authorization",
     "scope": "merge-tag-publish-experience-center",
     "authorized_at": "2026-10-02T00:00:00Z",
-    "notes": "User explicitly authorized development, upload and release of 0.17.5. Original STKaiti is mandatory and its source/redistribution information is pending. This records authorization, not successful publication."
+    "notes": "User explicitly authorized development, upload and release of 0.17.5, then waived STKaiti bundling when redistribution authorization is unavailable. Ship no unauthorized font bytes."
   },
   "evidence": {
     "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
@@ -37,7 +37,5 @@
     "no_automatic_aesthetic_truth": true,
     "release_requires_separate_human_authorization": true
   },
-  "release_blockers": [
-    "Original STKaiti font file, recorded source and redistribution authorization required before build/tag/release."
-  ]
+  "release_blockers": []
 }
