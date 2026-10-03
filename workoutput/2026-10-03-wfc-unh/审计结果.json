@@ -1,0 +1,254 @@
+{
+  "audit_date_utc": "2026-10-03T05:09:25+00:00",
+  "core_version": "0.17.5",
+  "font_source_sha256": "fc404ac9b112c0c1d3de5d3c0a567dcc845626dc34a0c8c90838e2474ca47fe8",
+  "deliverables": [
+    {
+      "deck": "wfc",
+      "pptx": {
+        "filename": "富国银行_经营透视_2026-10-03.pptx",
+        "sha256": "834bcbda97b251e0d2b8d1391304ce3c521acdad9bf6e187bf14e100df1b880f",
+        "bytes": 71181,
+        "slides": 13,
+        "editable_text_shapes": 274,
+        "native_chart_shapes": 1,
+        "chart_xml_parts": 1,
+        "embedded_images": 0,
+        "out_of_bounds_shapes": [],
+        "has_expected_topics": {
+          "商业模式": true,
+          "竞争优势": true,
+          "风险": true,
+          "经营故事": true,
+          "资本市场": true,
+          "来源": true
+        }
+      },
+      "pdf": {
+        "filename": "富国银行_经营透视_2026-10-03.pdf",
+        "sha256": "39b09a79fa4af6561b28c9162f412bdbd76ed601605ce70daf68e3367704e369",
+        "bytes": 339285,
+        "pages": 13,
+        "extractable_text_chars_by_page": [
+          95,
+          247,
+          225,
+          211,
+          322,
+          318,
+          229,
+          287,
+          209,
+          229,
+          216,
+          286,
+          69
+        ],
+        "fonts": [
+          [
+            "BAAAAA+STKaiti",
+            "TrueType",
+            "WinAnsi",
+            "yes",
+            "yes",
+            "yes",
+            "392",
+            "0"
+          ],
+          [
+            "CAAAAA+STKaiti",
+            "TrueType",
+            "WinAnsi",
+            "yes",
+            "yes",
+            "yes",
+            "397",
+            "0"
+          ],
+          [
+            "DAAAAA+STKaiti",
+            "TrueType",
+            "WinAnsi",
+            "yes",
+            "yes",
+            "yes",
+            "402",
+            "0"
+          ]
+        ],
+        "font_subsets_embedded": true
+      },
+      "font_audit": {
+        "status": "pass",
+        "visible_cjk_chars": 1876,
+        "conforming_cjk_chars": 1876,
+        "violations": [],
+        "font_asset_checks": [
+          {
+            "canonical_family": "华文楷体",
+            "expected": {
+              "bytes": 12729412,
+              "file_name": "华文楷体.ttf",
+              "font_version": "Version 1.02",
+              "sha256": "fc404ac9b112c0c1d3de5d3c0a567dcc845626dc34a0c8c90838e2474ca47fe8"
+            },
+            "observed": [
+              {
+                "path": "/workspace/projects/PPT/runtime/font-exact/华文楷体.ttf",
+                "status": "pass",
+                "sha256": "fc404ac9b112c0c1d3de5d3c0a567dcc845626dc34a0c8c90838e2474ca47fe8",
+                "bytes": 12729412
+              }
+            ],
+            "status": "pass",
+            "renderer_loaded_file": "not-verified"
+          }
+        ]
+      },
+      "preflight_route": {
+        "route_id": "python-pptx+libreoffice",
+        "authoring_backend": "python-pptx",
+        "render_backend": "libreoffice",
+        "available": true,
+        "attemptable": true,
+        "assurance_level": "runtime-probed",
+        "missing_capabilities": [],
+        "host_model_private_tool_required": false,
+        "locked": true
+      },
+      "checks": {
+        "page_count_match": true,
+        "no_page_overflow": true,
+        "text_extractable": true,
+        "no_master_media": true,
+        "font_name_pass": true,
+        "pdf_font_embedded": true,
+        "route_available": true
+      }
+    },
+    {
+      "deck": "unh",
+      "pptx": {
+        "filename": "联合健康_经营透视_2026-10-03.pptx",
+        "sha256": "f198a6c2668fb5335385fb5e9aaf5db95100fff76be835333d122549cb718190",
+        "bytes": 79031,
+        "slides": 14,
+        "editable_text_shapes": 299,
+        "native_chart_shapes": 2,
+        "chart_xml_parts": 2,
+        "embedded_images": 0,
+        "out_of_bounds_shapes": [],
+        "has_expected_topics": {
+          "商业模式": true,
+          "竞争优势": true,
+          "风险": true,
+          "经营故事": true,
+          "资本市场": true,
+          "来源": true
+        }
+      },
+      "pdf": {
+        "filename": "联合健康_经营透视_2026-10-03.pdf",
+        "sha256": "e78570cebd04341fe5fa332727451126cdf65d66e5cc6673ebd1991866867116",
+        "bytes": 344642,
+        "pages": 14,
+        "extractable_text_chars_by_page": [
+          100,
+          250,
+          275,
+          214,
+          266,
+          373,
+          398,
+          205,
+          313,
+          231,
+          250,
+          231,
+          345,
+          66
+        ],
+        "fonts": [
+          [
+            "BAAAAA+STKaiti",
+            "TrueType",
+            "WinAnsi",
+            "yes",
+            "yes",
+            "yes",
+            "417",
+            "0"
+          ],
+          [
+            "CAAAAA+STKaiti",
+            "TrueType",
+            "WinAnsi",
+            "yes",
+            "yes",
+            "yes",
+            "422",
+            "0"
+          ],
+          [
+            "DAAAAA+STKaiti",
+            "TrueType",
+            "WinAnsi",
+            "yes",
+            "yes",
+            "yes",
+            "427",
+            "0"
+          ]
+        ],
+        "font_subsets_embedded": true
+      },
+      "font_audit": {
+        "status": "pass",
+        "visible_cjk_chars": 1886,
+        "conforming_cjk_chars": 1886,
+        "violations": [],
+        "font_asset_checks": [
+          {
+            "canonical_family": "华文楷体",
+            "expected": {
+              "bytes": 12729412,
+              "file_name": "华文楷体.ttf",
+              "font_version": "Version 1.02",
+              "sha256": "fc404ac9b112c0c1d3de5d3c0a567dcc845626dc34a0c8c90838e2474ca47fe8"
+            },
+            "observed": [
+              {
+                "path": "/workspace/projects/PPT/runtime/font-exact/华文楷体.ttf",
+                "status": "pass",
+                "sha256": "fc404ac9b112c0c1d3de5d3c0a567dcc845626dc34a0c8c90838e2474ca47fe8",
+                "bytes": 12729412
+              }
+            ],
+            "status": "pass",
+            "renderer_loaded_file": "not-verified"
+          }
+        ]
+      },
+      "preflight_route": {
+        "route_id": "python-pptx+libreoffice",
+        "authoring_backend": "python-pptx",
+        "render_backend": "libreoffice",
+        "available": true,
+        "attemptable": true,
+        "assurance_level": "runtime-probed",
+        "missing_capabilities": [],
+        "host_model_private_tool_required": false,
+        "locked": true
+      },
+      "checks": {
+        "page_count_match": true,
+        "no_page_overflow": true,
+        "text_extractable": true,
+        "no_master_media": true,
+        "font_name_pass": true,
+        "pdf_font_embedded": true,
+        "route_available": true
+      }
+    }
+  ]
+}
