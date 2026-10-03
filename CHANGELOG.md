@@ -6,6 +6,20 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.17.6 — 2026-10-03
+
+- Make Art and Supervisor review the purpose of large whitespace in actual pages, including source and appendix pages.
+- Require integrated native tables for every tabular presentation, including qualitative comparisons; a changed medium must also change the visual presentation.
+- Extend font auditing to native chart text and slide/table Latin and digits, preserve unresolved inheritance, and write chart Latin/East Asian fields in the Python adapter.
+- Give Output an approximately 10% internal content reserve target for text boxes, shapes, cells and label regions; review internal overflow, collisions and separate PowerPoint/WPS acceptance.
+- Add synthetic object regressions for table substitution, fragmented one-cell tables, generated chart labels and font overrides. Public distribution contains no task-private learning or user template assets.
+
+### 中文
+- Art 与 Supervisor 复核实际页面大片留白的用途，覆盖来源页与附录。
+- 表格形式列举必须使用完整原生表格，定性比较同样适用；改用其他媒介须真正改变呈现方式。
+- 字体审计覆盖原生图表文字、普通文字及表格中的英文与数字；继承不明保留待验，Python 适配器补齐图表 Latin/East Asian 字段。
+- Output 为文本框、形状、单元格及标签区域预留约 10% 内部容量，检查自身溢出、对象覆盖，并分别记录 PowerPoint/WPS 验收。
+- 增加形状替代表格、单格碎片、图表自动标签及字体覆盖的合成对象回归；公共分发不含任务私有学习或用户模板素材。
 ## 0.17.5 — 2026-10-02
 
 - Repair OPC namespace stamping, inherited shape effects and table-cell copy comparison; add real LibreOffice smoke coverage and pinned Python dependencies.

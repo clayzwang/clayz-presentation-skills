@@ -9,9 +9,11 @@ Act as the presentation task control plane, then produce an evidence-backed
 supervision report and readable full work report that identify the earliest
 layer able to prevent each problem.
 
-## Production reliability (v0.17.5)
+## Production reliability (v0.17.6)
 
 Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+
+For v0.17.6, challenge Art on unexplained large whitespace in final renders. Require integrated native tables whenever the page retains tabular form. Review Output's table/chart font coverage, findings and actual render evidence, including Latin text and digits; a body-only audit cannot establish font conformance. Review approximately 10% internal object capacity and separate PowerPoint/WPS results. Component/version checks, slide bounds and font-file identity never establish full visual acceptance. See the production-reliability contract and retain gaps in existing work records.
 
 ## Reader understanding (v0.17.1)
 

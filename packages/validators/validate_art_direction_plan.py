@@ -977,10 +977,11 @@ def validate_slide_plan(
             errors.append(f"{path}.medium_execution_contract.structure_type: table medium requires table structure")
         if plan.get("dominant_medium") == "data-chart" and structure_type != "data-chart":
             errors.append(f"{path}.medium_execution_contract.structure_type: data-chart medium requires data-chart structure")
-        if plan.get("dominant_medium") == "table":
-            table_alternative = approved_alternative and approved_alternative.get("from_object_type") == "native-table"
-            if not table_alternative and "native-table" not in required_objects:
-                errors.append(f"{path}.medium_execution_contract.required_object_types: table requires native-table or an approved alternative")
+        if plan.get("dominant_medium") == "table" or structure_type == "table":
+            if "native-table" not in required_objects or minimum_counts.get("native-table", 0) < 1:
+                errors.append(f"{path}.medium_execution_contract: tabular presentation requires an integrated native-table; change the presentation medium instead of substituting shapes")
+            if approved_alternative and approved_alternative.get("from_object_type") == "native-table" and approved_alternative.get("to_object_type") != "native-table":
+                errors.append(f"{path}.medium_execution_contract.approved_alternative: a table cannot retain tabular form while downgrading its object type")
         if plan.get("dominant_medium") == "data-chart":
             chart_alternative = approved_alternative and approved_alternative.get("from_object_type") == "native-chart"
             if not chart_alternative and "native-chart" not in required_objects:
@@ -1393,9 +1394,8 @@ def validate_slide_plan(
         errors.append(f"{path}.copy_unit_map: must map every copy_id exactly once")
 
     target_types = [mapping.get("target_type") for mapping in plan_by_copy.values()]
-    table_alternative = approved_alternative and approved_alternative.get("from_object_type") == "native-table"
-    if plan.get("dominant_medium") == "table" and not table_alternative and "table-cell" not in target_types:
-        errors.append(f"{path}.copy_unit_map: dominant_medium=table requires at least one table-cell target unless an alternative is approved")
+    if (plan.get("dominant_medium") == "table" or isinstance(medium, dict) and medium.get("structure_type") == "table") and "table-cell" not in target_types:
+        errors.append(f"{path}.copy_unit_map: tabular presentation requires native table-cell targets")
 
     for copy_id, mapping in plan_by_copy.items():
         parent_copy_id = unit_map[copy_id].get("parent_copy_id")

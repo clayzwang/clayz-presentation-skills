@@ -161,6 +161,9 @@ def validate(config: dict[str, Any]) -> list[str]:
     layout = require_mapping(config.get("layout"), "layout", errors)
     if not isinstance(layout.get("column_count"), int) or layout.get("column_count", 0) < 1:
         errors.append("layout.column_count: expected positive integer")
+    reserve = layout.get("internal_content_reserve_ratio", 0.10)
+    if isinstance(reserve, bool) or not isinstance(reserve, (int, float)) or not 0 <= reserve < 1:
+        errors.append("layout.internal_content_reserve_ratio: expected a ratio from 0 (inclusive) to 1 (exclusive)")
 
     references = require_mapping(config.get("references"), "references", errors)
     if references.get("provider_contract") != "packages/contracts/provider-manifest.schema.json":

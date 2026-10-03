@@ -10,9 +10,11 @@ with a complete readable image draft and matching element-level visual specifica
 Copy artifact and Supervisor's calibration as separate inputs; Supervisor
 coordinates the decision and does not design the page for Art Direction.
 
-## Production reliability (v0.17.5)
+## Production reliability (v0.17.6)
 
 Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+
+Art reviews large unused regions in final-size drafts, including source and appendix pages, with Supervisor challenging their purpose. Tabular presentation requires an integrated native table; otherwise choose another presentation medium. Allocate room for Output to retain approximately 10% internal capacity in text boxes and shapes for PowerPoint/WPS differences. See the production-reliability contract for interpretation and existing evidence fields.
 
 ## Reader understanding (v0.17.1)
 

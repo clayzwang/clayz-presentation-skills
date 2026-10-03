@@ -10,9 +10,11 @@ PPTX matches its contracts. Consume Art Direction's artifact and the
 Supervisor calibration as separate inputs; send the completed evidence to both
 Supervisor and the shared Independent Auditor module.
 
-## Production reliability (v0.17.5)
+## Production reliability (v0.17.6)
 
 Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+
+For v0.17.6, implement every tabular presentation as an integrated native table; return a medium change to Art when that is unavailable. Verify fonts inside native tables and charts, including Latin text and digits, using the current font audit and actual renders. Reserve approximately 10% internal usable capacity in text boxes and shapes under `layout.internal_content_reserve_ratio`; check internal overflow and object collisions as well as slide bounds and record PowerPoint/WPS coverage separately. See the production-reliability contract for the capacity definition.
 
 ## Reader understanding (v0.17.1)
 

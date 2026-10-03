@@ -96,6 +96,25 @@ def pptx_inventories(pptx: Path) -> list[dict[str, int]]:
         return [extract_slide(archive.read(name))[2] for name in slide_names]
 
 
+def validate_tabular_inventory(plan_slide: dict[str, Any], rendered_structure: Any,
+                               inventory: Any, path: str, errors: list[str],
+                               table_dimensions: list[tuple[int, int]] | None = None) -> None:
+    medium = plan_slide.get("medium_execution_contract", {})
+    tabular = plan_slide.get("dominant_medium") == "table" or medium.get("structure_type") == "table" or rendered_structure == "table"
+    if tabular and (not isinstance(inventory, dict) or inventory.get("native-table", 0) < 1):
+        errors.append(f"{path}: tabular presentation requires an actual integrated native table, including qualitative comparisons")
+    if tabular and table_dimensions and all(rows * cols <= 1 for rows, cols in table_dimensions):
+        errors.append(f"{path}: fragmented one-cell tables do not establish an integrated tabular presentation")
+
+
+def pptx_table_dimensions(pptx: Path) -> list[list[tuple[int, int]]]:
+    ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
+    with zipfile.ZipFile(pptx) as archive:
+        names = sorted((n for n in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)), key=natural_slide_key)
+        return [[(len(table.findall("a:tr", ns)), len(table.findall("a:tblGrid/a:gridCol", ns)))
+                 for table in ET.fromstring(archive.read(name)).findall(".//a:tbl", ns)] for name in names]
+
+
 def validate_final_cjk_evidence(qa: dict[str, Any], pptx: Path, errors: list[str]) -> None:
     for key in ("font_environment_report", "font_name_audit_report", "cjk_render_report", "final_reopen_render_root"):
         if not nonempty(qa.get(key)):
@@ -137,7 +156,12 @@ def validate_final_cjk_evidence(qa: dict[str, Any], pptx: Path, errors: list[str
         if font.get(key) is not True:
             errors.append(f"qa.font_environment_report.{key}: must be true")
     if font_name.get("contract") != "io.clayz.presentation.pptx-font-name-audit/1.0" or font_name.get("ok") is not True:
-        errors.append("qa.font_name_audit_report: visible CJK font names must conform before render acceptance")
+        errors.append("qa.font_name_audit_report: slide, native table and chart fonts must conform before render acceptance")
+    required_scope = {"slide-cjk", "slide-latin-digits", "native-table-text", "native-chart-text"}
+    if not required_scope.issubset(set(font_name.get("coverage", {}).get("scope", []))):
+        errors.append("qa.font_name_audit_report: missing table/chart/Latin/digit coverage; rerun the current font audit")
+    if font_name.get("font_scope_findings"):
+        errors.append("qa.font_name_audit_report: unresolved or wrong table/chart/Latin/digit font fields remain")
     if font_name.get("visible_cjk_chars") != font_name.get("conforming_cjk_chars") or font_name.get("violations"):
         errors.append("qa.font_name_audit_report: every visible CJK character must preserve an approved family or alias")
     if cjk.get("ok") is not True or cjk.get("final_pptx_reopened") is not True:
@@ -182,11 +206,13 @@ def validate_qa(
     from story_handoff import validate_output_baseline
     errors.extend(validate_output_baseline(package, plan, qa))
     inventories: list[dict[str, int]] = []
+    table_dimensions: list[list[tuple[int, int]]] = []
     if pptx is None:
         errors.append("qa validation requires final PPTX object evidence")
     else:
         try:
             inventories = pptx_inventories(pptx)
+            table_dimensions = pptx_table_dimensions(pptx)
         except (OSError, zipfile.BadZipFile, KeyError, ET.ParseError) as exc:
             errors.append(f"qa PPTX evidence cannot be inspected: {exc}")
         validate_final_cjk_evidence(qa, pptx, errors)
@@ -298,6 +324,10 @@ def validate_qa(
             errors,
         )
         rendered_structure = qa_slide.get("rendered_structure_type")
+        validate_tabular_inventory(plan_slide, rendered_structure,
+                                   inventories[index] if index < len(inventories) else actual_inventory,
+                                   f"{path}.actual_object_inventory", errors,
+                                   table_dimensions[index] if index < len(table_dimensions) else None)
         if rendered_structure not in STRUCTURE_TYPES:
             errors.append(f"{path}.rendered_structure_type: invalid value")
         rendered_medium_evidence = qa_slide.get("rendered_medium_evidence")

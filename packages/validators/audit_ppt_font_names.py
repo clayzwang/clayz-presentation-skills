@@ -14,6 +14,8 @@ from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
 
+from font_scope import inspect_font_scope
+
 
 A_NS = "http://schemas.openxmlformats.org/drawingml/2006/main"
 NS = {"a": A_NS}
@@ -170,7 +172,10 @@ def audit_font_names(pptx: Path, config: dict[str, Any], font_files: dict[str, P
                 "violation_count": slide_violations,
             })
 
-    name_status = "fail" if violations else "deferred" if inherited_cjk else "pass"
+        scope_audit = inspect_font_scope(archive, config, alias_map)
+
+    scope_statuses = {item["status"] for item in scope_audit["findings"]}
+    name_status = "fail" if violations or "fail" in scope_statuses else "deferred" if inherited_cjk or "deferred" in scope_statuses else "pass"
     asset_checks = audit_font_assets(config, font_files)
     statuses = {name_status, *(item["status"] for item in asset_checks)}
     status = "fail" if "fail" in statuses else "deferred" if "deferred" in statuses else "pass"
@@ -186,6 +191,9 @@ def audit_font_names(pptx: Path, config: dict[str, Any], font_files: dict[str, P
         "inherited_cjk_chars": inherited_cjk,
         "violations": violations,
         "slides": slide_summaries,
+        "coverage": scope_audit["coverage"],
+        "font_scope_checks": scope_audit["checks"],
+        "font_scope_findings": scope_audit["findings"],
         "font_name_status": name_status,
         "font_asset_checks": asset_checks,
         "status": status,
@@ -224,7 +232,8 @@ def main() -> int:
         print(f"{report['status'].upper()}: font names={report['font_name_status']}; "
               f"font files={[item['status'] for item in report['font_asset_checks']]}")
         return 1
-    print(f"PASS: {report['visible_cjk_chars']} visible CJK character(s) preserve configured font identity; "
+    print(f"PASS: {report['visible_cjk_chars']} slide/table CJK character(s), Latin/digits and "
+          f"{len(report['coverage']['chart_parts'])} chart part(s) preserve configured font identities; "
           "any pinned files match. Renderer/native acceptance remains separate.")
     return 0
 

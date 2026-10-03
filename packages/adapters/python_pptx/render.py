@@ -110,7 +110,7 @@ def _style_text_frame(text_frame: Any, text: str, options: Mapping[str, Any], ap
 
 
 def _ensure_east_asian_run_fonts(pptx_path: Path) -> None:
-    """Mirror explicit Latin run fonts to EA runs when no EA is present.
+    """Mirror explicit Latin fonts to EA in slide/table runs and chart defaults.
 
     ``python-pptx`` writes ``font.name`` to ``a:latin`` only.  Mirroring that
     concrete request to ``a:ea`` makes newly generated CJK runs inspectable by
@@ -128,17 +128,14 @@ def _ensure_east_asian_run_fonts(pptx_path: Path) -> None:
     with zipfile.ZipFile(io.BytesIO(source), "r") as archive, zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as target:
         for name in archive.namelist():
             payload = archive.read(name)
-            if name.startswith("ppt/slides/") and name.endswith(".xml"):
+            if name.startswith(("ppt/slides/", "ppt/charts/")) and name.endswith(".xml"):
                 try:
                     root = ET.fromstring(payload)
                 except ET.ParseError:
                     target.writestr(name, payload)
                     continue
                 slide_changed = False
-                for run in root.findall(".//a:r", ns) + root.findall(".//a:fld", ns):
-                    properties = run.find("a:rPr", ns)
-                    if properties is None:
-                        continue
+                for properties in root.findall(".//a:rPr", ns) + root.findall(".//a:defRPr", ns):
                     latin = properties.find("a:latin", ns)
                     if latin is None or not str(latin.attrib.get("typeface", "")).strip():
                         continue
@@ -147,7 +144,7 @@ def _ensure_east_asian_run_fonts(pptx_path: Path) -> None:
                         continue
                     if east_asian is None:
                         east_asian = ET.Element(f"{{{namespace}}}ea")
-                        properties.append(east_asian)
+                        properties.insert(list(properties).index(latin) + 1, east_asian)
                     east_asian.set("typeface", str(latin.attrib["typeface"]))
                     slide_changed = True
                 if slide_changed:
@@ -243,11 +240,23 @@ def _add_object(slide: Any, spec: Mapping[str, Any], manifest_dir: Path, api: Ma
         chart = shape.chart
         chart.has_legend = bool(options.get("showLegend", len(series) > 1))
         chart.has_title = bool(options.get("showTitle", False))
+        if options.get("fontFace"):
+            chart.font.name = str(options["fontFace"])
+            if isinstance(options.get("fontSize"), (int, float)):
+                chart.font.size = api["Pt"](float(options["fontSize"]))
+            if chart.has_legend:
+                chart.legend.font.name = str(options["fontFace"])
+            if str(spec.get("chart_type")) not in {"pie", "doughnut"}:
+                for axis in (chart.category_axis, chart.value_axis):
+                    axis.tick_labels.font.name = str(options["fontFace"])
         if chart.has_legend and options.get("legendPos"):
             pass
         if bool(options.get("showValue", False)):
-            for chart_series in chart.series:
-                chart_series.has_data_labels = True
+            for plot in chart.plots:
+                plot.has_data_labels = True
+                plot.data_labels.show_value = True
+                if options.get("fontFace"):
+                    plot.data_labels.font.name = str(options["fontFace"])
     else:
         raise ValueError(f"{spec.get('object_id')}: unsupported object type {kind}")
     _name(shape, spec)

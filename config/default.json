@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.17.5",
+    "version": "0.17.6",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.17.5",
+        "ClayzVersion": "0.17.6",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -135,6 +135,7 @@
     "title_zone_height_in": 0.78,
     "footer_zone_height_in": 0.28,
     "minimum_gap_in": 0.12,
+    "internal_content_reserve_ratio": 0.10,
     "maximum_horizontal_nodes": 5,
     "cardification_policy": "evidence-required"
   },
