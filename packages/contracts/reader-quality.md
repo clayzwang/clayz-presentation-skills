@@ -22,7 +22,7 @@ Research agendas and diligence plans may legitimately center on open questions.
 ## Copy: explain in natural sentences before compressing
 
 Read the full story. Express each principal judgment naturally for the intended
-reader before selecting titles, body text, tables and hierarchy. Keep the actors,
+reader before organizing Storylines, headings, body and annotations. Keep the actors,
 actions, affected parties, evidence and qualifications needed for understanding.
 Omit an already-obvious subject when appropriate; do not repeat it mechanically.
 Short headings, labels and defined technical terms remain valid choices.
@@ -40,21 +40,17 @@ Do not replace jargon word by word with another vague synonym. Do not introduce
 word bans, length quotas, parallel-heading rules or a human-sounding score.
 Natural language does not authorize invented emotion, stories or stronger claims.
 
-A complete sentence can be one copy unit. Split only information that needs
-independent presentation, comparison, mapping or verification; do not fragment
-grammatically necessary explanation. Retain necessary punctuation and connectors.
-Peers need comparable semantic granularity, not identical grammar or length.
-`grammar_signature` describes the actual wording rather than imposing a slogan.
+A complete sentence or paragraph can be one copy unit. Organize text by meaning;
+do not fragment grammatically necessary explanation to prescribe independent
+objects. Retain necessary punctuation and connectors. Copy 3.3 does not emit
+grammar signatures, visual hierarchy or object instructions. Different pages
+may naturally share sentence structures; judge actual wording for empty repetition.
 
-Different pages may naturally share a sentence structure. Package 3.0 no longer
-fails solely because three pages have the same grammar vector. Review actual
-wording for empty repetition; existing duplicate-title and integrity checks remain.
-
-Comparison tables suit well-defined shared dimensions. Cells need concrete facts
-or explanations rather than unexplained nouns. Continuous reasoning may need
-paragraphs, a chart with explanation or separate pages instead. Numerical prose
-retains metric, unit and period; separate label/value/unit objects for standalone
-KPI displays when appropriate.
+Copy states comparison facts and their basis in readable text. Art decides
+whether a table, chart, paragraphs or another composition communicates them best.
+If Art chooses a table, cells need concrete facts or explanations rather than
+unexplained nouns. Numerical text retains the metric, unit and period; Art owns
+any label/value/unit grouping in the visual design.
 
 ### Preserve the strength of the evidence
 

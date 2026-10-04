@@ -1,73 +1,110 @@
-# 研究成果、内容结构与呈现结构交接 — v0.17.4
+# 研究、干净文字与视觉交接 — v0.18.0
 
-新任务使用内容包 `3.2`、Art Direction 计划 `2.0`、交接扩展 `1.2`。历史 2.4/3.0/3.1 按原版本和职责兼容读取，不可只改版本号。五阶段、校准、Independent Auditor、配置、资源盘点、Index 与真实工作记录继续保留。
+新任务使用内容包 3.3、Art 计划 2.1、Output QA 4.1、交接扩展 1.3。
+五阶段、配置、真实证据、校准、工作记录和独立审计保持现有流程。
+旧合同仅用于相应历史材料回读，不能改版本标签后当作新合同。
 
-## Logic：研究与研究成果
+## Logic 与 Copy
 
-Logic 调查研究对象，交付不依赖页数或版式的完整研究报告。先回答证据支持什么、依据是什么、有哪些反证或其他解释、意味着什么、哪些仍未知。研究结论归 Logic；演示文稿结论的措辞与位置归 Copy。研究成果不能只是待办清单，也不提前写成幻灯片标题、固定章节和页序。保留理解与复核所需的细节。
+Logic 交完整研究，不预分配页面。保留来源、发现、数据、事实强度、限定条件、
+必要内容和跨页业务不变量。原有研究字段及来源规则保持有效；
+Logic 批准时 logic_layer 与 copy_layer 均为空。
 
-根字段 `research` 包含 research_question、scope、summary、findings、data、sources、glossary、metric_dictionary、open_items、invariants。每项 finding 含 finding_id、question、完整 text、claim_status、source_ids、qualifiers、must_preserve、data_ids。可按研究主题整理，但数组顺序不规定演示顺序。sources 绑定 source_id、已选 resource_id 和 locator；事实、计算须有来源。data 保留 data_id、metric_name、display_value、raw_value（缺失时 null）、unit、period、definition_ref、source_ids、evidence_status，计算与限制可复核。
+Copy 阅读完整故事，可改写、调整、拆分、合并、重组和排序。
+负责内容编排、分页、页面顺序与结论措辞，保留真实含义。
+绑定原始 Logic 文件与研究、任务、配置和证据。
+copy_layer 包含 logic_version、pagination_owner:"copy"、research_sha256、
+实际语义复核说明与 slides；每页有 slide_id、copy_units。
+章节、页面职责 narrative_role、数据引用 data_ids、用户要求或历史备注按需保留。
+logic_layer 仍为空，不再制作另一份 Logic 页面投影。
+遵守用户明确要求及实际封面、结束页要求。
 
-Logic 批准时 logic_layer、copy_layer 均为 null，story 缺省或 null。Logic 不分页、不写上屏标题、不规定演示章节、封尾页或结论页。用户已有的页数与演示要求保留在 brief/acceptance 中供 Copy 执行；研究主题名称和实质研究结论仍允许，禁止的是把页面组织字段塞进研究报告。
+干净文字只分为：
 
-## Copy：内容结构与适合 PPT 的文字
+- 标题 title：主 Storyline；
+- 副标题 subtitle：次级 Storyline；
+- 各级标题 heading：附正整数 heading_level；
+- 正文 body；
+- 注释 annotation：说明、限定条件、来源等。
 
-Copy 先读完整研究，写出可独立理解的自然中文，再决定演示章节、页面职责、页数、页序、标题、开场、结尾与上屏结论。交付物是文字和内容结构，尚不是 PPT 成品或视觉设计。Copy 可合并、拆分、重排研究内容，改写措辞和分组，须守住事实、判断强度、限定条件、必要信息与用户约束。不得为排版删掉关键解释或加强结论。
+每类都可以没有，层级可以跳级，标题下面不必有次级标题或正文。
+每段只有 copy_id、text、role，各级标题另有 heading_level；
+保留自然段落换行。数组顺序是文字编排，不能直接绑定视觉阅读顺序。
+根级 copy_provenance 单独记录各 copy_id 的来源发现 ID；
+保留必要内容的可追溯性，不向 Art 传递视觉指令。
+语义保真需要实际阅读，来源链接或校验通过不能代替判断。
 
-logic_artifact 以绝对路径、sha256、bytes 绑定真实 Logic 文件。research、brief、acceptance、inventory、包身份/版本、配置与运行绑定原样保留。copy_layer 使用 pagination_owner: "copy"、research_sha256、logic_version、自行组织的 chapters（chapter_id/title/purpose）、chapter_order、semantic_preservation_review 和有序 slides。为兼容现有渲染器保留 logic_layer 字段，但它现在是 **Copy 创建的页面投影**，必须标记 owner: "copy"，Logic 交接中不得存在。投影 slides 含 slide_id、chapter_id、narrative_role、完整页面主张 claim、source_finding_ids 和从 research 原样引用的 data；lock.slide_order_locked 锁定 Copy 批准的页序。
+Copy 不输出 columns/table/ladder/rows/flow、父子或同级分组树、
+强制单独渲染、禁止合并、同级同样式、视觉阅读序号、强制换行、
+句式签名或媒介请求。旧字段在 3.3 新任务中不适用。
 
-每个 Copy 页面含 slide_id、title_copy_id、可选 storyline_copy_id、footnote_copy_ids、copy_units。可见单元含唯一 copy_id、text、role、text_mode、source_finding_ids、parent_copy_id、sibling_group_id、非负 logic_level、order、render_separately:true、merge_with_children:false、intentional_line_breaks。它们表示内容关系，不规定视觉排布。自然完整句可作为一个单元，不强迫对仗口号，不切碎因果解释。必保研究成果应进入正文，不能只放备注。semantic_preservation_review 应记录具体句子与覆盖/限定的实际判断，不能只写“字段已齐全”。
+## Art 与参考来源
 
-Copy 可按页发出 presentation_requests：request_id、kind（table/chart/logo/ordinal/image/diagram/other）、语义 purpose、相关 copy_ids/data_ids。允许指令添加表格、图表、Logo、序号等，说明表达目的；最终坐标、图表编码、具体素材与视觉形状仍由 Art 决定。Art 对请求记录 accepted/adapted/declined 与理由，用户明确要求仍须遵守。
+Art 决定呈现结构、媒介、构图、分组、合并、视觉层级、字级、动线、空间与节奏。
+columns/table/ladder 等仍然可以作为 Art 自主选择的设计。
+多个文字段落可以放入一个可编辑对象；同级文字可以有不同样式和注意力权重。
+保持真实业务顺序和含义，Copy 数组顺序不是视觉阅读命令。
 
-封面与尾页默认要求由 Copy 执行。分页、章节顺序、标题、结论措辞、分组调整回 Copy，含义不变无需重做研究；新增事实、计算、研究判断或证据缺口回 Logic。不主动生成演讲备注/附录。Storyline 仅在用户所选母版明确要求时为必需。
+轻量包不携带 Art 版式库、设计索引或布局索引。
+有学习包时，优先查其相关索引、正文和视觉材料；覆盖不足可补充网络参考。
+没有学习包时，优先依靠大模型设计能力主动从网上找适用布局与设计参考。
+按当前内容和受众选择空间、平面、编辑排版、广告等领域的参考。
+实际参考的借鉴结果记入现有工作记录；查到名称或写了回执不代表已经学习。
 
-## Art Direction：呈现结构
+无匹配、浏览不可用或参考不足时可以自主设计，记录真实情况。
+原创构图无需注册；不可编造来源、索引记录或声称借用了不存在的命名模式。
+学习包如何编写、组织和包装不属于本次引擎版本范围。
+看参考与复制素材的权限分开；在线参考查询不逐次审批，也不重启未变化的预检。
 
-Art 决定内容用段落、表格、图表、结构图等怎样呈现，以及分组、阅读路径、视觉层级、配图、Logo 和序号。即使 Copy 未发指令，Art 也可依据已批准数据与受治理素材主动选择。内容关系须保真，但不等于一个内容组必须画成一个框，文字列成行列也不强制最终画成表格。每页以 presentation_request_resolutions（request_id/status/reason）回应 Copy 的请求。
+## Art 计划 2.1 与图片稿
 
-新增 Logo、装饰序号属于呈现决策；序号不得暗示无依据排名或步骤，Logo 不得暗示无依据合作关系。图表刻度、单位和图例应由已批准数据与定义推导。新增解释文字回 Copy；新增事实、计算和判断回 Logic；重新分页回 Copy。Art 不自行改写文案或生成最终 PPTX。
+保留包身份、acceptance_contract、resource_inventory_lock、
+communication_contract、Provider 锁与真实来源证据。
+reference_research 记录 learning_package_available、source_strategy、
+实际 references 与 notes；策略为 learning-first、web-first 或 autonomous。
+学习包可用时优先查学习包；没有参考、匹配或无法联网不会阻断原创设计。
+不要求参考条数、命名版式或检索匹配。
 
-## Art Direction：整套图片稿与一致的视觉规格
+每页有 slide_id、Art 自主定义的 reading_sequence、copy_unit_map、
+medium_execution_contract。structure_type 自由描述，minimum_object_counts
+记录实际对象要求；art_direction.approval 保留现有批准基准。
+设计意图、面积、层级、布局树、母题、原型按设计需要记录，不设表单配额。
 
-根据真实 Copy 先形成整套逐页图片稿，展示第一视觉、分组、层级、关系、阅读顺序、媒介和跨页节奏，再据此细化规格并反复核对。
-封面、正文、尾页均要有真实可读 PNG/JPEG，文字、数字、关系必须正确。不要求原生对象或最终交付分辨率，但不能用空白、缩略示意图或近似文案冒充设计基准。
-逐页检查可读性，固定像素尺寸和相似度分数不能代替判断。
+copy_unit_map 每项包含 copy_id、render_target_id、target_type、
+native_location。原生对象类型只用于验证可编辑性，不限制版式。
+多个 copy_id 可以共用一个目标；native_location 标识 shape_name，
+表格单元格另有从零开始的 row/column，图表标识具体原生标签。
+共用文本通过不相交的 text_range:[start,end) 字符区间定位；
+文本体中的多个段落用换行连接。视觉顺序和样式由 Art 独立决定。
+不再检查父子目标相同关系、单独对象或同级样式一致。
 
-可用绘制、渲染或生图工具；使用生图时必须纠正文案和图表错误。事实和文字继承上游，不从像素重新猜测。
-全套图片稿是必交内容，不依赖可选 A/B 能力。工具无法生成时如实报告缺口，不改走旧文字稿路线。
+每页制作并检查使用真实批准文字的可读 PNG/JPEG 图片稿。
+全稿图片与视觉规格一致后才能交给 Output；
+visual_baseline 保留锁定时间、Copy 与规格哈希、全部页面图片与实际观察。
+每个 element 标识 element_id、kind/purpose、copy_ids、native_type、归一化坐标、
+分组、对齐、实际字体字级、锁定属性及允许技术调整。
+一个 element 可以对应多段文字；混合样式可用 text_styles 按文案 ID 说明。
+图表绑定批准研究数据；图片和图标绑定真实且有权限的素材。
+用 scripts/stage_documents.py lock-design 锁定，不能事后由最终 PPTX 补图片稿。
 
-计划 `2.0` 保留原有语义设计字段，增加 `visual_baseline`：
+## Output、Supervisor 与独立审计
 
-- `status: "locked"`、带时区 `locked_at`、`copy_package_sha256`、`spec_sha256`（整个计划去掉 visual_baseline 后的规范 JSON 摘要）；
-- 按 Copy 页序排列的 `slides`：`slide_id`、实际 `image` 文件引用、`first_visual`、`reading_path`、`legibility_review`、`copy_and_data_review`、`spec_consistency_review`、`elements`；
-- 每个元素有 `element_id`、`kind`、用途 `purpose`、`copy_ids`、归一化 `[x,y,w,h]` 的 `box`、`native_type`、`group_id`、`alignment`、`locked_properties`、有界 `allowed_adjustments`；
-- 文字的 `typography` 必含已解析字体 `font_family`、`size_pt`，并记录必要的颜色、字重和间距；图表绑定 `chart_type`、批准的 `data_ids`；图片与 icon 有真实受治理 `asset_ref`，需要时补充裁切；新增符号、装饰同样有 ID；
-- 每个可见 copy_id 精确映射一次，图表内文字也不能遗漏。
+Output 按 Art 的图片与规格制作可编辑对象，按原生位置与字符区间核对文案。
+允许合并对象、同级不同样式和 Art 自主阅读路径。
+QA 4.1 去掉 atomic_copy_separation、parent_child_hierarchy、peer_parallelism、
+storyline_single_line、list_alignment 等继承 Copy 的规则；
+脚本、QA 与 Supervisor 均不得重新引入。
 
-可复用构图模式保持语义描述；**本次任务的规格**由 Art Direction 决定目标坐标、字号与微调范围，沿用当前主题和母版。
-新增文字回传 Copy，新增计算或结论回传 Logic。使用 `scripts/stage_documents.py lock-design` 生成新锁定文件，再通过既有校验和工作记录交接。
-Output 开始前锁定图片稿与规格。设计变化生成新修订并使受影响的 Output/审计证据失效，禁止拿成品反改图片稿消除偏差。
+保留文字、标点、大小写、数字、必要限定条件和用户明确要求。
+选用表格时仍须完整原生表格；图表、字体、内部容量、最终回读渲染、
+可编辑性及交付大小保持已有可靠性要求。
 
-## Output：忠实实现原生 PPT
+Supervisor 与 Auditor 检查遗漏、变义、不实关系、可读性失败与执行偏差，
+不负责设计，不继承被删除的排版要求。
+产出正确但平庸可以同时存在；提升设计仍是 Art 的责任。
+不增加审美配额、挑战要求或额外审批。
 
-3.2 包不必提供 `storyline_single_line` QA 检查；已有检查仍按其状态与证据规则读取，2.4／3.0 校验保持不变。仅承接用户所选母版的明确 Storyline 约束。
-
-先读图片稿和规格，在 QA 记录 `output_started_at` 与 `visual_baseline_sha256`。
-按既定设计制作可编辑文字、数据图表、表格及结构图对象；照片仍可作为图片。整页截图不是原生实现。
-记录允许范围内的技术微调，超出范围的层级、构图或内容变化回传上游。实际重新打开最终文件并渲染；不可用时保留明确延后状态。
-
-## Supervisor：设计稿与成品逐页审计
-
-保持原有校准、独立审计及发布交接。报告草稿的 `design_comparison` 绑定基准摘要、实际最终 `pptx_sha256` 和有序 slides。
-每页绑定 `slide_id`、`preview_sha256`，并记录：
-
-- 已审阅：`status: "reviewed"`、真实 `final_render` 引用、`rendered_from_pptx_sha256`，以及 content、visual_fidelity、native_editability、design_quality 四类检查；每类含结果和实际观察，失败或不确定项关联报告 issue_ids 与 earliest_owner；
-- 最终渲染不可用：`status: "deferred"` 与明确 reason；不能据此免除 Art Direction 图片稿，也不能声称 clean 或视觉通过。
-
-原生性必须检查真实对象。忠实复现坏设计仍是 Art Direction 问题；原始责任与下游漏检分开记录，不改写独立审计结论。
-相似度不能替代内容、设计和实现质量判断。
-
-`assemble-report` 自动从真实原始 Logic、最终 Copy、Art Direction 计划生成 `stage_documents`，同时嵌入完整数据、同源可读 Markdown 和锁定图片字节；最终渲染字节随对照记录保存。
-既有原子发布器继续交付 PPTX/报告，并导出 `stage-handoff.zip`：三份文档、图片和可离线查看的并排对照 HTML。
-历史内容包 2.4、3.0、3.1 按原版本兼容读取；v0.17.4 新任务使用 3.2/2.0，不以兼容替代新交接。校验器证明绑定与覆盖，专业审阅判断论证、措辞、可读性和设计质量。
+保留真实三份交接文档、图片稿、最终 PPTX 对象证据与 design_comparison。
+实际最终渲染、哈希和覆盖范围必须如实记录，缺少原生检查保留 deferred。
+assemble-report 从真实材料生成完整报告和便携对照；
+PPTX／报告发布对与 stage-handoff.zip 保持现有机制。

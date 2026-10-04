@@ -41,6 +41,9 @@ def verify_light(path: Path, target: str) -> list[str]:
         lock = json.loads(archive.read(lock_name)) if lock_name in names else {}
     for name in names:
         folded = name.casefold()
+        relative = name.removeprefix(builder.LIGHT_ROOT + "/")
+        if builder.is_design_library_path(relative):
+            errors.append(f"light archive contains a retired Art design library: {name}")
         if name.endswith(".whl"):
             errors.append(f"light archive contains wheel: {name}")
         if "/experience/" in folded or "/assets/showcase/" in folded:
@@ -54,6 +57,14 @@ def verify_light(path: Path, target: str) -> list[str]:
         errors.append(f"{path.name}: wrong light target lock")
     if target == "cloud" and any("/packages/adapters/" in name or "/packages/runtime/packs/" in name for name in names):
         errors.append(f"{path.name}: cloud light contains local execution payload")
+    with zipfile.ZipFile(path) as archive:
+        from packages.index_runtime import IndexProvider
+        records = [json.loads(line) for line in archive.read(f"{builder.LIGHT_ROOT}/catalog/records.jsonl").decode().splitlines() if line.strip()]
+        if any(r.get("record_type") != "capability" or "art-direction" in r.get("classification", {}).get("stages", []) for r in records):
+            errors.append(f"{path.name}: Light contains an Art design/layout index")
+        manifest = json.loads(archive.read(f"{builder.LIGHT_ROOT}/catalog/provider-manifest.json"))
+        if manifest["index"]["snapshot"] != IndexProvider.from_records("builtin-catalog", records).snapshot():
+            errors.append(f"{path.name}: public index snapshot does not match delivered records")
     return errors
 
 

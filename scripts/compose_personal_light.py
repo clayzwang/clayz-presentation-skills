@@ -22,7 +22,7 @@ if str(ROOT) not in sys.path:
 from packages.index_runtime import IndexRuntimeError, read_json  # noqa: E402
 from packages.index_runtime.utils import sha256_json  # noqa: E402
 from packages.personal_extension import PersonalExtensionError, required_provider_bindings, resolve_personal_extension  # noqa: E402
-from scripts.build_runtime_packs import ARCHIVE_TIME, include_light, public_core_digest  # noqa: E402
+from scripts.build_runtime_packs import ARCHIVE_TIME, include_light, public_core_digest, light_payload, light_catalog_records  # noqa: E402
 from scripts.validate_config import validate as validate_config  # noqa: E402
 from scripts.component_version_guard import component_dependency_paths  # noqa: E402
 from scripts.validate_composite_skill_mount import inspect_composite_skill_mount  # noqa: E402
@@ -175,7 +175,7 @@ def _personal_light_bytes(path: Path) -> bytes:
     """Remove public showcase links whose media is intentionally absent in Cloud Light."""
 
     if path.relative_to(ROOT).as_posix() != "README.md":
-        return path.read_bytes()
+        return light_payload(path)
     text = SHOWCASE_IMAGE_PATTERN.sub("", path.read_text(encoding="utf-8"))
     return text.encode("utf-8")
 
@@ -252,8 +252,7 @@ policy:
 
 def _catalog_knowledge_reference_paths() -> set[str]:
     references: set[str] = set()
-    for line in (ROOT / "catalog" / "records.jsonl").read_text(encoding="utf-8").splitlines():
-        record = json.loads(line)
+    for record in light_catalog_records():
         payload = record.get("payload") if isinstance(record, dict) else None
         ref = payload.get("ref") if isinstance(payload, dict) else None
         values = ref.get("knowledge_refs") if isinstance(ref, dict) else None
@@ -348,7 +347,7 @@ def compose_personal_light(
     profile = read_json(private_inputs[0])
     provider_manifests = [read_json(path) for path in private_inputs[1:]]
     base_config = read_json(ROOT / "config" / "default.json")
-    public_provider_manifest = read_json(ROOT / base_config["references"]["public_provider_manifest"])
+    public_provider_manifest = json.loads(light_payload(ROOT / base_config["references"]["public_provider_manifest"]))
     resolved_config, runtime = resolve_personal_extension(
         base_config,
         profile,
@@ -432,6 +431,8 @@ def compose_personal_light(
             "packages/contracts/independent-audit.schema.json",
             "packages/validators/validate_supervision_report.py",
             "packages/validators/work_report.py",
+            "packages/validators/clean_content.py",
+            "packages/validators/research_handoff.py",
             "packages/validators/stage_work_records.py",
             "packages/validators/independent_audit.py",
             "packages/validators/task_commitments.py",

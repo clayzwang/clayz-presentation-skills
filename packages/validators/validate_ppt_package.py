@@ -507,7 +507,11 @@ def validate_package(data: Any, require_status: str = "copy-approved") -> list[s
     logic_validator = _load_logic_validator()
     errors = logic_validator.validate_package(data, require_status)
     if isinstance(data, dict) and require_status == "copy-approved":
-        if data.get("contract_version") in {"3.1", "3.2"}:
+        if data.get("contract_version") == "3.3":
+            # validate_logic_package already validates the complete clean Copy
+            # handoff. Never send new content through historical hierarchy gates.
+            pass
+        elif data.get("contract_version") in {"3.1", "3.2"}:
             from story_handoff import validate_copy_tags
             errors.extend(validate_copy_tags(data))
         else:

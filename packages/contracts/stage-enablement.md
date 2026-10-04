@@ -550,3 +550,15 @@ evaluate whether a reader can explain the initial situation, stakes, recommendat
 mechanism and conditions. Check required cover/closing, any explicit user-selected master Storyline requirement, wrapping,
 overlap and traceable claims. Repeat trials to avoid treating one fast run as proof.
 Report automated checks, host installation, and real-deck outcomes separately.
+
+## v0.18.0 text and design authority
+
+For new runs the story-visual-handoff contract uses package 3.3 and Art plan 2.1.
+Copy provides clean text roles, not presentation kinds or rendering constraints.
+Art independently chooses shared objects, styles, visual order and compositions.
+Light bundles no Art design/layout index. Learning-package references are preferred
+when present; otherwise seek relevant web references and design freely. An
+unresolved reference or absent catalog match is no creativity gate. Existing
+Index hallucination guards forbid fabricated records and source attribution,
+not original reasoning, writing or design. Source provenance and real observed
+execution remain required; no extra aesthetic approval hurdle is added.

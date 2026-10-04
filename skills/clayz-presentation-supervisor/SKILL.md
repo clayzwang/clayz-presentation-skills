@@ -32,8 +32,8 @@ stage. Preserve the existing independent-audit and delivery policy.
 ## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.2 and Art
-Direction plan 2.0. The complete research, Copy content document, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.3 and Art
+Direction plan 2.1. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
@@ -253,3 +253,19 @@ supplied, never fabricated to make the report appear complete.
 Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual coordination, calibration and reconciliation artifacts to immutable task-local revision files, record the work and real checks with `scripts/publish_supervised_pair.py record-stage --stage supervisor`, and attach `work-notes` when the three calibration rounds, downstream absorption, release rationale, actual-vs-planned reconciliation, Auditor observations or limitations need richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may remain open with evidence. Missing notes remain `not-recorded`. Supervisor collects the four production records, consumes the `auditor_artifact`, adds its coordination record, derives the full report through `assemble-report`, and verifies the published bundle through `verify-handoff`; it must not claim to be the independent Auditor, invent prior work, alter audit findings or deliver a separate summary as the final report.
 
 The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
+
+## v0.18.0 supervision boundary
+
+New runs use clean content package 3.3 and Art plan 2.1. Copy's five text roles
+and optional heading levels describe content only. Art owns layout, visual
+hierarchy, shared editable objects, media and visual reading paths. Do not
+challenge a design for merged text, different styles at equal textual levels,
+missing text categories, skipped levels or a visual order unlike Copy's array.
+Check actual omissions, changed meanings, unsupported business relationships,
+readability defects and implementation drift. Correctness may pass while Art's
+design remains unremarkable; do not add aesthetic quotas or extra audit gates.
+Light has no Art layout collection or design index. Learning-package content is
+preferred when available, otherwise web references and original design are open.
+Reference discovery within the authorized task does not require a per-search
+user approval or restarting unchanged preflight. Preserve actual source/asset
+provenance, rights and explicit user requirements.

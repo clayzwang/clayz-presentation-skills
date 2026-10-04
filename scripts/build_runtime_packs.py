@@ -9,12 +9,15 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 import zipfile
 from collections import defaultdict
 from pathlib import Path, PurePosixPath
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 ARCHIVE_TIME = (1980, 1, 1, 0, 0, 0)
 LIGHT_ROOT = "clayz-presentation-skills"
 OFFLINE_ROOT = "clayz-presentation-skills-offline"
@@ -55,6 +58,60 @@ OFFLINE_TARGETS = {
 }
 DEFAULT_RELEASE_PLATFORMS = ("windows",)
 
+# Source keeps historical replay fixtures. No Light target ships Art's old
+# layout collection, architecture layouts, or a design/layout routing index.
+DESIGN_LIBRARY_PREFIXES = {
+    "catalog/layout-contracts/", "catalog/composition-patterns/",
+    "catalog/failure-patterns/", "catalog/references/", "catalog/sequences/",
+}
+DESIGN_LIBRARY_FILES = {
+    "skills/clayz-presentation-art-direction/references/architecture-source-index.json",
+    "skills/clayz-presentation-art-direction/references/architecture-pattern-library.md",
+    "skills/clayz-presentation-art-direction/references/architecture-pattern-library.zh-CN.md",
+    "skills/clayz-presentation-art-direction/references/reference-architecture-house.md",
+    "skills/clayz-presentation-art-direction/references/reference-architecture-house.zh-CN.md",
+    "skills/clayz-presentation-art-direction/references/layout-contract-routing.md",
+    "skills/clayz-presentation-art-direction/references/layout-contract-routing.zh-CN.md",
+    "skills/clayz-presentation-art-direction/references/pattern-library-routing.md",
+    "skills/clayz-presentation-art-direction/references/pattern-library-routing.zh-CN.md",
+    "skills/clayz-presentation-art-direction/references/material-routes.md",
+    "skills/clayz-presentation-art-direction/references/material-routes.zh-CN.md",
+    "skills/clayz-presentation-art-direction/references/layout-intent-tree.md",
+    "skills/clayz-presentation-art-direction/references/layout-intent-tree.zh-CN.md",
+}
+
+
+def is_design_library_path(relative: str) -> bool:
+    return relative in DESIGN_LIBRARY_FILES or any(relative.startswith(p) for p in DESIGN_LIBRARY_PREFIXES)
+
+
+def light_catalog_records() -> list[dict]:
+    records = [json.loads(line) for line in (ROOT / "catalog/records.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+    selected = [r for r in records if r["record_type"] == "capability" and
+                "art-direction" not in r.get("classification", {}).get("stages", [])]
+    for record in selected:
+        if record["record_id"] == "cap.copy.atomic-hierarchy":
+            record["title"] = "Clean text roles and source fidelity"
+            record["summary"] = "Organize approved text using Storylines, headings, body and annotations; source traceability does not prescribe objects, sibling styles or visual reading order."
+    return selected
+
+
+def light_payload(path: Path) -> bytes:
+    """One delivered public core for local, cloud and standalone Skill builds."""
+    relative = path.relative_to(ROOT).as_posix()
+    if relative == "catalog/records.jsonl":
+        return ("\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in light_catalog_records()) + "\n").encode()
+    if relative == "catalog/provider-manifest.json":
+        from packages.index_runtime import IndexProvider
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        if "index" not in manifest:
+            return path.read_bytes()  # Minimal unrelated integrity-test trees.
+        manifest["index"]["snapshot"] = IndexProvider.from_records("builtin-catalog", light_catalog_records()).snapshot()
+        return (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode()
+    if relative == "catalog/README.md":
+        return b"# Public methods index\n\nLight contains general stage methods, without Art layout collections or design indexes. Art uses selected learning-package references first, otherwise web references and original design.\n"
+    return path.read_bytes()
+
 
 def load_release_denylist(path: Path | None = None) -> tuple[str, ...]:
     """Load owner-private release terms without embedding them in public source."""
@@ -94,6 +151,8 @@ def include_light(path: Path, target: str = "local") -> bool:
     if target not in LIGHT_TARGETS:
         raise ValueError(f"unsupported light target: {target}")
     relative = path.relative_to(ROOT)
+    if is_design_library_path(relative.as_posix()):
+        return False
     if any(part in EXCLUDED_PARTS for part in relative.parts):
         return False
     if relative.parts[:2] == ("assets", "showcase"):
@@ -128,6 +187,8 @@ def light_files(target: str = "local") -> list[Path]:
 
 def _is_public_core_file(path: Path) -> bool:
     relative = path.relative_to(ROOT)
+    if is_design_library_path(relative.as_posix()):
+        return False
     if any(part in EXCLUDED_PARTS for part in relative.parts):
         return False
     if path.suffix.lower() in EXCLUDED_SUFFIXES:
@@ -144,7 +205,7 @@ def public_core_digest() -> str:
     digest = hashlib.sha256()
     for path in sorted(path for path in ROOT.rglob("*") if path.is_file() and _is_public_core_file(path)):
         relative = path.relative_to(ROOT).as_posix().encode("utf-8")
-        digest.update(relative + b"\0" + path.read_bytes() + b"\0")
+        digest.update(relative + b"\0" + light_payload(path) + b"\0")
     return digest.hexdigest()
 
 
@@ -185,7 +246,7 @@ def build_light(output_dir: Path, version: str, target: str = "local") -> Path:
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for path in files:
             archive_target = PurePosixPath(LIGHT_ROOT) / PurePosixPath(path.relative_to(ROOT).as_posix())
-            _write_file(archive, str(archive_target), path)
+            _write_bytes(archive, str(archive_target), light_payload(path))
         _write_bytes(
             archive,
             f"{LIGHT_ROOT}/runtime/runtime-lock.json",

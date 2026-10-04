@@ -88,7 +88,7 @@ def validate_stage_snapshots(
             for key in ("communication_contract", "art_direction", "decision_log", "typography_contract", "deck_rhythm", "slides")
         },
     }
-    if package.get("contract_version") in {"3.0", "3.1", "3.2"}:
+    if package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3"}:
         from story_handoff import load_logic_origin
         try:
             expected["logic"] = load_logic_origin(package)
@@ -103,7 +103,7 @@ def validate_stage_snapshots(
             continue
         if not valid_sha256(record.get("artifact_sha256")):
             errors.append(f"{path}.artifact_sha256: must be a lower-case SHA-256")
-        elif stage == "logic" and package.get("contract_version") in {"3.0", "3.1", "3.2"}:
+        elif stage == "logic" and package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3"}:
             if record.get("artifact_sha256") != package.get("logic_artifact", {}).get("sha256"):
                 errors.append(f"{path}: must bind original Logic artifact, not Copy projection")
         elif evidence_root is not None and isinstance(artifact_paths, dict):
@@ -756,20 +756,20 @@ def validate_evidence_reference(
         if "#user_brief" in reference and (not isinstance(parsed, dict) or "user_brief" not in parsed):
             errors.append(f"{path}: resource-inventory user_brief fragment does not exist")
     elif artifact_name == "ppt-design-package.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"2.4", "3.0", "3.1", "3.2"} or parsed.get("status") != "copy-approved":
+        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"2.4", "3.0", "3.1", "3.2", "3.3"} or parsed.get("status") != "copy-approved":
             errors.append(f"{path}: design-package evidence must be contract 2.4 and copy-approved")
         if parsed != package:
             errors.append(f"{path}: design-package evidence must match the package under validation")
         if "#copy_layer" in reference and (not isinstance(parsed, dict) or "copy_layer" not in parsed):
             errors.append(f"{path}: design-package copy_layer fragment does not exist")
     elif artifact_name == "ppt-art-direction-plan.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"1.7", "2.0"} or parsed.get("status") != "art-direction-approved":
-            errors.append(f"{path}: art-direction evidence must be contract 1.7 and art-direction-approved")
+        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"1.7", "2.0", "2.1"} or parsed.get("status") != "art-direction-approved":
+            errors.append(f"{path}: art-direction evidence must use a supported approved plan contract")
         if plan is not None and parsed != plan:
             errors.append(f"{path}: art-direction evidence must match the plan under validation")
     elif artifact_name == "ppt-output-qa.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") != "4.0":
-            errors.append(f"{path}: Output QA evidence must use contract 4.0")
+        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"4.0", "4.1"}:
+            errors.append(f"{path}: Output QA evidence must use a supported QA contract")
         if qa is not None and parsed != qa:
             errors.append(f"{path}: Output QA evidence must match the QA document under validation")
     elif artifact_name == "ppt-supervision-checkpoint.json":
@@ -1551,10 +1551,13 @@ def validate_supervisor_accountability(
 
 def target_counts(slide: dict[str, Any]) -> dict[str, int]:
     result = {"shape": 0, "table-cell": 0, "chart-label": 0}
+    seen = set()
     for mapping in slide.get("copy_unit_map", []):
         kind = mapping.get("target_type") if isinstance(mapping, dict) else None
-        if kind in result:
+        target = mapping.get("render_target_id") if isinstance(mapping, dict) else None
+        if kind in result and (kind, target) not in seen:
             result[kind] += 1
+            seen.add((kind, target))
     return result
 
 
@@ -1757,7 +1760,7 @@ def validate_report(
     evidence_root: Path | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
-    if isinstance(package, dict) and package.get("contract_version") in {"3.0", "3.1", "3.2"}:
+    if isinstance(package, dict) and package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3"}:
         from story_handoff import validate_design_audit
         handoff_errors = validate_design_audit(package, plan, qa, report, pptx)
         if handoff_errors:
@@ -1855,7 +1858,7 @@ def validate_report(
     )
     validate_index_evidence(
         report.get("index_evidence"),
-        ["logic", "copy", "art-direction", "output", "supervisor"],
+        ["logic", "copy", "output", "supervisor"] if package.get("contract_version") == "3.3" else ["logic", "copy", "art-direction", "output", "supervisor"],
         "report.index_evidence",
         errors,
     )
@@ -1973,10 +1976,11 @@ def validate_report(
             errors.append("report.issues: delivery failure requires a PPTX delivery-efficiency finding")
 
     pairs = issue_lookup(valid_issues)
-    package_order = [slide.get("slide_id") for slide in package.get("logic_layer", {}).get("slides", [])]
+    from clean_content import content_pages
+    package_order = [slide.get("slide_id") for slide in content_pages(package)]
     logic_by_id = {
         slide.get("slide_id"): slide
-        for slide in package.get("logic_layer", {}).get("slides", [])
+        for slide in content_pages(package)
         if isinstance(slide, dict)
     }
     plan_slides = plan.get("slides", [])
@@ -2066,7 +2070,7 @@ def validate_report(
         rendered = report_slide.get("rendered")
         require_keys(rendered, {"medium_label", "first_visual_observed", "area_plan_observed", "series_backbone_observed", "motif_observed", "semantic_whitespace_observed", "context_rail_observed", "semantic_tree_observed", "visual_self_correction_evidence_observed", "minimum_audience_text_pt_observed", "nonconforming_point_sizes_observed", "scatter_label_evidence", "scatter_line_evidence", "recognizability", "evidence"}, f"{path}.rendered", errors)
         if isinstance(rendered, dict):
-            if rendered.get("medium_label") not in MEDIA_LABELS:
+            if (not nonempty(rendered.get("medium_label"))) if package.get("contract_version") == "3.3" else (rendered.get("medium_label") not in MEDIA_LABELS):
                 errors.append(f"{path}.rendered.medium_label: invalid value")
             if rendered.get("recognizability") not in {"pass", "fail", "uncertain"}:
                 errors.append(f"{path}.rendered.recognizability: invalid value")

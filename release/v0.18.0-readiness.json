@@ -1,0 +1,34 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.18.0",
+  "current_public_version": "0.18.0",
+  "state": "release-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {"merge": true, "tag": true, "publish": true, "experience_center_update": true},
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "scope": "merge-tag-publish-experience-center",
+    "authorized_at": "2026-10-04T20:44:31Z"
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python -B scripts/validate_all.py",
+    "experience_validation": "python scripts/validate_experience.py",
+    "presentation_overflow_check": "Existing native object, font and capacity checks remain. New-run Copy hierarchy is not a rendering constraint; real native text ranges detect omissions and changed text without forcing separate objects.",
+    "node_chart_build": "tests/test_release_0180.py covers clean text, independent Art order/styles, merged editable paragraphs, native text fidelity and Light archive boundaries; release CI retains the actual LibreOffice smoke."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

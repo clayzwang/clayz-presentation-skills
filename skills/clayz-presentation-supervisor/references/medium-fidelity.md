@@ -85,7 +85,7 @@ The plan defines two independent dimensions and their intersection; objects prov
 
 ## Atomic copy and visual grammar
 
-`render_separately=true` means independently traceable, validated, and hierarchical copy; it does not require a separate rectangle. Copy atoms may occupy different cells of one table, layers of one timeline node, swimlane headers and intersections, chart labels and annotations, nested region labels and evidence, or child objects in one group.
+For package 3.3, a Copy ID identifies text for traceability. Multiple IDs may share an editable object or native cell through disjoint text ranges. Heading levels do not force visual layers, sibling styles, separate targets or visual reading order. The old render_separately field applies only to historical replay. Review actual content, meaning and Art-to-Output fidelity; do not challenge an ordinary merge or style difference.
 
 If every body atom becomes a similarly filled, bordered, rounded, equal-area `shape`, inspect `COPY_ATOMIZATION_PRESSURE` and `BUILD_STRUCTURE_COLLAPSED_TO_CARDS`.
 

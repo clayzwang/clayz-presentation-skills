@@ -6,6 +6,21 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.18.0 — 2026-10-04
+
+- Replace new-run Copy presentation fields with clean title/subtitle Storylines, headings, body and annotations. Categories are optional and heading levels may be skipped; source traceability travels separately from visible text.
+- Remove new-run separate-object, merge-ban, sibling-style and Copy-to-visual-order constraints across Art, Output QA and native PPTX comparisons. Allow several approved text units in one editable object through disjoint text ranges.
+- Give Art original composition authority, prefer relevant learning-package indexes/content when available, otherwise seek web references, and allow original design when optional references cannot be used.
+- Exclude historical Art layout collections, architecture patterns and design indexes from Cloud Light, Local Light and standalone Skill composition; rebuild delivered public method snapshots consistently.
+- Preserve source/meaning checks, editable-object fidelity, production reliability and historical contract replay. Do not add aesthetic audit quotas or change learning-package authoring/packaging.
+
+### 中文
+
+- 新任务 Copy 只交标题／副标题 Storyline、各级标题、正文和注释；各类可缺省、标题可跳级，来源追溯与文字分开。
+- 清理 Art、Output QA 和 PPTX 比对中的单独对象、禁止合并、同级同样式与 Copy 顺序绑定视觉顺序；用独立字符区间支持多段文案共用可编辑对象。
+- Art 自主构图；有学习包时优先查相关索引与内容，否则从网上寻找参考；可选参考不可用或无匹配时仍可原创设计。
+- Cloud／Local／单一 Skill 打包均排除历史 Art 版式、建筑模式和设计索引，同时重建随包公共方法索引签名。
+- 保留来源、语义、可编辑交付与历史合同回读；不增加审美审计配额，不涉及学习包编写和包装。
 ## 0.17.6 — 2026-10-03
 
 - Make Art and Supervisor review the purpose of large whitespace in actual pages, including source and appendix pages.

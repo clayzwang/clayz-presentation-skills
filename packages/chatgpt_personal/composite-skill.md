@@ -240,3 +240,17 @@ Stop on invalid package/config integrity, missing explicitly required task input
 Do not proactively generate speaker notes or appendices. Default cover and closing
 pages use native editable text, with relevant illustrative images when useful;
 Art Direction sizes and compresses assets for the actual placement and budget.
+
+## v0.18.0 stage boundaries
+
+New runs use content package 3.3, Art plan 2.1 and Output QA 4.1. Copy hands
+clean title/subtitle Storylines, headings with optional levels, body and annotations
+to Art. All categories are optional and levels may be skipped. Copy may reorganize
+the complete story without changing its meaning. No layout kind, parent/sibling
+tree, rendering command, same-level style rule or visual-order binding is passed.
+Art may merge editable objects, vary peer styles and choose the reading path.
+Light contains no Art layouts or design index. Prefer relevant learning-package
+indexes and actual content when available; otherwise seek web references and use
+the model's own design ability. No-match and unavailable optional references allow
+original design with the real limitation recorded. Supervisor checks fidelity and
+actual defects without inheriting removed constraints or taking over design.

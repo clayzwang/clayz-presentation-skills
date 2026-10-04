@@ -327,3 +327,14 @@ not add an owner Provider or private gate.
 If new knowledge is published mid-run, use it only in a new run snapshot or
 explicitly invalidate and restart the affected stage from the root. Never
 silently change a locked source set.
+
+## v0.18.0 Art reference boundary
+
+The bundled public Index routes general stage methods; Light contains no Art
+design/layout index or layout collection. Optional learning packages supply their
+own relevant index and content. Prefer them when available, then supplement gaps
+with web references. With no learning package, proactively seek useful layouts
+online and use original model design. Unavailable optional references or no-match
+never force a catalog fallback or block design. Existing source-byte and rights
+checks apply to actual sources/assets; do not fabricate provenance or replace a
+specifically required private source with web content.
