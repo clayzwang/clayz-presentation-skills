@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import json
+import posixpath
 import re
 import sys
 import zipfile
@@ -84,7 +85,17 @@ def extract_slide(xml_bytes: bytes) -> tuple[dict[str, list[str]], list[str], di
     return named, all_paragraphs, inventory
 
 
-def text_locations(xml_bytes: bytes) -> dict[str, str]:
+def native_text_body(element: ET.Element) -> str:
+    """Canonical character offsets, preserving spaces and native soft breaks."""
+    paragraphs = []
+    for paragraph in element.findall(".//a:p", NS):
+        paragraphs.append("".join("\n" if node.tag == f"{{{NS['a']}}}br" else node.text or ""
+                                  for node in paragraph.iter()
+                                  if node.tag in {f"{{{NS['a']}}}t", f"{{{NS['a']}}}br"}))
+    return "\n".join(paragraphs)
+
+
+def text_locations(xml_bytes: bytes, preserve_offsets: bool = False) -> dict[str, str]:
     """Text bodies and native table cells, never a whole-slide substring search.
 
     Table coordinates are zero based and stable within the named frame.
@@ -94,7 +105,7 @@ def text_locations(xml_bytes: bytes) -> dict[str, str]:
     for index, shape in enumerate(root.findall(".//p:sp", NS)):
         props = shape.find("./p:nvSpPr/p:cNvPr", NS)
         name = props.get("name", "") if props is not None else ""
-        result[f"shape:{index}:{name}"] = "\n".join(element_paragraphs(shape))
+        result[f"shape:{index}:{name}"] = native_text_body(shape) if preserve_offsets else "\n".join(element_paragraphs(shape))
     for index, frame in enumerate(root.findall(".//p:graphicFrame", NS)):
         props = frame.find("./p:nvGraphicFramePr/p:cNvPr", NS)
         name = props.get("name", "") if props is not None else str(index)
@@ -103,11 +114,126 @@ def text_locations(xml_bytes: bytes) -> dict[str, str]:
                 key = f"table:{name}:{row}:{col}"
                 if key in result:
                     raise ValueError(f"duplicate table location: {key}")
-                result[key] = "\n".join(element_paragraphs(cell))
+                result[key] = native_text_body(cell) if preserve_offsets else "\n".join(element_paragraphs(cell))
     return result
 
 
+def chart_label_text(archive, slide_name, xml_bytes, location):
+    """Resolve a label in this slide's named native chart, not a slide substring."""
+    ns = dict(NS, c="http://schemas.openxmlformats.org/drawingml/2006/chart",
+              r="http://schemas.openxmlformats.org/officeDocument/2006/relationships")
+    root = ET.fromstring(xml_bytes)
+    frames = [f for f in root.findall('.//p:graphicFrame', ns)
+              if f.find('./p:nvGraphicFramePr/p:cNvPr', ns).get('name') == location['shape_name']]
+    if len(frames) != 1:
+        raise ValueError('native chart frame is missing or ambiguous')
+    chart_ref = frames[0].find('.//c:chart', ns)
+    if chart_ref is None:
+        raise ValueError('named object is not a native chart')
+    rel_path = posixpath.join(posixpath.dirname(slide_name), '_rels', posixpath.basename(slide_name) + '.rels')
+    rels = ET.fromstring(archive.read(rel_path))
+    rid = chart_ref.get('{'+ns['r']+'}id')
+    matches = [r for r in rels if r.get('Id') == rid and r.get('TargetMode') != 'External']
+    if len(matches) != 1:
+        raise ValueError('chart relationship unavailable')
+    target = matches[0].get('Target', '')
+    part = target.lstrip('/') if target.startswith('/') else posixpath.normpath(posixpath.join(posixpath.dirname(slide_name), target))
+    chart = ET.fromstring(archive.read(part))
+    kind = location.get('label_kind')
+    if kind == 'title':
+        node = chart.find('.//c:chart/c:title', ns)
+    else:
+        series = chart.findall('.//c:ser', ns)
+        si = location.get('series_index', 0)
+        if si >= len(series):
+            raise ValueError('unknown chart series')
+        series = series[si]
+        if kind == 'series-name':
+            node = series.find('c:tx', ns)
+        else:
+            pi = str(location.get('point_index', 0))
+            if kind == 'data-label':
+                nodes = [n for n in series.findall('.//c:dLbl', ns) if n.find('c:idx', ns) is not None and n.find('c:idx', ns).get('val') == pi]
+            else:
+                parent = series.find('c:cat' if kind == 'category' else 'c:val', ns)
+                nodes = [] if parent is None else [n for n in parent.findall('.//c:pt', ns) if n.get('idx') == pi]
+            if len(nodes) != 1:
+                raise ValueError('chart label selector does not resolve once')
+            node = nodes[0]
+    if node is None:
+        raise ValueError('chart label missing')
+    tokens = node.findall('.//a:t', ns) or node.findall('.//c:v', ns)
+    return ''.join(t.text or '' for t in tokens)
+
+
+def compare_clean_content(package, plan, pptx, allow_extra_text=False):
+    """Compare native text ranges; many Copy paragraphs may share one object."""
+    errors = validate_plan(package, plan)
+    if errors:
+        return errors
+    def text_key(value):
+        return re.sub(r'\s+', '', value)  # Preserve case and punctuation.
+    try:
+        with zipfile.ZipFile(pptx) as archive:
+            names = sorted((n for n in archive.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml', n)), key=natural_slide_key)
+            pages = package['copy_layer']['slides']
+            if len(names) != len(pages):
+                errors.append(f'pptx: expected {len(pages)} slides, found {len(names)}')
+            for index, (page, design, name) in enumerate(zip(pages, plan['slides'], names), 1):
+                xml = archive.read(name)
+                named, _, inventory = extract_slide(xml)
+                locations = text_locations(xml, preserve_offsets=True)
+                by_name = {key.split(':', 2)[2]: value for key, value in locations.items() if key.startswith('shape:')}
+                units = {u['copy_id']: u for u in page['copy_units']}
+                used, actual_bodies = {}, {}
+                for mapping in design['copy_unit_map']:
+                    cid = mapping['copy_id']
+                    loc = mapping['native_location']
+                    kind = mapping['target_type']
+                    if kind == 'shape':
+                        key = f"shape:{loc['shape_name']}"
+                        body = by_name.get(loc['shape_name'])
+                    elif kind == 'table-cell':
+                        key = f"table:{loc['shape_name']}:{loc['row']}:{loc['column']}"
+                        body = locations.get(key)
+                    else:
+                        key = json.dumps({k:v for k,v in loc.items() if k != 'text_range'}, sort_keys=True)
+                        body = chart_label_text(archive, name, xml, loc)
+                    if body is None:
+                        errors.append(f'slide {index} {cid}: native text location missing')
+                        continue
+                    span = loc.get('text_range', [0, len(body)])
+                    if span[1] > len(body) or text_key(body[span[0]:span[1]]) != text_key(units[cid]['text']):
+                        errors.append(f'slide {index} {cid}: native text range differs from approved Copy')
+                    used.setdefault(key, []).append(span)
+                    actual_bodies[key] = body
+                if not allow_extra_text:
+                    for key, spans in used.items():
+                        body = actual_bodies[key]
+                        cursor, remainder = 0, ''
+                        for start, end in sorted(spans):
+                            remainder += body[cursor:start]
+                            cursor = end
+                        remainder += body[cursor:]
+                        if text_key(remainder):
+                            errors.append(f'slide {index}: unapproved visible text in {key}')
+                    baseline = plan['visual_baseline']['slides'][index-1]
+                    additions = {text_key(e.get('text', '')) for e in baseline['elements'] if not e.get('copy_ids')}
+                    for key, body in locations.items():
+                        physical = 'shape:' + key.split(':', 2)[2] if key.startswith('shape:') else key
+                        if physical not in used and text_key(body) and text_key(body) not in additions:
+                            errors.append(f'slide {index}: extra visible text outside approved Art/Copy bindings')
+                for kind, minimum in design['medium_execution_contract'].get('minimum_object_counts', {}).items():
+                    if inventory.get(kind, 0) < minimum:
+                        errors.append(f'slide {index}: Art requires {minimum} {kind} object(s), found {inventory.get(kind, 0)}')
+    except (OSError, zipfile.BadZipFile, KeyError, ValueError, TypeError, ET.ParseError) as exc:
+        errors.append(f'pptx: cannot inspect native content: {exc}')
+    return errors
+
+
 def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False) -> list[str]:
+    if isinstance(package, dict) and package.get('contract_version') == '3.3':
+        return compare_clean_content(package, plan, pptx, allow_extra_text)
     errors = validate_plan(package, plan)
     if errors or not isinstance(package, dict) or not isinstance(plan, dict):
         return errors

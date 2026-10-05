@@ -1,157 +1,116 @@
 ---
 name: clayz-presentation-art-direction
-description: Convert a copy-approved presentation package into an art-direction-approved visual plan covering first visual, hierarchy, medium, area allocation, content-aware image composition, governed template and icon selection, semantic layout tree, cross-slide rhythm, and reference evidence. Use between final copy and PPTX production, or to diagnose composition, density, cardification, weak hierarchy, repetitive layouts, image-text conflict, template imitation, decorative icons, or unreadable charts. Do not rewrite approved content or build the final PPTX.
+description: Design presentation structure, layout and full-deck image drafts from Copy-approved text. Prefer relevant learning-package indexes and content when available; otherwise seek web design references and use the model's own design ability. Independently choose visual hierarchy, grouping, media, combined objects and reading paths, then hand a locked editable implementation specification to Output. Do not rewrite approved content or create the final PPTX.
 ---
 
 # Clayz Presentation Art Direction
 
-Create an `art-direction-approved` plan that makes visual judgment explicit
-with a complete readable image draft and matching element-level visual specification. Consume the
-Copy artifact and Supervisor's calibration as separate inputs; Supervisor
-coordinates the decision and does not design the page for Art Direction.
+Art owns presentation structure and design. Read the whole Copy document and
+the complete story it communicates, then decide how the audience should see
+and understand it. Textual headings are meaning cues, not geometry or styling
+commands. Copy's editorial order does not prescribe the visual reading path.
 
-## Production reliability (v0.17.6)
+## Current handoff — v0.18.0
 
-Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
+peer and locale-matched `references/art-direction-plan-contract.md`.
+New runs use content package 3.3 and Art plan 2.1. Historical contracts apply
+only to existing artifacts and never introduce old requirements into a new run.
 
-Art reviews large unused regions in final-size drafts, including source and appendix pages, with Supervisor challenging their purpose. Tabular presentation requires an integrated native table; otherwise choose another presentation medium. Allocate room for Output to retain approximately 10% internal capacity in text boxes and shapes for PowerPoint/WPS differences. See the production-reliability contract for interpretation and existing evidence fields.
+The Light package contains no Art layout collection, design index or fixed
+layout choices. Design is not restricted to a catalog, named pattern,
+registered contract, container type or silhouette whitelist.
 
-## Reader understanding (v0.17.1)
+## References and original design
 
-Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
-according to the task locale. Necessary explanation and evidence fidelity take
-priority over shortness; use existing records for review observations.
+When a learning package is available, first consult its relevant index and
+content. Read the actual selected references, including visual material when
+present, and connect their useful principles to this story and audience.
+An index entry, method name or receipt alone is not learning adoption.
+Supplement insufficient coverage with relevant web references.
 
-Allocate room for necessary explanations. Adjust hierarchy, grouping and
-width, or return pagination to Copy, within actual master/user constraints.
-Do not demand shorter copy merely to fill a symmetrical layout or fixed card
-count. Check the readable full-deck drafts with actual text; refresh both drafts
-and specifications after approved wording or pagination changes.
+Without a learning package, use the model's design ability and proactively
+seek relevant layouts and design references online. Choose useful references
+from spatial design, graphic design, editorial composition, advertising or
+other appropriate disciplines. Search and inspect them according to the
+page's communication problem; there is no required number or finite menu.
 
-## Research and visual handoff (v0.17.4)
+No match, unavailable browsing or insufficient references permits original
+design. Record what was actually available and consulted and the limitation.
+Never fabricate a source, named registered pattern, retrieval or attribution.
+Original composition does not require registration or a source receipt.
 
-Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.2 and Art
-Direction plan 2.0. The complete research, Copy content document, complete image drafts, visual tags and
-report documents apply even when optional Library or A/B capabilities are absent.
-Legacy page-first contracts remain readable only for existing runs. Preserve
-the existing Supervisor calibration and Independent Auditor handoffs.
+Use existing work notes and `reference_research` to preserve the actual source
+approach and consequential uses. Learning-package authoring and packaging are
+outside the engine version's scope. Online design research is authorized by
+this workflow; it does not require approval for every reference. Keep asset
+reuse rights distinct from looking at a composition for inspiration. Record a
+new asset in the normal resource evidence without silently changing user
+requirements or resetting an unchanged preflight.
 
-## Boundaries
+## Context and authority
 
-Copy owns content structure; Art owns presentation structure. Choose paragraphs, tables, charts, diagrams, logos and numbering from approved content and governed assets. Copy may request these through presentation_requests; record accepted/adapted/declined with a reason in each page's presentation_request_resolutions. An explicit user requirement remains binding. Preserve semantic grouping without forcing it into identical visual containers. Visual ordinals must not invent rank or sequence, and logos must not invent relationships. New explanatory wording returns to Copy; new research facts/calculations return to Logic.
+Consume the root's validated task selection and unified `task-config.json`, merged from `../../config/default.json`. Resolve the explicit locale or `locale.default`.
+Preserve the Copy-approved text, research, acceptance rules, resource lock,
+Provider lock and Copy-to-Art calibration. Read
+`../../packages/contracts/stage-enablement.md`, `reader-quality.md` and
+`production-reliability.md` in the task locale. Read
+`../../packages/contracts/knowledge-learning.md` when learning evidence is used.
 
-Own full-deck image drafts, target coordinates and dimensions, typography and bounded adjustment tolerances, reference selection, first visual, visual anchor, dominant medium, hierarchy, area plan, content-aware canvas analysis, asset strategy, semantic layout tree, optional supporting-copy treatment, silhouette, density, reading path, whitespace, motif, series behavior, and cross-slide rhythm. Honor Storyline placeholders and roles only when explicitly required by a user-selected master; otherwise arrange Copy's approved content without assuming a fixed subtitle.
+Preserve actual source provenance and asset rights. Retrieve selected learning
+content through the host's available tools; optional Library absence does not
+block design. A named source must be real, but an original design is allowed.
+Do not require a built-in Capability Index before thinking, researching online
+or choosing a composition.
 
-Do not modify approved facts, wording, numbers, punctuation, breaks, notes, page order, management stage, or cross-slide invariants. Do not create final PPTX objects.
+## Design
 
-## Required context
-
-Read `../../packages/contracts/stage-enablement.md` for task authority, relevance-based retrieval, professional review, and measured execution. It supersedes legacy requirements to select every source, rediscover unchanged resources, or treat aesthetic heuristics as mandatory gates.
-
-
-1. Consume the root's validated v2 task selection and merged `task-config.json` from the unified configure-task flow. If absent, return to root to prepare it once; do not select a config by the presence of a Personal Runtime. Preserve that configuration and its hash through the remaining stages.
-2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
-3. Validate the copy-approved package, inherit its resource-inventory
-   signature, and consume the hash-bound Copy-to-Art Direction calibration.
-   Retrieve eligible cases and methods inside the locked pools as needed. A
-   new asset, pool or Provider snapshot returns to Supervisor for a revised
-   inventory and user brief; ordinary in-pool reference selection does not
-   restart preflight.
-4. Read `references/art-direction-plan-contract.md` and `references/material-routes.md`. These core contracts are mandatory and never search-dependent.
-5. Read `references/layout-contract-routing.md` and `references/pattern-library-routing.md`. These routing boundaries are mandatory and never search-dependent; the existence of a matching registered Layout Contract, Composition Pattern, Failure Pattern, Reference, or Sequence is search-dependent.
-6. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-7. Read the locale-matched `../clayz-presentation-supervisor/references/first-class-index-gate.md`. Reuse the one task Provider lock created before Logic. When task source requirements declare it necessary, Art Direction may not start until every owner-learning source declared for Art Direction by the task manifest is hashed into `task-private-learning`; actual adoption follows task relevance.
-8. Classify optional visual signals, then resolve them through the built-in Capability Index. Supported examples include `image-led`, `image-copy-conflict`, `asset-selection`, `template-candidate`, `icon-selection`, `high-risk-composition`, `ab-review`, `large-reference-set`, `reference-discovery`, `architecture-house`, and `enterprise-architecture`.
-9. Load only optional `knowledge_refs` returned by selected capability records. Architecture-house routing may return the source index and pattern library together with its method reference; this is a governed capability bundle, not a template lookup.
-10. Preserve every capability, Layout Contract, and Composition Pattern resolution plus retrieval receipt ID as task-local evidence. If a signal, contract, pattern, or linked failure record has no eligible record, mark it unresolved and use core contracts or return the gap; never invent a layout method, reference, template, contract, pattern, failure diagnosis, or brand asset.
-
-When the root supplies knowledge from a prior discussion, consume only the
-complete verified committed revision selected through the existing Index.
-Preserve its confirmation and attachment hashes, provenance category,
-evidence limits, applicability, and unresolved questions in the visual plan.
-If an attachment is considered as an image or other visual asset, verify its
-stable attachment ID, origin, rights, locator, and hash; persistence does not
-grant reuse or public-distribution rights. A draft, unconfirmed consensus, or
-attachment outside that snapshot cannot be cited as committed learned knowledge.
-Current task attachments remain usable under the normal task-input rules.
-Art Direction never creates or commits a discussion record during production.
-
-## Workflow
-
-Apply the shared artifact-led Library loop to page-specific visual hypotheses:
-page job and relation -> tentative hierarchy/layout -> focused Library case or
-method lookup -> adapted visual plan -> reading-path and capacity check. For a
-material composition choice, compare at least one credible alternative (which
-may be the initial hypothesis); do not manufacture alternatives for routine
-pages. Inspect the actual case image when claiming visual evidence. Name what
-its spatial relationship solves and how this page differs. Record the selected
-and rejected rationale, area allocation and expected first visual per affected
-slide. A list of generic two-column/table/timeline shells is not a visual plan.
-Reuse a layout when its semantics help; do not vary it merely for novelty.
-Use a targeted prototype for unresolved high-risk placement, and send density
-or meaning defects to Copy or Logic rather than silently editing their work.
-
-For every material page decision, make the content-to-visual translation
-inspectable: name the content relationship (sequence, cause, comparison,
-condition, support, or other relation), the visual relationship that expresses
-it, the selected medium, and the reason that medium fits the evidence and
-audience. When typography or a text-led composition is the right medium, state
-why text carries the relationship more clearly than a chart, image, table, or
-diagram; do not add a visual merely to make the page look richer. Record the
-credible alternative considered, the selection or rejection reason, and the
-actual output deviation when Output later changes the plan. These are model
-judgments to preserve in the work notes and plan; validators and scripts only
-check the bound artifacts and observable geometry. Do not require an image,
-chart, or silhouette change on every page.
-
-1. Preserve the task acceptance contract and Supervisor's hard/soft requirement
-   classification, then group slides by communication purpose, relationship,
-   load, decision weight, series role, and silhouette risk.
-2. Convert visual requirements into inspectable first-visual, hierarchy, relationship, typography, and verification decisions. A plan that names a comparison, cause, matrix, or process but does not encode the corresponding semantic relation and object grammar is contradictory and must not be approved.
-3. Resolve optional capabilities before loading optional references. Use the configured reference provider for actual reference retrieval; admit only traceable, human-approved sources with clear rights boundaries. Rank content references and format references separately, select only candidates above the task threshold, limit the stage to three receipts, and record what exact slide decision each selected reference materially changed.
-4. For every slide, state the intended first impression, first visual, area allocation, dominant medium, density, reading path, semantic whitespace, and risks. When a user-selected master explicitly requires a Storyline placeholder or position, honor that requirement. Otherwise decide the layout from Copy's approved content without reserving a Storyline slot. Assess whether a smaller supporting sentence beneath it contributes independent meaning; leaving that optional area empty is valid, and adding filler merely for visual completeness is not. If Copy supplied an optional support unit that weakens the hierarchy, return it to Copy for removal before approval rather than hiding it or moving the Storyline.
-5. When an image-like canvas is present, use the resolved content-aware capability to inspect subject protection, placement suitability, crop and contrast risk, and directional flow before placing copy. Blank pixels are not automatically safe space.
-6. Treat templates and icons as reviewed candidates. Use the resolved asset-grammar capability, re-derive composition from the current page job, select assets by semantic role, and record source and license evidence; never clone a master, layout, brand identity, or arbitrary ratio.
-7. For a reference-architecture house, use the resolved architecture-house capability and apply the corpus-to-pattern-to-synthesis method. Record selected source IDs, relationship grammars, task adaptations, and accountability path.
-8. Build a semantic layout tree that records containment, peers, sequence, cause, condition, support, comparison, feedback, or anchors.
-9. Resolve an optional registered Composition Pattern from the approved page semantics, constraints, and expected visual effect. Compile it only when the selected pattern and every linked Failure Pattern are receipt-bound; record selected and rejected candidates. With no unique eligible pattern, record `unresolved` and continue through the core Art Direction method without claiming a named pattern.
-10. Resolve an optional registered Layout Contract from the approved page semantics, then bind its slots to Semantic Layout Tree node IDs and `copy_id` values. Keep Theme, Visual Variant, Composition Pattern, Layout Contract, Layout Tree, and resolved coordinates as separate layers. With no eligible contract, record `unresolved` and continue through the core tree path without claiming a named contract.
-11. Map every `copy_id` exactly once to a render target and verification method.
-12. Use real rendered A/B prototypes for high-risk composition only when the A/B capability was resolved; do not treat automated scores or similarity as the winner.
-13. Judge the deck as a sequence, not a collection of isolated pages. Reference and Sequence records are metadata-only evidence and never authorize copying source content or media.
-14. Emit task-local learning candidates with rendered evidence, applicability, and `never_copy` boundaries; persist them only through the configured Art Direction learning route and never auto-promote them. Candidates remain observation-only; discussion confirmation and immutable commit belong to the root facade and require the actual user's decision.
-15. Emit one plan with `origin_namespace: io.clayz.presentation`, status `art-direction-approved`, root `acceptance_contract`, root `resource_inventory_lock`, and root `index_evidence`. `reference_budget.query_log` must bind every loaded record to an Art Direction receipt, relevance score, threshold, and material adoption outcome. Generic first visuals such as “主图/主表/结论结构”, relation names without matching semantic-tree relations, and multi-value shape pseudo-charts fail validation. Non-series silhouette or structure reuse is an observable quality question: explain its semantic purpose and record the actual effect; it is not an automatic validation failure or delivery blocker.
-
-## Lock the visual handoff
-
-Create a real readable PNG/JPEG draft for every Copy page with exact approved
-text, numbers and relationships. Rendering tools or image generation may be
-used; this does not depend on optional A/B testing. Inspect and correct image
-generation text/data errors. Refine the visual specification from the drafts,
-reconcile all elements, and lock both together before Output. Do not reverse
-engineer facts from pixels. Each element, including added icons, images and
-symbols, has an ID, purpose, normalized box, native type, grouping and adjustment
-policy; text has resolved typography and charts bind approved data IDs.
-Use `scripts/stage_documents.py lock-design` to bind the final Copy and plan.
-New captions return to Copy; new claims/calculations return to Logic. A later
-design revision invalidates the baseline, Output and affected audit evidence.
-
-## Validation
-
-Run:
+1. Understand the argument, intended audience, evidence and relationships.
+   Decide the important content and intended first visual for each page.
+2. Choose composition, hierarchy, grouping, medium, spacing and reading paths
+   from that content. Columns, tables, ladders and other arrangements remain
+   available Art choices, without Copy prescribing them.
+3. Combine multiple Copy paragraphs in one editable text object when suitable,
+   including headings and body. Equal textual levels may have different styles
+   or visual weight. Preserve actual meaning; visual sequence must not invent a
+   business sequence, rank, cause or relationship.
+4. Use approved data for charts and tables. If choosing tabular presentation,
+   specify an integrated native table. Govern images, logos and symbols by
+   purpose and rights; decorative ordinals must not imply unsupported rank.
+5. Produce readable PNG/JPEG drafts of every page using the actual approved
+   text. Inspect full-size pages and the whole deck. Judge rhythm, purposeful
+   repetition, whitespace and legibility professionally. No fixed card count,
+   area ratio, font-level parity or random variation establishes quality.
+6. Refine a matching visual specification with coordinates, typography,
+   native targets and bounded technical adjustments. Bind each Copy ID once
+   for traceability; several IDs may bind one object through disjoint text
+   ranges. Art's `reading_sequence` is independent of Copy's array order.
+7. Return wording or pagination changes to Copy and changed facts/calculations
+   to Logic. Output implements the approved design; it does not invent one.
+8. Lock the full-deck baseline only after reconciling images and specifications.
+   Use `../../scripts/stage_documents.py lock-design`, then validate:
 
 ```bash
-python ../../packages/validators/validate_art_direction_plan.py <copy-package.json> <art-direction-plan.json> --config <task-config.json>
+python ../../packages/validators/validate_art_direction_plan.py <copy-package.json> <art-plan.json>
 ```
 
-Send the validated plan to both `$clayz-presentation-output` and Supervisor.
-Output consumes the hash-bound Art Direction-to-Output calibration before
-writing. Supervisor can route a visual or requirement conflict, but it does
-not silently replace the approved composition.
+A semantic layout tree, A/B prototype, relative-layout solver or external
+learning pattern may help a particular design. Use them when useful; none is a
+required style, creativity gate or substitute for inspecting the drafts.
+Avoid overloading a page or shortening necessary Copy to satisfy symmetry.
+Technical text capacity and approximately 10% internal reserve support editable
+delivery; they are not whole-slide whitespace quotas.
 
 ## Work record at handoff
 
-Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual artifacts to immutable task-local revision files, record the work and real checks with `scripts/publish_supervised_pair.py record-stage --stage art-direction`, and attach `work-notes` when the content-to-visual translation, medium rationale, rejected alternative, or actual deviation needs richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may travel with explicit evidence. Missing notes remain `not-recorded`; Supervisor collects all four records, adds its coordination record and binds the independent audit artifact; it must not invent prior work or deliver a separate summary as the final report.
+Use the existing stage-work-record workflow in
+`../../packages/contracts/stage-enablement.md`. Save actual immutable artifacts
+and observations, record Art with
+`../../scripts/publish_supervised_pair.py record-stage --stage art-direction`,
+preserve the predecessor record and check the chain. Record reference uses,
+design decisions and unresolved limitations in existing work notes.
+Send the locked plan and drafts to Output and Supervisor with the normal
+calibration. Do not fabricate design evidence or retrofit a draft from the
+final Output PPTX.
 
-The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
+The central baseline is `../../config/default.json`; consume it through the unified merger.

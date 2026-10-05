@@ -18,10 +18,10 @@ import zipfile
 from datetime import datetime
 from pathlib import Path
 
-CONTRACT_VERSION = "1.2"
-PACKAGE_VERSION = "3.2"
-STORY_PACKAGE_VERSIONS = {"3.0", "3.1", PACKAGE_VERSION}
-PLAN_VERSION = "2.0"
+CONTRACT_VERSION = "1.3"
+PACKAGE_VERSION = "3.3"
+STORY_PACKAGE_VERSIONS = {"3.0", "3.1", "3.2", PACKAGE_VERSION}
+PLAN_VERSION = "2.1"
 
 
 def digest(value):
@@ -125,7 +125,7 @@ def validate_story(story, *, legacy=False):
 
 
 def validate_logic_story(package, require_status):
-    if package.get("contract_version") == "3.2":
+    if package.get("contract_version") in {"3.2", "3.3"}:
         from research_handoff import validate_research_package
         return validate_research_package(package, require_status)
     from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
@@ -172,6 +172,9 @@ def load_logic_origin(package):
 
 
 def validate_copy_trace(package):
+    if package.get("contract_version") == "3.3":
+        from clean_content import validate_clean_copy
+        return validate_clean_copy(package)
     if package.get("contract_version") == "3.2":
         from research_handoff import validate_research_copy
         return validate_research_copy(package)
@@ -252,8 +255,10 @@ def validate_visual_baseline(package, plan):
             if not text(preview.get(key)):
                 errors.append(f"visual_baseline.{key}: inspected observation required")
         elements = rows(preview.get("elements"))
-        approved_data_ids = {item.get("data_id") for slide in rows(package.get("logic_layer", {}).get("slides"))
-                             for item in rows(slide.get("data")) if isinstance(item, dict)}
+        approved_data_ids = ({item.get("data_id") for item in rows((package.get("research") or {}).get("data")) if isinstance(item, dict)}
+                             if package.get("contract_version") == "3.3" else
+                             {item.get("data_id") for slide in rows((package.get("logic_layer") or {}).get("slides"))
+                              for item in rows(slide.get("data")) if isinstance(item, dict)})
         element_ids, mapped = set(), []
         for element in elements:
             if not isinstance(element, dict):
@@ -308,7 +313,7 @@ def validate_output_baseline(package, plan, qa):
 
 def render_document(stage, value):
     lines = [f"# {stage}", ""]
-    if stage == "logic" and value.get("contract_version") == "3.2":
+    if stage == "logic" and value.get("contract_version") in {"3.2", "3.3"}:
         research = value["research"]
         lines += [research["research_question"], "", research["scope"], "", research["summary"], ""]
         for finding in research["findings"]:
@@ -330,7 +335,11 @@ def render_document(stage, value):
         for page in value["copy_layer"]["slides"]:
             lines += [f"## {page['slide_id']}", ""]
             for unit in page["copy_units"]:
-                lines += [f"- {unit['copy_id']} ({unit['role']}, parent={unit['parent_copy_id']}): {unit['text']}"]
+                if value.get("contract_version") == "3.3":
+                    level = f", level={unit['heading_level']}" if unit.get("role") == "heading" else ""
+                    lines += [f"[{unit['copy_id']}; {unit['role']}{level}]", unit['text'], ""]
+                else:
+                    lines += [f"- {unit['copy_id']} ({unit['role']}, parent={unit['parent_copy_id']}): {unit['text']}"]
             lines += [""]
     else:
         for page in value["visual_baseline"]["slides"]:

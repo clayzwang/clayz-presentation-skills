@@ -30,8 +30,8 @@ that the evidence already permits. Do not invent a cause to make the story flow.
 ## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.2 and Art
-Direction plan 2.0. The complete research, Copy content document, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.3 and Art
+Direction plan 2.1. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
@@ -139,3 +139,9 @@ evidence, but Supervisor does not rewrite Logic on its behalf.
 Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual artifacts to immutable task-local revision files, record the work and real checks with `scripts/publish_supervised_pair.py record-stage --stage logic`, and attach `work-notes` when the task interpretation, evidence/source trace, counterevidence, assumptions, uncertainty, research interpretations, excluded alternatives, or material content decision needs richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may travel with explicit evidence. Missing notes remain `not-recorded`; Supervisor collects all four records, adds its coordination record and binds the independent audit artifact; it must not invent prior work or deliver a separate summary as the final report.
 
 The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
+
+## v0.18.0 content handoff
+
+New runs use content package 3.3 and the locale-matched story-visual-handoff contract.
+Research ownership and source evidence are unchanged. Copy may reorganize the complete story.
+Research order and topic labels do not prescribe visual order or layouts.

@@ -1,9 +1,23 @@
-# Copy 内容包 3.2
+# PPT v3.3 Copy 层合同
 
-以[研究成果、内容结构与呈现结构交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)为权威契约，完整阅读其中 Logic 与 Copy 两节。
+v0.18.0 新任务使用[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)。
+Copy 阅读 Logic 的完整故事，可调整、重组、改写，保留事实、限定条件和真实业务关系。
 
-Logic 交付不可变 research，logic_layer 与 copy_layer 均为 null。Copy 输出适合 PPT 的文字与内容结构，包括分页、章节、逐页主张、标题和结论表达；不生成 PPT，不规定 Art 的最终媒介、几何或素材。logic_layer.owner: "copy" 只是兼容渲染器的页面投影，不代表 Logic 恢复分页职责。
+`copy_layer` 保留 `logic_version`、`pagination_owner:"copy"`、
+`research_sha256`、实际语义复核说明和按内容顺序组织的 `slides`。
+每页包含 `slide_id` 与 `copy_units`；章节、页面职责、数据引用及原有或用户要求的备注按需保留。
+不再另写一份 Logic 页面投影。
 
-必保研究发现以 source_finding_ids 追溯并在正文可见，来源、数据与定义保真；logic_artifact 绑定原始批准研究。Copy 可通过 presentation_requests 指令表格、图表、Logo 和序号，Art 决定呈现结构并记录处置。
+文案只分为标题 `title`（主 Storyline）、副标题 `subtitle`（次级 Storyline）、
+各级标题 `heading`、正文 `body`、注释 `annotation`。
+每段只有 `copy_id`、`text`、`role`，各级标题另有正整数 `heading_level`。
+每类都可缺省，层级可以跳级，标题后不必有下级标题或正文，自然段落换行可以保留。
 
-保留现有校验、校准与工作记录；2.4/3.0/3.1 仅历史回放，不将旧版分页归属套到新 3.2 任务。
+来源映射放在根级 `copy_provenance` 中，与干净文字分开；
+绑定原始 Logic 文件与研究、任务、配置和证据，保留必要内容。
+这些技术追溯信息不成为版式指令。
+
+不再生成 columns/table/ladder、分组树、强制单独渲染、禁止合并、阅读序号、
+视觉样式、强制换行或媒介请求。Art 可以合并可编辑对象、给同级文字不同样式、
+自主安排阅读路径，仍需保留真实含义与用户明确要求。
+旧合同只用于对应版本历史材料的回读。

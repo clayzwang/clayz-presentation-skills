@@ -22,7 +22,7 @@ from validate_art_direction_plan import OBJECT_TYPES, STRUCTURE_TYPES, validate_
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "4.0"
+CONTRACT_VERSION = "4.1"
 CHECK_KEYS = {
     "exact_text", "copy_id_traceability", "atomic_copy_separation",
     "parent_child_hierarchy", "peer_parallelism", "visual_hierarchy",
@@ -194,6 +194,7 @@ def validate_qa(
     policy: ValidationPolicy | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
+    clean = isinstance(package, dict) and package.get("contract_version") == "3.3"
     errors = validate_plan(package, plan, policy)
     require_keys(
         qa,
@@ -216,8 +217,9 @@ def validate_qa(
         except (OSError, zipfile.BadZipFile, KeyError, ET.ParseError) as exc:
             errors.append(f"qa PPTX evidence cannot be inspected: {exc}")
         validate_final_cjk_evidence(qa, pptx, errors)
-    if qa.get("contract_version") != CONTRACT_VERSION:
-        errors.append(f"qa.contract_version: expected {CONTRACT_VERSION}")
+    expected_version = CONTRACT_VERSION if clean else "4.0"
+    if qa.get("contract_version") != expected_version:
+        errors.append(f"qa.contract_version: expected {expected_version}")
     if qa.get("package_id") != package.get("package_id") or qa.get("package_version") != package.get("version"):
         errors.append("qa package identity/version must match package")
     if qa.get("art_direction_plan_contract_version") != plan.get("contract_version"):
@@ -230,7 +232,7 @@ def validate_qa(
         errors.append("qa.resource_inventory_lock: package, Art Direction, and Output QA must preserve one inventory signature")
     validate_index_evidence(
         qa.get("index_evidence"),
-        ["logic", "copy", "art-direction", "output"],
+        ["logic", "copy", "output"] if clean else ["logic", "copy", "art-direction", "output"],
         "qa.index_evidence",
         errors,
     )
@@ -276,7 +278,8 @@ def validate_qa(
         if qa.get(key) != "pass":
             errors.append(f"qa.{key}: must be pass")
 
-    logic_slides = package.get("logic_layer", {}).get("slides", [])
+    from clean_content import content_pages, RETIRED_QA_CHECKS
+    logic_slides = content_pages(package)
     copy_slides = package.get("copy_layer", {}).get("slides", [])
     qa_slides = qa.get("slides")
     if not isinstance(qa_slides, list):
@@ -302,11 +305,11 @@ def validate_qa(
             continue
         if qa_slide.get("slide_id") != logic_slide.get("slide_id"):
             errors.append(f"{path}.slide_id: mismatch")
-        if qa_slide.get("logic_statement_repeated") != logic_slide.get("logic_map", {}).get("statement"):
+        if not clean and qa_slide.get("logic_statement_repeated") != logic_slide.get("logic_map", {}).get("statement"):
             errors.append(f"{path}.logic_statement_repeated: must be verbatim")
-        expected_copy_ids = [unit.get("copy_id") for unit in sorted(copy_slide.get("copy_units", []), key=lambda item: item.get("order", 0))]
+        expected_copy_ids = plan_slide.get("reading_sequence") if clean else [unit.get("copy_id") for unit in sorted(copy_slide.get("copy_units", []), key=lambda item: item.get("order", 0))]
         if qa_slide.get("rendered_copy_ids") != expected_copy_ids:
-            errors.append(f"{path}.rendered_copy_ids: must exactly match Copy order")
+            errors.append(f"{path}.rendered_copy_ids: must match Art reading sequence" if clean else f"{path}.rendered_copy_ids: must exactly match Copy order")
         medium = plan_slide.get("medium_execution_contract", {})
         planned_structure = medium.get("structure_type")
         if qa_slide.get("planned_structure_type_repeated") != planned_structure:
@@ -328,7 +331,7 @@ def validate_qa(
                                    inventories[index] if index < len(inventories) else actual_inventory,
                                    f"{path}.actual_object_inventory", errors,
                                    table_dimensions[index] if index < len(table_dimensions) else None)
-        if rendered_structure not in STRUCTURE_TYPES:
+        if (not nonempty(rendered_structure)) if clean else (rendered_structure not in STRUCTURE_TYPES):
             errors.append(f"{path}.rendered_structure_type: invalid value")
         rendered_medium_evidence = qa_slide.get("rendered_medium_evidence")
         if not nonempty(rendered_medium_evidence) or len(rendered_medium_evidence.strip()) < 20:
@@ -445,17 +448,18 @@ def validate_qa(
             errors.append(f"{path}.render_file: file not found under render root")
 
         checks = qa_slide.get("checks")
-        required_checks = CHECK_KEYS - {"storyline_single_line"} if package.get("contract_version") in {"3.1", "3.2"} else CHECK_KEYS
+        allowed_checks = CHECK_KEYS - RETIRED_QA_CHECKS if clean else CHECK_KEYS
+        required_checks = allowed_checks if clean else CHECK_KEYS - {"storyline_single_line"} if package.get("contract_version") in {"3.1", "3.2"} else CHECK_KEYS
         require_keys(checks, required_checks, f"{path}.checks", errors)
         reasons = qa_slide.get("not_applicable_reasons")
         if not isinstance(reasons, dict):
             errors.append(f"{path}.not_applicable_reasons: must be an object")
             reasons = {}
         if isinstance(checks, dict):
-            unknown = sorted(set(checks) - CHECK_KEYS)
+            unknown = sorted(set(checks) - allowed_checks)
             if unknown:
                 errors.append(f"{path}.checks: unknown checks {unknown}")
-            for key in required_checks | (set(checks) & CHECK_KEYS):
+            for key in required_checks | (set(checks) & allowed_checks):
                 value = checks.get(key)
                 if value not in CHECK_STATUS:
                     errors.append(f"{path}.checks.{key}: must be pass or not-applicable")

@@ -1,130 +1,93 @@
 ---
 name: clayz-presentation-copy
-description: Turn a logic-approved presentation package into final visible copy with locked titles, storylines, numbers, punctuation, line breaks and atomic copy units. Use after presentation logic is approved and before visual composition. Own wording, trimming and content grouping while preserving research facts, evidence status and business relationships. Own content structure and pagination; Art owns presentation structure. Do not design or build the PPTX.
+description: Organize Logic-approved research into clean presentation text, with title and subtitle Storylines, headings at any needed levels, body and annotations. Own wording, reorganization, pagination and page sequence; preserve supported meaning and evidence. Hand text to Art without layout kinds, rendering commands or visual-order assumptions. Do not design or build the PPTX.
 ---
 
 # Clayz Presentation Copy
 
-Create a `copy-approved` package in which every visible character is intentional
-and traceable. Consume the Logic artifact and Supervisor's calibration as
-separate inputs; Supervisor evaluates and coordinates but does not write Copy.
+Read the whole Logic research and Supervisor calibration. Explain the story in
+natural language for the intended reader, then organize and edit the text for
+presentation. Copy may combine, split, reorder and rewrite the complete story.
+Preserve facts, numbers, claim strength, qualifiers, relationships and required
+coverage; return new facts or changed research judgments to Logic.
 
-## Production reliability (v0.17.5)
+## Current handoff — v0.18.0
 
-Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
+peer. New runs use content package 3.3, Art plan 2.1 and Output QA 4.1.
+Resolve the explicit locale or `locale.default`; read `references/copy-package-contract.md` or its `.zh-CN.md` peer.
 
-## Reader understanding (v0.17.1)
+The content document contains only these kinds of visible text:
 
-Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
-according to the task locale. Necessary explanation and evidence fidelity take
-priority over shortness; use existing records for review observations.
+- `title`: the main Storyline.
+- `subtitle`: a secondary Storyline.
+- `heading`: a heading with a positive `heading_level`.
+- `body`: complete body prose.
+- `annotation`: qualifications, notes, sources and other annotations.
 
-Before titles/tables, rewrite the substantive argument in complete natural
-language for the intended reader. Preserve necessary actors, actions, links and
-qualifiers while removing redundancy. Read body text as well as titles. Prefer
-a longer clear explanation to an ambiguous compressed label; brevity, parallel
-grammar and slogans are optional. Record concrete language observations in the
-existing semantic_preservation_review or work notes, not another approval form.
+Every category is optional. Heading levels may be skipped; a heading does not
+require a subordinate heading or body. Textual hierarchy describes meaning,
+not font size, position, containers or visual importance. A page may consist
+only of body text or annotations. No standard title/subtitle/body shell is
+required. Honor an explicit user-selected master requirement when applicable.
 
-## Research and visual handoff (v0.17.4)
+Each paragraph has a stable `copy_id`, `text` and `role`; headings also have
+`heading_level`. Natural paragraph breaks are allowed. Preserve source
+references separately in `copy_provenance`, for content fidelity review.
+The array order is editorial organization, not Art's visual reading order.
 
-Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.2 and Art
-Direction plan 2.0. The complete research, Copy content document, complete image drafts, visual tags and
-report documents apply even when optional Library or A/B capabilities are absent.
-Legacy page-first contracts remain readable only for existing runs. Preserve
-the existing Supervisor calibration and Independent Auditor handoffs.
+Do not emit columns/table/ladder/rows/flow kinds, parent or sibling trees,
+render-separately or merge prohibitions, visual order, style tokens, forced
+line breaks, grammar signatures or presentation requests. Art chooses media,
+layout, grouping, combination, visual emphasis and reading paths.
 
-## Generation mode
+## Context and authority
 
-Preserve the Logic-inferred `brief.preflight.generation_mode` when it is
-present; new runs use `execution`, `research`, or `mixed`, while legacy
-packages may omit it. The field is an internal working decision and never
-requires user confirmation. It is independent of optional Library availability;
-the production path remains unified.
+Use the root's unified `task-config.json` and task selection, merged from `../../config/default.json`, with the resource
+inventory, Provider lock and hash-bound Logic-to-Copy calibration. Preserve
+their real bindings. Read `../../packages/contracts/stage-enablement.md`,
+`reader-quality.md` and `production-reliability.md` in the task locale.
+Read `../../packages/contracts/knowledge-learning.md` when retrieving or
+writing learning observations.
 
-- **Execution:** Preserve every meaningful supplied claim, number, caveat,
-  relationship, instruction, and information-bearing detail while organizing
-  and editing it for readable slides. Do not discard substance for oversized
-  headlines or conduct unrelated research. Fill routine transitions directly;
-  distinguish substantive unverified additions in the existing evidence or
-  copy metadata.
-- **Research:** Copy the substantive, source-traceable synthesis produced by
-  Logic. Do not use copy editing to replace missing research, unsupported
-  claims, or unresolved evidence with generic benefit language.
-- **Mixed:** Keep section responsibilities assigned through existing scope or
-  notes fields and preserve the boundary between execution sections and
-  research sections. Do not add a new mode schema.
+Use relevant available Copy knowledge to improve actual wording; unavailable
+optional knowledge does not stop editing. Preserve selected source IDs and
+actual use. Never invent source evidence, a consultation or a saved revision.
 
-## Boundaries
+Execution work preserves meaningful supplied material. Research work edits
+Logic's source-backed synthesis. Mixed work preserves their assigned scope.
+These are content responsibilities in one workflow.
 
-Own content structure, presentation chapters, pagination, page order/responsibilities, opening/closing, conclusion wording, trimming, content grouping, and precise wording for titles, optional Storyline (required only by an explicit user-selected master constraint), optional supporting copy, numbers, units, punctuation, intentional breaks, copy hierarchy, and stable `copy_id` values. Do not decide master placeholder position or visual layout.
+## Work
 
-Preserve Logic-approved research facts, claim strength, qualifiers, relationships and semantic invariants. Independently choose and revise presentation structure; page count/order changes remain Copy work. Return new facts, calculations or changed research judgments to Logic. Copy can request tables, charts, logos and ordinals; Art chooses their concrete visual implementation. Do not create PPTX objects.
+1. Bind the original Logic file and unchanged research. Write a coherent
+   explanation before editing it into presentation text.
+2. Choose chapters when useful, pagination, page responsibilities, page order
+   and conclusion wording. Copy owns these choices. Honor actual cover/closing
+   and user constraints; do not add notes or appendices by default.
+3. Categorize the final text using the five roles above. Do not split a useful
+   paragraph merely to prescribe several visual boxes or a fixed card count.
+4. Review actual wording for reader understanding and preservation of meaning.
+   Record concrete decisions in the existing semantic preservation review.
+5. Hand the clean content document and separate provenance to Art and
+   Supervisor. A density-driven pagination or wording change returns to Copy;
+   research changes return to Logic.
 
-## Required context
-
-Read `../../packages/contracts/stage-enablement.md` for task authority, relevance-based retrieval, professional review, and measured execution. It supersedes legacy requirements to select every source, rediscover unchanged resources, or treat aesthetic heuristics as mandatory gates.
-
-
-1. Consume the root's validated v2 task selection and merged `task-config.json` from the unified configure-task flow. If absent, return to root to prepare it once; do not select a config by the presence of a Personal Runtime. Preserve that configuration and its hash through the remaining stages.
-2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
-3. Validate the Logic package, its ready `resource_inventory`, and the
-   hash-bound Logic-to-Copy calibration before editing copy. Preserve the
-   inventory lock; additional eligible records in its locked pools are normal
-   retrieval. A new pool, Provider snapshot or external asset returns to
-   Supervisor for a revised inventory and user brief.
-4. Read `references/copy-package-contract.md`. This core contract is mandatory and never search-dependent.
-5. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-6. Read the locale-matched `../clayz-presentation-supervisor/references/first-class-index-gate.md`. Reuse the unified task configuration and Provider lock. Materialized sources are required only when actually selected and declared for this stage; a personal settings layer alone never requires private learning sources.
-7. Classify optional Copy signals and resolve them through the built-in Capability Index. For nested meaning or multiple renderable units, use signals such as `nested-meaning` or `atomic-copy` rather than hard-coding an optional reference read.
-8. Load only optional `knowledge_refs` returned by selected capability records. Preserve the resolution and retrieval receipt IDs; unresolved signals remain explicit gaps and never trigger invented guidance.
-
-When the root supplies knowledge from a prior discussion, consume only the
-complete verified committed revision selected through the existing Index.
-Preserve its confirmation and attachment hashes, provenance category,
-evidence limits, applicability, and unresolved questions in the copy evidence.
-A draft, unconfirmed consensus, or attachment outside that committed snapshot
-is not a Copy source, and
-Copy never creates or commits a discussion record.
-
-## Workflow
-
-Apply the shared artifact-led Library loop to an actual copy draft before locking
-it: draft -> specific expression question -> Copy Library passage/example ->
-revised copy -> meaning and reading check. Compare the before/after wording of
-the affected copy IDs for clarity, evidence qualifiers and on-slide load. Borrow
-an expression principle, not unrelated facts or a stock slogan. An unchanged
-draft with a concrete rejection reason is valid. When a rendered page is too
-dense, shorten or redistribute copy within Logic's meaning, then return it to
-Art Direction; meaning changes return to Logic; page-sequence changes remain Copy work.
-
-1. Read the complete research, bind logic_artifact and preserve research verbatim. Organize chapters, pagination, page responsibilities, titles, opening/closing and conclusion wording. Trace visible text to source_finding_ids. First write natural explanations, then edit for PPT reading without reducing answers to methodology. Create the Copy-owned compatibility page projection and copy_layer. Preserve actual acceptance/configuration/run bindings and absorb the Supervisor calibration with reasons.
-2. If Logic does not contain enough concrete evidence or relations to satisfy a Copy-owned requirement, raise an upstream conflict instead of replacing the gap with abstract benefit language.
-3. Write titles that state the page function or conclusion without exaggeration and respect the task's cover and conclusion-placement policy.
-4. Decide whether a Storyline adds independent meaning; there is no default Storyline field, fixed body subtitle, sentence count or line count. Copy owns its wording and intentional breaks; Art Direction owns placement. Honor only explicit Storyline requirements of a user-selected master. A smaller supporting sentence beneath it is optional: add one only when it contributes independent information, and omit it entirely when it would merely restate the Storyline or fill space. Do not treat this optional support line as a mandatory Storyline field.
-5. Break visible text into atomic units. Assign one stable `copy_id` to each unit and express parent-child and peer relationships explicitly.
-6. Lock exact text, numbers, units, punctuation and intentional breaks. Do not proactively generate speaker notes or appendices; preserve requested/historical notes when present.
-7. Supply complete data labels, units, sources and explanation text. Optionally request tables, charts, logos, ordinals or other media via presentation_requests; these are content intentions, and Art owns the final presentation structure.
-8. Raise upstream conflicts instead of silently fixing Logic. Generic phrases such as reduced experience, weakened certainty, or better coordination do not satisfy a requirement unless the Copy units identify the responsible operation and audience consequence.
-9. Emit task-local learning candidates with language, audience, evidence, and limits; persist them only through the configured Copy learning route and never auto-promote them. Candidates remain observation-only; discussion confirmation and immutable commit belong to the root facade and require the actual user's decision.
-10. Emit one package with `origin_namespace: io.clayz.presentation` and status `copy-approved`; preserve root `acceptance_contract` and `resource_inventory`, and add bounded relevance-ranked Copy receipts to root `index_evidence`. Every selected record must name the concrete title, storyline, copy unit, or language decision it materially influenced. Passing structure alone is insufficient; judge actual language through reader-quality review, without imposing a grammar, grouping or word-count quota.
-
-## Validation
-
-Run:
+Validate with:
 
 ```bash
 python ../../packages/validators/validate_ppt_package.py <copy-package.json>
 ```
 
-Send the validated package to both `$clayz-presentation-art-direction` and
-Supervisor. Art Direction consumes the hash-bound Copy calibration before
-locking its plan. Supervisor may identify a defect or route an upstream change,
-but Copy remains the owner of wording and never rewrites Logic silently.
-
 ## Work record at handoff
 
-Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual artifacts to immutable task-local revision files, record the work and real checks with `scripts/publish_supervised_pair.py record-stage --stage copy`, and attach `work-notes` when evidence qualifiers, wording tradeoffs, coverage preserved or omitted, intentional breaks, speaker notes, or a material copy decision needs richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may travel with explicit evidence. Missing notes remain `not-recorded`; Supervisor collects all four records, adds its coordination record and binds the independent audit artifact; it must not invent prior work or deliver a separate summary as the final report.
+Use the existing stage-work-record workflow in
+`../../packages/contracts/stage-enablement.md`. Save immutable actual artifacts,
+record the Copy stage and checks through
+`../../scripts/publish_supervised_pair.py record-stage --stage copy`, preserve
+the predecessor record, and check the record chain. Record material wording
+decisions as work notes when useful. Missing observations remain not-recorded.
+Supervisor calibrates the handoff and collects the final report; Copy does not
+invent prior work or overwrite the research.
 
-The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
+The central baseline is `../../config/default.json`; consume it through the unified merger.

@@ -1,90 +1,11 @@
-# Atomic copy and hierarchical writing
+# Content units and textual hierarchy
 
-> From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
+For v0.18.0 use the [Copy contract](copy-package-contract.md).
+A unit identifies a piece of approved text for traceability. It is not a
+separate-object instruction. Write complete useful paragraphs; split them only
+when their textual roles differ or the content organization benefits.
 
-## Explain the meaning before structuring the copy
-
-Read the complete Logic research and write natural reader-facing explanations before deciding chapters, pagination, page text and hierarchy. In package 3.2, trace finding_id to source_finding_ids and copy_id; old node maps are historical only. A complete explanatory sentence can be one
-unit; do not split necessary grammar into isolated labels merely to fill a tree.
-Model genuine parent/child distinctions without suppressing their explanation.
-
-### Colon test
-
-For “Label: A, B, C,” ask:
-
-1. Is the label a parent concept of A/B/C?
-2. Are A/B/C peer items or ordered steps?
-3. Does each item need its own explanation, icon, owner, data, or action?
-
-If any answer is yes, assign separate `copy_id` values to the label and each child. A colon may remain inside a complete sentence, but it must not carry an unmodeled hierarchy.
-
-### Prepare for punctuation-light expression
-
-The visual layer should carry hierarchy and relationships that punctuation often simulates. Copy first separates `label: content`, `condition: result`, or `option: number` into mappable parent, child, condition, evidence, and conclusion units. Then remove colons, semicolons, slashes, and parentheses that exist only to imitate layout. Downstream stages may use position, area, alignment, nesting, connectors, convergence, charts, or tables; Copy chooses none of them.
-
-### Comma test
-
-When commas, slashes, “and,” or similar conjunctions join items that can be executed, compared, or tracked independently, split them into peer atomic units. Preserve fixed terms and indivisible phrases.
-
-## Titles and storylines
-
-- A title answers “What is the most important judgment on this slide?” Prefer a conclusion over empty labels such as “Overview” or “Next steps.”
-- Storyline is optional by default. Copy decides whether it helps connect the claim to the body, its wording and intentional breaks; there is no default sentence or line count. Honor a Storyline requirement only when explicitly specified by a user-selected master, with Art Direction responsible for layout.
-- When both are present, title and Storyline may map to the same root node but use different `copy_id` values. The title is normally the root's primary copy; the Storyline is supplemental.
-- Smaller copy beneath the Storyline is a different optional support unit, not the Storyline itself; omit it when it adds no independent meaning. Do not paraphrase the title in the Storyline or concatenate the body list into a long sentence.
-
-### Title-mode routing
-
-| Slide task | `title_mode` | Writing approach |
-|---|---|---|
-| Fact or overview | `factual-status` | State object, period, and status without exaggerating causes |
-| Operating diagnosis | `analytical-judgment` | Conclusion plus key comparison or concentration |
-| Mechanism or policy | `mechanism-rule` | Rule change, operating mechanism, and behavioral effect |
-| Action or decision | `action-directive` | Who acts on which gap and how the action is tested |
-| Transition or section | `transition-assertion` | One directional judgment that moves the audience forward |
-| Training or SOP | `instructional-action` | Concrete operation and checkpoint for the slide |
-
-Titles are not always short. A dense operating slide may use “topic label + complete judgment”; a transition slide should be brief and directional. Preserve intentional breaks rather than shrinking text to force one line.
-
-## Parallel peers
-
-Give each unit a `grammar_signature` describing its actual wording. Compare peers for semantic granularity; their sentence patterns and lengths need not match.
-
-| Signature | Structure | Example |
-|---|---|---|
-| `verb-object` | Verb + object | Improve onboarding; clarify permission defaults |
-| `noun-category` | Noun category | Onboarding guidance; permission settings |
-| `problem-impact` | Problem + impact | Insufficient features limit stage fit; unclear entry reduces adoption |
-| `metric-value` | Metric + display value | Activation 62%; weekly retention 41% |
-| `stage-action` | Stage + key action | Pilot: validate rules; rollout: replicate mechanism |
-
-Within a group, check part of speech, subject, tense, voice, granularity, punctuation, and approximate length. Length variation is not automatically wrong, but a four-word label beside three explanatory sentences usually means the hierarchy was not separated.
-
-## Numbers and labels
-
-For a standalone KPI display, separate metric label, value and unit as needed for mapping. Numerical explanatory prose may remain a complete sentence with its metric, unit and period intact. Keep necessary comparison bases and qualifications visible; footnotes are for supporting detail. Copy locks wording and numbers; Art Direction chooses visual relationships and Output realizes them.
-
-## Intentional line breaks
-
-Keep `text` as standard text without newline characters. Record deliberate break positions as character indices. Never split a number from its unit, a proper noun, entity, product, quantifier, negation, or fixed phrase. If automatic wrapping damages meaning, Output adjusts width or typography tokens, or returns the issue upstream; it does not rewrite copy.
-
-## Series language
-
-- Preserve research definitions for segment, product, role, metric and stage names. Copy chooses presentation order unless a substantive sequence or ranking is part of the research.
-- Retain a recognizable series motif in titles while stating each slide's new judgment.
-- Progressive-reveal slides may repeat established short labels but not long explanations.
-- Outside a meaningful series, do not replicate a hollow “four-word label + explanation” template.
-
-## Remove generic AI wording
-
-- Remove empty boosters such as enable, empower, comprehensively, continuously, and further unless they have a verifiable meaning.
-- Avoid giving every child the same hollow slogan-plus-explanation structure.
-- Give actions objects, judgments evidence, and targets a deadline or measurement basis.
-- Do not invent a third item merely for visual completeness.
-- Do not simulate three hierarchy levels inside one text box with colons, semicolons, and line breaks.
-- If repeated `label: sentence` patterns appear, check for an unseparated hierarchy, mapping, or calculation.
-- Do not replace an unresolved dilemma or trade-off with a campaign slogan.
-
-## Return conditions
-
-Return to Logic for missing reasoning, incompatible meanings, required new facts or judgments stronger than the evidence. Copy owns awkward wording and grouping; different sibling grammar alone is not a Logic defect. Fix expression without hiding a substantive gap or inventing support.
+Title and subtitle are Storylines. Headings have any positive level; body and
+annotations have no heading level. Do not emit parent/sibling trees,
+render-separately flags, merge bans, media kinds or visual-order constraints.
+Art may combine units and freely decide presentation while preserving meaning.

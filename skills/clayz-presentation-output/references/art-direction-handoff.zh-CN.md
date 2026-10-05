@@ -1,39 +1,16 @@
-# 艺术指导交接合同
+# Art Direction 交接 — v0.18.0
 
-> 0.17.5 起，历史字号阈值、偶数字号及构图连续次数限制不再作为自动检查；由 Art 对真实页面判断。报告采用正文、证据和 hash。以[生产可靠性合同](../../../packages/contracts/production-reliability.zh-CN.md)为准。
+新任务遵循[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)，
+使用内容包 3.3、批准 Art 计划 2.1。Output 同时阅读全稿图片与对应规格后制作可编辑对象。
 
-## v0.17.2 current contract
+落实 Art 的坐标、字体、视觉层级、分组、媒介和阅读路径。
+copy_unit_map 用原生位置追踪每段文案，共用目标配不相交 text_range 是合法做法：
+标题与正文可以同框，多个段落可以同格，同级文字可以不同样式。
+不重建 Copy 父子树、不要求单独对象、不把 Copy 数组顺序当视觉阅读顺序。
 
-New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns research findings; Copy owns content structure, pagination, wording and content tags; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. Package 3.2 uses the current research/content contract; the older field examples below are historical and must not impose retired Logic rules on new work. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+保留实际文字和业务含义。文字或分页变化回 Copy，研究变化回 Logic，
+设计变化通过现有校准回 Art；声明容差内的技术调整记录在偏差日志。
+Supervisor 不接管设计，不新增审美审批门槛。
 
-## Legacy / compatibility field reference
-
-Output只接受合同1.3、状态 `art-direction-approved` 的 `ppt-art-direction-plan.json`。
-
-## 未经裁决不得改变的基准字段
-
-- 整稿：视觉命题、材料路线、第一印象、轮廓序列、密度序列、主媒介序列、母题序列、系列组与语义留白页；
-- 逐页：第一视觉、构图理由、区域职责、面积比例、主骨架、轮廓、主媒介、密度、阅读动线；
-- 接口：copy_id映射、父子目标、语义布局树、样式token、媒介对象要求、语义轴、识别标准、字号下限、偶数字号、图表标签与连线语义、系列行为、持久元素、递进变化、允许变化、语义留白和持续导航；
-- A/B：入选候选、淘汰候选与淘汰理由；
-- 参考：每个案例的用途和不可复制边界。
-
-## Output可以决定
-
-- 12列区域内的精确x/y/w/h；
-- 同一锁定构图内的间距、内边距、线宽和对象层级；
-- 连接器绕线、图片裁切和表格列宽；
-- 图表兼容性遮罩、中央配置所列目标应用之间的差异修复；
-- 不改变面积与权重的光学对齐。
-- 在锁定区域内部选择绝对、相对或混合坐标实现；相对布局只可吸收换行与同级模块数量变化，不得改变固定外框、区域职责、面积权重、阅读顺序或语义留白。
-- 把 `semantic_layout_tree` 落成可辨认的对象父子分组、层级、阅读顺序和形状语义；树不取代 `area_plan` 的几何真值，也不取代 `copy_unit_map` 的文字与目标真值。不得因为实现方便把层级树展平成同级浅框。
-- 在同一系列合同内复用已锁定持久元素的精确坐标、尺寸、样式和对象层级；不得把“复用”扩大到未进入系列的页面。
-
-## 回流
-
-- 要换媒介、轮廓、主骨架、区域、动线、系列骨架、母题、语义留白或持续导航：回Art Direction；
-- 要删字、改字、改断句：回Copy；
-- 要改事实、实质关系、数字或页序：回 Logic；内容分组／层级回 Copy，视觉层级回 Art Direction；
-- 如果满足请求需要改变上游基准或用户明确的“不满足就不交付”条件：停止该项变更，记录冲突、证据、预期漂移和可行替代方案，交 Supervisor 汇总并取得必要的用户决定。成品质量缺陷在绑定完整时可以作为审计发现继续交给 Auditor。
-
-所有偏差写入 `ppt-build-deviation-log.json`。若字段 `changes_art_direction=true`，必须同时有Art Direction新版本和用户批准依据；不得只在偏差日志中自我批准。挑战本身不修改基准，用户裁决后才形成新版本。
+不要求注册版式或模式，Art 实际提供的外部工具仅用于当前任务。
+原生图表、完整表格、字体、可编辑性和真实回读渲染保持既有可靠性要求。

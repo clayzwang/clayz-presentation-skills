@@ -282,9 +282,9 @@ def _substantive(report: Mapping[str, Any], content: Mapping[str, Any]) -> dict[
             "deck_message_tree": logic.get("deck_message_tree", {"status": MISSING_STATUS}),
             "narrative": logic.get("narrative", {"status": MISSING_STATUS}),
         }
-    if package.get("contract_version") == "3.2":
+    if package.get("contract_version") in {"3.2", "3.3"}:
         storyline = {"owner": "copy", "chapters": (package.get("copy_layer") or {}).get("chapters", []),
-                     "page_allocation": (package.get("logic_layer") or {}).get("slides", [])}
+                     "page_allocation": (package.get("copy_layer") or {}).get("slides", []) if package.get("contract_version") == "3.3" else (package.get("logic_layer") or {}).get("slides", [])}
     if storyline is None:
         storyline = find("storyline", "story_line", "narrative_arc", "communication_contract")
     return {

@@ -1,39 +1,23 @@
-# Art Direction Handoff Contract
+# Art Direction handoff — v0.18.0
 
-> From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
+New tasks use [research and visual handoff](../../../packages/contracts/story-visual-handoff.md),
+package 3.3 and approved Art plan 2.1. Read both the complete image drafts and
+matching specifications before implementing editable objects.
 
-## v0.17.2 current contract
+Implement Art's coordinates, type, hierarchy, grouping, media and reading paths.
+copy_unit_map binds each visible ID to a native location. Shared targets with
+disjoint text_range bindings are valid, including heading and body in one
+editable text box or several units in one native cell. Equal textual levels
+need not have the same style. Do not reconstruct a Copy parent/sibling tree,
+require separate targets, or bind Copy's array order to visual order.
 
-New runs follow [Story and visual handoff](../../../packages/contracts/story-visual-handoff.md). Logic owns research findings; Copy owns content structure, pagination, wording and content tags; Art Direction locks full-deck images and visual specifications. The fields below describe the legacy page projection consumed by existing validators/renderers. Package 3.2 uses the current research/content contract; the older field examples below are historical and must not impose retired Logic rules on new work. Legacy coordinate-free restrictions apply to reusable patterns, not the task visual specification.
+Preserve exact content and actual business relationships. Re-pagination or
+wording changes return to Copy; research changes return to Logic; design changes
+return to Art through the existing Supervisor calibration. Technical adjustment
+within Art's declared bounds uses the existing deviation log. Supervisor does
+not take over the design or add aesthetic approval gates.
 
-## Legacy / compatibility field reference
-
-Output accepts only `ppt-art-direction-plan.json` contract 1.3 with status `art-direction-approved`.
-
-## Baseline fields that require adjudication before change
-
-- Deck-wide: visual thesis, material route, first impression, silhouette, density, dominant-medium and motif sequences, series groups, and semantic-whitespace slides.
-- Per slide: first visual, composition rationale, region responsibilities, area ratios, main backbone, silhouette, dominant medium, density, and reading path.
-- Interfaces: `copy_id` mapping, parent/child targets, semantic layout tree, style tokens, medium-object requirements, semantic axes, recognition criteria, type minimums and parity policy, chart-label and line semantics, series behavior, persistent elements, progressive change, allowed variation, semantic whitespace, and persistent navigation.
-- A/B: selected candidate, rejected candidate, and rejection reason.
-- References: each case's intended use and non-copy boundary.
-
-## Output may decide
-
-- exact `x/y/w/h` inside an approved 12-column region;
-- spacing, padding, line weight, and object layer order inside the locked composition;
-- connector routing, image crop, and table column widths;
-- native-chart compatibility masks and repairs for differences among target applications named by central configuration;
-- optical alignment that does not change area or weight;
-- absolute, relative, or hybrid coordinates inside a locked region. Relative layout may absorb line wrapping and peer-module count changes, but not alter the fixed frame, region responsibility, area weight, reading order, or semantic whitespace;
-- a recognizable object hierarchy, parent/child grouping, reading order, and shape semantics that implement `semantic_layout_tree`. The tree does not replace `area_plan` geometry or `copy_unit_map` text and target truth, and must not be flattened into shallow peer boxes for implementation convenience; and
-- exact reuse of locked persistent-element coordinates, sizes, styles, and layers inside one series contract. Do not extend that reuse to slides outside the series.
-
-## Backflow
-
-- To change medium, silhouette, main backbone, region, reading path, series backbone, motif, semantic whitespace, or persistent navigation: return to Art Direction.
-- To delete, rewrite, or re-break copy: return to Copy.
-- To change facts, substantive relationships, numbers or page order: return to Logic. Content grouping/hierarchy returns to Copy; visual hierarchy returns to Art Direction.
-- If satisfying the request would require changing an upstream baseline or an explicit user no-delivery condition: stop that change, record the conflict, evidence, expected drift, and feasible alternatives, then send it to Supervisor for synthesis and the required user decision. A quality defect may remain a reported finding and continue to the Auditor when the artifact bindings are complete.
-
-Record every deviation in `ppt-build-deviation-log.json`. If `changes_art_direction=true`, a new Art Direction version and the user's approval basis are both required. The log cannot approve itself. A challenge does not alter the baseline; only the adjudicated new version does.
+No registered layout or pattern is required. Optional external tools supplied
+by Art remain task tools, not global design restrictions. Keep native charts,
+integrated tables, font naming, editable objects and real reopen/render
+coverage under the existing production-reliability contract.

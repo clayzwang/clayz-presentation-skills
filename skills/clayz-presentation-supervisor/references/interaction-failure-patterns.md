@@ -62,9 +62,9 @@ Regression: verify dominant medium, first visual, area plan, target types, objec
 
 ### Atomization pressure
 
-Symptoms: `render_separately` becomes “one card per copy unit.”
+Symptoms: a traceable Copy ID is treated as “one card per copy unit.” New-run Copy has no render_separately command.
 
-Regression: atomic copy preserves meaning and traceability but does not prescribe a rectangle. Compound media can contain independently traceable atoms.
+Regression: preserve meaning and traceability while Art chooses shared objects, different peer styles and visual reading order. Do not inherit historical parent/sibling rendering rules.
 
 ### Meaningful isomorphism is broken
 

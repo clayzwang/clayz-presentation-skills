@@ -89,7 +89,7 @@ def validate_research_package(package, require_status):
     validate_index_evidence(package.get('index_evidence'), stages, 'index_evidence', errors)
     validate_stage_retrieval_budget(package.get('index_evidence'), package.get('acceptance_contract'), stages, 'index_evidence', errors)
     if package.get('story') is not None:
-        errors.append('package 3.2 uses research, not a Logic-authored presentation story')
+        errors.append(f'package {package.get("contract_version")} uses research, not a Logic-authored presentation story')
     if status != 'copy-approved' and (package.get('logic_layer') is not None or package.get('copy_layer') is not None):
         errors.append('Logic research must not preallocate pages or visible copy')
     research = package.get('research')

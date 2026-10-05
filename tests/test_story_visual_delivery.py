@@ -28,9 +28,9 @@ class StoryRun(helpers.RealCliReleaseTests):
         from packages.validators.resource_inventory import resource_inventory_signature, finalize_resource_inventory
         package['resource_inventory']['gate']['authoring_started_at']=datetime.now(timezone.utc).isoformat()
         package['resource_inventory']=finalize_resource_inventory(package['resource_inventory'])
-        if version in {"3.1", "3.2"}:
+        if version in {"3.1", "3.2", "3.3"}:
             from tests.test_page_allocation_handoff import convert_to_page_handoff
-            if version == "3.2":
+            if version in {"3.2", "3.3"}:
                 from tests.test_research_content_handoff import convert_to_research_handoff
                 convert_to_research_handoff(package, self.plan)
             else:
@@ -44,23 +44,62 @@ class StoryRun(helpers.RealCliReleaseTests):
             for slide in self.qa.get('slides', []):
                 slide['checks'].pop('storyline_single_line', None)
                 slide.get('not_applicable_reasons', {}).pop('storyline_single_line', None)
+        if version == '3.3':
+            from packages.validators.clean_content import RETIRED_COPY_KEYS, RETIRED_QA_CHECKS
+            package['contract_version']='3.3'
+            old_pages=package['logic_layer']['slides']
+            package['logic_layer']=None
+            package['copy_provenance']={}
+            for key in RETIRED_COPY_KEYS:
+                package['copy_layer'].pop(key,None)
+            for page, allocation in zip(package['copy_layer']['slides'],old_pages):
+                for key in RETIRED_COPY_KEYS:page.pop(key,None)
+                page['narrative_role']=allocation['narrative_role']
+                page['data_ids']=[d['data_id'] for d in allocation['data']]
+                clean=[]
+                for u in page['copy_units']:
+                    package['copy_provenance'][u['copy_id']]=u['source_finding_ids']
+                    role={'group-label':'heading','footnote':'annotation','closing':'title','title':'title','subtitle':'subtitle'}.get(u['role'],'body')
+                    unit=dict(copy_id=u['copy_id'],text=u['text'],role=role)
+                    if role=='heading':unit['heading_level']=3
+                    clean.append(unit)
+                page['copy_units']=clean
+            for page in self.plan['slides']:
+                page.pop('atomicity_review',None)
+                for i,mapping in enumerate(page['copy_unit_map']):
+                    if mapping['target_type']=='table-cell':
+                        mapping.setdefault('native_location',dict(shape_name='Synthetic table',row=i,column=0))
+                    else:
+                        mapping['native_location']=dict(shape_name='COPY::'+mapping['copy_id'])
+                by_copy={m['copy_id']:m for m in page['copy_unit_map']}
+                baseline=next(p for p in new_plan['visual_baseline']['slides'] if p['slide_id']==page['slide_id'])
+                for element in baseline['elements']:
+                    element['element_id']=by_copy[element['copy_ids'][0]]['render_target_id']
+            self.plan['reference_research']=dict(learning_package_available=False,source_strategy='autonomous',references=[],notes='Synthetic CLI fixture has no optional reference source; no visual-quality claim.')
+            self.qa['contract_version']='4.1'
+            for page in self.qa.get('slides',[]):
+                for key in RETIRED_QA_CHECKS:
+                    page['checks'].pop(key,None)
+                    page.get('not_applicable_reasons',{}).pop(key,None)
         origin=copy.deepcopy(package)
         origin.update(status='logic-approved',copy_layer=None)
-        if version in {'3.0', '3.2'}:
+        if version in {'3.0', '3.2', '3.3'}:
             origin['logic_layer']=None
         origin.pop('logic_artifact',None)
+        origin.pop('copy_provenance',None)
         self.original_logic=self.work/'original-logic.json'
         self.original_logic.write_text(json.dumps(origin,ensure_ascii=False),encoding='utf-8')
         package['logic_artifact']=reference(self.original_logic)
         self.package=package
         self.package_path.write_text(json.dumps(package,ensure_ascii=False),encoding='utf-8')
-        self.plan.update(contract_version='2.0',package_contract_version=version,visual_baseline=new_plan['visual_baseline'])
+        plan_version='2.1' if version=='3.3' else '2.0'
+        self.plan.update(contract_version=plan_version,package_contract_version=version,visual_baseline=new_plan['visual_baseline'])
         self.plan['resource_inventory_lock']=resource_inventory_signature(package['resource_inventory'])
         self.resource_inventory_path.write_text(json.dumps(package['resource_inventory'],ensure_ascii=False),encoding='utf-8')
         self.plan['visual_baseline'].update(copy_package_sha256=digest(package),spec_sha256=spec_digest(self.plan),
                                            locked_at=datetime.now(timezone.utc).isoformat())
         self.plan_path.write_text(json.dumps(self.plan,ensure_ascii=False),encoding='utf-8')
-        self.qa.update(visual_baseline_sha256=digest(self.plan['visual_baseline']),art_direction_plan_contract_version='2.0')
+        self.qa.update(visual_baseline_sha256=digest(self.plan['visual_baseline']),art_direction_plan_contract_version=plan_version)
 
     def _run_cli(self,*args,**kwargs):
         args=list(args)
@@ -100,6 +139,9 @@ class StoryDeliveryTests(unittest.TestCase):
     def test_real_cli_research_content_and_art_publish_companion(self):
         self.run_handoff("3.2")
 
+    def test_real_cli_clean_content_publishes_without_legacy_copy_constraints(self):
+        self.run_handoff("3.3")
+
     def run_handoff(self, version):
         case=StoryRun('runTest')
         case.setUp()
@@ -113,7 +155,7 @@ class StoryDeliveryTests(unittest.TestCase):
         report=json.loads(report_path.read_text(encoding='utf-8'))
         self.assertEqual(report['stage_snapshots']['logic']['snapshot']['status'],'logic-approved')
         layer=report['stage_documents']['documents']['logic']['content']['logic_layer']
-        if version in {'3.0', '3.2'}:
+        if version in {'3.0', '3.2', '3.3'}:
             self.assertIsNone(layer)
         else:
             self.assertEqual(layer,case.package['logic_layer'])

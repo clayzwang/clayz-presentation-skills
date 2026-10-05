@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import subprocess
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -98,6 +99,11 @@ def snapshots(package_path, plan_path):
             "communication_contract", "art_direction", "decision_log", "typography_contract", "deck_rhythm", "slides"
         )}, plan_path),
     }
+    if package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3"}:
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "packages/validators"))
+        from story_handoff import load_logic_origin
+        values["logic"] = (load_logic_origin(package), package["logic_artifact"]["path"])
+        values["art_direction"] = (plan, plan_path)
     return {stage: {"artifact_sha256": digest(path), "snapshot_sha256": canonical(value), "snapshot": value}
             for stage, (value, path) in values.items()}
 
