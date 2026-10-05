@@ -40,11 +40,22 @@ def main():
         peer=s.shapes.add_textbox(Inches(.6),Inches(3),Inches(8),Inches(.7))
         peer.name='ART::peer-heading';peer.text='A peer heading with different emphasis'
         peer.text_frame.paragraphs[0].font.name='Arial';peer.text_frame.paragraphs[0].font.size=Pt(22)
+        s=p.slides.add_slide(p.slide_layouts[6])
+        title=s.shapes.add_textbox(Inches(.6),Inches(.7),Inches(8),Inches(.7))
+        title.name='ART::separate-heading';title.text='A separately editable heading'
+        title.text_frame.paragraphs[0].font.size=Pt(26)
+        body=s.shapes.add_textbox(Inches(.6),Inches(1.6),Inches(8),Inches(1))
+        body.name='ART::separate-body';body.text='This body stays a distinct editable object inside a native group.'
+        body.text_frame.paragraphs[0].font.size=Pt(18)
+        group=s.shapes.add_group_shape([title,body]);group.name='ART::editing-group'
         src=root/'source.pptx';pptx=root/'stamped.pptx';p.save(src);stamp(src,pptx,{'ClayzVersion':'runtime-smoke'})
         reopened=Presentation(pptx)
         shared=next(shape for shape in reopened.slides[2].shapes if shape.name=='ART::shared-editorial-text')
         if len(shared.text_frame.paragraphs)!=2 or shared.text_frame.paragraphs[0].font.size==shared.text_frame.paragraphs[1].font.size:
             raise RuntimeError('combined native paragraphs or independent styles were lost')
+        group=next(shape for shape in reopened.slides[3].shapes if shape.name=='ART::editing-group')
+        if {shape.name for shape in group.shapes}!={'ART::separate-heading','ART::separate-body'} or not all(shape.has_text_frame for shape in group.shapes):
+            raise RuntimeError('native grouping lost independently editable children')
         cmd=[office,'-env:UserInstallation='+ (root/'office-profile').as_uri(),'--headless','--convert-to','pdf','--outdir',str(root),str(pptx)]
         proc=subprocess.run(cmd,check=True,capture_output=True,text=True,timeout=90)
         pdf=root/'stamped.pdf'
@@ -52,12 +63,14 @@ def main():
         text=subprocess.run(['pdftotext',str(pdf),'-'],check=True,capture_output=True,text=True,timeout=30).stdout
         for value in ['Line one','Line two','Complete table','-11.09','24.01',
                       'Editorial heading','Two approved paragraphs share one editable text box.',
-                      'A peer heading with different emphasis']:
+                      'A peer heading with different emphasis','A separately editable heading',
+                      'This body stays a distinct editable object inside a native group.']:
             if value not in text:raise RuntimeError('rendered text/negative label missing: '+value)
         result={'status':'passed','office_version':subprocess.run([office,'--version'],capture_output=True,text=True,check=True).stdout.strip(),
                 'pptx_sha256':hashlib.sha256(pptx.read_bytes()).hexdigest(),'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),
                 'checks':['metadata-stamped package opens','integrated table and multiline text render','negative chart label retains sign',
-                          'combined editable paragraphs and independent text styles survive reopening and rendering'],
+                          'combined editable paragraphs and independent text styles survive reopening and rendering',
+                          'separate editable children inside a native group survive reopening and rendering'],
                 'limitations':['Not a pixel geometry verdict.','Not STKaiti or PowerPoint/WPS native acceptance.']}
         args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(result,indent=2)+'\n')
         print(json.dumps(result))

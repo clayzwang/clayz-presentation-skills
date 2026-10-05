@@ -1,6 +1,6 @@
-# 研究、干净文字与视觉交接 — v0.18.0
+# 研究、干净文字与视觉交接 — v0.18.1
 
-新任务使用内容包 3.3、Art 计划 2.1、Output QA 4.1、交接扩展 1.3。
+新任务使用内容包 3.3、Art 计划 2.2、Output QA 4.1、交接扩展 1.3。
 五阶段、配置、真实证据、校准、工作记录和独立审计保持现有流程。
 旧合同仅用于相应历史材料回读，不能改版本标签后当作新合同。
 
@@ -56,7 +56,7 @@ columns/table/ladder 等仍然可以作为 Art 自主选择的设计。
 学习包如何编写、组织和包装不属于本次引擎版本范围。
 看参考与复制素材的权限分开；在线参考查询不逐次审批，也不重启未变化的预检。
 
-## Art 计划 2.1 与图片稿
+## Art 计划 2.2 与图片稿
 
 保留包身份、acceptance_contract、resource_inventory_lock、
 communication_contract、Provider 锁与真实来源证据。
@@ -76,7 +76,7 @@ native_location。原生对象类型只用于验证可编辑性，不限制版�
 表格单元格另有从零开始的 row/column，图表标识具体原生标签。
 共用文本通过不相交的 text_range:[start,end) 字符区间定位；
 文本体中的多个段落用换行连接。视觉顺序和样式由 Art 独立决定。
-不再检查父子目标相同关系、单独对象或同级样式一致。
+不再根据 Copy 检查父子目标相同关系、单独对象或同级样式一致。
 
 每页制作并检查使用真实批准文字的可读 PNG/JPEG 图片稿。
 全稿图片与视觉规格一致后才能交给 Output；
@@ -87,10 +87,18 @@ visual_baseline 保留锁定时间、Copy 与规格哈希、全部页面图片�
 图表绑定批准研究数据；图片和图标绑定真实且有权限的素材。
 用 scripts/stage_documents.py lock-design 锁定，不能事后由最终 PPTX 补图片稿。
 
+Art 同时决定原生编辑边界。每个 element 是一个独立原生对象，声明唯一
+native_name 和 render_separately:true；该标志属于 Art 对象，不属于 Copy ID。
+自然连续的正文仍可共用一个明确声明的文本框。需要独立选择、移动、宽度或
+格式调整的内容，分别成为对象；需要一起移动时，用 native_group_path 从外到内
+声明原生组名，并保留独立可编辑的子对象。省略路径表示不分组。
+映射 shape_name 与 element.native_name 一致。编辑选择使用既有 purpose 和
+work-notes 说明；旧 Art 2.1 保留按原版本回读。
+
 ## Output、Supervisor 与独立审计
 
 Output 按 Art 的图片与规格制作可编辑对象，按原生位置与字符区间核对文案。
-允许合并对象、同级不同样式和 Art 自主阅读路径。
+允许 Art 明确选择的文段共框、同级不同样式和自主阅读路径。
 QA 4.1 去掉 atomic_copy_separation、parent_child_hierarchy、peer_parallelism、
 storyline_single_line、list_alignment 等继承 Copy 的规则；
 脚本、QA 与 Supervisor 均不得重新引入。
@@ -98,6 +106,10 @@ storyline_single_line、list_alignment 等继承 Copy 的规则；
 保留文字、标点、大小写、数字、必要限定条件和用户明确要求。
 选用表格时仍须完整原生表格；图表、字体、内部容量、最终回读渲染、
 可编辑性及交付大小保持已有可靠性要求。
+
+Output 必须保留 Art 声明的对象和准确分组，不得擅自合并、拆分、改组或拍平。
+对象边界变化回 Art。最终 PPTX 比对和 QA 检查真实名称、原生类型与分组路径；
+文字齐全不能单独证明编辑保真。
 
 Supervisor 与 Auditor 检查遗漏、变义、不实关系、可读性失败与执行偏差，
 不负责设计，不继承被删除的排版要求。

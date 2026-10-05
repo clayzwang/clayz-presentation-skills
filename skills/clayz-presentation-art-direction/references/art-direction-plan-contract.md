@@ -1,9 +1,9 @@
-# Art Direction plan 2.1
+# Art Direction plan 2.2
 
 For new tasks use [research and visual handoff](../../../packages/contracts/story-visual-handoff.md).
 Validate with validate_art_direction_plan.py. Older contracts remain for replay.
 
-Bind contract_version:"2.1", package_contract_version:"3.3", package_id,
+Bind contract_version:"2.2", package_contract_version:"3.3", package_id,
 package_version, status:"art-direction-approved", acceptance_contract,
 resource_inventory_lock, communication_contract and the task index_evidence.
 The global art_direction.approval retains status and approved_by.
@@ -37,3 +37,13 @@ Lock readable full-deck images and matching visual_baseline specifications
 before Output. The baseline carries actual coordinates, typography,
 native types, copy/data/asset bindings and bounded technical adjustments.
 Use stage_documents.py lock-design. Keep final PPTX production in Output.
+
+Each visual_baseline element declares one native editing object with unique
+native_name and render_separately:true. Its mapping shape_name equals native_name.
+Several Copy IDs can belong to that single object. Independent editing needs
+determine boundaries; use native groups to move distinct editable children
+together. Optional native_group_path lists group names outermost first; omission
+means ungrouped. Output must retain the named objects, their native types and
+exact group paths, without merging, splitting, regrouping or flattening them.
+These are Art object requirements, never Copy paragraph requirements.
+Plan 2.1 remains supported for historical replay without the new fields.

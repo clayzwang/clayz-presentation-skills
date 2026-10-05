@@ -21,7 +21,7 @@ from pathlib import Path
 CONTRACT_VERSION = "1.3"
 PACKAGE_VERSION = "3.3"
 STORY_PACKAGE_VERSIONS = {"3.0", "3.1", "3.2", PACKAGE_VERSION}
-PLAN_VERSION = "2.1"
+PLAN_VERSION = "2.2"
 
 
 def digest(value):

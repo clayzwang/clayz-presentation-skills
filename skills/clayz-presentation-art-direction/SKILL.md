@@ -10,11 +10,11 @@ the complete story it communicates, then decide how the audience should see
 and understand it. Textual headings are meaning cues, not geometry or styling
 commands. Copy's editorial order does not prescribe the visual reading path.
 
-## Current handoff — v0.18.0
+## Current handoff — v0.18.1
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer and locale-matched `references/art-direction-plan-contract.md`.
-New runs use content package 3.3 and Art plan 2.1. Historical contracts apply
+New runs use content package 3.3 and Art plan 2.2. Historical contracts apply
 only to existing artifacts and never introduce old requirements into a new run.
 
 The Light package contains no Art layout collection, design index or fixed
@@ -70,8 +70,10 @@ or choosing a composition.
 2. Choose composition, hierarchy, grouping, medium, spacing and reading paths
    from that content. Columns, tables, ladders and other arrangements remain
    available Art choices, without Copy prescribing them.
-3. Combine multiple Copy paragraphs in one editable text object when suitable,
-   including headings and body. Equal textual levels may have different styles
+3. Decide native editing boundaries as part of the design. Content that needs
+   independent selection, movement, width or format changes becomes a separate
+   object. Natural continuous paragraphs may share one text box. Use native
+   groups when separate editable children should move together. Equal textual levels may have different styles
    or visual weight. Preserve actual meaning; visual sequence must not invent a
    business sequence, rank, cause or relationship.
 4. Use approved data for charts and tables. If choosing tabular presentation,
@@ -93,6 +95,16 @@ or choosing a composition.
 ```bash
 python ../../packages/validators/validate_art_direction_plan.py <copy-package.json> <art-plan.json>
 ```
+
+Each baseline element is one independently retained native object. Declare a
+unique `native_name` and `render_separately:true` on that Art element; several
+Copy IDs may belong to it. For native grouping, add `native_group_path` with
+group names outermost first. An omitted path means an ungrouped object.
+Use the existing purpose and work notes to explain consequential editing choices.
+Output must preserve these object boundaries and groups. It cannot merge, split,
+regroup or flatten them for convenience; a boundary change returns to Art.
+Text ranges prove content coverage, while native object structure proves the
+declared editing behavior. Neither alone proves comfortable editing.
 
 A semantic layout tree, A/B prototype, relative-layout solver or external
 learning pattern may help a particular design. Use them when useful; none is a

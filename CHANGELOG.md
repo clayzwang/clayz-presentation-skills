@@ -6,6 +6,17 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.18.1 — 2026-10-05
+
+- Add Art plan 2.2 native editing boundaries: each declared object has a unique native name and separate rendering; optional native group paths retain independently editable children.
+- Keep Copy 3.3 clean and permit multiple paragraphs in one Art-declared text object. Output must preserve Art's object boundaries and grouping; final PPTX comparison and Output QA reject missing, merged, regrouped or flattened objects.
+- Preserve Art 2.1 historical replay and extend native-object regressions and actual Office smoke to grouped editable children.
+
+### 中文
+
+- Art 计划 2.2 明确原生编辑边界：每个对象有唯一名称并单独制作，原生分组保留可分别编辑的子对象。
+- Copy 3.3 继续只交干净文字，多段正文可共用 Art 明确声明的单个文本框。Output 保留 Art 对象与分组，实际 PPTX 比对和 QA 检出遗漏、擅自合并、改组与拍平。
+- 保留旧 Art 2.1 回读，补充独立对象与原生分组的回归和真实 Office 渲染检查。
 ## 0.18.0 — 2026-10-04
 
 - Replace new-run Copy presentation fields with clean title/subtitle Storylines, headings, body and annotations. Categories are optional and heading levels may be skipped; source traceability travels separately from visible text.

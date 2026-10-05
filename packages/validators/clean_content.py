@@ -185,8 +185,8 @@ def validate_free_art(package, plan, policy=None):
         return errors
     if not isinstance(plan, dict):
         return errors + ["Art plan: object required"]
-    if plan.get("contract_version") != "2.1" or plan.get("package_contract_version") != "3.3":
-        errors.append("package 3.3 requires Art plan 2.1")
+    if plan.get("contract_version") not in {"2.1", "2.2"} or plan.get("package_contract_version") != "3.3":
+        errors.append("package 3.3 requires Art plan 2.2 (2.1 retained for replay)")
     if plan.get("status") != "art-direction-approved":
         errors.append("plan.status: art-direction-approved required")
     if plan.get("package_id") != package.get("package_id") or plan.get("package_version") != package.get("version"):
@@ -258,4 +258,38 @@ def validate_free_art(package, plan, policy=None):
         if "atomicity_review" in design:
             errors.append(f"Art {sid}: retired atomicity_review is not a new-run design requirement")
     errors.extend(validate_visual_baseline(package, plan))
+    if plan.get("contract_version") == "2.2" and not errors:
+        errors.extend(validate_editable_object_contract(plan))
+    return errors
+
+
+def validate_editable_object_contract(plan):
+    """Art declares native objects; Copy units never prescribe separation."""
+    errors = []
+    baseline = {page.get("slide_id"): page for page in rows((plan.get("visual_baseline") or {}).get("slides"))}
+    for design in rows(plan.get("slides")):
+        sid = design.get("slide_id")
+        elements = rows(baseline.get(sid, {}).get("elements"))
+        names = set()
+        by_id = {}
+        for element in elements:
+            if not isinstance(element, dict):
+                continue
+            eid, name = element.get("element_id"), element.get("native_name")
+            by_id[eid] = element
+            if not text(name) or name in names:
+                errors.append(f"Art {sid}.{eid}: a unique native_name identifies each editable object")
+            elif text(name):
+                names.add(name)
+            if element.get("render_separately") is not True:
+                errors.append(f"Art {sid}.{eid}: render_separately must be true for the Art-declared native object")
+            path = element.get("native_group_path", [])
+            if not isinstance(path, list) or not all(text(value) for value in path) or len(set(path)) != len(path):
+                errors.append(f"Art {sid}.{eid}: native_group_path must list distinct native group names, outermost first")
+            elif name in path:
+                errors.append(f"Art {sid}.{eid}: an editable child object cannot be its own native group")
+        for mapping in rows(design.get("copy_unit_map")):
+            element = by_id.get(mapping.get("render_target_id"), {})
+            if (mapping.get("native_location") or {}).get("shape_name") != element.get("native_name"):
+                errors.append(f"Art {sid}.{mapping.get('copy_id')}: native mapping must use its Art object's native_name")
     return errors

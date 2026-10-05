@@ -11,10 +11,10 @@ presentation. Copy may combine, split, reorder and rewrite the complete story.
 Preserve facts, numbers, claim strength, qualifiers, relationships and required
 coverage; return new facts or changed research judgments to Logic.
 
-## Current handoff — v0.18.0
+## Current handoff — v0.18.1
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
-peer. New runs use content package 3.3, Art plan 2.1 and Output QA 4.1.
+peer. New runs use content package 3.3, Art plan 2.2 and Output QA 4.1.
 Resolve the explicit locale or `locale.default`; read `references/copy-package-contract.md` or its `.zh-CN.md` peer.
 
 The content document contains only these kinds of visible text:
