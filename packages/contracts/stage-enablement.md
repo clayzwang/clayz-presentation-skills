@@ -553,7 +553,9 @@ Report automated checks, host installation, and real-deck outcomes separately.
 
 ## v0.18.0 text and design authority
 
-For new runs the story-visual-handoff contract uses package 3.3 and Art plan 2.1.
+For new runs the story-visual-handoff contract uses package 3.3 and Art plan 2.2.
+Art declares native editing objects and group paths; Output preserves those
+boundaries. Separate rendering belongs to Art's objects, not Copy paragraphs.
 Copy provides clean text roles, not presentation kinds or rendering constraints.
 Art independently chooses shared objects, styles, visual order and compositions.
 Light bundles no Art design/layout index. Learning-package references are preferred

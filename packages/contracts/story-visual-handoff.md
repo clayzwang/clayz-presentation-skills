@@ -1,6 +1,6 @@
-# Research, clean text and visual handoff — v0.18.0
+# Research, clean text and visual handoff — v0.18.1
 
-New runs use content package `3.3`, Art plan `2.1`, Output QA `4.1` and
+New runs use content package `3.3`, Art plan `2.2`, Output QA `4.1` and
 handoff extension `1.3`. Retain the five stages, configuration, real source
 evidence, calibrations, work records and Independent Auditor. Historical
 contracts retain versioned replay validation; never relabel an old artifact.
@@ -71,7 +71,7 @@ Learning-package authoring and packaging are outside this engine version.
 Asset reuse still needs provenance and rights. Reference research does not
 require a per-search approval or a restart of unchanged preflight.
 
-## Art plan 2.1 and full-deck baseline
+## Art plan 2.2 and full-deck baseline
 
 Preserve package identity, acceptance_contract, resource_inventory_lock,
 communication_contract (brief.preflight), task Provider lock and real consulted
@@ -116,6 +116,16 @@ Use scripts/stage_documents.py lock-design. Never retrofit Art drafts from
 the final Output PPTX. New explanatory wording/pagination returns to Copy;
 new facts/calculations return to Logic.
 
+Art also owns native editing boundaries. Each baseline element is a physical
+native object with a unique native_name and render_separately:true. The flag
+belongs to Art's object, not a Copy ID; multiple paragraphs may remain in one
+declared text object. Content needing independent selection, movement, width
+or format changes gets separate objects. When objects should move together,
+declare native_group_path (group names outermost first) while preserving the
+editable children. An omitted path means ungrouped. Mapping shape_name must
+match its baseline element's native_name. Use existing purpose/work notes to
+explain material editing choices. Plan 2.1 remains historical replay support.
+
 ## Output, Supervisor and Independent Auditor
 
 Output implements the locked Art images and specification in editable native
@@ -129,6 +139,11 @@ Preserve actual text, punctuation, case, numbers, necessary qualifiers and
 user constraints. A chosen table must be an integrated native table; charts,
 font naming, internal capacity, final reopening/render coverage, object
 editability and delivery size retain their existing reliability requirements.
+
+Output must preserve Art's named native objects and exact grouping. Merging,
+splitting, regrouping or flattening changes the approved editing behavior and
+returns to Art. Final PPTX comparison and QA inspect real object names, native
+types and group paths; text coverage alone cannot establish editing fidelity.
 
 Supervisor and Auditor check omissions, changed meanings, unsupported relations,
 readability failures and deviations from Art's approved design. They do not

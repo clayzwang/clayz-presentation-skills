@@ -31,7 +31,7 @@ return the specific capacity problem to Art Direction/Copy with evidence.
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
 `story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.3 and Art
-Direction plan 2.1. The complete research, Copy content document, complete image drafts, visual tags and
+Direction plan 2.2. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
@@ -152,9 +152,9 @@ Read the stage-work-record section of `../../packages/contracts/stage-enablement
 
 The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
 
-## v0.18.0 implementation boundary
+## v0.18.1 implementation boundary
 
-New runs use content package 3.3, Art plan 2.1 and QA 4.1. Implement Art's
+New runs use content package 3.3, Art plan 2.2 and QA 4.1. Implement Art's
 locked drafts/specifications without inheriting old Copy atomicity, parent-target,
 sibling-style or reading-order rules. Several Copy IDs may occupy one editable
 text object or native cell through disjoint native_location.text_range bindings.
@@ -163,3 +163,9 @@ and visual reading_sequence independently of textual heading levels and Copy arr
 order. No registered Pattern, Layout Contract or semantic tree is required.
 Use such tools only when Art actually supplied them; optional absence is valid.
 The current story-visual-handoff contract supersedes historical field examples.
+
+Preserve Art's editing boundaries: each baseline element's native_name,
+render_separately:true, native type and optional native_group_path. Create
+separate native children inside declared groups. Do not merge, split, regroup
+or flatten objects for convenience; return boundary changes to Art. Inspect
+real final PPTX objects with compare_package_to_pptx.py as well as text ranges.

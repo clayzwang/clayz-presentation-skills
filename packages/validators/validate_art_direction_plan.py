@@ -19,7 +19,7 @@ from validate_ppt_package import validate_package
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "2.1"
+CONTRACT_VERSION = "2.2"
 LEGACY_CONTRACT_VERSION = "1.7"
 TARGET_TYPES = {"shape", "table-cell", "chart-label"}
 VERIFY_METHODS = {"shape-name", "paragraph-exact", "table-cell"}

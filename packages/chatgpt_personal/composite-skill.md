@@ -241,9 +241,16 @@ Do not proactively generate speaker notes or appendices. Default cover and closi
 pages use native editable text, with relevant illustrative images when useful;
 Art Direction sizes and compresses assets for the actual placement and budget.
 
-## v0.18.0 stage boundaries
+## v0.18.1 stage boundaries
 
-New runs use content package 3.3, Art plan 2.1 and Output QA 4.1. Copy hands
+Art plan 2.2 defines native editing boundaries. Each Art baseline element has
+native_name and render_separately:true; optional native_group_path preserves
+separate editable children that move together. Output implements these objects
+and groups faithfully. Art-approved continuous paragraphs may share an object;
+Copy supplies text roles, never rendering commands. Review both actual native
+structure and whether the editing boundaries suit the intended use.
+
+New runs use content package 3.3, Art plan 2.2 and Output QA 4.1. Copy hands
 clean title/subtitle Storylines, headings with optional levels, body and annotations
 to Art. All categories are optional and levels may be skipped. Copy may reorganize
 the complete story without changing its meaning. No layout kind, parent/sibling

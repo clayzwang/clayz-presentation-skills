@@ -763,7 +763,7 @@ def validate_evidence_reference(
         if "#copy_layer" in reference and (not isinstance(parsed, dict) or "copy_layer" not in parsed):
             errors.append(f"{path}: design-package copy_layer fragment does not exist")
     elif artifact_name == "ppt-art-direction-plan.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"1.7", "2.0", "2.1"} or parsed.get("status") != "art-direction-approved":
+        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"1.7", "2.0", "2.1", "2.2"} or parsed.get("status") != "art-direction-approved":
             errors.append(f"{path}: art-direction evidence must use a supported approved plan contract")
         if plan is not None and parsed != plan:
             errors.append(f"{path}: art-direction evidence must match the plan under validation")

@@ -217,6 +217,9 @@ def validate_qa(
         except (OSError, zipfile.BadZipFile, KeyError, ET.ParseError) as exc:
             errors.append(f"qa PPTX evidence cannot be inspected: {exc}")
         validate_final_cjk_evidence(qa, pptx, errors)
+        if clean and plan.get("contract_version") == "2.2":
+            from compare_package_to_pptx import compare
+            errors.extend(compare(package, plan, pptx))
     expected_version = CONTRACT_VERSION if clean else "4.0"
     if qa.get("contract_version") != expected_version:
         errors.append(f"qa.contract_version: expected {expected_version}")

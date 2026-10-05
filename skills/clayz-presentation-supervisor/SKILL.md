@@ -33,7 +33,7 @@ stage. Preserve the existing independent-audit and delivery policy.
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
 `story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.3 and Art
-Direction plan 2.1. The complete research, Copy content document, complete image drafts, visual tags and
+Direction plan 2.2. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
@@ -254,12 +254,12 @@ Read the stage-work-record section of `../../packages/contracts/stage-enablement
 
 The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
 
-## v0.18.0 supervision boundary
+## v0.18.1 supervision boundary
 
-New runs use clean content package 3.3 and Art plan 2.1. Copy's five text roles
+New runs use clean content package 3.3 and Art plan 2.2. Copy's five text roles
 and optional heading levels describe content only. Art owns layout, visual
 hierarchy, shared editable objects, media and visual reading paths. Do not
-challenge a design for merged text, different styles at equal textual levels,
+challenge Art-approved shared text, different styles at equal textual levels,
 missing text categories, skipped levels or a visual order unlike Copy's array.
 Check actual omissions, changed meanings, unsupported business relationships,
 readability defects and implementation drift. Correctness may pass while Art's
@@ -269,3 +269,10 @@ preferred when available, otherwise web references and original design are open.
 Reference discovery within the authorized task does not require a per-search
 user approval or restarting unchanged preflight. Preserve actual source/asset
 provenance, rights and explicit user requirements.
+
+Review actual editing fidelity against Art plan 2.2. Separate named objects
+must remain distinct; native groups preserve editable children and the declared
+group paths. Missing objects, unapproved merges/splits/regrouping or flattened
+substitutes are Output deviations. Art owns whether the original boundaries
+make editing natural; source traceability and complete text do not settle that
+judgment. Record findings in the existing native_editability observation.

@@ -1,7 +1,7 @@
-# Art Direction 计划 2.1
+# Art Direction 计划 2.2
 
 新任务遵循[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)。
-绑定合同版本 2.1、内容包版本 3.3、任务身份、批准状态、验收合同、
+绑定合同版本 2.2、内容包版本 3.3、任务身份、批准状态、验收合同、
 资源签名、communication_contract 和真实索引证据。
 art_direction.approval 保留 status 与 approved_by。
 
@@ -24,3 +24,11 @@ shape_name 标識实际对象；表格单元格另有从零开始的 row/column�
 使用真实文字制作并检查全部可读图片稿，与坐标、字体、对象、数据、
 素材及技术容差一起锁进 visual_baseline，再交 Output。
 用 stage_documents.py lock-design 锁定，最终 PPTX 制作仍属于 Output。
+
+每个 visual_baseline 元素表示一个原生编辑对象，声明唯一 native_name 和
+render_separately:true；映射里的 shape_name 与该名称一致。
+一个 Art 对象仍可以承载多个 Copy ID。按独立选择、移动、宽度或格式调整的
+实际需要划分对象；需要整体移动时，用原生分组保留可分别编辑的子对象。
+可选 native_group_path 按从外到内列出原生组名，省略表示不分组。
+Output 必须保留对象、原生类型和准确分组，不得擅自合并、拆分、改组或拍平。
+这些要求属于 Art 对象，不属于 Copy 段落。旧 2.1 仅按原合同回读。

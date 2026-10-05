@@ -166,6 +166,57 @@ def chart_label_text(archive, slide_name, xml_bytes, location):
     return ''.join(t.text or '' for t in tokens)
 
 
+def editable_object_errors(xml_bytes, baseline):
+    """Verify separate native children and the exact native grouping Art chose."""
+    root = ET.fromstring(xml_bytes)
+    actual = {}
+    property_paths = {
+        'sp': './p:nvSpPr/p:cNvPr', 'pic': './p:nvPicPr/p:cNvPr',
+        'graphicFrame': './p:nvGraphicFramePr/p:cNvPr',
+        'cxnSp': './p:nvCxnSpPr/p:cNvPr', 'grpSp': './p:nvGrpSpPr/p:cNvPr',
+    }
+    def visit(container, groups):
+        for node in container:
+            tag = node.tag.rsplit('}', 1)[-1]
+            if tag not in property_paths:
+                continue
+            props = node.find(property_paths[tag], NS)
+            name = props.get('name', '') if props is not None else ''
+            actual.setdefault(name, []).append((tag, groups, node))
+            if tag == 'grpSp':
+                visit(node, groups + [name])
+    tree = root.find('./p:cSld/p:spTree', NS)
+    if tree is None:
+        return ['native object tree missing']
+    visit(tree, [])
+    errors = []
+    for element in baseline['elements']:
+        name = element['native_name']
+        matches = actual.get(name, [])
+        if len(matches) != 1:
+            errors.append(f"Art object {name}: requires one separate native object, found {len(matches)}")
+            continue
+        tag, groups, node = matches[0]
+        expected_groups = element.get('native_group_path', [])
+        if groups != expected_groups:
+            errors.append(f"Art object {name}: native grouping differs from the approved editing boundary")
+        for group in expected_groups:
+            if len(actual.get(group, [])) != 1 or actual[group][0][0] != 'grpSp':
+                errors.append(f"Art object {name}: native group {group} is missing or ambiguous")
+        kind = element['native_type']
+        expected_tag = {'text':'sp','shape':'sp','image':'pic','picture':'pic',
+                        'connector':'cxnSp','table':'graphicFrame','chart':'graphicFrame','diagram':'graphicFrame'}.get(kind)
+        if tag == 'grpSp' or (expected_tag and tag != expected_tag):
+            errors.append(f"Art object {name}: native type changed; a group or flattened picture cannot replace editable children")
+        if kind == 'text' and node.find('p:txBody', NS) is None:
+            errors.append(f"Art object {name}: editable text body missing")
+        if kind == 'table' and node.find('.//a:tbl', NS) is None:
+            errors.append(f"Art object {name}: integrated native table missing")
+        if kind == 'chart' and not any('drawingml/2006/chart' in (data.get('uri') or '') for data in node.findall('.//a:graphicData', NS)):
+            errors.append(f"Art object {name}: native chart missing")
+    return errors
+
+
 def compare_clean_content(package, plan, pptx, allow_extra_text=False):
     """Compare native text ranges; many Copy paragraphs may share one object."""
     errors = validate_plan(package, plan)
@@ -182,6 +233,8 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
             for index, (page, design, name) in enumerate(zip(pages, plan['slides'], names), 1):
                 xml = archive.read(name)
                 named, _, inventory = extract_slide(xml)
+                if plan.get('contract_version') == '2.2':
+                    errors.extend(f'slide {index}: {error}' for error in editable_object_errors(xml, plan['visual_baseline']['slides'][index-1]))
                 locations = text_locations(xml, preserve_offsets=True)
                 by_name = {key.split(':', 2)[2]: value for key, value in locations.items() if key.startswith('shape:')}
                 units = {u['copy_id']: u for u in page['copy_units']}
