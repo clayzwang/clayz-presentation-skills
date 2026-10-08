@@ -27,7 +27,13 @@ Neat alignment, text containment and an explanation of the chosen layout do
 not establish that result. Use the guidance to make and revise actual design
 choices; it introduces no layout catalog, aesthetic score or approval form.
 
-## Current handoff — v0.18.3
+Judge page balance from the actual combined weight of color, filled area,
+position, grouping and text density. Check that the strongest visible region
+serves the intended hierarchy, including purposeful asymmetry. Revise a
+secondary saturated panel or dense region that overwhelms the main evidence;
+inspect the color drafts and sequence again before locking the baseline.
+
+## Current handoff — v0.18.5
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer and locale-matched `references/art-direction-plan-contract.md`.
@@ -92,6 +98,11 @@ or choosing a composition.
    rectangle. Columns, tables, ladders and other arrangements remain available
    Art choices, without Copy prescribing them. Shared drawing code implements
    these choices rather than supplying their default geometry.
+   Let the whole composition communicate alongside the words. Choose spatial,
+   pictorial or typographic means freely for the content; frames, blocks and
+   background depth are examples, never required objects or a layout recipe.
+   Inspect whether the actual arrangement expresses the intended relationships
+   and emphasis, and preserve useful contrast when correcting balance.
 3. Decide native editing boundaries as part of the design. Content that needs
    independent selection, movement, width or format changes becomes a separate
    object. Natural continuous paragraphs may share one text box. Use native
@@ -104,7 +115,9 @@ or choosing a composition.
 5. Produce readable PNG/JPEG drafts of every page using the actual approved
    text. Inspect thumbnails, full-size pages and the actual page sequence.
    Judge attention, relationships, reading effort, visual fatigue, purposeful
-   repetition and whitespace. If consecutive pages flatten different tasks
+   repetition, whitespace and the combined weight of color and text. Check
+   whether filled areas and dense passages pull attention to the intended
+   evidence and conditions. If consecutive pages flatten different tasks
    into the same reading experience, revise the affected designs and inspect
    the sequence again. Retain repetition when its comparison or progression
    benefit remains visible. No fixed card count, area ratio, font-level parity

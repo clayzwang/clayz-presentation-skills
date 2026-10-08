@@ -57,6 +57,73 @@ visible hierarchy misrepresents the information. Whitespace can separate ideas,
 support a focal point or give the eye a pause. Judge those effects on the actual
 page, including whether unused space could relieve cramped information.
 
+## Let the whole composition communicate
+
+Treat the page as a visual explanation. Decide how the overall arrangement
+can make relationships, emphasis and reading order perceptible alongside the
+words. Typography is one expressive resource among space, scale, position,
+shape, imagery, grouping, contrast, depth, rhythm and deliberate absence.
+Choose freely from those and other appropriate means for this particular
+content; the list is illustrative, not a required toolkit or finite menu.
+
+A shared enclosure might explain scope; contrasting regions might distinguish
+main material from support; open space or an image might establish the useful
+focus instead. Use a treatment only when its visible effect helps the reader.
+Frames, blocks and background depth are possibilities, not mandatory objects.
+Do not infer a box for every heading, a highlighted panel for every page, or a
+repeating emphasis recipe from these examples.
+
+Inspect the whole page before reading each sentence: what relationship or
+priority does its arrangement communicate? Then read the actual content and
+check that the two agree. If important distinctions exist only in bold or
+colored words, reconsider the composition where a spatial or pictorial
+expression would help. Some pages benefit from restrained typographic design;
+judge the result rather than requiring non-text decoration.
+
+Balance work must preserve useful expression. Making every surface pale or
+removing every frame can erase hierarchy, just as indiscriminate heavy fills
+can distort it. Reallocate visible weight as needed, inspect the page and its
+neighbors, and retain the model's freedom to find a better composition. No
+prescribed layout, object count or aesthetic score replaces this judgment.
+
+## Balance the weight that is actually visible
+
+Decide where this page's visual weight should sit from the main judgment and
+the relationships the reader needs to follow. Purposeful asymmetry can give a
+main claim room and keep supporting conditions close. Let the actual result
+determine whether the eye finds a useful focal point and can move comfortably
+through the page.
+
+Judge color together with geometry and text. A large, saturated fill can pull
+more attention than a more important passage in a plain region. Luminance and
+color contrast, filled area, position, clustered objects, borders and text
+density all contribute to the weight a reader perceives. A dark, dense text
+column can also outweigh a larger pale region. Matching widths, heading levels
+or numbers of objects does not establish a balanced page.
+
+Use brand color according to its visible effect. A full panel may identify a
+primary relationship, but applying it to a long supporting paragraph can make
+that paragraph appear to be the main claim. Consider a smaller accent, lighter
+surface, narrower emphasis or a different allocation of space when those
+choices preserve the intended hierarchy. Judge text contrast and reading
+comfort again after changing the color treatment.
+
+Inspect the color thumbnail before relying on the wording: where does the eye
+land, what pulls it next, and does a secondary colored region overpower the
+main evidence? Then read the full-size draft to check whether dense text,
+necessary conditions or isolated content change that impression. Grayscale
+can help diagnose a particular contrast problem, but retain the color view
+as evidence of what readers will actually see.
+
+Revise the cause of an imbalance. Adjust the extent or intensity of the fill,
+position, grouping, typography or available space as the content requires.
+Unused space should support separation, focus or a pause; an empty side alone
+does not counter the pull of a heavy colored block. Reinspect the changed page
+and its neighbors for accidental shifts of emphasis and repeated heavy areas.
+Record the specific attention problem and the observed effect of the revision
+in existing Art work notes. Color proportions, geometric symmetry and automatic
+balance scores are not substitutes for this judgment.
+
 ## Compose a sequence the reader can sustain
 
 Inspect the actual sequence as well as each page. Repeated placement can help
