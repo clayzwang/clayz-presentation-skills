@@ -57,6 +57,35 @@ visible hierarchy misrepresents the information. Whitespace can separate ideas,
 support a focal point or give the eye a pause. Judge those effects on the actual
 page, including whether unused space could relieve cramped information.
 
+## Let the whole composition communicate
+
+Treat the page as a visual explanation. Decide how the overall arrangement
+can make relationships, emphasis and reading order perceptible alongside the
+words. Typography is one expressive resource among space, scale, position,
+shape, imagery, grouping, contrast, depth, rhythm and deliberate absence.
+Choose freely from those and other appropriate means for this particular
+content; the list is illustrative, not a required toolkit or finite menu.
+
+A shared enclosure might explain scope; contrasting regions might distinguish
+main material from support; open space or an image might establish the useful
+focus instead. Use a treatment only when its visible effect helps the reader.
+Frames, blocks and background depth are possibilities, not mandatory objects.
+Do not infer a box for every heading, a highlighted panel for every page, or a
+repeating emphasis recipe from these examples.
+
+Inspect the whole page before reading each sentence: what relationship or
+priority does its arrangement communicate? Then read the actual content and
+check that the two agree. If important distinctions exist only in bold or
+colored words, reconsider the composition where a spatial or pictorial
+expression would help. Some pages benefit from restrained typographic design;
+judge the result rather than requiring non-text decoration.
+
+Balance work must preserve useful expression. Making every surface pale or
+removing every frame can erase hierarchy, just as indiscriminate heavy fills
+can distort it. Reallocate visible weight as needed, inspect the page and its
+neighbors, and retain the model's freedom to find a better composition. No
+prescribed layout, object count or aesthetic score replaces this judgment.
+
 ## Balance the weight that is actually visible
 
 Decide where this page's visual weight should sit from the main judgment and

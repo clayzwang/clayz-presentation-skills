@@ -33,7 +33,7 @@ serves the intended hierarchy, including purposeful asymmetry. Revise a
 secondary saturated panel or dense region that overwhelms the main evidence;
 inspect the color drafts and sequence again before locking the baseline.
 
-## Current handoff — v0.18.4
+## Current handoff — v0.18.5
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer and locale-matched `references/art-direction-plan-contract.md`.
@@ -98,6 +98,11 @@ or choosing a composition.
    rectangle. Columns, tables, ladders and other arrangements remain available
    Art choices, without Copy prescribing them. Shared drawing code implements
    these choices rather than supplying their default geometry.
+   Let the whole composition communicate alongside the words. Choose spatial,
+   pictorial or typographic means freely for the content; frames, blocks and
+   background depth are examples, never required objects or a layout recipe.
+   Inspect whether the actual arrangement expresses the intended relationships
+   and emphasis, and preserve useful contrast when correcting balance.
 3. Decide native editing boundaries as part of the design. Content that needs
    independent selection, movement, width or format changes becomes a separate
    object. Natural continuous paragraphs may share one text box. Use native
