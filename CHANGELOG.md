@@ -4,12 +4,15 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
+- Nothing yet.
+
+## 0.18.4 — 2026-10-09
+
 - Strengthen Art's judgment of actual page balance: consider color contrast, saturated area, position, grouping and text density together; revise misplaced visual weight and inspect color drafts and the sequence again. Preserve purposeful asymmetry and existing work records without color quotas or automatic balance scores.
 
 ### 中文
 
 - 强化 Art 对实际页面平衡的判断：综合色彩对比、饱和填色面积、位置、分组与文字密度，修订错配的视觉重量，再看彩色图稿与连续页；保留有目的的不对称，使用现有工作记录，不设颜色配额或自动平衡评分。
-
 ## 0.18.3 — 2026-10-09
 
 - Add bilingual reader-centered composition guidance to Art: visual relationships, attention hierarchy, reading comfort, sequence rhythm and visual fatigue, with actual draft revision instead of layout quotas or aesthetic scores. Art uses learning packages only when explicitly requested.

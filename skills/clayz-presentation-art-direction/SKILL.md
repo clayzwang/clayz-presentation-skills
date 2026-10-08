@@ -33,7 +33,7 @@ serves the intended hierarchy, including purposeful asymmetry. Revise a
 secondary saturated panel or dense region that overwhelms the main evidence;
 inspect the color drafts and sequence again before locking the baseline.
 
-## Current handoff — v0.18.3
+## Current handoff — v0.18.4
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer and locale-matched `references/art-direction-plan-contract.md`.
