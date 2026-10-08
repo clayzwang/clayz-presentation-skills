@@ -29,6 +29,16 @@ over tidying audit records; quote exact text/copy IDs and route missing analysis
 to Logic, awkward expression to Copy, and visual loss to the responsible visual
 stage. Preserve the existing independent-audit and delivery policy.
 
+For v0.18.2, inspect claim/evidence correspondence, local argument organization,
+entity/accounting scope and avoidable repetition in Copy, then their visible
+expression in Art and the final render. A missing heading alone is not a defect.
+Record concrete affected copy IDs/pages in existing calibration or audit findings.
+Read `../../packages/contracts/verification-outcomes.md` or its `.zh-CN.md` peer:
+preserve raw tool execution results, record-integrity findings and actual quality
+findings separately. Exceptions do not prove content failure or authorize a pass.
+An honest failed check is not itself a malformed QA record. Retain independent
+assessments and repair results without overwriting the earlier evidence.
+
 ## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or

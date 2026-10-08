@@ -21,6 +21,12 @@ preserve the Auditor's findings and statuses verbatim. A quality defect is not
 the same as an artifact binding, identity, format, or evidence-integrity
 failure.
 
+Use [verification outcomes](verification-outcomes.md) (or its zh-CN peer) to
+distinguish tool execution, record integrity and observed quality. Preserve raw
+errors and independently verified findings separately. An exception supplies no
+quality verdict; an honestly reported failure is not itself a malformed record.
+Keep missing coverage deferred/uncertain and retain historical results after repair.
+
 Read [reader-quality guidance](reader-quality.md) during final review. Inspect the actual argument and reader-facing text separately from numerical/object/layout checks. Cite the sentence or copy ID, preserve evidence strength, and distinguish missing analysis from awkward wording. Record findings in the existing audit artifact; do not infer fluency from completed fields.
 
 ## Required evidence and interface

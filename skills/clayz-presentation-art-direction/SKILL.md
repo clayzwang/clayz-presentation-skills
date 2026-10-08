@@ -10,7 +10,14 @@ the complete story it communicates, then decide how the audience should see
 and understand it. Textual headings are meaning cues, not geometry or styling
 commands. Copy's editorial order does not prescribe the visual reading path.
 
-## Current handoff — v0.18.1
+Check that the actual page makes the argument and distinct judgments readable.
+Font-size differences or faithful text alone are insufficient. If Copy's
+grouping is ambiguous, return the affected passages to Copy. If the selected
+medium duplicates prose, request a precise Copy revision rather than rewriting
+it in Art. Use existing observations; no mandatory heading count or layout is
+introduced.
+
+## Current handoff — v0.18.2
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer and locale-matched `references/art-direction-plan-contract.md`.

@@ -52,6 +52,30 @@ If Art chooses a table, cells need concrete facts or explanations rather than
 unexplained nouns. Numerical text retains the metric, unit and period; Art owns
 any label/value/unit grouping in the visual design.
 
+### Actual Copy review before handoff (v0.18.2)
+
+Establish the page's question, supported judgments, evidence and paragraph
+relationships before assigning text roles. Review each title against its
+evidence: growth/decline needs a comparison, and a current-period amount cannot
+alone establish a trend. Contribution and causation need their own support.
+Narrow unsupported wording or return missing research to Logic.
+
+Use informative local headings when independent judgments would otherwise be
+hard to distinguish. Continuous explanation can remain body-only. Missing
+headings alone are not a defect; no heading count, fixed three-level shell,
+word-count quota or visual grouping tree applies.
+
+State entity, period, metric and accounting scope before interpreting numbers.
+Keep distinct scopes separate and material qualifications beside the relevant
+claim. Remove repeated prose. Once Art chooses a medium, return specific
+chart/prose repetition to Copy for revision while preserving necessary facts.
+
+In the existing semantic_preservation_review or work notes, record actual reading:
+whether the Storyline and any headings communicate the argument, whether each
+judgment has matching evidence and a clear scope, and whether every passage adds
+evidence, explanation or a necessary qualification. Cite affected copy IDs.
+No new form, keyword test or field-presence check replaces professional reading.
+
 ### Preserve the strength of the evidence
 
 These are synthetic language exercises, not business facts or fixed templates.

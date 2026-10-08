@@ -152,7 +152,7 @@ Read the stage-work-record section of `../../packages/contracts/stage-enablement
 
 The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
 
-## v0.18.1 implementation boundary
+## v0.18.2 implementation boundary
 
 New runs use content package 3.3, Art plan 2.2 and QA 4.1. Implement Art's
 locked drafts/specifications without inheriting old Copy atomicity, parent-target,
@@ -169,3 +169,11 @@ render_separately:true, native type and optional native_group_path. Create
 separate native children inside declared groups. Do not merge, split, regroup
 or flatten objects for convenience; return boundary changes to Art. Inspect
 real final PPTX objects with compare_package_to_pptx.py as well as text ranges.
+
+Read `../../packages/contracts/verification-outcomes.md` or its `.zh-CN.md` peer.
+Use `--result-json <path>` on native comparison, Output QA and deviation-log
+validation to retain automatic execution/integrity/quality diagnostics with the
+existing command evidence. Do not interpret an exception as a quality finding,
+or rewrite declared fail/deferred/uncertain results as pass to satisfy a record.
+Fix affected tool/input causes, rerun affected checks and preserve earlier output.
+The deviation-log validator's record pass is not a PPTX quality verdict.

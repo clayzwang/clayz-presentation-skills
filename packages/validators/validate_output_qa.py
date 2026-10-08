@@ -20,6 +20,7 @@ from index_evidence import index_lock_signature, validate_index_evidence
 from resource_inventory import resource_inventory_signature
 from validate_art_direction_plan import OBJECT_TYPES, STRUCTURE_TYPES, validate_plan
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
+from verification_result import Issue, exception_result, finish
 
 
 CONTRACT_VERSION = "4.1"
@@ -49,7 +50,7 @@ SEMANTIC_TREE_EVIDENCE_KEYS = {
     "planned_tree_id_repeated", "planned_tree_mode_repeated", "observed_grouping",
     "observed_reading_order", "observed_shape_semantics", "flattening_detected", "evidence",
 }
-CHECK_STATUS = {"pass", "not-applicable"}
+CHECK_STATUS = {"pass", "fail", "deferred", "uncertain", "not-applicable"}
 qa_path_parent = Path.cwd()
 
 
@@ -464,8 +465,12 @@ def validate_qa(
                 errors.append(f"{path}.checks: unknown checks {unknown}")
             for key in required_checks | (set(checks) & allowed_checks):
                 value = checks.get(key)
-                if value not in CHECK_STATUS:
-                    errors.append(f"{path}.checks.{key}: must be pass or not-applicable")
+                if not isinstance(value, str) or value not in CHECK_STATUS:
+                    errors.append(f"{path}.checks.{key}: unknown check status")
+                elif value == "fail":
+                    errors.append(Issue(f"{path}.checks.{key}: reported fail", "quality"))
+                elif value in {"deferred", "uncertain"}:
+                    errors.append(Issue(f"{path}.checks.{key}: reported {value}", "coverage"))
                 elif value == "not-applicable" and not nonempty(reasons.get(key)):
                     errors.append(f"{path}.not_applicable_reasons.{key}: required")
                 elif value == "pass" and key in reasons:
@@ -486,14 +491,16 @@ def validate_qa(
                     "motif_fidelity", "context_rail_fidelity", "semantic_layout_tree_fidelity", "unapproved_deviation_absent",
                     "master_page_number", "inherited_chrome_uniqueness",
                 ):
-                    if checks.get(key) != "pass":
-                        errors.append(f"{path}.checks.{key}: body slides must pass this check")
-            if is_scatter and checks.get("scatter_semantics_and_labels") != "pass":
-                errors.append(f"{path}.checks.scatter_semantics_and_labels: scatter slides must pass this check")
+                    if checks.get(key) == "not-applicable":
+                        errors.append(Issue(f"{path}.checks.{key}: body slide check was not performed", "coverage"))
+            if is_scatter and checks.get("scatter_semantics_and_labels") == "not-applicable":
+                errors.append(Issue(f"{path}.checks.scatter_semantics_and_labels: scatter check was not performed", "coverage"))
             if not is_scatter and checks.get("scatter_semantics_and_labels") != "not-applicable":
                 errors.append(f"{path}.checks.scatter_semantics_and_labels: non-scatter slides must be not-applicable")
-        if not isinstance(qa_slide.get("issues_remaining"), list) or qa_slide.get("issues_remaining"):
-            errors.append(f"{path}.issues_remaining: must be an empty array")
+        if not isinstance(qa_slide.get("issues_remaining"), list):
+            errors.append(f"{path}.issues_remaining: must be an array")
+        elif qa_slide["issues_remaining"]:
+            errors.append(Issue(f"{path}.issues_remaining: unresolved quality findings remain", "quality"))
         evidence = qa_slide.get("review_evidence")
         if not nonempty(evidence) or len(evidence.strip()) < 20:
             errors.append(f"{path}.review_evidence: must be a specific record of at least 20 characters")
@@ -532,6 +539,7 @@ def main() -> int:
     parser.add_argument("--render-root", type=Path)
     parser.add_argument("--pptx", type=Path, required=True)
     parser.add_argument("--config", type=Path)
+    parser.add_argument("--result-json", type=Path)
     args = parser.parse_args()
     try:
         package = json.loads(args.package.read_text(encoding="utf-8"))
@@ -540,16 +548,10 @@ def main() -> int:
         global qa_path_parent
         qa_path_parent = args.qa.resolve().parent
         errors = validate_qa(package, plan, qa, args.render_root, args.pptx, load_policy(args.config))
-    except (OSError, json.JSONDecodeError, FileNotFoundError, RuntimeError) as exc:
-        print(f"ERROR: {exc}", file=sys.stderr)
-        return 2
-    if errors:
-        for error in errors:
-            print(f"ERROR: {error}")
-        print(f"FAILED: {len(errors)} error(s)")
-        return 1
-    print(f"PASS: final QA {qa.get('package_id')} ({len(qa.get('slides', []))} slides)")
-    return 0
+    except Exception as exc:
+        return exception_result("output-qa", exc, args.result_json)
+    return finish("output-qa", errors, args.result_json, quality_checked=True,
+                  success=f"PASS: final QA {qa.get('package_id')} ({len(qa.get('slides', []))} slides)")
 
 
 if __name__ == "__main__":

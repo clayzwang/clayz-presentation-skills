@@ -11,7 +11,7 @@ presentation. Copy may combine, split, reorder and rewrite the complete story.
 Preserve facts, numbers, claim strength, qualifiers, relationships and required
 coverage; return new facts or changed research judgments to Logic.
 
-## Current handoff — v0.18.1
+## Current handoff — v0.18.2
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer. New runs use content package 3.3, Art plan 2.2 and Output QA 4.1.
@@ -72,6 +72,44 @@ These are content responsibilities in one workflow.
 5. Hand the clean content document and separate provenance to Art and
    Supervisor. A density-driven pagination or wording change returns to Copy;
    research changes return to Logic.
+
+## Argument and reader review
+
+Before assigning text roles, establish what the page answers, its supported
+judgments and evidence, and the relation between paragraphs. Then write the
+Storyline, useful local headings, body and annotations. Categorizing a passage
+as body does not establish an organized argument.
+
+Check each title against its explanation and approved evidence. Growth or
+decline needs a comparison; a current-period amount alone does not establish a
+trend. Contribution and causation need their own support. Narrow an unsupported
+title or return missing research to Logic; never fill the gap by wording alone.
+
+When passages answer different questions, use informative local headings where
+they help readers distinguish the judgments. A continuous explanation can remain
+body-only. No heading quota, fixed group count, mandatory three-level shell,
+word-count limit or visual grouping tree is introduced.
+
+Identify entity, period, metric and accounting scope before interpreting numbers.
+Separate different scopes, such as group earnings and insurance-fund returns.
+Keep qualifications that change the conclusion with the relevant body; source
+details and incidental notes may be annotations.
+
+Remove repetition between passages while retaining necessary evidence and
+explanation. Art chooses the medium. When its chart/table repeats the prose,
+Art returns the specific redundancy to Copy for an authorized wording revision;
+Copy does not preselect a medium or remove facts merely to fit a layout.
+
+Before handoff, actually read the text and answer in the existing
+semantic_preservation_review or work notes, citing affected copy IDs as useful:
+
+- Can the Storyline and any local headings communicate the page's argument?
+- Does each judgment have matching evidence with a clear entity and scope?
+- Does each passage add evidence, explanation or a necessary qualification?
+
+These are professional reading checks, not keyword tests or another approval
+form. Art checks their visible expression; Supervisor reads both the text and
+actual page and routes defects to the earliest responsible stage.
 
 Validate with:
 

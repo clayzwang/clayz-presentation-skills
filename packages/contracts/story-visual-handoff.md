@@ -1,4 +1,4 @@
-# Research, clean text and visual handoff — v0.18.1
+# Research, clean text and visual handoff — v0.18.2
 
 New runs use content package `3.3`, Art plan `2.2`, Output QA `4.1` and
 handoff extension `1.3`. Retain the five stages, configuration, real source
@@ -6,6 +6,18 @@ evidence, calibrations, work records and Independent Auditor. Historical
 contracts retain versioned replay validation; never relabel an old artifact.
 
 ## Logic and Copy
+
+Copy organizes the question, judgments, evidence and paragraph relationships
+before assigning text roles. Review claim/evidence correspondence, entity and
+accounting scope, useful local headings and repetition under
+[reader-quality guidance](reader-quality.md). Missing headings alone are not a
+defect; use the existing semantic review rather than a new approval form.
+
+Art checks whether these relationships can be understood from the actual page
+and returns ambiguous grouping or medium-induced repetition to Copy. Supervisor
+reads both text and renders. Preserve raw tool outcomes and independent findings
+under [verification outcomes](verification-outcomes.md); execution, integrity
+and artifact quality require separate conclusions.
 
 Logic produces complete research without allocating pages. Preserve sources,
 findings, data, qualifiers, claim status, required coverage and invariants.
