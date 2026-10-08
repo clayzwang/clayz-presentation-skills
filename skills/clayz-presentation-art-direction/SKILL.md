@@ -1,6 +1,6 @@
 ---
 name: clayz-presentation-art-direction
-description: Design presentation structure, layout and full-deck image drafts from Copy-approved text. Prefer relevant learning-package indexes and content when available; otherwise seek web design references and use the model's own design ability. Independently choose visual hierarchy, grouping, media, combined objects and reading paths, then hand a locked editable implementation specification to Output. Do not rewrite approved content or create the final PPTX.
+description: Design presentation structure, layout and full-deck image drafts from Copy-approved text. Organize the reader's attention and understanding through visual hierarchy, information relationships, composition and sequence rhythm. Use the model's design ability and relevant references when useful; use learning packages only when the user requests them. Hand a locked editable implementation specification to Output without rewriting approved content or creating the final PPTX.
 ---
 
 # Clayz Presentation Art Direction
@@ -17,7 +17,17 @@ medium duplicates prose, request a precise Copy revision rather than rewriting
 it in Art. Use existing observations; no mandatory heading count or layout is
 introduced.
 
-## Current handoff — v0.18.2
+## Composition guidance
+
+Read [Reader-centered composition](references/reader-centered-composition.md)
+or its [Chinese peer](references/reader-centered-composition.zh-CN.md) before
+designing. Layout should help the reader perceive importance, relationships
+and a useful reading path, with a comfortable rhythm across the whole deck.
+Neat alignment, text containment and an explanation of the chosen layout do
+not establish that result. Use the guidance to make and revise actual design
+choices; it introduces no layout catalog, aesthetic score or approval form.
+
+## Current handoff — v0.18.3
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer and locale-matched `references/art-direction-plan-contract.md`.
@@ -30,17 +40,18 @@ registered contract, container type or silhouette whitelist.
 
 ## References and original design
 
-When a learning package is available, first consult its relevant index and
-content. Read the actual selected references, including visual material when
-present, and connect their useful principles to this story and audience.
-An index entry, method name or receipt alone is not learning adoption.
-Supplement insufficient coverage with relevant web references.
-
-Without a learning package, use the model's design ability and proactively
-seek relevant layouts and design references online. Choose useful references
+Use the model's design ability to develop the composition from this story and
+audience. Seek relevant design references online when they help resolve a
+specific design question. Choose useful references
 from spatial design, graphic design, editorial composition, advertising or
 other appropriate disciplines. Search and inspect them according to the
 page's communication problem; there is no required number or finite menu.
+
+Do not search for, download or load a learning package by default, including
+one already available locally. When the user requests one, read its relevant
+index and actual selected content, including visual material when present.
+Connect the useful principles to this story and audience. An index entry,
+method name or receipt alone is not learning adoption.
 
 No match, unavailable browsing or insufficient references permits original
 design. Record what was actually available and consulted and the limitation.
@@ -73,10 +84,14 @@ or choosing a composition.
 ## Design
 
 1. Understand the argument, intended audience, evidence and relationships.
-   Decide the important content and intended first visual for each page.
+   Decide what the reader should first notice and then understand on each
+   page. Distinguish the main evidence or relationship from supporting text.
 2. Choose composition, hierarchy, grouping, medium, spacing and reading paths
-   from that content. Columns, tables, ladders and other arrangements remain
-   available Art choices, without Copy prescribing them.
+   from that content. Make the important relationship perceptible in the
+   spatial arrangement; a heading/body pair does not imply its own equal
+   rectangle. Columns, tables, ladders and other arrangements remain available
+   Art choices, without Copy prescribing them. Shared drawing code implements
+   these choices rather than supplying their default geometry.
 3. Decide native editing boundaries as part of the design. Content that needs
    independent selection, movement, width or format changes becomes a separate
    object. Natural continuous paragraphs may share one text box. Use native
@@ -87,9 +102,13 @@ or choosing a composition.
    specify an integrated native table. Govern images, logos and symbols by
    purpose and rights; decorative ordinals must not imply unsupported rank.
 5. Produce readable PNG/JPEG drafts of every page using the actual approved
-   text. Inspect full-size pages and the whole deck. Judge rhythm, purposeful
-   repetition, whitespace and legibility professionally. No fixed card count,
-   area ratio, font-level parity or random variation establishes quality.
+   text. Inspect thumbnails, full-size pages and the actual page sequence.
+   Judge attention, relationships, reading effort, visual fatigue, purposeful
+   repetition and whitespace. If consecutive pages flatten different tasks
+   into the same reading experience, revise the affected designs and inspect
+   the sequence again. Retain repetition when its comparison or progression
+   benefit remains visible. No fixed card count, area ratio, font-level parity
+   or random variation establishes quality.
 6. Refine a matching visual specification with coordinates, typography,
    native targets and bounded technical adjustments. Bind each Copy ID once
    for traceability; several IDs may bind one object through disjoint text

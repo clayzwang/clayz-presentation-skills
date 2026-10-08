@@ -6,6 +6,14 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.18.3 — 2026-10-09
+
+- Add bilingual reader-centered composition guidance to Art: visual relationships, attention hierarchy, reading comfort, sequence rhythm and visual fatigue, with actual draft revision instead of layout quotas or aesthetic scores. Art uses learning packages only when explicitly requested.
+
+### 中文
+
+- 为 Art 增加中英文排版启示：通过视觉关系、注意力层级、阅读舒适度、整稿节奏和审美疲劳判断并修订实际图稿，不增加版式配额或审美评分；Art 仅在用户明确指定时使用学习包。
+
 ## 0.18.2 — 2026-10-08
 
 - Strengthen Copy's actual argument review: supported Storylines, useful optional local headings, entity/accounting scope and nonredundant explanations. Art and Supervisor review their visible expression using existing records, without heading quotas or new approval forms.

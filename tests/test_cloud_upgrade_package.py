@@ -3,6 +3,7 @@
 """Verify the uploaded bytes retain the shared cloud learning implementation."""
 import json
 import os
+import posixpath
 from pathlib import Path
 import subprocess
 import sys
@@ -19,6 +20,29 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CloudUpgradePackageTests(unittest.TestCase):
+    def test_art_composition_guidance_remains_readable_in_each_locale(self):
+        for locale, suffix in (("en-US", ".md"), ("zh-CN", ".zh-CN.md")):
+            with self.subTest(locale=locale), tempfile.TemporaryDirectory(prefix="art-guidance-package-") as directory:
+                task = Path(directory)
+                config = profile((ROOT / "VERSION").read_text().strip())
+                config["overrides"].append({"path": "locale.default", "policy": "replace", "value": locale})
+                owner_provider = IndexProvider.from_records("example.private-library", [private_record("example.private-library")])
+                manifest = build_provider_manifest(owner_provider, index_uri="library://example-presentation/_extension/providers/private/index/records.jsonl")
+                profile_path = task / "profile.json"
+                provider_path = task / "provider.json"
+                profile_path.write_text(json.dumps(config), encoding="utf-8")
+                provider_path.write_text(json.dumps(manifest), encoding="utf-8")
+                archive_path = compose_personal_light(profile_path, [provider_path], task / "guidance.zip")
+                with zipfile.ZipFile(archive_path) as archive:
+                    stage_path = "references/stages/art-direction/stage.md"
+                    reference_path = "skills/clayz-presentation-art-direction/references/reader-centered-composition" + suffix
+                    stage = archive.read(stage_path).decode("utf-8")
+                    link = "../../../" + reference_path
+                    self.assertIn("(" + link + ")", stage)
+                    resolved = posixpath.normpath(posixpath.join(posixpath.dirname(stage_path), link))
+                    self.assertEqual(reference_path, resolved)
+                    self.assertEqual((ROOT / reference_path).read_bytes(), archive.read(resolved))
+
     def test_same_name_global_skill_and_native_helper_survive_packaging(self):
         with tempfile.TemporaryDirectory(prefix="cloud-upgrade-test-") as directory:
             task = Path(directory)
