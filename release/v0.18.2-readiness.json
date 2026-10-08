@@ -1,0 +1,40 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.18.2",
+  "current_public_version": "0.18.2",
+  "state": "release-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": true,
+    "tag": true,
+    "publish": true,
+    "experience_center_update": true
+  },
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "scope": "merge-tag-publish-experience-center",
+    "authorized_at": "2026-10-08T02:06:06.051452Z",
+    "source": "User explicitly requested changes and publication of 18.2 with a release; timestamp records authorization transcription."
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python -B scripts/validate_all.py",
+    "experience_validation": "python scripts/validate_experience.py",
+    "presentation_overflow_check": "Existing Art 2.2 native object and grouping checks retained. tests/test_release_0182.py verifies approved table cells, missing/changed cells and unrelated text. This does not certify aesthetic quality or all overflow.",
+    "node_chart_build": "Existing adapter checks retained; full validation executes the regression suite. Release CI performs LibreOffice smoke rendering. No new chart adapter change in 0.18.2."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

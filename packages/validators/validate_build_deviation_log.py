@@ -13,6 +13,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from verification_result import exception_result, finish
+
 
 CONTRACT_VERSION = "1.1"
 ENVIRONMENT_PRECEDENCE = "written-pptx-and-render-over-in-memory-state"
@@ -115,9 +117,14 @@ def validate(
             elif key in expected and value != expected[key]:
                 errors.append(f"log.source_bindings.{key}: hash does not match the supplied file")
 
+    page_layer = (package.get("copy_layer") if package.get("contract_version") == "3.3"
+                  else package.get("logic_layer"))
+    if not isinstance(page_layer, dict) or not isinstance(page_layer.get("slides"), list):
+        errors.append("package: a valid current slide layer is required")
+        page_layer = {"slides": []}
     slide_ids = {
         item.get("slide_id")
-        for item in package.get("logic_layer", {}).get("slides", [])
+        for item in page_layer["slides"]
         if isinstance(item, dict) and nonempty(item.get("slide_id"))
     }
     cycles = log.get("cycles")
@@ -314,21 +321,17 @@ def main() -> int:
     parser.add_argument("plan", type=Path)
     parser.add_argument("log", type=Path)
     parser.add_argument("--pptx", type=Path)
+    parser.add_argument("--result-json", type=Path)
     args = parser.parse_args()
     try:
         package = json.loads(args.package.read_text(encoding="utf-8"))
         plan = json.loads(args.plan.read_text(encoding="utf-8"))
         log = json.loads(args.log.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        print(f"ERROR: {exc}", file=sys.stderr)
-        return 2
-    errors = validate(package, plan, log, args.package, args.plan, args.pptx)
-    if errors:
-        for error in errors:
-            print(f"ERROR: {error}", file=sys.stderr)
-        return 1
-    print("OK: build deviation and observation log is valid")
-    return 0
+        errors = validate(package, plan, log, args.package, args.plan, args.pptx)
+    except Exception as exc:
+        return exception_result("build-deviation-log", exc, args.result_json)
+    return finish("build-deviation-log", errors, args.result_json,
+                  success="OK: build deviation and observation log is valid")
 
 
 if __name__ == "__main__":

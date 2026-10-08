@@ -6,6 +6,19 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.18.2 — 2026-10-08
+
+- Strengthen Copy's actual argument review: supported Storylines, useful optional local headings, entity/accounting scope and nonredundant explanations. Art and Supervisor review their visible expression using existing records, without heading quotas or new approval forms.
+- Separate automatic tool execution, record integrity, coverage and artifact-quality diagnostics. Native comparison, Output QA and deviation-log validation support `--result-json`; honest failures remain nonzero and no exception becomes a quality pass.
+- Fix strict native comparison of Art-approved table specifications with exact named-cell checks, retaining detection of altered, missing and unbound text. Read current Copy-owned pages in deviation validation when the Logic layer is null.
+- Preserve Copy 3.3, Art 2.2 and existing editing boundaries; add actual native-object, CLI and diagnostic regressions.
+
+### 中文
+
+- 强化 Copy 实际论证审读：Storyline 与证据对应、按需局部标题、对象与会计口径、减少重复解释；Art 和 Supervisor 使用现有记录复核实际呈现，不设标题配额或新增审批表。
+- 工具诊断分别记录运行、完整性、未验范围与成品质量；三个验证器支持自动 `--result-json`，真实失败保持非零，工具异常不会被解释为质量通过。
+- 原生比对按具名单元格核验 Art 批准的表格，修复误报并继续识别改值、漏格和未绑定文字；偏差验证从当前 Copy 页面读取页号，兼容空 Logic 层。
+- 保留 Copy 3.3、Art 2.2 与原生编辑边界，补充实际对象、命令行和分类诊断回归。
 ## 0.18.1 — 2026-10-05
 
 - Add Art plan 2.2 native editing boundaries: each declared object has a unique native name and separate rendering; optional native group paths retain independently editable children.

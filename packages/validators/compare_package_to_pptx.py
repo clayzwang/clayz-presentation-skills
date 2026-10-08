@@ -17,6 +17,7 @@ from typing import Any
 from xml.etree import ElementTree as ET
 
 from validate_art_direction_plan import validate_plan
+from verification_result import Issue, Issues, exception_result, finish
 
 
 NS = {
@@ -217,11 +218,39 @@ def editable_object_errors(xml_bytes, baseline):
     return errors
 
 
+def approved_table_locations(baseline):
+    """Bind Art-owned table text to exact named cells, not a text whitelist."""
+    locations = {}
+    for element in baseline['elements']:
+        spec = element.get('table_spec')
+        if spec is None:
+            continue
+        if not isinstance(spec, dict):
+            raise ValueError('table_spec must be an object')
+        headers, rows = spec.get('headers', []), spec.get('rows', [])
+        if not isinstance(headers, list) or not isinstance(rows, list) or any(not isinstance(row, list) for row in rows):
+            raise ValueError('table_spec headers and rows must be arrays')
+        values = ([headers] if headers else []) + rows
+        if not values or not values[0] or any(len(row) != len(values[0]) for row in values):
+            raise ValueError('table_spec must declare a nonempty rectangular table')
+        name = element.get('native_name', 'ART::' + element['element_id'])
+        for row, cells in enumerate(values):
+            for column, value in enumerate(cells):
+                if not isinstance(value, (str, int, float)) or isinstance(value, bool):
+                    raise ValueError('table_spec cells must be text or numbers')
+                key = f'table:{name}:{row}:{column}'
+                if key in locations:
+                    raise ValueError('table_spec repeats a native cell')
+                locations[key] = str(value)
+    return locations
+
+
 def compare_clean_content(package, plan, pptx, allow_extra_text=False):
     """Compare native text ranges; many Copy paragraphs may share one object."""
     errors = validate_plan(package, plan)
     if errors:
         return errors
+    errors = Issues('quality')
     def text_key(value):
         return re.sub(r'\s+', '', value)  # Preserve case and punctuation.
     try:
@@ -236,6 +265,19 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
                 if plan.get('contract_version') == '2.2':
                     errors.extend(f'slide {index}: {error}' for error in editable_object_errors(xml, plan['visual_baseline']['slides'][index-1]))
                 locations = text_locations(xml, preserve_offsets=True)
+                baseline = plan['visual_baseline']['slides'][index-1]
+                try:
+                    approved_cells = approved_table_locations(baseline)
+                except ValueError as exc:
+                    errors.append(Issue(f'slide {index}: invalid approved table specification: {exc}', 'record'))
+                    approved_cells = {}
+                for cell, expected in approved_cells.items():
+                    if cell not in locations or text_key(locations[cell]) != text_key(expected):
+                        errors.append(f'slide {index}: native table cell differs from approved Art specification: {cell}')
+                table_names = {cell.split(':', 1)[1].rsplit(':', 2)[0] for cell in approved_cells}
+                for cell in locations:
+                    if cell.startswith('table:') and cell.split(':', 1)[1].rsplit(':', 2)[0] in table_names and cell not in approved_cells:
+                        errors.append(f'slide {index}: extra native table cell outside approved Art specification: {cell}')
                 by_name = {key.split(':', 2)[2]: value for key, value in locations.items() if key.startswith('shape:')}
                 units = {u['copy_id']: u for u in page['copy_units']}
                 used, actual_bodies = {}, {}
@@ -274,13 +316,13 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
                     additions = {text_key(e.get('text', '')) for e in baseline['elements'] if not e.get('copy_ids')}
                     for key, body in locations.items():
                         physical = 'shape:' + key.split(':', 2)[2] if key.startswith('shape:') else key
-                        if physical not in used and text_key(body) and text_key(body) not in additions:
+                        if physical not in used and physical not in approved_cells and text_key(body) and text_key(body) not in additions:
                             errors.append(f'slide {index}: extra visible text outside approved Art/Copy bindings')
                 for kind, minimum in design['medium_execution_contract'].get('minimum_object_counts', {}).items():
                     if inventory.get(kind, 0) < minimum:
                         errors.append(f'slide {index}: Art requires {minimum} {kind} object(s), found {inventory.get(kind, 0)}')
-    except (OSError, zipfile.BadZipFile, KeyError, ValueError, TypeError, ET.ParseError) as exc:
-        errors.append(f'pptx: cannot inspect native content: {exc}')
+    except (OSError, zipfile.BadZipFile, KeyError, ValueError, ET.ParseError) as exc:
+        errors.append(Issue(f'pptx: cannot inspect native content: {exc}', 'record'))
     return errors
 
 
@@ -290,6 +332,7 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
     errors = validate_plan(package, plan)
     if errors or not isinstance(package, dict) or not isinstance(plan, dict):
         return errors
+    errors = Issues('quality')
     try:
         with zipfile.ZipFile(pptx) as archive:
             slide_names = sorted(
@@ -385,21 +428,17 @@ def main() -> int:
     parser.add_argument("plan", type=Path)
     parser.add_argument("pptx", type=Path)
     parser.add_argument("--allow-extra-text", action="store_true", help="diagnostic escape hatch; do not use for final delivery")
+    parser.add_argument("--result-json", type=Path)
     args = parser.parse_args()
     try:
         package = json.loads(args.package.read_text(encoding="utf-8"))
         plan = json.loads(args.plan.read_text(encoding="utf-8"))
         errors = compare(package, plan, args.pptx, args.allow_extra_text)
-    except (OSError, json.JSONDecodeError, FileNotFoundError, RuntimeError) as exc:
-        print(f"ERROR: {exc}", file=sys.stderr)
-        return 2
-    if errors:
-        for error in errors:
-            print(f"ERROR: {error}")
-        print(f"FAILED: {len(errors)} error(s)")
-        return 1
-    print(f"PASS: PPTX copy fidelity {args.pptx}")
-    return 0
+    except Exception as exc:
+        return exception_result("native-pptx-comparison", exc, args.result_json)
+    return finish("native-pptx-comparison", errors, args.result_json,
+                  quality_checked=not args.allow_extra_text,
+                  success=f"PASS: PPTX copy fidelity {args.pptx}")
 
 
 if __name__ == "__main__":
