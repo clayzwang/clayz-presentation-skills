@@ -27,6 +27,12 @@ Neat alignment, text containment and an explanation of the chosen layout do
 not establish that result. Use the guidance to make and revise actual design
 choices; it introduces no layout catalog, aesthetic score or approval form.
 
+Judge page balance from the actual combined weight of color, filled area,
+position, grouping and text density. Check that the strongest visible region
+serves the intended hierarchy, including purposeful asymmetry. Revise a
+secondary saturated panel or dense region that overwhelms the main evidence;
+inspect the color drafts and sequence again before locking the baseline.
+
 ## Current handoff — v0.18.3
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
@@ -104,7 +110,9 @@ or choosing a composition.
 5. Produce readable PNG/JPEG drafts of every page using the actual approved
    text. Inspect thumbnails, full-size pages and the actual page sequence.
    Judge attention, relationships, reading effort, visual fatigue, purposeful
-   repetition and whitespace. If consecutive pages flatten different tasks
+   repetition, whitespace and the combined weight of color and text. Check
+   whether filled areas and dense passages pull attention to the intended
+   evidence and conditions. If consecutive pages flatten different tasks
    into the same reading experience, revise the affected designs and inspect
    the sequence again. Retain repetition when its comparison or progression
    benefit remains visible. No fixed card count, area ratio, font-level parity
