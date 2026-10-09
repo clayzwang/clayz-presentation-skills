@@ -30,11 +30,21 @@ return the specific capacity problem to Art Direction/Copy with evidence.
 ## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.3 and Art
-Direction plan 2.2. The complete research, Copy content document, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.4 and Art
+Direction plan 2.3. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
+
+## Page planning consumption — v0.19.0
+
+Read the actual Art planning under locale-matched
+`../../packages/contracts/page-planning.md` together with complete images and
+object specifications. It explains content grouping, hierarchy, meaningful
+shape/line/type functions and grounded additions. Implement the locked objects
+and native editing boundaries; unresolved meaning returns to Copy, necessary
+composition changes return to Art. Preserve the planning source rather than
+inventing a design rationale during implementation.
 
 ## Boundaries
 
@@ -154,7 +164,7 @@ The central baseline is `../../config/default.json`; consume it through the unif
 
 ## v0.18.2 implementation boundary
 
-New runs use content package 3.3, Art plan 2.2 and QA 4.1. Implement Art's
+New runs use content package 3.4, Art plan 2.3 and QA 4.1. Implement Art's
 locked drafts/specifications without inheriting old Copy atomicity, parent-target,
 sibling-style or reading-order rules. Several Copy IDs may occupy one editable
 text object or native cell through disjoint native_location.text_range bindings.

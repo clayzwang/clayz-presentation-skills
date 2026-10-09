@@ -19,9 +19,9 @@ from datetime import datetime
 from pathlib import Path
 
 CONTRACT_VERSION = "1.3"
-PACKAGE_VERSION = "3.3"
-STORY_PACKAGE_VERSIONS = {"3.0", "3.1", "3.2", PACKAGE_VERSION}
-PLAN_VERSION = "2.2"
+PACKAGE_VERSION = "3.4"
+STORY_PACKAGE_VERSIONS = {"3.0", "3.1", "3.2", "3.3", PACKAGE_VERSION}
+PLAN_VERSION = "2.3"
 
 
 def digest(value):
@@ -125,7 +125,7 @@ def validate_story(story, *, legacy=False):
 
 
 def validate_logic_story(package, require_status):
-    if package.get("contract_version") in {"3.2", "3.3"}:
+    if package.get("contract_version") in {"3.2", "3.3", "3.4"}:
         from research_handoff import validate_research_package
         return validate_research_package(package, require_status)
     from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
@@ -172,7 +172,7 @@ def load_logic_origin(package):
 
 
 def validate_copy_trace(package):
-    if package.get("contract_version") == "3.3":
+    if package.get("contract_version") in {"3.3", "3.4"}:
         from clean_content import validate_clean_copy
         return validate_clean_copy(package)
     if package.get("contract_version") == "3.2":
@@ -256,7 +256,7 @@ def validate_visual_baseline(package, plan):
                 errors.append(f"visual_baseline.{key}: inspected observation required")
         elements = rows(preview.get("elements"))
         approved_data_ids = ({item.get("data_id") for item in rows((package.get("research") or {}).get("data")) if isinstance(item, dict)}
-                             if package.get("contract_version") == "3.3" else
+                             if package.get("contract_version") in {"3.3", "3.4"} else
                              {item.get("data_id") for slide in rows((package.get("logic_layer") or {}).get("slides"))
                               for item in rows(slide.get("data")) if isinstance(item, dict)})
         element_ids, mapped = set(), []
@@ -313,7 +313,7 @@ def validate_output_baseline(package, plan, qa):
 
 def render_document(stage, value):
     lines = [f"# {stage}", ""]
-    if stage == "logic" and value.get("contract_version") in {"3.2", "3.3"}:
+    if stage == "logic" and value.get("contract_version") in {"3.2", "3.3", "3.4"}:
         research = value["research"]
         lines += [research["research_question"], "", research["scope"], "", research["summary"], ""]
         for finding in research["findings"]:
@@ -335,13 +335,24 @@ def render_document(stage, value):
         for page in value["copy_layer"]["slides"]:
             lines += [f"## {page['slide_id']}", ""]
             for unit in page["copy_units"]:
-                if value.get("contract_version") == "3.3":
+                if value.get("contract_version") in {"3.3", "3.4"}:
                     level = f", level={unit['heading_level']}" if unit.get("role") == "heading" else ""
                     lines += [f"[{unit['copy_id']}; {unit['role']}{level}]", unit['text'], ""]
                 else:
                     lines += [f"- {unit['copy_id']} ({unit['role']}, parent={unit['parent_copy_id']}): {unit['text']}"]
+            if value.get("contract_version") == "3.4":
+                relation = page.get("content_relationships") or {}
+                lines += ["", "Content relationships", "", relation.get("heading_relationships", "not-recorded"), ""]
+                for item in rows(relation.get("body_relations")):
+                    owner = ", ".join(item.get("heading_ids", [])) or "no local heading ownership"
+                    lines += [f"- {item['copy_id']} → {owner}: {item['purpose']}"]
             lines += [""]
     else:
+        if value.get("contract_version") == "2.3":
+            from page_planning import planning_markdown
+            record = (value.get("page_planning") or {}).get("content")
+            if isinstance(record, dict):
+                lines += [planning_markdown(record), ""]
         for page in value["visual_baseline"]["slides"]:
             lines += [f"## {page['slide_id']}", "", page["first_visual"], "", page["reading_path"], ""]
     lines += ["## Complete handoff data", "", "```json", json.dumps(value, ensure_ascii=False, indent=2), "```", ""]
@@ -368,6 +379,9 @@ def validate_design_audit(package, plan, qa, report, pptx=None):
         return []
     errors = validate_logic_story(package, "copy-approved") + validate_copy_trace(package)
     errors.extend(validate_output_baseline(package, plan, qa))
+    if package.get("contract_version") == "3.4":
+        from page_planning import validate_art_planning
+        errors.extend(validate_art_planning(package, plan))
     try:
         if report.get("stage_documents") != build_stage_documents(package, plan):
             errors.append("report must include the exact three handoff documents and locked preview bytes")
@@ -388,6 +402,20 @@ def validate_design_audit(package, plan, qa, report, pptx=None):
     for page, design in zip(pages, expected):
         if page.get("preview_sha256") != design.get("image", {}).get("sha256"):
             errors.append("comparison preview hash differs from locked design")
+        if package.get("contract_version") == "3.4":
+            from page_planning import AUDIT_CHECKS
+            for key in AUDIT_CHECKS:
+                check = page.get(key) or {}
+                if not isinstance(check, dict) or check.get("status") not in {"pass", "fail", "uncertain"} or not text(check.get("observation")):
+                    errors.append(f"comparison.{key}: actual page planning observation and result required")
+                    continue
+                if key == "planned_realization" and page.get("status") == "deferred" and check.get("status") == "pass":
+                    errors.append("comparison.planned_realization: deferred final rendering cannot establish a pass")
+                if check.get("status") in {"fail", "uncertain"}:
+                    if check.get("earliest_owner") not in {"logic", "copy", "art-direction", "output"} or not rows(check.get("issue_ids")) or any(i not in issues for i in rows(check.get("issue_ids"))):
+                        errors.append(f"comparison.{key}: findings must identify earliest owner and report issues")
+                    if report.get("run_status") == "clean":
+                        errors.append("failed/uncertain planning review cannot be reported clean")
         if page.get("status") == "deferred":
             if not text(page.get("reason")) or report.get("run_status") == "clean":
                 errors.append("deferred render comparison needs an explicit limitation, never a clean verdict")
@@ -443,6 +471,19 @@ def validate_embedded_documents(report):
         copy = documents["copy"]["content"]
         logic = documents["logic"]["content"]
         baseline = plan["visual_baseline"]
+        if plan.get("contract_version") == "2.3":
+            from page_planning import (validate_planning_snapshot, validate_planning_record,
+                                       validate_content_relationships)
+            for page in rows((copy.get("copy_layer") or {}).get("slides")):
+                errors.extend(validate_content_relationships(page))
+            reference = plan.get("page_planning")
+            planning_errors = validate_planning_snapshot(reference)
+            errors.extend(planning_errors)
+            if not planning_errors:
+                record = reference["content"]
+                errors.extend(validate_planning_record(copy, record))
+                if timestamp(record.get("recorded_at")) >= timestamp(baseline.get("locked_at")):
+                    errors.append("embedded planning was recorded after the design lock")
         if baseline.get("spec_sha256") != spec_digest(plan) or baseline.get("copy_package_sha256") != digest(copy) or copy.get("story") != logic.get("story") or copy.get("research") != logic.get("research"):
             errors.append("embedded cross-stage source bindings mismatch")
         expected = baseline["slides"]
@@ -474,6 +515,12 @@ def handoff_archive_bytes(report):
     for stage, document in bundle["documents"].items():
         files[f"{stage}.md"] = document["markdown"].encode()
         files[f"{stage}.json"] = (json.dumps(document["content"], ensure_ascii=False, indent=2)+"\n").encode()
+    plan = bundle["documents"]["art_direction"]["content"]
+    if plan.get("contract_version") == "2.3":
+        from page_planning import planning_markdown
+        reference = plan["page_planning"]
+        files["art-page-planning.json"] = base64.b64decode(reference["base64"])
+        files["art-page-planning.md"] = planning_markdown(reference["content"]).encode()
     comparisons = {p["slide_id"]: p for p in rows(report.get("design_comparison", {}).get("slides"))}
     parts = ['<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>Design and final PPTX comparison</title>',
              '<style>body{font:16px system-ui;margin:2rem;max-width:1600px} .pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem} img{width:100%;border:1px solid #aaa}pre{white-space:pre-wrap}section{margin:3rem 0}h1{font-size:1.7rem}@media(max-width:700px){.pair{grid-template-columns:1fr}}</style>',

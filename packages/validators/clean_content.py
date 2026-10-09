@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 clayz
 # SPDX-License-Identifier: Apache-2.0
-"""Package 3.3: editorial text and Art-owned presentation, without layout presets.
+"""Packages 3.3/3.4: editorial text and Art-owned presentation, without layout presets.
 
 Checks establish identity, content coverage and native-object bindings. They do
 not prescribe an aesthetic, visual reading order or one object per paragraph.
@@ -30,8 +30,8 @@ RETIRED_QA_CHECKS = {
 
 
 def content_pages(package):
-    """Use Copy's pages directly; 3.3 needs no fabricated Logic page projection."""
-    if package.get("contract_version") == "3.3":
+    """Use clean Copy pages directly, without a fabricated Logic projection."""
+    if package.get("contract_version") in {"3.3", "3.4"}:
         return rows((package.get("copy_layer") or {}).get("slides"))
     return rows((package.get("logic_layer") or {}).get("slides"))
 
@@ -52,8 +52,8 @@ def validate_clean_copy(package):
     errors = []
     try:
         origin = json.loads(file_bytes(package.get("logic_artifact")))
-        if origin.get("contract_version") != "3.3" or origin.get("status") != "logic-approved":
-            errors.append("logic_artifact: original package 3.3 approved research required")
+        if origin.get("contract_version") != package.get("contract_version") or origin.get("status") != "logic-approved":
+            errors.append("logic_artifact: original matching approved research package required")
         else:
             errors.extend(validate_research_package(origin, "logic-approved"))
         for key in ("research", "brief", "acceptance_contract", "resource_inventory", "package_id", "version",
@@ -99,6 +99,9 @@ def validate_clean_copy(package):
                     errors.append(f"copy unit {cid}: heading requires a positive heading_level")
             elif "heading_level" in unit:
                 errors.append(f"copy unit {cid}: heading_level belongs only to a heading")
+        if package.get("contract_version") == "3.4":
+            from page_planning import validate_content_relationships
+            errors.extend(validate_content_relationships(page))
         for note in object_list(page.get("speaker_notes", []), "speaker_notes", errors):
             if not text(note.get("text")):
                 errors.append("speaker_notes: supplied notes must contain text")
@@ -185,7 +188,10 @@ def validate_free_art(package, plan, policy=None):
         return errors
     if not isinstance(plan, dict):
         return errors + ["Art plan: object required"]
-    if plan.get("contract_version") not in {"2.1", "2.2"} or plan.get("package_contract_version") != "3.3":
+    if package.get("contract_version") == "3.4":
+        if plan.get("contract_version") != "2.3" or plan.get("package_contract_version") != "3.4":
+            errors.append("package 3.4 requires Art plan 2.3")
+    elif plan.get("contract_version") not in {"2.1", "2.2"} or plan.get("package_contract_version") != "3.3":
         errors.append("package 3.3 requires Art plan 2.2 (2.1 retained for replay)")
     if plan.get("status") != "art-direction-approved":
         errors.append("plan.status: art-direction-approved required")
@@ -258,7 +264,10 @@ def validate_free_art(package, plan, policy=None):
         if "atomicity_review" in design:
             errors.append(f"Art {sid}: retired atomicity_review is not a new-run design requirement")
     errors.extend(validate_visual_baseline(package, plan))
-    if plan.get("contract_version") == "2.2" and not errors:
+    if package.get("contract_version") == "3.4":
+        from page_planning import validate_art_planning
+        errors.extend(validate_art_planning(package, plan))
+    if plan.get("contract_version") in {"2.2", "2.3"} and not errors:
         errors.extend(validate_editable_object_contract(plan))
     return errors
 

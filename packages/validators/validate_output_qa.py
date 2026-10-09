@@ -195,7 +195,7 @@ def validate_qa(
     policy: ValidationPolicy | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
-    clean = isinstance(package, dict) and package.get("contract_version") == "3.3"
+    clean = isinstance(package, dict) and package.get("contract_version") in {"3.3", "3.4"}
     errors = validate_plan(package, plan, policy)
     require_keys(
         qa,
@@ -218,7 +218,7 @@ def validate_qa(
         except (OSError, zipfile.BadZipFile, KeyError, ET.ParseError) as exc:
             errors.append(f"qa PPTX evidence cannot be inspected: {exc}")
         validate_final_cjk_evidence(qa, pptx, errors)
-        if clean and plan.get("contract_version") == "2.2":
+        if clean and plan.get("contract_version") in {"2.2", "2.3"}:
             from compare_package_to_pptx import compare
             errors.extend(compare(package, plan, pptx))
     expected_version = CONTRACT_VERSION if clean else "4.0"

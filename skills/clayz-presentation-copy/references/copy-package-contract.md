@@ -1,6 +1,9 @@
-# PPT v3.3 Copy-layer contract
+# PPT v3.4 Copy-layer contract
 
-New tasks on v0.18.0 use the [research and visual handoff](../../../packages/contracts/story-visual-handoff.md).
+Read [content relationships and page planning](../../../packages/contracts/page-planning.md) for required semantic Copy relationships, recorded Art planning before object specifications, and planning-to-render audit.
+
+
+New tasks on v0.19.0 use the [research and visual handoff](../../../packages/contracts/story-visual-handoff.md).
 Copy organizes and rewrites the full Logic story while preserving its meaning.
 
 `copy_layer` binds `logic_version`, `pagination_owner:"copy"`,

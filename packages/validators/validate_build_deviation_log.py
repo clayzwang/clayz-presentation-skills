@@ -117,7 +117,7 @@ def validate(
             elif key in expected and value != expected[key]:
                 errors.append(f"log.source_bindings.{key}: hash does not match the supplied file")
 
-    page_layer = (package.get("copy_layer") if package.get("contract_version") == "3.3"
+    page_layer = (package.get("copy_layer") if package.get("contract_version") in {"3.3", "3.4"}
                   else package.get("logic_layer"))
     if not isinstance(page_layer, dict) or not isinstance(page_layer.get("slides"), list):
         errors.append("package: a valid current slide layer is required")

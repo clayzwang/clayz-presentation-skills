@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.18.5**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.19.0**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -217,3 +217,7 @@ Logic → 完整研究成果；Copy → 内容结构与适合 PPT 的文字（�
 ## 0.17.5 交付更新
 
 旧版不打包字体的说明，对已确认再分发权限、由 `assets/fonts/manifest.json` 哈希绑定的 STKaiti 作明确例外。0.17.5 仅携带安装说明，不含未获再分发授权的 STKaiti；任务指定时须使用合法来源在环境中安装。清单中的已授权字体方可随包，其他字体仍禁止随意打包。参见[制作可靠性](packages/contracts/production-reliability.zh-CN.md)。报告默认外置证据，字号可读性和构图重复由 Art 实际判断。
+
+## v0.19.0：内容归属与逐页艺术规划
+
+Copy 明确正文的单项归属、共同支撑或无局部标题归属及用途；Art 在对象规格前记录内容驱动的逐页统筹规划，包括可选新增表达及依据。既有审计检查规划、内容关系、新增表达及实际实现，保留证据缺口，不设审美评分。新合同为内容 3.4、Art 2.3；历史 3.3／2.2 继续回读。见[逐页艺术规划](packages/contracts/page-planning.zh-CN.md)。

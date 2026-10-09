@@ -33,16 +33,42 @@ serves the intended hierarchy, including purposeful asymmetry. Revise a
 secondary saturated panel or dense region that overwhelms the main evidence;
 inspect the color drafts and sequence again before locking the baseline.
 
-## Current handoff — v0.18.5
+## Current handoff — v0.19.0
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
 peer and locale-matched `references/art-direction-plan-contract.md`.
-New runs use content package 3.3 and Art plan 2.2. Historical contracts apply
+New runs use content package 3.4 and Art plan 2.3. Historical contracts apply
 only to existing artifacts and never introduce old requirements into a new run.
 
 The Light package contains no Art layout collection, design index or fixed
 layout choices. Design is not restricted to a catalog, named pattern,
 registered contract, container type or silhouette whitelist.
+
+## Page planning before object specifications — v0.19.0
+
+Read `../../packages/contracts/page-planning.md` or its Chinese peer. First
+understand the page message, content groups, ownership, passage functions and
+supported relationships. Save readable page planning before refining object
+specifications: overall arrangement and reasons, attention and reading path,
+important element treatments, and whether ordinals, labels, emphasis or a slogan
+help. Record additions with their purpose and approved Copy basis; adding
+nothing is valid. Preserve approved wording; Art may create grounded additive
+expressive text. Replacements or changed meaning return to the upstream owner.
+
+Let one element or coherent combination serve mutually supporting functions.
+A process block's own direction-bearing shape may replace a separate arrow
+when the relation and readable text space remain clear. Shape, line and type
+are freely chosen means; no compulsory silhouette, equal group sizes, object
+count or arrow prohibition applies. Explain semantic containment and native
+editing groups separately.
+
+Use `stage_documents.py record-planning` to save actual immutable planning,
+then build and inspect images and matching specifications. Save real revisions
+when the draft reveals a better choice. Lock with `--planning`; hand planning,
+full-deck images and specifications to Output and Supervisor. Generic purpose
+labels, technical coordinates and retrospective explanations do not establish
+reader-centered planning. Audit actual realization and retain missing evidence
+or ineffective choices as findings.
 
 ## References and original design
 

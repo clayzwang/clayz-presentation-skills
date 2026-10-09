@@ -1,7 +1,10 @@
-# Art Direction handoff — v0.18.1
+# Art Direction handoff — v0.19.0
+
+Read [content relationships and page planning](../../../packages/contracts/page-planning.md) for required semantic Copy relationships, recorded Art planning before object specifications, and planning-to-render audit.
+
 
 New tasks use [research and visual handoff](../../../packages/contracts/story-visual-handoff.md),
-package 3.3 and approved Art plan 2.2. Read both the complete image drafts and
+package 3.4 and approved Art plan 2.3. Read both the complete image drafts and
 matching specifications before implementing editable objects.
 
 Implement Art's coordinates, type, hierarchy, grouping, media and reading paths.

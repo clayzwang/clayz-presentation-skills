@@ -19,7 +19,7 @@ from validate_ppt_package import validate_package
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "2.2"
+CONTRACT_VERSION = "2.3"
 LEGACY_CONTRACT_VERSION = "1.7"
 TARGET_TYPES = {"shape", "table-cell", "chart-label"}
 VERIFY_METHODS = {"shape-name", "paragraph-exact", "table-cell"}
@@ -425,7 +425,7 @@ def validate_plan(
     policy: ValidationPolicy | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
-    if isinstance(package, dict) and package.get("contract_version") == "3.3":
+    if isinstance(package, dict) and package.get("contract_version") in {"3.3", "3.4"}:
         from clean_content import validate_free_art
         return validate_free_art(package, plan, policy)
     errors = validate_package(package, "copy-approved")

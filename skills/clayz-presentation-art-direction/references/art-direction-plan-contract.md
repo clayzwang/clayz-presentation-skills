@@ -1,9 +1,12 @@
-# Art Direction plan 2.2
+# Art Direction plan 2.3
+
+Read [content relationships and page planning](../../../packages/contracts/page-planning.md) for required semantic Copy relationships, recorded Art planning before object specifications, and planning-to-render audit.
+
 
 For new tasks use [research and visual handoff](../../../packages/contracts/story-visual-handoff.md).
 Validate with validate_art_direction_plan.py. Older contracts remain for replay.
 
-Bind contract_version:"2.2", package_contract_version:"3.3", package_id,
+Bind contract_version:"2.3", package_contract_version:"3.4", package_id,
 package_version, status:"art-direction-approved", acceptance_contract,
 resource_inventory_lock, communication_contract and the task index_evidence.
 The global art_direction.approval retains status and approved_by.

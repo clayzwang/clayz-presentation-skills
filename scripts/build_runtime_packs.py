@@ -92,7 +92,7 @@ def light_catalog_records() -> list[dict]:
     for record in selected:
         if record["record_id"] == "cap.copy.atomic-hierarchy":
             record["title"] = "Clean text roles and source fidelity"
-            record["summary"] = "Organize approved text using Storylines, headings, body and annotations; source traceability does not prescribe objects, sibling styles or visual reading order."
+            record["summary"] = "Organize approved text and explicitly explain body ownership, shared or page-level support and heading relationships; source traceability and semantic relations do not prescribe objects, styles or spatial reading order."
     return selected
 
 

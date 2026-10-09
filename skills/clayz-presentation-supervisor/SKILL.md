@@ -42,8 +42,8 @@ assessments and repair results without overwriting the earlier evidence.
 ## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.3 and Art
-Direction plan 2.2. The complete research, Copy content document, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.4 and Art
+Direction plan 2.3. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
@@ -212,6 +212,19 @@ Read `../../packages/contracts/stage-enablement.md` for task authority, relevanc
 10. Emit one report3.6 JSON with `origin_namespace: io.clayz.presentation`, status `supervised`, the same challenge-bound run/task/config values as preflight, the real five stage records, any bound `work-notes`, three `calibration_artifacts`, `auditor_artifact`, `supervisor_release` and derived `core_sequence`. The collector attaches the authoritative top-level `work_report` and `work_report_sha256` from existing primary artifacts and records. Assemble the full work report from those inputs: preserve task requirements, evidence and source trace, counterevidence, assumptions, uncertainty, storyline and exclusions, final copy, page-level design intent, calibration responses, actual PPTX statistics/page text/notes, Auditor observations, release, limitations and improvements when observed. Use `not-recorded` for missing stage notes or unavailable observations; never backfill them from memory. `stage_snapshots` and requirement traceability remain bound when required by the assembled report. Optional historical lifecycle, Index, retrieval, performance or Library fields are preserved only when real. Record Supervisor as initiator, coordinator/calibrator and recorder. Keep the compatibility `supervisor_roles.final_auditor` entry `not-needed` or `incomplete` so it cannot imply that Supervisor authored the audit; the stage-five work record and actual audit artifact use role `auditor`. The derived core sequence is `supervision-started`, `logic-to-copy-calibrated`, `copy-to-art-direction-calibrated`, `art-direction-to-output-calibrated`, `independent-audit-completed`, `supervisor-release`. A quality issue does not require a user checkpoint; create one only for a material business choice, scope change or explicit no-delivery condition. A target pass/fail requires a same-run `target-application-check/1.0` receipt bound to the final PPTX hash and observed inside the challenge window between Output handoff and final audit. Do not record private chain-of-thought; record actions, decisions, evidence references, and outcomes.
 11. Bind `delivery_pair` to the final PPTX filename and SHA-256, this supervision-report filename, `delivery-manifest.json`, `scripts/publish_supervised_pair.py`, and the `auditor_artifact` hash/timestamp. The publisher manifest also records `work-report.md` in its `derived_files` collection and binds its bytes to the formal JSON without a circular report hash. Binding, identity, format, missing-required-artifact or evidence-integrity failure requires a blocked pair. A binding-complete pair may be published with accurately recorded quality issues, deferred checks or optional Library limitations under the default policy. Run the publisher only after report and audit validation, then run the current `verify-handoff` against the newly published bundle and use only its returned exact PPTX/report/Markdown paths, hashes, task/run identity and PPTX summary for final delivery. Never glob a task directory or link an older report. A missing formal report, invalid derived Markdown/manifest, missing core-sequence step, missing stage/calibration/Auditor/release binding, mismatched binding or hash, absent manifest, publisher bypass, or single-artifact handoff proves Supervisor completion was not established. Missing optional lifecycle, Index, retrieval or performance fields does not by itself block the report3.6 path. A summary-only legacy report is insufficient evidence of work history; `not-recorded` means the evidence was not captured, not that a prior stage did not run.
 
+## Page planning audit — v0.19.0
+
+For package 3.4 / Art 2.3, read locale-matched
+`../../packages/contracts/page-planning.md`. Review actual Copy ownership and
+heading relations, immutable Art planning, grounded expression additions, and
+their realization in specifications, drafts and final renders. Record the four
+planning checks in each `design_comparison` page, even when rendering is
+deferred. Missing evidence is uncertain with its earliest owner and issue;
+fields, explanations and faithful Output alone do not establish design quality.
+Preserve original planning bytes and readable planning in the existing report
+and handoff ZIP. Do not reconstruct pre-design planning from the final PPTX or
+rewrite independent findings.
+
 ## Design baseline audit and delivered documents
 
 Compare each reopened final PPTX render against the locked Art Direction image.
@@ -266,7 +279,7 @@ The central baseline is `../../config/default.json`; consume it through the unif
 
 ## v0.18.1 supervision boundary
 
-New runs use clean content package 3.3 and Art plan 2.2. Copy's five text roles
+New runs use clean content package 3.4 and Art plan 2.3. Copy's five text roles
 and optional heading levels describe content only. Art owns layout, visual
 hierarchy, shared editable objects, media and visual reading paths. Do not
 challenge Art-approved shared text, different styles at equal textual levels,
@@ -280,7 +293,7 @@ Reference discovery within the authorized task does not require a per-search
 user approval or restarting unchanged preflight. Preserve actual source/asset
 provenance, rights and explicit user requirements.
 
-Review actual editing fidelity against Art plan 2.2. Separate named objects
+Review actual editing fidelity against Art plan 2.3. Separate named objects
 must remain distinct; native groups preserve editable children and the declared
 group paths. Missing objects, unapproved merges/splits/regrouping or flattened
 substitutes are Output deviations. Art owns whether the original boundaries

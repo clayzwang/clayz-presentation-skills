@@ -30,8 +30,8 @@ that the evidence already permits. Do not invent a cause to make the story flow.
 ## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.3 and Art
-Direction plan 2.2. The complete research, Copy content document, complete image drafts, visual tags and
+`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.4 and Art
+Direction plan 2.3. The complete research, Copy content document, complete image drafts, visual tags and
 report documents apply even when optional Library or A/B capabilities are absent.
 Legacy page-first contracts remain readable only for existing runs. Preserve
 the existing Supervisor calibration and Independent Auditor handoffs.
@@ -142,6 +142,6 @@ The central baseline is `../../config/default.json`; consume it through the unif
 
 ## v0.18.1 content handoff
 
-New runs use content package 3.3 and the locale-matched story-visual-handoff contract.
+New runs use content package 3.4 and the locale-matched story-visual-handoff contract.
 Research ownership and source evidence are unchanged. Copy may reorganize the complete story.
 Research order and topic labels do not prescribe visual order or layouts.

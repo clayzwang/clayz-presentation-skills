@@ -11,10 +11,10 @@ presentation. Copy may combine, split, reorder and rewrite the complete story.
 Preserve facts, numbers, claim strength, qualifiers, relationships and required
 coverage; return new facts or changed research judgments to Logic.
 
-## Current handoff — v0.18.2
+## Current handoff — v0.19.0
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
-peer. New runs use content package 3.3, Art plan 2.2 and Output QA 4.1.
+peer. New runs use content package 3.4, Art plan 2.3 and Output QA 4.1.
 Resolve the explicit locale or `locale.default`; read `references/copy-package-contract.md` or its `.zh-CN.md` peer.
 
 The content document contains only these kinds of visible text:
@@ -40,6 +40,18 @@ Do not emit columns/table/ladder/rows/flow kinds, parent or sibling trees,
 render-separately or merge prohibitions, visual order, style tokens, forced
 line breaks, grammar signatures or presentation requests. Art chooses media,
 layout, grouping, combination, visual emphasis and reading paths.
+
+## Explicit content relationships — v0.19.0
+
+Read the locale-matched `../../packages/contracts/page-planning.md` contract.
+Before handoff, give every body passage an explicit relationship: the heading
+it explains, multiple headings it jointly supports, or no local heading
+ownership with its page-level purpose stated. Explain heading relationships
+from their actual meaning. Array order and heading level cannot supply them.
+Record `content_relationships` separately from text units; meaning relations do
+not prescribe visual nesting, equal-sized blocks, styles, spatial reading paths
+or independent objects. Headings may have no body. Review supported meaning
+and identify affected Copy IDs in the existing work record.
 
 ## Context and authority
 

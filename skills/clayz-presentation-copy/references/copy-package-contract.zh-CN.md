@@ -1,6 +1,9 @@
-# PPT v3.3 Copy 层合同
+# PPT v3.4 Copy 层合同
 
-v0.18.0 新任务使用[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)。
+本版同时遵循[内容关系与逐页艺术规划](../../../packages/contracts/page-planning.zh-CN.md)：Copy 明确正文归属与标题关系，Art 在对象规格前保存逐页统筹规划，审计检查规划及实际呈现。
+
+
+v0.19.0 新任务使用[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)。
 Copy 阅读 Logic 的完整故事，可调整、重组、改写，保留事实、限定条件和真实业务关系。
 
 `copy_layer` 保留 `logic_version`、`pagination_owner:"copy"`、

@@ -17,7 +17,7 @@ from resource_inventory import validate_resource_inventory
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "3.3"
+CONTRACT_VERSION = "3.4"
 LEGACY_CONTRACT_VERSION = "2.4"
 STATUS_RANK = {"draft": 0, "logic-approved": 1, "copy-approved": 2}
 MATERIAL_TYPES = {
@@ -550,7 +550,7 @@ def validate_acceptance_against_logic(acceptance: Any, slides: Any, errors: list
 
 
 def validate_package(data: Any, require_status: str = "logic-approved") -> list[str]:
-    if isinstance(data, dict) and data.get("contract_version") in {"3.0", "3.1", "3.2", CONTRACT_VERSION}:
+    if isinstance(data, dict) and data.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", CONTRACT_VERSION}:
         from story_handoff import validate_logic_story, validate_copy_trace
         errors = validate_logic_story(data, require_status)
         if data.get("status") == "copy-approved":

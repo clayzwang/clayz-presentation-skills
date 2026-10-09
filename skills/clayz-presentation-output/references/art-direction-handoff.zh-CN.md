@@ -1,7 +1,10 @@
-# Art Direction 交接 — v0.18.1
+# Art Direction 交接 — v0.19.0
+
+本版同时遵循[内容关系与逐页艺术规划](../../../packages/contracts/page-planning.zh-CN.md)：Copy 明确正文归属与标题关系，Art 在对象规格前保存逐页统筹规划，审计检查规划及实际呈现。
+
 
 新任务遵循[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)，
-使用内容包 3.3、批准 Art 计划 2.2。Output 同时阅读全稿图片与对应规格后制作可编辑对象。
+使用内容包 3.4、批准 Art 计划 2.3。Output 同时阅读全稿图片与对应规格后制作可编辑对象。
 
 落实 Art 的坐标、字体、视觉层级、分组、媒介和阅读路径。
 copy_unit_map 用原生位置追踪每段文案，共用目标配不相交 text_range 是合法做法：

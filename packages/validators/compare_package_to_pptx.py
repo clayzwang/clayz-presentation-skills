@@ -262,7 +262,7 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
             for index, (page, design, name) in enumerate(zip(pages, plan['slides'], names), 1):
                 xml = archive.read(name)
                 named, _, inventory = extract_slide(xml)
-                if plan.get('contract_version') == '2.2':
+                if plan.get('contract_version') in {'2.2', '2.3'}:
                     errors.extend(f'slide {index}: {error}' for error in editable_object_errors(xml, plan['visual_baseline']['slides'][index-1]))
                 locations = text_locations(xml, preserve_offsets=True)
                 baseline = plan['visual_baseline']['slides'][index-1]
@@ -327,7 +327,7 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
 
 
 def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False) -> list[str]:
-    if isinstance(package, dict) and package.get('contract_version') == '3.3':
+    if isinstance(package, dict) and package.get('contract_version') in {'3.3', '3.4'}:
         return compare_clean_content(package, plan, pptx, allow_extra_text)
     errors = validate_plan(package, plan)
     if errors or not isinstance(package, dict) or not isinstance(plan, dict):

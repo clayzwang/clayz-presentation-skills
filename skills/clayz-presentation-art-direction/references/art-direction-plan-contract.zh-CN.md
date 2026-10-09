@@ -1,7 +1,10 @@
-# Art Direction 计划 2.2
+# Art Direction 计划 2.3
+
+本版同时遵循[内容关系与逐页艺术规划](../../../packages/contracts/page-planning.zh-CN.md)：Copy 明确正文归属与标题关系，Art 在对象规格前保存逐页统筹规划，审计检查规划及实际呈现。
+
 
 新任务遵循[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)。
-绑定合同版本 2.2、内容包版本 3.3、任务身份、批准状态、验收合同、
+绑定合同版本 2.3、内容包版本 3.4、任务身份、批准状态、验收合同、
 资源签名、communication_contract 和真实索引证据。
 art_direction.approval 保留 status 与 approved_by。
 

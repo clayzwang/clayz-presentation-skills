@@ -1,6 +1,9 @@
-# Research, clean text and visual handoff — v0.18.2
+# Research, clean text and visual handoff — v0.19.0
 
-New runs use content package `3.3`, Art plan `2.2`, Output QA `4.1` and
+Read [content relationships and page planning](page-planning.md) for required semantic Copy relationships, recorded Art planning before object specifications, and planning-to-render audit.
+
+
+New runs use content package `3.4`, Art plan `2.3`, Output QA `4.1` and
 handoff extension `1.3`. Retain the five stages, configuration, real source
 evidence, calibrations, work records and Independent Auditor. Historical
 contracts retain versioned replay validation; never relabel an old artifact.
@@ -59,7 +62,7 @@ or schema pass alone cannot establish equivalence.
 Copy does not supply layout kinds such as columns/table/ladder/rows/flow,
 parent/sibling graphs, forced separate rendering, merge prohibitions, style
 parity, visual-order numbers, forced line-break indexes, grammar signatures
-or presentation requests. Historical rules do not apply to package 3.3.
+or presentation requests. Historical rules do not apply to package 3.4.
 
 ## Art and references
 
@@ -83,7 +86,7 @@ Learning-package authoring and packaging are outside this engine version.
 Asset reuse still needs provenance and rights. Reference research does not
 require a per-search approval or a restart of unchanged preflight.
 
-## Art plan 2.2 and full-deck baseline
+## Art plan 2.3 and full-deck baseline
 
 Preserve package identity, acceptance_contract, resource_inventory_lock,
 communication_contract (brief.preflight), task Provider lock and real consulted

@@ -6,6 +6,19 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.19.0 — 2026-10-09
+
+- Content 3.4 makes body ownership and heading relationships explicit, including shared and page-level support without prescribing Art geometry.
+- Art 2.3 records immutable, Copy-bound page planning before object specifications; optional expressive additions have a purpose and approved content basis.
+- Audit per-page planning, relationship expression, additions and actual realization; preserve portable original planning and readable handoffs.
+- Preserve old contract replay and composition freedom, including shapes that combine content and direction.
+
+### 中文
+
+- Copy 明确正文归属（或无归属）、共同支撑和标题关系；语义关系不规定 Art 版式。
+- Art 在细化对象前保存逐页统筹规划，新增表达记录用途与批准内容依据。
+- 审计逐页规划、关系表达、新增表达与实际呈现，保留可携带的真实规划及可读交接。
+- 历史合同继续回读，保留自由构图与同一元素共同承担表达的能力。
 ## 0.18.5 — 2026-10-09
 
 - Art treats the whole composition as visual expression alongside words, preserving the model’s freedom to choose content-led spatial, pictorial or typographic means; frames and blocks are optional examples.

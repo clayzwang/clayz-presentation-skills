@@ -144,3 +144,7 @@ Logic, Copy, Art Direction or Output through the existing feedback route.
 5. Return the artifact to Supervisor. Supervisor reconciles it with stage
    evidence, decides the release disposition under the user's policy, and may
    route repairs without editing the audit result.
+
+## v0.19.0 page-planning audit
+
+Inspect Copy ownership, original Art planning and expression additions under [page planning](page-planning.md), then actual drafts and final realization. Record missing evidence, ambiguous meaning and design/implementation drift with the earliest owner. Fields, counts and fidelity do not certify art quality; never reconstruct earlier planning from the final file. Supervisor records four per-page observations while preserving these findings and the existing delivery policy.

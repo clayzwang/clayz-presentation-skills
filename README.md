@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.18.5**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.19.0**
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
@@ -264,3 +264,7 @@ Logic → 完整研究成果；Copy → 内容结构与适合 PPT 的文字（�
 ## 0.17.5 delivery update
 
 The historical no-font policy is superseded for explicitly authorized, hash-bound STKaiti files in `assets/fonts/manifest.json`. 0.17.5 carries installation instructions but no STKaiti bytes because redistribution authorization is unavailable; a licensed local installation is required when a task requests it. Authorized manifest-listed fonts may be bundled; arbitrary fonts remain excluded. See [production reliability](packages/contracts/production-reliability.md). Reports default to external evidence, and Art owns font-size/readability and repetition judgments.
+
+## v0.19.0: explicit meaning and page planning
+
+Copy supplies body-to-heading ownership, shared support or explicit page-level purpose. Art records content-led page planning before object specifications, including grounded optional expression additions. The existing audit compares planning, semantic relationships, additions and actual realization; it retains missing evidence without aesthetic scores. New contracts are content 3.4 and Art 2.3; historical 3.3/2.2 artifacts remain readable. See [page planning](packages/contracts/page-planning.md).
