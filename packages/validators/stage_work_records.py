@@ -884,6 +884,9 @@ def create_record(
         for role in sorted(required.get(stage, set()) - artifacts.keys()):
             errors.append(f"artifacts.{role}: required for {stage}; bind the existing artifact and retry record-stage only")
     fields, field_errors = _draft(draft, calibrated=calibrated_hint)
+    for check in fields.get("checks", []):
+        if isinstance(check, dict) and isinstance(check.get("evidence_roles"), list):
+            check["evidence_roles"] = [aliases.get(role, role) for role in check["evidence_roles"]]
     artifacts_out, artifact_errors = _artifacts(artifacts)
     errors.extend(field_errors + artifact_errors)
     supplied_bindings = calibration_bindings if calibration_bindings is not None else fields.get("calibration_bindings")

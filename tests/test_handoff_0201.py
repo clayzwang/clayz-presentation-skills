@@ -167,3 +167,12 @@ class HandoffTests(TestCase):
         self.assertNotEqual(0, result.returncode)
         self.assertIn('artifacts.package', result.stderr)
         self.assertFalse(output.exists())
+
+    def test_role_alias_normalizes_artifact_and_check_references(self):
+        from packages.validators.stage_work_records import create_record
+        draft = {'summary':'Synthetic handoff', 'checks':[{'name':'Inspected artifact', 'status':'pass', 'evidence_roles':['report-draft']}]}
+        record = create_record('logic', draft, {'run_binding':rr.read(self.package)['run_binding']},
+                               {'package':self.package, 'report-draft':self.brief}, require_artifact_roles=True)
+        self.assertIn('draft', record['artifacts'])
+        self.assertEqual(['draft'], record['checks'][0]['evidence_roles'])
+        self.assertEqual(['report-draft'], draft['checks'][0]['evidence_roles'])
