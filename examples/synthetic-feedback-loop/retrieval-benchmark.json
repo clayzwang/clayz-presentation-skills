@@ -4,7 +4,7 @@
   "expected_provider_snapshots": [
     {
       "provider_id": "builtin-catalog",
-      "digest": "a54e53695c5a9849fea01d8bb24a104a67096630f36af6a3f38ef96146f9fd95",
+      "digest": "d098eba31b8ba9493bef4f6ee6327005b9e6e1e3e5663e6a4e5bc63dea25e7eb",
       "record_count": 24
     },
     {

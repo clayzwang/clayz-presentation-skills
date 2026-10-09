@@ -91,8 +91,8 @@ def light_catalog_records() -> list[dict]:
                 "art-direction" not in r.get("classification", {}).get("stages", [])]
     for record in selected:
         if record["record_id"] == "cap.copy.atomic-hierarchy":
-            record["title"] = "Reader explanation, meaning review and fine body units"
-            record["summary"] = "Explain the supported research coherently for readers, review concrete meaning preservation, and resolve body as finely as fluent grammar and logic permit. State passage contributions, dependencies and ownership; Art decides their combination and presentation. Source IDs and schema success do not establish understanding."
+            record["title"] = "Reader answers, isolated review and fine body units"
+            record["summary"] = "Explain the subject and concrete supported differences for the audience. Review title promises against complete prose; preserve fine coherent body units and relationships. Supervisor obtains fresh visible-only reader retellings before Art and after Output, then reconciles evidence without erasing the first understanding."
     return selected
 
 

@@ -1028,6 +1028,9 @@ class RealCliReleaseTests(unittest.TestCase):
         self.config = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
         # These adversarial cases exercise historical embedded report semantics.
         # The 0.17.5 suite separately runs the external-evidence publisher end-to-end.
+        # Reader review is exercised with current Copy inputs in test_reader_review;
+        # this 2.4 fixture intentionally replays the pre-0.20 task policy.
+        self.config["workflow"].pop("reader_review", None)
         self.config["delivery"]["report_storage"] = getattr(self, "report_storage", "embedded")
         self.config["renderer"]["required_capabilities"] = ["editable-text", "render-preview"]
         self.config_path = write_json(self.work / "config.json", self.config)

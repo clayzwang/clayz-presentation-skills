@@ -17,11 +17,25 @@ For v0.17.6, challenge Art on unexplained large whitespace in final renders. Req
 
 ## Reader understanding (v0.17.1)
 
+For v0.20.0, read [reader review](../../packages/contracts/reader-review.md) or its
+zh-CN peer. Schedule a fresh, no-history reader delegation after current Copy and
+before Copy-to-Art calibration, and a different fresh reader after final Output.
+This skill explicitly requests those reader delegates when the host supports
+them. Use the real host dispatch tool, not a Python subprocess presented as an
+independent model. Prepare the visible-only packet with `scripts/reader_review.py`;
+pass only its input directory and capture actual host receipts and access limits.
+The reader first retells the material without production evidence. Freeze that
+response before the second pass reads Logic/Copy/Art/QA and assigns findings to
+the earliest owner. Preserve repaired revisions and evidence-backed disagreements.
+Bind `reader-review-copy` and `reader-review-final` into the existing final audit.
+Shared-context or unavailable execution remains explicitly incomplete evidence.
+These are internal reviews with routine repair authority, not user approvals.
+
 Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
 according to the task locale. Necessary explanation and evidence fidelity take
 priority over shortness; use existing records for review observations.
 
-Read Logic for substantive completeness, Copy for natural continuous prose,
+In the evidence-reconciliation pass, read Logic for substantive completeness, Copy for natural continuous prose,
 and the final pages for actual readability. Judge whether the intended reader
 can understand without reconstructing the research notes. Data/object/layout
 checks do not establish language quality. Prioritize material content repair

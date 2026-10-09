@@ -424,6 +424,14 @@ def _auditor(
     extra = report.get("auditor_limitations")
     if isinstance(extra, list):
         limitations.extend(item for item in extra if item not in limitations)
+    reader_reviews = {}
+    for row in raw.get("source_records", []):
+        if isinstance(row, Mapping) and row.get("kind") in {"reader-review-copy", "reader-review-final"}:
+            from packages.validators.reader_review import validate_review, read as read_reader
+            source_id = str(row["kind"])
+            binding = {k: row[k] for k in ("path", "sha256", "bytes")}
+            _source(binding, source_id=source_id, stage="supervisor", snapshots=snapshots, ids=ids)
+            reader_reviews[source_id] = validate_review(read_reader(row["path"]))
     return {
         "status": RECORDED_STATUS,
         "artifact_ref": source_ref,
@@ -433,6 +441,7 @@ def _auditor(
         "findings": raw.get("findings", report.get("auditor_findings", [])),
         "coverage": raw.get("coverage", report.get("auditor_coverage", {})),
         "limitations": limitations,
+        **({"reader_reviews": reader_reviews} if reader_reviews else {}),
     }
 
 
@@ -1897,7 +1906,7 @@ def _render_auditor(lines: list[str], work: Mapping[str, Any]) -> None:
         lines.append(f"- `{MISSING_STATUS}`")
         lines.append("")
         return
-    for key in ("status", "artifact_ref", "audit_id", "audit_status", "coverage", "limitations", "findings"):
+    for key in ("status", "artifact_ref", "audit_id", "audit_status", "coverage", "limitations", "findings", "reader_reviews"):
         if key in auditor:
             _block(lines, f"### {_key_label(key)}", auditor.get(key))
     raw = auditor.get("raw_result")

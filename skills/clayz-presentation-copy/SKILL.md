@@ -101,6 +101,27 @@ These are content responsibilities in one workflow.
 
 ## Argument and reader review
 
+Apply [reader review](../../packages/contracts/reader-review.md) (or its zh-CN
+peer). Write for the audience's substantive questions: what the subject does,
+how it works and what the supported comparison actually establishes. Keep this
+reader-question/answer judgment in the actual explanation and work notes.
+For explanatory/comparative tasks, explain the mechanisms and differences before
+offering writing procedures or due-diligence advice. Preserve a procedure-first
+sequence when the user's task and reader genuinely need that sequence.
+
+Titles may ask, judge or orient. Read them together, then check that the body
+delivers the promised answer. A title saying requirements differ has not itself
+explained the difference; a reminder to distinguish evidence types may belong
+in a qualification instead of displacing the subject's core meaning. Do not
+force every heading into a conclusion, question, contrast or slogan. Preserve
+scope and uncertainty: strengthen expression only as far as the evidence allows.
+
+After saving the current Copy revision, send it to Supervisor for the fresh
+reader pass before Copy-to-Art calibration. Respond to actual comprehension
+findings in existing work notes; change the substantive explanation and page
+responsibility when needed, then derive titles/body again. Cosmetic title changes
+cannot repair missing analysis. Preserve old findings and re-read revised bytes.
+
 Before assigning text roles, establish what the page answers, its supported
 judgments and evidence, and the relation between paragraphs. Then write the
 Storyline, useful local headings, body and annotations. Categorizing a passage

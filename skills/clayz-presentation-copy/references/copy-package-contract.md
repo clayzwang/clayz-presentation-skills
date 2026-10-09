@@ -42,3 +42,7 @@ Art may merge text into shared objects, choose different styles for equal
 textual levels, or change visual reading order while preserving meaning.
 Only actual text, meaning, coverage and explicit user requirements remain binding.
 Historical 3.2 and earlier artifacts retain their versioned replay validation.
+
+## Reader review / 读者审读 — v0.20.0
+
+Before Art, use the fresh reader pass in [reader review](../../../packages/contracts/reader-review.md). Review the actual subject answers, title sequence and body fulfilment; retain qualifications and composition freedom.

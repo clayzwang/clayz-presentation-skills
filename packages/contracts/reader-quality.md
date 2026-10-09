@@ -1,5 +1,10 @@
 # Substantive reasoning and natural presentation language
 
+For v0.20.0 apply [reader review](reader-review.md): fresh contexts read visible
+Copy before Art and final pages after Output, freeze their actual retelling, and
+only then reconcile production evidence. Author self-assessment and fidelity
+checks do not establish reader understanding.
+
 Use across Logic, Copy, Art Direction and final review. Evidence fidelity,
 substantive explanation and reader understanding take priority over brevity,
 symmetrical headings or slogans. Necessary explanations may be longer; layout
@@ -20,6 +25,16 @@ preserve hypothesis status. Do not invent causality to complete a narrative.
 Research agendas and diligence plans may legitimately center on open questions.
 
 ## Copy: explain in natural sentences before compressing
+
+Organize the account around the intended reader's substantive questions and the
+answers the evidence supports. Keep those judgments in the actual explanation
+and work notes. For explanation/comparison tasks, explain how the subject works
+and the concrete commonalities/differences before writing recommendations.
+Procedure-first tasks may naturally start with steps. Titles can ask, judge or
+orient, but their sequence should convey the material's answers and their bodies
+should fulfil those promises. “Requirements differ” does not explain a difference;
+“distinguish regulations and cases” is editorial advice. Preserve qualifications
+and overlapping mechanisms; do not force uniform titles or exclusive categories.
 
 Read the full story. Express each principal judgment naturally for the intended
 reader before organizing Storylines, headings, body and annotations. Keep the actors,
@@ -134,7 +149,7 @@ in readable body text instead of deleting it.
 
 ## Supervisor and Independent Auditor: read the actual content
 
-Read the complete Logic argument, then Copy's visible text continuously, then the
+After the isolated first reading has been frozen, read the complete Logic argument, then Copy's visible text continuously, then the
 actual pages. Judge from the intended reader's starting knowledge, without
 depending on research notes. Can the reader understand the principal judgment,
 subject, evidence, comparison and limits? Filled fields, object counts, correct

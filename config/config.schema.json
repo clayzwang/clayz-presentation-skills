@@ -25,6 +25,7 @@
       "required": ["contract_version", "stages", "approval_states", "execution_ledger_contract", "maximum_technical_cycles", "delivery_policy"],
       "properties": {
         "contract_version": {"const": "3.1-open"},
+        "reader_review": {"type": "object", "additionalProperties": false, "required": ["contract", "required", "phases", "unavailable_policy"], "properties": {"contract": {"const": "io.clayz.presentation.reader-review/1.0"}, "required": {"const": true}, "phases": {"const": ["copy", "final"]}, "unavailable_policy": {"const": "disclose-and-continue"}}},
         "stages": {"const": ["logic", "copy", "art-direction", "output", "supervisor"]},
         "approval_states": {"type": "array", "minItems": 1, "items": {"type": "string"}},
         "execution_ledger_contract": {"const": "io.clayz.presentation.execution-ledger/1.0"},

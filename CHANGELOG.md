@@ -6,6 +6,19 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.0 — 2026-10-09
+
+- Add two host-dispatched reader reviews: visible Copy before Art calibration and actual final pages after Output. Fresh contexts receive no production history; unavailable or shared-context execution remains explicit.
+- Build visible-only packets, strip image metadata, freeze first understanding before evidence reconciliation, preserve reader findings and prior revisions, and reject stale bindings or backfilled pre-Art reviews.
+- Require both reader-review records in new task configuration and collect them into the existing audit and work report. Host receipts disclose actual context and access limits; validators do not score language or certify a human-reader result.
+- Strengthen Logic's substantive answers and shared-basis comparisons and Copy's reader questions, informative title sequence and body fulfilment. Retain evidence limits, fine body units, flexible titles and Art's composition freedom.
+
+### 中文
+
+- 增加两次由宿主调度的读者审读：Copy→Art 校准前阅读可见文案，Output 后阅读实际成品。新上下文不继承制作历史；无法隔离或未执行时如实记录。
+- 生成可见内容输入包、清除图片元数据、先冻结理解再核对证据；保留原始发现及旧修订，拒绝过期绑定和事后倒填前置审读。
+- 新任务配置要求两份读者审读记录，并纳入现有审计和完整工作报告；宿主回执披露实际上下文与访问限制，结构校验不自动评价语言或证明真人理解效果。
+- 强化 Logic 对主题核心和同维度异同的回答，以及 Copy 的读者问题、标题连读与正文兑现；保留证据限定、细 body、灵活标题与 Art 构图自由。
 ## 0.19.1 — 2026-10-09
 
 - Copy develops and retains a reader-facing explanation, reviews concrete meaning preservation, and hands Art body units resolved as finely as fluent grammar and logic permit.

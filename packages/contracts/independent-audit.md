@@ -1,5 +1,12 @@
 # Independent audit module
 
+For v0.20.0 use [reader review](reader-review.md). Supervisor dispatches fresh,
+no-history readers before Copy-to-Art calibration and after final Output. Save
+visible-only first understanding before any production-evidence reading. Bind
+`reader-review-copy` and `reader-review-final` into the existing audit; disclose
+unavailable execution and preserve findings/revisions in that same report.
+
+
 `io.clayz.presentation.independent-audit/1.0` is the shared post-Output audit
 contract. It is an internal module used by the Supervisor publication unit; it
 is not a sixth production stage, a second Public Core, or a second retrieval

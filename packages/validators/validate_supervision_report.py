@@ -1172,6 +1172,12 @@ def validate_calibrated_delivery(
         except (OSError, UnicodeError, json.JSONDecodeError, IndependentAuditError) as exc:
             errors.append(f"report.auditor_artifact: {exc}")
     if auditor_value is not None:
+        from packages.validators.reader_review import validate_copy_review_order
+        if len(calibration_values) == 3:
+            try:
+                validate_copy_review_order(auditor_value, calibration_values[1])
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                errors.append(f"report.reader_reviews: {exc}")
         final_pptx = auditor_value.get("final_pptx")
         if isinstance(final_pptx, dict) and isinstance(report.get("delivery_pair"), dict):
             report_pptx = report["delivery_pair"].get("pptx", {})
@@ -1678,6 +1684,13 @@ def validate_calibrated_report(
     errors: list[str] = []
     if not all(isinstance(item, dict) for item in (package, plan, qa, inventory, report)):
         return ["calibrated report inputs must all be JSON objects"]
+    from packages.validators.reader_review import audit_reviews, required_for_config
+    if isinstance(resolved_config, dict) and required_for_config(resolved_config):
+        try:
+            auditor = json.loads(Path(report["auditor_artifact"]["path"]).read_text(encoding="utf-8"))
+            audit_reviews(auditor, required=True)
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            errors.append(f"report.reader_reviews: {exc}")
     require_keys(report, CALIBRATED_REPORT_REQUIRED_FIELDS, "$report", errors)
     if report.get("contract_version") == CONTRACT_VERSION:
         if not isinstance(report.get("work_report"), dict):

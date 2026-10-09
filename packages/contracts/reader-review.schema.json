@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:reader-review:1.0",
+  "title": "Frozen reader understanding and subsequent evidence reconciliation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "phase", "run_id", "task_request_sha256", "first_read", "evidence", "dispositions", "previous_reviews", "reconciled_at"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.reader-review/1.0"},
+    "phase": {"enum": ["copy", "final"]},
+    "run_id": {"type": "string", "minLength": 1},
+    "task_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "first_read": {"$ref": "#/$defs/file"},
+    "evidence": {"type": "array", "items": {"$ref": "#/$defs/file"}},
+    "previous_reviews": {"type": "array", "items": {"$ref": "#/$defs/file"}},
+    "dispositions": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["finding_id", "owner_layer", "status", "explanation", "evidence_refs"],
+      "properties": {
+        "finding_id": {"type": "string", "minLength": 1},
+        "owner_layer": {"enum": ["logic", "copy", "art-direction", "output", "supervisor"]},
+        "status": {"enum": ["open", "disputed-with-evidence"]},
+        "explanation": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/file"}}
+      }
+    }},
+    "reconciled_at": {"type": "string", "format": "date-time"}
+  },
+  "$defs": {
+    "file": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256", "bytes"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "bytes": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

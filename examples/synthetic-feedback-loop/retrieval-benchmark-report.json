@@ -1,12 +1,12 @@
 {
   "contract": "io.clayz.presentation.retrieval-benchmark-report/1.0",
-  "report_id": "benchmark-report-04a4e3b7a6854c9c0150",
+  "report_id": "benchmark-report-983808ac81e507c941bb",
   "benchmark_id": "benchmark.stage5-synthetic-feedback",
   "created_at": "2026-08-23T12:00:00Z",
   "provider_snapshots": [
     {
       "provider_id": "builtin-catalog",
-      "digest": "a54e53695c5a9849fea01d8bb24a104a67096630f36af6a3f38ef96146f9fd95",
+      "digest": "d098eba31b8ba9493bef4f6ee6327005b9e6e1e3e5663e6a4e5bc63dea25e7eb",
       "record_count": 24
     },
     {
@@ -31,7 +31,7 @@
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-9c4dc5e612aea66a4472",
+      "receipt_id": "receipt-210fa554c5195061b9fe",
       "passed": true,
       "reasons": []
     },
@@ -49,7 +49,7 @@
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-8598bce90e8366c97329",
+      "receipt_id": "receipt-6b75186ec5b870e98df3",
       "passed": true,
       "reasons": []
     },
@@ -67,7 +67,7 @@
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-e455a3d5d1382c76278c",
+      "receipt_id": "receipt-1e0b2c91d4e7891ab2fc",
       "passed": true,
       "reasons": []
     },
@@ -81,7 +81,7 @@
       "missing_expected_ids": [],
       "forbidden_hits": [],
       "invented_ids": [],
-      "receipt_id": "receipt-9c15de26b11124d8dc09",
+      "receipt_id": "receipt-d33d8bb83605e9aa2887",
       "passed": true,
       "reasons": []
     }

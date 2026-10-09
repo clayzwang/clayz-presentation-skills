@@ -339,6 +339,10 @@ def validate_work_record_assembly(report: dict[str, Any], pptx: Path | None = No
         by_kind = {
             row.get("kind"): row for row in source_rows if isinstance(row, dict)
         } if isinstance(source_rows, list) else {}
+        from packages.validators.reader_review import audit_reviews, required_for_config, validate_copy_review_order
+        selected_config = _read_object(Path(inputs["config"]["path"]))
+        audit_reviews(auditor, required=required_for_config(selected_config))
+        validate_copy_review_order(auditor, calibration_values[1])
         for kind in ("package", "plan", "qa", "inventory"):
             if kind not in by_kind:
                 raise ValueError(f"Auditor source_records must include real {kind} evidence")

@@ -1,5 +1,12 @@
 # Stage enablement and execution
 
+For v0.20.0 use [reader review](reader-review.md). Supervisor dispatches fresh,
+no-history readers before Copy-to-Art calibration and after final Output. Save
+visible-only first understanding before any production-evidence reading. Bind
+`reader-review-copy` and `reader-review-final` into the existing audit; disclose
+unavailable execution and preserve findings/revisions in that same report.
+
+
 This contract governs current task behavior when older stage references describe
 mandatory adoption, full replays, fixed presentation formulas, or one-pass stage
 boundaries. Shared locks and existing machine contracts still apply; revision

@@ -437,7 +437,7 @@ def create_auditor_artifact(
         "findings": [dict(item) for item in findings],
         "audit_status": "clean",
         "independent_context": dict(independent_context),
-        "audited_at": audited_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "audited_at": audited_at or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
     statuses = [
         item.get("status")
@@ -453,6 +453,18 @@ def create_auditor_artifact(
         value["audit_status"] = "incomplete-evidence"
     if value["findings"] or any(status == "fail" for status in statuses + rule_statuses):
         value["audit_status"] = "issues-found" if value["audit_status"] != "incomplete-evidence" else "incomplete-evidence"
+    from packages.validators.reader_review import audit_reviews, reader_status, audit_reader_findings
+    reviews = audit_reviews(value)
+    review_status = reader_status(reviews)
+    derived_findings = audit_reader_findings(value, reviews)
+    derived_ids = {row["finding_id"] for row in derived_findings}
+    if any(row.get("finding_id") in derived_ids for row in value["findings"]):
+        raise IndependentAuditError("READER findings are collected from frozen reader evidence; do not supply them twice")
+    value["findings"].extend(derived_findings)
+    if review_status == "incomplete-evidence":
+        value["audit_status"] = review_status
+    elif review_status == "issues-found" and value["audit_status"] == "clean":
+        value["audit_status"] = review_status
     value["record_sha256"] = canonical_record_sha256(value)
     if output is not None:
         _write_new(output, value)
@@ -772,6 +784,19 @@ def validate_auditor_artifact(
             errors.append("audit.independent_context.limitations: execution mode requires explicit limitations")
     if not _timestamp(value.get("audited_at")):
         errors.append("audit.audited_at: must be a timezone-aware ISO timestamp")
+    from packages.validators.reader_review import audit_reviews, reader_status, audit_reader_findings
+    review_status = "observations-recorded"
+    try:
+        reviews = audit_reviews(value)
+        review_status = reader_status(reviews)
+        expected_reader_findings = audit_reader_findings(value, reviews)
+        for finding in expected_reader_findings:
+            if finding not in value.get("findings", []):
+                errors.append("audit.reader_reviews: original reader finding or reconciliation was omitted/altered")
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        errors.append(f"audit.reader_reviews: {exc}")
+    deferred = deferred or review_status == "incomplete-evidence"
+    failed = failed or review_status == "issues-found"
     status = value.get("audit_status")
     if status not in AUDIT_STATUSES:
         errors.append("audit.audit_status: invalid value")

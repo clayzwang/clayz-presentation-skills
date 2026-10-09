@@ -1,5 +1,8 @@
 # 独立审计模块
 
+v0.20.0 使用[读者审读](reader-review.zh-CN.md)：Supervisor 在 Copy→Art 校准前和成品后分别调度不继承历史的新上下文，先保存可见内容的首次理解，再读取制作证据。现有审计绑定 `reader-review-copy`、`reader-review-final`，真实保留无法隔离／未执行状态、发现及修订。
+
+
 `io.clayz.presentation.independent-audit/1.0` 是 Output 之后的共享审计合同。
 它是 Supervisor 发布单元使用的内部模块，不是第六个制作阶段、第二个
 Public Core 或第二套检索引擎。

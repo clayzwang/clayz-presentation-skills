@@ -27,6 +27,15 @@ Develop the available facts, comparisons, mechanisms and supported judgment.
 Keep remaining unknowns explicit; do not let “what to verify” replace analysis
 that the evidence already permits. Do not invent a cause to make the story flow.
 
+For an explanatory or comparative task, develop the subject's core rules and
+mechanisms and compare the relevant objects on shared questions. State what each
+does, concrete commonalities/differences, supported implications and their scope.
+Keep evidence limitations close to the claims they qualify. A list of research
+dimensions or instructions for writing a report cannot replace available answers.
+Retain these judgments in existing research findings/work notes; Copy owns their
+presentation wording and sequence. Under [reader review](../../packages/contracts/reader-review.md),
+accept evidence-backed returns when a reader's question exposes missing analysis.
+
 ## Research and visual handoff (v0.17.4)
 
 Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or

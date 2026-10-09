@@ -21,6 +21,11 @@ REQUIRED_SKILLS = (
     "clayz-presentation-supervisor",
 )
 REQUIRED_SHARED_PATHS = (
+    "scripts/reader_review.py",
+    "packages/validators/reader_review.py",
+    "packages/contracts/reader-review.md",
+    "packages/contracts/reader-review.zh-CN.md",
+    "packages/contracts/reader-review.schema.json",
     "packages/contracts/reader-quality.md",
     "packages/contracts/reader-quality.zh-CN.md",
     "scripts/stage_documents.py",
