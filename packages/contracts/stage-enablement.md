@@ -1,11 +1,6 @@
 # Stage enablement and execution
 
-For v0.20.0 use [reader review](reader-review.md). Supervisor dispatches fresh,
-no-history readers before Copy-to-Art calibration and after final Output. Save
-visible-only first understanding before any production-evidence reading. Bind
-`reader-review-copy` and `reader-review-final` into the existing audit; disclose
-unavailable execution and preserve findings/revisions in that same report.
-
+For v0.20.1 follow [reader review](reader-review.md): research conclusions → Copy → title-only reader versus Logic → full-content reader versus Logic → Art → Output → final reader versus approved Copy → supervision report and delivery. Each reader first freezes independent understanding. Current title/content gates precede any task-specific design or rendering. Upload is outside the standard workflow. Use minimal affected-scope retries and preserve original evidence.
 
 This contract governs current task behavior when older stage references describe
 mandatory adoption, full replays, fixed presentation formulas, or one-pass stage

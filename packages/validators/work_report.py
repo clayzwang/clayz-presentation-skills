@@ -426,7 +426,7 @@ def _auditor(
         limitations.extend(item for item in extra if item not in limitations)
     reader_reviews = {}
     for row in raw.get("source_records", []):
-        if isinstance(row, Mapping) and row.get("kind") in {"reader-review-copy", "reader-review-final"}:
+        if isinstance(row, Mapping) and row.get("kind") in {"reader-review-title", "reader-review-content", "reader-review-copy", "reader-review-final"}:
             from packages.validators.reader_review import validate_review, read as read_reader
             source_id = str(row["kind"])
             binding = {k: row[k] for k in ("path", "sha256", "bytes")}

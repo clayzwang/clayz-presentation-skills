@@ -59,7 +59,7 @@ MEDIA_LABELS = {
     "scenario-illustration", "cards", "columns", "mixed", "other", "not-reviewed",
 }
 SEVERITIES = {"critical", "major", "moderate", "minor"}
-OWNERS = {"logic", "copy", "art-direction", "output-build", "output-qa", "interface", "system"}
+OWNERS = {"logic", "copy", "art-direction", "output", "output-build", "output-qa", "interface", "system"}
 CONFIDENCE = {"high", "medium", "low"}
 
 
@@ -1688,7 +1688,7 @@ def validate_calibrated_report(
     if isinstance(resolved_config, dict) and required_for_config(resolved_config):
         try:
             auditor = json.loads(Path(report["auditor_artifact"]["path"]).read_text(encoding="utf-8"))
-            audit_reviews(auditor, required=True)
+            audit_reviews(auditor, required=True, config=resolved_config)
         except (ValueError, OSError, KeyError, TypeError) as exc:
             errors.append(f"report.reader_reviews: {exc}")
     require_keys(report, CALIBRATED_REPORT_REQUIRED_FIELDS, "$report", errors)

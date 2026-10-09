@@ -1,6 +1,6 @@
 # 独立审计模块
 
-v0.20.0 使用[读者审读](reader-review.zh-CN.md)：Supervisor 在 Copy→Art 校准前和成品后分别调度不继承历史的新上下文，先保存可见内容的首次理解，再读取制作证据。现有审计绑定 `reader-review-copy`、`reader-review-final`，真实保留无法隔离／未执行状态、发现及修订。
+v0.20.1 按[读者审读](reader-review.zh-CN.md)执行：标题独立审读、全文独立审读分别对照 Logic，通过后才进入 Art；成品独立审读对照批准 Copy，失败退回 Art。先冻结理解再核对证据，保留原始发现，只重做受影响范围。上传不属于标准流程。
 
 
 `io.clayz.presentation.independent-audit/1.0` 是 Output 之后的共享审计合同。

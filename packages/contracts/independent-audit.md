@@ -1,10 +1,6 @@
 # Independent audit module
 
-For v0.20.0 use [reader review](reader-review.md). Supervisor dispatches fresh,
-no-history readers before Copy-to-Art calibration and after final Output. Save
-visible-only first understanding before any production-evidence reading. Bind
-`reader-review-copy` and `reader-review-final` into the existing audit; disclose
-unavailable execution and preserve findings/revisions in that same report.
+For v0.20.1 follow [reader review](reader-review.md): independent title-only and full-content readings against Logic before Art; actual final pages against approved Copy after Output. Freeze first understanding before evidence. Require the current gates, preserve findings, and repair only the affected scope. Upload is outside the standard workflow.
 
 
 `io.clayz.presentation.independent-audit/1.0` is the shared post-Output audit

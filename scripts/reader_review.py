@@ -11,16 +11,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from packages.validators.reader_review import (prepare_packet, record_first, record_review,
-                                                read, validate_review)
+                                                read, validate_review, check_art_gate, repair_scope)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     prepare = commands.add_parser("prepare")
-    prepare.add_argument("--phase", choices=("copy", "final"), required=True)
+    prepare.add_argument("--phase", choices=("title", "content", "final", "copy"), required=True)
     for name in ("package", "brief", "directory", "output"):
         prepare.add_argument("--" + name, type=Path, required=True)
+    prepare.add_argument("--title-review", type=Path)
     prepare.add_argument("--pptx", type=Path)
     prepare.add_argument("--renders", type=Path)
     prepare.add_argument("--unavailable-reason")
@@ -32,14 +33,30 @@ def main() -> int:
     reconcile = commands.add_parser("reconcile")
     for name in ("first-read", "dispositions", "output"):
         reconcile.add_argument("--" + name, type=Path, required=True)
+    reconcile.add_argument("--comparison", type=Path)
     reconcile.add_argument("--evidence", action="append", type=Path, default=[])
     reconcile.add_argument("--previous-review", action="append", type=Path, default=[], dest="previous_reviews")
     validate = commands.add_parser("validate")
     validate.add_argument("path", type=Path)
+    gate = commands.add_parser("check-art-gate")
+    gate.add_argument("--package", type=Path, required=True)
+    gate.add_argument("--title-review", type=Path, required=True)
+    gate.add_argument("--content-review", type=Path, required=True)
+    repair = commands.add_parser("repair-scope")
+    repair.add_argument("--before", type=Path, required=True)
+    repair.add_argument("--after", type=Path, required=True)
+    repair.add_argument("--artifact", choices=("copy", "report", "audit-record", "receipt"), default="copy")
     args = vars(parser.parse_args())
     command = args.pop("command")
     try:
-        if command == "prepare":
+        if command == "check-art-gate":
+            args["package"] = read(args["package"])
+            print(json.dumps(check_art_gate(**args)))
+            return 0
+        elif command == "repair-scope":
+            print(json.dumps(repair_scope(read(args["before"]), read(args["after"]), artifact=args["artifact"])))
+            return 0
+        elif command == "prepare":
             prepare_packet(**args)
         elif command == "record-first":
             record_first(**args)

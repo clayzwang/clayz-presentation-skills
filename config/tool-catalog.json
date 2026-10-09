@@ -5,7 +5,7 @@
   "network_policy": "no-network-during-discovery",
   "arbitrary_executor": false,
   "tools": [
-    {"tool_id": "presentation.reader-review", "kind": "installed-code-with-host-capability", "purpose": "Prepare visible-only packets; record frozen first understanding and evidence reconciliation. Fresh reader execution is dispatched by the host.", "stage": "supervisor", "entrypoints": ["scripts/reader_review.py", "packages/validators/reader_review.py"], "prerequisites": ["Python 3.10 or later", "Current Copy bytes or final PPTX and actual renders", "Actual host reader response or explicit unavailable record"], "host_capability": {"required": true, "capability_id": "fresh-reader-context", "status": "host-dependent"}, "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}},
+    {"tool_id": "presentation.reader-review", "kind": "installed-code-with-host-capability", "purpose": "Prepare title-only, content and final packets; freeze understanding before baseline comparison; check Art gates and minimal repair scope. Fresh readers are dispatched by the host.", "stage": "supervisor", "entrypoints": ["scripts/reader_review.py", "packages/validators/reader_review.py"], "prerequisites": ["Python 3.10 or later", "Current Copy bytes or final PPTX and actual renders", "Actual host reader response or explicit unavailable record"], "host_capability": {"required": true, "capability_id": "fresh-reader-context", "status": "host-dependent"}, "execution": {"mode": "declared-entrypoint", "arbitrary": false, "network": "disabled"}},
     {
       "tool_id": "runtime.component-consistency",
       "kind": "installed-code",

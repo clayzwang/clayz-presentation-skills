@@ -12,6 +12,10 @@ does not invent a stronger requirement or change the user's precedence.
 
 Logic is the most reasoning-intensive stage. Think sufficiently to reconstruct the subject, audience, supported analysis and uncertainty; think effectively by concentrating on distinctions that can change the conclusion, research findings or decision. Private knowledge is evidence and method support, never a substitute for this synthesis.
 
+## Current production boundary (v0.20.1)
+
+Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+
 ## Production reliability (v0.17.5)
 
 Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.

@@ -145,12 +145,8 @@ def _file_record(path: Path) -> dict[str, Any]:
 
 
 def _write_new(path: Path, value: Mapping[str, Any]) -> None:
-    resolved = Path(path).expanduser().resolve()
-    if resolved.exists():
-        raise FileExistsError(resolved)
-    resolved.parent.mkdir(parents=True, exist_ok=True)
-    with resolved.open("x", encoding="utf-8", newline="\n") as stream:
-        stream.write(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+    from packages.validators.handoff_io import write_record
+    write_record(path, value)
 
 
 def _artifact_errors(value: Any, path: str, errors: list[str], *, verify_files: bool) -> None:
@@ -266,6 +262,11 @@ def _evidence_tokens(value: Mapping[str, Any]) -> dict[str, str]:
     """Return identifiers and the hash each evidence ref must carry."""
 
     tokens: dict[str, str] = {}
+    ambiguous = set()
+    def bind(key, digest):
+        if key in tokens and tokens[key] != digest:
+            ambiguous.add(key)
+        tokens[key] = digest
     logical = {"task_request": "task_request", "acceptance_rules": "acceptance_rules", "supervisor_rules": "supervisor_rules", "final_pptx": "final_pptx"}
     for key in ("task_request", "acceptance_rules", "supervisor_rules", "final_pptx"):
         record = value.get(key)
@@ -273,10 +274,11 @@ def _evidence_tokens(value: Mapping[str, Any]) -> dict[str, str]:
             digest = record.get("sha256")
             if not _sha(digest):
                 continue
-            tokens[logical[key]] = str(digest)
+            bind(logical[key], str(digest))
             path = record.get("path")
             if isinstance(path, str) and path.strip():
-                tokens[Path(path).name] = str(digest)
+                bind(Path(path).name, str(digest))
+                bind(str(Path(path).resolve()), str(digest))
     for key, prefix in (("source_records", "source"), ("render_evidence", "render")):
         rows = value.get(key)
         if not isinstance(rows, list):
@@ -289,11 +291,14 @@ def _evidence_tokens(value: Mapping[str, Any]) -> dict[str, str]:
             if not _sha(digest):
                 continue
             if isinstance(kind, str) and kind.strip():
-                tokens[kind] = str(digest)
-                tokens[f"{prefix}:{kind}"] = str(digest)
+                bind(kind, str(digest))
+                bind(f"{prefix}:{kind}", str(digest))
             path = row.get("path")
             if isinstance(path, str) and path.strip():
-                tokens[Path(path).name] = str(digest)
+                bind(Path(path).name, str(digest))
+                bind(str(Path(path).resolve()), str(digest))
+    for key in ambiguous:
+        tokens.pop(key, None)
     return tokens
 
 
@@ -310,9 +315,11 @@ def _validate_evidence_refs(
         return
     for index, reference in enumerate(refs):
         raw = str(reference).strip()
-        token = raw.split("#", 1)[0].split(" ", 1)[0]
-        expected_hash = tokens.get(token)
         declared = EVIDENCE_SHA256.search(raw)
+        token = raw[:declared.start()].strip().split("#", 1)[0].strip() if declared else raw
+        expected_hash = tokens.get(token)
+        if expected_hash is None and ("/" in token or "\\" in token):
+            expected_hash = tokens.get(str(Path(token).resolve()))
         if expected_hash is not None and declared is not None and declared.group(1) == expected_hash:
             continue
         if allow_deferred and any(raw.casefold().startswith(prefix) for prefix in ("deferred:", "not-run:", "unavailable:")):
@@ -409,7 +416,7 @@ def create_auditor_artifact(
         source_rows.append({"kind": kind, **_file_record(path)})
     if len({row["kind"] for row in source_rows}) != len(source_rows):
         raise IndependentAuditError("source record kinds must be unique")
-    expected_kinds = list(DEFAULT_SOURCE_KINDS if expected_source_kinds is None and source_rows else expected_source_kinds or [])
+    expected_kinds = list(sorted(row["kind"] for row in source_rows) if expected_source_kinds is None else expected_source_kinds)
     if (source_rows and not expected_kinds) or len(expected_kinds) != len(set(expected_kinds)) or any(not _nonempty(item) for item in expected_kinds):
         raise IndependentAuditError("expected_source_kinds must be a unique non-empty string array")
     if {row["kind"] for row in source_rows} != set(expected_kinds):
@@ -439,6 +446,9 @@ def create_auditor_artifact(
         "independent_context": dict(independent_context),
         "audited_at": audited_at or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
+    for key in ("hard_requirement_ids", "soft_requirement_ids"):
+        if isinstance(value["coverage"].get(key), list):
+            value["coverage"][key] = sorted(value["coverage"][key])
     statuses = [
         item.get("status")
         for item in value["coverage"].get("requirements", [])
@@ -467,6 +477,9 @@ def create_auditor_artifact(
         value["audit_status"] = review_status
     value["record_sha256"] = canonical_record_sha256(value)
     if output is not None:
+        if audited_at is not None and Path(output).exists() and json.loads(Path(output).read_text(encoding="utf-8")).get("audited_at") != audited_at:
+            raise FileExistsError("explicit audit time changed; preserve the record and use a new revision")
+        validate_auditor_artifact(value)
         _write_new(output, value)
     return value
 
@@ -774,7 +787,7 @@ def validate_auditor_artifact(
             errors.append("audit.independent_context.context_id: must be non-empty")
         disclosure = context.get("model_identity_disclosure")
         if disclosure not in {"not-attested", "same-model-possible", "provided-by-host"}:
-            errors.append("audit.independent_context.model_identity_disclosure: must disclose that model identity is not proven")
+            errors.append("audit.independent_context.model_identity_disclosure: must be not-attested, same-model-possible, or provided-by-host; put prose in limitations")
         limitations = context.get("limitations")
         if not isinstance(limitations, list) or any(not _nonempty(item) for item in limitations):
             errors.append("audit.independent_context.limitations: must be a string array")

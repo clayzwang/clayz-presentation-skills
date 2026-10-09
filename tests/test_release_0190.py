@@ -249,9 +249,13 @@ class PagePlanningTests(unittest.TestCase):
         draft_path = self.folder / 'planning-draft.json'
         draft_path.write_text(json.dumps({'slides': self.plan['page_planning']['content']['slides']}), encoding='utf-8')
         record_path = self.folder / 'actual-planning.json'
+        config_path = self.folder / 'historical-config.json'
+        config = json.loads((ROOT / 'config/default.json').read_text())
+        config['workflow'].pop('reader_review', None)
+        config_path.write_text(json.dumps(config))
         script = ROOT / 'scripts/stage_documents.py'
         command = [sys.executable, str(script), 'record-planning', '--package', str(package_path),
-                   '--plan', str(draft_path), '--output', str(record_path)]
+                   '--plan', str(draft_path), '--output', str(record_path), '--config', str(config_path)]
         self.assertEqual(0, subprocess.run(command, capture_output=True).returncode)
         before = record_path.read_bytes()
         self.assertNotEqual(0, subprocess.run(command, capture_output=True).returncode)
@@ -263,7 +267,7 @@ class PagePlanningTests(unittest.TestCase):
         plan_path.write_text(json.dumps(plan), encoding='utf-8')
         output = self.folder / 'art-approved.json'
         result = subprocess.run([sys.executable, str(script), 'lock-design', '--package', str(package_path),
-                                 '--plan', str(plan_path), '--planning', str(record_path), '--output', str(output)],
+                                 '--plan', str(plan_path), '--planning', str(record_path), '--output', str(output), '--config', str(config_path)],
                                 capture_output=True, text=True)
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertEqual([], validate_plan(self.package, json.loads(output.read_text())))

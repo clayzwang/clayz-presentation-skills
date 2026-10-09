@@ -19,7 +19,8 @@ from typing import Any
 CONTRACT = "io.clayz.presentation.reader-review/1.0"
 PACKET = "io.clayz.presentation.reader-packet/1.0"
 FIRST_READ = "io.clayz.presentation.reader-first-read/1.0"
-PHASES = ("copy", "final")
+PHASES = ("title", "content", "final", "copy")
+NEW_PHASES = ("title", "content", "final")
 ROLES = {"title", "subtitle", "heading", "body", "annotation"}
 PROMPT = (
     "Read as the audience described in the brief. Use only the supplied visible "
@@ -33,6 +34,29 @@ PROMPT = (
     "title_reading, understanding and findings as specified in the reader-review "
     "contract. These are editorial observations, not numerical quality scores."
 )
+
+
+def phase_prompt(phase):
+    if phase == "title":
+        return PROMPT.replace("First read the titles as a sequence, then read the complete pages.",
+                              "Read only the supplied title sequence; do not infer unseen body text.")
+    return PROMPT
+
+
+def projection(package, phase):
+    pages = visible_copy(package)
+    if phase == "title":
+        for page in pages:
+            page["text"] = [u for u in page["text"] if u["role"] == "title"]
+            if not page["text"]:
+                raise ValueError("title reader requires a visible title on every page")
+    return pages
+
+
+def semantic_input(package, phase):
+    # Whitelist record metadata out, but keep the entire authoritative research.
+    return {"run_binding": package["run_binding"], "research": package.get("research"),
+            "brief": package.get("brief"), "pages": projection(package, phase)}
 
 
 def now() -> str:
@@ -61,10 +85,8 @@ def write(path: Path, value: Any) -> None:
     root = Path(__file__).resolve().parents[2]
     if path.is_relative_to(root):
         raise ValueError("reader artifacts must be outside the installed plugin")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("x", encoding="utf-8") as stream:
-        json.dump(value, stream, ensure_ascii=False, indent=2, allow_nan=False)
-        stream.write("\n")
+    from packages.validators.handoff_io import write_record
+    write_record(path, value)
 
 
 def load_ref(value: dict[str, Any], *, json_value: bool = True) -> Any:
@@ -106,21 +128,40 @@ def visible_copy(package: dict[str, Any]) -> list[dict[str, Any]]:
 
 def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
                    output: Path, pptx: Path | None = None,
-                   renders: Path | None = None, unavailable_reason: str | None = None) -> dict[str, Any]:
+                   renders: Path | None = None, unavailable_reason: str | None = None,
+                   title_review: Path | None = None) -> dict[str, Any]:
     """The host receives directory only. The manifest stays with the auditor."""
     if phase not in PHASES:
-        raise ValueError("reader phase must be copy or final")
+        raise ValueError("reader phase must be title, content, final (or legacy copy)")
     package_value, brief_value = read(package), read(brief)
     if set(brief_value) != {"audience", "purpose", "task"} or not all(_text(v) for v in brief_value.values()):
         raise ValueError("neutral reader brief requires only audience, purpose and task")
+    if phase == "content":
+        if title_review is None:
+            raise ValueError("content preparation requires --title-review; finish title reconciliation first")
+        title = validate_review(read(title_review), current_package=package_value)
+        if title["review"]["phase"] != "title":
+            raise ValueError("content preparation requires a title review")
+        require_pass(title)
     binding = package_value["run_binding"]
-    pages = visible_copy(package_value)
+    pages = projection(package_value, phase)
     directory = directory.resolve()
+    if output.resolve().is_relative_to(Path(__file__).resolve().parents[2]):
+        raise ValueError("reader artifacts must be outside the installed plugin")
+    if output.exists():
+        existing = read(output)
+        payload = validate_packet(existing)
+        if (existing["phase"] == phase and existing["package"] == ref(package)
+                and payload["brief"] == brief_value and Path(existing["input"]["path"]).parent == directory
+                and existing["pptx"] == (ref(pptx) if phase == "final" and pptx else None)
+                and existing["renders"] == (ref(renders) if phase == "final" and renders else None)
+                and existing["unavailable_reason"] == unavailable_reason):
+            return existing
+        raise FileExistsError("reader packet input changed; use a new revision, preserve prior reading")
     if directory.exists() or output.resolve().is_relative_to(directory):
         raise ValueError("use a new reader directory and keep manifest outside it")
     if directory.is_relative_to(Path(__file__).resolve().parents[2]):
         raise ValueError("reader packets must be outside the installed plugin")
-    directory.mkdir(parents=True)
     assets = []
     render_ref = None
     if phase == "final":
@@ -128,6 +169,18 @@ def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
             raise ValueError("final reading requires the actual PPTX")
         if renders is None and not _text(unavailable_reason):
             raise ValueError("final reading requires renders or an explicit unavailable reason")
+    if phase == "final" and renders is not None:
+        render_value = read(renders)
+        if render_value.get("pptx_sha256") != ref(pptx)["sha256"]:
+            raise ValueError("reader renders are bound to a different PPTX")
+        if [r.get("slide_id") for r in render_value.get("slides", [])] != [p["slide_id"] for p in pages]:
+            raise ValueError("reader renders must cover every page in current order")
+        from PIL import Image
+        for row in render_value["slides"]:
+            path = load_ref({k: row[k] for k in ("path", "sha256", "bytes")}, json_value=False)
+            with Image.open(path) as image:
+                image.load()
+    directory.mkdir(parents=True)
     if phase == "final" and renders is not None:
         render_value = read(renders)
         if render_value.get("pptx_sha256") != ref(pptx)["sha256"]:
@@ -151,7 +204,7 @@ def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
         render_ref = ref(renders)
     elif phase == "final":
         pages = []
-    payload = {"brief": brief_value, "instruction": PROMPT, "pages": pages}
+    payload = {"brief": brief_value, "instruction": phase_prompt(phase), "pages": pages}
     write(directory / "reader-input.json", payload)
     packet = {"contract": PACKET, "phase": phase,
               "run_id": binding["run_id"], "task_request_sha256": binding["task_request_sha256"],
@@ -171,7 +224,7 @@ def validate_packet(packet: dict[str, Any]) -> dict[str, Any]:
     if any(packet[k] != binding[k] for k in ("run_id", "task_request_sha256")):
         raise ValueError("reader packet task/run differs from source")
     payload = load_ref(packet["input"])
-    if set(payload) != {"brief", "instruction", "pages"} or payload["instruction"] != PROMPT:
+    if set(payload) != {"brief", "instruction", "pages"} or payload["instruction"] != phase_prompt(packet["phase"]):
         raise ValueError("reader input contains unauthorized fields/instructions")
     if set(payload["brief"]) != {"audience", "purpose", "task"} or not all(_text(v) for v in payload["brief"].values()):
         raise ValueError("reader brief must contain neutral audience, purpose and task")
@@ -184,8 +237,8 @@ def validate_packet(packet: dict[str, Any]) -> dict[str, Any]:
         allowed.add(path)
     if any(p.is_symlink() for p in directory.iterdir()) or set(directory.iterdir()) != allowed:
         raise ValueError("reader input directory includes undeclared files")
-    source_pages = visible_copy(package)
-    if packet["phase"] == "copy":
+    source_pages = projection(package, packet["phase"])
+    if packet["phase"] != "final":
         if payload["pages"] != source_pages or packet["assets"] or packet["pptx"] or packet["renders"]:
             raise ValueError("Copy reader input differs from visible-only text projection")
     else:
@@ -277,7 +330,7 @@ def validate_first(value: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any
         if not row["slide_ids"] and not _text(row["uncertainty"]):
             raise ValueError("unlocated retelling must disclose uncertainty")
     ids = set()
-    copy_locations = {u["copy_id"]: p["slide_id"] for p in visible_copy(load_ref(packet["package"])) for u in p["text"]}
+    copy_locations = {u["copy_id"]: p["slide_id"] for p in projection(load_ref(packet["package"]), packet["phase"]) for u in p["text"]}
     if not isinstance(response["findings"], list):
         raise ValueError("reader findings must be an array")
     for row in response["findings"]:
@@ -308,27 +361,31 @@ def record_first(*, packet: Path, context: Path, output: Path,
 
 
 def record_review(*, first_read: Path, dispositions: Path, evidence: list[Path],
-                  output: Path, previous_reviews: list[Path] = ()) -> dict[str, Any]:
+                  output: Path, previous_reviews: list[Path] = (), comparison: Path | None = None) -> dict[str, Any]:
     first = read(first_read)
     packet, _ = validate_first(first)
     value = {"contract": CONTRACT, "phase": packet["phase"], "run_id": packet["run_id"],
              "task_request_sha256": packet["task_request_sha256"], "first_read": ref(first_read),
              "evidence": [ref(p) for p in evidence], "dispositions": read(dispositions),
              "previous_reviews": [ref(p) for p in previous_reviews], "reconciled_at": now()}
+    if comparison is not None:
+        value["comparison"] = read(comparison)
     validate_review(value)
     write(output, value)
     return value
 
 
 def validate_review(value: dict[str, Any], *, package_sha256: str | None = None,
-                    pptx_sha256: str | None = None) -> dict[str, Any]:
+                    pptx_sha256: str | None = None, current_package: dict[str, Any] | None = None) -> dict[str, Any]:
     if value.get("contract") != CONTRACT:
         raise ValueError("invalid reader review contract")
     first = load_ref(value["first_read"])
     packet, payload = validate_first(first)
     if any(value[k] != packet[k] for k in ("phase", "run_id", "task_request_sha256")):
         raise ValueError("reader review phase/task/run differs from first reading")
-    if package_sha256 and packet["package"]["sha256"] != package_sha256:
+    if current_package is not None and semantic_input(load_ref(packet["package"]), value["phase"]) != semantic_input(current_package, value["phase"]):
+        raise ValueError(f"{value['phase']} reader is stale: visible content or Logic baseline changed; rerun affected reading")
+    if current_package is None and package_sha256 and packet["package"]["sha256"] != package_sha256:
         raise ValueError("reader review is stale for current Copy revision")
     if value["phase"] == "final" and pptx_sha256 and packet["pptx"]["sha256"] != pptx_sha256:
         raise ValueError("reader review is stale for current PPTX")
@@ -358,6 +415,26 @@ def validate_review(value: dict[str, Any], *, package_sha256: str | None = None,
             raise ValueError("reader disposition needs earliest owner and explanation")
         if not row["evidence_refs"] or not all(r in value["evidence"] for r in row["evidence_refs"]):
             raise ValueError("reader disposition must cite bound second-pass evidence")
+    comparison = value.get("comparison")
+    if value["phase"] in {"title", "content"} or comparison is not None:
+        if not isinstance(comparison, dict) or set(comparison) != {"baseline", "checks", "verdict", "explanation"}:
+            raise ValueError("second pass requires comparison: baseline, checks, verdict, explanation")
+        baseline = load_ref(comparison["baseline"])
+        if comparison["baseline"] not in value["evidence"]:
+            raise ValueError("comparison baseline must be bound second-pass evidence")
+        source = load_ref(packet["package"])
+        if baseline.get("run_binding") != source["run_binding"]:
+            raise ValueError("comparison baseline belongs to another task/run")
+        if value["phase"] in {"title", "content"}:
+            if baseline.get("status") != "logic-approved" or not baseline.get("research") or baseline["research"] != source.get("research"):
+                raise ValueError("title/content comparison requires the original approved Logic research")
+        elif semantic_input(baseline, "content") != semantic_input(source, "content") or baseline.get("status") != "copy-approved":
+            raise ValueError("final comparison requires the approved Copy baseline")
+        checks = {"research_conclusions"} if value["phase"] == "title" else {"accuracy", "completeness", "reasoning"}
+        if not isinstance(comparison["checks"], dict) or set(comparison["checks"]) != checks or not all(_text(v) for v in comparison["checks"].values()):
+            raise ValueError(f"comparison requires grounded observations for {sorted(checks)}")
+        if comparison["verdict"] not in {"pass", "return-copy", "return-art", "return-logic"} or not _text(comparison["explanation"]):
+            raise ValueError("comparison requires an explicit verdict and evidence explanation")
     host_evidence = None
     if first["context"]["host_receipt"] is not None:
         host_receipt = load_ref(first["context"]["host_receipt"])
@@ -377,40 +454,61 @@ def required_for_config(config: dict[str, Any]) -> bool:
 
 def validate_copy_review_order(auditor: dict[str, Any], calibration: dict[str, Any]) -> None:
     reviews = audit_reviews(auditor)
-    if "copy" in reviews:
-        review = reviews["copy"]["review"]
-        if _time(review["reconciled_at"]) > _time(calibration["recorded_at"]):
+    for phase in ("copy", "title", "content"):
+        if phase not in reviews:
+            continue
+        review = reviews[phase]["review"]
+        reviewed, calibrated = _time(review["reconciled_at"]), _time(calibration["recorded_at"])
+        if "." not in calibration["recorded_at"] and phase == "copy":
+            reviewed = reviewed.replace(microsecond=0)
+        if reviewed > calibrated:
             raise ValueError("Copy reader review must precede Copy-to-Art calibration; do not backfill it after Output")
 
 
-def audit_reviews(auditor: dict[str, Any], *, required: bool = False) -> dict[str, Any]:
+def audit_reviews(auditor: dict[str, Any], *, required: bool = False, config: dict[str, Any] | None = None) -> dict[str, Any]:
     sources = {r["kind"]: r for r in auditor.get("source_records", [])}
     result = {}
-    for phase in PHASES:
+    config_row = sources.get("config")
+    config = config if config is not None else (load_ref({k: config_row[k] for k in ("path", "sha256", "bytes")}) if config_row else {})
+    default_phases = list(NEW_PHASES) if "reader-review-title" in sources or "reader-review-content" in sources else ["copy", "final"]
+    phases = config.get("workflow", {}).get("reader_review", {}).get("phases", default_phases)
+    package_row = sources.get("package")
+    current = load_ref({k: package_row[k] for k in ("path", "sha256", "bytes")}) if package_row else None
+    for phase in dict.fromkeys([*phases, *PHASES]):
         row = sources.get(f"reader-review-{phase}")
         if row is None:
-            if required:
+            if required and phase in phases:
                 raise ValueError(f"reader-review-{phase} is required (record unavailable execution explicitly)")
             continue
         value = load_ref({k: row[k] for k in ("path", "sha256", "bytes")})
         review = validate_review(value, package_sha256=sources.get("package", {}).get("sha256"),
-                                 pptx_sha256=auditor.get("final_pptx", {}).get("sha256"))
+                                 pptx_sha256=auditor.get("final_pptx", {}).get("sha256"),
+                                 current_package=current if phase in phases and phases == list(NEW_PHASES) else None)
         if value["phase"] != phase or any(value[k] != auditor[k] for k in ("run_id", "task_request_sha256")):
             raise ValueError("reader review binding differs from final audit")
         if _time(value["reconciled_at"]) > _time(auditor["audited_at"]):
             raise ValueError("reader review was recorded after final audit")
         result[phase] = review
-    if len(result) == 2:
-        a, b = (result[p]["first_read"] for p in PHASES)
-        if a["context"]["context_id"] == b["context"]["context_id"] and b["context"]["execution_mode"] != "same-context-limited":
-            raise ValueError("final reader must use a new context, not the Copy reader context")
+    seen = set()
+    for review in result.values():
+        context = review["first_read"]["context"]
+        if context["context_id"] in seen and context["execution_mode"] != "same-context-limited":
+            raise ValueError("each reader must use a new context, not an earlier reader context")
+        seen.add(context["context_id"])
+    if required and phases == list(NEW_PHASES):
+        for review in result.values():
+            require_pass(review)
+        validate_sequence(result["title"], result["content"])
+        if _time(result["content"]["review"]["reconciled_at"]) > _time(result["final"]["packet"]["created_at"]):
+            raise ValueError("final reader must start after approved content reading")
+
     return result
 
 
 def reader_status(reviews: dict[str, Any]) -> str:
     if any(r["assessment"] in {"not-run", "insufficient-input"} or r["independence"] == "same-context-limited" for r in reviews.values()):
         return "incomplete-evidence"
-    if any(r["first_read"]["response"]["findings"] for r in reviews.values()):
+    if any(r["first_read"]["response"]["findings"] or r["review"].get("comparison", {}).get("verdict", "pass") != "pass" for r in reviews.values()):
         return "issues-found"
     return "observations-recorded"
 
@@ -436,3 +534,51 @@ def audit_reader_findings(auditor: dict[str, Any], reviews: dict[str, Any]) -> l
                 "evidence_refs": [f"reader-review-{phase} sha256={source['sha256']}"],
                 "recommended_change": disposition["status"] + ": " + disposition["explanation"]})
     return result
+
+
+def require_pass(review):
+    phase = review["review"]["phase"]
+    owner = "art-direction" if phase == "final" else "copy"
+    comparison = review["review"].get("comparison", {})
+    if comparison.get("verdict") == "return-logic":
+        owner = "logic"
+    if (review["assessment"] != "understood" or review["independence"] == "same-context-limited"
+            or comparison.get("verdict") != "pass" or review["first_read"]["response"]["findings"]):
+        raise ValueError(f"{phase} reader gate blocked; owner={owner}; repair affected content, preserve first reading, then reread. No downstream production.")
+
+
+def validate_sequence(title, content):
+    if title["first_read"]["context"]["context_id"] == content["first_read"]["context"]["context_id"]:
+        raise ValueError("content reader requires a fresh context independent of title reader")
+    if _time(title["review"]["reconciled_at"]) > _time(content["packet"]["created_at"]):
+        raise ValueError("content reader must start after title reconciliation")
+
+
+def check_art_gate(package, title_review, content_review):
+    reviews = {}
+    for phase, path in (("title", title_review), ("content", content_review)):
+        if path is None:
+            raise ValueError(f"Art blocked: --{phase}-review is required; finish Copy reading before design or rendering")
+        result = validate_review(read(path), current_package=package)
+        if result["review"]["phase"] != phase:
+            raise ValueError(f"Art gate expected {phase} review")
+        require_pass(result)
+        reviews[phase] = result
+    validate_sequence(reviews["title"], reviews["content"])
+    return {"ready": True, "owner": "art-direction", "reviews": {
+        "title": ref(title_review), "content": ref(content_review)},
+        "content_sha256": digest(semantic_input(package, "content"))}
+
+
+def repair_scope(before, after, *, artifact="copy"):
+    if artifact in {"report", "audit-record", "receipt"}:
+        return {"owner": "supervisor", "resume": ["repair-record", "validate", "assemble-report"], "render": False}
+    if before.get("research") != after.get("research") or before.get("brief") != after.get("brief"):
+        return {"owner": "logic", "resume": ["logic", "copy", "title", "content", "art-direction", "output", "final", "supervisor"], "render": True}
+    if semantic_input(before, "title") != semantic_input(after, "title"):
+        start = ["title", "content"]
+    elif semantic_input(before, "content") != semantic_input(after, "content"):
+        start = ["content"]
+    else:
+        return {"owner": "interface", "resume": ["rebind-records", "validate", "assemble-report"], "render": False}
+    return {"owner": "copy", "resume": start + ["art-direction", "output", "final", "supervisor"], "render": True}

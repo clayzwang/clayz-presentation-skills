@@ -25,6 +25,10 @@ medium duplicates prose, request a precise Copy revision rather than rewriting
 it in Art. Use existing observations; no mandatory heading count or layout is
 introduced.
 
+## Current production boundary (v0.20.1)
+
+Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+
 ## Composition guidance
 
 Read [Reader-centered composition](references/reader-centered-composition.md)

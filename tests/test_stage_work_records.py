@@ -95,7 +95,14 @@ class WorkRecordTests(unittest.TestCase):
                 "--artifact", "package=" + str(self.paths["logic"]), "--output", str(output)]
         self.assertEqual(self.publisher._record_commands(args), 0)
         self.assertEqual(json.loads(output.read_text())["artifacts"]["package"]["sha256"], self.publisher.sha256_file(self.paths["logic"]))
+        original = output.read_bytes()
+        self.assertEqual(self.publisher._record_commands(args), 0)
+        self.assertEqual(output.read_bytes(), original)
+        changed = json.loads(draft.read_text())
+        changed["summary"] = "A different decision"
+        draft.write_text(json.dumps(changed))
         self.assertEqual(self.publisher._record_commands(args), 1)
+        self.assertEqual(output.read_bytes(), original)
 
     def test_missing_duplicate_reordered_records_rejected(self):
         for records in (self.records[:4], self.records + [self.records[-1]], list(reversed(self.records))):
