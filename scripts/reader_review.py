@@ -23,6 +23,7 @@ def main() -> int:
         prepare.add_argument("--" + name, type=Path, required=True)
     prepare.add_argument("--title-review", type=Path)
     prepare.add_argument("--pptx", type=Path)
+    prepare.add_argument("--plan", type=Path)
     prepare.add_argument("--renders", type=Path)
     prepare.add_argument("--unavailable-reason")
     first = commands.add_parser("record-first")

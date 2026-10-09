@@ -1,5 +1,10 @@
 # 读者审读 — v0.20.1
 
+## v0.20.2 Art cognition and audited changes
+
+The current [Art cognition contract](art-cognition.md) extends earlier fidelity instructions: preserve original Logic/Copy, but allow Art to revise meaning, argument, sequence and pagination without advance modification requests. Record actual presentation in `art_content`, conclusions/actions and selected knowledge in `art_cognition`. Output implements that recorded presentation. Independent final reading first sees only renders, then compares original Copy and every documented Art change. Difference alone is not failure; justification, accuracy, completeness and reasoning determine the audit result. Older “unchanged Copy” or “return wording/pagination to Copy” instructions apply only when no Art projection exists. New Art work covers A01—A11; these are cognitive results, not agents or approval gates.
+
+
 ## 八步生产顺序
 
 1. **Logic 研究**：明示真正的研究结论、证据、推理关系、适用范围和不确定性。过程、框架、方法论不能冒充结论。频繁重返研究记为 Logic 质量问题。

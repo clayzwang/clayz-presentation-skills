@@ -2,11 +2,15 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.1**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.2**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
+
+## Art learning — v0.20.2 / Art 学习包
+
+[Download the external learning pack / 下载外挂学习包](https://github.com/clayzwang/clayz-presentation-skills/releases/download/v0.20.2/clayz-presentation-skills-0.20.2-art-learning.zip). It contains the complete Chinese TXT, 66 principle-bearing codes, university curriculum mapping and synthetic teaching examples. Use [the cognition and integration contract](packages/contracts/art-cognition.md) for code lookup, concrete conclusions/actions and independent audit of Art changes. The learning body is separate from Light; historical source documents remain for replay.
 
 ## Why Clayz stands out
 

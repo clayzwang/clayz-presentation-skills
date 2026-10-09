@@ -77,7 +77,7 @@ jobs:
         run: python scripts/runtime_smoke.py --output /tmp/clayz-release-smoke.json
       - name: Fetch reviewed Windows offline wheels
         run: python scripts/fetch_offline_wheels.py --platform windows
-      - name: Build Cloud Light, Local Light, and the Windows offline add-on
+      - name: Build Light plugins, Windows offline add-on and external Art learning pack
         run: python scripts/build_runtime_packs.py --platform windows
       - name: Verify release archives, nested wheels, and checksums
         run: python scripts/verify_release_bundles.py --platform windows
@@ -89,8 +89,8 @@ jobs:
         shell: bash
         run: |
           mapfile -t assets < <(find dist -maxdepth 1 -type f \( -name '*.zip' -o -name 'SHA256SUMS.txt' \) -print | sort)
-          if [ "${#assets[@]}" -ne 4 ]; then
-            echo "Expected three ZIP archives plus SHA256SUMS.txt; found ${#assets[@]} files."
+          if [ "${#assets[@]}" -ne 5 ]; then
+            echo "Expected four ZIP archives plus SHA256SUMS.txt; found ${#assets[@]} files."
             exit 1
           fi
           if gh release view "$TAG" >/dev/null 2>&1; then

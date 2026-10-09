@@ -29,10 +29,11 @@ RETIRED_QA_CHECKS = {
 }
 
 
-def content_pages(package):
+def content_pages(package, plan=None):
     """Use clean Copy pages directly, without a fabricated Logic projection."""
     if package.get("contract_version") in {"3.3", "3.4"}:
-        return rows((package.get("copy_layer") or {}).get("slides"))
+        from packages.validators.art_content import presentation_pages
+        return presentation_pages(package, plan)
     return rows((package.get("logic_layer") or {}).get("slides"))
 
 
@@ -214,10 +215,14 @@ def validate_free_art(package, plan, policy=None):
     approval = (plan.get("art_direction") or {}).get("approval") or {}
     if approval.get("status") != "approved" or not text(approval.get("approved_by")):
         errors.append("art_direction.approval: approved stage decision required")
-    pages = rows((package.get("copy_layer") or {}).get("slides"))
+    from packages.validators.art_content import presentation_pages, validate_art_content
+    errors.extend(validate_art_content(package, plan))
+    if errors:
+        return errors
+    pages = presentation_pages(package, plan)
     designs = object_list(plan.get("slides"), "plan.slides", errors, nonempty=True)
     if [p.get("slide_id") for p in designs] != [p.get("slide_id") for p in pages]:
-        errors.append("Art pages must preserve Copy's page sequence")
+        errors.append("Art pages must match the recorded presentation sequence")
     baseline_pages = {p.get("slide_id"): p for p in rows((plan.get("visual_baseline") or {}).get("slides")) if isinstance(p, dict)}
     for page, design in zip(pages, designs):
         sid = page.get("slide_id")

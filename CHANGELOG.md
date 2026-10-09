@@ -6,6 +6,19 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.2 — 2026-10-10
+
+- Publish an external Art foundations learning pack: 11 FLOW, 11 KNOW, 33 PRINCIPLE and 11 OP codes, each with a principle; eight official university teaching sources, 33 paired synthetic examples and a complete eleven-step worked example.
+- Connect code lookup, actual source verification and concrete Art conclusions/actions to immutable planning, locked design, handoff and supervision reports. No new agents, approval gates, layout presets or automatic aesthetic scores.
+- Preserve original Logic/Copy while allowing Art revisions to expression, argument, order and pagination. Carry exact differences with reasons/evidence/impact; Output uses the recorded presentation and the independent final reader audits every difference against original Copy.
+- Ship the optional learning archive separately from Cloud/Local Light and extend release checksum verification. Historical Art contracts remain replayable.
+
+### 中文
+
+- 发布独立 Art 学习包：11 个思考环节、11 个知识分类、33 条原则和 11 个动作编码，每个编码都有原则；映射八个大学官方教学来源，附 33 组自编正反例和完整逐步示例。
+- 接通编码检索、实际来源核验、结论与动作记录，并传入不可变规划、设计锁定、交接和监督报告；不增加 Agent、审批关卡、布局模板或自动审美评分。
+- 保留原 Logic/Copy，允许 Art 自主调整表达、论证、页序与分页，记录完整差异及理由、证据和影响；Output 对照实际呈现制作，成品读者独立对照原 Copy 审计所有差异。
+- 学习包与 Cloud/Local Light 分开发布并核验校验和，历史 Art 合同继续可回读。
 ## 0.20.1 — 2026-10-10
 
 - Fix local handoffs: validate before saving audits, check required CLI artifact roles early, normalize known aliases and coverage order, preserve subsecond timestamps, resolve evidence paths without ambiguous basename overwrite, and make verified identical-input retries idempotent.

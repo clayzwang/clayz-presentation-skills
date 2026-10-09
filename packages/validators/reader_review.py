@@ -43,7 +43,13 @@ def phase_prompt(phase):
     return PROMPT
 
 
-def projection(package, phase):
+def projection(package, phase, plan=None):
+    if phase == "final" and plan is not None:
+        from packages.validators.art_content import presentation_pages, validate_art_content
+        errors = validate_art_content(package, plan)
+        if errors:
+            raise ValueError("; ".join(errors))
+        package = {**package, "copy_layer": {"slides": presentation_pages(package, plan)}}
     pages = visible_copy(package)
     if phase == "title":
         for page in pages:
@@ -129,7 +135,7 @@ def visible_copy(package: dict[str, Any]) -> list[dict[str, Any]]:
 def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
                    output: Path, pptx: Path | None = None,
                    renders: Path | None = None, unavailable_reason: str | None = None,
-                   title_review: Path | None = None) -> dict[str, Any]:
+                   title_review: Path | None = None, plan: Path | None = None) -> dict[str, Any]:
     """The host receives directory only. The manifest stays with the auditor."""
     if phase not in PHASES:
         raise ValueError("reader phase must be title, content, final (or legacy copy)")
@@ -144,7 +150,9 @@ def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
             raise ValueError("content preparation requires a title review")
         require_pass(title)
     binding = package_value["run_binding"]
-    pages = projection(package_value, phase)
+    if plan is not None and phase != "final":
+        raise ValueError("Art plan is only second-pass final-reader context")
+    pages = projection(package_value, phase, read(plan) if plan else None)
     directory = directory.resolve()
     if output.resolve().is_relative_to(Path(__file__).resolve().parents[2]):
         raise ValueError("reader artifacts must be outside the installed plugin")
@@ -155,6 +163,7 @@ def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
                 and payload["brief"] == brief_value and Path(existing["input"]["path"]).parent == directory
                 and existing["pptx"] == (ref(pptx) if phase == "final" and pptx else None)
                 and existing["renders"] == (ref(renders) if phase == "final" and renders else None)
+                and existing.get("art_plan") == (ref(plan) if plan else None)
                 and existing["unavailable_reason"] == unavailable_reason):
             return existing
         raise FileExistsError("reader packet input changed; use a new revision, preserve prior reading")
@@ -211,6 +220,8 @@ def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
               "package": ref(package), "pptx": ref(pptx) if phase == "final" else None,
               "renders": render_ref, "input": ref(directory / "reader-input.json"),
               "assets": assets, "unavailable_reason": unavailable_reason, "created_at": now()}
+    if plan is not None:
+        packet["art_plan"] = ref(plan)
     validate_packet(packet)
     write(output, packet)
     return packet
@@ -237,7 +248,9 @@ def validate_packet(packet: dict[str, Any]) -> dict[str, Any]:
         allowed.add(path)
     if any(p.is_symlink() for p in directory.iterdir()) or set(directory.iterdir()) != allowed:
         raise ValueError("reader input directory includes undeclared files")
-    source_pages = projection(package, packet["phase"])
+    if packet.get("art_plan") is not None and packet["phase"] != "final":
+        raise ValueError("Art rationale must not enter Copy readers")
+    source_pages = projection(package, packet["phase"], load_ref(packet["art_plan"]) if packet.get("art_plan") else None)
     if packet["phase"] != "final":
         if payload["pages"] != source_pages or packet["assets"] or packet["pptx"] or packet["renders"]:
             raise ValueError("Copy reader input differs from visible-only text projection")
@@ -330,7 +343,7 @@ def validate_first(value: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any
         if not row["slide_ids"] and not _text(row["uncertainty"]):
             raise ValueError("unlocated retelling must disclose uncertainty")
     ids = set()
-    copy_locations = {u["copy_id"]: p["slide_id"] for p in projection(load_ref(packet["package"]), packet["phase"]) for u in p["text"]}
+    copy_locations = {u["copy_id"]: p["slide_id"] for p in projection(load_ref(packet["package"]), packet["phase"], load_ref(packet["art_plan"]) if packet.get("art_plan") else None) for u in p["text"]}
     if not isinstance(response["findings"], list):
         raise ValueError("reader findings must be an array")
     for row in response["findings"]:
@@ -417,7 +430,10 @@ def validate_review(value: dict[str, Any], *, package_sha256: str | None = None,
             raise ValueError("reader disposition must cite bound second-pass evidence")
     comparison = value.get("comparison")
     if value["phase"] in {"title", "content"} or comparison is not None:
-        if not isinstance(comparison, dict) or set(comparison) != {"baseline", "checks", "verdict", "explanation"}:
+        allowed = {"baseline", "checks", "verdict", "explanation"}
+        if packet.get("art_plan") is not None:
+            allowed.add("art_changes")
+        if not isinstance(comparison, dict) or set(comparison) != allowed:
             raise ValueError("second pass requires comparison: baseline, checks, verdict, explanation")
         baseline = load_ref(comparison["baseline"])
         if comparison["baseline"] not in value["evidence"]:
@@ -435,6 +451,13 @@ def validate_review(value: dict[str, Any], *, package_sha256: str | None = None,
             raise ValueError(f"comparison requires grounded observations for {sorted(checks)}")
         if comparison["verdict"] not in {"pass", "return-copy", "return-art", "return-logic"} or not _text(comparison["explanation"]):
             raise ValueError("comparison requires an explicit verdict and evidence explanation")
+        if packet.get("art_plan") is not None:
+            if packet["art_plan"] not in value["evidence"]:
+                raise ValueError("final Art plan must be bound second-pass evidence")
+            from packages.validators.art_content import validate_change_audit
+            errors = validate_change_audit(source, load_ref(packet["art_plan"]), comparison["art_changes"], comparison["verdict"])
+            if errors:
+                raise ValueError("; ".join(errors))
     host_evidence = None
     if first["context"]["host_receipt"] is not None:
         host_receipt = load_ref(first["context"]["host_receipt"])
@@ -484,6 +507,11 @@ def audit_reviews(auditor: dict[str, Any], *, required: bool = False, config: di
         review = validate_review(value, package_sha256=sources.get("package", {}).get("sha256"),
                                  pptx_sha256=auditor.get("final_pptx", {}).get("sha256"),
                                  current_package=current if phase in phases and phases == list(NEW_PHASES) else None)
+        if phase == "final" and sources.get("plan"):
+            plan_ref = {k: sources["plan"][k] for k in ("path", "sha256", "bytes")}
+            plan_value = load_ref(plan_ref)
+            if plan_value.get("art_content") is not None and review["packet"].get("art_plan") != plan_ref:
+                raise ValueError("final reader must compare the current Art projection with original Copy")
         if value["phase"] != phase or any(value[k] != auditor[k] for k in ("run_id", "task_request_sha256")):
             raise ValueError("reader review binding differs from final audit")
         if _time(value["reconciled_at"]) > _time(auditor["audited_at"]):

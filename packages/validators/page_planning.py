@@ -71,12 +71,19 @@ def validate_planning_record(package, record, require_recorded=True):
             timestamp(record.get("recorded_at"))
         except (ValueError, TypeError):
             errors.append("page_planning.recorded_at: actual timezone timestamp required")
-    pages = rows((package.get("copy_layer") or {}).get("slides"))
+    from packages.validators.art_content import presentation_pages, validate_art_content
+    from packages.validators.art_learning import validate_cognition
+    errors.extend(validate_art_content(package, record))
+    if "art_cognition" in record:
+        errors.extend(validate_cognition(record["art_cognition"]))
+    if errors:
+        return errors
+    pages = presentation_pages(package, record)
     designs = record.get("slides")
     if not isinstance(designs, list) or not all(isinstance(p, dict) for p in designs):
         return errors + ["page_planning.slides: page planning objects required"]
     if [p.get("slide_id") for p in designs] != [p.get("slide_id") for p in pages]:
-        errors.append("page_planning: cover every Copy page in its original page order")
+        errors.append("page_planning: cover every recorded presentation page in its actual order")
     for page, design in zip(pages, designs):
         sid = page.get("slide_id")
         for key in PLANNING_FIELDS:
@@ -132,6 +139,9 @@ def validate_art_planning(package, plan):
     except (OSError, ValueError, TypeError) as exc:
         errors.append(f"page_planning original file: {exc}")
     errors.extend(validate_planning_record(package, reference["content"]))
+    for key in ("art_content", "art_cognition"):
+        if plan.get(key) != reference["content"].get(key):
+            errors.append(f"{key}: plan must preserve the actual planning snapshot")
     try:
         if timestamp(reference["content"].get("recorded_at")) >= timestamp((plan.get("visual_baseline") or {}).get("locked_at")):
             errors.append("page_planning: planning recorded after the design lock; do not retrofit evidence")
@@ -148,4 +158,7 @@ def planning_markdown(record):
             lines += [f"### {key}", "", page[key], ""]
         for item in rows(page.get("expression_additions")):
             lines += [f"- {item['text']}: {item['purpose']} [Copy: {', '.join(item['source_copy_ids'])}]", ""]
+    for key in ("art_cognition", "art_content"):
+        if key in record:
+            lines += [f"## {key}", "", "```json", json.dumps(record[key], ensure_ascii=False, indent=2), "```", ""]
     return "\n".join(lines)

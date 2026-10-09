@@ -1990,10 +1990,10 @@ def validate_report(
 
     pairs = issue_lookup(valid_issues)
     from clean_content import content_pages
-    package_order = [slide.get("slide_id") for slide in content_pages(package)]
+    package_order = [slide.get("slide_id") for slide in content_pages(package, plan)]
     logic_by_id = {
         slide.get("slide_id"): slide
-        for slide in content_pages(package)
+        for slide in content_pages(package, plan)
         if isinstance(slide, dict)
     }
     plan_slides = plan.get("slides", [])

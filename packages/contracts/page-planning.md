@@ -1,5 +1,10 @@
 # Copy relationships and Art page planning — v0.19.0
 
+## v0.20.2 Art cognition and audited changes
+
+The current [Art cognition contract](art-cognition.md) extends earlier fidelity instructions: preserve original Logic/Copy, but allow Art to revise meaning, argument, sequence and pagination without advance modification requests. Record actual presentation in `art_content`, conclusions/actions and selected knowledge in `art_cognition`. Output implements that recorded presentation. Independent final reading first sees only renders, then compares original Copy and every documented Art change. Difference alone is not failure; justification, accuracy, completeness and reasoning determine the audit result. Older “unchanged Copy” or “return wording/pagination to Copy” instructions apply only when no Art projection exists. New Art work covers A01—A11; these are cognitive results, not agents or approval gates.
+
+
 New runs use content package **3.4** and Art plan **2.3**. Package 3.3 and
 Art 2.1/2.2 remain historical replay contracts; never relabel old evidence.
 

@@ -24,7 +24,7 @@ OFFLINE_ROOT = "clayz-presentation-skills-offline"
 LIGHT_TARGETS = ("cloud", "local")
 EXCLUDED_PARTS = {
     ".git", ".idea", ".release-cache", ".tmp", ".vscode", "__pycache__",
-    "build", "dist", "experience", "examples", "node_modules", "tests",
+    "build", "dist", "experience", "examples", "node_modules", "tests", "learning-packs",
 }
 EXCLUDED_SUFFIXES = {
     ".pyc", ".pyo", ".ppt", ".pptx", ".pdf", ".ttf", ".otf", ".woff", ".woff2",
@@ -270,6 +270,19 @@ def build_light(output_dir: Path, version: str, target: str = "local") -> Path:
     return archive_path
 
 
+def build_learning(output_dir: Path, version: str) -> Path:
+    from packages.validators.art_learning import load_pack
+    source = ROOT / "learning-packs" / "art-design-foundations-v1"
+    manifest, _ = load_pack(source)
+    path = output_dir / f"clayz-presentation-skills-{version}-art-learning.zip"
+    with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+        for name in ["manifest.json", *sorted(manifest["files"])]:
+            _write_file(archive, f"art-design-foundations-v1/{name}", source / name)
+        _write_file(archive, "art-design-foundations-v1/LICENSE", ROOT / "LICENSE")
+    audit_archive(path)
+    return path
+
+
 def _wheel_key(path: Path) -> str:
     return path.name.split("-", 1)[0].lower()
 
@@ -407,7 +420,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=ROOT / "dist")
     parser.add_argument("--wheel-cache", type=Path, default=ROOT / ".release-cache" / "wheels")
-    parser.add_argument("--bundle", choices=["light", "cloud-light", "local-light", "offline", "all"], default="all")
+    parser.add_argument("--bundle", choices=["light", "cloud-light", "local-light", "offline", "learning", "all"], default="all")
     parser.add_argument("--platform", choices=["windows", "macos", "linux", "all"], default="windows")
     args = parser.parse_args()
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
@@ -424,6 +437,8 @@ def main() -> int:
         selected = list(OFFLINE_TARGETS) if args.platform == "all" else [args.platform]
         for platform_name in selected:
             built.append(build_offline(platform_name, args.wheel_cache.resolve(), output, version))
+    if args.bundle in {"learning", "all"}:
+        built.append(build_learning(output, version))
     checksum = write_checksums(built, output)
     for path in [*built, checksum]:
         print(path)

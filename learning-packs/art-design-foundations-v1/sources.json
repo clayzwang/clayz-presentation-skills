@@ -1,0 +1,133 @@
+{
+  "retrieved_at": "2026-10-09",
+  "method": "读取官方公开教学页面；未参加课堂、未验证教学成效；不转载课程全文、学生作品或第三方图像。",
+  "sources": [
+    {
+      "source_id": "S-TONGJI",
+      "institution": "同济大学",
+      "title": "《广告设计制作》课程教学大纲",
+      "url": "https://amlab.tongji.edu.cn/info/1071/1639.htm",
+      "scope": "广告设计课程大纲（公开历史资料）",
+      "observed_curriculum": "将图形、文字、色彩、构成与制作联系起来，通过创意和阶段练习形成作品。",
+      "flow_ids": [
+        "A02",
+        "A07",
+        "A08",
+        "A09",
+        "A10",
+        "A11"
+      ]
+    },
+    {
+      "source_id": "S-XINXIANG",
+      "institution": "新乡学院美术学院",
+      "title": "《广告设计》教学大纲",
+      "url": "https://ys.xxu.edu.cn/info/1579/1432.htm",
+      "scope": "广告设计课程大纲（2015 年公开资料）",
+      "observed_curriculum": "教学结合示范、案例、实践、个别辅导和自评互评；重视针对性、理性与情感表达及系列一致性。",
+      "flow_ids": [
+        "A01",
+        "A02",
+        "A03",
+        "A07",
+        "A09",
+        "A10",
+        "A11"
+      ]
+    },
+    {
+      "source_id": "S-UAL",
+      "institution": "University of the Arts London",
+      "title": "BA (Hons) Design for Art Direction",
+      "url": "https://www.arts.ac.uk/subjects/communication-and-graphic-design/undergraduate/ba-hons-design-for-art-direction-lcc",
+      "scope": "大学艺术指导专业公开课程说明",
+      "observed_curriculum": "课程连接设计语言、图像实践、叙事、受众与负责任的设计，通过研究和项目评议推进创作。",
+      "flow_ids": [
+        "A01",
+        "A02",
+        "A03",
+        "A07",
+        "A09",
+        "A10",
+        "A11"
+      ]
+    },
+    {
+      "source_id": "S-SCAD",
+      "institution": "Savannah College of Art and Design",
+      "title": "Advertising BFA curriculum",
+      "url": "https://www.scad.edu/academics/programs/advertising/degrees/bfa",
+      "scope": "大学广告专业课程表",
+      "observed_curriculum": "基础包含设计思考、草图、色彩与时间叙事，专业学习联系情境研究、品牌故事、字体与视觉整合。",
+      "flow_ids": [
+        "A01",
+        "A02",
+        "A03",
+        "A07",
+        "A09",
+        "A10"
+      ]
+    },
+    {
+      "source_id": "S-VCU",
+      "institution": "Virginia Commonwealth University Brandcenter",
+      "title": "Art Direction",
+      "url": "https://brandcenter.vcu.edu/program/masters-program/art-direction/",
+      "scope": "研究生艺术指导专业公开说明",
+      "observed_curriculum": "艺术指导与文案协作形成概念并解决创意问题，设计、字体、色彩、摄影及制作服务品牌表达。",
+      "flow_ids": [
+        "A02",
+        "A04",
+        "A07",
+        "A09",
+        "A11"
+      ]
+    },
+    {
+      "source_id": "S-ARTCENTER",
+      "institution": "ArtCenter College of Design",
+      "title": "Creative Direction — Course of Study",
+      "url": "https://www.artcenter.edu/academics/undergraduate-degrees/creative-direction/course-of-study/overview.html",
+      "scope": "适用于 2025 秋季入学学生的历史课程表",
+      "observed_curriculum": "从构成、光色、字体与图像叙事进入品牌概念、序列设计、批评实践和阶段评议。网页注明后续项目安排变化，不当作现行通用课表。",
+      "flow_ids": [
+        "A02",
+        "A03",
+        "A07",
+        "A08",
+        "A09",
+        "A10",
+        "A11"
+      ]
+    },
+    {
+      "source_id": "S-UW-VIS",
+      "institution": "University of Washington",
+      "title": "CSE 512: Data Visualization, Spring 2024",
+      "url": "https://courses.cs.washington.edu/courses/cse512/24sp/",
+      "scope": "支撑学科：可视化课程，非广告设计课",
+      "observed_curriculum": "将视觉编码、感知、图形设计与评估结合，包含误导性图形、尺度、图例和设计评议。",
+      "flow_ids": [
+        "A05",
+        "A06",
+        "A09",
+        "A11"
+      ]
+    },
+    {
+      "source_id": "S-CALVIN",
+      "institution": "Calvin University",
+      "title": "Visual Design and Layout — CS 300 HCI",
+      "url": "https://cs.calvin.edu/courses/cs/300hci/24fa/assets/readings/visual_design_and_layout/",
+      "scope": "支撑学科：人机交互教学阅读，非广告设计课",
+      "observed_curriculum": "讨论删减、对比、重复、对齐和接近，以及视觉变量与数据类型之间的适配；强调原则需要结合情境。",
+      "flow_ids": [
+        "A05",
+        "A06",
+        "A08",
+        "A09",
+        "A10"
+      ]
+    }
+  ]
+}

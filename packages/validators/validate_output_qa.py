@@ -283,8 +283,9 @@ def validate_qa(
             errors.append(f"qa.{key}: must be pass")
 
     from clean_content import content_pages, RETIRED_QA_CHECKS
-    logic_slides = content_pages(package)
-    copy_slides = package.get("copy_layer", {}).get("slides", [])
+    logic_slides = content_pages(package, plan)
+    copy_slides = (content_pages(package, plan) if package.get("contract_version") in {"3.3", "3.4"}
+                   else package.get("copy_layer", {}).get("slides", []))
     qa_slides = qa.get("slides")
     if not isinstance(qa_slides, list):
         errors.append("qa.slides: must be an array")
