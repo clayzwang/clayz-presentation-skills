@@ -46,13 +46,17 @@ The visible text document has only:
 - title: main Storyline;
 - subtitle: secondary Storyline;
 - heading: a heading with a positive heading_level;
-- body: complete body prose;
+- body: a meaningful passage of body prose, resolved as finely as coherence permits;
 - annotation: qualifications, sources and notes.
 
 Every type is optional; heading levels may be skipped. No type requires a
 following type, subordinate heading or body. A unit has copy_id, text, role
 and, only for heading, heading_level. Natural paragraph breaks are allowed.
 The ordered array describes editorial organization, not spatial reading order.
+Retain the actual reader-facing explanation in existing work notes before editing
+roles. One paragraph may yield several bodies under the same heading; review
+them continuously and describe material semantic dependencies in existing
+relationship purposes. Art decides which units share paragraphs or objects.
 
 Keep source tracking separately in root copy_provenance:
 `{"S01-P1":["F1","F2"]}`. Cover each visible ID and preserve required findings

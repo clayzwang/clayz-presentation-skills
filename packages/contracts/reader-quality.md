@@ -27,6 +27,12 @@ actions, affected parties, evidence and qualifications needed for understanding.
 Omit an already-obvious subject when appropriate; do not repeat it mechanically.
 Short headings, labels and defined technical terms remain valid choices.
 
+Copy is an explanation author, not only a research summarizer. Decide what the
+reader already knows, what question comes next, and which concrete facts make
+the answer intelligible. Preserve the actual reader-facing explanation in
+existing Copy work notes, or reference its real draft, before editing into text
+roles. It is reader-facing editorial prose, not a private reasoning transcript.
+
 Remove repetition, empty modifiers and uninformative transitions first. Preserve
 necessary causal/comparison links, time windows, metric definitions and caveats.
 Split an unwieldy sentence into two, or use a judgment followed by explanatory
@@ -40,9 +46,14 @@ Do not replace jargon word by word with another vague synonym. Do not introduce
 word bans, length quotas, parallel-heading rules or a human-sounding score.
 Natural language does not authorize invented emotion, stories or stronger claims.
 
-A complete sentence or paragraph can be one copy unit. Organize text by meaning;
-do not fragment grammatically necessary explanation to prescribe independent
-objects. Retain necessary punctuation and connectors. Copy 3.3 does not emit
+A complete sentence or paragraph can yield several body units. Resolve them as
+finely as meaning, fluent grammar and logical continuity permit, including
+several bodies under one heading. Keep an inseparable construction intact.
+Retain necessary subjects, punctuation, connectors and qualifications; read the
+units together against the explanation. Describe their contributions and
+material dependencies in existing content relationships. Art decides which
+units share paragraphs or objects; text granularity does not prescribe them.
+Copy 3.3/3.4 does not emit
 grammar signatures, visual hierarchy or object instructions. Different pages
 may naturally share sentence structures; judge actual wording for empty repetition.
 
@@ -75,6 +86,22 @@ whether the Storyline and any headings communicate the argument, whether each
 judgment has matching evidence and a clear scope, and whether every passage adds
 evidence, explanation or a necessary qualification. Cite affected copy IDs.
 No new form, keyword test or field-presence check replaces professional reading.
+
+Compare Logic's concrete findings with the explanation and then with the final
+units. Ask what the reader can now say about the actors, actions, mechanism and
+actual differences. Preserve discriminating facts, not merely category labels.
+An overview may defer detail, but its own claims must remain intelligible and
+identify their objects; record consequential omissions/moves and real destinations
+by finding/Copy ID in existing notes. Do not mechanically attach every page
+finding to every unit or treat a referenced ID as proof its meaning survived.
+
+Review the decomposed body continuously for unchanged logical links and scope,
+and check that necessary conditions still have a clear target. Record concrete
+observations and outcomes in existing stage checks/notes. A schema pass tests
+structure and bindings; a content-reading pass requires an actual reading and
+its evidence. Helpers must not default it to pass from schema success or an
+empty issue list. Unperformed reading remains deferred/not-recorded; preserve
+observed defects and route them for repair under the existing delivery policy.
 
 ### Preserve the strength of the evidence
 
@@ -112,6 +139,10 @@ actual pages. Judge from the intended reader's starting knowledge, without
 depending on research notes. Can the reader understand the principal judgment,
 subject, evidence, comparison and limits? Filled fields, object counts, correct
 data and approved layout do not establish language quality.
+Read the actual Copy explanation and review notes when available. Compare the
+approved research, edited units and rendered grouping for lost mechanisms,
+unexplained summary labels, and qualifications detached from their claims.
+Missing explanation/review evidence is a recorded gap, never an inferred pass.
 
 Repair material comprehension problems before polishing process records. Records
 support diagnosis and traceability; completing an audit form must not displace

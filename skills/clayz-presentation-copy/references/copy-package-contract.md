@@ -24,8 +24,17 @@ Every category is optional; levels may be skipped and no title, subordinate
 heading or body pairing is required. Text may contain natural paragraph breaks.
 Units have no visual flags, grouping graph, reading-order number or media request.
 
+Write and retain the actual reader-facing explanation in existing work notes
+before assigning roles. Resolve its body into the smallest meaningful passages
+that retain fluency, logic and scope; several body units may share one heading.
+Describe their contributions and material dependencies in existing relationship
+purposes, and review the edited units continuously against the explanation and
+Logic findings. Granularity does not prescribe independent objects.
+
 Keep provenance separately at root: `copy_provenance` maps each visible
 `copy_id` to its source finding IDs. It does not constrain Art's composition.
+References must support each unit's actual expression; copying a whole page's
+finding list to every unit cannot establish semantic preservation.
 Bind the original immutable approved Logic file as `logic_artifact`; retain
 research, task identity, acceptance and configuration/run bindings.
 

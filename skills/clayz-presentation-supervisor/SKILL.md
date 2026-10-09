@@ -33,6 +33,13 @@ For v0.18.2, inspect claim/evidence correspondence, local argument organization,
 entity/accounting scope and avoidable repetition in Copy, then their visible
 expression in Art and the final render. A missing heading alone is not a defect.
 Record concrete affected copy IDs/pages in existing calibration or audit findings.
+Compare concrete Logic findings with the actual Copy explanation and then with
+its fine body units. Inspect retained mechanisms and discriminating facts, real
+omissions/moves, and continuous grammar and logic after splitting. Missing draft
+or reading evidence remains a gap. Do not infer a content pass from provenance
+coverage, a generic schema-check pass or an empty issue list. Check that Art's
+combination/separation preserves the dependencies and qualifications; use the
+existing notes/findings and return defects to their earliest responsible owner.
 Read `../../packages/contracts/verification-outcomes.md` or its `.zh-CN.md` peer:
 preserve raw tool execution results, record-integrity findings and actual quality
 findings separately. Exceptions do not prove content failure or authorize a pass.

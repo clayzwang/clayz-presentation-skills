@@ -6,6 +6,18 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.19.1 — 2026-10-09
+
+- Copy develops and retains a reader-facing explanation, reviews concrete meaning preservation, and hands Art body units resolved as finely as fluent grammar and logic permit.
+- Existing relationship purposes explain passage contributions and dependencies; source-ID coverage and structural checks cannot automatically become content-reading passes.
+- Align public and packaged Copy retrieval guidance and root editorial responsibilities with this workflow; retain current contract versions and historical evidence.
+
+### 中文
+
+- Copy 先形成并保留面向读者的完整讲述，核对具体含义与信息保留，再在通顺和逻辑完整的前提下尽可能拆细 body。
+- 沿用现有正文关系说明各段贡献与依赖，由 Art 判断组合呈现；来源 ID 覆盖和结构通过不能自动成为内容审读通过。
+- 同步公开及打包后的 Copy 检索指引和根级编辑职责；合同版本及历史证据保持不变。
+
 ## 0.19.0 — 2026-10-09
 
 - Content 3.4 makes body ownership and heading relationships explicit, including shared and page-level support without prescribing Art geometry.

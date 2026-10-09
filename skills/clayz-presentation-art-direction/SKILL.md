@@ -10,6 +10,14 @@ the complete story it communicates, then decide how the audience should see
 and understand it. Textual headings are meaning cues, not geometry or styling
 commands. Copy's editorial order does not prescribe the visual reading path.
 
+Fine body units expose semantic contributions, not a required number of boxes.
+Read them together, their relationship purposes and the actual Copy explanation
+when available. Decide which should share a paragraph, object or visual group,
+which merit emphasis, and which can be separated without breaking the account.
+Keep qualifications and referents intelligible when changing visual order.
+If a passage's dependency is unclear or its splitting broke the prose, return
+those Copy IDs for revision rather than inventing a relation or rewriting them.
+
 Check that the actual page makes the argument and distinct judgments readable.
 Font-size differences or faithful text alone are insufficient. If Copy's
 grouping is ambiguous, return the affected passages to Copy. If the selected

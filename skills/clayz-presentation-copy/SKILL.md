@@ -1,9 +1,14 @@
 ---
 name: clayz-presentation-copy
-description: Organize Logic-approved research into clean presentation text, with title and subtitle Storylines, headings at any needed levels, body and annotations. Own wording, reorganization, pagination and page sequence; preserve supported meaning and evidence. Hand text to Art without layout kinds, rendering commands or visual-order assumptions. Do not design or build the PPTX.
+description: Explain Logic-approved research for the intended reader, review the actual explanation for understanding and meaning preservation, then edit it into finely resolved, coherent text passages. Own wording, reorganization, pagination and page sequence; preserve supported meaning and evidence. Hand semantic body units and their relationships to Art without prescribing objects or layouts. Do not design or build the PPTX.
 ---
 
 # Clayz Presentation Copy
+
+Copy owns substantive editorial judgment: what the reader needs to know first,
+what requires explanation, and how the supported facts form a coherent account.
+Develop that account before filling text roles or page slots. Logic owns research
+judgments; that boundary does not reduce Copy to summarizing or labeling them.
 
 Read the whole Logic research and Supervisor calibration. Explain the story in
 natural language for the intended reader, then organize and edit the text for
@@ -22,7 +27,7 @@ The content document contains only these kinds of visible text:
 - `title`: the main Storyline.
 - `subtitle`: a secondary Storyline.
 - `heading`: a heading with a positive `heading_level`.
-- `body`: complete body prose.
+- `body`: a meaningful passage of body prose, resolved as finely as coherence permits.
 - `annotation`: qualifications, notes, sources and other annotations.
 
 Every category is optional. Heading levels may be skipped; a heading does not
@@ -31,7 +36,7 @@ not font size, position, containers or visual importance. A page may consist
 only of body text or annotations. No standard title/subtitle/body shell is
 required. Honor an explicit user-selected master requirement when applicable.
 
-Each paragraph has a stable `copy_id`, `text` and `role`; headings also have
+Each text passage has a stable `copy_id`, `text` and `role`; headings also have
 `heading_level`. Natural paragraph breaks are allowed. Preserve source
 references separately in `copy_provenance`, for content fidelity review.
 The array order is editorial organization, not Art's visual reading order.
@@ -73,14 +78,23 @@ These are content responsibilities in one workflow.
 ## Work
 
 1. Bind the original Logic file and unchanged research. Write a coherent
-   explanation before editing it into presentation text.
+   reader-facing explanation before editing it into presentation text. Preserve
+   the actual explanation in existing work notes or reference its real draft;
+   this is editorial prose, not a private reasoning transcript.
 2. Choose chapters when useful, pagination, page responsibilities, page order
    and conclusion wording. Copy owns these choices. Honor actual cover/closing
    and user constraints; do not add notes or appendices by default.
-3. Categorize the final text using the five roles above. Do not split a useful
-   paragraph merely to prescribe several visual boxes or a fixed card count.
-4. Review actual wording for reader understanding and preservation of meaning.
-   Record concrete decisions in the existing semantic preservation review.
+3. Resolve body into the smallest meaningful passages that preserve fluency,
+   logical links and qualifications. A paragraph may yield several body units
+   under the same heading; a grammatically or logically dependent passage stays
+   intact when splitting would break it. Read the units continuously and explain
+   their actual roles/dependencies in existing content relationships. Art decides
+   whether to combine them; fine text units do not prescribe separate boxes.
+4. Review Logic findings against the explanation, then the explanation against
+   edited text. Check actual reader understanding, retained mechanisms and
+   discriminating facts, and coherence after decomposition. Record concrete
+   observations, exclusions or deferrals in the existing semantic preservation
+   review/work notes. Source IDs and schema success do not establish these results.
 5. Hand the clean content document and separate provenance to Art and
    Supervisor. A density-driven pagination or wording change returns to Copy;
    research changes return to Logic.
@@ -118,10 +132,18 @@ semantic_preservation_review or work notes, citing affected copy IDs as useful:
 - Can the Storyline and any local headings communicate the page's argument?
 - Does each judgment have matching evidence with a clear entity and scope?
 - Does each passage add evidence, explanation or a necessary qualification?
+- Which concrete actors, mechanisms and differences survived editing, and which
+  were omitted or moved? Cite the affected findings and Copy IDs; explain a
+  consequential omission or an actual destination instead of asserting coverage.
+- When the fine body units are read together, do pronouns, connectors, conditions
+  and qualifications still communicate the same fluent account?
 
 These are professional reading checks, not keyword tests or another approval
 form. Art checks their visible expression; Supervisor reads both the text and
 actual page and routes defects to the earliest responsible stage.
+Record a content-reading result only after that reading, with evidence in the
+existing notes. A generic structure-check pass or an empty issue list must not
+automatically become a content-quality pass; missing reading remains deferred.
 
 Validate with:
 

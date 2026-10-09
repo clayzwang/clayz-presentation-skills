@@ -12,7 +12,7 @@ and Supervisor retain their existing ownership and artifacts; the Independent
 Auditor returns an audit artifact to Supervisor and is not a sixth production
 stage.
 
-The stages are an enablement system: they give the model better evidence, authority, tools, and feedback. They do not replace professional judgment. Logic receives the deepest reasoning responsibility; context economy compresses transport and repeated execution, never the thought needed to understand and explain the subject.
+The stages are an enablement system: they give the model better evidence, authority, tools, and feedback. They do not replace professional judgment. Logic owns research reasoning; Copy owns substantive editorial reasoning for reader understanding, including a coherent explanation, meaning review and fine body decomposition. Context economy compresses transport and repeated execution, never the thought needed at either stage to understand and explain the subject.
 
 This same-name Skill is callable from ordinary Chat and Work and is not tied to a
 ChatGPT Project. Keep implicit invocation and explicit mentions supported.

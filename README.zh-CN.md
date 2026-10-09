@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.19.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.19.1**
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
@@ -221,3 +221,7 @@ Logic → 完整研究成果；Copy → 内容结构与适合 PPT 的文字（�
 ## v0.19.0：内容归属与逐页艺术规划
 
 Copy 明确正文的单项归属、共同支撑或无局部标题归属及用途；Art 在对象规格前记录内容驱动的逐页统筹规划，包括可选新增表达及依据。既有审计检查规划、内容关系、新增表达及实际实现，保留证据缺口，不设审美评分。新合同为内容 3.4、Art 2.3；历史 3.3／2.2 继续回读。见[逐页艺术规划](packages/contracts/page-planning.zh-CN.md)。
+
+## v0.19.1：完整讲述与细分正文
+
+Copy 先形成实际面向读者的讲述，再编辑文字角色，核对具体含义是否保留，并在通顺和逻辑完整的前提下尽可能拆细 body。多个正文可以归属同一标题或组合到同一个 Art 对象，各段贡献与依赖通过现有关系传递。内容审读记录与来源 ID 覆盖、结构校验分别判断。见[内容与自然表达](packages/contracts/reader-quality.zh-CN.md)。

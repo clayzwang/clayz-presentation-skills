@@ -1,0 +1,39 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.19.1",
+  "current_public_version": "0.19.1",
+  "state": "release-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": true,
+    "tag": true,
+    "publish": true,
+    "experience_center_update": true
+  },
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "scope": "merge-tag-publish-experience-center",
+    "authorized_at": "2026-10-09T09:14:54.815436Z"
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python scripts/validate_all.py",
+    "experience_validation": "python scripts/validate_experience.py",
+    "presentation_overflow_check": "Existing tests/test_release_0190.py and research/visual handoff regression cover multi-body ownership, native shared text and portable planning. v0.19.1 refines guidance and professional meaning review without changing rendering contracts. The text-only decomposition diagnostic preserves continuous wording and does not certify page geometry. Real Office release acceptance remains scripts/runtime_smoke.py in the existing GitHub release workflow; the local LibreOfficeDev alpha negative-label issue is not treated as a pass.",
+    "node_chart_build": "Adapters are unchanged; existing repository regression and the release workflow remain the validation route."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

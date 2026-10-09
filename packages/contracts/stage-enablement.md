@@ -222,6 +222,15 @@ Copy rewrites the full argument for readers before compressing it; Art Direction
 provides space and Supervisor reads the actual language separately from technical
 checks. Record specific observations through existing findings/work notes.
 
+Copy preserves its actual reader-facing explanation in existing work notes or
+a real draft reference, then resolves body as finely as coherent grammar and
+meaning permit. Review research-to-explanation and explanation-to-units, with
+concrete findings/Copy IDs, consequential omissions and actual destinations.
+Several bodies can share a heading and an Art object. Relationship purposes
+explain their contributions and dependencies; they do not prescribe boxes.
+Generic structure checks and empty issue lists cannot default content-reading
+checks to pass. Unperformed professional reading remains deferred/not-recorded.
+
 Copy makes that explanation precise and natural. Parallel semantics need not
 force identical sentence grammar. Art Direction honors Storyline requirements only when explicitly specified by
 a user-selected master; there is no default Storyline field or fixed subtitle, and smaller supporting text beneath it is optional and has no reserved

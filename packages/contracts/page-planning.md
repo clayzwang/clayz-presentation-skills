@@ -40,6 +40,15 @@ Art decides how to present this mixed hierarchy.
 Do not invent a body for every heading or constrain Art's editable objects,
 containers, styles, spatial reading order or shape boundaries.
 
+Resolve a paragraph into multiple bodies as finely as coherent meaning permits;
+one heading can own any number of bodies. Use existing `purpose` text to explain
+each passage's concrete contribution and material dependency on another body,
+such as supplying evidence for a judgment or qualifying its scope. A generic
+"explains H1" is insufficient as an editorial explanation. Keep essential
+subjects, connectors and conditions, and read the split text continuously.
+These are semantic dependencies, not a visual order or an object-count command.
+Art may compose several bodies in one paragraph/object while keeping them clear.
+
 ## Art plans the whole page before declaring objects
 
 Read the entire Copy document and its relationships. Explain the page's central

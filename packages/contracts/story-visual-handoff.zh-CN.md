@@ -27,12 +27,14 @@ logic_layer 仍为空，不再制作另一份 Logic 页面投影。
 - 标题 title：主 Storyline；
 - 副标题 subtitle：次级 Storyline；
 - 各级标题 heading：附正整数 heading_level；
-- 正文 body；
+- 正文 body：在通顺和逻辑完整的前提下细分的意义单元；
 - 注释 annotation：说明、限定条件、来源等。
 
 每类都可以没有，层级可以跳级，标题下面不必有次级标题或正文。
 每段只有 copy_id、text、role，各级标题另有 heading_level；
 保留自然段落换行。数组顺序是文字编排，不能直接绑定视觉阅读顺序。
+编辑角色前，在现有工作记录中保留实际讲述稿；一个自然段可以拆成同一标题下的多个 body。
+拆后正文连读，在现有关系 purpose 中说明重要语义依赖，由 Art 决定哪些单元组合呈现。
 根级 copy_provenance 单独记录各 copy_id 的来源发现 ID；
 保留必要内容的可追溯性，不向 Art 传递视觉指令。
 语义保真需要实际阅读，来源链接或校验通过不能代替判断。
