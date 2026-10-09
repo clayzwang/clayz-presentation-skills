@@ -1,0 +1,1770 @@
+{
+  "contract": "io.clayz.presentation.art-learning/1.0",
+  "nodes": [
+    {
+      "code": "K.COM",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "传播与受众",
+      "principle": "设计先解决特定受众的理解或行动问题，媒介条件决定信息出现的方式。",
+      "flow_ids": [
+        "A01"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-SCAD"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.COM.AUDIENCE",
+      "kind": "PRINCIPLE",
+      "parent": "K.COM",
+      "title": "受众与知识缺口",
+      "principle": "当受众必须作出判断时，从他们已知和未知的差异确定解释起点。",
+      "applicability": "传播任务中遇到“受众与知识缺口”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "列出受众、已知、缺口、期望判断各一句；把陌生概念的解释放在第一次使用处。"
+      ],
+      "limits": "对方已熟悉的术语可直接使用；不能把主观画像当调研事实。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "经营层不知道两种履约责任的差异，先解释谁承担库存和交付。",
+        "why": "当受众必须作出判断时，从他们已知和未知的差异确定解释起点。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "只写“面向高管、专业高级”，却直接堆术语。",
+        "why": "对方已熟悉的术语可直接使用；不能把主观画像当调研事实。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A01"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-SCAD"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.COM.TASK",
+      "kind": "PRINCIPLE",
+      "parent": "K.COM",
+      "title": "单一主任务",
+      "principle": "一份稿可包含多个信息层，但主传播任务应明确到一次理解变化或决策。",
+      "applicability": "传播任务中遇到“单一主任务”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "写出“看完后能判断什么”，据此排定证据、行动和背景的优先级。"
+      ],
+      "limits": "探索性材料可保留开放问题，不应伪造唯一结论。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "希望读者判断两种模式的收益与投入如何关联，比较关系而非公司百科。",
+        "why": "一份稿可包含多个信息层，但主传播任务应明确到一次理解变化或决策。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "同时承担公司介绍、投资推荐和运营复盘，却不给主任务排序。",
+        "why": "探索性材料可保留开放问题，不应伪造唯一结论。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A01"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-SCAD"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.COM.CONTEXT",
+      "kind": "PRINCIPLE",
+      "parent": "K.COM",
+      "title": "观看情境",
+      "principle": "信息必须在真实观看距离、时间和交互条件下可辨认。",
+      "applicability": "传播任务中遇到“观看情境”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "明确投屏或自读、时长、画幅；远距呈现分层信息，自读保留可检索注释。"
+      ],
+      "limits": "没有普适最小字号能代替真实渲染检查；打印与投屏需分别看。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "会议投屏页只保留两项关键比较，口径在同页可读注释中说明。",
+        "why": "信息必须在真实观看距离、时间和交互条件下可辨认。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "将报告截图缩到一页，因屏幕上能放下就认定可读。",
+        "why": "没有普适最小字号能代替真实渲染检查；打印与投屏需分别看。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A01"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-SCAD"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.AD",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "艺术指导与品牌表达",
+      "principle": "艺术方向是服务主题的连续视觉判断，必须可翻译为可观察的设计选择。",
+      "flow_ids": [
+        "A02"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.AD.CHARACTER",
+      "kind": "PRINCIPLE",
+      "parent": "K.AD",
+      "title": "视觉性格",
+      "principle": "抽象气质只有对应字体、色彩、图像与空间选择时才能指导制作。",
+      "applicability": "全稿艺术方向中遇到“视觉性格”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "将两个气质词转成三项可见选择并解释与任务的关系。"
+      ],
+      "limits": "“可信”不必等同蓝色；文化、行业和已有品牌会改变联想。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "为审慎比较采用中性底色、稳定对齐与克制强调，突出同口径证据。",
+        "why": "抽象气质只有对应字体、色彩、图像与空间选择时才能指导制作。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "写“科技、震撼、高级”，每页却随意换发光效果。",
+        "why": "“可信”不必等同蓝色；文化、行业和已有品牌会改变联想。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A02"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.AD.COHERENCE",
+      "kind": "PRINCIPLE",
+      "parent": "K.AD",
+      "title": "方向内在一致",
+      "principle": "媒介、语气与视觉符号应共同表达一个方向；冲突必须有叙事目的。",
+      "applicability": "全稿艺术方向中遇到“方向内在一致”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "检查图像情绪、字体性格和色彩强度是否互相抵消；删掉无解释的风格混搭。"
+      ],
+      "limits": "需要表现冲突的主题可以故意不协调，但应使冲突可理解。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "工业效率主题使用真实作业照片和明确流程结构。",
+        "why": "媒介、语气与视觉符号应共同表达一个方向；冲突必须有叙事目的。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "严肃风险论证用庆典彩带和夸张表情，降低判断可信度。",
+        "why": "需要表现冲突的主题可以故意不协调，但应使冲突可理解。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A02"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.AD.DISTINCT",
+      "kind": "PRINCIPLE",
+      "parent": "K.AD",
+      "title": "主题特异性",
+      "principle": "方向应来自本题的对象或关系，而非对所有项目都适用的模板标签。",
+      "applicability": "全稿艺术方向中遇到“主题特异性”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "从主题抽取一个可延展的视觉线索，写清它映射的业务含义。"
+      ],
+      "limits": "隐喻不能替代事实解释，也不能让所有页面都画同一物件。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "用“责任边界”作为比较稿线索，贯穿关系图和投入说明。",
+        "why": "方向应来自本题的对象或关系，而非对所有项目都适用的模板标签。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "无论主题是什么都用山峰表示增长，且不解释映射。",
+        "why": "隐喻不能替代事实解释，也不能让所有页面都画同一物件。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A02"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.ED",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "编辑与序列叙事",
+      "principle": "页与页应推动问题的理解，节奏变化源于论证任务而非随机换版式。",
+      "flow_ids": [
+        "A03"
+      ],
+      "source_ids": [
+        "S-UAL",
+        "S-SCAD",
+        "S-ARTCENTER"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.ED.PROGRESSION",
+      "kind": "PRINCIPLE",
+      "parent": "K.ED",
+      "title": "问题递进",
+      "principle": "下一页应接住上一页留下的具体问题或必要证据缺口。",
+      "applicability": "全稿视觉叙事中遇到“问题递进”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "用一句话写每次转场：“知道 X 后，为什么还需要 Y”；调整断裂转场。"
+      ],
+      "limits": "并列查阅型材料可用目录导航，不必强造故事悬念。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "先说明模式差异，再解释成本承担，随后讨论收益弹性。",
+        "why": "下一页应接住上一页留下的具体问题或必要证据缺口。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "从公司简介突然跳到盈利预测，中间缺少模式与利润的关系。",
+        "why": "并列查阅型材料可用目录导航，不必强造故事悬念。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A03"
+      ],
+      "source_ids": [
+        "S-UAL",
+        "S-SCAD",
+        "S-ARTCENTER"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.ED.RHYTHM",
+      "kind": "PRINCIPLE",
+      "parent": "K.ED",
+      "title": "认知节奏",
+      "principle": "复杂证据与简明判断需要有意交替，密度变化应帮助消化信息。",
+      "applicability": "全稿视觉叙事中遇到“认知节奏”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "标出高负荷页，在关键证据后设置汇合判断或清晰转场。"
+      ],
+      "limits": "短稿无需人为增加过渡页；空白页不等于休息或节奏。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "两页证据后用一页关系图汇合到管理含义。",
+        "why": "复杂证据与简明判断需要有意交替，密度变化应帮助消化信息。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "连续十二页同密度卡片，读者无法感知重点和转折。",
+        "why": "短稿无需人为增加过渡页；空白页不等于休息或节奏。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A03"
+      ],
+      "source_ids": [
+        "S-UAL",
+        "S-SCAD",
+        "S-ARTCENTER"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.ED.CONTINUITY",
+      "kind": "PRINCIPLE",
+      "parent": "K.ED",
+      "title": "跨页线索",
+      "principle": "跨页持续出现的对象、颜色与位置帮助读者追踪同一论证对象。",
+      "applicability": "全稿视觉叙事中遇到“跨页线索”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "固定实体映射；需要切换维度时明确标注新维度和尺度。"
+      ],
+      "limits": "位置固定不是强制全稿同构；变化可表达真正的阶段转换。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "两家公司全稿保持相同列位和颜色，经营维度逐页改变。",
+        "why": "跨页持续出现的对象、颜色与位置帮助读者追踪同一论证对象。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "左右公司对调却不提示，读者把上一页结论带到错误对象。",
+        "why": "位置固定不是强制全稿同构；变化可表达真正的阶段转换。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A03"
+      ],
+      "source_ids": [
+        "S-UAL",
+        "S-SCAD",
+        "S-ARTCENTER"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.SEM",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "意义与论证关系",
+      "principle": "单页设计命题应指出本页让读者理解的判断及证据关系，而非版式名称。",
+      "flow_ids": [
+        "A04"
+      ],
+      "source_ids": [
+        "S-VCU",
+        "S-UAL",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.SEM.PROPOSITION",
+      "kind": "PRINCIPLE",
+      "parent": "K.SEM",
+      "title": "主判断与证据",
+      "principle": "单页应形成可复述的判断，证据和限定条件要能支持该判断的力度。",
+      "applicability": "单页设计命题中遇到“主判断与证据”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "写一句本页结论，逐项指出支持它的材料以及不支持的推断。"
+      ],
+      "limits": "Art 可改写或调整判断；与原 Copy 的差异、理由和证据进入审计，不冒称原结论。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "“履约控制更强，但投入责任更重”，同时呈现控制与承担的证据。",
+        "why": "单页应形成可复述的判断，证据和限定条件要能支持该判断的力度。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "把“增长较快”升级为“全面领先”，证据只覆盖一项季度指标。",
+        "why": "Art 可改写或调整判断；与原 Copy 的差异、理由和证据进入审计，不冒称原结论。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A04"
+      ],
+      "source_ids": [
+        "S-VCU",
+        "S-UAL",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.SEM.FOCUS",
+      "kind": "PRINCIPLE",
+      "parent": "K.SEM",
+      "title": "命题范围",
+      "principle": "一页承载的判断范围应与可展示证据及阅读时间相称。",
+      "applicability": "单页设计命题中遇到“命题范围”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "识别相互竞争的命题；选择合并、分层或拆页并记录读者收益。"
+      ],
+      "limits": "不要为了机械“一页一句”拆断必要对照；分页可由 Art 调整并记入审计。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "保留同页成本与控制的权衡，两者共同构成一项判断。",
+        "why": "一页承载的判断范围应与可展示证据及阅读时间相称。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "把三项互不相关建议塞入同一标题下，读者无法知道本页为何存在。",
+        "why": "不要为了机械“一页一句”拆断必要对照；分页可由 Art 调整并记入审计。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A04"
+      ],
+      "source_ids": [
+        "S-VCU",
+        "S-UAL",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.SEM.QUESTION",
+      "kind": "PRINCIPLE",
+      "parent": "K.SEM",
+      "title": "读者问题对应",
+      "principle": "标题、主视觉和支撑信息应该共同回答同一个自然问题。",
+      "applicability": "单页设计命题中遇到“读者问题对应”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "分别复述标题承诺和画面回答；若不一致，调整命题或表达并记差异。"
+      ],
+      "limits": "情绪性开场可不承诺事实判断，但应明确其叙事职责。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "标题问“投入差在哪里”，主体按库存、仓配、流量三项比较。",
+        "why": "标题、主视觉和支撑信息应该共同回答同一个自然问题。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "标题说利润成因，主体却只有营收排名。",
+        "why": "情绪性开场可不承诺事实判断，但应明确其叙事职责。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A04"
+      ],
+      "source_ids": [
+        "S-VCU",
+        "S-UAL",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.REL",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "语义分组与关系表达",
+      "principle": "先辨认元素的角色和真实关系，再选择视觉语法；接近和连线都会传达含义。",
+      "flow_ids": [
+        "A05"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.REL.GROUP",
+      "kind": "PRINCIPLE",
+      "parent": "K.REL",
+      "title": "语义归属",
+      "principle": "空间接近、共同背景和对齐会使读者感知归属，应与内容所有权一致。",
+      "applicability": "内容角色与关系中遇到“语义归属”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "列出标题、证据、限定语和来源的归属；让共享证据跨组呈现而不错误独占。"
+      ],
+      "limits": "共享材料可连接多个判断；不要为整齐强制一对一。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "共同口径置于两列下方，读者知道它同时限定双方数据。",
+        "why": "空间接近、共同背景和对齐会使读者感知归属，应与内容所有权一致。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "将全稿适用的口径塞进左侧卡片，看似只约束左方。",
+        "why": "共享材料可连接多个判断；不要为整齐强制一对一。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A05"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.REL.RELATION",
+      "kind": "PRINCIPLE",
+      "parent": "K.REL",
+      "title": "关系先于连线",
+      "principle": "箭头、包围、顺序和并列各有语义，不应把相关或共现伪装成因果。",
+      "applicability": "内容角色与关系中遇到“关系先于连线”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "明确每条关系是比较、包含、流程还是假设；据此决定连线和标签。"
+      ],
+      "limits": "未经研究支持的因果只能标为假设；事后审计记录此推断及证据缺口。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "履约环节用顺序箭头，两种模式用对照排布。",
+        "why": "箭头、包围、顺序和并列各有语义，不应把相关或共现伪装成因果。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "市场份额与利润并列数据被箭头连成必然因果。",
+        "why": "未经研究支持的因果只能标为假设；事后审计记录此推断及证据缺口。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A05"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.REL.ROLE",
+      "kind": "PRINCIPLE",
+      "parent": "K.REL",
+      "title": "内容角色",
+      "principle": "结论、事实、解释、建议和来源具有不同的证据职责，不能靠样式混为一谈。",
+      "applicability": "内容角色与关系中遇到“内容角色”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "给材料标明角色，视觉上区分建议与已发生事实，并保留关键口径。"
+      ],
+      "limits": "不需要把所有角色标签印到页面；版式与语气也能说明角色。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "建议区使用“建议试点”，旁边证据区注明已观测结果。",
+        "why": "结论、事实、解释、建议和来源具有不同的证据职责，不能靠样式混为一谈。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "把预测数字和历史数据放在同一种实线中且不注明预测。",
+        "why": "不需要把所有角色标签印到页面；版式与语气也能说明角色。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A05"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.PER",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "视觉感知与注意",
+      "principle": "视觉层级应让读者按理解任务需要的顺序发现、分组和解释信息。",
+      "flow_ids": [
+        "A06"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.PER.HIERARCHY",
+      "kind": "PRINCIPLE",
+      "parent": "K.PER",
+      "title": "注意顺序",
+      "principle": "最先被看见的元素应承担当前最重要的理解任务。",
+      "applicability": "感知目标中遇到“注意顺序”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "写出第一、第二和第三关注对象；用尺寸、位置、对比调整，再看缩略图核验。"
+      ],
+      "limits": "强刺激不保证正确理解；品牌标识不应默认获得最大注意。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "先看投入责任差异，再读支撑数字，最后查口径。",
+        "why": "最先被看见的元素应承担当前最重要的理解任务。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "装饰插画占最大面积，结论挤在角落。",
+        "why": "强刺激不保证正确理解；品牌标识不应默认获得最大注意。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A06"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.PER.SIGNAL",
+      "kind": "PRINCIPLE",
+      "parent": "K.PER",
+      "title": "有效区分",
+      "principle": "强调通过与背景及同类的差别产生；过多同时强调会失去层级。",
+      "applicability": "感知目标中遇到“有效区分”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "选定需要区分的对象与一个主要变量，收弱无关竞争元素。"
+      ],
+      "limits": "多种编码可服务不同维度，但必须能解释各自含义。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "只把需要决策的缺口标为强调色，其余保持中性。",
+        "why": "强调通过与背景及同类的差别产生；过多同时强调会失去层级。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "标题、每个数字和每条边框都用高饱和色。",
+        "why": "多种编码可服务不同维度，但必须能解释各自含义。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A06"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.PER.ACCESS",
+      "kind": "PRINCIPLE",
+      "parent": "K.PER",
+      "title": "可辨认与冗余线索",
+      "principle": "关键区别不能仅靠难以分辨的单一颜色或微小细节。",
+      "applicability": "感知目标中遇到“可辨认与冗余线索”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "为颜色差异添加文字、形状或线型线索；按最终尺寸检查标签、对比和遮挡。"
+      ],
+      "limits": "可访问性工具能发现部分问题，不能替代真实内容阅读。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "两条趋势线同时使用直接标签与不同线型。",
+        "why": "关键区别不能仅靠难以分辨的单一颜色或微小细节。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "只用相近红绿区分两公司，灰度或色觉差异下无法辨认。",
+        "why": "可访问性工具能发现部分问题，不能替代真实内容阅读。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A06"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.CONCEPT",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "创意与媒介选择",
+      "principle": "表现概念把语义转成可感知的形式，媒介选择应考虑解释力而非装饰新奇。",
+      "flow_ids": [
+        "A07"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.CONCEPT.MEDIUM",
+      "kind": "PRINCIPLE",
+      "parent": "K.CONCEPT",
+      "title": "媒介适配",
+      "principle": "关系图、图表、照片和文字各有适合的问题，应选择最直接解释本题关系的媒介。",
+      "applicability": "表现概念中遇到“媒介适配”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "问主问题是数量、结构、体验还是主张；选择主媒介并注明它不能解释什么。"
+      ],
+      "limits": "混合媒介可成立，但不能让装饰取代需要核对的精确数值。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "数量比较用同尺度图表，责任结构用关系图。",
+        "why": "关系图、图表、照片和文字各有适合的问题，应选择最直接解释本题关系的媒介。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "用两张库存照片比较精确履约成本。",
+        "why": "混合媒介可成立，但不能让装饰取代需要核对的精确数值。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A07"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.CONCEPT.METAPHOR",
+      "kind": "PRINCIPLE",
+      "parent": "K.CONCEPT",
+      "title": "概念映射",
+      "principle": "视觉隐喻必须让读者理解对象之间的对应关系，且不引入错误事实。",
+      "applicability": "表现概念中遇到“概念映射”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "写明隐喻中每个关键元素的业务对应；删去无法解释的部分。"
+      ],
+      "limits": "直接表达更清楚时不必强用隐喻；隐喻不是研究证据。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "以边界表示责任承担范围，并用文字标明边界具体涵盖什么。",
+        "why": "视觉隐喻必须让读者理解对象之间的对应关系，且不引入错误事实。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "画成赛跑暗示双方目标和评价尺度相同，实际业务结构不同。",
+        "why": "直接表达更清楚时不必强用隐喻；隐喻不是研究证据。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A07"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.CONCEPT.EXPLORATION",
+      "kind": "PRINCIPLE",
+      "parent": "K.CONCEPT",
+      "title": "有目的的探索",
+      "principle": "当表达方案有实质不确定性时，用低成本草图比较不同机制，而非只换颜色。",
+      "applicability": "表现概念中遇到“有目的的探索”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "围绕一个风险尝试不同表达，记录取舍及预计读者收益。"
+      ],
+      "limits": "无明显风险的页面可沿用成熟方向；不强制每页 A/B 或固定方案数。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "比较关系图与双列证据结构，选择能保留共享限定语的方案。",
+        "why": "当表达方案有实质不确定性时，用低成本草图比较不同机制，而非只换颜色。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "做五个同构配色版本，却没有检验读者是否看懂关系。",
+        "why": "无明显风险的页面可沿用成熟方向；不强制每页 A/B 或固定方案数。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A07"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.COMP",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "空间构成",
+      "principle": "构图组织整体重心、分组、路径和留白，局部美化不能代替全局关系。",
+      "flow_ids": [
+        "A08"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.COMP.BALANCE",
+      "kind": "PRINCIPLE",
+      "parent": "K.COMP",
+      "title": "重心与张力",
+      "principle": "视觉重量受面积、对比、位置和密度共同影响，平衡不等于左右等分。",
+      "applicability": "整体画面构成中遇到“重心与张力”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "找出实际最重区域，调整尺度和空间，使重点与理解任务一致。"
+      ],
+      "limits": "非对称可以服务主题；不能把对称当普适优秀标准。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "主判断占更大留白区域，证据以较密小区块支撑。",
+        "why": "视觉重量受面积、对比、位置和密度共同影响，平衡不等于左右等分。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "为左右等面积放大次要材料，重要结论反而失去重心。",
+        "why": "非对称可以服务主题；不能把对称当普适优秀标准。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A08"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.COMP.SPACE",
+      "kind": "PRINCIPLE",
+      "parent": "K.COMP",
+      "title": "语义留白",
+      "principle": "间距应帮助区分或连接内容，留白必须服从归属与阅读路径。",
+      "applicability": "整体画面构成中遇到“语义留白”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "使组内距离小于需要区分的组间距离，检查共享注释是否被隔离。"
+      ],
+      "limits": "不是固定像素公式；字号、形状和背景都会影响距离感。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "同一指标的数值和单位贴近，指标组之间留出明显间隔。",
+        "why": "间距应帮助区分或连接内容，留白必须服从归属与阅读路径。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "标题与对应段落相距很远，却紧贴下一组图表。",
+        "why": "不是固定像素公式；字号、形状和背景都会影响距离感。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A08"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.COMP.GRID",
+      "kind": "PRINCIPLE",
+      "parent": "K.COMP",
+      "title": "对齐与自由",
+      "principle": "网格提供稳定参照，偏离网格应产生有意义的强调或叙事变化。",
+      "applicability": "整体画面构成中遇到“对齐与自由”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "建立少量对齐线；检查无意错位，保留有解释的突破。"
+      ],
+      "limits": "网格是工具，不能为整齐切断内容关系或压缩字到不可读。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "比较页同尺度数据共用基线，转折页放大核心判断打破节奏。",
+        "why": "网格提供稳定参照，偏离网格应产生有意义的强调或叙事变化。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "所有对象强塞等宽卡片，长短内容挤压失衡。",
+        "why": "网格是工具，不能为整齐切断内容关系或压缩字到不可读。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A08"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.LANG",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "字体色彩图像与数据",
+      "principle": "元素的形态与编码应支持阅读和意义，任何视觉修辞都应保留可核对的信息。",
+      "flow_ids": [
+        "A09"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-VCU",
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.LANG.TYPE",
+      "kind": "PRINCIPLE",
+      "parent": "K.LANG",
+      "title": "字体与阅读",
+      "principle": "字体层级和行文宽度应帮助读者辨认角色、连贯阅读，而非制造样式数量。",
+      "applicability": "元素视觉语言中遇到“字体与阅读”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "建立标题、正文、注释层级；用实际文本测试断行、字形、字重及输出字体。"
+      ],
+      "limits": "没有适用于全部画幅的固定字号表；中文长句和混排需要实际测试。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "标题分行保留完整语义，正文相邻句不被孤立切碎。",
+        "why": "字体层级和行文宽度应帮助读者辨认角色、连贯阅读，而非制造样式数量。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "为凑齐卡片高度让关键条件缩成不可读小字。",
+        "why": "没有适用于全部画幅的固定字号表；中文长句和混排需要实际测试。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A09"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-VCU",
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.LANG.COLOR_IMAGE",
+      "kind": "PRINCIPLE",
+      "parent": "K.LANG",
+      "title": "色彩图像的意义",
+      "principle": "颜色与图像会携带情绪、类别和现实性暗示，应与内容角色及证据性质一致。",
+      "applicability": "元素视觉语言中遇到“色彩图像的意义”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "定义颜色含义；区分实证照片、示意图和合成图，记录来源与使用权。"
+      ],
+      "limits": "色彩联想随文化与语境变化；授权合规也不等于图像能证明主张。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "概念插画明确为示意，不拿它证明某企业设施规模。",
+        "why": "颜色与图像会携带情绪、类别和现实性暗示，应与内容角色及证据性质一致。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "将图库仓库照片当作特定企业实景，暗示未经证实的能力。",
+        "why": "色彩联想随文化与语境变化；授权合规也不等于图像能证明主张。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A09"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-VCU",
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.LANG.DATA",
+      "kind": "PRINCIPLE",
+      "parent": "K.LANG",
+      "title": "数量编码与诚实尺度",
+      "principle": "数量比较优先采用易于比较的共同位置或长度，并公开单位、时间与口径。",
+      "applicability": "元素视觉语言中遇到“数量编码与诚实尺度”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "检查同尺度、零基线需要、分母和缺失值；将预测、不同比口径明确区分。"
+      ],
+      "limits": "折线可为辨析变化截轴但需清晰标注；条形长度通常依赖零基线。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "两家同年度同定义数据用共轴条形，无法同口径的指标分开说明。",
+        "why": "数量比较优先采用易于比较的共同位置或长度，并公开单位、时间与口径。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "以图标面积线性放大表示数值，造成视觉增长远大于实际增长。",
+        "why": "折线可为辨析变化截轴但需清晰标注；条形长度通常依赖零基线。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A09"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-VCU",
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.SYS",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "系列系统与变化",
+      "principle": "系列应保持实体和规则的一致性，同时允许表达不同任务所需的变化。",
+      "flow_ids": [
+        "A10"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-SCAD",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.SYS.INVARIANT",
+      "kind": "PRINCIPLE",
+      "parent": "K.SYS",
+      "title": "语义不变量",
+      "principle": "同一实体、单位或类别在跨页出现时应保持稳定映射或明确解释变化。",
+      "applicability": "跨页统合中遇到“语义不变量”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "检查名称、颜色、单位、列位和时间范围；为必要变化添加提示。"
+      ],
+      "limits": "页序和分页可由 Art 调整，须记录原始与实际映射，不静默覆盖 Copy。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "同一公司全稿颜色固定，指标单位改变时在轴和标题处明确。",
+        "why": "同一实体、单位或类别在跨页出现时应保持稳定映射或明确解释变化。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "“亿元”切换成“百万元”但颜色和标注不变，读者误读量级。",
+        "why": "页序和分页可由 Art 调整，须记录原始与实际映射，不静默覆盖 Copy。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A10"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-SCAD",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.SYS.FAMILY",
+      "kind": "PRINCIPLE",
+      "parent": "K.SYS",
+      "title": "同族不同构",
+      "principle": "一套视觉语言可产生不同构图；一致性来自规则复用而非页面复制。",
+      "applicability": "跨页统合中遇到“同族不同构”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "复用字体、颜色职责和对齐逻辑，按各页关系选择不同空间结构。"
+      ],
+      "limits": "重复构图有助对照时应保留，不为了变化而变化。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "比较页同构便于核对，机制页改成关系图但保留同一字色体系。",
+        "why": "一套视觉语言可产生不同构图；一致性来自规则复用而非页面复制。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "每页都套三卡片，流程、比较和结论被画成相同关系。",
+        "why": "重复构图有助对照时应保留，不为了变化而变化。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A10"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-SCAD",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.SYS.MONTAGE",
+      "kind": "PRINCIPLE",
+      "parent": "K.SYS",
+      "title": "整稿并看",
+      "principle": "单页成立不保证全稿节奏与定位成立，需要把全稿作为序列检查。",
+      "applicability": "跨页统合中遇到“整稿并看”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "查看缩略图拼版和关键连续页，识别异常密度、重复高潮及方向漂移。"
+      ],
+      "limits": "缩略图无法判断小字和事实准确性，仍需原尺寸检查。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "拼版发现四页连续抢同一强调色，收弱背景页并保留关键转折。",
+        "why": "单页成立不保证全稿节奏与定位成立，需要把全稿作为序列检查。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "只在单页放大检查，未发现全稿页序错乱和实体换色。",
+        "why": "缩略图无法判断小字和事实准确性，仍需原尺寸检查。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A10"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-SCAD",
+        "S-ARTCENTER",
+        "S-CALVIN"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "K.CRIT",
+      "kind": "KNOW",
+      "parent": null,
+      "title": "批评与迭代",
+      "principle": "评议应把实际观察与预定意图对照，形成有因果解释的局部修正，而非用审美形容词裁决。",
+      "flow_ids": [
+        "A11"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-ARTCENTER",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-synthesis"
+    },
+    {
+      "code": "P.CRIT.OBSERVE",
+      "kind": "PRINCIPLE",
+      "parent": "K.CRIT",
+      "title": "观察与意图区分",
+      "principle": "描述实际画面和读者理解，再判断是否达成意图，不能拿设计说明代替观察。",
+      "applicability": "设计评议中遇到“观察与意图区分”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "查看真实渲染，记录首先看见什么、读到什么、哪里误解；附具体页和对象。"
+      ],
+      "limits": "未经真实读者测试只能称设计者检查，不声称用户验证。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "渲染后发现注释最醒目，调整其对比并再次观察。",
+        "why": "描述实际画面和读者理解，再判断是否达成意图，不能拿设计说明代替观察。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "因为计划里写了“突出重点”，便宣布成品已经突出重点。",
+        "why": "未经真实读者测试只能称设计者检查，不声称用户验证。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A11"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-ARTCENTER",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.CRIT.REVISE",
+      "kind": "PRINCIPLE",
+      "parent": "K.CRIT",
+      "title": "针对性修正",
+      "principle": "修改应对应可识别的问题及其成因，尽量复用未受影响的工作。",
+      "applicability": "设计评议中遇到“针对性修正”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "写“观察—原因假设—动作—预期效果”，回看受影响页面和相邻关系。"
+      ],
+      "limits": "如果命题不成立可以重想概念；不必每次从研究或全稿重做。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "发现对照配对困难，只调整对应行与标签，重看本页和跨页映射。",
+        "why": "修改应对应可识别的问题及其成因，尽量复用未受影响的工作。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "因一处遮挡重写研究、全部文案和全稿设计，未触及真正原因。",
+        "why": "如果命题不成立可以重想概念；不必每次从研究或全稿重做。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A11"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-ARTCENTER",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "P.CRIT.AUDIT",
+      "kind": "PRINCIPLE",
+      "parent": "K.CRIT",
+      "title": "事后可追溯",
+      "principle": "审计应保留原始基准、实际变化及证据，并区分可解释设计调整与无依据事实漂移。",
+      "applicability": "设计评议中遇到“事后可追溯”相关的选择或误读风险时调用；不因存在该编码就机械套用。",
+      "actions": [
+        "记录结论、论证、页序、分页的前后差异、理由、证据、影响与待核点；交独立成品审计。"
+      ],
+      "limits": "差异本身不是失败；事实错误、遗漏关键限定和不可读仍应指出，不能用自主权掩盖。",
+      "positive_example": {
+        "context": "自编 PPT 教学情境，非大学原案例或经实测的优秀作品",
+        "example": "Art 拆开一页以保留可读证据，记录原页到两页映射与新增转场。",
+        "why": "审计应保留原始基准、实际变化及证据，并区分可解释设计调整与无依据事实漂移。"
+      },
+      "negative_example": {
+        "context": "自编反例，失败判断限于所述目标与条件",
+        "example": "默改业务结论，再让审计只与改后的文案核对。",
+        "why": "差异本身不是失败；事实错误、遗漏关键限定和不可读仍应指出，不能用自主权掩盖。；同时破坏本条原则所要求的意义或可读性。"
+      },
+      "flow_ids": [
+        "A11"
+      ],
+      "source_ids": [
+        "S-XINXIANG",
+        "S-UAL",
+        "S-ARTCENTER",
+        "S-UW-VIS"
+      ],
+      "provenance": "original-PPT-adaptation; source links support curriculum alignment, not attribution of this exact rule"
+    },
+    {
+      "code": "A01",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "传播任务",
+      "principle": "设计先解决特定受众的理解或行动问题，媒介条件决定信息出现的方式。",
+      "question": "关于传播任务，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.COM.AUDIENCE",
+        "P.COM.TASK",
+        "P.COM.CONTEXT"
+      ],
+      "operation_codes": [
+        "O.A01.APPLY"
+      ],
+      "flow_ids": [
+        "A01"
+      ],
+      "source_ids": [
+        "S-SCAD",
+        "S-UAL",
+        "S-XINXIANG"
+      ],
+      "example_conclusion": "经营委员会要理解两种经营模式的控制力与投入责任如何相互关联；投屏观看，尚不了解责任边界。",
+      "example_action": "开篇先解释模式甲承担采购与履约、模式乙连接交易参与者这一教学假设；随后比较责任范围。",
+      "example_limit": "受众已知规模，未知责任机制；先补解释再给比较。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A01.APPLY",
+      "kind": "OP",
+      "parent": "A01",
+      "title": "传播任务：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "开篇先解释模式甲承担采购与履约、模式乙连接交易参与者这一教学假设；随后比较责任范围。"
+      ],
+      "check": "受众已知规模，未知责任机制；先补解释再给比较。",
+      "knowledge_codes": [
+        "P.COM.AUDIENCE",
+        "P.COM.TASK",
+        "P.COM.CONTEXT"
+      ],
+      "flow_ids": [
+        "A01"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A02",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "全稿艺术方向",
+      "principle": "艺术方向是服务主题的连续视觉判断，必须可翻译为可观察的设计选择。",
+      "question": "关于全稿艺术方向，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.AD.CHARACTER",
+        "P.AD.COHERENCE",
+        "P.AD.DISTINCT"
+      ],
+      "operation_codes": [
+        "O.A02.APPLY"
+      ],
+      "flow_ids": [
+        "A02"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "example_conclusion": "采用审慎、清晰的比较语气：中性背景、稳定列位、有限强调色，责任边界作为全稿视觉线索。",
+      "example_action": "甲固定深蓝、乙固定赭色并同时写实体名称；用边界线表达责任范围，避免颜色独自承担识别。",
+      "example_limit": "选择来自比较任务，尚未获得真实读者验证。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A02.APPLY",
+      "kind": "OP",
+      "parent": "A02",
+      "title": "全稿艺术方向：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "甲固定深蓝、乙固定赭色并同时写实体名称；用边界线表达责任范围，避免颜色独自承担识别。"
+      ],
+      "check": "选择来自比较任务，尚未获得真实读者验证。",
+      "knowledge_codes": [
+        "P.AD.CHARACTER",
+        "P.AD.COHERENCE",
+        "P.AD.DISTINCT"
+      ],
+      "flow_ids": [
+        "A02"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A03",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "全稿视觉叙事",
+      "principle": "页与页应推动问题的理解，节奏变化源于论证任务而非随机换版式。",
+      "question": "关于全稿视觉叙事，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.ED.PROGRESSION",
+        "P.ED.RHYTHM",
+        "P.ED.CONTINUITY"
+      ],
+      "operation_codes": [
+        "O.A03.APPLY"
+      ],
+      "flow_ids": [
+        "A03"
+      ],
+      "source_ids": [
+        "S-ARTCENTER",
+        "S-SCAD",
+        "S-UAL"
+      ],
+      "example_conclusion": "叙事先解释模式，再比较承担，再汇合到权衡；投入问题紧接控制力解释。",
+      "example_action": "将“模式解释→责任对照→收益与投入权衡”排为连续三页；证据密集页后收束一次判断。",
+      "example_limit": "这是教学示例的页序；若调整批准 Copy，保留前后页序到审计。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A03.APPLY",
+      "kind": "OP",
+      "parent": "A03",
+      "title": "全稿视觉叙事：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "将“模式解释→责任对照→收益与投入权衡”排为连续三页；证据密集页后收束一次判断。"
+      ],
+      "check": "这是教学示例的页序；若调整批准 Copy，保留前后页序到审计。",
+      "knowledge_codes": [
+        "P.ED.PROGRESSION",
+        "P.ED.RHYTHM",
+        "P.ED.CONTINUITY"
+      ],
+      "flow_ids": [
+        "A03"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A04",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "单页设计命题",
+      "principle": "单页设计命题应指出本页让读者理解的判断及证据关系，而非版式名称。",
+      "question": "关于单页设计命题，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.SEM.PROPOSITION",
+        "P.SEM.FOCUS",
+        "P.SEM.QUESTION"
+      ],
+      "operation_codes": [
+        "O.A04.APPLY"
+      ],
+      "flow_ids": [
+        "A04"
+      ],
+      "source_ids": [
+        "S-UAL",
+        "S-UW-VIS",
+        "S-VCU"
+      ],
+      "example_conclusion": "责任对照页主判断是“直接控制的环节更多，也意味着需要承担更多投入责任”，限定于给定教学假设。",
+      "example_action": "同页并置控制环节与承担项目；标题保留限定，删去无依据的优劣排名。",
+      "example_limit": "不把模式结构直接推断成实际盈利优劣。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A04.APPLY",
+      "kind": "OP",
+      "parent": "A04",
+      "title": "单页设计命题：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "同页并置控制环节与承担项目；标题保留限定，删去无依据的优劣排名。"
+      ],
+      "check": "不把模式结构直接推断成实际盈利优劣。",
+      "knowledge_codes": [
+        "P.SEM.PROPOSITION",
+        "P.SEM.FOCUS",
+        "P.SEM.QUESTION"
+      ],
+      "flow_ids": [
+        "A04"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A05",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "内容角色与关系",
+      "principle": "先辨认元素的角色和真实关系，再选择视觉语法；接近和连线都会传达含义。",
+      "question": "关于内容角色与关系，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.REL.GROUP",
+        "P.REL.RELATION",
+        "P.REL.ROLE"
+      ],
+      "operation_codes": [
+        "O.A05.APPLY"
+      ],
+      "flow_ids": [
+        "A05"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "example_conclusion": "两列是对照关系，列内是责任包含关系；共同口径同时限定双方，不是因果箭头。",
+      "example_action": "按采购、库存、交付三行对应比较；共享口径放两列下方，避免归到一方。",
+      "example_limit": "每个连线只表示明确的包含或顺序。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A05.APPLY",
+      "kind": "OP",
+      "parent": "A05",
+      "title": "内容角色与关系：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "按采购、库存、交付三行对应比较；共享口径放两列下方，避免归到一方。"
+      ],
+      "check": "每个连线只表示明确的包含或顺序。",
+      "knowledge_codes": [
+        "P.REL.GROUP",
+        "P.REL.RELATION",
+        "P.REL.ROLE"
+      ],
+      "flow_ids": [
+        "A05"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A06",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "感知目标",
+      "principle": "视觉层级应让读者按理解任务需要的顺序发现、分组和解释信息。",
+      "question": "关于感知目标，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.PER.HIERARCHY",
+        "P.PER.SIGNAL",
+        "P.PER.ACCESS"
+      ],
+      "operation_codes": [
+        "O.A06.APPLY"
+      ],
+      "flow_ids": [
+        "A06"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-UW-VIS"
+      ],
+      "example_conclusion": "读者先看到承担范围差异，再核对三个环节，最后阅读教学口径。",
+      "example_action": "加大责任范围图的视觉重量，收弱装饰；两列实体保留文字标签并在灰度下检查。",
+      "example_limit": "最终需通过真实缩略图和全尺寸观察检验。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A06.APPLY",
+      "kind": "OP",
+      "parent": "A06",
+      "title": "感知目标：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "加大责任范围图的视觉重量，收弱装饰；两列实体保留文字标签并在灰度下检查。"
+      ],
+      "check": "最终需通过真实缩略图和全尺寸观察检验。",
+      "knowledge_codes": [
+        "P.PER.HIERARCHY",
+        "P.PER.SIGNAL",
+        "P.PER.ACCESS"
+      ],
+      "flow_ids": [
+        "A06"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A07",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "表现概念",
+      "principle": "表现概念把语义转成可感知的形式，媒介选择应考虑解释力而非装饰新奇。",
+      "question": "关于表现概念，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.CONCEPT.MEDIUM",
+        "P.CONCEPT.METAPHOR",
+        "P.CONCEPT.EXPLORATION"
+      ],
+      "operation_codes": [
+        "O.A07.APPLY"
+      ],
+      "flow_ids": [
+        "A07"
+      ],
+      "source_ids": [
+        "S-TONGJI",
+        "S-UAL",
+        "S-VCU"
+      ],
+      "example_conclusion": "用责任边界关系图表达结构差异，比图库照片更直接；当前不呈现未经提供的数值。",
+      "example_action": "绘制可编辑节点与范围框，并配对应文字；不用仓库照片暗示规模。",
+      "example_limit": "若后来增加真实数量比较，另外调用 P.LANG.DATA，不沿用面积暗示数量。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A07.APPLY",
+      "kind": "OP",
+      "parent": "A07",
+      "title": "表现概念：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "绘制可编辑节点与范围框，并配对应文字；不用仓库照片暗示规模。"
+      ],
+      "check": "若后来增加真实数量比较，另外调用 P.LANG.DATA，不沿用面积暗示数量。",
+      "knowledge_codes": [
+        "P.CONCEPT.MEDIUM",
+        "P.CONCEPT.METAPHOR",
+        "P.CONCEPT.EXPLORATION"
+      ],
+      "flow_ids": [
+        "A07"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A08",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "整体画面构成",
+      "principle": "构图组织整体重心、分组、路径和留白，局部美化不能代替全局关系。",
+      "question": "关于整体画面构成，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.COMP.BALANCE",
+        "P.COMP.SPACE",
+        "P.COMP.GRID"
+      ],
+      "operation_codes": [
+        "O.A08.APPLY"
+      ],
+      "flow_ids": [
+        "A08"
+      ],
+      "source_ids": [
+        "S-ARTCENTER",
+        "S-CALVIN",
+        "S-TONGJI"
+      ],
+      "example_conclusion": "整体采用两列共同行位，组内紧、组间松；共享口径跨列，主判断在上。",
+      "example_action": "让三组责任行共用基线，保留跨列注释空间；必要时拆页而不缩到不可读。",
+      "example_limit": "左右不要求等面积，先保障关系和文字可读。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A08.APPLY",
+      "kind": "OP",
+      "parent": "A08",
+      "title": "整体画面构成：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "让三组责任行共用基线，保留跨列注释空间；必要时拆页而不缩到不可读。"
+      ],
+      "check": "左右不要求等面积，先保障关系和文字可读。",
+      "knowledge_codes": [
+        "P.COMP.BALANCE",
+        "P.COMP.SPACE",
+        "P.COMP.GRID"
+      ],
+      "flow_ids": [
+        "A08"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A09",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "元素视觉语言",
+      "principle": "元素的形态与编码应支持阅读和意义，任何视觉修辞都应保留可核对的信息。",
+      "question": "关于元素视觉语言，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.LANG.TYPE",
+        "P.LANG.COLOR_IMAGE",
+        "P.LANG.DATA"
+      ],
+      "operation_codes": [
+        "O.A09.APPLY"
+      ],
+      "flow_ids": [
+        "A09"
+      ],
+      "source_ids": [
+        "S-CALVIN",
+        "S-TONGJI",
+        "S-UW-VIS",
+        "S-VCU"
+      ],
+      "example_conclusion": "字体承担三种角色：主判断、环节标签、限定说明；边界形状表示责任，颜色表示实体。",
+      "example_action": "用最终中文文本检查字形和断行；范围框不绑定数值尺度；说明中写“教学假设”。",
+      "example_limit": "避免把示意面积误读为市场规模或投入金额。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A09.APPLY",
+      "kind": "OP",
+      "parent": "A09",
+      "title": "元素视觉语言：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "用最终中文文本检查字形和断行；范围框不绑定数值尺度；说明中写“教学假设”。"
+      ],
+      "check": "避免把示意面积误读为市场规模或投入金额。",
+      "knowledge_codes": [
+        "P.LANG.TYPE",
+        "P.LANG.COLOR_IMAGE",
+        "P.LANG.DATA"
+      ],
+      "flow_ids": [
+        "A09"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A10",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "跨页统合",
+      "principle": "系列应保持实体和规则的一致性，同时允许表达不同任务所需的变化。",
+      "question": "关于跨页统合，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.SYS.INVARIANT",
+        "P.SYS.FAMILY",
+        "P.SYS.MONTAGE"
+      ],
+      "operation_codes": [
+        "O.A10.APPLY"
+      ],
+      "flow_ids": [
+        "A10"
+      ],
+      "source_ids": [
+        "S-ARTCENTER",
+        "S-CALVIN",
+        "S-SCAD",
+        "S-XINXIANG"
+      ],
+      "example_conclusion": "甲乙的列位、名称和颜色跨页保持一致；关系页与结论页可不同构。",
+      "example_action": "查看三页拼版和连续页，统一实体映射；结论页放大权衡句，保留同一字色语言。",
+      "example_limit": "页序改变要同时检查转场是否仍回答上一页问题。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A10.APPLY",
+      "kind": "OP",
+      "parent": "A10",
+      "title": "跨页统合：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "查看三页拼版和连续页，统一实体映射；结论页放大权衡句，保留同一字色语言。"
+      ],
+      "check": "页序改变要同时检查转场是否仍回答上一页问题。",
+      "knowledge_codes": [
+        "P.SYS.INVARIANT",
+        "P.SYS.FAMILY",
+        "P.SYS.MONTAGE"
+      ],
+      "flow_ids": [
+        "A10"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    },
+    {
+      "code": "A11",
+      "kind": "FLOW",
+      "parent": null,
+      "title": "设计评议",
+      "principle": "评议应把实际观察与预定意图对照，形成有因果解释的局部修正，而非用审美形容词裁决。",
+      "question": "关于设计评议，本稿当前需要作出什么可检验的选择？",
+      "conclusion_requirement": "写明本题对象、关系、取舍和依据；避免仅写“高级、突出、统一”。可标注待验证判断。",
+      "action_requirement": "指出要改变的页/对象、具体操作、预期阅读效果及检查方式；无须重复未受影响工作。",
+      "knowledge_codes": [
+        "P.CRIT.OBSERVE",
+        "P.CRIT.REVISE",
+        "P.CRIT.AUDIT"
+      ],
+      "operation_codes": [
+        "O.A11.APPLY"
+      ],
+      "flow_ids": [
+        "A11"
+      ],
+      "source_ids": [
+        "S-ARTCENTER",
+        "S-UAL",
+        "S-UW-VIS",
+        "S-XINXIANG"
+      ],
+      "example_conclusion": "本例只形成设计方案，尚未渲染，所以可读性和第一印象均为待验证判断。",
+      "example_action": "制作后检查真实预览；若共享口径被忽略，提升其位置而非重做研究；将所有语义或分页调整写入差异审计。",
+      "example_limit": "不伪造“评议已通过”；事实和表达风险由独立成品读者核对。",
+      "provenance": "original-cognitive-framework-adaptation"
+    },
+    {
+      "code": "O.A11.APPLY",
+      "kind": "OP",
+      "parent": "A11",
+      "title": "设计评议：形成判断并行动",
+      "principle": "将设计判断落实为带对象的操作，并以可观察的阅读效果检查；尚未验证的效果不得写成已实现。",
+      "actions": [
+        "制作后检查真实预览；若共享口径被忽略，提升其位置而非重做研究；将所有语义或分页调整写入差异审计。"
+      ],
+      "check": "不伪造“评议已通过”；事实和表达风险由独立成品读者核对。",
+      "knowledge_codes": [
+        "P.CRIT.OBSERVE",
+        "P.CRIT.REVISE",
+        "P.CRIT.AUDIT"
+      ],
+      "flow_ids": [
+        "A11"
+      ],
+      "source_ids": [],
+      "provenance": "original-instruction"
+    }
+  ]
+}

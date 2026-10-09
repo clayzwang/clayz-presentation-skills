@@ -1,6 +1,6 @@
 ---
 name: clayz-presentation-art-direction
-description: Design presentation structure, layout and full-deck image drafts from Copy-approved text. Organize the reader's attention and understanding through visual hierarchy, information relationships, composition and sequence rhythm. Use the model's design ability and relevant references when useful; use learning packages only when the user requests them. Hand a locked editable implementation specification to Output without rewriting approved content or creating the final PPTX.
+description: Design presentation structure, layout and full-deck image drafts from Copy-approved text. Organize the reader's attention and understanding through visual hierarchy, information relationships, composition and sequence rhythm. Use the model's design ability and relevant references when useful; use learning packages only when the user requests them. Hand a locked editable implementation specification to Output with original Copy and Art changes preserved for final audit; do not create the final PPTX.
 ---
 
 # Clayz Presentation Art Direction
@@ -15,19 +15,22 @@ Read them together, their relationship purposes and the actual Copy explanation
 when available. Decide which should share a paragraph, object or visual group,
 which merit emphasis, and which can be separated without breaking the account.
 Keep qualifications and referents intelligible when changing visual order.
-If a passage's dependency is unclear or its splitting broke the prose, return
-those Copy IDs for revision rather than inventing a relation or rewriting them.
+If a dependency is unclear, inspect the evidence and make a defensible design or wording choice. Preserve its uncertainty and any change from Copy in the final audit.
 
 Check that the actual page makes the argument and distinct judgments readable.
-Font-size differences or faithful text alone are insufficient. If Copy's
-grouping is ambiguous, return the affected passages to Copy. If the selected
-medium duplicates prose, request a precise Copy revision rather than rewriting
-it in Art. Use existing observations; no mandatory heading count or layout is
-introduced.
+Font-size differences or faithful text alone are insufficient. Art can clarify grouping and revise expression when the medium requires it; record before/after, reasons and evidence without a front-loaded request. No mandatory heading count or layout is introduced.
 
-## Current production boundary (v0.20.1)
+## Current production boundary (v0.20.2)
 
 Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+
+## Eleven concrete design results and knowledge codes — v0.20.2
+
+Read [Art cognition and external learning](../../packages/contracts/art-cognition.md). Cover A01 task, A02 direction, A03 narrative, A04 page proposition, A05 roles/relations, A06 perception, A07 concept, A08 composition, A09 visual language, A10 integration, A11 critique. For each, state a scoped conclusion, actionable operations and checks/uncertainty in `art_cognition`; reuse unaffected work and revisit local choices. These are eleven thinking concerns, not eleven agents or approval steps.
+
+When the user selects the foundations learning pack, validate it and use `scripts/art_learning.py lookup --pack <path> --code <Axx-or-principle>`. Read the principle, applicability, action, limitation and optional examples; cite exact consulted nodes and explain their effect on the choice. Do not merely append codes. Every code has a principle; cases are synthetic teaching examples, not university work or tested outcomes. Keep the package external to Light. The package is optional; concrete conclusions and actions are required for new Art work even without it.
+
+Record `art_cognition` and any `art_content` in planning before lock; carry both through the actual Art plan and final report. Original Copy remains available. For changed meaning, argument, order or pagination, use the actual presentation projection and the independent final-reader change audit specified in the contract. Differences alone do not fail; unsupported facts or lost qualifications do.
 
 ## Composition guidance
 
@@ -63,9 +66,7 @@ understand the page message, content groups, ownership, passage functions and
 supported relationships. Save readable page planning before refining object
 specifications: overall arrangement and reasons, attention and reading path,
 important element treatments, and whether ordinals, labels, emphasis or a slogan
-help. Record additions with their purpose and approved Copy basis; adding
-nothing is valid. Preserve approved wording; Art may create grounded additive
-expressive text. Replacements or changed meaning return to the upstream owner.
+help. Record additions and revisions with purpose, original Copy basis, evidence and impact; adding nothing is valid. Art can change conclusions, argument, order and pagination. Preserve both versions in `art_content` for final audit, without an advance modification request.
 
 Let one element or coherent combination serve mutually supporting functions.
 A process block's own direction-bearing shape may replace a separate arrow
@@ -103,8 +104,7 @@ Never fabricate a source, named registered pattern, retrieval or attribution.
 Original composition does not require registration or a source receipt.
 
 Use existing work notes and `reference_research` to preserve the actual source
-approach and consequential uses. Learning-package authoring and packaging are
-outside the engine version's scope. Online design research is authorized by
+approach and consequential uses. The optional external Art foundations package ships as a separate release asset; it is not a layout catalog or owner-admitted knowledge. Online design research is authorized by
 this workflow; it does not require approval for every reference. Keep asset
 reuse rights distinct from looking at a composition for inspiration. Record a
 new asset in the normal resource evidence without silently changing user
@@ -113,7 +113,7 @@ requirements or resetting an unchanged preflight.
 ## Context and authority
 
 Consume the root's validated task selection and unified `task-config.json`, merged from `../../config/default.json`. Resolve the explicit locale or `locale.default`.
-Preserve the Copy-approved text, research, acceptance rules, resource lock,
+Preserve the original Copy baseline, research, acceptance rules, resource lock,
 Provider lock and Copy-to-Art calibration. Read
 `../../packages/contracts/stage-enablement.md`, `reader-quality.md` and
 `production-reliability.md` in the task locale. Read
@@ -151,7 +151,7 @@ or choosing a composition.
    specify an integrated native table. Govern images, logos and symbols by
    purpose and rights; decorative ordinals must not imply unsupported rank.
 5. Produce readable PNG/JPEG drafts of every page using the actual approved
-   text. Inspect thumbnails, full-size pages and the actual page sequence.
+   or Art-revised text, preserving differences. Inspect thumbnails, full-size pages and the actual page sequence.
    Judge attention, relationships, reading effort, visual fatigue, purposeful
    repetition, whitespace and the combined weight of color and text. Check
    whether filled areas and dense passages pull attention to the intended
@@ -164,8 +164,7 @@ or choosing a composition.
    native targets and bounded technical adjustments. Bind each Copy ID once
    for traceability; several IDs may bind one object through disjoint text
    ranges. Art's `reading_sequence` is independent of Copy's array order.
-7. Return wording or pagination changes to Copy and changed facts/calculations
-   to Logic. Output implements the approved design; it does not invent one.
+7. Record Art changes and evidence in `art_content`; original research is retained for independent audit of any new inference. Do not require advance Copy/Logic approval. Output implements the locked actual presentation and preserves the original baseline for comparison.
 8. Lock the full-deck baseline only after reconciling images and specifications.
    Use `../../scripts/stage_documents.py lock-design`, then validate:
 

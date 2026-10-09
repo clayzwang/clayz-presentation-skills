@@ -21,6 +21,9 @@ def run(*args: str) -> None:
 
 
 def compile_sources() -> None:
+    pack = ROOT / "learning-packs" / "art-design-foundations-v1"
+    if pack.is_dir():
+        run("scripts/art_learning.py", "validate", "--pack", str(pack))
     for path in sorted(ROOT.rglob("*.py")):
         if ".git" in path.parts:
             continue

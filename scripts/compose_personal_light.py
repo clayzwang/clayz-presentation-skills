@@ -56,6 +56,8 @@ COMPOSITE_EXCLUDED_TOP_LEVEL = {
 }
 COMPOSITE_RUNTIME_SCRIPTS = {
     "stage_documents.py",
+    "art_learning.py",
+    "reader_review.py",
     "font_bundle.py",
     "restore_report.py",
     "cloud_learning_cli.py",

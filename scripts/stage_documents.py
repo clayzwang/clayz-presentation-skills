@@ -33,6 +33,9 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--planning', type=Path)
+    parser.add_argument('--cognition', type=Path)
+    parser.add_argument('--learning-pack', action='append', type=Path, default=[])
+    parser.add_argument('--art-content', type=Path)
     parser.add_argument('--config', type=Path)
     parser.add_argument('--title-review', type=Path)
     parser.add_argument('--content-review', type=Path)
@@ -51,6 +54,12 @@ def main():
             from validate_ppt_package import validate_package as validate_copy
             errors = validate_copy(package, 'copy-approved')
             draft = json.loads(args.plan.read_text(encoding='utf-8'))
+            for key, path in (('art_cognition', args.cognition), ('art_content', args.art_content)):
+                if path is not None:
+                    draft[key] = json.loads(path.read_text(encoding='utf-8'))
+            if 'art_cognition' in draft:
+                from packages.validators.art_learning import verify_cognition_sources
+                errors.extend(verify_cognition_sources(draft['art_cognition'], args.learning_pack))
             errors.extend(validate_planning_record(package, draft, require_recorded=False))
             if errors:
                 raise ValueError('\n'.join(errors))
@@ -74,6 +83,11 @@ def main():
                     raise ValueError('already locked; create a new draft revision instead of relocking')
                 if args.planning is not None:
                     plan['page_planning'] = planning_reference(args.planning)
+                    for key in ('art_cognition', 'art_content'):
+                        if key in plan['page_planning']['content']:
+                            if key in plan and plan[key] != plan['page_planning']['content'][key]:
+                                raise ValueError(f'{key}: draft differs from recorded planning; record a new revision')
+                            plan[key] = plan['page_planning']['content'][key]
                 plan.setdefault('visual_baseline', {}).update(
                     status='locked', locked_at=datetime.now(timezone.utc).isoformat(),
                     copy_package_sha256=digest(package), spec_sha256=spec_digest(plan))

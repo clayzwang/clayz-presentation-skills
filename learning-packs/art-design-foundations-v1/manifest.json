@@ -1,0 +1,25 @@
+{
+  "contract": "io.clayz.presentation.art-learning-pack/1.0",
+  "package_id": "art-design-foundations",
+  "version": "1.0.0",
+  "minimum_plugin_version": "0.20.2",
+  "language": "zh-CN",
+  "status": "authored-reference-not-human-validated",
+  "license": "Apache-2.0 (original text only)",
+  "nodes": "nodes.json",
+  "sources": "sources.json",
+  "files": {
+    "Art-design-learning-v1.0.0.zh-CN.txt": "f76259af0506721df9fd4c6396c2ad4116ddf2b83f331acf550781056eddf2da",
+    "README.md": "1bad5a09c6a6eae00f9ea5c82c5569df8cbd805af2fa9fc8ad50a49e09ec30a5",
+    "nodes.json": "f1cd25a6eb4887810cb41b18e8bdbbb17ed45e04ab40fa3ea9d3692ef274d4b2",
+    "sources.json": "f0d8ab171ea2c6016c2f26ff199f11472d2cedd103b33533f981c72f25d0cf03",
+    "worked-example.json": "be8589a2b642cd8adf60510c8a0bcced28f88136a7a654d2b41c0c8c45bbc3dc"
+  },
+  "counts": {
+    "FLOW": 11,
+    "KNOW": 11,
+    "PRINCIPLE": 33,
+    "OP": 11
+  },
+  "copyright": "2026 clayz; original synthesis and synthetic teaching examples"
+}

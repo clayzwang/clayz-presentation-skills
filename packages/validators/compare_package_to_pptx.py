@@ -256,7 +256,8 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
     try:
         with zipfile.ZipFile(pptx) as archive:
             names = sorted((n for n in archive.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml', n)), key=natural_slide_key)
-            pages = package['copy_layer']['slides']
+            from packages.validators.art_content import presentation_pages
+            pages = presentation_pages(package, plan)
             if len(names) != len(pages):
                 errors.append(f'pptx: expected {len(pages)} slides, found {len(names)}')
             for index, (page, design, name) in enumerate(zip(pages, plan['slides'], names), 1):

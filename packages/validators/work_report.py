@@ -320,7 +320,7 @@ def _art_direction(content: Mapping[str, Any]) -> dict[str, Any]:
     slides = plan.get("slides") if isinstance(plan, Mapping) else None
     sections = {
         key: plan[key]
-        for key in ("communication_contract", "art_direction", "decision_log", "typography_contract", "deck_rhythm", "slides", "page_planning")
+        for key in ("communication_contract", "art_direction", "decision_log", "typography_contract", "deck_rhythm", "slides", "page_planning", "art_cognition", "art_content")
         if isinstance(plan, Mapping) and key in plan
     }
     return {

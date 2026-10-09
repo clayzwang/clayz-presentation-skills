@@ -10,6 +10,7 @@ import hashlib
 import json
 import sys
 import zipfile
+import tempfile
 from pathlib import Path
 
 
@@ -115,6 +116,7 @@ def verify(root: Path, platforms: tuple[str, ...] = builder.DEFAULT_RELEASE_PLAT
         f"clayz-presentation-skills-{version}-offline-{platform_name}-py312.zip"
         for platform_name in platforms
     ]
+    expected.append(f"clayz-presentation-skills-{version}-art-learning.zip")
     errors: list[str] = []
     checksum_path = root / "SHA256SUMS.txt"
     if not checksum_path.is_file():
@@ -126,7 +128,7 @@ def verify(root: Path, platforms: tuple[str, ...] = builder.DEFAULT_RELEASE_PLAT
     if set(checksums) != set(expected):
         errors.append(
             "SHA256SUMS.txt does not list exactly the two light archives and "
-            f"the selected offline add-ons: {', '.join(platforms)}"
+            f"the Art learning pack and selected offline add-ons: {', '.join(platforms)}"
         )
     for filename in expected:
         path = root / filename
@@ -141,7 +143,15 @@ def verify(root: Path, platforms: tuple[str, ...] = builder.DEFAULT_RELEASE_PLAT
         except (OSError, ValueError, zipfile.BadZipFile) as exc:
             errors.append(f"archive audit failed for {filename}: {exc}")
             continue
-        if filename.endswith("-light.zip"):
+        if filename.endswith("-art-learning.zip"):
+            from packages.validators.art_learning import load_pack
+            try:
+                with tempfile.TemporaryDirectory() as directory, zipfile.ZipFile(path) as archive:
+                    archive.extractall(directory)  # Paths audited above before extraction.
+                    load_pack(Path(directory) / "art-design-foundations-v1")
+            except (ValueError, KeyError, OSError) as exc:
+                errors.append(f"learning archive: {exc}")
+        elif filename.endswith("-light.zip"):
             target = next(name for name in builder.LIGHT_TARGETS if f"-{name}-light.zip" in filename)
             errors.extend(verify_light(path, target))
         else:

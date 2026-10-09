@@ -239,7 +239,8 @@ def validate_visual_baseline(package, plan):
         timestamp(baseline.get("locked_at"))
     except ValueError:
         errors.append("visual_baseline.locked_at: timezone timestamp required")
-    expected = rows(package.get("copy_layer", {}).get("slides"))
+    from packages.validators.art_content import presentation_pages
+    expected = presentation_pages(package, plan)
     previews = rows(baseline.get("slides"))
     if [p.get("slide_id") for p in previews if isinstance(p, dict)] != [p.get("slide_id") for p in expected]:
         errors.append("visual_baseline: one preview per Copy page in order is required")
@@ -482,6 +483,9 @@ def validate_embedded_documents(report):
             if not planning_errors:
                 record = reference["content"]
                 errors.extend(validate_planning_record(copy, record))
+                for key in ("art_content", "art_cognition"):
+                    if plan.get(key) != record.get(key):
+                        errors.append(f"embedded {key} differs from planning")
                 if timestamp(record.get("recorded_at")) >= timestamp(baseline.get("locked_at")):
                     errors.append("embedded planning was recorded after the design lock")
         if baseline.get("spec_sha256") != spec_digest(plan) or baseline.get("copy_package_sha256") != digest(copy) or copy.get("story") != logic.get("story") or copy.get("research") != logic.get("research"):

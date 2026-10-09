@@ -1,5 +1,12 @@
 # 发版包说明
 
+## v0.20.2 learning asset / 学习包
+
+The current release adds `clayz-presentation-skills-0.20.2-art-learning.zip`, separately from both Light plugins and the Windows dependency add-on. Extract it to its own directory; read the complete Chinese TXT and use the plugin's `scripts/art_learning.py` to validate and look up selected codes. `SHA256SUMS.txt` now covers four ZIPs. The pack contains original teaching synthesis and synthetic examples, not private admitted knowledge or redistributed university artwork. See [Art cognition](../packages/contracts/art-cognition.md).
+
+Earlier version-specific package descriptions below are historical.
+
+
 v0.8.0 从唯一公共核心构建两个公共 Light 目标，继续把本地第三方 Python 依赖分开发布，并在公共发版路径之外提供所有者私有的云端 composer。本地发版以 Windows 为首发验证环境，本版不发布其他操作系统包。
 
 ## 文件组成

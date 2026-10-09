@@ -1,0 +1,149 @@
+{
+  "scenario": "纯教学假设：比较经营模式甲与乙。不是京东、阿里研究结果，无真实财务数字。",
+  "status": "planning-only; no rendered artifact or reader test",
+  "steps": [
+    {
+      "flow_code": "A01",
+      "conclusion": "经营委员会要理解两种经营模式的控制力与投入责任如何相互关联；投屏观看，尚不了解责任边界。",
+      "actions": [
+        "开篇先解释模式甲承担采购与履约、模式乙连接交易参与者这一教学假设；随后比较责任范围。"
+      ],
+      "check_or_uncertainty": "受众已知规模，未知责任机制；先补解释再给比较。",
+      "knowledge_codes": [
+        "P.COM.AUDIENCE",
+        "P.COM.TASK",
+        "P.COM.CONTEXT"
+      ]
+    },
+    {
+      "flow_code": "A02",
+      "conclusion": "采用审慎、清晰的比较语气：中性背景、稳定列位、有限强调色，责任边界作为全稿视觉线索。",
+      "actions": [
+        "甲固定深蓝、乙固定赭色并同时写实体名称；用边界线表达责任范围，避免颜色独自承担识别。"
+      ],
+      "check_or_uncertainty": "选择来自比较任务，尚未获得真实读者验证。",
+      "knowledge_codes": [
+        "P.AD.CHARACTER",
+        "P.AD.COHERENCE",
+        "P.AD.DISTINCT"
+      ]
+    },
+    {
+      "flow_code": "A03",
+      "conclusion": "叙事先解释模式，再比较承担，再汇合到权衡；投入问题紧接控制力解释。",
+      "actions": [
+        "将“模式解释→责任对照→收益与投入权衡”排为连续三页；证据密集页后收束一次判断。"
+      ],
+      "check_or_uncertainty": "这是教学示例的页序；若调整批准 Copy，保留前后页序到审计。",
+      "knowledge_codes": [
+        "P.ED.PROGRESSION",
+        "P.ED.RHYTHM",
+        "P.ED.CONTINUITY"
+      ]
+    },
+    {
+      "flow_code": "A04",
+      "conclusion": "责任对照页主判断是“直接控制的环节更多，也意味着需要承担更多投入责任”，限定于给定教学假设。",
+      "actions": [
+        "同页并置控制环节与承担项目；标题保留限定，删去无依据的优劣排名。"
+      ],
+      "check_or_uncertainty": "不把模式结构直接推断成实际盈利优劣。",
+      "knowledge_codes": [
+        "P.SEM.PROPOSITION",
+        "P.SEM.FOCUS",
+        "P.SEM.QUESTION"
+      ]
+    },
+    {
+      "flow_code": "A05",
+      "conclusion": "两列是对照关系，列内是责任包含关系；共同口径同时限定双方，不是因果箭头。",
+      "actions": [
+        "按采购、库存、交付三行对应比较；共享口径放两列下方，避免归到一方。"
+      ],
+      "check_or_uncertainty": "每个连线只表示明确的包含或顺序。",
+      "knowledge_codes": [
+        "P.REL.GROUP",
+        "P.REL.RELATION",
+        "P.REL.ROLE"
+      ]
+    },
+    {
+      "flow_code": "A06",
+      "conclusion": "读者先看到承担范围差异，再核对三个环节，最后阅读教学口径。",
+      "actions": [
+        "加大责任范围图的视觉重量，收弱装饰；两列实体保留文字标签并在灰度下检查。"
+      ],
+      "check_or_uncertainty": "最终需通过真实缩略图和全尺寸观察检验。",
+      "knowledge_codes": [
+        "P.PER.HIERARCHY",
+        "P.PER.SIGNAL",
+        "P.PER.ACCESS"
+      ]
+    },
+    {
+      "flow_code": "A07",
+      "conclusion": "用责任边界关系图表达结构差异，比图库照片更直接；当前不呈现未经提供的数值。",
+      "actions": [
+        "绘制可编辑节点与范围框，并配对应文字；不用仓库照片暗示规模。"
+      ],
+      "check_or_uncertainty": "若后来增加真实数量比较，另外调用 P.LANG.DATA，不沿用面积暗示数量。",
+      "knowledge_codes": [
+        "P.CONCEPT.MEDIUM",
+        "P.CONCEPT.METAPHOR",
+        "P.CONCEPT.EXPLORATION"
+      ]
+    },
+    {
+      "flow_code": "A08",
+      "conclusion": "整体采用两列共同行位，组内紧、组间松；共享口径跨列，主判断在上。",
+      "actions": [
+        "让三组责任行共用基线，保留跨列注释空间；必要时拆页而不缩到不可读。"
+      ],
+      "check_or_uncertainty": "左右不要求等面积，先保障关系和文字可读。",
+      "knowledge_codes": [
+        "P.COMP.BALANCE",
+        "P.COMP.SPACE",
+        "P.COMP.GRID"
+      ]
+    },
+    {
+      "flow_code": "A09",
+      "conclusion": "字体承担三种角色：主判断、环节标签、限定说明；边界形状表示责任，颜色表示实体。",
+      "actions": [
+        "用最终中文文本检查字形和断行；范围框不绑定数值尺度；说明中写“教学假设”。"
+      ],
+      "check_or_uncertainty": "避免把示意面积误读为市场规模或投入金额。",
+      "knowledge_codes": [
+        "P.LANG.TYPE",
+        "P.LANG.COLOR_IMAGE",
+        "P.LANG.DATA"
+      ]
+    },
+    {
+      "flow_code": "A10",
+      "conclusion": "甲乙的列位、名称和颜色跨页保持一致；关系页与结论页可不同构。",
+      "actions": [
+        "查看三页拼版和连续页，统一实体映射；结论页放大权衡句，保留同一字色语言。"
+      ],
+      "check_or_uncertainty": "页序改变要同时检查转场是否仍回答上一页问题。",
+      "knowledge_codes": [
+        "P.SYS.INVARIANT",
+        "P.SYS.FAMILY",
+        "P.SYS.MONTAGE"
+      ]
+    },
+    {
+      "flow_code": "A11",
+      "conclusion": "本例只形成设计方案，尚未渲染，所以可读性和第一印象均为待验证判断。",
+      "actions": [
+        "制作后检查真实预览；若共享口径被忽略，提升其位置而非重做研究；将所有语义或分页调整写入差异审计。"
+      ],
+      "check_or_uncertainty": "不伪造“评议已通过”；事实和表达风险由独立成品读者核对。",
+      "knowledge_codes": [
+        "P.CRIT.OBSERVE",
+        "P.CRIT.REVISE",
+        "P.CRIT.AUDIT"
+      ]
+    }
+  ]
+}
