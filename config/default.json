@@ -2,7 +2,7 @@
   "$schema": "./config.schema.json",
   "identity": {
     "project": "clayz-presentation-skills",
-    "version": "0.20.0",
+    "version": "0.20.1",
     "creator": "clayz",
     "brand": "clayz",
     "namespace": "io.clayz.presentation",
@@ -12,7 +12,7 @@
       "allow_removal": true,
       "custom_properties": {
         "ClayzGenerator": "clayz-presentation-skills",
-        "ClayzVersion": "0.20.0",
+        "ClayzVersion": "0.20.1",
         "ClayzOriginalArchitecture": "clayz",
         "ClayzBrand": "clayz",
         "ClayzNamespace": "io.clayz.presentation"
@@ -25,7 +25,7 @@
     "approval_states": ["draft", "logic-approved", "copy-approved", "art-direction-approved", "built", "supervised"],
     "execution_ledger_contract": "io.clayz.presentation.execution-ledger/1.0",
     "maximum_technical_cycles": 3,
-    "reader_review": {"contract": "io.clayz.presentation.reader-review/1.0", "required": true, "phases": ["copy", "final"], "unavailable_policy": "disclose-and-continue"},
+    "reader_review": {"contract": "io.clayz.presentation.reader-review/1.0", "required": true, "phases": ["title", "content", "final"], "unavailable_policy": "disclose-and-stop"},
     "delivery_policy": {
       "mode": "calibrated",
       "calibration_contract": "io.clayz.presentation.supervisor-calibration/1.0",

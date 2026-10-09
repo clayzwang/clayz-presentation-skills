@@ -104,7 +104,7 @@ def _record_readiness(record: Mapping[str, Any]) -> str:
 
 
 def _now() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _time(value: Any, path: str, errors: list[str]) -> datetime | None:
@@ -646,6 +646,15 @@ def create_calibration_record(
     validate_record(source_record, run, task, verify_files=True)
     if source_record.get("stage") != spec["source_stage"]:
         raise StageWorkRecordError("source record stage does not match calibration step")
+    if step == "copy-to-art-direction" and "config" in source_record["artifacts"]:
+        from packages.validators.reader_review import read, check_art_gate
+        refs = source_record["artifacts"]
+        if read(refs["config"]["path"]).get("workflow", {}).get("reader_review", {}).get("phases") == ["title", "content", "final"]:
+            if "package" not in refs:
+                raise StageWorkRecordError("Copy calibration requires package artifact")
+            check_art_gate(read(refs["package"]["path"]),
+                           refs.get("reader-review-title", {}).get("path"),
+                           refs.get("reader-review-content", {}).get("path"))
     acceptance = _artifact_meta(acceptance_contract_path)
     shared = _artifact_meta(shared_rules_path)
     calibration: dict[str, Any] = {
@@ -669,6 +678,8 @@ def create_calibration_record(
     calibration["record_sha256"] = canonical_record_sha256(calibration)
     validate_calibration_record(calibration, expected_run_id=run, expected_task_request_sha256=task)
     if output is not None:
+        if recorded_at is not None and Path(output).exists() and json.loads(Path(output).read_text(encoding="utf-8")).get("recorded_at") != recorded_at:
+            raise FileExistsError("explicit calibration time changed; preserve the record and use a new revision")
         _write_new(output, calibration)
     return calibration
 
@@ -682,12 +693,8 @@ def _artifact_meta(path: Path) -> dict[str, Any]:
 
 
 def _write_new(path: Path, value: Mapping[str, Any]) -> None:
-    resolved = Path(path).expanduser().resolve()
-    if resolved.exists():
-        raise FileExistsError(resolved)
-    resolved.parent.mkdir(parents=True, exist_ok=True)
-    with resolved.open("x", encoding="utf-8", newline="\n") as stream:
-        stream.write(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+    from packages.validators.handoff_io import write_record
+    write_record(path, value)
 
 
 def create_calibration_binding(
@@ -849,6 +856,7 @@ def create_record(
     *,
     calibration_bindings: list[dict[str, Any]] | None = None,
     acceptance_contract: Path | None = None,
+    require_artifact_roles: bool = False,
 ) -> dict[str, Any]:
     """Construct one record from a draft, actual run binding, and actual files."""
     errors: list[str] = []
@@ -862,6 +870,19 @@ def create_record(
     calibrated_hint = acceptance_contract is not None or (
         isinstance(draft, Mapping) and any(key in draft for key in ("acceptance_contract", "calibration_bindings"))
     )
+    aliases = {"report-draft": "draft", "supervisor_draft": "draft", "art-plan": "plan"}
+    normalized = {}
+    for role, path in artifacts.items():
+        role = aliases.get(role, role)
+        if role in normalized:
+            errors.append(f"artifacts.{role}: duplicate role after normalization")
+        normalized[role] = path
+    artifacts = normalized
+    if require_artifact_roles:
+        required = {"logic": {"package"}, "copy": {"package"}, "art-direction": {"plan"},
+                    "output": {"qa", "inventory", "pptx"}, "supervisor": {"draft", "pptx", "auditor"}}
+        for role in sorted(required.get(stage, set()) - artifacts.keys()):
+            errors.append(f"artifacts.{role}: required for {stage}; bind the existing artifact and retry record-stage only")
     fields, field_errors = _draft(draft, calibrated=calibrated_hint)
     artifacts_out, artifact_errors = _artifacts(artifacts)
     errors.extend(field_errors + artifact_errors)

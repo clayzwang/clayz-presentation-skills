@@ -167,7 +167,17 @@ class CalibratedAuditTests(unittest.TestCase):
                 run_id="run-1",
                 task_request_sha256=hashlib.sha256(task.read_bytes()).hexdigest(),
             )
-            audit = create_auditor_artifact(**kwargs)
+            output = root / "recorded-audit.json"
+            invalid = copy.deepcopy(kwargs)
+            invalid["independent_context"]["model_identity_disclosure"] = "explanatory prose is not an enum"
+            with self.assertRaises(IndependentAuditError):
+                create_auditor_artifact(**invalid, output=output)
+            self.assertFalse(output.exists())
+            audit = create_auditor_artifact(**kwargs, output=output)
+            original = output.read_bytes()
+            retried = create_auditor_artifact(**kwargs, output=output)
+            self.assertEqual(original, output.read_bytes())
+            self.assertEqual(audit, retried)
             sources["qa"].write_text("tampered", encoding="utf-8")
             with self.assertRaises(IndependentAuditError):
                 validate_auditor_artifact(audit)

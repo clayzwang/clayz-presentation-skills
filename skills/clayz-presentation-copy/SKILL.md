@@ -16,6 +16,10 @@ presentation. Copy may combine, split, reorder and rewrite the complete story.
 Preserve facts, numbers, claim strength, qualifiers, relationships and required
 coverage; return new facts or changed research judgments to Logic.
 
+## Current production boundary (v0.20.1)
+
+Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+
 ## Current handoff — v0.19.0
 
 Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`

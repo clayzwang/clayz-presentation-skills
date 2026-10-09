@@ -87,9 +87,8 @@ def _write_new(path: Path, value: dict[str, Any]) -> None:
     path = path.resolve()
     if path.is_relative_to(ROOT.resolve()):
         raise ValueError("work records and reports must be outside the installed Skill")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("x", encoding="utf-8", newline="\n") as stream:
-        stream.write(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+    from packages.validators.handoff_io import write_record
+    write_record(path, value)
 
 
 def _calibrated_assembly(report: Mapping[str, Any], records: Any = None) -> bool:
@@ -295,9 +294,16 @@ def validate_work_record_assembly(report: dict[str, Any], pptx: Path | None = No
             raise ValueError("design comparison differs from the Supervisor's recorded observations")
         lock_time = timestamp(plan["visual_baseline"]["locked_at"])
         start_time = timestamp(qa.get("output_started_at"))
-        # Existing work records have second precision; compare at that precision
-        # while validate_output_baseline checks the precise lock/start ordering.
-        if not lock_time.replace(microsecond=0) <= timestamp(records[2]["recorded_at"]) <= start_time.replace(microsecond=0) <= timestamp(records[3]["recorded_at"]):
+        # Historical records cannot attest subsecond order. New records retain
+        # full precision; never rewrite old evidence to manufacture chronology.
+        art_time, output_time = timestamp(records[2]["recorded_at"]), timestamp(records[3]["recorded_at"])
+        def recorded_before(left, right, record):
+            if "." not in record["recorded_at"]:
+                return left.replace(microsecond=0) <= right.replace(microsecond=0)
+            return left <= right
+        if not (recorded_before(lock_time, art_time, records[2]) and
+                recorded_before(art_time, start_time, records[2]) and
+                recorded_before(start_time, output_time, records[3])):
             raise ValueError("visual baseline must be recorded by Art Direction before Output starts")
     elif report.get("design_comparison") != draft.get("design_comparison") or report.get("stage_documents") != draft.get("stage_documents"):
         raise ValueError("legacy report cannot invent handoff extensions during assembly")
@@ -341,7 +347,7 @@ def validate_work_record_assembly(report: dict[str, Any], pptx: Path | None = No
         } if isinstance(source_rows, list) else {}
         from packages.validators.reader_review import audit_reviews, required_for_config, validate_copy_review_order
         selected_config = _read_object(Path(inputs["config"]["path"]))
-        audit_reviews(auditor, required=required_for_config(selected_config))
+        audit_reviews(auditor, required=required_for_config(selected_config), config=selected_config)
         validate_copy_review_order(auditor, calibration_values[1])
         for kind in ("package", "plan", "qa", "inventory"):
             if kind not in by_kind:
@@ -471,6 +477,7 @@ def _record_commands(argv: list[str]) -> int:
                 _read_object(args.previous_record) if args.previous_record else None,
                 calibration_bindings=calibration_bindings,
                 acceptance_contract=args.acceptance_contract,
+                require_artifact_roles=True,
             )
             _write_new(args.output, result)
             print(json.dumps({"status": "recorded", "stage": args.stage, "path": str(args.output)}))

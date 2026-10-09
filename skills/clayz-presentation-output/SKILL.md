@@ -10,6 +10,10 @@ PPTX matches its contracts. Consume Art Direction's artifact and the
 Supervisor calibration as separate inputs; send the completed evidence to both
 Supervisor and the shared Independent Auditor module.
 
+## Current production boundary (v0.20.1)
+
+Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+
 ## Production reliability (v0.17.6)
 
 Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.

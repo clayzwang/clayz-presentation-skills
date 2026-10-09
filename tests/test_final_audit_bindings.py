@@ -219,9 +219,10 @@ class ReleaseConditionTests(_CalibratedBaselineMixin, unittest.TestCase):
         harness = adversarial.RealCliReleaseTests("test_real_cli_produces_pptx_report_and_manifest_with_honest_limitations")
         harness.setUp()
         self.addCleanup(harness.tearDown)
+        requirement_id = harness.package["acceptance_contract"]["requirements"][0]["requirement_id"]
         condition = {
             "condition_id": "COND-NO-DELIVERY-RAW",
-            "requirement_id": "REQ-RAW-USER",
+            "requirement_id": requirement_id,
             "statement": "Do not deliver when the raw request requirement fails.",
             "source": "user-request",
             "action": "no-delivery",
@@ -243,11 +244,11 @@ class ReleaseConditionTests(_CalibratedBaselineMixin, unittest.TestCase):
         auditor["coverage"]["requirements"] = [
             {
                 **row,
-                "status": "fail" if row["requirement_id"] == "REQ-RAW-USER" else row["status"],
+                "status": "fail" if row["requirement_id"] == requirement_id else row["status"],
             }
             for row in auditor["coverage"]["requirements"]
         ]
-        auditor["findings"][0]["requirement_ids"] = ["REQ-RAW-USER"]
+        auditor["findings"][0]["requirement_ids"] = [requirement_id]
         auditor["audit_status"] = "issues-found"
         auditor["record_sha256"] = canonical_record_sha256(auditor)
         auditor_path.write_bytes(json_bytes(auditor))

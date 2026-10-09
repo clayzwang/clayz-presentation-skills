@@ -1,9 +1,6 @@
 # Substantive reasoning and natural presentation language
 
-For v0.20.0 apply [reader review](reader-review.md): fresh contexts read visible
-Copy before Art and final pages after Output, freeze their actual retelling, and
-only then reconcile production evidence. Author self-assessment and fidelity
-checks do not establish reader understanding.
+For v0.20.1 follow [reader review](reader-review.md): independent title-only and full-content readings against Logic before Art; actual final pages against approved Copy after Output. Freeze first understanding before evidence. Require the current gates, preserve findings, and repair only the affected scope. Upload is outside the standard workflow.
 
 Use across Logic, Copy, Art Direction and final review. Evidence fidelity,
 substantive explanation and reader understanding take priority over brevity,

@@ -82,6 +82,10 @@ may be delivered alongside it. Neither a hand-written summary nor a Word
 document is a substitute.
 
 
+## Current eight-step workflow (v0.20.1)
+
+Follow `packages/contracts/reader-review.md`: substantive Logic conclusions → complete Copy → fresh title-only reader, then compare with Logic → different fresh full-content reader, then compare with Logic → Art → Output → fresh final-render reader, then compare with approved Copy → supervision report and delivery. Freeze understanding before exposing comparison evidence. The reader contract explicitly requests these real host delegations. Gate Art on both current Copy reviews; gate delivery on final review. Expression defects return to Copy; final visual defects return to Art, which may assign Output repairs. Proven research faults return to Logic with accountability. Preserve original readings and reuse only unaffected work. Do not start design, full drafts or rendering before Copy gates. Upload is outside this workflow and requires a separate user request.
+
 ## Production reliability (v0.17.5)
 
 Read `packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.

@@ -17,19 +17,7 @@ For v0.17.6, challenge Art on unexplained large whitespace in final renders. Req
 
 ## Reader understanding (v0.17.1)
 
-For v0.20.0, read [reader review](../../packages/contracts/reader-review.md) or its
-zh-CN peer. Schedule a fresh, no-history reader delegation after current Copy and
-before Copy-to-Art calibration, and a different fresh reader after final Output.
-This skill explicitly requests those reader delegates when the host supports
-them. Use the real host dispatch tool, not a Python subprocess presented as an
-independent model. Prepare the visible-only packet with `scripts/reader_review.py`;
-pass only its input directory and capture actual host receipts and access limits.
-The reader first retells the material without production evidence. Freeze that
-response before the second pass reads Logic/Copy/Art/QA and assigns findings to
-the earliest owner. Preserve repaired revisions and evidence-backed disagreements.
-Bind `reader-review-copy` and `reader-review-final` into the existing final audit.
-Shared-context or unavailable execution remains explicitly incomplete evidence.
-These are internal reviews with routine repair authority, not user approvals.
+For v0.20.1 follow [reader review](../../packages/contracts/reader-review.md) and its zh-CN peer. This skill explicitly requests three real host reader delegates with fresh contexts and no inherited production history: titles only, complete Copy, then actual final rendered pages. Freeze each understanding before evidence reconciliation. Title/content compare to original Logic; final compares to approved Copy. Bind `reader-review-title`, `reader-review-content`, `reader-review-final`. Require the current title and content gates before Art, and final gate before delivery. Return expression defects to Copy; final visual defects to Art, which can delegate implementation repairs to Output. Research faults need evidence and Logic accountability. Missing capabilities remain incomplete evidence, never a pass. These are internal repairs, not user approvals. Upload is only a separate user request.
 
 Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
 according to the task locale. Necessary explanation and evidence fidelity take

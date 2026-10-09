@@ -11,11 +11,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / 'packages' / 'validators'))
 from story_handoff import build_stage_documents, digest, spec_digest, render_document
 from validate_art_direction_plan import validate_plan
 from validate_logic_package import validate_package
-from config_policy import load_policy
+from config_policy import load_policy, load_config
 from page_planning import (PLANNING_CONTRACT, validate_planning_record,
                            planning_reference, planning_markdown)
 
@@ -33,12 +34,17 @@ def main():
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--planning', type=Path)
     parser.add_argument('--config', type=Path)
+    parser.add_argument('--title-review', type=Path)
+    parser.add_argument('--content-review', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     try:
         package = json.loads(args.package.read_text(encoding='utf-8'))
         if package.get('contract_version') not in {'3.0', '3.1', '3.2', '3.3', '3.4'}:
             raise ValueError('story/research handoffs require a supported package 3.x')
+        if args.command in {'record-planning', 'lock-design'} and load_config(args.config).get('workflow', {}).get('reader_review', {}).get('phases') == ['title', 'content', 'final']:
+            from packages.validators.reader_review import check_art_gate
+            check_art_gate(package, args.title_review, args.content_review)
         if args.command == 'record-planning':
             if args.plan is None or package.get('contract_version') != '3.4':
                 raise ValueError('record-planning requires --plan draft and Copy package 3.4')
