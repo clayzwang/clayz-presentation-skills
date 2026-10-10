@@ -56,6 +56,15 @@ Art may compose several bodies in one paragraph/object while keeping them clear.
 
 ## Art plans the whole page before declaring objects
 
+Apply the [Art design process](art-design-process.md). Whole-deck preparation
+informs page-level semantic preparation (A04/A05); its concrete responsibilities,
+ownership and dependencies inform A06 attention, then A07–A09 expression,
+composition and element language. Text role, argument responsibility, category
+ownership and visual responsibility are separate, compatible dimensions.
+Use identifiable Copy objects/groups in the existing fields below. Inspect
+actual drafts against those decisions; no additional schema or approval gate
+is introduced.
+
 Read the entire Copy document and its relationships. Explain the page's central
 message, available content groups and different passage functions, then decide
 the composition, reading path, hierarchy and spatial weight that suit them.

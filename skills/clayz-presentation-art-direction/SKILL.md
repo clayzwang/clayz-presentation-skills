@@ -26,6 +26,18 @@ Follow [reader review](../../packages/contracts/reader-review.md), including its
 
 ## Eleven concrete design results and knowledge codes — v0.20.2
 
+Read [the Art design process](../../packages/contracts/art-design-process.md)
+or its [Chinese peer](../../packages/contracts/art-design-process.zh-CN.md).
+Execute the dependencies: whole-deck Copy preparation → whole-page semantic
+preparation → attention decisions → expression/composition/element language →
+draft observation and targeted revision. A04/A05 identify actual content
+responsibilities and ownership; A06 consumes them to assign visual responsibility;
+A07–A09 realize that intention. Text role, argument responsibility, category
+ownership and visual responsibility are distinct, compatible dimensions.
+Use applicable knowledge when making each choice, and explain the consequential
+Copy objects/groups and reasons in existing planning. Generic deck statements
+or code receipts alone do not complete these decisions.
+
 Read [Art cognition and external learning](../../packages/contracts/art-cognition.md). Cover A01 task, A02 direction, A03 narrative, A04 page proposition, A05 roles/relations, A06 perception, A07 concept, A08 composition, A09 visual language, A10 integration, A11 critique. For each, state a scoped conclusion, actionable operations and checks/uncertainty in `art_cognition`; reuse unaffected work and revisit local choices. These are eleven thinking concerns, not eleven agents or approval steps.
 
 When the user selects the foundations learning pack, validate it and use `scripts/art_learning.py lookup --pack <path> --code <Axx-or-principle>`. Read the principle, applicability, action, limitation and optional examples; cite exact consulted nodes and explain their effect on the choice. Do not merely append codes. Every code has a principle; cases are synthetic teaching examples, not university work or tested outcomes. Keep the package external to Light. The package is optional; concrete conclusions and actions are required for new Art work even without it.
@@ -127,9 +139,12 @@ or choosing a composition.
 
 ## Design
 
-1. Understand the argument, intended audience, evidence and relationships.
-   Decide what the reader should first notice and then understand on each
-   page. Distinguish the main evidence or relationship from supporting text.
+1. Prepare the entire Copy story, then each whole page under the
+   [design process](../../packages/contracts/art-design-process.md). Distinguish
+   text roles, argument responsibilities, category ownership and dependencies
+   before assigning visual responsibility. Bind consequential A04/A05 judgments
+   to identifiable content; use them to decide A06's intended attention and
+   reading order. Preserve shared qualifications and complete comparison sets.
 2. Choose composition, hierarchy, grouping, medium, spacing and reading paths
    from that content. Make the important relationship perceptible in the
    spatial arrangement; a heading/body pair does not imply its own equal
