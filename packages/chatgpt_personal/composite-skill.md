@@ -7,6 +7,13 @@ description: Root-orchestrate presentation Library inspection, discussion-based 
 
 ## v0.20.2 Art cognition and audited changes
 
+For Art execution, read `packages/contracts/art-design-process.md` or its
+Chinese peer. Prepare the whole Copy story and each page's semantics before
+assigning attention and visual language. A04/A05 identify responsibilities and
+ownership; A06 uses them; A07–A09 implement them; A10/A11 inspect actual results.
+Preserve concrete object/group decisions in existing planning. Text roles do
+not prescribe visual weight. The external knowledge package is unchanged.
+
 The current `packages/contracts/art-cognition.md` extends earlier fidelity instructions: preserve original Logic/Copy, but allow Art to revise meaning, argument, sequence and pagination without advance modification requests. Record actual presentation in `art_content`, conclusions/actions and selected knowledge in `art_cognition`. Output implements that recorded presentation. Independent final reading first sees only renders, then compares original Copy and every documented Art change. Difference alone is not failure; justification, accuracy, completeness and reasoning determine the audit result. Older “unchanged Copy” or “return wording/pagination to Copy” instructions apply only when no Art projection exists. New Art work covers A01—A11; these are cognitive results, not agents or approval gates.
 
 

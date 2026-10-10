@@ -4,7 +4,15 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 ## Unreleased
 
-- Nothing yet.
+- Organize Art around knowledge-dependent decisions: whole-deck Copy preparation, whole-page semantics, attention, expression/composition/element language, and observed revision.
+- Distinguish text role, argument responsibility, entity/category ownership and visual responsibility. Carry consequential object/group decisions through existing page planning; connect A04/A05 to A06 and A07–A09.
+- Keep the external Art learning pack, its codes and content unchanged. Preserve text-only early reader checks, final-render reading, existing schemas and the five-stage workflow.
+
+### 中文
+
+- 按知识与判断依赖组织 Art：全稿 Copy 预处理、单页语义分析、注意顺序、表达／构图／元素语言，以及实际观察后的针对性修订。
+- 区分文字角色、论证职责、对象／类别归属和视觉职责，通过既有页面规划记录具体对象／内容组的判断，接通 A04／A05 → A06 → A07—A09。
+- 外挂 Art 学习包、编码及正文保持不变；保留前期只读文字、终审读实际渲染的顺序，不增加数据格式或制作阶段。
 
 ## 0.20.2 — 2026-10-10
 

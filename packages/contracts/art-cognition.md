@@ -1,5 +1,13 @@
 # Art cognition and external learning (v0.20.2)
 
+Execute the [Art design process](art-design-process.md) (also
+[中文](art-design-process.zh-CN.md)): prepare the whole Copy story and each
+page's semantics, derive attention from content responsibilities, then realize
+it through expression, composition and element language. Consult knowledge at
+the affected decision and inspect actual drafts before recording outcomes.
+Use existing cognition and page-planning records; the external learning pack
+and record schemas remain unchanged.
+
 New Art work records eleven cognitive results: A01 communication task, A02 art direction, A03 visual narrative, A04 page proposition, A05 content roles/relations, A06 perception, A07 expressive concept, A08 composition, A09 visual language, A10 integration, A11 critique. Each result names a scope, a concrete conclusion, executable actions, and checks or uncertainty. They may recur, share actions or reuse unaffected page groups; they are not agents, approvals, or mandatory exhaustive essays. A11 before rendering records planned checks; actual observations require actual rendered images and may update a subsequent planning revision. Never assert a reader test that did not occur.
 
 The external `art-design-foundations` v1.0.0 package contains 66 principle-bearing codes, eight official curriculum sources, 33 paired synthetic teaching examples, and an eleven-step hypothetical worked example. The repository authors synthesized the principles and examples; the universities did not author or endorse this package. Historical and supporting HCI/visualization sources are distinguished. It is an authored reference, not private human-admitted knowledge. The separate release archive is intentionally absent from both Light payloads.
