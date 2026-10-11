@@ -493,6 +493,15 @@ def validate_qa(
                     "master_page_number", "inherited_chrome_uniqueness",
                 ):
                     if checks.get(key) == "not-applicable":
+                        optional_inputs = {
+                            "art_direction_area_plan_fidelity": "area_plan",
+                            "purposeful_series_fidelity": "series_visual_contract",
+                            "semantic_whitespace_fidelity": "semantic_whitespace",
+                            "motif_fidelity": "motif_id",
+                            "semantic_layout_tree_fidelity": "semantic_layout_tree",
+                        }
+                        if clean and plan.get("contract_version") == "2.3" and key in optional_inputs and not plan_slide.get(optional_inputs[key]):
+                            continue
                         errors.append(Issue(f"{path}.checks.{key}: body slide check was not performed", "coverage"))
             if is_scatter and checks.get("scatter_semantics_and_labels") == "not-applicable":
                 errors.append(Issue(f"{path}.checks.scatter_semantics_and_labels: scatter check was not performed", "coverage"))

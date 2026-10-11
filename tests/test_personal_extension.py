@@ -118,6 +118,13 @@ def profile(core_version: str) -> dict:
 
 
 class PersonalExtensionTests(unittest.TestCase):
+    def assert_cloud_upload_budget(self, archive: zipfile.ZipFile, path: Path) -> None:
+        # Repository maintenance thresholds, not claimed host upload limits.
+        # Measure bytes as well as members: splitting a module is not payload bloat.
+        self.assertLess(len(archive.infolist()), 256)
+        self.assertLess(sum(info.file_size for info in archive.infolist()), 3 * 1024 * 1024)
+        self.assertLess(path.stat().st_size, 1024 * 1024)
+
     def setUp(self) -> None:
         self.base = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
         self.public_manifest = json.loads((ROOT / "catalog" / "provider-manifest.json").read_text(encoding="utf-8"))
@@ -333,9 +340,7 @@ class PersonalExtensionTests(unittest.TestCase):
                 self.assertNotIn(".github/workflows/ci.yml", names)
                 self.assertNotIn("README.md", names)
                 self.assertFalse(any(name.startswith("references/stages/") and "/references/" in name for name in names))
-                # Required handoff files expand the conservative upload budget;
-                # this is not a proven platform hard limit.
-                self.assertLess(len(names), 200)
+                self.assert_cloud_upload_budget(archive, output)
                 self.assertIn('packages/validators/story_handoff.py', names)
                 self.assertIn('scripts/stage_documents.py', names)
                 self.assertIn("packages/knowledge_session/store.py", names)
@@ -459,7 +464,7 @@ class PersonalExtensionTests(unittest.TestCase):
             compose_personal_light(profile_path, [manifest_path], output)
             with zipfile.ZipFile(output) as archive:
                 names = archive.namelist()
-                self.assertLess(len(names), 200)
+                self.assert_cloud_upload_budget(archive, output)
                 self.assertIn('packages/validators/story_handoff.py', names)
                 self.assertIn('scripts/stage_documents.py', names)
                 for omitted in (

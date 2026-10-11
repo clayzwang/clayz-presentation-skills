@@ -422,7 +422,11 @@ def main() -> int:
     parser.add_argument("--wheel-cache", type=Path, default=ROOT / ".release-cache" / "wheels")
     parser.add_argument("--bundle", choices=["light", "cloud-light", "local-light", "offline", "learning", "all"], default="all")
     parser.add_argument("--platform", choices=["windows", "macos", "linux", "all"], default="windows")
+    parser.add_argument("--without-learning-pack", action="store_true",
+                        help="Publish runtime assets only; retain an external knowledge pack in its own store.")
     args = parser.parse_args()
+    if args.without_learning_pack and args.bundle == "learning":
+        parser.error("--without-learning-pack conflicts with --bundle learning")
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     output = args.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -437,7 +441,7 @@ def main() -> int:
         selected = list(OFFLINE_TARGETS) if args.platform == "all" else [args.platform]
         for platform_name in selected:
             built.append(build_offline(platform_name, args.wheel_cache.resolve(), output, version))
-    if args.bundle in {"learning", "all"}:
+    if args.bundle in {"learning", "all"} and not args.without_learning_pack:
         built.append(build_learning(output, version))
     checksum = write_checksums(built, output)
     for path in [*built, checksum]:

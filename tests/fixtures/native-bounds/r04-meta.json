@@ -1,0 +1,4634 @@
+[
+  {
+    "slide_id": "S01",
+    "elements": [
+      {
+        "element_id": "S01-01",
+        "native_name": "S01-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.060000001500000046,
+          0.17066666666666666,
+          0.8775000219375005,
+          0.09274074074074075
+        ],
+        "copy_ids": [
+          "S01-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "Meta：资本投入与经营现金的覆盖余量",
+        "lines": [
+          "Meta：资本投入与经营现金的覆盖余量"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 40
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S01-02",
+        "native_name": "S01-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.2954074074074074,
+          0.8625000215625006,
+          0.06433333333333333
+        ],
+        "copy_ids": [
+          "S01-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "以2026年第二季度及上半年实际为基准",
+        "lines": [
+          "以2026年第二季度及上半年实际为基准"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 27
+        },
+        "color": "185D72",
+        "bold": false
+      },
+      {
+        "element_id": "S01-03",
+        "native_name": "S01-03",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.5133333333333333,
+          0.8775000219375005,
+          0.05122222222222222
+        ],
+        "copy_ids": [
+          "S01-03"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "主要判断",
+        "lines": [
+          "主要判断"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 21
+        },
+        "color": "185D72",
+        "bold": false
+      },
+      {
+        "element_id": "S01-04",
+        "native_name": "S01-04",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.5805555555555556,
+          0.8775000219375005,
+          0.09711111111111112
+        ],
+        "copy_ids": [
+          "S01-04"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "经营现金仍覆盖公司资本开支，但最新季度自由现金流仅为0.784十亿美元，覆盖余量明显收窄。",
+        "lines": [
+          "经营现金仍覆盖公司资本开支，但最新季度自由现金流仅为0.784十亿美元，覆盖余量",
+          "明显收窄。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 21
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S01-05",
+        "native_name": "S01-05",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.7203333333333334,
+          0.8775000219375005,
+          0.05122222222222222
+        ],
+        "copy_ids": [
+          "S01-05"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "研究范围",
+        "lines": [
+          "研究范围"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 21
+        },
+        "color": "185D72",
+        "bold": false
+      },
+      {
+        "element_id": "S01-06",
+        "native_name": "S01-06",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.7875555555555557,
+          0.8775000219375005,
+          0.05122222222222222
+        ],
+        "copy_ids": [
+          "S01-06"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "先核对公司自由现金流定义，再区分全年指引、广告经营表现与融资支持。",
+        "lines": [
+          "先核对公司自由现金流定义，再区分全年指引、广告经营表现与融资支持。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 21
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S01-07",
+        "native_name": "S01-07",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S01-07"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "研究截止：2026-10-10；来源S1。",
+        "lines": [
+          "研究截止：2026-10-10；来源S1。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S01-rule",
+        "native_name": "S01-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S01-01",
+        "render_target_id": "S01-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S01-01"
+        }
+      },
+      {
+        "copy_id": "S01-02",
+        "render_target_id": "S01-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S01-02"
+        }
+      },
+      {
+        "copy_id": "S01-03",
+        "render_target_id": "S01-03",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S01-03"
+        }
+      },
+      {
+        "copy_id": "S01-04",
+        "render_target_id": "S01-04",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S01-04"
+        }
+      },
+      {
+        "copy_id": "S01-05",
+        "render_target_id": "S01-05",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S01-05"
+        }
+      },
+      {
+        "copy_id": "S01-06",
+        "render_target_id": "S01-06",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S01-06"
+        }
+      },
+      {
+        "copy_id": "S01-07",
+        "render_target_id": "S01-07",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S01-07"
+        }
+      }
+    ],
+    "mode": "cover"
+  },
+  {
+    "slide_id": "S02",
+    "elements": [
+      {
+        "element_id": "S02-01",
+        "native_name": "S02-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S02-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "2026年第二季度自由现金流余量明显收窄",
+        "lines": [
+          "2026年第二季度自由现金流余量明显收窄"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S02-02",
+        "native_name": "S02-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S02-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "公司指标同时扣除融资租赁本金",
+        "lines": [
+          "公司指标同时扣除融资租赁本金"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S02-20",
+        "native_name": "S02-20",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.060000001500000046,
+          0.2577407407407407,
+          0.8775000219375005,
+          0.035925925925925924
+        ],
+        "copy_ids": [
+          "S02-20"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "各年4—6月；十亿美元。公司FCF＝CFO−固定资产购置−融资租赁本金。",
+        "lines": [
+          "各年4—6月；十亿美元。公司FCF＝CFO−固定资产购置−融资租赁本金。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 14
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S02-table",
+        "native_name": "S02-table",
+        "kind": "table",
+        "native_type": "table",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "比较同季经营现金与完整公司资本开支定义",
+        "alignment": "semantic-columns",
+        "box": [
+          0.060000001500000046,
+          0.3096666666666667,
+          0.8775000219375005,
+          0.41370370370370374
+        ],
+        "copy_ids": [
+          "S02-05",
+          "S02-06",
+          "S02-07",
+          "S02-08",
+          "S02-09",
+          "S02-10",
+          "S02-11",
+          "S02-12",
+          "S02-13",
+          "S02-14",
+          "S02-15",
+          "S02-16",
+          "S02-17",
+          "S02-18",
+          "S02-19"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font",
+          "editable-boundary"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "semantic_table": {
+          "columns": [
+            {
+              "label": "项目",
+              "role": "text",
+              "weight": 1.7
+            },
+            {
+              "label": "Q2 2025",
+              "role": "number",
+              "weight": 1
+            },
+            {
+              "label": "Q2 2026",
+              "role": "number",
+              "weight": 1
+            }
+          ],
+          "cells": [
+            [
+              {
+                "text": "项目",
+                "lines": [
+                  "项目"
+                ],
+                "size_pt": 18,
+                "align": "left",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "Q2 2025",
+                "lines": [
+                  "Q2 2025"
+                ],
+                "size_pt": 18,
+                "align": "right",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "Q2 2026",
+                "lines": [
+                  "Q2 2026"
+                ],
+                "size_pt": 18,
+                "align": "right",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "经营现金流",
+                "lines": [
+                  "经营现金流"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "25.561",
+                "lines": [
+                  "25.561"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "31.862",
+                "lines": [
+                  "31.862"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "固定资产购置",
+                "lines": [
+                  "固定资产购置"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "16.538",
+                "lines": [
+                  "16.538"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "30.116",
+                "lines": [
+                  "30.116"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "融资租赁本金",
+                "lines": [
+                  "融资租赁本金"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "0.474",
+                "lines": [
+                  "0.474"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "0.962",
+                "lines": [
+                  "0.962"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "公司自由现金流",
+                "lines": [
+                  "公司自由现金流"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              },
+              {
+                "text": "8.549",
+                "lines": [
+                  "8.549"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              },
+              {
+                "text": "0.784",
+                "lines": [
+                  "0.784"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              }
+            ]
+          ],
+          "widths": [
+            5.375675675675675,
+            3.162162162162162,
+            3.162162162162162
+          ],
+          "heights": [
+            0.5549999999999999,
+            0.6369444444444444,
+            0.6369444444444444,
+            0.6369444444444444,
+            0.6369444444444444
+          ],
+          "padding": [
+            0.17,
+            0.13
+          ],
+          "width": 11.7,
+          "height": 3.102777777777778,
+          "caption": "各年4—6月；十亿美元。公司FCF＝CFO−固定资产购置−融资租赁本金。",
+          "comparison": "比较同季经营现金与完整公司资本开支定义"
+        },
+        "table_spec": {
+          "headers": [
+            "项目",
+            "Q2 2025",
+            "Q2 2026"
+          ],
+          "rows": [
+            [
+              "经营现金流",
+              "25.561",
+              "31.862"
+            ],
+            [
+              "固定资产购置",
+              "16.538",
+              "30.116"
+            ],
+            [
+              "融资租赁本金",
+              "0.474",
+              "0.962"
+            ],
+            [
+              "公司自由现金流",
+              "8.549",
+              "0.784"
+            ]
+          ]
+        }
+      },
+      {
+        "element_id": "S02-03",
+        "native_name": "S02-03",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.7633703703703704,
+          0.8700000217500006,
+          0.04903703703703703
+        ],
+        "copy_ids": [
+          "S02-03"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "经营含义",
+        "lines": [
+          "经营含义"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 20
+        },
+        "color": "185D72",
+        "bold": false
+      },
+      {
+        "element_id": "S02-04",
+        "native_name": "S02-04",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.8244074074074074,
+          0.8700000217500006,
+          0.04903703703703703
+        ],
+        "copy_ids": [
+          "S02-04"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "正值仅证明当季覆盖，不能保证后续季度或全年覆盖。",
+        "lines": [
+          "正值仅证明当季覆盖，不能保证后续季度或全年覆盖。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 20
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S02-21",
+        "native_name": "S02-21",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S02-21"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源：S1，公司现金流及FCF调节表；非GAAP指标。",
+        "lines": [
+          "来源：S1，公司现金流及FCF调节表；非GAAP指标。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S02-rule",
+        "native_name": "S02-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S02-page-number",
+        "native_name": "S02-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "2",
+        "lines": [
+          "2"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S02-01",
+        "render_target_id": "S02-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S02-01"
+        }
+      },
+      {
+        "copy_id": "S02-02",
+        "render_target_id": "S02-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S02-02"
+        }
+      },
+      {
+        "copy_id": "S02-20",
+        "render_target_id": "S02-20",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S02-20"
+        }
+      },
+      {
+        "copy_id": "S02-05",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 0,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S02-06",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 0,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S02-07",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 0,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S02-08",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 1,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S02-09",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 1,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S02-10",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 1,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S02-11",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 2,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S02-12",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 2,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S02-13",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 2,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S02-14",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 3,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S02-15",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 3,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S02-16",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 3,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S02-17",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 4,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S02-18",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 4,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S02-19",
+        "render_target_id": "S02-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S02-table",
+          "row": 4,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S02-03",
+        "render_target_id": "S02-03",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S02-03"
+        }
+      },
+      {
+        "copy_id": "S02-04",
+        "render_target_id": "S02-04",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S02-04"
+        }
+      },
+      {
+        "copy_id": "S02-21",
+        "render_target_id": "S02-21",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S02-21"
+        }
+      }
+    ],
+    "mode": "table",
+    "page_number": 2
+  },
+  {
+    "slide_id": "S03",
+    "elements": [
+      {
+        "element_id": "S03-01",
+        "native_name": "S03-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S03-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "上半年公司FCF仍正，但同比减少",
+        "lines": [
+          "上半年公司FCF仍正，但同比减少"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S03-02",
+        "native_name": "S03-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S03-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "经营现金增长不等于支出后余量增长",
+        "lines": [
+          "经营现金增长不等于支出后余量增长"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S03-18",
+        "native_name": "S03-18",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.060000001500000046,
+          0.2577407407407407,
+          0.8775000219375005,
+          0.035925925925925924
+        ],
+        "copy_ids": [
+          "S03-18"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "各年1—6月；十亿美元；FCF同时扣固定资产购置和融资租赁本金。",
+        "lines": [
+          "各年1—6月；十亿美元；FCF同时扣固定资产购置和融资租赁本金。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 14
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S03-table",
+        "native_name": "S03-table",
+        "kind": "table",
+        "native_type": "table",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "用共同基线核对期间、支出范围和现金结果",
+        "alignment": "semantic-columns",
+        "box": [
+          0.060000001500000046,
+          0.3096666666666667,
+          0.8775000219375005,
+          0.41370370370370374
+        ],
+        "copy_ids": [
+          "S03-03",
+          "S03-04",
+          "S03-05",
+          "S03-06",
+          "S03-07",
+          "S03-08",
+          "S03-09",
+          "S03-10",
+          "S03-11",
+          "S03-12",
+          "S03-13",
+          "S03-14",
+          "S03-15",
+          "S03-16",
+          "S03-17"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font",
+          "editable-boundary"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "semantic_table": {
+          "columns": [
+            {
+              "label": "项目",
+              "role": "text",
+              "weight": 1.8
+            },
+            {
+              "label": "H1 2025",
+              "role": "number",
+              "weight": 1
+            },
+            {
+              "label": "H1 2026",
+              "role": "number",
+              "weight": 1
+            }
+          ],
+          "cells": [
+            [
+              {
+                "text": "项目",
+                "lines": [
+                  "项目"
+                ],
+                "size_pt": 18,
+                "align": "left",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "H1 2025",
+                "lines": [
+                  "H1 2025"
+                ],
+                "size_pt": 18,
+                "align": "right",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "H1 2026",
+                "lines": [
+                  "H1 2026"
+                ],
+                "size_pt": 18,
+                "align": "right",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "经营现金流",
+                "lines": [
+                  "经营现金流"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "49.587",
+                "lines": [
+                  "49.587"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "64.088",
+                "lines": [
+                  "64.088"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "固定资产购置",
+                "lines": [
+                  "固定资产购置"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "29.479",
+                "lines": [
+                  "29.479"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "49.113",
+                "lines": [
+                  "49.113"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "融资租赁本金",
+                "lines": [
+                  "融资租赁本金"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "1.225",
+                "lines": [
+                  "1.225"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "1.805",
+                "lines": [
+                  "1.805"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "公司自由现金流",
+                "lines": [
+                  "公司自由现金流"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              },
+              {
+                "text": "18.883",
+                "lines": [
+                  "18.883"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              },
+              {
+                "text": "13.170",
+                "lines": [
+                  "13.170"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              }
+            ]
+          ],
+          "widths": [
+            5.542105263157895,
+            3.0789473684210527,
+            3.0789473684210527
+          ],
+          "heights": [
+            0.5549999999999999,
+            0.6369444444444444,
+            0.6369444444444444,
+            0.6369444444444444,
+            0.6369444444444444
+          ],
+          "padding": [
+            0.17,
+            0.13
+          ],
+          "width": 11.7,
+          "height": 3.102777777777778,
+          "caption": "各年1—6月；十亿美元；FCF同时扣固定资产购置和融资租赁本金。",
+          "comparison": "用共同基线核对期间、支出范围和现金结果"
+        },
+        "table_spec": {
+          "headers": [
+            "项目",
+            "H1 2025",
+            "H1 2026"
+          ],
+          "rows": [
+            [
+              "经营现金流",
+              "49.587",
+              "64.088"
+            ],
+            [
+              "固定资产购置",
+              "29.479",
+              "49.113"
+            ],
+            [
+              "融资租赁本金",
+              "1.225",
+              "1.805"
+            ],
+            [
+              "公司自由现金流",
+              "18.883",
+              "13.170"
+            ]
+          ]
+        }
+      },
+      {
+        "element_id": "S03-19",
+        "native_name": "S03-19",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S03-19"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源：S1；上半年和第二季度重叠，不能相加；公司非GAAP指标。",
+        "lines": [
+          "来源：S1；上半年和第二季度重叠，不能相加；公司非GAAP指标。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S03-rule",
+        "native_name": "S03-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S03-page-number",
+        "native_name": "S03-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "3",
+        "lines": [
+          "3"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S03-01",
+        "render_target_id": "S03-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S03-01"
+        }
+      },
+      {
+        "copy_id": "S03-02",
+        "render_target_id": "S03-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S03-02"
+        }
+      },
+      {
+        "copy_id": "S03-18",
+        "render_target_id": "S03-18",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S03-18"
+        }
+      },
+      {
+        "copy_id": "S03-03",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 0,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S03-04",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 0,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S03-05",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 0,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S03-06",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 1,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S03-07",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 1,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S03-08",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 1,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S03-09",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 2,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S03-10",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 2,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S03-11",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 2,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S03-12",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 3,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S03-13",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 3,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S03-14",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 3,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S03-15",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 4,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S03-16",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 4,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S03-17",
+        "render_target_id": "S03-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S03-table",
+          "row": 4,
+          "column": 2
+        }
+      },
+      {
+        "copy_id": "S03-19",
+        "render_target_id": "S03-19",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S03-19"
+        }
+      }
+    ],
+    "mode": "table",
+    "page_number": 3
+  },
+  {
+    "slide_id": "S04",
+    "elements": [
+      {
+        "element_id": "S04-01",
+        "native_name": "S04-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S04-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "全年资本开支指引提高下限，覆盖尚待验证",
+        "lines": [
+          "全年资本开支指引提高下限，覆盖尚待验证"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S04-02",
+        "native_name": "S04-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S04-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "管理层预期不是已支付现金",
+        "lines": [
+          "管理层预期不是已支付现金"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S04-11",
+        "native_name": "S04-11",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.060000001500000046,
+          0.2577407407407407,
+          0.8775000219375005,
+          0.035925925925925924
+        ],
+        "copy_ids": [
+          "S04-11"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "包含融资租赁本金；管理层于2026-07-29披露。",
+        "lines": [
+          "包含融资租赁本金；管理层于2026-07-29披露。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 14
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S04-table",
+        "native_name": "S04-table",
+        "kind": "table",
+        "native_type": "table",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "用共同基线核对期间、支出范围和现金结果",
+        "alignment": "semantic-columns",
+        "box": [
+          0.060000001500000046,
+          0.3096666666666667,
+          0.8775000219375005,
+          0.24385185185185185
+        ],
+        "copy_ids": [
+          "S04-05",
+          "S04-06",
+          "S04-07",
+          "S04-08",
+          "S04-09",
+          "S04-10"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font",
+          "editable-boundary"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "semantic_table": {
+          "columns": [
+            {
+              "label": "2026全年指引",
+              "role": "text",
+              "weight": 1.8
+            },
+            {
+              "label": "十亿美元",
+              "role": "number",
+              "weight": 1
+            }
+          ],
+          "cells": [
+            [
+              {
+                "text": "2026全年指引",
+                "lines": [
+                  "2026全年指引"
+                ],
+                "size_pt": 18,
+                "align": "left",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "十亿美元",
+                "lines": [
+                  "十亿美元"
+                ],
+                "size_pt": 18,
+                "align": "right",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "此前资本开支区间",
+                "lines": [
+                  "此前资本开支区间"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "125—145",
+                "lines": [
+                  "125—145"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "本次资本开支区间",
+                "lines": [
+                  "本次资本开支区间"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "130—145",
+                "lines": [
+                  "130—145"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ]
+          ],
+          "widths": [
+            7.521428571428571,
+            4.178571428571429
+          ],
+          "heights": [
+            0.5549999999999999,
+            0.6369444444444444,
+            0.6369444444444444
+          ],
+          "padding": [
+            0.17,
+            0.13
+          ],
+          "width": 11.7,
+          "height": 1.8288888888888888,
+          "caption": "包含融资租赁本金；管理层于2026-07-29披露。",
+          "comparison": "用共同基线核对期间、支出范围和现金结果"
+        },
+        "table_spec": {
+          "headers": [
+            "2026全年指引",
+            "十亿美元"
+          ],
+          "rows": [
+            [
+              "此前资本开支区间",
+              "125—145"
+            ],
+            [
+              "本次资本开支区间",
+              "130—145"
+            ]
+          ]
+        }
+      },
+      {
+        "element_id": "S04-03",
+        "native_name": "S04-03",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.5935185185185184,
+          0.8700000217500006,
+          0.04903703703703703
+        ],
+        "copy_ids": [
+          "S04-03"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "边界",
+        "lines": [
+          "边界"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 20
+        },
+        "color": "185D72",
+        "bold": false
+      },
+      {
+        "element_id": "S04-04",
+        "native_name": "S04-04",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.6545555555555554,
+          0.8700000217500006,
+          0.04903703703703703
+        ],
+        "copy_ids": [
+          "S04-04"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "变化是下限提高；半年FCF不能直接年化证明全年覆盖，指引也不是实际付款。",
+        "lines": [
+          "变化是下限提高；半年FCF不能直接年化证明全年覆盖，指引也不是实际付款。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 20
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S04-12",
+        "native_name": "S04-12",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S04-12"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源：S1；管理层预期及作者口径判断。",
+        "lines": [
+          "来源：S1；管理层预期及作者口径判断。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S04-rule",
+        "native_name": "S04-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S04-page-number",
+        "native_name": "S04-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "4",
+        "lines": [
+          "4"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S04-01",
+        "render_target_id": "S04-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S04-01"
+        }
+      },
+      {
+        "copy_id": "S04-02",
+        "render_target_id": "S04-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S04-02"
+        }
+      },
+      {
+        "copy_id": "S04-11",
+        "render_target_id": "S04-11",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S04-11"
+        }
+      },
+      {
+        "copy_id": "S04-05",
+        "render_target_id": "S04-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S04-table",
+          "row": 0,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S04-06",
+        "render_target_id": "S04-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S04-table",
+          "row": 0,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S04-07",
+        "render_target_id": "S04-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S04-table",
+          "row": 1,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S04-08",
+        "render_target_id": "S04-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S04-table",
+          "row": 1,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S04-09",
+        "render_target_id": "S04-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S04-table",
+          "row": 2,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S04-10",
+        "render_target_id": "S04-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S04-table",
+          "row": 2,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S04-03",
+        "render_target_id": "S04-03",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S04-03"
+        }
+      },
+      {
+        "copy_id": "S04-04",
+        "render_target_id": "S04-04",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S04-04"
+        }
+      },
+      {
+        "copy_id": "S04-12",
+        "render_target_id": "S04-12",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S04-12"
+        }
+      }
+    ],
+    "mode": "table",
+    "page_number": 4
+  },
+  {
+    "slide_id": "S05",
+    "elements": [
+      {
+        "element_id": "S05-01",
+        "native_name": "S05-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S05-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "广告需求增长，费用上升也在压缩利润",
+        "lines": [
+          "广告需求增长，费用上升也在压缩利润"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S05-02",
+        "native_name": "S05-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S05-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "经营支撑与AI投入归因分别判断",
+        "lines": [
+          "经营支撑与AI投入归因分别判断"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S05-03",
+        "native_name": "S05-03",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.2710740740740741,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S05-03"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "需求证据",
+        "lines": [
+          "需求证据"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true
+      },
+      {
+        "element_id": "S05-04",
+        "native_name": "S05-04",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.3443703703703704,
+          0.8625000215625006,
+          0.10585185185185185
+        ],
+        "copy_ids": [
+          "S05-04"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "2026年第二季度营收60.801，同比增长28%；广告展示量增加14%，平均广告价格增加12%。这些是集团广告经营表现。",
+        "lines": [
+          "2026年第二季度营收60.801，同比增长28%；广告展示量增加14%，平均广告价",
+          "格增加12%。这些是集团广告经营表现。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S05-05",
+        "native_name": "S05-05",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.48755555555555563,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S05-05"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "费用与归因",
+        "lines": [
+          "费用与归因"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true
+      },
+      {
+        "element_id": "S05-06",
+        "native_name": "S05-06",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.5608518518518519,
+          0.8625000215625006,
+          0.10585185185185185
+        ],
+        "copy_ids": [
+          "S05-06"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "当季营业利润18.775，同比下降8%；费用包含诉讼相关2.40及裁员1.18。需求改善不能抵消所有费用压力，也不足以算出AI独立投资回报。",
+        "lines": [
+          "当季营业利润18.775，同比下降8%；费用包含诉讼相关2.40及裁员1.18。需求",
+          "改善不能抵消所有费用压力，也不足以算出AI独立投资回报。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S05-07",
+        "native_name": "S05-07",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S05-07"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源：S1；金额为十亿美元；不将广告增量全部归因于AI。",
+        "lines": [
+          "来源：S1；金额为十亿美元；不将广告增量全部归因于AI。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S05-rule",
+        "native_name": "S05-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S05-page-number",
+        "native_name": "S05-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "5",
+        "lines": [
+          "5"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S05-01",
+        "render_target_id": "S05-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S05-01"
+        }
+      },
+      {
+        "copy_id": "S05-02",
+        "render_target_id": "S05-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S05-02"
+        }
+      },
+      {
+        "copy_id": "S05-03",
+        "render_target_id": "S05-03",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S05-03"
+        }
+      },
+      {
+        "copy_id": "S05-04",
+        "render_target_id": "S05-04",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S05-04"
+        }
+      },
+      {
+        "copy_id": "S05-05",
+        "render_target_id": "S05-05",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S05-05"
+        }
+      },
+      {
+        "copy_id": "S05-06",
+        "render_target_id": "S05-06",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S05-06"
+        }
+      },
+      {
+        "copy_id": "S05-07",
+        "render_target_id": "S05-07",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S05-07"
+        }
+      }
+    ],
+    "mode": "rows",
+    "page_number": 5
+  },
+  {
+    "slide_id": "S06",
+    "elements": [
+      {
+        "element_id": "S06-01",
+        "native_name": "S06-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S06-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "发债与停止回购提供资金支持，仍需区分现金口径",
+        "lines": [
+          "发债与停止回购提供资金支持，仍需区分现金口径"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S06-02",
+        "native_name": "S06-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S06-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "融资能力和经营覆盖是两项证据",
+        "lines": [
+          "融资能力和经营覆盖是两项证据"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S06-03",
+        "native_name": "S06-03",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.2710740740740741,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S06-03"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "资本配置",
+        "lines": [
+          "资本配置"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true
+      },
+      {
+        "element_id": "S06-04",
+        "native_name": "S06-04",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.3443703703703704,
+          0.8625000215625006,
+          0.10585185185185185
+        ],
+        "copy_ids": [
+          "S06-04"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "2026年上半年回购为零，股息2.699，净发行长期债务24.910。少回购留住现金，发债补充资金，两者均不是经营创造现金。",
+        "lines": [
+          "2026年上半年回购为零，股息2.699，净发行长期债务24.910。少回购留住现",
+          "金，发债补充资金，两者均不是经营创造现金。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S06-05",
+        "native_name": "S06-05",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.48755555555555563,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S06-05"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "余额与变动",
+        "lines": [
+          "余额与变动"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true
+      },
+      {
+        "element_id": "S06-06",
+        "native_name": "S06-06",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.5608518518518519,
+          0.8625000215625006,
+          0.10585185185185185
+        ],
+        "copy_ids": [
+          "S06-06"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "上半年含受限现金总额减少9.829。6月底现金及等价物15.462，可交易证券74.798，合计90.260；证券不能全部称现金，余额也不能替代未来回款。",
+        "lines": [
+          "上半年含受限现金总额减少9.829。6月底现金及等价物15.462，可交易证券",
+          "74.798，合计90.260；证券不能全部称现金，余额也不能替代未来回款。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S06-07",
+        "native_name": "S06-07",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S06-07"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源：S1；十亿美元。现金流量表含受限现金，资产负债表现金不含同一范围。",
+        "lines": [
+          "来源：S1；十亿美元。现金流量表含受限现金，资产负债表现金不含同一范围。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S06-rule",
+        "native_name": "S06-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S06-page-number",
+        "native_name": "S06-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "6",
+        "lines": [
+          "6"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S06-01",
+        "render_target_id": "S06-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S06-01"
+        }
+      },
+      {
+        "copy_id": "S06-02",
+        "render_target_id": "S06-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S06-02"
+        }
+      },
+      {
+        "copy_id": "S06-03",
+        "render_target_id": "S06-03",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S06-03"
+        }
+      },
+      {
+        "copy_id": "S06-04",
+        "render_target_id": "S06-04",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S06-04"
+        }
+      },
+      {
+        "copy_id": "S06-05",
+        "render_target_id": "S06-05",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S06-05"
+        }
+      },
+      {
+        "copy_id": "S06-06",
+        "render_target_id": "S06-06",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S06-06"
+        }
+      },
+      {
+        "copy_id": "S06-07",
+        "render_target_id": "S06-07",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S06-07"
+        }
+      }
+    ],
+    "mode": "rows",
+    "page_number": 6
+  },
+  {
+    "slide_id": "S07",
+    "elements": [
+      {
+        "element_id": "S07-01",
+        "native_name": "S07-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S07-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "上半年筹资净流入仍未抵消投资净流出",
+        "lines": [
+          "上半年筹资净流入仍未抵消投资净流出"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S07-02",
+        "native_name": "S07-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S07-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "含受限现金净变化以同一范围勾稽",
+        "lines": [
+          "含受限现金净变化以同一范围勾稽"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S07-15",
+        "native_name": "S07-15",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.060000001500000046,
+          0.2577407407407407,
+          0.8775000219375005,
+          0.035925925925925924
+        ],
+        "copy_ids": [
+          "S07-15"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "截至2026年6月30日上半年；流出带负号；现金桥为作者复算。",
+        "lines": [
+          "截至2026年6月30日上半年；流出带负号；现金桥为作者复算。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 14
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S07-table",
+        "native_name": "S07-table",
+        "kind": "table",
+        "native_type": "table",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "用共同基线核对期间、支出范围和现金结果",
+        "alignment": "semantic-columns",
+        "box": [
+          0.060000001500000046,
+          0.3096666666666667,
+          0.8775000219375005,
+          0.49862962962962964
+        ],
+        "copy_ids": [
+          "S07-03",
+          "S07-04",
+          "S07-05",
+          "S07-06",
+          "S07-07",
+          "S07-08",
+          "S07-09",
+          "S07-10",
+          "S07-11",
+          "S07-12",
+          "S07-13",
+          "S07-14"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font",
+          "editable-boundary"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "semantic_table": {
+          "columns": [
+            {
+              "label": "H1 2026现金活动",
+              "role": "text",
+              "weight": 1.8
+            },
+            {
+              "label": "十亿美元",
+              "role": "number",
+              "weight": 1
+            }
+          ],
+          "cells": [
+            [
+              {
+                "text": "H1 2026现金活动",
+                "lines": [
+                  "H1 2026现金活动"
+                ],
+                "size_pt": 18,
+                "align": "left",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "十亿美元",
+                "lines": [
+                  "十亿美元"
+                ],
+                "size_pt": 18,
+                "align": "right",
+                "bold": true,
+                "header": true,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "经营活动",
+                "lines": [
+                  "经营活动"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "64.088",
+                "lines": [
+                  "64.088"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "投资活动",
+                "lines": [
+                  "投资活动"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "−83.331",
+                "lines": [
+                  "−83.331"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "筹资活动",
+                "lines": [
+                  "筹资活动"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "9.414",
+                "lines": [
+                  "9.414"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "汇率影响",
+                "lines": [
+                  "汇率影响"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              },
+              {
+                "text": "0",
+                "lines": [
+                  "0"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": false,
+                "header": false,
+                "total": false,
+                "emphasis": false
+              }
+            ],
+            [
+              {
+                "text": "含受限现金净变化",
+                "lines": [
+                  "含受限现金净变化"
+                ],
+                "size_pt": 23,
+                "align": "left",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              },
+              {
+                "text": "−9.829",
+                "lines": [
+                  "−9.829"
+                ],
+                "size_pt": 23,
+                "align": "right",
+                "bold": true,
+                "header": false,
+                "total": true,
+                "emphasis": false
+              }
+            ]
+          ],
+          "widths": [
+            7.521428571428571,
+            4.178571428571429
+          ],
+          "heights": [
+            0.5549999999999999,
+            0.6369444444444444,
+            0.6369444444444444,
+            0.6369444444444444,
+            0.6369444444444444,
+            0.6369444444444444
+          ],
+          "padding": [
+            0.17,
+            0.13
+          ],
+          "width": 11.7,
+          "height": 3.7397222222222224,
+          "caption": "截至2026年6月30日上半年；流出带负号；现金桥为作者复算。",
+          "comparison": "用共同基线核对期间、支出范围和现金结果"
+        },
+        "table_spec": {
+          "headers": [
+            "H1 2026现金活动",
+            "十亿美元"
+          ],
+          "rows": [
+            [
+              "经营活动",
+              "64.088"
+            ],
+            [
+              "投资活动",
+              "−83.331"
+            ],
+            [
+              "筹资活动",
+              "9.414"
+            ],
+            [
+              "汇率影响",
+              "0"
+            ],
+            [
+              "含受限现金净变化",
+              "−9.829"
+            ]
+          ]
+        }
+      },
+      {
+        "element_id": "S07-16",
+        "native_name": "S07-16",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S07-16"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源：S1现金流量表；不把投资净流出全称固定资产购置。",
+        "lines": [
+          "来源：S1现金流量表；不把投资净流出全称固定资产购置。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S07-rule",
+        "native_name": "S07-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S07-page-number",
+        "native_name": "S07-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "7",
+        "lines": [
+          "7"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S07-01",
+        "render_target_id": "S07-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S07-01"
+        }
+      },
+      {
+        "copy_id": "S07-02",
+        "render_target_id": "S07-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S07-02"
+        }
+      },
+      {
+        "copy_id": "S07-15",
+        "render_target_id": "S07-15",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S07-15"
+        }
+      },
+      {
+        "copy_id": "S07-03",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 0,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S07-04",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 0,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S07-05",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 1,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S07-06",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 1,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S07-07",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 2,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S07-08",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 2,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S07-09",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 3,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S07-10",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 3,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S07-11",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 4,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S07-12",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 4,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S07-13",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 5,
+          "column": 0
+        }
+      },
+      {
+        "copy_id": "S07-14",
+        "render_target_id": "S07-table",
+        "target_type": "table-cell",
+        "native_location": {
+          "shape_name": "S07-table",
+          "row": 5,
+          "column": 1
+        }
+      },
+      {
+        "copy_id": "S07-16",
+        "render_target_id": "S07-16",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S07-16"
+        }
+      }
+    ],
+    "mode": "table",
+    "page_number": 7
+  },
+  {
+    "slide_id": "S08",
+    "elements": [
+      {
+        "element_id": "S08-01",
+        "native_name": "S08-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S08-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源与边界：公司FCF有明确扣除口径",
+        "lines": [
+          "来源与边界：公司FCF有明确扣除口径"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S08-02",
+        "native_name": "S08-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S08-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "中期实际、管理层指引及作者判断分别标识",
+        "lines": [
+          "中期实际、管理层指引及作者判断分别标识"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S08-03",
+        "native_name": "S08-03",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.2710740740740741,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S08-03"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "S1｜官方披露",
+        "lines": [
+          "S1｜官方披露"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true,
+        "hyperlink": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/"
+      },
+      {
+        "element_id": "S08-04",
+        "native_name": "S08-04",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.3443703703703704,
+          0.8625000215625006,
+          0.15611111111111112
+        ],
+        "copy_ids": [
+          "S08-04"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "Meta于2026-07-29发布Q2业绩，含现金流、分部、非GAAP调节及指引。原表百万美元，本文换为十亿美元；中期财务数据未经审计。 可见定位：investor.atmeta.com，Meta 2026年第二季度业绩及非GAAP调节表，2026-07-29。",
+        "lines": [
+          "Meta于2026-07-29发布Q2业绩，含现金流、分部、非GAAP调节及指引。原表",
+          "百万美元，本文换为十亿美元；中期财务数据未经审计。 可见定位：",
+          "investor.atmeta.com，Meta 2026年第二季度业绩及非GAAP调节表，2026-07-29。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S08-05",
+        "native_name": "S08-05",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.5378148148148149,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S08-05"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "未知项",
+        "lines": [
+          "未知项"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true
+      },
+      {
+        "element_id": "S08-06",
+        "native_name": "S08-06",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.611111111111111,
+          0.8625000215625006,
+          0.10585185185185185
+        ],
+        "copy_ids": [
+          "S08-06"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "本报告未确认AI独立投入及回报，也不预测全年经营现金。FCF不是可任意分配的全部剩余现金；来源标题保留原生网址。",
+        "lines": [
+          "本报告未确认AI独立投入及回报，也不预测全年经营现金。FCF不是可任意分",
+          "配的全部剩余现金；来源标题保留原生网址。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S08-07",
+        "native_name": "S08-07",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S08-07"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "研究截止：2026-10-10；来源S1及其指标定义。",
+        "lines": [
+          "研究截止：2026-10-10；来源S1及其指标定义。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S08-rule",
+        "native_name": "S08-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S08-page-number",
+        "native_name": "S08-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "8",
+        "lines": [
+          "8"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S08-01",
+        "render_target_id": "S08-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S08-01"
+        }
+      },
+      {
+        "copy_id": "S08-02",
+        "render_target_id": "S08-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S08-02"
+        }
+      },
+      {
+        "copy_id": "S08-03",
+        "render_target_id": "S08-03",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S08-03"
+        }
+      },
+      {
+        "copy_id": "S08-04",
+        "render_target_id": "S08-04",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S08-04"
+        }
+      },
+      {
+        "copy_id": "S08-05",
+        "render_target_id": "S08-05",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S08-05"
+        }
+      },
+      {
+        "copy_id": "S08-06",
+        "render_target_id": "S08-06",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S08-06"
+        }
+      },
+      {
+        "copy_id": "S08-07",
+        "render_target_id": "S08-07",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S08-07"
+        }
+      }
+    ],
+    "mode": "rows",
+    "page_number": 8
+  },
+  {
+    "slide_id": "S09",
+    "elements": [
+      {
+        "element_id": "S09-01",
+        "native_name": "S09-01",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "title",
+        "alignment": "left",
+        "box": [
+          0.05700000142500004,
+          0.08266666666666667,
+          0.8887500222187505,
+          0.07088888888888888
+        ],
+        "copy_ids": [
+          "S09-01"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "覆盖仍成立，持续性取决于回款和投入节奏",
+        "lines": [
+          "覆盖仍成立，持续性取决于回款和投入节奏"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 30
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S09-02",
+        "native_name": "S09-02",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "subtitle",
+        "alignment": "left",
+        "box": [
+          0.05850000146250004,
+          0.1708888888888889,
+          0.8850000221250006,
+          0.046851851851851846
+        ],
+        "copy_ids": [
+          "S09-02"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "作者综合判断及后续验证条件",
+        "lines": [
+          "作者综合判断及后续验证条件"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 19
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S09-03",
+        "native_name": "S09-03",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.2710740740740741,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S09-03"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "支撑",
+        "lines": [
+          "支撑"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true
+      },
+      {
+        "element_id": "S09-04",
+        "native_name": "S09-04",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.3443703703703704,
+          0.8625000215625006,
+          0.05559259259259259
+        ],
+        "copy_ids": [
+          "S09-04"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "广告需求及经营现金增长提供支撑，停止回购和债务融资补充资金调度空间。",
+        "lines": [
+          "广告需求及经营现金增长提供支撑，停止回购和债务融资补充资金调度空间。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S09-05",
+        "native_name": "S09-05",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "heading",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.43729629629629635,
+          0.8625000215625006,
+          0.05996296296296296
+        ],
+        "copy_ids": [
+          "S09-05"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "跟踪",
+        "lines": [
+          "跟踪"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 25
+        },
+        "color": "185D72",
+        "bold": true
+      },
+      {
+        "element_id": "S09-06",
+        "native_name": "S09-06",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "body",
+        "alignment": "left",
+        "box": [
+          0.06375000159375004,
+          0.5105925925925926,
+          0.8625000215625006,
+          0.15611111111111112
+        ],
+        "copy_ids": [
+          "S09-06"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "检查后续经营现金能否覆盖固定资产购置及租赁本金，广告回款是否持续、费用是否受控。最新季度余量很薄，全年指引兑现后仍有多大余量，需要后续披露验证。",
+        "lines": [
+          "检查后续经营现金能否覆盖固定资产购置及租赁本金，广告回款是否持续、费",
+          "用是否受控。最新季度余量很薄，全年指引兑现后仍有多大余量，需要后续披",
+          "露验证。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 23
+        },
+        "color": "172B3A",
+        "bold": false
+      },
+      {
+        "element_id": "S09-07",
+        "native_name": "S09-07",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "annotation",
+        "alignment": "left",
+        "box": [
+          0.061500001537500036,
+          0.9144444444444445,
+          0.8737500218437506,
+          0.03155555555555555
+        ],
+        "copy_ids": [
+          "S09-07"
+        ],
+        "locked_properties": [
+          "text",
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02,
+          "size_pt": 0
+        },
+        "text": "来源：S1及作者综合判断；不保证未来覆盖或AI回报。",
+        "lines": [
+          "来源：S1及作者综合判断；不保证未来覆盖或AI回报。"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 12
+        },
+        "color": "526571",
+        "bold": false
+      },
+      {
+        "element_id": "S09-rule",
+        "native_name": "S09-rule",
+        "kind": "connector",
+        "native_type": "connector",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "页序定位",
+        "alignment": "horizontal",
+        "box": [
+          0.05775000144375004,
+          0.064,
+          0.03600000090000002,
+          0.00013333333333333334
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "color"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        }
+      },
+      {
+        "element_id": "S09-page-number",
+        "native_name": "S09-page-number",
+        "kind": "text",
+        "native_type": "shape",
+        "group_id": "ungrouped",
+        "render_separately": true,
+        "purpose": "自动页码",
+        "alignment": "left",
+        "box": [
+          0.9337500233437506,
+          0.9466666666666667,
+          0.026250000656250015,
+          0.03333333333333333
+        ],
+        "copy_ids": [],
+        "locked_properties": [
+          "position",
+          "font"
+        ],
+        "allowed_adjustments": {
+          "position_inches": 0.02
+        },
+        "text": "9",
+        "lines": [
+          "9"
+        ],
+        "typography": {
+          "font_family": "STKaiti",
+          "size_pt": 11
+        },
+        "color": "526571",
+        "automatic_field": true
+      }
+    ],
+    "copy_unit_map": [
+      {
+        "copy_id": "S09-01",
+        "render_target_id": "S09-01",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S09-01"
+        }
+      },
+      {
+        "copy_id": "S09-02",
+        "render_target_id": "S09-02",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S09-02"
+        }
+      },
+      {
+        "copy_id": "S09-03",
+        "render_target_id": "S09-03",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S09-03"
+        }
+      },
+      {
+        "copy_id": "S09-04",
+        "render_target_id": "S09-04",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S09-04"
+        }
+      },
+      {
+        "copy_id": "S09-05",
+        "render_target_id": "S09-05",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S09-05"
+        }
+      },
+      {
+        "copy_id": "S09-06",
+        "render_target_id": "S09-06",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S09-06"
+        }
+      },
+      {
+        "copy_id": "S09-07",
+        "render_target_id": "S09-07",
+        "target_type": "shape",
+        "native_location": {
+          "shape_name": "S09-07"
+        }
+      }
+    ],
+    "mode": "closing",
+    "page_number": 9
+  }
+]

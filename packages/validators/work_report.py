@@ -849,6 +849,16 @@ def inspect_pptx(path: Path | str) -> dict[str, Any]:
                 title_source = "cover-slide-declared-title"
             elif cover_title:
                 title_source = "cover-slide-first-text-candidate"
+            # Freeform decks need not store their visible title as the first
+            # XML text shape. Prefer core metadata only when its text is also
+            # present on the actual cover; stale template metadata still falls
+            # back to the existing candidate and remains explicitly labelled.
+            if not slides[0].get("declared_title") and core_properties_title:
+                normalized = re.sub(r"\s+", "", core_properties_title)
+                cover_texts = {re.sub(r"\s+", "", item["text"]) for item in slides[0]["text_shapes_content"]}
+                if normalized in cover_texts:
+                    cover_title = core_properties_title
+                    title_source = "core-properties"
         title = cover_title or core_properties_title
         if not cover_title and core_properties_title:
             title_source = "core-properties"

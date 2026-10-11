@@ -188,3 +188,8 @@ Supervisor calibrates the handoff and collects the final report; Copy does not
 invent prior work or overwrite the research.
 
 The central baseline is `../../config/default.json`; consume it through the unified merger.
+
+
+## Local industry research development
+
+For industry-explanation tasks, read `packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.

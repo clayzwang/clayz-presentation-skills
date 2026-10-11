@@ -6,6 +6,17 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.4 — 2026-10-11
+
+- Promote audience-aware industry research and knowledge-first Art learning, with contextual judgment and separate practice/effect records.
+- Add native table/text-flow, scoped-link, native-preview, glyph-bound, reader-source snapshot and stale-evidence utilities exercised in local iterations. Correct visible-cover title extraction.
+- Publish the current 1.2.8 knowledge archive separately in work-output, bind its hashes, and support runtime-only release checksums.
+
+### 中文
+
+- 整理读者导向行业研究与先补足判断知识的 Art 方法，分别记录专业理解、情境选择与作品效果。
+- 加入经本地实践使用的原生表格、文本流、来源链接、真实预览、字形边界、首读冻结和证据绑定工具，修正封面标题提取。
+- 当前 1.2.8 知识包独立存储于 work-output，保存精确哈希；发布与校验支持仅含运行时的资产集合。
 ## 0.20.3 — 2026-10-10
 
 - Organize Art around knowledge-dependent decisions: whole-deck Copy preparation, whole-page semantics, attention, expression/composition/element language, and observed revision.

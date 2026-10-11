@@ -111,6 +111,12 @@ Preserve editable text, data-bound charts/tables and editable diagram objects;
 photographs remain image assets. Log permitted micro-adjustments; return
 changes to content, hierarchy or composition to the responsible upstream stage.
 
+For a later correction to observation prose, it can be useful to keep a dated
+supplement linked to the original record. Distinguish when the visual baseline
+was actually formed from when its description was corrected. An unchanged
+design need not be rebuilt to repair a receipt; preserve its real baseline and
+the later correction rather than treating the correction as a new design event.
+
 ## Workflow
 
 Apply the shared artifact-led Library loop to the implementation plan: approved
@@ -196,3 +202,8 @@ existing command evidence. Do not interpret an exception as a quality finding,
 or rewrite declared fail/deferred/uncertain results as pass to satisfy a record.
 Fix affected tool/input causes, rerun affected checks and preserve earlier output.
 The deviation-log validator's record pass is not a PPTX quality verdict.
+
+
+## Native production checks
+
+For native production, also read `../../packages/contracts/local-development-gates.zh-CN.md`. Apply actual native preview, inspectable knowledge parameters, table-cell and footer checks, bound visual evidence, and stale-record rejection. The current external knowledge pack is stored and versioned separately; read its top-level learning philosophy when selected. Preserve failed readings and disclose actual Auditor context and unobserved target applications.

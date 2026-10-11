@@ -55,6 +55,10 @@ COMPOSITE_EXCLUDED_TOP_LEVEL = {
     "knowledge", "provenance",
 }
 COMPOSITE_RUNTIME_SCRIPTS = {
+    "inspect_logic_knowledge.py",
+    "inspect_industry_research.py",
+    "audit_native_glyph_bounds.py",
+    "render_native_preview.py",
     "stage_documents.py",
     "art_learning.py",
     "reader_review.py",

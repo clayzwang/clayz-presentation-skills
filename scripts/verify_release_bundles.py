@@ -110,13 +110,15 @@ def verify_offline(path: Path, platform_name: str) -> list[str]:
     return errors
 
 
-def verify(root: Path, platforms: tuple[str, ...] = builder.DEFAULT_RELEASE_PLATFORMS) -> list[str]:
+def verify(root: Path, platforms: tuple[str, ...] = builder.DEFAULT_RELEASE_PLATFORMS,
+           *, include_learning: bool = True) -> list[str]:
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     expected = [f"clayz-presentation-skills-{version}-{target}-light.zip" for target in builder.LIGHT_TARGETS] + [
         f"clayz-presentation-skills-{version}-offline-{platform_name}-py312.zip"
         for platform_name in platforms
     ]
-    expected.append(f"clayz-presentation-skills-{version}-art-learning.zip")
+    if include_learning:
+        expected.append(f"clayz-presentation-skills-{version}-art-learning.zip")
     errors: list[str] = []
     checksum_path = root / "SHA256SUMS.txt"
     if not checksum_path.is_file():
@@ -128,7 +130,7 @@ def verify(root: Path, platforms: tuple[str, ...] = builder.DEFAULT_RELEASE_PLAT
     if set(checksums) != set(expected):
         errors.append(
             "SHA256SUMS.txt does not list exactly the two light archives and "
-            f"the Art learning pack and selected offline add-ons: {', '.join(platforms)}"
+            f"selected offline add-ons and configured learning-pack inclusion ({include_learning}): {', '.join(platforms)}"
         )
     for filename in expected:
         path = root / filename
@@ -164,9 +166,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("root", nargs="?", type=Path, default=ROOT / "dist")
     parser.add_argument("--platform", choices=["windows", "macos", "linux", "all"], default="windows")
+    parser.add_argument("--without-learning-pack", action="store_true")
     args = parser.parse_args()
     platforms = tuple(builder.OFFLINE_TARGETS) if args.platform == "all" else (args.platform,)
-    errors = verify(args.root.resolve(), platforms)
+    errors = verify(args.root.resolve(), platforms, include_learning=not args.without_learning_pack)
     print(json.dumps({"ok": not errors, "errors": errors}, ensure_ascii=False, indent=2))
     return 1 if errors else 0
 

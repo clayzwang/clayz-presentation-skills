@@ -158,3 +158,8 @@ The central baseline is `../../config/default.json`; consume it through the unif
 New runs use content package 3.4 and the locale-matched story-visual-handoff contract.
 Research ownership and source evidence are unchanged. Copy may reorganize the complete story.
 Research order and topic labels do not prescribe visual order or layouts.
+
+
+## Local industry research development
+
+For industry-explanation tasks, read `packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
