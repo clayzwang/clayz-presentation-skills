@@ -1,0 +1,24 @@
+{
+  "r03-amazon": {
+    "pdf_sha256": "7a73bdebf6edffa8f694ee2ba2dacb37e51e9e0f972cd9b08345da2e64b35480",
+    "source_round": "r03-amazon"
+  },
+  "r04-meta": {
+    "pdf_sha256": "3807d321145b88e1d02d3e242d107f3b23a5e6023fc9ad77278f615380330bea",
+    "source_round": "r04-meta",
+    "pdf_source": "r04-meta/native-prototype/rendered/art-prototype.pdf",
+    "note": "XML来自实际原生样稿PDF；最终PPTX几何和文字一致，但未混称同一PDF哈希。"
+  },
+  "r05-nvidia": {
+    "pdf_source": "r05-nvidia/native-prototype/rendered/art-prototype.pdf",
+    "pdf_sha256": "75ad4e3fc3e5ac86d846d759587fa56d9e0cc78712c32b7e53bb57ec3a0469ae",
+    "spec_sha256": "3935d67797eff7c371a9396691a0d2e87ef2ee0e606942c1d00a4e069750b426",
+    "note": "真实LibreOffice PDF的Poppler bbox与同次声明框；表格检查及同文行x/y定位回归。"
+  },
+  "r08-tesla": {
+    "pdf_source": "r08-tesla/native-prototype/rendered/art-prototype.pdf",
+    "pdf_sha256": "4cf5435fc764e19d857320545f9aeb9523151ec03aea2423dd6545105796897a",
+    "spec_sha256": "53d06e38de0a090665c13928d5060d050b484a255c2ac00ff8b480ec2be9bc46",
+    "note": "真实LibreOffice PDF的Poppler bbox与同次声明框；表格检查及同文行x/y定位回归。"
+  }
+}

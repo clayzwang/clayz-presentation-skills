@@ -277,3 +277,8 @@ indexes and actual content when available; otherwise seek web references and use
 the model's own design ability. No-match and unavailable optional references allow
 original design with the real limitation recorded. Supervisor checks fidelity and
 actual defects without inheriting removed constraints or taking over design.
+
+
+## Native production checks
+
+For native production, also read `packages/contracts/local-development-gates.zh-CN.md`. Apply actual native preview, inspectable knowledge parameters, table-cell and footer checks, bound visual evidence, and stale-record rejection. The current external knowledge pack is stored and versioned separately; read its top-level learning philosophy when selected. Preserve failed readings and disclose actual Auditor context and unobserved target applications.

@@ -1,0 +1,14 @@
+{
+  "release_version": "0.20.4",
+  "knowledge_version": "1.2.8-industry.10-knowledge-first",
+  "knowledge_repository": "clayzwang/work-output",
+  "knowledge_directory": "knowledge/ppt/v0.20.4",
+  "knowledge_archive": "knowledge-pack-1.2.8-industry.10-knowledge-first.zip",
+  "knowledge_sha256": "4db377d7837c94c4ae7a1a793caec1fe19bf7f8ce02e2e5d57fcefae2a393011",
+  "knowledge_bytes": 80363,
+  "knowledge_manifest_sha256": "8a960f3837dc9efde4121d88e72a0734722496f90ba15a3a448435e4e3d197a3",
+  "usage": "Optional external knowledge; independently stored, not embedded in Cloud/Local Light. Repository access is required.",
+  "tested_method_origin": "0.20.3-industry.10-text-orientation",
+  "tested_knowledge_snapshot": "1.2.7-industry.10-text-orientation",
+  "latest_knowledge_change": "1.2.8 adds top-level learning philosophy and reading-entry guidance; no new deck outcome is claimed."
+}

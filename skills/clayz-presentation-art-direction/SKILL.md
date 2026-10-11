@@ -44,6 +44,12 @@ When the user selects the foundations learning pack, validate it and use `script
 
 Record `art_cognition` and any `art_content` in planning before lock; carry both through the actual Art plan and final report. Original Copy remains available. For changed meaning, argument, order or pagination, use the actual presentation projection and the independent final-reader change audit specified in the contract. Differences alone do not fail; unsupported facts or lost qualifications do.
 
+For problem-led learning, use the domain guidance in the Art design process.
+An optional pack's `domains` reading map can connect a symptom to relevant
+professional concepts without classifying it automatically. Learn the underlying
+judgment before prescribing a page repair; keep study, application and observed
+effect separate in existing notes. Let code follow the design decision.
+
 ## Composition guidance
 
 Read [Reader-centered composition](references/reader-centered-composition.md)
@@ -165,6 +171,15 @@ or choosing a composition.
 4. Use approved data for charts and tables. If choosing tabular presentation,
    specify an integrated native table. Govern images, logos and symbols by
    purpose and rights; decorative ordinals must not imply unsupported rank.
+   When native reopening wraps a cell differently from measurement, consider
+   a small target/font-specific `semantic_table.plan(native_width_scale=...)`
+   calibration, then inspect the reflow and available height. Its default is 1;
+   a previous case's value is not a universal preset. For source links, choosing
+   the actual annotation object or Copy range can avoid linking a product name
+   that happens to equal a source code (as AWS S3 did in the cloud trial).
+   When an explicit source-link scope is selected, check whether an older
+   whole-heading fallback still adds unrelated clickable text. Inspect the
+   actual clickable objects as well as the correctly linked source codes.
 5. Produce readable PNG/JPEG drafts of every page using the actual approved
    or Art-revised text, preserving differences. Inspect thumbnails, full-size pages and the actual page sequence.
    Judge attention, relationships, reading effort, visual fatigue, purposeful
@@ -217,3 +232,8 @@ calibration. Do not fabricate design evidence or retrofit a draft from the
 final Output PPTX.
 
 The central baseline is `../../config/default.json`; consume it through the unified merger.
+
+
+## Native production checks
+
+For native production, also read `../../packages/contracts/local-development-gates.zh-CN.md`. Apply actual native preview, inspectable knowledge parameters, table-cell and footer checks, bound visual evidence, and stale-record rejection. The current external knowledge pack is stored and versioned separately; read its top-level learning philosophy when selected. Preserve failed readings and disclose actual Auditor context and unobserved target applications.

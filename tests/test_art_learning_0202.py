@@ -128,12 +128,19 @@ class ArtLearningTests(unittest.TestCase):
                              'evidence': 'Original and actual title compared with unchanged body.'} for c in changes]}
         path = helper.root/'review.json'
         value = rr.record_review(first_read=first, dispositions=helper.put('dispositions.json', []),
-                    evidence=[helper.package, plan_path], comparison=helper.put('comparison.json', comparison), output=path)
+                    evidence=[helper.package, Path(packet['art_plan']['path'])], comparison=helper.put('comparison.json', comparison), output=path)
         rr.require_pass(rr.validate_review(value))
         broken = copy.deepcopy(value); broken['comparison']['art_changes'] = []
         with self.assertRaisesRegex(ValueError, 'every Art difference'): rr.validate_review(broken)
         auditor = helper.audit({'final': path}); auditor['source_records'].append({'kind': 'plan', **rr.ref(plan_path)})
         self.assertIn('final', rr.audit_reviews(auditor))
+        # A byte-identical source and its pre-reading frozen copy may have
+        # different paths. Changing the actual projection must still fail.
+        changed = copy.deepcopy(plan); changed['later_revision'] = 'different bytes'
+        changed_path = helper.put('later-plan.json', changed)
+        auditor['source_records'][-1] = {'kind': 'plan', **rr.ref(changed_path)}
+        with self.assertRaisesRegex(ValueError, 'current Art projection'):
+            rr.audit_reviews(auditor)
 
     def test_omitted_difference_stale_baseline_and_snapshot_mismatch_rejected(self):
         package, plan = self.handoff()

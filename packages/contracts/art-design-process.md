@@ -3,8 +3,48 @@
 This process operationalizes A01–A11 in the existing Art stage. Read it after
 the current title and content reviews pass, before page planning and drafts.
 Its Chinese peer is [Art 设计工作流](art-design-process.zh-CN.md).
-The external learning pack and its codes are unchanged. These are dependencies
+The external knowledge pack is stored and versioned separately. These are dependencies
 between design decisions, not new agents, approval gates or a layout catalog.
+
+## Develop the knowledge that produces design judgment
+
+An iteration can start with an observed problem or an opportunity to improve.
+Deepen relevant concepts, mechanisms, applicability, tradeoffs and connections
+before making a contextual choice for the audience, content and medium.
+Knowledge influences design through a better understanding of the task.
+Keep page-specific repairs in practice records; cases and demonstrated actions
+support understanding rather than define universal fixes. If the selected pack
+provides a top-level learning philosophy, understand that direction before
+entering relevant domains. Separate observations, causal hypotheses, choices
+and results. Reading can revise the initial diagnosis. Small revisits, retaining
+the current design or deferring judgment are valid; no node quota or layout rule
+follows.
+
+When an observed problem exposes a gap in design judgment, consider the relevant
+knowledge domain before choosing a repair. Editorial narrative and orientation,
+perception and visual variables, and semantic rules in a visual system are
+connected starting points, not a closed symptom classifier. A user-selected pack
+may offer an open reading map through `art_learning.py domains --pack <path>`.
+Study concepts, mechanisms, applicability and professional sources; examples
+help explain this knowledge rather than replace it. In existing work notes,
+describe the consequential understanding, then let Art independently adopt,
+adapt or decline it for the actual content, audience and medium. Implementation
+follows that judgment. Keep knowledge enrichment, application and observed
+reader effect distinct. No layout prescription, change quota or new gate follows.
+
+When relations are easily confused, graphic syntax offers another connected
+domain: what are the objects, does space carry quantity, order or grouping, and
+which objects do labels and connectors refer to? A series can preserve these
+meanings while adapting its organization to the current task. These questions
+inform judgment without specifying a graphic or equating reading order with an
+industry process.
+
+When whole-page hierarchy is clear but reading still requires backtracking within
+a passage, connect typography with representation: paragraph boundaries,
+alignment, space and line measure support different reading operations. Study
+continuous exposition, correspondence and conditions before deciding whether to
+retain or adapt the expression. Preserve the script and medium limits of numeric
+advice from professional sources rather than converting it to Chinese-slide quotas.
 
 ## 1. Read and prepare the whole Copy document
 

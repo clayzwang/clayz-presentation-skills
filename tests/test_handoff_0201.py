@@ -108,6 +108,10 @@ class HandoffTests(TestCase):
             write_record(title, value)
         self.assertEqual(old, title.read_bytes())
         self.package.write_text('{}')
+        # A mutable working original may change after its source snapshot.
+        rr.validate_review(rr.read(title))
+        packet = rr.read(rr.read(rr.read(title)['first_read']['path'])['packet']['path'])
+        Path(packet['package']['path']).write_text('{}')
         with self.assertRaises(ValueError):
             rr.validate_review(rr.read(title))
 

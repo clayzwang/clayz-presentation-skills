@@ -11,7 +11,7 @@ from packages.validators.art_learning import load_pack, lookup, validate_cogniti
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['validate', 'lookup', 'validate-cognition', 'diff'])
+    parser.add_argument('command', choices=['validate', 'domains', 'lookup', 'validate-cognition', 'diff'])
     parser.add_argument('--pack', type=Path)
     parser.add_argument('--code')
     parser.add_argument('--record', type=Path)
@@ -39,7 +39,17 @@ def main():
         else:
             if args.pack is None:
                 raise ValueError('--pack required; no bundled or fabricated lookup')
-            if args.command == 'lookup':
+            if args.command == 'domains':
+                manifest, _ = load_pack(args.pack)
+                entry = manifest.get('domain_map')
+                if not entry:
+                    result = {'available': False, 'guidance': 'No domain map in this optional pack; identify the relevant discipline from the communication problem.'}
+                else:
+                    # An open reading map, never a keyword classifier or gate.
+                    if entry not in manifest['files']:
+                        raise ValueError('domain map must be hash-bound')
+                    result = json.loads((args.pack / entry).read_text(encoding='utf-8'))
+            elif args.command == 'lookup':
                 result = lookup(args.pack, args.code)
             else:
                 manifest, nodes = load_pack(args.pack)

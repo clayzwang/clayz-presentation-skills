@@ -1,8 +1,12 @@
 # Clayz Presentation Skills
 
+## 0.20.4：专业知识与情境判断
+
+先补足产生设计判断的知识，再由 Art 根据受众、内容与媒介形成选择。具体修法留在实践记录，知识补充、采用与效果分别验证。当前知识包 1.2.8 独立存放于 [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v0.20.4)；精确对应关系见 [知识包版本信息](config/knowledge-release.json)。公共 Release 不携带当前知识包。下文旧版本的学习包描述保留为历史说明。
+
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.3**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.4**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 

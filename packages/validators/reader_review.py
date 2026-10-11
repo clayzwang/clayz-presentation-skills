@@ -29,17 +29,25 @@ PROMPT = (
     "in your own words what the material teaches, its mechanisms and concrete "
     "comparisons when relevant. Cite pages and visible wording. Identify where "
     "you must guess, cannot answer the task, or can only repeat a label. Record "
-    "uncertainty; do not invent missing facts. Do not look up sources or improve "
-    "the wording before saving this first understanding. Return assessment, "
+    "uncertainty; do not invent missing facts. Honour the audience knowledge stated in the brief; do not silently assume industry or financial expertise. Distinguish your explanation of what happens from repeating labels. Do not look up sources or improve "
+    "the wording before saving this first understanding. Return exactly four top-level keys and no others: assessment, "
     "title_reading, understanding and findings as specified in the reader-review "
-    "contract. These are editorial observations, not numerical quality scores."
+    "contract. These are editorial observations, not numerical quality scores. Positive observations belong in understanding; findings are concrete problems that affect understanding or reading. With no problems, use findings=[] and assessment=understood. If findings are nonempty, assessment must be understanding-gaps (or insufficient-input when the input is insufficient). Do not invent defects to fill a section. title_reading must be a string. Each understanding item has question, answer, slide_ids, visible_evidence (string), uncertainty (string). Each finding has finding_id, slide_ids, copy_ids, statement, reader_impact."
 )
 
 
 def phase_prompt(phase):
     if phase == "title":
         return PROMPT.replace("First read the titles as a sequence, then read the complete pages.",
-                              "Read only the supplied title sequence; do not infer unseen body text.")
+                              "Read only the supplied title sequence; do not infer unseen body text. Assess the argument sequence and key scope. Numerical proof and detailed mechanisms may belong in the unseen body; their absence from titles alone is not a defect.")
+    if phase == "final":
+        return PROMPT + (
+            " Also record your first visual impression before detailed reading, inside an understanding item; do not add a top-level field."
+            " Describe the actual hierarchy, spacing, alignment, table comparisons,"
+            " redundant text and reading effort on the rendered pages. Separate"
+            " visual observations from factual accuracy; correctness does not"
+            " establish good design. Identify concrete pages and visible objects."
+        )
     return PROMPT
 
 
@@ -159,12 +167,17 @@ def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
     if output.exists():
         existing = read(output)
         payload = validate_packet(existing)
-        if (existing["phase"] == phase and existing["package"] == ref(package)
+        snapshot_root=output.parent/(output.stem+'-sources')
+        binding_path=snapshot_root/'binding.json'
+        original=read(binding_path)['originals'] if binding_path.exists() else {'package':existing['package'],'pptx':existing['pptx'],'renders':existing['renders'],'plan':existing.get('art_plan')}
+        if (existing["phase"] == phase and original.get("package") == ref(package)
                 and payload["brief"] == brief_value and Path(existing["input"]["path"]).parent == directory
-                and existing["pptx"] == (ref(pptx) if phase == "final" and pptx else None)
-                and existing["renders"] == (ref(renders) if phase == "final" and renders else None)
-                and existing.get("art_plan") == (ref(plan) if plan else None)
+                and original.get("pptx") == (ref(pptx) if phase == "final" and pptx else None)
+                and original.get("renders") == (ref(renders) if phase == "final" and renders else None)
+                and original.get("plan") == (ref(plan) if plan else None)
                 and existing["unavailable_reason"] == unavailable_reason):
+            if phase=='final' and renders is not None:
+                for row in read(renders)['slides']:load_ref({k:row[k] for k in ('path','sha256','bytes')},json_value=False)
             return existing
         raise FileExistsError("reader packet input changed; use a new revision, preserve prior reading")
     if directory.exists() or output.resolve().is_relative_to(directory):
@@ -215,6 +228,10 @@ def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
         pages = []
     payload = {"brief": brief_value, "instruction": phase_prompt(phase), "pages": pages}
     write(directory / "reader-input.json", payload)
+    from packages.validators.reader_source_snapshot import freeze
+    frozen=freeze(output.parent/(output.stem+'-sources'),package=package,pptx=pptx if phase=='final' else None,renders=renders if phase=='final' else None,plan=plan)
+    package=frozen['package'];pptx=frozen.get('pptx');plan=frozen.get('plan')
+    if 'renders' in frozen:render_ref=ref(frozen['renders'])
     packet = {"contract": PACKET, "phase": phase,
               "run_id": binding["run_id"], "task_request_sha256": binding["task_request_sha256"],
               "package": ref(package), "pptx": ref(pptx) if phase == "final" else None,
@@ -510,7 +527,11 @@ def audit_reviews(auditor: dict[str, Any], *, required: bool = False, config: di
         if phase == "final" and sources.get("plan"):
             plan_ref = {k: sources["plan"][k] for k in ("path", "sha256", "bytes")}
             plan_value = load_ref(plan_ref)
-            if plan_value.get("art_content") is not None and review["packet"].get("art_plan") != plan_ref:
+            reader_plan = review["packet"].get("art_plan") or {}
+            # Both paths are independently byte-verified. A frozen copy is the
+            # same approved projection; a different digest remains a failure.
+            same_bytes = all(reader_plan.get(k) == plan_ref[k] for k in ("sha256", "bytes"))
+            if plan_value.get("art_content") is not None and not same_bytes:
                 raise ValueError("final reader must compare the current Art projection with original Copy")
         if value["phase"] != phase or any(value[k] != auditor[k] for k in ("run_id", "task_request_sha256")):
             raise ValueError("reader review binding differs from final audit")

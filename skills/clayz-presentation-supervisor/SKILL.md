@@ -313,3 +313,13 @@ group paths. Missing objects, unapproved merges/splits/regrouping or flattened
 substitutes are Output deviations. Art owns whether the original boundaries
 make editing natural; source traceability and complete text do not settle that
 judgment. Record findings in the existing native_editability observation.
+
+
+## Native production checks
+
+For native production, also read `../../packages/contracts/local-development-gates.zh-CN.md`. Apply actual native preview, inspectable knowledge parameters, table-cell and footer checks, bound visual evidence, and stale-record rejection. The current external knowledge pack is stored and versioned separately; read its top-level learning philosophy when selected. Preserve failed readings and disclose actual Auditor context and unobserved target applications.
+
+
+## Local industry research development
+
+For industry-explanation tasks, read `packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
