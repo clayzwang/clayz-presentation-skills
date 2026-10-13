@@ -22,6 +22,7 @@ def main() -> int:
     for name in ("package", "brief", "directory", "output"):
         prepare.add_argument("--" + name, type=Path, required=True)
     prepare.add_argument("--title-review", type=Path)
+    prepare.add_argument("--config", type=Path)
     prepare.add_argument("--pptx", type=Path)
     prepare.add_argument("--plan", type=Path)
     prepare.add_argument("--renders", type=Path)
@@ -41,6 +42,8 @@ def main() -> int:
     validate.add_argument("path", type=Path)
     gate = commands.add_parser("check-art-gate")
     gate.add_argument("--package", type=Path, required=True)
+    gate.add_argument("--config", type=Path)
+    gate.add_argument("--reader-cycle", type=Path)
     gate.add_argument("--title-review", type=Path, required=True)
     gate.add_argument("--content-review", type=Path, required=True)
     repair = commands.add_parser("repair-scope")

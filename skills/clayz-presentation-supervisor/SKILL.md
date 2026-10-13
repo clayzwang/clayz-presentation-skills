@@ -2,8 +2,20 @@
 name: clayz-presentation-supervisor
 description: Root-orchestrate resource inspection, discussion-based knowledge learning, PPT enablement, and presentation tasks across resource inventory, Provider locking, Logic, Copy, Art Direction, Output, written PPTX objects, and final renders. Use for requests to inspect the plugin, discuss and confirm reusable knowledge, advise on PPT capability, or create, revise, generate, or audit slides, PPT, PPTX, presentations, or decks. Prevent direct tool bypass, keep discussion separate from production, dispatch the five governed stages only when a deck is requested, detect drift and evidence failures, and return control without silently rewriting or redesigning.
 ---
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
+
+
 
 # Clayz Presentation Supervisor
+
+For sequential user-requested training, read
+`../../packages/contracts/training-iteration.zh-CN.md`. Reserve each substantive
+return in `../../scripts/iteration_budget.py` before dispatch. At the configured cap,
+preserve failures and stop that company. Verify the prior optimized plugin and
+knowledge snapshot with `../../scripts/verify_iteration_upgrade.py` before preparing
+the next company. A stopped company is not a verified delivery.
 
 ## v0.20.2 Art cognition and audited changes
 
@@ -72,7 +84,7 @@ with one shared Index and one task path.
 
 The control plane enables the model with explicit authority, useful evidence, tools, and feedback. It must not turn the stages into a checklist or compress Logic's reasoning. Optimize repeated transport and execution, not professional thought.
 
-For a local installation, `scripts/plugin_cli.py inspect` may report package
+For a local installation, `../../scripts/plugin_cli.py inspect` may report package
 integrity and an offline knowledge snapshot. Reuse that report in the resource
 brief, but it is not a native Library or file-access probe and does not replace
 the later task-bound production inventory or renderer preflight. If no Library
@@ -80,7 +92,7 @@ binding is configured, report that fact without inventing one.
 
 Classify every request before choosing a route: inspection, discussion-based
 learning, or PPT enablement. PPT enablement branches to capability advice or
-artifact production. For inspection, use `scripts/plugin_cli.py inspect` only
+artifact production. For inspection, use `../../scripts/plugin_cli.py inspect` only
 for the local report and return the component, snapshot, and observed-tool
 findings; inspection does not start production, create a retrieval receipt, or
 dispatch a stage. For discussion-based knowledge learning, use the facade's
@@ -148,7 +160,7 @@ For a new, revised, or audited presentation artifact:
 
 1. Classify the presentation request as `new-build`, `revision`, or `audit`. Do not call a presentation authoring tool before this classification. The inspection, discussion-learning, and PPT-advice routes above do not enter this production sequence.
 2. Run `../../scripts/component_version_guard.py --mode application --output <component-version-report.json> --brief-output <component-version-brief.md>` for the current task. It verifies installed components against their own bundled table offline and returns `installed`. Briefly report the installed version and any local defect; do not compare GitHub, Codex and ChatGPT version numbers as a production gate. A newer or older installed release, unavailable GitHub, or expired development candidate receipt does not block authoring. Missing/corrupt installed files, internally incompatible components and invalid private bindings still block. `--mode release-check` is a developer-only explicit release comparison, not a presentation prerequisite. Do not claim the installed version is officially published.
-3. Run `../../scripts/validate_plugin_mount.py` and bind its report. All five Skills and every required `runtime/`, `config/`, `packages/`, and `scripts/` path must come from one mounted plugin root. Missing shared files are `plugin-runtime-incomplete`; do not continue with detached Skills or reinterpret them as a complete plugin.
+3. Run `../../scripts/validate_composite_skill_mount.py` and bind its report. All five internal stage modules and every required `../../runtime/`, `../../config/`, `../../packages/`, and `../../scripts/` path must come from one mounted composite Skill root. Missing shared files are `composite-skill-runtime-incomplete`; do not continue with detached or partial stage modules or reinterpret them as a complete plugin.
 4. Bind the merged task config and v2 selection from configure-task. Validate bundled metadata integrity if present; do not turn a settings document into a runtime branch or automatic private-source requirement.
 5. Bind the public methods Index plus actual selected knowledge providers. Verify selected source bytes, IDs, rights and snapshots. Optional unavailable material is recorded, while specifically required task sources must be resolved before their dependent work. No Provider quota follows merely from an installed preference profile.
 6. Convert the user's explicit outcome, page-role, narrative, typography, compatibility, delivery, and speed requirements into one `io.clayz.presentation.task-acceptance/1.0` draft, then run `../../scripts/finalize_task_acceptance.py <draft> <task-acceptance.json> --config <task-config.json> --brief-output <task-commitments-brief.json>` to create its canonical hash and concise commitments brief. Add `--origin-map <origin-map.json>` only when the merged configuration produced a real, readable origin-map file. It is a root artifact, not model memory. Record hard requirements, soft requirements, their source and the user's delivery policy. Store only explicit user no-delivery conditions in `acceptance.release_conditions`; the default is an empty array, and `classification=hard` or legacy `blocking=true` never creates one automatically. Ordinary requirements receive a nearby `classification` where absent. Hard requirements are commitments to implement and check; an unmet requirement is reported as `fail` and remains deliverable by default when artifact bindings are complete. Only an explicit user condition that a named failure blocks delivery adds that release gate. Unless the user explicitly omits the respective role, the page-role contract requires one opening cover and one closing page, and body-page count is recorded separately from total-page count. `cover_policy.mode=not-applicable` is never inferred merely because the requested deck is short. Present the concise commitments with the resource brief and preserve them unchanged through Logic, Art Direction, Output QA and the Independent Auditor.
@@ -166,7 +178,7 @@ For a new, revised, or audited presentation artifact:
    invalid bindings stops authoring. Do not present `spec-only` as a writable
    PPTX route.
 9. Dispatch the same Logic, Copy, Art Direction and Output stages with one merged configuration. Preserve task acceptance, resource/Index locks, source evidence, preflight and actual stage artifacts through the handoffs. Send Logic to Copy and Supervisor, Copy to Art Direction and Supervisor, and Art Direction to Output and Supervisor. Return each hash-bound calibration to the next owner and require its `calibration_bindings` decision before that owner locks its artifact. Learning evidence is included only when actually used; never invent an extension digest or private audit. Respect existing retrieval budgets and record substantive use instead of ceremonial source mentions.
-10. After Output, send the final PPTX, object evidence and render evidence to Supervisor and the shared Independent Auditor module. The Auditor reads the immutable original task request, acceptance rules and Supervisor commitments/changes, then writes `independent-audit/1.0` with actual file/render findings, coverage and disclosed context limitations. Supervisor receives that artifact, reconciles it with the stage chain and decides release under the user's policy. Quality findings, unavailable optional knowledge and deferred target-application checks do not by themselves block delivery; binding, identity, format or evidence-integrity failures do. Preserve each finding and status exactly, and never claim a check that was not performed. Mirror the run ID, task-request hash, nonce, task-root hash, challenge hash, canonical issuance and consumption receipt hashes, resolved-config hash, preflight scan ID and raw hash, locked route, satisfied/declared-unverified/missing route requirements, and every target application's available/unavailable result into `environment_observation`; after Output, record each target as `pass`, `fail`, `deferred`, or `not-selected` with evidence. Use `scripts/publish_supervised_pair.py` as the only final publication path, derive the readable Markdown from the validated report JSON, and hand off the PPTX, formal report and derived Markdown only from its validated bundle.
+10. After Output, send the final PPTX, object evidence and render evidence to Supervisor and the shared Independent Auditor module. The Auditor reads the immutable original task request, acceptance rules and Supervisor commitments/changes, then writes `independent-audit/1.0` with actual file/render findings, coverage and disclosed context limitations. Supervisor receives that artifact, reconciles it with the stage chain and decides release under the user's policy. Quality findings, unavailable optional knowledge and deferred target-application checks do not by themselves block delivery; binding, identity, format or evidence-integrity failures do. Preserve each finding and status exactly, and never claim a check that was not performed. Mirror the run ID, task-request hash, nonce, task-root hash, challenge hash, canonical issuance and consumption receipt hashes, resolved-config hash, preflight scan ID and raw hash, locked route, satisfied/declared-unverified/missing route requirements, and every target application's available/unavailable result into `environment_observation`; after Output, record each target as `pass`, `fail`, `deferred`, or `not-selected` with evidence. Use `../../scripts/publish_supervised_pair.py` as the only final publication path, derive the readable Markdown from the validated report JSON, and hand off the PPTX, formal report and derived Markdown only from its validated bundle.
 
 For an audit-only request, start from the available approved packages and artifacts, record every missing prerequisite, and run the audit workflow without inventing prior approvals.
 
@@ -203,7 +215,7 @@ audit.
 Read `../../packages/contracts/stage-enablement.md` for task authority, relevance-based retrieval, professional review, and measured execution. It supersedes legacy requirements to select every source, rediscover unchanged resources, or treat aesthetic heuristics as mandatory gates.
 
 
-1. Bind the offline component report and package integrity, then consume the same unified task config/selection and available source evidence. Do not rediscover a private route or require unavailable profile data during final audit.
+1. Bind the offline component report and package integrity, then consume the same unified task ../../config/selection and available source evidence. Do not rediscover a private route or require unavailable profile data during final audit.
 2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
 3. Read `references/supervision-contract.md`, `references/failure-pattern-routing.md`, and `../../packages/contracts/independent-audit.md`. These authority, routing and independent-audit contracts are mandatory and never search-dependent; the existence of a matching Failure Pattern is search-dependent.
 4. Read `../../packages/contracts/knowledge-learning.md` and the locale-matched `references/feedback-index-routing.md` before routing reusable observations. These governance contracts are mandatory and never search-dependent.
@@ -224,7 +236,7 @@ Read `../../packages/contracts/stage-enablement.md` for task authority, relevanc
 8. Return reusable learning candidates to Logic, Copy, Art Direction, or Output with evidence and limits; never create a Supervisor learning silo, issue the separate human admission, update a benchmark baseline, or promote a candidate automatically. Confirmed discussion learning follows the root facade's explicit user-confirmation and immutable-commit route instead of this observation-only feedback path.
 9. Reconcile every initially selected resource as used or unused with a reason, cover all five stages with evidence, and present the user with a concise actual-use summary. Late unlisted resources are invalid; new material requires a revised pre-Logic inventory and another brief before use.
 10. Emit one report3.6 JSON with `origin_namespace: io.clayz.presentation`, status `supervised`, the same challenge-bound run/task/config values as preflight, the real five stage records, any bound `work-notes`, three `calibration_artifacts`, `auditor_artifact`, `supervisor_release` and derived `core_sequence`. The collector attaches the authoritative top-level `work_report` and `work_report_sha256` from existing primary artifacts and records. Assemble the full work report from those inputs: preserve task requirements, evidence and source trace, counterevidence, assumptions, uncertainty, storyline and exclusions, final copy, page-level design intent, calibration responses, actual PPTX statistics/page text/notes, Auditor observations, release, limitations and improvements when observed. Use `not-recorded` for missing stage notes or unavailable observations; never backfill them from memory. `stage_snapshots` and requirement traceability remain bound when required by the assembled report. Optional historical lifecycle, Index, retrieval, performance or Library fields are preserved only when real. Record Supervisor as initiator, coordinator/calibrator and recorder. Keep the compatibility `supervisor_roles.final_auditor` entry `not-needed` or `incomplete` so it cannot imply that Supervisor authored the audit; the stage-five work record and actual audit artifact use role `auditor`. The derived core sequence is `supervision-started`, `logic-to-copy-calibrated`, `copy-to-art-direction-calibrated`, `art-direction-to-output-calibrated`, `independent-audit-completed`, `supervisor-release`. A quality issue does not require a user checkpoint; create one only for a material business choice, scope change or explicit no-delivery condition. A target pass/fail requires a same-run `target-application-check/1.0` receipt bound to the final PPTX hash and observed inside the challenge window between Output handoff and final audit. Do not record private chain-of-thought; record actions, decisions, evidence references, and outcomes.
-11. Bind `delivery_pair` to the final PPTX filename and SHA-256, this supervision-report filename, `delivery-manifest.json`, `scripts/publish_supervised_pair.py`, and the `auditor_artifact` hash/timestamp. The publisher manifest also records `work-report.md` in its `derived_files` collection and binds its bytes to the formal JSON without a circular report hash. Binding, identity, format, missing-required-artifact or evidence-integrity failure requires a blocked pair. A binding-complete pair may be published with accurately recorded quality issues, deferred checks or optional Library limitations under the default policy. Run the publisher only after report and audit validation, then run the current `verify-handoff` against the newly published bundle and use only its returned exact PPTX/report/Markdown paths, hashes, task/run identity and PPTX summary for final delivery. Never glob a task directory or link an older report. A missing formal report, invalid derived Markdown/manifest, missing core-sequence step, missing stage/calibration/Auditor/release binding, mismatched binding or hash, absent manifest, publisher bypass, or single-artifact handoff proves Supervisor completion was not established. Missing optional lifecycle, Index, retrieval or performance fields does not by itself block the report3.6 path. A summary-only legacy report is insufficient evidence of work history; `not-recorded` means the evidence was not captured, not that a prior stage did not run.
+11. Bind `delivery_pair` to the final PPTX filename and SHA-256, this supervision-report filename, `delivery-manifest.json`, `../../scripts/publish_supervised_pair.py`, and the `auditor_artifact` hash/timestamp. The publisher manifest also records `work-report.md` in its `derived_files` collection and binds its bytes to the formal JSON without a circular report hash. Binding, identity, format, missing-required-artifact or evidence-integrity failure requires a blocked pair. A binding-complete pair may be published with accurately recorded quality issues, deferred checks or optional Library limitations under the default policy. Run the publisher only after report and audit validation, then run the current `verify-handoff` against the newly published bundle and use only its returned exact PPTX/report/Markdown paths, hashes, task/run identity and PPTX summary for final delivery. Never glob a task directory or link an older report. A missing formal report, invalid derived Markdown/manifest, missing core-sequence step, missing stage/calibration/Auditor/release binding, mismatched binding or hash, absent manifest, publisher bypass, or single-artifact handoff proves Supervisor completion was not established. Missing optional lifecycle, Index, retrieval or performance fields does not by itself block the report3.6 path. A summary-only legacy report is insufficient evidence of work history; `not-recorded` means the evidence was not captured, not that a prior stage did not run.
 
 ## Page planning audit — v0.19.0
 
@@ -287,7 +299,7 @@ supplied, never fabricated to make the report appear complete.
 
 ## Work record at handoff
 
-Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual coordination, calibration and reconciliation artifacts to immutable task-local revision files, record the work and real checks with `scripts/publish_supervised_pair.py record-stage --stage supervisor`, and attach `work-notes` when the three calibration rounds, downstream absorption, release rationale, actual-vs-planned reconciliation, Auditor observations or limitations need richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may remain open with evidence. Missing notes remain `not-recorded`. Supervisor collects the four production records, consumes the `auditor_artifact`, adds its coordination record, derives the full report through `assemble-report`, and verifies the published bundle through `verify-handoff`; it must not claim to be the independent Auditor, invent prior work, alter audit findings or deliver a separate summary as the final report.
+Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual coordination, calibration and reconciliation artifacts to immutable task-local revision files, record the work and real checks with `../../scripts/publish_supervised_pair.py record-stage --stage supervisor`, and attach `work-notes` when the three calibration rounds, downstream absorption, release rationale, actual-vs-planned reconciliation, Auditor observations or limitations need richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may remain open with evidence. Missing notes remain `not-recorded`. Supervisor collects the four production records, consumes the `auditor_artifact`, adds its coordination record, derives the full report through `assemble-report`, and verifies the published bundle through `verify-handoff`; it must not claim to be the independent Auditor, invent prior work, alter audit findings or deliver a separate summary as the final report.
 
 The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
 
@@ -322,4 +334,35 @@ For native production, also read `../../packages/contracts/local-development-gat
 
 ## Local industry research development
 
-For industry-explanation tasks, read `packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
+For industry-explanation tasks, read `../../packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
+
+
+### Local r14.1 — distinguish the reader comparison from the original gate
+
+After reconciliation, run the original `reader_review.py check-art-gate` before
+any design. For a disputed finding or a transport/binding discrepancy, the
+read-only `../../scripts/reader_gate_diagnostic.py --package COPY --title-review TITLE
+--content-review CONTENT` reports the original subprocess exit/stdout/stderr
+alongside validated first-read assessments, finding IDs and comparison verdicts.
+Optional `--reference-file FILE` accepts an explicit role-to-reference JSON map
+whose entries contain the exact absolute path, sha256 and bytes. It verifies the
+references without correcting them; retain invalid evidence and repair only its
+transport through the existing process. Diagnostic stdout is not a stage record,
+calibration or alternative gate. Exit 1 retains the original gate block; exit 2
+identifies invalid evidence even if a separate gate returned zero. A comparison
+pass or completed diagnostic never overrides the original gate. Keep bounded
+iteration and residual observations; do not resample unchanged content to turn
+an existing failure into a clean first reading.
+
+
+### Local r17.1 — calibrate typography findings to observable impact
+
+For a Chinese wrap finding, identify the actual affected reading relationship
+and distinguish typographic convention, optional polishing and demonstrated
+comprehension loss. Chinese permits many inter-character breaks; a split
+dictionary word alone is insufficient evidence for failure. Numeric/symbol
+combinations and punctuation have their own conventions; consult the scoped
+knowledge before generalizing. A reader pass does not erase an independent
+hierarchy observation, and an author's aesthetic preference does not prove a
+reader failed. Keep the original finding and evidence; no retrospective
+relabelling of frozen runs, extra reader gate or renewed repair allowance.

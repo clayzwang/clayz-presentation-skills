@@ -39,6 +39,7 @@ def main():
     parser.add_argument('--config', type=Path)
     parser.add_argument('--title-review', type=Path)
     parser.add_argument('--content-review', type=Path)
+    parser.add_argument('--reader-cycle', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     try:
@@ -47,7 +48,8 @@ def main():
             raise ValueError('story/research handoffs require a supported package 3.x')
         if args.command in {'record-planning', 'lock-design'} and load_config(args.config).get('workflow', {}).get('reader_review', {}).get('phases') == ['title', 'content', 'final']:
             from packages.validators.reader_review import check_art_gate
-            check_art_gate(package, args.title_review, args.content_review)
+            check_art_gate(package, args.title_review, args.content_review,
+                           config=load_config(args.config), reader_cycle=args.reader_cycle)
         if args.command == 'record-planning':
             if args.plan is None or package.get('contract_version') != '3.4':
                 raise ValueError('record-planning requires --plan draft and Copy package 3.4')

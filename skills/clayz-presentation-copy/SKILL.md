@@ -2,8 +2,65 @@
 name: clayz-presentation-copy
 description: Explain Logic-approved research for the intended reader, review the actual explanation for understanding and meaning preservation, then edit it into finely resolved, coherent text passages. Own wording, reorganization, pagination and page sequence; preserve supported meaning and evidence. Hand semantic body units and their relationships to Art without prescribing objects or layouts. Do not design or build the PPTX.
 ---
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
+
+
 
 # Clayz Presentation Copy
+
+For this local r10.1 revision, read
+`../../packages/contracts/copy-explanation-preservation.zh-CN.md` when editing for a
+Chinese audience. Apply the concrete explanation-preservation action within
+the existing continuous prose and semantic review; do not create another form.
+After compression, read the actual title sequence without the body or research.
+In the existing semantic review, paraphrase each material claim using only the
+objects and relationships that the titles have established. Preserve an unknown
+business identity as unknown before reopening the body: a shortened name may
+have only one intended meaning and still not identify a business for this reader.
+A definition in the body does not establish that identity in the title sequence.
+Compare the paraphrase with the complete account and restore only the relation
+or qualifier needed for the judgment. Do not require every abbreviation's full
+name. This author action is not an independent reading; keep the existing fresh-
+reader sequence, without adding another form, review gate or repair allowance.
+Follow subject changes within an independent title claim as well as across
+the actual title sequence. A shared topic or an earlier clause does not supply
+the later claim's subject. If the visible wording cannot name it, retain that
+absence in the paraphrase before reopening the body; correct relationship
+metadata does not make a missing subject visible. Repair consequential changes
+of scope without requiring full names on every page or a definition exam.
+When a comparison depends on a value filed with source notes, temporarily read
+the actual argument without those notes. If that value is still needed to make
+the comparison intelligible, reconsider its argumentative role or remove the
+dependency, then separate the source locator. An extra scenario is not inherently
+secondary; this does not promote every source number or prescribe Art's placement.
+In the continuous account, begin with the actual subject's change and its
+meaning for this audience. Explain unfamiliar concepts where this judgment
+uses them; do not turn a local naming repair into an additional professional
+course. Preserve necessary evidence and scope. A wish to know the full algorithm
+does not itself establish a missing explanation. After the current content
+gates, judge hierarchy and reading effort on actual Art pages rather than
+adding an upstream professional examination.
+
+For the reader's first use of a material metric, explain the operation in
+ordinary language, not only its professional label. If two growth rates use
+different currency bases, state what the comparison holds constant and why the
+reported-dollar change can differ. If a definition introduces another unfamiliar
+term, resolve only the term needed to understand this company's judgment. Use
+the existing Logic evidence; this is not a requirement for a financial glossary
+or additional research when the supported meaning is already available.
+
+When keeping an aggregate or cross-statement comparison, preserve whose
+comparison it is, which items it combines and what question the sum answers.
+Correct arithmetic does not make a mixed-item sum a pure causal contribution,
+an earnings offset or a cash-flow result. State the useful interpretation and
+its limit together, or remove the optional aggregate if it adds no necessary
+understanding while retaining the supported main claim. Do not relabel a
+supported sum as a calculation error. A qualification elsewhere does not
+automatically constrain the prominently repeated total. Retain useful transitions
+and synthesis, but give repeated language its intended role rather than treating
+repetition itself as additional support. Art decides its actual visual weight.
 
 Copy owns substantive editorial judgment: what the reader needs to know first,
 what requires explanation, and how the supported facts form a coherent account.
@@ -16,9 +73,22 @@ presentation. Copy may combine, split, reorder and rewrite the complete story.
 Preserve facts, numbers, claim strength, qualifiers, relationships and required
 coverage; return new facts or changed research judgments to Logic.
 
+During that existing meaning review, compare each consequential claim with the
+measure it actually uses, including the research detail you chose to omit.
+Keeping the correct company name does not preserve the metric: statutory net
+income and a management profit measure can move in opposite directions for the
+same company and period. When the source already contains such a distinction,
+check whether a shortened title or synthesis silently broadens the selected
+measure. Keep the necessary metric identity in the claim and explain it where
+used; choosing not to show another series does not authorize its implied claim.
+Money amounts likewise do not by themselves measure customer departures.
+Carry the supported cause and scope into repeated risk or closing claims. Work
+from the existing research and consequential omissions, without collecting every
+possible metric, restoring every unused number or adding another review gate.
+
 ## Current production boundary (v0.20.1)
 
-Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+Follow [reader review](../../packages/contracts/reader-review.md), with the current reader-cycle contract for bounded repair and original-reader confirmation. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts after the closed Copy cycle, including both original-reader confirmations when repaired; Output follows approved Art. Final reading compares actual pages to approved Copy and routes one consolidated repair to Art or Output, followed by confirmation by the same final reader. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
 
 ## Current handoff — v0.19.0
 
@@ -192,4 +262,60 @@ The central baseline is `../../config/default.json`; consume it through the unif
 
 ## Local industry research development
 
-For industry-explanation tasks, read `packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
+For industry-explanation tasks, read `../../packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
+
+
+### Local r11.1 — carry the actual run identity at package creation
+
+When constructing the authored package, use `../../scripts/package_run_binding.py`
+`with_run_binding(package, preflight_path, challenge_path, upstream=...)` to copy
+the already-issued preflight binding. For Logic omit upstream; for Copy supply
+the exact approved Logic package. The helper checks transport identity and
+receipt bytes, never issues a challenge or replaces a conflicting binding.
+Preserve the result before hashing/calibrating it and keep original package and
+reader validation. It is not proof of host readiness or content approval.
+
+
+### Local r14.1 — explain the changes the account makes important
+
+After the continuous account is complete, revisit the changes it actively makes
+important: a largest contribution, a material decline, an apparent reversal or a
+future condition. For each relevant claim, check whether the visible account
+lets the intended reader explain the supported reason or the actual disclosure
+limit. A decomposition showing where an increase occurred is not by itself an
+explanation of why it occurred. This also applies to optional asides added to
+echo the main theme: a contrasting quarterly profit pair still invites an
+explanation of that quarter. A general definition of the two metrics does not
+establish the actual reason they diverged. Restore an existing Logic explanation
+lost in editing; return only a consequential missing research answer to Logic.
+If an optional contrast adds no necessary task answer and lacks that support,
+remove the aside while preserving required coverage and the original research;
+do not report omission as a demonstrated causal explanation.
+
+Use the current account and audience to choose this check, not every disclosed
+metric or a fixed number of arguments. Directional company attribution may be
+sufficient with its limit; distinguish a management category such as “underlying
+performance” from an explained operating action, and distinguish an unknown
+action from a known action whose contribution was not quantified. Use disclosed
+actions and their supported direction where available. Otherwise identify the
+attribution as the company's broad description and keep the claim within that
+boundary; never fill the gap from generic industry knowledge or invent a
+quantified net-profit bridge. Read
+countervailing effects together: new business can grow while current profit
+falls. Keep the needed mechanism in ordinary language; a request for an entire
+accounting algorithm does not itself establish a missing task answer. Preserve
+real uncertainty and concrete reader findings rather than writing toward pass.
+Record consequential choices in the existing semantic review; no extra page,
+column, cause count or acceptance threshold follows from this action.
+
+
+### Local r15.1 — preserve the reader's reference across the account
+
+When adjacent passages continue a comparison, reread them as a continuous
+account: what company, metric, ownership basis, period and unit is the audience
+following? Select a consistent basis where it answers the task; where a change
+of basis is needed, make its purpose and the new reference understandable at
+the transition. A correct definition somewhere in the deck is not evidence
+that the transition is understood. Do not mandate a single metric throughout,
+repeated full names, extra labels on every page or a fixed comparison template.
+Use existing semantic notes to record a consequential editorial choice.

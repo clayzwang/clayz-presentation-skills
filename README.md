@@ -1,12 +1,14 @@
 # Clayz Presentation Skills
 
-## 0.20.4: professional knowledge and contextual judgment
+## 0.20.5: professional knowledge and contextual judgment
 
-Develop the knowledge behind design judgment before choosing a contextual repair. Keep practice records and observed effects separate. The current 1.2.8 knowledge pack is stored in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v0.20.4); exact bindings are in [knowledge release metadata](config/knowledge-release.json). It is not included in public release assets. Older learning-pack descriptions below are historical.
+Copy readers consolidate issues into one repair and both original readers confirm the revised material. Final reading permits one Art/Output repair and confirmation by the same reader. Auditor records only; residual issues stay in the report. See [reader cycles](packages/contracts/reader-cycle.md).
+
+Develop the knowledge behind design judgment before choosing a contextual repair. Keep practice records and observed effects separate. The current 1.2.9+insurance.r20.1 knowledge pack is stored in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-insurance.r20.1); exact bindings are in [knowledge release metadata](config/knowledge-release.json). It is not included in public release assets. Older learning-pack descriptions below are historical.
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.4**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.5**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 

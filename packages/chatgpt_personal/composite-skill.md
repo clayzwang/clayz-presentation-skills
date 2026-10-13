@@ -5,6 +5,13 @@ description: Root-orchestrate presentation Library inspection, discussion-based 
 
 # Clayz Presentation Personal
 
+## v0.20.5 reader cycles and recursive learning
+
+When the user requests sequential training with recursive improvements, read
+`packages/contracts/training-iteration.zh-CN.md`. Carry actual improved source
+and knowledge bytes into the next task; copied baselines are not improvements.
+Supervisor enforces `packages/contracts/reader-cycle.md`: one consolidated Copy repair and one final Art/Output repair, each followed by confirmation by the original readers. Auditor is record-only. This release promotes the recursively improved insurance.r20.1 implementation.
+
 ## v0.20.2 Art cognition and audited changes
 
 For Art execution, read `packages/contracts/art-design-process.md` or its
@@ -96,7 +103,16 @@ document is a substitute.
 
 ## Current eight-step workflow (v0.20.1)
 
-Follow `packages/contracts/reader-review.md`: substantive Logic conclusions → complete Copy → fresh title-only reader, then compare with Logic → different fresh full-content reader, then compare with Logic → Art → Output → fresh final-render reader, then compare with approved Copy → supervision report and delivery. Freeze understanding before exposing comparison evidence. The reader contract explicitly requests these real host delegations. Gate Art on both current Copy reviews; gate delivery on final review. Expression defects return to Copy; final visual defects return to Art, which may assign Output repairs. Proven research faults return to Logic with accountability. Preserve original readings and reuse only unaffected work. Do not start design, full drafts or rendering before Copy gates. Upload is outside this workflow and requires a separate user request.
+Follow `packages/contracts/reader-cycle.md` and `reader-review.md`: delivered Copy → independent title and content readers on the same version → consolidated issues → at most one Copy repair → both original readers confirm → Art → Output → final reader → at most one Art/Output repair → same final reader confirms → record-only independent Auditor → report with every remaining/new issue and delivery. No second repair, no auditor-triggered repair, no fake clean pass. This contract explicitly requests actual independent reader host delegation for presentation production. Upload follows the user's existing authorization.
+
+For local r07.1, use `scripts/reader_brief.py` to scope the existing neutral
+brief to the actual title, content or final reading, then pass it to the original
+reader prepare command. Preserve audience and purpose verbatim. Titles convey
+the principal judgments; body detail and the full professional algorithm are
+not additional title acceptance requirements. This helper never changes a
+reader response or gate. Once content gates pass, advance to actual Art pages;
+do not add upstream technical examinations. Evaluate presentation improvements
+from real drafts/renders and reading, not the number of professional rules.
 
 ## Production reliability (v0.17.5)
 

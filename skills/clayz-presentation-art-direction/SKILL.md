@@ -2,6 +2,11 @@
 name: clayz-presentation-art-direction
 description: Design presentation structure, layout and full-deck image drafts from Copy-approved text. Organize the reader's attention and understanding through visual hierarchy, information relationships, composition and sequence rhythm. Use the model's design ability and relevant references when useful; use learning packages only when the user requests them. Hand a locked editable implementation specification to Output with original Copy and Art changes preserved for final audit; do not create the final PPTX.
 ---
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
+
+
 
 # Clayz Presentation Art Direction
 
@@ -22,7 +27,7 @@ Font-size differences or faithful text alone are insufficient. Art can clarify g
 
 ## Current production boundary (v0.20.2)
 
-Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+Follow [reader review](../../packages/contracts/reader-review.md), with the current reader-cycle contract for bounded repair and original-reader confirmation. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts after the closed Copy cycle, including both original-reader confirmations when repaired; Output follows approved Art. Final reading compares actual pages to approved Copy and routes one consolidated repair to Art or Output, followed by confirmation by the same final reader. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
 
 ## Eleven concrete design results and knowledge codes — v0.20.2
 
@@ -40,7 +45,7 @@ or code receipts alone do not complete these decisions.
 
 Read [Art cognition and external learning](../../packages/contracts/art-cognition.md). Cover A01 task, A02 direction, A03 narrative, A04 page proposition, A05 roles/relations, A06 perception, A07 concept, A08 composition, A09 visual language, A10 integration, A11 critique. For each, state a scoped conclusion, actionable operations and checks/uncertainty in `art_cognition`; reuse unaffected work and revisit local choices. These are eleven thinking concerns, not eleven agents or approval steps.
 
-When the user selects the foundations learning pack, validate it and use `scripts/art_learning.py lookup --pack <path> --code <Axx-or-principle>`. Read the principle, applicability, action, limitation and optional examples; cite exact consulted nodes and explain their effect on the choice. Do not merely append codes. Every code has a principle; cases are synthetic teaching examples, not university work or tested outcomes. Keep the package external to Light. The package is optional; concrete conclusions and actions are required for new Art work even without it.
+When the user selects the foundations learning pack, validate it and use `../../scripts/art_learning.py lookup --pack <path> --code <Axx-or-principle>`. Read the principle, applicability, action, limitation and optional examples; cite exact consulted nodes and explain their effect on the choice. Do not merely append codes. Every code has a principle; cases are synthetic teaching examples, not university work or tested outcomes. Keep the package external to Light. The package is optional; concrete conclusions and actions are required for new Art work even without it.
 
 Record `art_cognition` and any `art_content` in planning before lock; carry both through the actual Art plan and final report. Original Copy remains available. For changed meaning, argument, order or pagination, use the actual presentation projection and the independent final-reader change audit specified in the contract. Differences alone do not fail; unsupported facts or lost qualifications do.
 
@@ -65,6 +70,55 @@ position, grouping and text density. Check that the strongest visible region
 serves the intended hierarchy, including purposeful asymmetry. Revise a
 secondary saturated panel or dense region that overwhelms the main evidence;
 inspect the color drafts and sequence again before locking the baseline.
+
+### Local r08.1 — preserve reading hierarchy during fit repairs
+
+When repairing clipping, crowded sources or narrow columns, compare the actual
+revised page with the understanding task again. A wider line or an uncut
+paragraph can still flatten the distinction between the main result, its
+business owner and the explanation. Trace the title's judgment to its visible
+support, including any subject change within a paragraph. Inspect whether the
+reader must reconstruct those pairings sentence by sentence after the repair.
+If that relation has become harder to see, revise the affected typography,
+grouping or spatial correspondence and inspect the page in its real sequence.
+Retain continuous prose when it serves the relationship. This adds no required
+labels, argument count, layout, score or approval gate; containment and reading
+hierarchy remain separate observations in the existing Art critique.
+
+Distinguish source locators from evidence needed to make the current judgment.
+A comparison value or counterfactual may be factually retained in a source line
+yet be absent from the main reading path. When its magnitude changes the
+reader's interpretation, compare a visible placement near the relevant result
+with the current footnote treatment; choose from the actual page and preserve
+the comparison basis. This is a contextual hierarchy decision, not a rule to
+promote every qualification or source number.
+
+
+### Local r10.1 — measure native usable capacity before lock
+
+Before locking, use the actual font and reopened native prototype to compare
+text metrics against each text object's usable box and every native table cell.
+Subtract the written native margins first; apply the configured internal reserve
+to that usable width and height, including normal padding, vertical anchors and
+paragraph spacing. A width scale or estimated line advance is only a design
+estimate. Distinguish line advance, PDF font-metric boxes and visible ink; none
+is interchangeable with the other two. Inspect the complete matched object/cell
+set, and retain unmatched or unmeasured targets as unknown rather than pass.
+Use the existing draft render and capacity evidence; this does not require a
+second full-deck render or a new approval gate. Reconcile the result with the
+locked object specifications. If the existing route cannot measure an item,
+state that coverage limit instead of estimating a verified reserve.
+
+Resolve a measured shortfall through Art's content relationships and available
+space, preserving necessary explanation, font hierarchy and native editing
+boundaries. Review the affected whole page again: a title's wrap should preserve
+readable meaning units, and a narrow closing panel may repeat the nearby claim
+and consume attention without adding a useful conclusion. Decide whether that
+repetition aids recall or adds reading work from the actual sequence; no fixed
+column count, wrap dictionary or mandatory deletion follows. Bounds and capacity
+pass do not establish these reading qualities. The observed STKaiti metric
+height of about 1.30 times the size in the AIA/LibreOffice run is not a universal
+font, renderer, line-height or design constant.
 
 ## Current handoff — v0.19.0
 
@@ -237,3 +291,150 @@ The central baseline is `../../config/default.json`; consume it through the unif
 ## Native production checks
 
 For native production, also read `../../packages/contracts/local-development-gates.zh-CN.md`. Apply actual native preview, inspectable knowledge parameters, table-cell and footer checks, bound visual evidence, and stale-record rejection. The current external knowledge pack is stored and versioned separately; read its top-level learning philosophy when selected. Preserve failed readings and disclose actual Auditor context and unobserved target applications.
+
+
+### Local r11.1 — choose the relationship before its visual form
+
+Use the mounted knowledge's existing relationship, grouping and text-organization
+chapters to decide what the audience must connect. Trace a consequential reader
+operation through the actual draft: finding a business, locating its value,
+retaining a sign or scope, and connecting an explanation. Identify the operation
+that the current arrangement still leaves to memory or search. Compare a
+suitable alternative for that relationship before settling the existing page
+plan; a small sketch or native fragment within the current budget can reveal
+this without another full-deck production cycle. A sequence, shared semantic
+region, aligned values or continuous paragraphs may serve the relation. Rejecting
+an unsupported complete causal bridge does not require retaining every partial
+comparison as a paragraph. Keep attribution and quantified causation distinct. Distinguish sequence from elapsed time/causality, proximity
+from ownership, and an equation row from a single economic cause. Retain labels,
+units and the scope/purpose of mixed components when changing representation.
+No diagram quota, fixed column count, or company-specific layout is implied.
+
+During actual native reading distinguish the font-metric box, visible ink,
+container inner bounds and total remaining space. A total reserve pass does not
+prove the box stays inside each padding edge; no visible clipping does not clear
+that geometric finding. An unmatched line remains unmatched in the original
+report even when spatially bound PDF-word evidence supports its full text.
+Keep unresolved results instead of deriving a new tolerance from one renderer.
+Read numeric ranges and their units as meaning units alongside words; preserve
+continuous reading where the current geometry allows, without a universal ban
+on breaks or shrinking the font. This extends existing native/semantic reading,
+not another review stage. See the mounted r11 production observation for limits.
+
+### Local r12.1 — keep the scope of a typography repair explicit
+
+A native measurement can reveal a capacity problem without invalidating every
+existing line break. Identify the actual objects and properties to change;
+preserve unaffected authored lines and compare the affected paragraph before
+and after. A global width recalibration can alter previously readable units,
+so use it only when the evidence concerns those objects too. This is not a
+requirement to retain an ineffective layout or a new approval gate.
+
+Read resolved typography minima before constructing the first draft, including
+annotations. `../../scripts/native_text_revision.py` offers configured_size and a
+line-only revision helper that leaves other objects unchanged. Art still
+chooses the lines. Its line_capacity helper describes candidate widths with
+measurement provenance; assess manual lines as well as automatic candidates.
+Joining a range or amount-unit phrase can exceed native capacity. Consider the
+surrounding clause and available region together; do not silently shrink or
+reflow the whole deck. The helper neither wraps text nor supplies a quality pass.
+
+For python-pptx native tables, write padding on the cell itself (tcPr); setting
+cell.text_frame margins addresses bodyPr and does not establish effective cell
+padding. The same helper accepts either a native cell or a TextFrame explicitly.
+Reopen the saved object and inspect the actual properties, then retain native
+metric and visible-ink observations separately. Keep the existing bounded
+repair policy: unsuccessful rereading is a retained failure, not permission to
+start another loop under a new label.
+
+### Local r13.1 — carry the chosen font into the actual native process
+
+Use the existing native renderer with the task's explicit font identity:
+`render(pptx, directory, slide_ids, font_file=resolved_font_path,
+font_family=resolved_family, fontconfig=existing_fontconfig_path)`.
+The equivalent CLI requires `--font-file` and `--font-family`; supply
+`--fontconfig` for the already configured runtime font environment. These are
+paths/values from this task's runtime setup, not a new font search or route.
+The old three-argument call now stops before conversion rather than rendering
+with an unbound font. With no fontconfig argument, inherited resolution must
+still match the requested file hash. The renderer forwards the environment to
+LibreOffice/Poppler, saves `font-environment.json`, and stops before PDF
+conversion on a mismatch. This precheck does not replace PDF font or glyph
+inspection and does not make another full render available under the budget.
+
+For fixed-size native paragraphs, `set_paragraph_edge_space(cell_or_text_frame,
+left_pt, right_pt)` writes real paragraph space inside native padding. Choose
+its value and affected paragraphs deliberately; it replaces existing paragraph
+marL/marR and can affect indentation or bullets. It leaves font and shape size
+unchanged. `native_capacity` reads actual cell/TextFrame margins plus those
+paragraph edges, reports both axes and consumes the extra space. Supply actual
+candidate run metrics and dimensions; use it before save and after reopening.
+Before fitting candidate lines, derive usable width from the actual object
+margins and paragraph edges, then apply the reserve to that usable width.
+Construct the candidate emphasis runs before assessing their width: the ordinary
+font estimate used by measure_lines does not measure mixed bold/native runs.
+Keep that estimate distinct from reopened native metrics; a previously observed
+width_scale is not a guarantee. Inspect the actual longest styled lines in the
+existing native draft review, and compare both object capacity and its clearance
+from the actual adjacent footer. Do not infer footer clearance from a fixed
+body-bottom coordinate or infer inner-edge containment from total reserve.
+If the measurements differ, preserve the concrete dimensions and unresolved
+factors rather than increasing a global coefficient until the check passes.
+
+Before spending the allowed local repair, calculate what the observed deficit
+requires. For unchanged styled line span L and reserve r, usable width must be
+at least L/(1-r); add actual object margins and paragraph-edge allowances only
+once. ../../scripts/plan_text_capacity.py calculates this lower bound from explicit
+measurements; it is not an acceptance checker. Compare the result with available
+page space, then choose a wider frame or a different line/group arrangement.
+If the text, runs or wrapping change, the old span is only a diagnostic bound,
+not a prediction. Reopen and measure within the existing render budget. Do not
+round near-threshold failures up, add global shrinkage, or alter the threshold.
+A font size is not measured text height. Auto-fit, hanging indents, bullets,
+vertical text and renderer transformations need their own geometry observation;
+the fixed-box estimate does not cover them. A positive reserve does not prove
+inner-edge containment, visible ink or readable relationships. Keep the
+original glyph/capacity checks and bounded visual reading unchanged.
+
+
+### Local r15.1 — read beyond the entry point
+
+After identifying the title and the first emphasized element, follow the body
+in the actual requested font: can the audience distinguish the current claim,
+its necessary explanation and relevant qualification at their point of use?
+A whole paragraph in an accent color or a large tinted box may give an entry
+without expressing the relationships inside it. Choose emphasis spans, paragraph
+boundaries, alignment and space around those relationships; do not treat every
+Copy unit or sentence as requiring equal visual weight or a separate card.
+When a native writer breaks a logical paragraph into manual visual lines,
+represent authored emphasis as half-open Unicode character intervals in the
+original paragraph. Use `../../packages/layout/text_emphasis.py:project_emphasis`
+to project those ranges into each line's runs; concatenated lines must preserve
+the exact original text. Do not search each already-broken line for a whole
+phrase: a cross-line phrase would silently lose its styling, and repeated text
+could select the wrong occurrence. Art chooses the ranges and line breaks;
+the helper chooses neither. Inspect the actual runs and rendered fragments,
+including both members of a comparison when both were meant to be emphasized.
+This is a faithful implementation aid, not proof of a useful visual hierarchy.
+Keep long prose where continuous reasoning needs it. Across the sequence, check
+whether a familiar-looking value still refers to the same metric and scope.
+Record what the real prototype makes visible in existing Art observations;
+capacity, object counts and unchanged text do not establish this result.
+No fixed argument count, layout quota, font replacement or additional reader
+gate is introduced. Preserve the original final reader and repair budgets.
+
+
+### Local r17.1 — judge Chinese line breaks in their reading context
+
+When inspecting Chinese text, distinguish an allowed inter-character break
+from a broken numeric/symbol combination and from an observed loss of meaning
+or correspondence. Read P.LANG.TEXT_ORGANIZATION and its scoped W3C sources
+for that distinction. A dictionary word crossing a line is not by itself a
+defect. In a short heading or comparison label, a phrase boundary may still
+help the current reading task; compare it on the actual page rather than
+extending it to a deck-wide protected-word list. Identify the affected subject,
+unit, qualifier or reading path before requesting a repair. Preserve ordinary
+flow when a change would merely exchange one acceptable break for another.
+Inspect hierarchy separately: a brightly emphasized exception can overshadow
+the main result even if every line break is acceptable. These judgments do not
+waive clipping, capacity, content, final-reader or bounded-return checks.

@@ -4,43 +4,165 @@
   "title": "Clayz Presentation Skills configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["identity", "workflow", "runtime", "locale", "theme", "layout", "references", "renderer", "delivery", "qa"],
+  "required": [
+    "identity",
+    "workflow",
+    "runtime",
+    "locale",
+    "theme",
+    "layout",
+    "references",
+    "renderer",
+    "delivery",
+    "qa"
+  ],
   "properties": {
     "identity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["project", "version", "creator", "brand", "namespace", "attribution"],
+      "required": [
+        "project",
+        "version",
+        "creator",
+        "brand",
+        "namespace",
+        "attribution"
+      ],
       "properties": {
-        "project": {"type": "string", "minLength": 1},
-        "version": {"type": "string", "minLength": 1},
-        "creator": {"const": "clayz"},
-        "brand": {"const": "clayz"},
-        "namespace": {"const": "io.clayz.presentation"},
-        "attribution": {"type": "object"}
+        "project": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "creator": {
+          "const": "clayz"
+        },
+        "brand": {
+          "const": "clayz"
+        },
+        "namespace": {
+          "const": "io.clayz.presentation"
+        },
+        "attribution": {
+          "type": "object"
+        }
       }
     },
     "workflow": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["contract_version", "stages", "approval_states", "execution_ledger_contract", "maximum_technical_cycles", "delivery_policy"],
+      "required": [
+        "contract_version",
+        "stages",
+        "approval_states",
+        "execution_ledger_contract",
+        "maximum_technical_cycles",
+        "delivery_policy"
+      ],
       "properties": {
-        "contract_version": {"const": "3.1-open"},
-        "reader_review": {"type": "object", "additionalProperties": false, "required": ["contract", "required", "phases", "unavailable_policy"], "properties": {"contract": {"const": "io.clayz.presentation.reader-review/1.0"}, "required": {"const": true}, "phases": {"enum": [["copy", "final"], ["title", "content", "final"]]}, "unavailable_policy": {"enum": ["disclose-and-continue", "disclose-and-stop"]}}},
-        "stages": {"const": ["logic", "copy", "art-direction", "output", "supervisor"]},
-        "approval_states": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "execution_ledger_contract": {"const": "io.clayz.presentation.execution-ledger/1.0"},
-        "maximum_technical_cycles": {"type": "integer", "minimum": 1, "maximum": 10},
+        "contract_version": {
+          "const": "3.1-open"
+        },
+        "reader_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract",
+            "required",
+            "phases",
+            "unavailable_policy"
+          ],
+          "properties": {
+            "contract": {
+              "const": "io.clayz.presentation.reader-review/1.0"
+            },
+            "required": {
+              "const": true
+            },
+            "phases": {
+              "enum": [
+                [
+                  "copy",
+                  "final"
+                ],
+                [
+                  "title",
+                  "content",
+                  "final"
+                ]
+              ]
+            },
+            "unavailable_policy": {
+              "enum": [
+                "disclose-and-continue",
+                "disclose-and-stop"
+              ]
+            },
+            "repair_policy": {
+              "enum": [
+                "strict-pass",
+                "consolidated-once"
+              ]
+            }
+          }
+        },
+        "stages": {
+          "const": [
+            "logic",
+            "copy",
+            "art-direction",
+            "output",
+            "supervisor"
+          ]
+        },
+        "approval_states": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "execution_ledger_contract": {
+          "const": "io.clayz.presentation.execution-ledger/1.0"
+        },
+        "maximum_technical_cycles": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
         "delivery_policy": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["mode", "calibration_contract", "independent_audit_contract", "require_calibration_chain", "require_independent_auditor", "legacy_reports"],
+          "required": [
+            "mode",
+            "calibration_contract",
+            "independent_audit_contract",
+            "require_calibration_chain",
+            "require_independent_auditor",
+            "legacy_reports"
+          ],
           "properties": {
-            "mode": {"const": "calibrated"},
-            "calibration_contract": {"const": "io.clayz.presentation.supervisor-calibration/1.0"},
-            "independent_audit_contract": {"const": "io.clayz.presentation.independent-audit/1.0"},
-            "require_calibration_chain": {"const": true},
-            "require_independent_auditor": {"const": true},
-            "legacy_reports": {"const": "read-only"}
+            "mode": {
+              "const": "calibrated"
+            },
+            "calibration_contract": {
+              "const": "io.clayz.presentation.supervisor-calibration/1.0"
+            },
+            "independent_audit_contract": {
+              "const": "io.clayz.presentation.independent-audit/1.0"
+            },
+            "require_calibration_chain": {
+              "const": true
+            },
+            "require_independent_auditor": {
+              "const": true
+            },
+            "legacy_reports": {
+              "const": "read-only"
+            }
           }
         }
       }
@@ -48,119 +170,362 @@
     "runtime": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["contract_version", "preflight_script", "model_profiles", "classification_basis", "route_policy", "fallback_policy", "platform_packs", "pdf_support", "budgets"],
+      "required": [
+        "contract_version",
+        "preflight_script",
+        "model_profiles",
+        "classification_basis",
+        "route_policy",
+        "fallback_policy",
+        "platform_packs",
+        "pdf_support",
+        "budgets"
+      ],
       "properties": {
-        "contract_version": {"const": "1.3"},
-        "preflight_script": {"const": "scripts/runtime_preflight.py"},
-        "model_profiles": {"const": ["A", "B", "C", "D"]},
-        "classification_basis": {"const": "capabilities-not-model-brands"},
-        "route_policy": {"const": "scan-once-lock-for-run"},
-        "fallback_policy": {"const": "restart-from-preflight"},
-        "platform_packs": {"const": ["common", "windows", "macos", "linux"]},
-        "pdf_support": {"const": "lazy-optional"},
+        "contract_version": {
+          "const": "1.3"
+        },
+        "preflight_script": {
+          "const": "scripts/runtime_preflight.py"
+        },
+        "model_profiles": {
+          "const": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        "classification_basis": {
+          "const": "capabilities-not-model-brands"
+        },
+        "route_policy": {
+          "const": "scan-once-lock-for-run"
+        },
+        "fallback_policy": {
+          "const": "restart-from-preflight"
+        },
+        "platform_packs": {
+          "const": [
+            "common",
+            "windows",
+            "macos",
+            "linux"
+          ]
+        },
+        "pdf_support": {
+          "const": "lazy-optional"
+        },
         "budgets": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["maximum_capability_scans", "maximum_source_collection_rounds", "maximum_authoring_writes", "maximum_office_processes", "maximum_full_deck_renders", "maximum_repair_cycles", "maximum_route_switches", "maximum_fallback_restarts"],
+          "required": [
+            "maximum_capability_scans",
+            "maximum_source_collection_rounds",
+            "maximum_authoring_writes",
+            "maximum_office_processes",
+            "maximum_full_deck_renders",
+            "maximum_repair_cycles",
+            "maximum_route_switches",
+            "maximum_fallback_restarts"
+          ],
           "properties": {
-            "maximum_capability_scans": {"const": 1},
-            "maximum_source_collection_rounds": {"const": 1},
-            "maximum_authoring_writes": {"type": "integer", "minimum": 1, "maximum": 2},
-            "maximum_office_processes": {"const": 1},
-            "maximum_full_deck_renders": {"type": "integer", "minimum": 1, "maximum": 2},
-            "maximum_repair_cycles": {"const": 1},
-            "maximum_route_switches": {"const": 0},
-            "maximum_fallback_restarts": {"const": 1}
+            "maximum_capability_scans": {
+              "const": 1
+            },
+            "maximum_source_collection_rounds": {
+              "const": 1
+            },
+            "maximum_authoring_writes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2
+            },
+            "maximum_office_processes": {
+              "const": 1
+            },
+            "maximum_full_deck_renders": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2
+            },
+            "maximum_repair_cycles": {
+              "const": 1
+            },
+            "maximum_route_switches": {
+              "const": 0
+            },
+            "maximum_fallback_restarts": {
+              "const": 1
+            }
           }
         }
       }
     },
-    "locale": {"type": "object"},
+    "locale": {
+      "type": "object"
+    },
     "theme": {
       "type": "object",
-      "required": ["profile", "source", "slide_size", "layout_roles", "colors", "typography"],
+      "required": [
+        "profile",
+        "source",
+        "slide_size",
+        "layout_roles",
+        "colors",
+        "typography"
+      ],
       "properties": {
-        "profile": {"type": "string", "minLength": 1},
-        "source": {"enum": ["generated", "user-master"]},
-        "master_path": {"type": ["string", "null"]},
-        "slide_size": {"type": "string", "minLength": 1},
-        "layout_roles": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "colors": {"type": "object"},
+        "profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "enum": [
+            "generated",
+            "user-master"
+          ]
+        },
+        "master_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "slide_size": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layout_roles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "colors": {
+          "type": "object"
+        },
         "typography": {
           "type": "object",
-          "required": ["primary_fonts", "body_minimum_pt", "minimum_audience_text_pt", "minimum_chart_text_pt", "prefer_even_point_sizes", "allow_fractional_point_sizes", "minimum_exception_policy", "fail_on_missing_primary_font", "font_validation"],
+          "required": [
+            "primary_fonts",
+            "body_minimum_pt",
+            "minimum_audience_text_pt",
+            "minimum_chart_text_pt",
+            "prefer_even_point_sizes",
+            "allow_fractional_point_sizes",
+            "minimum_exception_policy",
+            "fail_on_missing_primary_font",
+            "font_validation"
+          ],
           "properties": {
-            "primary_fonts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-            "cjk_fonts": {"type": "array", "items": {"type": "string"}},
-            "latin_fonts": {"type": "array", "items": {"type": "string"}},
-            "digit_fonts": {"type": "array", "items": {"type": "string"}},
-            "chart_fonts": {"type": "array", "items": {"type": "string"}},
-            "title_minimum_pt": {"type": "number", "exclusiveMinimum": 0},
-            "body_minimum_pt": {"type": "number", "exclusiveMinimum": 0},
-            "minimum_audience_text_pt": {"type": "number", "exclusiveMinimum": 0},
-            "minimum_chart_text_pt": {"type": "number", "exclusiveMinimum": 0},
-            "footnote_minimum_pt": {"type": "number", "exclusiveMinimum": 0},
-            "page_number_minimum_pt": {"type": "number", "exclusiveMinimum": 0},
-            "prefer_even_point_sizes": {"type": "boolean"},
-            "allow_fractional_point_sizes": {"type": "boolean"},
-            "minimum_exception_policy": {"type": "string", "minLength": 1},
-            "fail_on_missing_primary_font": {"type": "boolean"},
+            "primary_fonts": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "cjk_fonts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "latin_fonts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "digit_fonts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "chart_fonts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "title_minimum_pt": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "body_minimum_pt": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "minimum_audience_text_pt": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "minimum_chart_text_pt": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "footnote_minimum_pt": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "page_number_minimum_pt": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "prefer_even_point_sizes": {
+              "type": "boolean"
+            },
+            "allow_fractional_point_sizes": {
+              "type": "boolean"
+            },
+            "minimum_exception_policy": {
+              "type": "string",
+              "minLength": 1
+            },
+            "fail_on_missing_primary_font": {
+              "type": "boolean"
+            },
             "font_validation": {
-              "type": ["object", "null"],
+              "type": [
+                "object",
+                "null"
+              ],
               "additionalProperties": false,
-              "required": ["contract_version", "mode", "deferred_font_identities", "preserve_requested_font_names", "silent_substitution_forbidden", "cloud_render_authority", "cloud_pdf_pixel_equivalence", "native_reopen_required_for_final_font_acceptance", "missing_deferred_font_status"],
+              "required": [
+                "contract_version",
+                "mode",
+                "deferred_font_identities",
+                "preserve_requested_font_names",
+                "silent_substitution_forbidden",
+                "cloud_render_authority",
+                "cloud_pdf_pixel_equivalence",
+                "native_reopen_required_for_final_font_acceptance",
+                "missing_deferred_font_status"
+              ],
               "properties": {
-                "contract_version": {"const": "1.0"},
-                "mode": {"const": "preserve-name-defer-native"},
+                "contract_version": {
+                  "const": "1.0"
+                },
+                "mode": {
+                  "const": "preserve-name-defer-native"
+                },
                 "deferred_font_identities": {
                   "type": "array",
                   "minItems": 1,
                   "items": {
                     "type": "object",
                     "additionalProperties": false,
-                    "required": ["canonical_family", "aliases", "pptx_family"],
+                    "required": [
+                      "canonical_family",
+                      "aliases",
+                      "pptx_family"
+                    ],
                     "properties": {
-                      "canonical_family": {"type": "string", "minLength": 1},
+                      "canonical_family": {
+                        "type": "string",
+                        "minLength": 1
+                      },
                       "aliases": {
                         "type": "array",
                         "uniqueItems": true,
-                        "items": {"type": "string", "minLength": 1}
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
                       },
-                      "pptx_family": {"type": "string", "minLength": 1},
+                      "pptx_family": {
+                        "type": "string",
+                        "minLength": 1
+                      },
                       "font_asset": {
                         "type": "object",
                         "additionalProperties": false,
-                        "required": ["file_name", "sha256", "bytes", "font_version"],
+                        "required": [
+                          "file_name",
+                          "sha256",
+                          "bytes",
+                          "font_version"
+                        ],
                         "properties": {
-                          "file_name": {"type": "string", "pattern": "^[^/\\\\]+\\.(?:[Tt][Tt][Ff]|[Oo][Tt][Ff]|[Tt][Tt][Cc])$"},
-                          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-                          "bytes": {"type": "integer", "minimum": 1},
-                          "font_version": {"type": "string", "minLength": 1}
+                          "file_name": {
+                            "type": "string",
+                            "pattern": "^[^/\\\\]+\\.(?:[Tt][Tt][Ff]|[Oo][Tt][Ff]|[Tt][Tt][Cc])$"
+                          },
+                          "sha256": {
+                            "type": "string",
+                            "pattern": "^[0-9a-f]{64}$"
+                          },
+                          "bytes": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "font_version": {
+                            "type": "string",
+                            "minLength": 1
+                          }
                         }
                       }
                     }
                   }
                 },
-                "preserve_requested_font_names": {"const": true},
-                "silent_substitution_forbidden": {"const": true},
-                "cloud_render_authority": {"const": "diagnostic-only"},
-                "cloud_pdf_pixel_equivalence": {"const": "not-required-when-deferred-font-missing"},
-                "native_reopen_required_for_final_font_acceptance": {"const": true},
-                "missing_deferred_font_status": {"const": "font-validation-pending"}
+                "preserve_requested_font_names": {
+                  "const": true
+                },
+                "silent_substitution_forbidden": {
+                  "const": true
+                },
+                "cloud_render_authority": {
+                  "const": "diagnostic-only"
+                },
+                "cloud_pdf_pixel_equivalence": {
+                  "const": "not-required-when-deferred-font-missing"
+                },
+                "native_reopen_required_for_final_font_acceptance": {
+                  "const": true
+                },
+                "missing_deferred_font_status": {
+                  "const": "font-validation-pending"
+                }
               }
             }
           },
           "page_number_policy": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["required", "position", "scope", "start", "cover_counting", "mechanism"],
+            "required": [
+              "required",
+              "position",
+              "scope",
+              "start",
+              "cover_counting",
+              "mechanism"
+            ],
             "properties": {
-              "required": {"type": "boolean"},
-              "position": {"type": "string", "minLength": 1},
-              "scope": {"type": "string", "minLength": 1},
-              "start": {"type": "integer", "minimum": 1},
-              "cover_counting": {"type": "boolean"},
-              "mechanism": {"type": "string", "minLength": 1}
+              "required": {
+                "type": "boolean"
+              },
+              "position": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "cover_counting": {
+                "type": "boolean"
+              },
+              "mechanism": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
         }
@@ -168,92 +533,276 @@
     },
     "layout": {
       "type": "object",
-      "required": ["column_count", "safe_margin_in", "title_zone_height_in", "footer_zone_height_in", "minimum_gap_in", "maximum_horizontal_nodes", "cardification_policy"],
+      "required": [
+        "column_count",
+        "safe_margin_in",
+        "title_zone_height_in",
+        "footer_zone_height_in",
+        "minimum_gap_in",
+        "maximum_horizontal_nodes",
+        "cardification_policy"
+      ],
       "properties": {
-        "column_count": {"type": "integer", "minimum": 1},
-        "safe_margin_in": {"type": "number", "minimum": 0},
-        "title_zone_height_in": {"type": "number", "minimum": 0},
-        "footer_zone_height_in": {"type": "number", "minimum": 0},
-        "minimum_gap_in": {"type": "number", "minimum": 0},
-        "internal_content_reserve_ratio": {"type": "number", "minimum": 0, "exclusiveMaximum": 1, "default": 0.10, "description": "Approximate internal spare capacity after normal padding for text boxes, shapes, table cells and chart-label regions; not a slide whitespace quota."},
-        "maximum_horizontal_nodes": {"type": "integer", "minimum": 1},
-        "cardification_policy": {"type": "string", "minLength": 1}
+        "column_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "safe_margin_in": {
+          "type": "number",
+          "minimum": 0
+        },
+        "title_zone_height_in": {
+          "type": "number",
+          "minimum": 0
+        },
+        "footer_zone_height_in": {
+          "type": "number",
+          "minimum": 0
+        },
+        "minimum_gap_in": {
+          "type": "number",
+          "minimum": 0
+        },
+        "internal_content_reserve_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 1,
+          "default": 0.1,
+          "description": "Approximate internal spare capacity after normal padding for text boxes, shapes, table cells and chart-label regions; not a slide whitespace quota."
+        },
+        "maximum_horizontal_nodes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cardification_policy": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "references": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["provider_contract", "public_provider_manifest", "public_index", "local_library_adapter", "roots", "registry", "admission_registry", "index", "learning", "require_human_admission", "allow_external_search", "maximum_unique_examples_per_deck"],
+      "required": [
+        "provider_contract",
+        "public_provider_manifest",
+        "public_index",
+        "local_library_adapter",
+        "roots",
+        "registry",
+        "admission_registry",
+        "index",
+        "learning",
+        "require_human_admission",
+        "allow_external_search",
+        "maximum_unique_examples_per_deck"
+      ],
       "properties": {
-        "provider_contract": {"const": "packages/contracts/provider-manifest.schema.json"},
-        "public_provider_manifest": {"const": "catalog/provider-manifest.json"},
-        "public_index": {"const": "catalog/records.jsonl"},
-        "local_library_adapter": {"const": "filesystem"},
-        "roots": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-        "registry": {"type": "string", "minLength": 1},
-        "admission_registry": {"type": "string", "minLength": 1},
+        "provider_contract": {
+          "const": "packages/contracts/provider-manifest.schema.json"
+        },
+        "public_provider_manifest": {
+          "const": "catalog/provider-manifest.json"
+        },
+        "public_index": {
+          "const": "catalog/records.jsonl"
+        },
+        "local_library_adapter": {
+          "const": "filesystem"
+        },
+        "roots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "registry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "admission_registry": {
+          "type": "string",
+          "minLength": 1
+        },
         "index": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["role", "engine", "path", "maximum_results", "physical_neighbor_expansion", "semantic_neighbor_expansion"],
+          "required": [
+            "role",
+            "engine",
+            "path",
+            "maximum_results",
+            "physical_neighbor_expansion",
+            "semantic_neighbor_expansion"
+          ],
           "properties": {
-            "role": {"const": "derived-local-search-cache"},
-            "engine": {"const": "bm25-lexical"},
-            "path": {"const": "knowledge/index/search-cache.json"},
-            "maximum_results": {"type": "integer", "minimum": 1},
-            "physical_neighbor_expansion": {"type": "integer", "minimum": 0},
-            "semantic_neighbor_expansion": {"type": "integer", "minimum": 0}
+            "role": {
+              "const": "derived-local-search-cache"
+            },
+            "engine": {
+              "const": "bm25-lexical"
+            },
+            "path": {
+              "const": "knowledge/index/search-cache.json"
+            },
+            "maximum_results": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "physical_neighbor_expansion": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "semantic_neighbor_expansion": {
+              "type": "integer",
+              "minimum": 0
+            }
           }
         },
         "learning": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["root", "stages", "writeback_mode", "auto_promote", "contract"],
+          "required": [
+            "root",
+            "stages",
+            "writeback_mode",
+            "auto_promote",
+            "contract"
+          ],
           "properties": {
-            "root": {"type": "string", "minLength": 1},
-            "stages": {"const": ["logic", "copy", "art-direction", "output"]},
-            "writeback_mode": {"const": "append-observation-only"},
-            "auto_promote": {"const": false},
-            "contract": {"const": "packages/contracts/knowledge-learning.md"}
+            "root": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stages": {
+              "const": [
+                "logic",
+                "copy",
+                "art-direction",
+                "output"
+              ]
+            },
+            "writeback_mode": {
+              "const": "append-observation-only"
+            },
+            "auto_promote": {
+              "const": false
+            },
+            "contract": {
+              "const": "packages/contracts/knowledge-learning.md"
+            }
           }
         },
-        "require_human_admission": {"const": true},
-        "allow_external_search": {"type": "boolean"},
-        "maximum_unique_examples_per_deck": {"type": "integer", "minimum": 1}
+        "require_human_admission": {
+          "const": true
+        },
+        "allow_external_search": {
+          "type": "boolean"
+        },
+        "maximum_unique_examples_per_deck": {
+          "type": "integer",
+          "minimum": 1
+        }
       }
     },
     "renderer": {
       "type": "object",
-      "required": ["provider", "adapters", "baseline_authoring_backend", "baseline_adapter", "required_capabilities", "optional_capabilities", "preferred_backends", "target_applications", "require_final_reopen_render"],
+      "required": [
+        "provider",
+        "adapters",
+        "baseline_authoring_backend",
+        "baseline_adapter",
+        "required_capabilities",
+        "optional_capabilities",
+        "preferred_backends",
+        "target_applications",
+        "require_final_reopen_render"
+      ],
       "properties": {
-        "provider": {"type": "string"},
+        "provider": {
+          "type": "string"
+        },
         "adapters": {
           "type": "object",
           "properties": {
             "pptxgenjs": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["path", "enabled", "security_status", "blocked_advisories"],
+              "required": [
+                "path",
+                "enabled",
+                "security_status",
+                "blocked_advisories"
+              ],
               "properties": {
-                "path": {"const": "packages/adapters/pptxgenjs/render.mjs"},
-                "enabled": {"const": false},
-                "security_status": {"const": "blocked-unpatched-transitive-dependency"},
-                "blocked_advisories": {"const": ["GHSA-w3rx-r6r6-pgpr", "GHSA-5p2g-fcmc-qvqq"]}
+                "path": {
+                  "const": "packages/adapters/pptxgenjs/render.mjs"
+                },
+                "enabled": {
+                  "const": false
+                },
+                "security_status": {
+                  "const": "blocked-unpatched-transitive-dependency"
+                },
+                "blocked_advisories": {
+                  "const": [
+                    "GHSA-w3rx-r6r6-pgpr",
+                    "GHSA-5p2g-fcmc-qvqq"
+                  ]
+                }
               }
             }
           },
-          "required": ["pptxgenjs"]
+          "required": [
+            "pptxgenjs"
+          ]
         },
-        "baseline_authoring_backend": {"const": "python-pptx"},
-        "baseline_adapter": {"const": "packages/adapters/python_pptx/render.py"},
-        "required_capabilities": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "optional_capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-        "preferred_backends": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "target_applications": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "require_final_reopen_render": {"const": true}
+        "baseline_authoring_backend": {
+          "const": "python-pptx"
+        },
+        "baseline_adapter": {
+          "const": "packages/adapters/python_pptx/render.py"
+        },
+        "required_capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "preferred_backends": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "target_applications": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "require_final_reopen_render": {
+          "const": true
+        }
       }
     },
-    "delivery": {"type": "object"},
-    "qa": {"type": "object"}
+    "delivery": {
+      "type": "object"
+    },
+    "qa": {
+      "type": "object"
+    }
   }
 }

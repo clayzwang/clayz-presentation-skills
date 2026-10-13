@@ -432,10 +432,18 @@ def _auditor(
             binding = {k: row[k] for k in ("path", "sha256", "bytes")}
             _source(binding, source_id=source_id, stage="supervisor", snapshots=snapshots, ids=ids)
             reader_reviews[source_id] = validate_review(read_reader(row["path"]))
+    reader_cycles = {}
+    for row in raw.get('source_records', []):
+        if isinstance(row, Mapping) and row.get('kind') in {'reader-cycle-copy', 'reader-cycle-final'}:
+            from packages.validators.reader_cycle import validate_cycle, read as read_cycle
+            binding = {k: row[k] for k in ('path', 'sha256', 'bytes')}
+            _source(binding, source_id=row['kind'], stage='supervisor', snapshots=snapshots, ids=ids)
+            reader_cycles[row['kind']] = validate_cycle(read_cycle(row['path']))
     return {
         "status": RECORDED_STATUS,
         "artifact_ref": source_ref,
         "raw_result": dict(raw),
+        **({'reader_cycles': reader_cycles} if reader_cycles else {}),
         "audit_id": raw.get("audit_id"),
         "audit_status": raw.get("audit_status", report.get("auditor_status")),
         "findings": raw.get("findings", report.get("auditor_findings", [])),
@@ -1916,7 +1924,7 @@ def _render_auditor(lines: list[str], work: Mapping[str, Any]) -> None:
         lines.append(f"- `{MISSING_STATUS}`")
         lines.append("")
         return
-    for key in ("status", "artifact_ref", "audit_id", "audit_status", "coverage", "limitations", "findings", "reader_reviews"):
+    for key in ("status", "artifact_ref", "audit_id", "audit_status", "coverage", "limitations", "findings", "reader_reviews", "reader_cycles"):
         if key in auditor:
             _block(lines, f"### {_key_label(key)}", auditor.get(key))
     raw = auditor.get("raw_result")

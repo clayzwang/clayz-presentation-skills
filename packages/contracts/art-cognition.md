@@ -1,5 +1,10 @@
 # Art cognition and external learning (v0.20.2)
 
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `packages/contracts/reader-cycle.md` from the plugin root.
+
+
 Execute the [Art design process](art-design-process.md) (also
 [中文](art-design-process.zh-CN.md)): prepare the whole Copy story and each
 page's semantics, derive attention from content responsibilities, then realize

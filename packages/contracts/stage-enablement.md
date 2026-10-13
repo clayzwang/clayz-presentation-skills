@@ -1,5 +1,10 @@
 # Stage enablement and execution
 
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `packages/contracts/reader-cycle.md` from the plugin root.
+
+
 For v0.20.1 follow [reader review](reader-review.md): research conclusions → Copy → title-only reader versus Logic → full-content reader versus Logic → Art → Output → final reader versus approved Copy → supervision report and delivery. Each reader first freezes independent understanding. Current title/content gates precede any task-specific design or rendering. Upload is outside the standard workflow. Use minimal affected-scope retries and preserve original evidence.
 
 This contract governs current task behavior when older stage references describe

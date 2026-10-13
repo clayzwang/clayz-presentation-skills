@@ -1,5 +1,10 @@
 # 独立审计模块
 
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `packages/contracts/reader-cycle.md` from the plugin root.
+
+
 v0.20.1 按[读者审读](reader-review.zh-CN.md)执行：标题独立审读、全文独立审读分别对照 Logic，通过后才进入 Art；成品独立审读对照批准 Copy，失败退回 Art。先冻结理解再核对证据，保留原始发现，只重做受影响范围。上传不属于标准流程。
 
 

@@ -143,14 +143,16 @@ def visible_copy(package: dict[str, Any]) -> list[dict[str, Any]]:
 def prepare_packet(*, phase: str, package: Path, brief: Path, directory: Path,
                    output: Path, pptx: Path | None = None,
                    renders: Path | None = None, unavailable_reason: str | None = None,
-                   title_review: Path | None = None, plan: Path | None = None) -> dict[str, Any]:
+                   title_review: Path | None = None, plan: Path | None = None,
+                   config: Path | None = None) -> dict[str, Any]:
     """The host receives directory only. The manifest stays with the auditor."""
     if phase not in PHASES:
         raise ValueError("reader phase must be title, content, final (or legacy copy)")
     package_value, brief_value = read(package), read(brief)
     if set(brief_value) != {"audience", "purpose", "task"} or not all(_text(v) for v in brief_value.values()):
         raise ValueError("neutral reader brief requires only audience, purpose and task")
-    if phase == "content":
+    from .reader_cycle import bounded
+    if phase == "content" and not bounded(read(config) if config else {}):
         if title_review is None:
             raise ValueError("content preparation requires --title-review; finish title reconciliation first")
         title = validate_review(read(title_review), current_package=package_value)
@@ -494,6 +496,11 @@ def required_for_config(config: dict[str, Any]) -> bool:
 
 def validate_copy_review_order(auditor: dict[str, Any], calibration: dict[str, Any]) -> None:
     reviews = audit_reviews(auditor)
+    sources = {r['kind']: r for r in auditor.get('source_records', [])}
+    if 'reader-cycle-copy' in sources:
+        cycle = load_ref({k: sources['reader-cycle-copy'][k] for k in ('path','sha256','bytes')})
+        if _time(cycle['closure']['closed_at']) > _time(calibration['recorded_at']):
+            raise ValueError('Copy cycle must close before Copy-to-Art calibration')
     for phase in ("copy", "title", "content"):
         if phase not in reviews:
             continue
@@ -510,6 +517,9 @@ def audit_reviews(auditor: dict[str, Any], *, required: bool = False, config: di
     result = {}
     config_row = sources.get("config")
     config = config if config is not None else (load_ref({k: config_row[k] for k in ("path", "sha256", "bytes")}) if config_row else {})
+    from .reader_cycle import bounded, audit_cycles
+    if bounded(config):
+        return audit_cycles(auditor, config)
     default_phases = list(NEW_PHASES) if "reader-review-title" in sources or "reader-review-content" in sources else ["copy", "final"]
     phases = config.get("workflow", {}).get("reader_review", {}).get("phases", default_phases)
     package_row = sources.get("package")
@@ -582,6 +592,8 @@ def audit_reader_findings(auditor: dict[str, Any], reviews: dict[str, Any]) -> l
                 "actual": finding["statement"], "impact": finding["reader_impact"],
                 "evidence_refs": [f"reader-review-{phase} sha256={source['sha256']}"],
                 "recommended_change": disposition["status"] + ": " + disposition["explanation"]})
+    from .reader_cycle import remaining_findings
+    result.extend(remaining_findings(auditor))
     return result
 
 
@@ -603,7 +615,22 @@ def validate_sequence(title, content):
         raise ValueError("content reader must start after title reconciliation")
 
 
-def check_art_gate(package, title_review, content_review):
+def check_art_gate(package, title_review, content_review, config=None, reader_cycle=None):
+    from .reader_cycle import bounded, validate_cycle
+    config_value = read(config) if isinstance(config, (str, Path)) else (config or {})
+    if bounded(config_value):
+        if reader_cycle is None:
+            raise ValueError('Art requires --title-review, --content-review and closed --reader-cycle after both Copy readers')
+        result = validate_cycle(read(reader_cycle), current_package=package, config=config_value)
+        cycle = result['cycle']
+        if cycle['phase'] != 'copy':
+            raise ValueError('Art requires Copy cycle')
+        for phase, path in [('title', title_review), ('content', content_review)]:
+            if path is None or ref(path) != cycle['reviews'][phase]:
+                raise ValueError('Art reader refs differ from consolidated Copy cycle')
+        return {'ready': True, 'owner': 'art-direction', 'quality_pass_claimed': False,
+                'reader_cycle': ref(reader_cycle), 'remaining': result['remaining'],
+                'reviews': cycle['reviews'], 'repair_count': result['repair_count']}
     reviews = {}
     for phase, path in (("title", title_review), ("content", content_review)):
         if path is None:

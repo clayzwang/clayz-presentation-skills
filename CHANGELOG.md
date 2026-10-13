@@ -6,6 +6,17 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.5 — 2026-10-13
+
+- Promote the recursively improved insurance.r20.1 implementation into the public body.
+- Replace repeated reader returns with consolidated single-repair Copy/final cycles; require each original reader to confirm repaired files; preserve residual/new findings in record-only audit.
+- Keep external knowledge 1.2.9+insurance.r20.1 separate and readable in work-output. No new deck-quality improvement is claimed from transport tests.
+
+### 中文
+
+- 将逐轮递推的 insurance.r20.1 主体改进纳入公开版本。
+- 标题/全文读者共同审阅已交付 Copy，合并返工一次后由两位原读者复看；成品最多返工至 Art/Output 一次后由原成品读者复看；Auditor 仅记录，残留及新问题进入审计报告。
+- 知识包 1.2.9+insurance.r20.1 独立存储且提供可读正文；记录验证不冒充作品质量验收。
 ## 0.20.4 — 2026-10-11
 
 - Promote audience-aware industry research and knowledge-first Art learning, with contextual judgment and separate practice/effect records.
