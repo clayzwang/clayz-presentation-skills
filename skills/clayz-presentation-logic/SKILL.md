@@ -2,6 +2,11 @@
 name: clayz-presentation-logic
 description: Research the subject and deliver complete evidence-backed findings before Copy organizes presentation content. Use for presentation planning, management reports, business analysis, strategy, proposals, and training decks when the facts, decision outcome, research answers or substantive judgments must be established. Do not paginate, write slide titles or presentation conclusions, choose composition, or build a PPTX.
 ---
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
+
+
 
 # Clayz Presentation Logic
 
@@ -14,7 +19,7 @@ Logic is the most reasoning-intensive stage. Think sufficiently to reconstruct t
 
 ## Current production boundary (v0.20.1)
 
-Follow [reader review](../../packages/contracts/reader-review.md), including its eight-step order and minimal repair scope. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts only after both current gates pass; Output follows approved Art. Final reading compares actual pages to approved Copy and routes failures through Art. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+Follow [reader review](../../packages/contracts/reader-review.md), with the current reader-cycle contract for bounded repair and original-reader confirmation. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts after the closed Copy cycle, including both original-reader confirmations when repaired; Output follows approved Art. Final reading compares actual pages to approved Copy and routes one consolidated repair to Art or Output, followed by confirmation by the same final reader. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
 
 ## Production reliability (v0.17.5)
 
@@ -30,6 +35,23 @@ Before handoff, read the complete research as an answer to the task, not a resea
 Develop the available facts, comparisons, mechanisms and supported judgment.
 Keep remaining unknowns explicit; do not let “what to verify” replace analysis
 that the evidence already permits. Do not invent a cause to make the story flow.
+
+For a change that the actual research singles out as important, read its stated
+cause with the same entity, period and metric as that change. Group-level causes
+do not automatically explain a highlighted region. A changed expense or rate
+can describe the channel through which profit moved without yet explaining this
+period's pressure. Check the corresponding source discussion and connect the
+supported origin or state the disclosure limit in the existing finding. Stop
+when the audience can judge the nature of the change; do not turn every number
+into a multi-level why exercise, an exact contribution bridge or another gate.
+
+When a highlighted measure is converted into a business conclusion, keep its
+measurement subject explicit. A money amount, an account count and a customer
+count are different observations: larger withdrawals can coexist with unchanged
+customer numbers and higher account balances. Read the source's stated mechanism
+before interpreting a net amount as customer retention or demand. Preserve the
+supported causal link and its scope in the finding; do not import a general
+mechanism into this company without evidence or ask for every component's data.
 
 For an explanatory or comparative task, develop the subject's core rules and
 mechanisms and compare the relevant objects on shared questions. State what each
@@ -149,7 +171,7 @@ evidence, but Supervisor does not rewrite Logic on its behalf.
 
 ## Work record at handoff
 
-Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual artifacts to immutable task-local revision files, record the work and real checks with `scripts/publish_supervised_pair.py record-stage --stage logic`, and attach `work-notes` when the task interpretation, evidence/source trace, counterevidence, assumptions, uncertainty, research interpretations, excluded alternatives, or material content decision needs richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may travel with explicit evidence. Missing notes remain `not-recorded`; Supervisor collects all four records, adds its coordination record and binds the independent audit artifact; it must not invent prior work or deliver a separate summary as the final report.
+Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual artifacts to immutable task-local revision files, record the work and real checks with `../../scripts/publish_supervised_pair.py record-stage --stage logic`, and attach `work-notes` when the task interpretation, evidence/source trace, counterevidence, assumptions, uncertainty, research interpretations, excluded alternatives, or material content decision needs richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may travel with explicit evidence. Missing notes remain `not-recorded`; Supervisor collects all four records, adds its coordination record and binds the independent audit artifact; it must not invent prior work or deliver a separate summary as the final report.
 
 The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
 
@@ -162,4 +184,15 @@ Research order and topic labels do not prescribe visual order or layouts.
 
 ## Local industry research development
 
-For industry-explanation tasks, read `packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
+For industry-explanation tasks, read `../../packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
+
+
+### Local r11.1 — carry the actual run identity at package creation
+
+When constructing the authored package, use `../../scripts/package_run_binding.py`
+`with_run_binding(package, preflight_path, challenge_path, upstream=...)` to copy
+the already-issued preflight binding. For Logic omit upstream; for Copy supply
+the exact approved Logic package. The helper checks transport identity and
+receipt bytes, never issues a challenge or replaces a conflicting binding.
+Preserve the result before hashing/calibrating it and keep original package and
+reader validation. It is not proof of host readiness or content approval.

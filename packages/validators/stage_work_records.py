@@ -654,7 +654,9 @@ def create_calibration_record(
                 raise StageWorkRecordError("Copy calibration requires package artifact")
             check_art_gate(read(refs["package"]["path"]),
                            refs.get("reader-review-title", {}).get("path"),
-                           refs.get("reader-review-content", {}).get("path"))
+                           refs.get("reader-review-content", {}).get("path"),
+                           config=read(refs["config"]["path"]),
+                           reader_cycle=refs.get("reader-cycle-copy", {}).get("path"))
     acceptance = _artifact_meta(acceptance_contract_path)
     shared = _artifact_meta(shared_rules_path)
     calibration: dict[str, Any] = {

@@ -1,5 +1,10 @@
 # Independent audit module
 
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `packages/contracts/reader-cycle.md` from the plugin root.
+
+
 For v0.20.1 follow [reader review](reader-review.md): independent title-only and full-content readings against Logic before Art; actual final pages against approved Copy after Output. Freeze first understanding before evidence. Require the current gates, preserve findings, and repair only the affected scope. Upload is outside the standard workflow.
 
 

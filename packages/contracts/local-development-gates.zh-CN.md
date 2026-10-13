@@ -1,5 +1,10 @@
 # 原生制作检查与专业判断
 
+## v0.20.5 current repair policy
+
+The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `packages/contracts/reader-cycle.md` from the plugin root.
+
+
 本说明整理已实际使用的原生制作方法，保留既有文件名以兼容调用。技术核验检查对象、字节、引用和实际观察；知识帮助形成设计判断。两者都不自动证明读者理解或审美效果。专业学习的方向见 [Art 设计工作流](art-design-process.zh-CN.md)，知识包独立存储和标识版本。
 
 ## Art 与编码

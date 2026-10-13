@@ -1,0 +1,14 @@
+{
+  "release_version": "0.20.5",
+  "knowledge_version": "1.2.9+insurance.r20.1",
+  "knowledge_repository": "clayzwang/work-output",
+  "knowledge_directory": "knowledge/ppt/v1.2.9-insurance.r20.1",
+  "knowledge_archive": "knowledge-pack-1.2.9-insurance.r20.1.zip",
+  "knowledge_sha256": "49861924aee11b66c46b059f8adb51893b346790736d63af17780811684b3b18",
+  "knowledge_bytes": 121865,
+  "knowledge_manifest_sha256": "0f6ece2038a494efbd86b5e3e602ba8fc3dae983d2183fff11c83890ffd21f92",
+  "nodes": 91,
+  "source_revision": "insurance.r20.1",
+  "reader_policy": "Plugin v0.20.5 controls bounded repair; historical knowledge guidance does not reopen exhausted cycles.",
+  "limitations": "Authored references and retained iteration observations; no new deck outcome or human validation claimed."
+}
