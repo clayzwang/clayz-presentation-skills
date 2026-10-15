@@ -1,5 +1,40 @@
 # Art: from content understanding to visual decisions
 
+When reorganizing explanations, distinguish separated but available information
+from omitted meaning. The former may benefit from local labels, corresponding
+positions or continuous prose; the latter needs a sufficient conceptual entry.
+Before compressing an existing first-use definition, consider whether the actual
+audience can still identify its referent. Integration cannot supply missing
+meaning. Retain claim-level source locations when shortening citations; internal
+research IDs need not enter reader-facing explanation. This does not require
+every term expanded or every explanation placed inside a diagram.
+
+Plan page counting and visible numbering separately. Under body-and-closing,
+cover_counting=true counts the cover without displaying a field on it. Optional
+packages.layout.page_numbers.plan_page_numbers returns both decisions and
+rejects unknown scopes rather than guessing. Art decides whether an object
+exists; Output checks actual native fields and rendered scope. Presence and a
+correct sequence alone do not establish correct applicability.
+
+Choose a quantitative representation for the current reading operation: exact
+lookup, detecting a trend or magnitude difference, and understanding a business
+relationship can need different support. A number label still needs legibility
+and clear association. Common position, length or direction can carry a
+comparison, but a chart name does not identify the actual perceptual task.
+Retain the compared objects, periods and relevant bases; shortening a heading
+must not turn an increment-to-increment comparison into increment-to-stock.
+For a part-to-whole claim, check consistent definitions of part and whole.
+Other ratios can intentionally connect different bases, but valid arithmetic
+and a valid interpretation are separate judgments.
+
+When the main claim concerns a difference or an offset, consider representing a
+verified derived quantity directly rather than relying only on curve separation
+or mental arithmetic. Whether original levels also need to appear depends on
+the task. In the actual full-size native preview, assess quantitative comparison,
+exact-label recognition and label-to-object matching separately. A visual
+difference does not establish causation; that explanation still needs research
+and its limits. These choices do not prescribe a chart or medium quota.
+
 This process operationalizes A01–A11 in the existing Art stage. Read it after
 the current title and content reviews pass, before page planning and drafts.
 Its Chinese peer is [Art 设计工作流](art-design-process.zh-CN.md).
@@ -128,6 +163,16 @@ settling the choice, then record the actual influence. A05's `P.REL.ROLE` and
 to load everything. Keep all A01–A11 represented under the existing cognition
 contract; reuse applicable knowledge while making page/group-specific choices.
 
+When comparing representations, trace the current reader's actual task: where
+to find the objects, how to match them, which relationships can be recognized
+directly, and what still requires memory, arithmetic or explanation. The same
+information need not demand the same work. Making an offset, comparison or
+ownership visible can also introduce unsupported temporal, causal, area or
+funding implications. Use this distinction for A07 medium and A08 space choices,
+without requiring a diagram or a number of alternatives. A11 checks whether
+those operations are possible in the actual pages. Successful independent
+retelling establishes this reading, not a measured speed improvement.
+
 Save planning with `record-planning` before producing the full drafts and
 refining native-object specifications. Preserve original Copy; document actual
 Art changes, evidence and consequences under `art_content`. A change in
@@ -151,6 +196,26 @@ Art's draft inspection is separate from the reader gates. Early title/content
 readers read text only; the final reader first reads actual deliverable renders,
 freezes understanding, then compares original Copy and all recorded Art changes.
 This update neither adds early image reading nor changes that isolation order.
+
+For native chart typefaces, the optional
+`packages.layout.native_chart_text.bind_chart_typeface(chart, family)` writes
+Latin, East Asian and Complex Script fields after axis, legend and label styles
+have been authored. It freezes existing target nodes before replacing their
+children, avoiding skipped siblings in a live XML iterator. It neither selects
+a font nor changes sizes; numerical continuity, collisions and rendered font
+acceptance still require actual native observation.
+
+Keep numeric value, cache spelling, number format, unit and visible label
+separate. For existing category-series reference caches, the optional
+`packages.layout.native_chart_cache.format_numeric_cache(chart, decimals,
+signed=False)` spells values at an explicitly chosen precision only when every
+Decimal value remains exactly equal. It validates all targets before mutation
+and rejects rounding or nonfinite values. It leaves categories, workbooks,
+formulas, selectors, number formats and label text unchanged. It does not repair
+an invalid native selector: automatic data labels and their value bindings still
+need independent native comparison and rendered observation. Percent scaling
+and unit choice remain the author's decisions; a matching cache is not evidence
+that a label or business interpretation is correct.
 
 ## Synthetic example: roles become visible choices
 

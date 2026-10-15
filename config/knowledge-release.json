@@ -1,14 +1,14 @@
 {
-  "release_version": "0.20.5",
-  "knowledge_version": "1.2.9+insurance.r20.1",
+  "release_version": "0.20.6",
+  "knowledge_version": "1.2.9+banks.r10.1",
   "knowledge_repository": "clayzwang/work-output",
-  "knowledge_directory": "knowledge/ppt/v1.2.9-insurance.r20.1",
-  "knowledge_archive": "knowledge-pack-1.2.9-insurance.r20.1.zip",
-  "knowledge_sha256": "49861924aee11b66c46b059f8adb51893b346790736d63af17780811684b3b18",
-  "knowledge_bytes": 121865,
-  "knowledge_manifest_sha256": "0f6ece2038a494efbd86b5e3e602ba8fc3dae983d2183fff11c83890ffd21f92",
+  "knowledge_directory": "knowledge/ppt/v1.2.9-banks.r10.1",
+  "knowledge_archive": "knowledge-pack-1.2.9-banks.r10.1.zip",
+  "knowledge_sha256": "9636a7294ada28fb8f11c5ebb3bd52e6d3f9791a86b0e0edad8f2d2a5bb48459",
+  "knowledge_bytes": 143309,
+  "knowledge_manifest_sha256": "964315f5ce4541c57fc37a7a757804fdbbaa4db8ffeb0c757ac85e98dfbaeeec",
   "nodes": 91,
-  "source_revision": "insurance.r20.1",
-  "reader_policy": "Plugin v0.20.5 controls bounded repair; historical knowledge guidance does not reopen exhausted cycles.",
-  "limitations": "Authored references and retained iteration observations; no new deck outcome or human validation claimed."
+  "source_revision": "banks.r10.1",
+  "reader_policy": "Retain v0.20.5 bounded cycles: one consolidated Copy repair with original readers; one final Art/Output repair with the same reader; Auditor records only.",
+  "limitations": "Authored professional references and scoped primary-source reading, not human-validated knowledge or a controlled reader-effect experiment. Current bank reports retain all original QA/audit/target-application limitations."
 }

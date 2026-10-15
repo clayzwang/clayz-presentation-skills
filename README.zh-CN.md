@@ -1,14 +1,16 @@
 # Clayz Presentation Skills
 
-## 0.20.5：专业知识与情境判断
+## 0.20.6：让呈现本身传达含义
 
-Copy 两位读者汇总问题，最多返工一次，再由两位原读者复看；成品最多返工至 Art/Output 一次，再由原成品读者复看。Auditor 仅记录，残留问题进入报告。见[单轮返工规则](packages/contracts/reader-cycle.zh-CN.md)。
+本版纳入 banks.r10.1 连续迭代主体：围绕读者所需的关系和比较组织表达，让所有权、对象身份及跨页转换可追踪，并明确数量方向所依赖的参照。可选原生工具支持图表字体、限定页面的页码职责、精确十进制图表缓存及原生表格网格参照。不新增版式配额或自动设计评分。
 
-先补足产生设计判断的知识，再由 Art 根据受众、内容与媒介形成选择。具体修法留在实践记录，知识补充、采用与效果分别验证。当前知识包 1.2.9+insurance.r20.1 独立存放于 [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-insurance.r20.1)；精确对应关系见 [知识包版本信息](config/knowledge-release.json)。公共 Release 不携带当前知识包。下文旧版本的学习包描述保留为历史说明。
+外挂知识 **1.2.9+banks.r10.1** 保留91个既有节点，通过有范围的一手专业阅读深化选定概念，独立存放在 [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-banks.r10.1)；[知识版本信息](config/knowledge-release.json)绑定精确压缩包。公共Release仍提供两种Light、Windows离线附加包和校验值。
+
+10家银行实际顺序迭代形成10对PPTX/PDF、共194页，并核对每轮实际主体及知识继承。原报告中的残留、原QA失败和未验应用均保留，不宣称全部质量检查通过或真人理解效果提升。一次合并返工、原读者确认及独立Auditor仅记录的流程保持，见[读者闭环](packages/contracts/reader-cycle.zh-CN.md)。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.5**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.6**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
@@ -49,7 +51,7 @@ Clayz Presentation Skills 是一套开源的五阶段演示文稿生产体系：
 - **任务验收与审计回放**：页面职责、故事链、字体、兼容、交付和速度要求进入同一份哈希合同；最终报告内嵌 Logic、Copy、Art Direction 不可变决策快照，并逐条追踪到成品证据。
 - **按相关性排序的 Index 执行**：整项任务只锁定一份 Provider 快照。各阶段使用实质任务问题、内容/格式分项评分、阈值、候选预算和具体实质采用目标；“已阅读资料库”不再算证据。
 - **受治理的生成效率**：逐阶段耗时、检索量、写盘/渲染/修复次数和冷暖启动模式全部进入任务预算；文件体积小不能掩盖生成缓慢。
-- **ChatGPT先于Release**：GitHub Release改为手工受保护流程，必须先完成绑定精确提交的ChatGPT候选包上传、版本/首次学习验收、用户确认和私有环境回执。
+- **明确授权后发布**：GitHub发布按用户授权、仓库验证和CI真实Office回归执行；已安装ChatGPT插件的更新是独立请求，本次GitHub发布不等于安装或新跑宿主内成品。
 - **内容与对象双重门禁**：全篇验证器会拦截机械重复的话术和语法、空泛首要视觉、无理由重复的页面轮廓与结构、以形状冒充图表、缺少连接线，以及跨页复制的泛化质检话术。
 - **内容感知构图**：图像主导页必须先判断主体保护区、文案可放置区、裁切、对比度、视觉方向和遮罩必要性，再决定文字位置；记住一个广告版式本身不能成为答案。
 - **模板与Icon语法**：模板、图表、表格、Icon和外部样例只作为经过审阅的候选。页面必须从Logic和Copy重新推导构图，说明每项资产的语义角色，保持图标家族判断一致，并记录来源与许可证据。
