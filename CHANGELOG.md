@@ -6,6 +6,12 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.6 — 2026-10-15
+
+- Integrate the exact banks.r10.1 development body after ten sequential bank rounds: relations, comparison, perceptual grouping, framing, real references, cross-representation identity and quantity-direction meaning.
+- Add optional chart-typeface, page-role, exact Decimal chart-cache and native-table grid helpers; preserve existing validators and bounded original-reader cycles.
+- Link external knowledge 1.2.9+banks.r10.1 with its 91 preserved nodes, scoped professional-source history, readable content and exact archive checksums in work-output.
+- Preserve original quality findings and unverified GUI/human-effect scope; local artifact delivery and byte inheritance are not universal design or comprehension acceptance.
 ## 0.20.5 — 2026-10-13
 
 - Promote the recursively improved insurance.r20.1 implementation into the public body.

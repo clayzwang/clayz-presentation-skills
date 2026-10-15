@@ -1,0 +1,39 @@
+{
+  "contract": "io.clayz.presentation.release-readiness/1.0",
+  "target_version": "0.20.6",
+  "current_public_version": "0.20.6",
+  "state": "release-authorized",
+  "stage_gates": {
+    "index_foundation": true,
+    "capability_integration": true,
+    "layout_contract": true,
+    "pattern_dataset_library": true,
+    "feedback_benchmark_migration": true
+  },
+  "actions": {
+    "merge": true,
+    "tag": true,
+    "publish": true,
+    "experience_center_update": true
+  },
+  "authorization": {
+    "decision": "explicit-user-authorization",
+    "scope": "merge-tag-publish-experience-center",
+    "authorized_at": "2026-10-15T04:47:34.137343Z"
+  },
+  "evidence": {
+    "benchmark_report": "examples/synthetic-feedback-loop/retrieval-benchmark-report.json",
+    "migration_report": "examples/synthetic-feedback-loop/legacy-migration-report.json",
+    "validation_command": "python scripts/validate_all.py",
+    "experience_validation": "python scripts/validate_experience.py",
+    "presentation_overflow_check": "Original CI real Office smoke required for this release. Ten bank reports retain original QA/audit limitations; no new human/GUI acceptance claim.",
+    "node_chart_build": "Actual bank10 optional native helper usage and preserved table-grid regressions; original repository suite and release smoke remain required."
+  },
+  "guards": {
+    "no_unlicensed_assets": true,
+    "no_private_brand_assets": true,
+    "no_generated_auto_admission": true,
+    "no_automatic_aesthetic_truth": true,
+    "release_requires_separate_human_authorization": true
+  }
+}

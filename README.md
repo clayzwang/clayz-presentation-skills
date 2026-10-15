@@ -1,14 +1,16 @@
 # Clayz Presentation Skills
 
-## 0.20.5: professional knowledge and contextual judgment
+## 0.20.6: make the presentation carry meaning
 
-Copy readers consolidate issues into one repair and both original readers confirm the revised material. Final reading permits one Art/Output repair and confirmation by the same reader. Auditor records only; residual issues stay in the report. See [reader cycles](packages/contracts/reader-cycle.md).
+The bank10 development body strengthens reader-centered composition: choose the relation and comparison the reader needs, preserve ownership and identity across representations, and state which quantity a direction refers to. Optional native helpers cover chart typefaces, scoped page-number roles, exact decimal chart caches, and table-grid references. These are contextual tools and methods, without a new layout quota or automatic design score.
 
-Develop the knowledge behind design judgment before choosing a contextual repair. Keep practice records and observed effects separate. The current 1.2.9+insurance.r20.1 knowledge pack is stored in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-insurance.r20.1); exact bindings are in [knowledge release metadata](config/knowledge-release.json). It is not included in public release assets. Older learning-pack descriptions below are historical.
+The external **1.2.9+banks.r10.1** knowledge pack preserves 91 existing nodes and deepens selected professional concepts through scoped primary-source reading. It is stored in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-banks.r10.1); [knowledge metadata](config/knowledge-release.json) binds the exact archive. Public Release assets remain the two Light packages, Windows offline add-on and checksums.
+
+Ten sequential local bank rounds produced ten PPTX/PDF pairs, 194 pages, with real source/knowledge inheritance. Their reports retain residual findings, original QA failures and unverified target applications. This is not a claim that every quality check passed or that human comprehension improved. Bounded original-reader confirmation and record-only independent audit remain unchanged; see [reader cycles](packages/contracts/reader-cycle.md).
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.5**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.6**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
@@ -59,12 +61,12 @@ Clayz Presentation Skills is an open, five-stage system for producing evidence-b
 This is not a larger pile of layout rules. It gives Art Direction a stronger repertoire while keeping every move accountable to the current content:
 
 - **Inventory before authoring:** Supervisor scans the complete plugin runtime, task inputs, owner Library, public Index, brand assets, host capabilities, and font environment before Logic. It tells the user what was found, what will be used, what is unavailable, and which authoring/render route is locked—then authoring may start.
-- **Latest components first:** Supervisor checks the official GitHub Latest Release and prints the Public Core, config, runtime, and five-stage contract table. A stale or missing component, an old report, or unavailable freshness evidence fails runtime preflight.
+- **Installed component integrity:** normal authoring checks local package integrity and compatibility. Remote freshness is a separate explicit developer release-check; unavailable networking does not block an otherwise valid authoring route.
 - **One private learning run per version:** the first run reads admitted private knowledge, templates, standards, and methods, builds a persistent index, exercises retrieval probes, and emits a separate learning audit. Later tasks verify hashes and reuse it; same-version source drift never overwrites the first audit silently.
 - **Task acceptance and audit replay:** explicit page-role, narrative, typography, compatibility, delivery, and speed requirements become one hash-bound contract. The final report embeds immutable Logic, Copy, and Art Direction decision snapshots and traces every requirement to final evidence.
 - **Relevance-ranked Index execution:** one Provider snapshot is locked for the run. Each stage uses substantive task questions, decomposed content/format relevance scores, thresholds, bounded candidates, and concrete material-adoption targets; “reviewed the library” is not evidence.
 - **Governed generation efficiency:** stage duration, retrieval volume, write/render/repair counts, and warm/cold mode are measured against the task budget. File-size efficiency cannot hide a slow run.
-- **ChatGPT-before-Release:** GitHub Release is manual and protected. It requires an exact-commit ChatGPT candidate upload, startup/private-learning acceptance, explicit user approval, and a private environment-scoped receipt.
+- **Explicit release authorization:** GitHub publication follows user authorization, repository validation and real Office CI smoke. Updating an installed ChatGPT plugin is a separate requested action; this GitHub release does not imply a host installation or a new in-host deck test.
 - **Substance and object gates:** deck-level validators reject mechanical wording and grammar repetition, generic first visuals, unjustified silhouette or structure reuse, shape-only pseudo-charts, missing connectors, and duplicated slide-agnostic QA boilerplate.
 - **Content-aware composition:** image-led slides must inspect subject protection, usable copy zones, crop, contrast, directional flow, and overlay necessity before placing text. A remembered advertising layout is never accepted as the answer by itself.
 - **Template and icon grammar:** templates, charts, tables, icons, and sample decks enter as reviewed candidates. The plan must re-derive the composition from Logic and Copy, explain every selected asset's semantic role, keep icon-family decisions coherent, and record source and license evidence.

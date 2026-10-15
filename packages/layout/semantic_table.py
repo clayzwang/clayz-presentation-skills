@@ -142,3 +142,50 @@ def column_demands(columns, rows, *, font_path, size=23, header_size=18, padding
         labels=[(col.label,header_size)]+[(str(row[ci]),size) for row in rows]
         demands.append(max(ImageFont.truetype(str(font_path),round(pt*120/72)).getlength(value)*width_scale/120+2*padding for value,pt in labels))
     return demands
+
+
+def table_grid_boundary(table_shape, *, axis, boundary_index):
+    """Return two integer-EMU endpoints of a current native table grid boundary.
+
+    ``axis="column"`` returns a vertical boundary, ``axis="row"`` a horizontal
+    one. Index 0 and the dimension's count are the outside edges. Read the
+    returned or reopened shape after setting its actual grid dimensions.
+
+    Only top-level, unrotated and unflipped slide tables with a consistent frame
+    and positive grid are supported. This is read-only geometry: the caller
+    chooses the semantic index and relation. A grid boundary through merged
+    cells is not necessarily a visible cell border. No label/year inference,
+    rendering, layout changes or quality judgment is performed.
+    """
+    from operator import index
+    from pptx.shapes.shapetree import SlideShapes
+
+    if axis not in {"column", "row"}:
+        raise ValueError("axis must be column or row")
+    if isinstance(boundary_index, bool):
+        raise TypeError("boundary index must be an integer, not bool")
+    boundary_index = index(boundary_index)
+    if not getattr(table_shape, "has_table", False):
+        raise ValueError("a native table shape is required")
+    if not isinstance(table_shape._parent, SlideShapes):
+        raise ValueError("only top-level slide tables are supported")
+    xfrm = table_shape._element.xfrm
+    if xfrm is None or table_shape.rotation != 0:
+        raise ValueError("rotated or missing table transforms are unsupported")
+    if any(xfrm.get(k) not in {None, "0", "false"} for k in ["flipH", "flipV"]):
+        raise ValueError("flipped table transforms are unsupported")
+    widths = [int(c.width) for c in table_shape.table.columns]
+    heights = [int(r.height) for r in table_shape.table.rows]
+    if any(v <= 0 for v in widths + heights):
+        raise ValueError("table grid dimensions must be positive")
+    if sum(widths) != int(table_shape.width) or sum(heights) != int(table_shape.height):
+        raise ValueError("table frame and grid dimensions differ")
+    dimension = widths if axis == "column" else heights
+    if not 0 <= boundary_index <= len(dimension):
+        raise ValueError("boundary index outside table grid")
+    left, top = int(table_shape.left), int(table_shape.top)
+    if axis == "column":
+        x = left + sum(widths[:boundary_index])
+        return (x, top), (x, top + sum(heights))
+    y = top + sum(heights[:boundary_index])
+    return (left, y), (left + sum(widths), y)
