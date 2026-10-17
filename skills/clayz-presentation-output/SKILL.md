@@ -275,6 +275,17 @@ not replace a required full-file reopen.
 paths but still rejects unknown objects before opening the output. Keep actual
 process exit/status assertions; this helper is transport, not a validator.
 
+When reusing an already executed render, the same module's optional
+`derive_render_manifest(raw_manifest_path, pptx_path, evidence_role=...,
+provenance_clarification=...)` returns a new binding with the existing reader
+contract's `pptx_sha256`. It checks the raw manifest's bound input against the
+actual supplied PPTX and retains raw limitations, page order and file references.
+Describe the actual role explicitly: use formal Output evidence only for the
+actual formal input and export, not by relabeling an Art prototype. This helper
+does not render, establish that role, change quality states or waive original
+consumer checks. Preserve the raw receipt and write any derivative as a new
+revision; a binding repair alone does not call for a new native save or render.
+
 ### Local r12.1 — consume actual native text properties
 
 When consuming Art's native text or table objects, distinguish cell tcPr padding

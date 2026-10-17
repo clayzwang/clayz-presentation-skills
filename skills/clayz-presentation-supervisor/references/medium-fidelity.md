@@ -47,7 +47,7 @@ Without `table-cell`, a native table, or an approved substitute, aligned shapes 
 - Plan: `dominant_medium=data-chart` with explicit source, encoding, labels, and annotation mapping.
 - Object: native chart or explicitly approved editable-vector substitute.
 - Render: numeric comparison or trend is the first visual, not a small chart beside dominant cards.
-- Legibility: axis, legend, data-label, entity-label, and annotation text meets the configured minimum. Object presence does not replace full-size reading inspection.
+- Legibility: inspect actual axis, legend, data-label, entity-label, and annotation reading in the intended page context. Preserve explicit user typography requirements and compare Output to locked Art. Historical reference sizes are not automatic minima; object presence or a nominal size does not replace full-size reading inspection.
 
 ### Scatterplot
 
@@ -79,9 +79,9 @@ The plan defines two independent dimensions and their intersection; objects prov
 
 ## Type-size legibility
 
-- Continue to review core body copy against the 18-point baseline. Audience detail, chart text, and entity labels must meet central configuration with no hidden exceptions.
-- Follow the configured point-size token/parity policy except for explicitly declared non-audience technical fields. Trace any violation to Art Direction capacity planning or Output shrinkage.
-- Inspect both object properties and full-size renders. A nominally compliant property that is unreadable because of scaling, contrast, or obstruction still fails; a seemingly readable render below the minimum also fails.
+- Read actual explicit user typography requirements and the current acceptance mode. In Art visual review, historical configuration sizes are starting references, not automatic minimum, integer, parity or token-count checks.
+- Compare actual Output properties with locked Art and distinguish a rendering/readability issue from an unapproved size change. Preserving Art does not prove its design readable; a genuine user requirement is not erased by a visually acceptable result.
+- Inspect both object properties and full-size renders: actual font/glyphs, line width, relative hierarchy, contrast, obstruction and intended viewing conditions affect reading. A nominally compliant size alone proves no readability; falling below a historical reference alone proves no failure. Keep unavailable viewing or target-software conditions explicit.
 
 ## Atomic copy and visual grammar
 

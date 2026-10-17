@@ -3,6 +3,7 @@
 Transport/assertion helper only: no presentation threshold or original validator
 is replaced. Call with the process return code and that run's actual JSON result.
 """
+import hashlib
 import json
 from pathlib import Path, PurePath
 
@@ -33,6 +34,44 @@ def write_new_json(path, value):
     with path.open('x', encoding='utf-8') as stream:
         stream.write(payload)
     return path
+
+
+def derive_render_manifest(raw_manifest_path, pptx_path, *, evidence_role,
+                           provenance_clarification):
+    """Bind an existing render to its actual PPTX without rendering or promotion.
+
+    The caller explicitly describes the evidence role and actual execution;
+    this function cannot infer that an Art preview is formal Output. Preserve
+    the raw manifest, its limitations, page order, PDF and image references.
+    The returned copy adds the canonical PPTX hash required by existing final
+    readers. Use write_new_json separately to retain revision history.
+    Identity consistency is transport evidence, never a quality or GUI claim.
+    """
+    if not isinstance(evidence_role, str) or not evidence_role.strip():
+        raise ValueError('An explicit actual evidence role is required')
+    if (not isinstance(provenance_clarification, str)
+            or not provenance_clarification.strip()):
+        raise ValueError('Describe the actual render provenance and limits')
+    raw_path = Path(raw_manifest_path).resolve()
+    pptx_path = Path(pptx_path).resolve()
+    raw_bytes = raw_path.read_bytes()
+    manifest = json.loads(raw_bytes)
+    pptx_bytes = pptx_path.read_bytes()
+    actual_hash = hashlib.sha256(pptx_bytes).hexdigest()
+    bound = manifest.get('pptx') if isinstance(manifest, dict) else None
+    if (not isinstance(bound, dict) or bound.get('sha256') != actual_hash
+            or bound.get('bytes') != len(pptx_bytes)):
+        raise ValueError('Raw render does not bind the actual supplied PPTX')
+    if manifest.get('pptx_sha256', actual_hash) != actual_hash:
+        raise ValueError('Raw canonical PPTX hash conflicts with its bound input')
+    manifest.update(
+        pptx_sha256=actual_hash,
+        raw_manifest=dict(path=str(raw_path),
+                          sha256=hashlib.sha256(raw_bytes).hexdigest(),
+                          bytes=len(raw_bytes)),
+        evidence_role=evidence_role,
+        provenance_clarification=provenance_clarification)
+    return manifest
 
 
 def verification_observation(result_path, returncode):

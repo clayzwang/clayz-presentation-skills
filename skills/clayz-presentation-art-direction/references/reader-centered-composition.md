@@ -21,8 +21,12 @@ not complete this decision.
 A textual heading marks meaning. It does not require a separate box, equal
 area or the same visual weight as another heading. Choose grouping and emphasis
 according to the communication task, while preserving the approved meaning.
-If the text cannot support a useful visual relationship, return the specific
-ambiguity or required wording change to Copy instead of inventing one.
+Art may clarify supported objects, actions and context within its recorded
+presentation projection; a wording change is not automatically a return to
+Copy. Do not invent an unsupported relationship. A genuine evidence gap follows
+the current workflow authority: when an upstream checkpoint is already closed,
+record the remaining limitation for the report or future work rather than
+reopening Logic or Copy outside the finite cycle.
 
 ## Let space explain relationships
 
@@ -41,8 +45,9 @@ a grid from the number of headings and then finding reasons to justify it.
 Several related numbers can share a comparison or other visual encoding when
 the approved data supports it. Labels, units and conditions belong close enough
 to the evidence to be understood together. A chart that merely repeats all the
-prose adds work; request a precise Copy revision when the selected medium needs
-different wording. Tabular presentations retain the native-table requirements.
+prose adds work. Art can adapt supported wording to the selected medium and
+record the actual change; this does not authorize new facts. Tabular
+presentations retain the native-table requirements.
 
 ## Construct a representation from its meaning
 

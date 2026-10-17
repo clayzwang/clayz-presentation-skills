@@ -99,6 +99,98 @@ existing source, evidence, master, visual, or five-stage checks.
   with the existing scope or notes fields and section/slide evidence; do not
   introduce a parallel mode schema.
 
+### Local systems.restart.r00.1 — synthesize a system's functional composition
+
+For a task asking what a system contains, research and synthesize its functional
+organization, as well as what individual capabilities do. Establish an
+evidence-backed teaching division into principal modules and the capabilities
+within them: why does this work belong together, which work is a constituent
+part, and which work crosses or supports several modules? Use the subject's
+objects, responsibilities and work to justify the grouping. Product menus can
+locate material, but one vendor's suite boundary or navigation hierarchy is not
+automatically the general system's composition. Where boundaries differ,
+choose and explain the useful scope rather than abandoning classification.
+
+Develop recognizable subfunctions through the objects people handle, their
+actions and supported results, at the detail needed to distinguish the work.
+Read relevant official object, operation and workflow descriptions when an
+overview only supplies names. Then synthesize how those capabilities belong
+and work together. Distinguish part-of composition from cross-module transfers,
+shared records or support, and conditional or concurrent work. These relations
+can overlap; a supported use path helps inspect their collaboration but does
+not turn the whole system into one compulsory sequence. Retain core versus
+optional scope and genuine alternative divisions without inventing a unique
+industry module count.
+
+Before handoff, read the complete research as an account of this system: can
+the audience identify its main functional parts, recognize the work within
+them, and explain the important connections? A set of individually correct
+topic answers may still need this synthesis. Reorganize already researched
+substance where sufficient; supplement sources where the actual function or
+relationship remains unanswered. Findings and work notes carry this meaning
+in the existing package. Research questions, chapters and pages do not count
+as modules or subfunctions. Explanation depth follows the audience's purpose,
+not a fixed hierarchy, item quota, full product manual or implementation study.
+Copy and Art own the eventual sequence, pagination and representation.
+
+### Local systems.r05.1 — identify the question a result actually answers
+
+When a consequential term such as confirm, approve, complete or settle can be
+read as the result of different work, return to the supported operation and
+object instead of treating the shared word as an equivalence. What has actually
+been initiated, checked, permitted, recorded or reconciled here? Whose action or
+institutional result matters to that distinction, and what condition limits it?
+Use these as synthesis questions only where the task has a real ambiguity;
+they are not fields required for every capability or a request for a full state
+machine. Consult the relevant object/operation description when an overview's
+labels cannot answer the question.
+
+Separate the supported result from the neighboring result a reader might
+infer. Starting a request, establishing a condition for further work, completing
+an operation, making a resource usable, receiving it elsewhere and agreeing
+records can answer different questions even when they share a business
+reference. State the relevant positive meaning as well as the unsupported
+inference; a string of warnings cannot replace the function's concrete work.
+Preserve real prerequisites and handoffs without inventing a compulsory chain,
+one-to-one correspondence or automatic success at the next participant.
+
+During the existing research self-review, read an ambiguous result statement
+back as an answer to its actual question. If its wording silently changes the
+work or outcome, correct the affected finding and necessary glossary/invariant,
+retaining the specific source and scope in existing records. Copy still owns
+the eventual wording and page sequence; Art chooses how the distinctions are
+visible. This makes the existing object/action/result and evidence-strength
+principles operational for non-quantitative outcomes. It adds no new review
+gate, fixed vocabulary, schema, function quota or repair allowance.
+
+### Local systems.r06.1 — distinguish a relation from the scope of a change
+
+When describing a change, stop, cancellation or correction on related records,
+identify which operation acts on which object. A shared reference, a source
+record or the ability to create subsequent work establishes a relationship;
+it does not by itself establish that changing one object changes every linked
+commitment or processed result. Consult the relevant operation descriptions
+where that inference would alter the audience's understanding. Follow the
+needed relation to its supported answer and source, rather than attributing
+all of the effect to the first record's description.
+
+Explain the positive capability and its actual reach. Work still requested,
+an established commitment and a partially processed item can have different
+available actions and conditions. Preserve supported automatic propagation
+when the source establishes it; the absence of a mechanism in the material
+does not prove that every product forbids it. Do not turn this distinction into
+a universal cascade rule, a compulsory sequence or an assertion that linked
+work must always be handled manually. State only the scope needed to explain
+the current function, not a full cancellation or recovery specification.
+
+During the existing research self-review, reread a consequential verb against
+its affected object and evidence. If the statement silently expands its reach,
+correct the relevant finding and dependent wording while preserving the real
+relation. Copy and Art continue to own explanation and representation. These
+are targeted synthesis questions within existing object/action/result and
+relationship reasoning, not new mandatory fields, a cross-record matrix, an
+extra gate, a fixed vocabulary or another repair allowance.
+
 ## Boundaries
 
 Own research scope, source inventory, substantive answers, definitions, calculations, research conclusions, counterevidence, uncertainty and semantic invariants. Research findings must be complete enough for Copy to organize independently.

@@ -1,24 +1,24 @@
 # Clayz Presentation Skills
 
-## 0.20.6：让呈现本身传达含义
+## 0.20.7：解释软件系统内部有什么、怎样协作
 
-本版纳入 banks.r10.1 连续迭代主体：围绕读者所需的关系和比较组织表达，让所有权、对象身份及跨页转换可追踪，并明确数量方向所依赖的参照。可选原生工具支持图表字体、限定页面的页码职责、精确十进制图表缓存及原生表格网格参照。不新增版式配额或自动设计评分。
+本版纳入前9轮实际完成后的 **systems.restart.r09.1** 主体，题材从HR至企业数据平台。Logic与Copy强化有依据的功能构成：主要功能域、域内具体工作、有意义的协作和贯穿支撑。Art继续有据改写、重组、调序和分页；保留原Copy供审计不等于冻结呈现。分组成员、共同上下文及集合/成员各自承担的判断，要由实际含义成立，不靠装饰线条或固定图式。
 
-外挂知识 **1.2.9+banks.r10.1** 保留91个既有节点，通过有范围的一手专业阅读深化选定概念，独立存放在 [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-banks.r10.1)；[知识版本信息](config/knowledge-release.json)绑定精确压缩包。公共Release仍提供两种Light、Windows离线附加包和校验值。
+外挂知识 **1.2.9+systems.restart.r09.1** 保留91个既有节点，深化选定概念并保留专业来源的实际阅读范围。[work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1)提供可读正文、ZIP及校验值；[配套信息](config/knowledge-release.json)绑定精确字节。公共Release继续提供两种Light、Windows离线附加包与校验值。
 
-10家银行实际顺序迭代形成10对PPTX/PDF、共194页，并核对每轮实际主体及知识继承。原报告中的残留、原QA失败和未验应用均保留，不宣称全部质量检查通过或真人理解效果提升。一次合并返工、原读者确认及独立Auditor仅记录的流程保持，见[读者闭环](packages/contracts/reader-cycle.zh-CN.md)。
+[9份原始PPTX/PDF](https://github.com/clayzwang/work-output/tree/main/systems9-v0207-20261017)的原始发现及incomplete-evidence状态保留。用户后来明确读不懂CRM03，此反馈单独保存，旧页尚未修正；未完成的第10轮不计入本版。发布不代表设计全部通过、真人已理解或PowerPoint/WPS GUI已验。有限返工、原读者确认和独立Auditor仅记录流程保持。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.6**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.7**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
-## Art learning — v0.20.2 / Art 学习包
+## Art knowledge / Art 知识包
 
-[Download the external learning pack / 下载外挂学习包](https://github.com/clayzwang/clayz-presentation-skills/releases/download/v0.20.2/clayz-presentation-skills-0.20.2-art-learning.zip). It contains the complete Chinese TXT, 66 principle-bearing codes, university curriculum mapping and synthetic teaching examples. Use [the cognition and integration contract](packages/contracts/art-cognition.md) for code lookup, concrete conclusions/actions and independent audit of Art changes. The learning body is separate from Light; historical source documents remain for replay.
+The current external learning body is **1.2.9+systems.restart.r09.1**: [readable knowledge and ZIP / 可读知识与压缩包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1). It contains 91 existing nodes (57 principles), professional foundations, scoped provenance and contextual applications. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not establish reader benefit by itself. Historical learning releases remain available for replay.
 
 ## Clayz 的三项核心优势
 
