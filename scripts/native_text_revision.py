@@ -17,17 +17,23 @@ def _number(value, label, *, positive=False):
 
 
 def configured_size(config, role, requested_pt=None):
-    """Resolve an actual size or reject an explicit request below task policy."""
+    """Resolve a candidate size under the existing typography acceptance mode.
+
+    In visual-review mode the historical minimum fields are starting references,
+    not numeric gates. This config-only helper does not establish readability or
+    enforce explicit user requirements held in the task/acceptance record; the
+    caller retains those requirements. Other modes preserve the legacy floor.
+    """
     typography = config['theme']['typography']
     key = {'title': 'title_minimum_pt', 'body': 'body_minimum_pt',
            'annotation': 'footnote_minimum_pt', 'page-number': 'page_number_minimum_pt'}[role]
-    minimum = _number(typography[key], key, positive=True)
+    reference = _number(typography[key], key, positive=True)
     if role != 'page-number':
-        minimum = max(minimum, _number(typography['minimum_audience_text_pt'],
-                                      'minimum_audience_text_pt', positive=True))
-    value = minimum if requested_pt is None else _number(requested_pt, 'requested_pt', positive=True)
-    if value < minimum:
-        raise ValueError(f'{role} {value}pt is below resolved task minimum {minimum}pt')
+        reference = max(reference, _number(typography['minimum_audience_text_pt'],
+                                          'minimum_audience_text_pt', positive=True))
+    value = reference if requested_pt is None else _number(requested_pt, 'requested_pt', positive=True)
+    if typography.get('size_acceptance') != 'art-direction-visual-review' and value < reference:
+        raise ValueError(f'{role} {value}pt is below resolved task minimum {reference}pt')
     return value
 
 
@@ -128,9 +134,12 @@ def native_capacity(target, width_pt, height_pt, line_widths_pt, content_height_
     """Read effective properties before writing or after native reopening.
 
     The caller supplies cell/shape dimensions and style-specific metrics in pt.
-    Reports both axes and consumes paragraph edge space; no pass inference.
+    Reports both axes plus declared native text response; no pass inference.
+    Numeric reserves describe the supplied current rectangle and line metrics,
+    not a prediction of automatic reflow/resizing. None leaves inheritance
+    unresolved. Cell and text-frame anchors are separate native declarations.
     Multiple paragraphs conservatively use the largest left/right additions.
-    Absolute glyph position/ink and visible relations still need native review.
+    No native properties are written; ink and visible relations need review.
     """
     if not (hasattr(target,'_tc') or hasattr(target,'_txBody')):
         raise TypeError('Pass the native cell or text frame')
@@ -150,7 +159,19 @@ def native_capacity(target, width_pt, height_pt, line_widths_pt, content_height_
                   vertical_total_reserve=1-content_height/height,
                   height_below_requested_reserve=content_height>height*(1-reserve_ratio),
                   height_exceeds_usable=content_height>height)
+    def declared(value):
+        return None if value is None else value.name
+    response={'target_kind':'table-cell' if hasattr(target,'_tc') else 'text-frame',
+              'text_frame_auto_size':declared(tf.auto_size),
+              'text_frame_word_wrap':tf.word_wrap,
+              'text_frame_vertical_anchor':declared(tf.vertical_anchor)}
+    if hasattr(target,'_tc'):
+        response['cell_vertical_anchor']=declared(target.vertical_anchor)
+    result.update(native_text_response=response,
+                  capacity_basis='caller-supplied-current-rectangle-and-current-line-metrics')
     result['limitations']=['Caller dimensions and font/run metrics must describe this object.',
+       'Fit/wrap/anchor are declared properties; None leaves style inheritance unresolved.',
+       'Numeric reserves do not predict automatic resizing/reflow or resolve the rendered position.',
        'Paragraph edges consume horizontal capacity; negative or hanging indentation needs separate review.',
        'Font metric capacity is not glyph ink, absolute inner-edge containment, or audience quality.',
        'Reopen native properties and inspect actual rendered glyphs before approval.']

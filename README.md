@@ -1,24 +1,24 @@
 # Clayz Presentation Skills
 
-## 0.20.6: make the presentation carry meaning
+## 0.20.7: explain the inside of software systems
 
-The bank10 development body strengthens reader-centered composition: choose the relation and comparison the reader needs, preserve ownership and identity across representations, and state which quantity a direction refers to. Optional native helpers cover chart typefaces, scoped page-number roles, exact decimal chart caches, and table-grid references. These are contextual tools and methods, without a new layout quota or automatic design score.
+This release promotes the actual **systems.restart.r09.1** body after nine completed system rounds, from HR through enterprise data platforms. Logic and Copy strengthen supported functional composition: main areas, concrete work within them, meaningful cooperation and shared support. Art retains authority to rewrite, regroup, reorder and repaginate with evidence; preserving original Copy for audit does not freeze its presentation. Group membership, shared context and collective versus member-level claims require actual meaning, not decorative lines or a fixed diagram.
 
-The external **1.2.9+banks.r10.1** knowledge pack preserves 91 existing nodes and deepens selected professional concepts through scoped primary-source reading. It is stored in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-banks.r10.1); [knowledge metadata](config/knowledge-release.json) binds the exact archive. Public Release assets remain the two Light packages, Windows offline add-on and checksums.
+The external **1.2.9+systems.restart.r09.1** knowledge pack preserves 91 existing nodes and deepens selected concepts with scoped source histories. Readable knowledge, its ZIP and checksums are in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1); [association metadata](config/knowledge-release.json) binds the exact bytes. Public Release assets remain two Light packages, the Windows offline add-on and checksums.
 
-Ten sequential local bank rounds produced ten PPTX/PDF pairs, 194 pages, with real source/knowledge inheritance. Their reports retain residual findings, original QA failures and unverified target applications. This is not a claim that every quality check passed or that human comprehension improved. Bounded original-reader confirmation and record-only independent audit remain unchanged; see [reader cycles](packages/contracts/reader-cycle.md).
+The [nine original PPTX/PDF deliveries](https://github.com/clayzwang/work-output/tree/main/systems9-v0207-20261017) retain their original findings and incomplete-evidence status. A later actual-user failure to understand CRM03 is preserved; that old page has not been corrected. Incomplete tenth-round work is excluded. Publication is not a claim that all designs passed, that humans understood them, or that PowerPoint/WPS GUI acceptance occurred. The bounded original-reader workflow and record-only independent audit remain unchanged.
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.6**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.7**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
-## Art learning — v0.20.2 / Art 学习包
+## Art knowledge / Art 知识包
 
-[Download the external learning pack / 下载外挂学习包](https://github.com/clayzwang/clayz-presentation-skills/releases/download/v0.20.2/clayz-presentation-skills-0.20.2-art-learning.zip). It contains the complete Chinese TXT, 66 principle-bearing codes, university curriculum mapping and synthetic teaching examples. Use [the cognition and integration contract](packages/contracts/art-cognition.md) for code lookup, concrete conclusions/actions and independent audit of Art changes. The learning body is separate from Light; historical source documents remain for replay.
+The current external learning body is **1.2.9+systems.restart.r09.1**: [readable knowledge and ZIP / 可读知识与压缩包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1). It contains 91 existing nodes (57 principles), professional foundations, scoped provenance and contextual applications. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not establish reader benefit by itself. Historical learning releases remain available for replay.
 
 ## Why Clayz stands out
 

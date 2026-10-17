@@ -6,6 +6,13 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.7 — 2026-10-17
+
+- Promote the actual nine-round systems.restart.r09.1 body: supported functional composition, concrete intra-module work, meaningful cooperation, whole/detail continuity and scoped shared support.
+- Retain Art authority for evidence-based expression and pagination; remove executor-added literal-copy and return-to-Copy assumptions. Clarify group membership, shared context and collective/member-level assertions without diagram or layout quotas.
+- Include contextual native text-response observations and explicit render-manifest provenance transport; these optional helpers do not establish readability or GUI acceptance.
+- Associate the exact external 1.2.9+systems.restart.r09.1 knowledge with 91 preserved nodes, readable source scopes and archive checksums in work-output.
+- Preserve all original QA/audit limitations and the later actual-user CRM03 comprehension failure. Exclude incomplete R10 work; no human-effect or universal design-pass claim.
 ## 0.20.6 — 2026-10-15
 
 - Integrate the exact banks.r10.1 development body after ten sequential bank rounds: relations, comparison, perceptual grouping, framing, real references, cross-representation identity and quantity-direction meaning.

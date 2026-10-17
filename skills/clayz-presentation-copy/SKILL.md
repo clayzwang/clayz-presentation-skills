@@ -38,7 +38,13 @@ secondary; this does not promote every source number or prescribe Art's placemen
 In the continuous account, begin with the actual subject's change and its
 meaning for this audience. Explain unfamiliar concepts where this judgment
 uses them; do not turn a local naming repair into an additional professional
-course. Preserve necessary evidence and scope. A wish to know the full algorithm
+course. When a retained example names a part or way of working, distinguish
+recognizing its name from knowing enough about what it handles or does to
+connect it to the function being explained. The larger function may be clear
+while that example still adds only a label. Preserve the supported role or
+action needed for the example's contribution, or omit an optional list item
+that adds no necessary understanding; do not turn every term into a definition.
+Preserve necessary evidence and scope. A wish to know the full algorithm
 does not itself establish a missing explanation. After the current content
 gates, judge hierarchy and reading effort on actual Art pages rather than
 adding an upstream professional examination.
@@ -74,7 +80,11 @@ Preserve facts, numbers, claim strength, qualifiers, relationships and required
 coverage; return new facts or changed research judgments to Logic.
 
 During that existing meaning review, compare each consequential claim with the
-measure it actually uses, including the research detail you chose to omit.
+measure, record or work it actually uses, including the research detail you
+chose to omit. A record of actual use or time can answer what happened without
+establishing a difference or its cause; those answers need a supported
+comparison basis or explanation. When shortening a capability example, retain
+that premise or scope the promised answer to what the current evidence supports.
 Keeping the correct company name does not preserve the metric: statutory net
 income and a management profit measure can move in opposite directions for the
 same company and period. When the source already contains such a distinction,
@@ -319,3 +329,45 @@ the transition. A correct definition somewhere in the deck is not evidence
 that the transition is understood. Do not mandate a single metric throughout,
 repeated full names, extra labels on every page or a fixed comparison template.
 Use existing semantic notes to record a consequential editorial choice.
+
+
+### Local systems.restart.r00.1 — make composition and detail traceable
+
+When the purpose is to understand a system's composition, organize the account
+around Logic's supported functional division and meaningful connections. Let
+readers identify the main modules and recognize the concrete capabilities
+within each, rather than offering a topic catalog followed by disconnected
+explanations. Keep functional identities recognizable when moving between the
+whole, constituent work and a supported example; page numbers or chapter names
+alone cannot supply that relationship. The explanation can expand across pages
+or combine closely related work according to what the audience needs to read.
+
+Use the existing content and relationships to distinguish what belongs within
+a module from what is transferred between modules or shared across them.
+Use these distinctions to explain the audience's business questions: which
+function does the work, which record or data it uses, and what another item of
+work receives. An author's relation categories can organize that reasoning
+without becoming a separate lesson for the reader. Retain such a lesson when
+the task actually calls for understanding the categories. Preserve the needed
+whole-system collaboration as well as membership: a list of modules and shared
+data does not itself explain the supported handoffs, conditions or parallel
+work. When an early whole is needed to orient later detail, retain enough of
+those specific connections there rather than leaving the reader to assemble
+them only after the constituent explanations. Carry the relevant concrete
+subjects and objects into that account;
+correct relationship metadata cannot supply a referent missing from the
+visible wording. When a specific product mechanism appears beside another
+product or a general capability, keep enough local scope to identify which
+example the action and condition belong to; a source locator or a named product
+elsewhere does not establish that referent. No repeated-label or scenario
+format follows from this.
+Explain overlap and conditional paths where they matter. A general panorama
+and a concrete use path answer different questions and can complement each
+other; neither has to enumerate every deployment or follow a fixed page slot.
+If the research supplies only isolated names or topic answers where this
+structure is needed, return the substantive gap to Logic before presentation
+wording conceals it. Module and subfunction identities come from the supported
+work, not the number of research questions, slides or labels. Art receives the
+complete meaning and retains its existing authority to clarify wording,
+reorganize, paginate and add grounded explanatory labels, with the original
+Copy and actual transformations preserved for comparison.

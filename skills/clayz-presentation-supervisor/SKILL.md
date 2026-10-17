@@ -129,6 +129,22 @@ calibration and downstream absorption, actual PPTX facts, Auditor observations,
 release, limitations and improvements. Judge completeness by recorded evidence,
 not by report length or by the number of slides.
 
+### Local systems.r03.1 — distinguish task sufficiency from accurate restatement
+
+When the actual task asks for internal functional composition, calibrate Logic
+against that understanding goal: can the supported answers explain concrete
+work within the main areas and the meaningful connections between them? Then
+inspect whether Copy preserves that substance in the whole and local account.
+An independent reader's accurate restatement of a coarse script establishes
+only what that script made understandable; it cannot by itself prove the
+research answered the original task at the needed granularity. Neither an
+empty finding list nor a valid record removes Supervisor's responsibility for
+that judgment. Use specific existing research, source, Copy and page evidence
+to explain an inadequacy and its earliest owner, preserving the original
+reader result and the user's correction. Do not impose this task's taxonomy,
+function count, hierarchy depth or source format on unrelated work; use the
+existing calibration and bounded repair policy rather than adding a gate.
+
 ## Unified configuration and optional Library inputs
 
 Follow the one-path contract in `../../packages/contracts/stage-enablement.md`.
