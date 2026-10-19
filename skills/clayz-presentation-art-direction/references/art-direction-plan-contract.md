@@ -16,9 +16,16 @@ notes and optional references (source, locator, use). Learning is preferred
 when available; web references and original design remain open. No built-in
 Art design index or mandatory match exists.
 
-slides preserves Copy's page sequence. Each page includes slide_id,
-reading_sequence (all visible Copy IDs once, in Art's chosen order),
-copy_unit_map and medium_execution_contract. The structure_type is a free
+When `art_content` is present, `slides` follows its complete actual page sequence,
+including recorded changes to order and pagination. Each page includes slide_id,
+reading_sequence (all visible IDs on that actual page once, in Art's chosen order),
+copy_unit_map for those actual units, and medium_execution_contract. Without
+`art_content`, use the original Copy page sequence and units as the fallback.
+Keep the approved Copy unchanged; the projection and exact changes retain their
+original baseline, reasons, evidence and impact under [Art cognition](../../../packages/contracts/art-cognition.md#art-changes-record-then-independently-audit).
+This local reference clarification (`systems.pass2.r03.1`) aligns the description
+with current Art authority; historical contracts remain replayable.
+The structure_type is a free
 description; minimum_object_counts describes actual native objects.
 Other design fields are chosen as useful for implementing this particular
 design. No atomicity_review, parent target or sibling-style assertions apply.

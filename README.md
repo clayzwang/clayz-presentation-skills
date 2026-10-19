@@ -1,16 +1,16 @@
 # Clayz Presentation Skills
 
-## 0.20.7: explain the inside of software systems
+## 0.20.8: explain industry delivery, chains and concrete work
 
-This release promotes the actual **systems.restart.r09.1** body after nine completed system rounds, from HR through enterprise data platforms. Logic and Copy strengthen supported functional composition: main areas, concrete work within them, meaningful cooperation and shared support. Art retains authority to rewrite, regroup, reorder and repaginate with evidence; preserving original Copy for audit does not freeze its presentation. Group membership, shared context and collective versus member-level claims require actual meaning, not decorative lines or a fixed diagram.
+This release promotes the actual **industries.r10.1** source after ten recursively upgraded industry rounds: automotive, petroleum, electricity, semiconductors, smartphones, dairy, apparel, pharmaceuticals, express delivery and passenger aviation. Explanations start with what the consumer receives, choose an explicit supply-chain anchor, and distinguish material or service delivery from supporting information, assets and public coordination. Supported activities, prerequisites, selected-example scope and stable object identity remain visible through compression and changes of view.
 
-The external **1.2.9+systems.restart.r09.1** knowledge pack preserves 91 existing nodes and deepens selected concepts with scoped source histories. Readable knowledge, its ZIP and checksums are in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1); [association metadata](config/knowledge-release.json) binds the exact bytes. Public Release assets remain two Light packages, the Windows offline add-on and checksums.
+The reader CLI now resolves its existing validator helpers without caller-supplied PYTHONPATH. Expression methods preserve punctuation boundaries, meaningful alternatives, technical activities, cited source locations and actual review issues, including a non-pass comparison. These are bounded methods, not compulsory diagrams or new semantic validators.
 
-The [nine original PPTX/PDF deliveries](https://github.com/clayzwang/work-output/tree/main/systems9-v0207-20261017) retain their original findings and incomplete-evidence status. A later actual-user failure to understand CRM03 is preserved; that old page has not been corrected. Incomplete tenth-round work is excluded. Publication is not a claim that all designs passed, that humans understood them, or that PowerPoint/WPS GUI acceptance occurred. The bounded original-reader workflow and record-only independent audit remain unchanged.
+External knowledge **1.2.29+industries.r10.1** preserves 91 nodes and deepens selected concepts with scoped professional sources. [Readable knowledge, ZIP and checksums](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1) are separate from the public Light packages; [association metadata](config/knowledge-release.json) binds exact bytes. All ten local deliveries retain original findings and incomplete-evidence status, including local content/expression gaps and an actual execution-role deviation. No human-effect, universal design-pass or PowerPoint/WPS GUI acceptance is claimed. This release does not update the installed ChatGPT plugin.
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.7**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.8**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
@@ -18,7 +18,7 @@ Reader reviews now run before Art and after Output with fresh host contexts when
 
 ## Art knowledge / Art 知识包
 
-The current external learning body is **1.2.9+systems.restart.r09.1**: [readable knowledge and ZIP / 可读知识与压缩包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1). It contains 91 existing nodes (57 principles), professional foundations, scoped provenance and contextual applications. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not establish reader benefit by itself. Historical learning releases remain available for replay.
+Current external knowledge / 当前外挂知识：**1.2.29+industries.r10.1**. [Readable files, ZIP and checksums / 可读正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1). The 91 existing nodes preserve source scopes and distinguish professional theory, package interpretation and actual production observations. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not itself establish reader benefit. Historical versions remain available.
 
 ## Why Clayz stands out
 

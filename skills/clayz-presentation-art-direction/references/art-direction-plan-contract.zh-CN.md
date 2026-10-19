@@ -12,8 +12,13 @@ reference_research 记录学习包是否可用、learning-first／web-first／au
 实际来源 locator/use 与说明。学习包可用时优先查它；
 没有匹配或无法联网可以原创设计，轻量包不带 Art 设计索引或版式库。
 
-slides 保留 Copy 页面顺序；reading_sequence 是 Art 自主定义的视觉阅读顺序，
-完整覆盖文案 ID。medium_execution_contract 自由描述结构与实际对象要求。
+有 `art_content` 时，slides 按其中完整的实际页面顺序组织，包括已记录的改序与分页变化；
+reading_sequence 是 Art 自主定义的视觉阅读顺序，逐一覆盖该实际页面全部可见 ID，
+copy_unit_map 对应这些实际单元。没有 `art_content` 时，回退到原 Copy 的页面顺序与单元。
+原批准 Copy 保持不变；实际投影、原基线和准确差异，以及理由、依据和影响仍按
+[Art cognition](../../../packages/contracts/art-cognition.md#art-changes-record-then-independently-audit)保留。
+本地引用澄清 `systems.pass2.r03.1` 与现行 Art 权限一致，历史合同仍按原约定回读。
+medium_execution_contract 自由描述结构与实际对象要求。
 设计意图、面积、母题、布局树等按当前设计需要记录。
 不再有 atomicity_review、父子目标匹配或同级同样式要求。
 

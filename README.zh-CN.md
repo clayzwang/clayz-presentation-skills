@@ -1,16 +1,16 @@
 # Clayz Presentation Skills
 
-## 0.20.7：解释软件系统内部有什么、怎样协作
+## 0.20.8：把产业交付、产业链与具体工作讲清楚
 
-本版纳入前9轮实际完成后的 **systems.restart.r09.1** 主体，题材从HR至企业数据平台。Logic与Copy强化有依据的功能构成：主要功能域、域内具体工作、有意义的协作和贯穿支撑。Art继续有据改写、重组、调序和分页；保留原Copy供审计不等于冻结呈现。分组成员、共同上下文及集合/成员各自承担的判断，要由实际含义成立，不靠装饰线条或固定图式。
+本版纳入十轮实际递推后的 **industries.r10.1** 主体，覆盖汽车、石油、电力、半导体、智能手机、乳制品、服装、医药、快递和航空客运。从消费者得到什么出发，明确本稿采用的产业链锚点，分清实物或服务交付、信息支撑、资产及公共协调。压缩文字和切换视图时，保留有据活动、必要前提、所选实例范围和稳定对象身份。
 
-外挂知识 **1.2.9+systems.restart.r09.1** 保留91个既有节点，深化选定概念并保留专业来源的实际阅读范围。[work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1)提供可读正文、ZIP及校验值；[配套信息](config/knowledge-release.json)绑定精确字节。公共Release继续提供两种Light、Windows离线附加包与校验值。
+读者CLI修复了依赖调用方额外配置PYTHONPATH才能找到既有验证器辅助模块的问题。表达方法补强标点边界、备选项含义、技术活动、引用内容定位及实际读者问题承接，包括未通过的comparison；这些均为有条件的方法，不新增固定图式或自动语义门禁。
 
-[9份原始PPTX/PDF](https://github.com/clayzwang/work-output/tree/main/systems9-v0207-20261017)的原始发现及incomplete-evidence状态保留。用户后来明确读不懂CRM03，此反馈单独保存，旧页尚未修正；未完成的第10轮不计入本版。发布不代表设计全部通过、真人已理解或PowerPoint/WPS GUI已验。有限返工、原读者确认和独立Auditor仅记录流程保持。
+外挂知识 **1.2.29+industries.r10.1** 保留91个节点，深化选定概念并明确专业来源实际阅读范围。[可读正文、ZIP和校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1)独立存放于work-output，[配套信息](config/knowledge-release.json)绑定精确字节。十份本地成品的原始发现和incomplete-evidence状态保留，包括局部内容/表达缺口和实际执行角色偏离；不声称真人效果、设计全部通过或PowerPoint/WPS GUI已验。本次不更新已安装ChatGPT插件。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.7**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.8**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
@@ -18,7 +18,7 @@
 
 ## Art knowledge / Art 知识包
 
-The current external learning body is **1.2.9+systems.restart.r09.1**: [readable knowledge and ZIP / 可读知识与压缩包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-systems.restart.r09.1). It contains 91 existing nodes (57 principles), professional foundations, scoped provenance and contextual applications. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not establish reader benefit by itself. Historical learning releases remain available for replay.
+Current external knowledge / 当前外挂知识：**1.2.29+industries.r10.1**. [Readable files, ZIP and checksums / 可读正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1). The 91 existing nodes preserve source scopes and distinguish professional theory, package interpretation and actual production observations. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not itself establish reader benefit. Historical versions remain available.
 
 ## Clayz 的三项核心优势
 

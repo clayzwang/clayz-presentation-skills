@@ -1,0 +1,15 @@
+{
+  "release_version": "0.20.8",
+  "knowledge_version": "1.2.29+industries.r10.1",
+  "knowledge_repository": "clayzwang/work-output",
+  "knowledge_directory": "knowledge/ppt/v1.2.29-industries.r10.1",
+  "knowledge_archive": "knowledge-pack-1.2.29-industries.r10.1.zip",
+  "knowledge_sha256": "fe922c838f5a9b7e4d6491b26f440e15e303606a63d17a08501bebe589c8dbb8",
+  "knowledge_bytes": 270804,
+  "knowledge_manifest_sha256": "cef7ec7bbce93432c4d530d411ce8a13a100676d054f806243bb9f18dd6943ed",
+  "nodes": 91,
+  "source_revision": "industries.r10.1",
+  "completed_training_rounds": 10,
+  "reader_policy": "At most one consolidated Copy repair with both original readers; at most one final Art/Output repair with the original final reader; independent Auditor records only.",
+  "limitations": "Source-scoped authored knowledge, not human-validated efficacy. Original ten incomplete-evidence statuses, residual findings and unverified PowerPoint/WPS GUI/font loading/future editing remain. Publication is not a new training round or installed ChatGPT plugin update."
+}

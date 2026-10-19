@@ -1,17 +1,15 @@
 {
-  "release_version": "0.20.7",
-  "knowledge_version": "1.2.9+systems.restart.r09.1",
+  "release_version": "0.20.8",
+  "knowledge_version": "1.2.29+industries.r10.1",
   "knowledge_repository": "clayzwang/work-output",
-  "knowledge_directory": "knowledge/ppt/v1.2.9-systems.restart.r09.1",
-  "knowledge_archive": "knowledge-pack-1.2.9-systems.restart.r09.1.zip",
-  "knowledge_sha256": "3affb24b619c8276e9a970c84f7fde45aa8bf4a809dc77e321916faba0129f81",
-  "knowledge_bytes": 172873,
-  "knowledge_manifest_sha256": "7a45423c06bac05996e74c53d3e548d4e274927ece424d8ad4403670ef1ec48e",
+  "knowledge_directory": "knowledge/ppt/v1.2.29-industries.r10.1",
+  "knowledge_archive": "knowledge-pack-1.2.29-industries.r10.1.zip",
+  "knowledge_sha256": "fe922c838f5a9b7e4d6491b26f440e15e303606a63d17a08501bebe589c8dbb8",
+  "knowledge_bytes": 270804,
+  "knowledge_manifest_sha256": "cef7ec7bbce93432c4d530d411ce8a13a100676d054f806243bb9f18dd6943ed",
   "nodes": 91,
-  "source_revision": "systems.restart.r09.1",
-  "completed_training_rounds": 9,
-  "reader_policy": "One consolidated Copy repair with both original readers; one final Art/Output repair with the original final reader; independent Auditor records only.",
-  "limitations": "Authored and source-scoped knowledge, not human-validated efficacy. Original QA/audit failures and unverified PowerPoint/WPS acceptance remain. The actual user could not understand CRM03; no corrected old CRM delivery is claimed. Incomplete R10 work is excluded.",
-  "training_materials_repository": "clayzwang/work-output",
-  "training_materials_directory": "systems9-v0207-20261017"
+  "source_revision": "industries.r10.1",
+  "completed_training_rounds": 10,
+  "reader_policy": "At most one consolidated Copy repair with both original readers; at most one final Art/Output repair with the original final reader; independent Auditor records only.",
+  "limitations": "Source-scoped authored knowledge, not human-validated efficacy. Original ten incomplete-evidence statuses, residual findings and unverified PowerPoint/WPS GUI/font loading/future editing remain. Publication is not a new training round or installed ChatGPT plugin update."
 }

@@ -61,3 +61,5 @@ python scripts/validate_build_deviation_log.py `
 ```
 
 Passing validation means the evidence structure is complete, actions stayed within authority, and hashes are traceable. It does not approve visual quality; slide-level Output QA and Supervisor still make that judgment.
+
+A PDF extraction line is not a native text frame or a semantic group. When the current whole-line matcher leaves text unresolved, bounded diagnosis can compare the actual complete words within a PDF line with the native objects. Record what was observed separately from what the current tool still could not measure. Diagnostic word bounds are not new matches and do not authorize changing the original QA or replacing observations with character estimates. Preserve unknowns and observed overruns rather than repeatedly rendering or changing a valid design to clear extraction unknowns. Measurements do not decide semantic reference or qualification scope.

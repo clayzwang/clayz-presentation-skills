@@ -38,11 +38,18 @@ def wrap(text, font, width, *, minimum_tail_em=4, protected_terms=FINANCE_TERMS)
         tail_min=font.getlength('汉')*minimum_tail_em
         if len(lines)>1:
             while len(lines[-2])>1 and font.getlength(''.join(lines[-1]))<tail_min:
-                moved=lines[-2][-1]
-                if font.getlength(moved+''.join(lines[-1]))>width: break
-                lines[-2].pop(); lines[-1].insert(0,moved)
-            while lines[-2] and lines[-2][-1][-1] in OPENING:
-                lines[-1].insert(0,lines[-2].pop())
+                # A tail-length preference cannot introduce a prohibited
+                # boundary that the first wrapping pass already avoided.
+                # Move a punctuation-bound suffix as a unit, or retain the
+                # existing legal (possibly short) tail when it will not fit.
+                cut=len(lines[-2])-1
+                while cut>0 and (lines[-2][cut][0] in CLOSING or
+                                 lines[-2][cut-1][-1] in OPENING):
+                    cut-=1
+                if cut==0: break
+                candidate=lines[-2][cut:]+lines[-1]
+                if font.getlength(''.join(candidate))>width: break
+                lines[-1]=candidate; lines[-2]=lines[-2][:cut]
         for line in lines:
             value=''.join(line)
             if font.getlength(value)>width:

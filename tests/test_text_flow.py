@@ -26,9 +26,29 @@ def test_chinese_punctuation_and_short_tail_regression():
     assert len(lines[-1])>=4
 
 
+def test_short_tail_rebalance_keeps_existing_punctuation_boundaries():
+    class UnitFont:
+        def getlength(self, value):
+            return len(value)
+
+    # Automotive AU07 at the observed STKaiti 84px / 532.224px ratio.
+    # Previously balancing moved a comma to the start of the final line.
+    for text in ['装入并连接动力、内饰、车轮等',
+                 '装入并连接动力，内饰，车轮等',
+                 '零件装入（动力与内饰）再检验']:
+        lines=wrap(text,UnitFont(),6.336,protected_terms=())
+        assert ''.join(lines)==text
+        assert all(len(line)<=6.336 for line in lines)
+        assert all(not line or line[0] not in CLOSING for line in lines[1:])
+        assert all(not line or line[-1] not in OPENING for line in lines[:-1])
+
+
 class TextFlowRegression(unittest.TestCase):
     def test_financial_atoms_and_date(self):
         test_financial_atoms_and_date_survive_narrow_columns()
 
     def test_chinese_punctuation_and_tail(self):
         test_chinese_punctuation_and_short_tail_regression()
+
+    def test_punctuation_after_tail_rebalance(self):
+        test_short_tail_rebalance_keeps_existing_punctuation_boundaries()

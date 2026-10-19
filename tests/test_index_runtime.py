@@ -112,6 +112,48 @@ def request(*, context: str = "public-open-source", query: str = "comparison evi
 
 
 class IndexRuntimeTests(unittest.TestCase):
+    def test_explained_empty_selection_reaches_unchanged_stage_validator(self) -> None:
+        from packages.validators.index_evidence import _validate_receipt
+
+        runtime = CompositeIndex([IndexProvider.from_records(
+            "builtin-catalog", [record("layout.compare.generic", provider_id="builtin-catalog")]
+        )])
+        for no_match in (True, False):
+            with self.subTest(no_match=no_match):
+                query = request()
+                if no_match:
+                    query["filters"]["page_roles"] = ["timeline"]
+                receipt = runtime.search(query)
+                finalized = runtime.finalize_receipt(
+                    receipt, selected={}, rejected={
+                        candidate["record_id"]: "This layout does not answer the current decision."
+                        for candidate in receipt["candidates"]
+                    },
+                )
+                errors: list[str] = []
+                _validate_receipt(finalized, "art-direction", "public-core", runtime.snapshots(), "receipt", errors)
+                self.assertEqual(errors, [])
+                self.assertEqual(finalized["selection"]["coverage_status"], "unresolved")
+                self.assertTrue(finalized["selection"]["coverage_gaps"])
+                self.assertFalse(finalized["fallback"]["used"])
+                self.assertEqual(finalized["hallucination_guard"]["invented_record_count"], 0)
+
+    def test_actual_fallback_remains_rejected_after_record_selection(self) -> None:
+        from packages.validators.index_evidence import _validate_receipt
+
+        runtime = CompositeIndex([IndexProvider.from_records(
+            "builtin-catalog", [record("layout.compare.generic", provider_id="builtin-catalog")]
+        )])
+        receipt = runtime.search(request())
+        receipt["fallback"] = {"used": True, "reason": "An actual fallback was executed."}
+        candidate = receipt["candidates"][0]
+        finalized = runtime.finalize_receipt(receipt, selected={candidate["record_id"]: "Registered candidate selected."})
+        errors: list[str] = []
+        _validate_receipt(finalized, "art-direction", "public-core", runtime.snapshots(), "receipt", errors)
+        self.assertTrue(finalized["fallback"]["used"])
+        self.assertEqual(finalized["fallback"]["reason"], "An actual fallback was executed.")
+        self.assertTrue(any("fallback.used" in error for error in errors))
+
     def test_ranked_receipt_explains_relevance_and_adoption(self) -> None:
         provider = IndexProvider(
             "public",
