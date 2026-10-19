@@ -319,5 +319,8 @@ class CompositeIndex:
             "coverage_status": "complete" if selected else "unresolved",
             "coverage_gaps": [] if selected else ["no-record-selected"],
         }
-        finalized["fallback"] = {"used": not bool(selected), "reason": "no-record-selected" if finalized.get("candidates") and not selected else finalized["fallback"].get("reason", "")}
+        # Declining retrieved records leaves coverage unresolved; it does not
+        # execute a fallback. Preserve any actual fallback already recorded.
+        if not selected and finalized.get("candidates") and not finalized["fallback"].get("reason"):
+            finalized["fallback"]["reason"] = "no-record-selected"
         return finalized

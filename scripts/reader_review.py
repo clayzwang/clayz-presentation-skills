@@ -9,7 +9,10 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+ROOT = Path(__file__).resolve().parents[1]
+# Final Art validation also imports the existing standalone validator helpers.
+# Make the public CLI independent of a caller-supplied PYTHONPATH.
+sys.path[:0] = [str(ROOT), str(ROOT / "packages" / "validators")]
 from packages.validators.reader_review import (prepare_packet, record_first, record_review,
                                                 read, validate_review, check_art_gate, repair_scope)
 

@@ -65,6 +65,23 @@ identify the intended use in the actual composition. A line described in work
 notes as a time interval does not communicate an interval when neither endpoint
 nor the state between them can be recognized in the image.
 
+A familiar outline or arrangement may help readers recognize a category or orient
+themselves in a scene. That is a useful contribution even when nearby prose
+explains the activity. It need not be a conceptual metaphor in which every fold,
+edge or empty area represents a business fact. If the current task also asks
+readers to locate an item, understand an action or trace cooperation, decide
+which relevant objects, reference points and conditions the graphic and words
+will make recognizable. A category cue alone does not supply those relations.
+
+Distinguish the native object's structure, its selected visible treatment and
+the explanation available to the reader. Editable table cells do not determine
+which boundaries appear under a style; visible divisions do not by themselves
+explain what a cell's position means. Select and realize the cues needed for
+the present task, then inspect the actual render. Retain a modest orientation
+cue when that serves the page; no full interface, fully ruled grid or universal
+label format follows. Technical fidelity, the cue's explanatory contribution
+and observed reader understanding support different conclusions.
+
 Combine useful expressions when their meanings fit. Shared axes can support a
 comparison when the relevant domains, units and periods are compatible. Aligned
 regions can connect different measures of the same named objects without
@@ -83,6 +100,26 @@ space, compare an integrated treatment with adjacent, consistently named views.
 Retain the information the audience needs; page count and mark count do not
 decide this tradeoff.
 
+Judge a local correspondence together with the explanation the page still needs.
+Where row height follows the tallest cell, a long explanation consumes height
+for the whole row; blank space in shorter cells is not automatically available
+to text outside the table. A table may help readers locate an item, its current
+quantity and its remainder,
+while text outside it explains what those results establish, the work still to
+do and the applicable conditions. That text does not become a disposable note
+because it is outside the table. A returned table bottom is a local implementation
+position; it does not allocate all continuation, annotation and selected footer
+objects for the author.
+
+If the correspondence crowds necessary explanation, compare a compact table
+with clear context, open alignment, a different partition, or adjacent views
+and pagination with recognizable identities. Preserve the relevant subjects,
+actions, quantity identities and conditions. Tightening rows may restore whole-page
+completeness while changing editable internal reserve. Record the actual tradeoff
+and measurements separately. Local completeness, fit or correspondence count
+does not prove the whole explanation better; no mandatory estimation or new gate
+follows.
+
 Inspect the actual draft using the current understanding task: can the reader
 identify the objects, follow the intended relation and distinguish it from
 plausible but unsupported meanings? Then read the conditions and check the
@@ -97,6 +134,14 @@ for a supported factual judgment, a label describing a lookup method cannot
 replace it; place that reading guidance where it explains the evidence. Record
 material choices and observed effects in existing Art notes. This method adds
 no form, gate, layout quota or claim of measured reading-speed improvement.
+
+## Explanation scale and the distribution of reading work
+
+Consider the scale of the explanation together with what the reader needs to do. An overview may treat a whole activity as an object; a detail view may focus on its records, actions or results. A change of scale can also change the relationship being explained. Repeating a name does not by itself connect those explanations. Bringing activity names and data endpoints together may help readers find them without establishing how they cooperate. A local row correspondence can make one relationship explicit while leaving its conditions or place in the whole elsewhere.
+
+Judge what the graphic, prose and established context each carry for the current task: a choice may reduce searching while adding work to recognize a relationship or draw an inference. When the ordinary meaning of a result is missing, use the audience's knowledge needs to guide the explanation. When readers must recognize the same object after a change of scale or view, retain its identity through narrative orientation. Searching, relationship recognition and inference can interleave; they are not fixed steps and need not all be carried by a graphic. Preserve necessary conditions and complete explanation. Co-location, fewer objects or one successful restatement does not establish easier reading.
+
+“As needed” or “optional” qualifies when an activity is used; it does not by itself establish who uses it in the current overall task or what its result is used for. Recognizable parameters and returns may still explain only a local call. At the chosen scale, execution details can be omitted while the graphic, prose or established context retains the adoption and result-use relationships needed for the task. An optional condition does not replace those relationships, nor must every component repeat them all.
 
 ## Let a comparison serve the current judgment
 
@@ -140,6 +185,10 @@ existing Art notes, without new forms, gates, template menus or count quotas.
 Distinguish content ownership from the grouping a viewer could perceive. A native group, shared type style or common area does not establish which label, value or qualification belongs to which object. Trace a correspondence in the current page: what does the label name, does the qualification constrain one object or several, and are the objects merely compared or actually nested?
 
 Proximity, similar treatment, common regions and connections can suggest membership, and their suggestions may differ. Consistent treatment can identify comparable quantities while a local label still appears attached to the wrong mark. A common period can support state correspondence; nested products need their inclusion scope. A shared area or adjacent position does not establish exclusive membership, causality or a common denominator. Consider separation, alignment, explicit names or necessary connections from the current meaning, without prescribing frames, chart types or a universal relationship diagram.
+
+The native text frame measured for capacity may differ from the area representing a responsibility. Even if every string fits its measured frame, a visible boundary can separate part of a work statement or a necessary qualification from its name. Read the current name, positive action and scope together, then judge whether the area, position and adjacent explanation carry the complete work meaning. A title outside a shape, open prose or explanation beyond a region can be valid: the area may cue identity rather than bound the entire work. Do not require all text inside one container.
+
+A PDF extraction line, a native editing unit and a semantic group are different units. One extracted line can combine adjacent objects while one work statement spans frames. Diagnose unresolved coverage against the observed words and native objects without rearranging a valid design to suit the extractor. Observed word bounds describe font metrics; they do not decide whether a label names an object, explains a record’s use or qualifies an action. The complete meaning and actual composition still carry that reference.
 
 Inspect the actual whole page and its neighbors to see whether local correspondence remains recognizable in the composition. Ordinary text capacity measurements and native inventories may omit chart-internal labels; a pass in one scope does not approve an unmeasured scope. Revise the observed interference while preserving values, scope and explanation, then observe the affected pages. Use existing Art records and original reader and repair allowances; do not add grouping forms, automatic scores or layout quotas.
 
@@ -268,6 +317,26 @@ comparison and orientation. Check that the comparison dimensions stay coherent,
 the new evidence receives attention and the reader benefits from the shared
 structure. A claim that repetition "supports comparison" needs to be visible
 in those pages.
+
+Across named product examples, distinguish the business work being explained
+from the product identity that bounds each example. Keeping both clear does
+not require every action sentence to begin by reintroducing the product. When the scope is established
+and still recognizable, the explanation can continue with the work; a change
+of vendor, product, version or configuration needs enough identity to locate
+the current example again. Reintroducing a formal name before every action may
+repeatedly defer entry into the work, while reducing every name to the vendor
+may merge different product scopes. Compare the actual sequence rather than
+deciding what to retain from name length alone.
+
+When the task is to compare products, versions or exact sources, formal identity
+is itself an important object of judgment: retain and emphasize the distinctions
+needed. When a product bounds a business example, clear local context,
+continuous explanation or another correspondence can keep the action and its
+product attribution traceable together. Do not automatically demote identity
+to notes or prescribe a full-name-then-short-name sequence. A reader who
+understands but reports effort gives reason to compare these choices, not
+proof that the long name or sentence structure caused the effort, or that an
+alternative is faster.
 
 Visual fatigue can arise when evidence, explanation, process and conclusion all
 require the same scanning effort and receive the same emphasis. Consider the

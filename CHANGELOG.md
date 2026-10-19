@@ -6,6 +6,15 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.8 — 2026-10-19
+
+- Promote the actual industries.r10.1 body after ten recursively inherited industry rounds, preserving prior published system methods and later validated refinements.
+- Strengthen bounded explanation preservation: meaningful alternatives and roles, technical result versus activity, prerequisite support, selected-example scope, compound-name identity, coordination participants and whole-task versus multiple-instance readings.
+- Preserve actual citation locations and provenance; retain reader-supplied issues and non-pass comparison keys through the one-repair, same-original confirmation workflow without changing validators.
+- Fix reader_review CLI helper imports without caller PYTHONPATH; eight real baseline/patched positive/negative calls preserve phase and hash validation.
+- Preserve punctuation boundaries in text balancing and cross-view object/relation identity; no mandatory layout, taxonomy, node count or diagram quota.
+- Associate exact external 1.2.29+industries.r10.1 knowledge, 91 existing nodes and independently verified archive checksums in work-output.
+- Keep original ten incomplete-evidence deliveries, residual findings, execution-role deviation and unverified GUI/font/future-edit limits. No human or causal comprehension claim; no installed ChatGPT plugin update.
 ## 0.20.7 — 2026-10-17
 
 - Promote the actual nine-round systems.restart.r09.1 body: supported functional composition, concrete intra-module work, meaningful cooperation, whole/detail continuity and scoped shared support.
