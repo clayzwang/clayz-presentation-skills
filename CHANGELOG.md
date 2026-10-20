@@ -6,6 +6,14 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.9 — 2026-10-20
+
+- Promote the actual star50.r10.1 source after ten recursively inherited company rounds, retaining prior published industry/system methods.
+- Add optional PDF metric label-occupancy inspection, neutral page entry, selected local phrase boundaries, rectangular connector attachment, selected existing point-label wrapping and same-line endpoint markers. Geometry, selected inputs and rendering limits remain explicit; no universal dictionary or layout quota.
+- Add read-only Copy source-context expansion for stable source IDs without source guessing, mutation or automatic semantic support.
+- Deepen conditional-rule scope, aggregate membership, compound-title evidence entry and named adjustment bases; no fixed dual charts, complete earnings bridge or new gate.
+- Associate exact external 1.2.39+star50.r10.1 knowledge,91 existing nodes and58 unique sources, separately archived in work-output.
+- Preserve93-page ten-company PPT/PDF/report collection and every original audit finding/uncertainty. Post-delivery learning is not credited for earlier manual repairs or reader results; GUI/human/loaded-font/future-edit scopes remain unverified.
 ## 0.20.8 — 2026-10-19
 
 - Promote the actual industries.r10.1 body after ten recursively inherited industry rounds, preserving prior published system methods and later validated refinements.

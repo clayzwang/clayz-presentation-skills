@@ -14,6 +14,11 @@ from pathlib import Path
 from typing import Any, Mapping
 from xml.etree import ElementTree as ET
 
+# Preserve direct script use while sharing the distributed neutral page helper.
+if not __package__:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from packages.layout.native_page import add_native_page
+
 
 def _imports() -> dict[str, Any]:
     try:
@@ -287,10 +292,10 @@ def render(manifest_path: Path, output_path: Path) -> None:
         if not slide_id or slide_id in seen_slides:
             raise ValueError("slide_id values must be unique and non-empty")
         seen_slides.add(slide_id)
-        slide = pptx.slides.add_slide(pptx.slide_layouts[6])
-        background = slide.background.fill
-        background.solid()
-        background.fore_color.rgb = _color(slide_spec.get("background", "FFFFFF"), api)
+        slide = add_native_page(
+            pptx, layout=pptx.slide_layouts[6],
+            background=slide_spec.get("background", "FFFFFF"),
+        )
         for spec in slide_spec.get("objects", []):
             object_id = str(spec.get("object_id", ""))
             if not object_id or object_id in seen_objects:

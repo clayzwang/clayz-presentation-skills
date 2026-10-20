@@ -1,16 +1,14 @@
 # Clayz Presentation Skills
 
-## 0.20.8: explain industry delivery, chains and concrete work
+## 0.20.9: refine evidence, labels and native relationships
 
-This release promotes the actual **industries.r10.1** source after ten recursively upgraded industry rounds: automotive, petroleum, electricity, semiconductors, smartphones, dairy, apparel, pharmaceuticals, express delivery and passenger aviation. Explanations start with what the consumer receives, choose an explicit supply-chain anchor, and distinguish material or service delivery from supporting information, assets and public coordination. Supported activities, prerequisites, selected-example scope and stable object identity remain visible through compression and changes of view.
+Promote the actual **star50.r10.1** source after ten sequential STAR50 company rounds. Native tools add optional PDF label-occupancy inspection, neutral page entry, protected local phrases, rectangular connector attachment, selected point-label wrapping, same-line endpoint markers and read-only Copy source-context. Methods deepen scope, aggregate identity, title-to-evidence access and named adjustment starting points. These are conditional choices, not a fixed layout or automatic semantic pass.
 
-The reader CLI now resolves its existing validator helpers without caller-supplied PYTHONPATH. Expression methods preserve punctuation boundaries, meaningful alternatives, technical activities, cited source locations and actual review issues, including a non-pass comparison. These are bounded methods, not compulsory diagrams or new semantic validators.
-
-External knowledge **1.2.29+industries.r10.1** preserves 91 nodes and deepens selected concepts with scoped professional sources. [Readable knowledge, ZIP and checksums](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1) are separate from the public Light packages; [association metadata](config/knowledge-release.json) binds exact bytes. All ten local deliveries retain original findings and incomplete-evidence status, including local content/expression gaps and an actual execution-role deviation. No human-effect, universal design-pass or PowerPoint/WPS GUI acceptance is claimed. This release does not update the installed ChatGPT plugin.
+External knowledge **1.2.39+star50.r10.1** keeps 91 existing nodes and 58 unique sources. [Knowledge](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1) and the [ten-company PPT/PDF/audit collection](https://github.com/clayzwang/work-output/tree/main/presentations/star50top10-20261019) remain in private work-output. Original findings and incomplete-evidence statuses are retained; no human-effect, loaded-font or PowerPoint/WPS GUI acceptance is claimed. No installed ChatGPT plugin update.
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.8**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.9**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
@@ -18,7 +16,7 @@ Reader reviews now run before Art and after Output with fresh host contexts when
 
 ## Art knowledge / Art 知识包
 
-Current external knowledge / 当前外挂知识：**1.2.29+industries.r10.1**. [Readable files, ZIP and checksums / 可读正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1). The 91 existing nodes preserve source scopes and distinguish professional theory, package interpretation and actual production observations. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not itself establish reader benefit. Historical versions remain available.
+Current external knowledge / 当前外挂知识：**1.2.39+star50.r10.1**. [Readable files, ZIP and checksums / 正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1). Knowledge is separate from public Light assets. Source scope, package interpretation and observed production remain distinct.
 
 ## Why Clayz stands out
 

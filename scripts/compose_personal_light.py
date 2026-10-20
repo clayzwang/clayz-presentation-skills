@@ -64,7 +64,7 @@ COMPOSITE_RUNTIME_SCRIPTS = {
     "inspect_logic_knowledge.py",
     "inspect_industry_research.py",
     "audit_native_glyph_bounds.py",
-    "render_native_preview.py",
+    "render_native_preview.py", "observe_label_occupancy.py",
     "stage_documents.py",
     "art_learning.py",
     "reader_review.py",
