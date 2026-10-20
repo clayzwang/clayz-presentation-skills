@@ -25,6 +25,7 @@ from packages.layout.layout_contract import (
     validate_layout_contract_request,
 )
 from packages.layout.solve_relative_layout import solve, solve_compilation
+from packages.layout.native_connector import set_connector_line_ends
 
 __all__ = [
     "LAYOUT_COMPILATION_CONTRACT",
@@ -36,6 +37,7 @@ __all__ = [
     "resolve_layout_contract",
     "solve",
     "solve_compilation",
+    "set_connector_line_ends",
     "validate_layout_contract",
     "validate_layout_contract_instance",
     "validate_layout_contract_request",

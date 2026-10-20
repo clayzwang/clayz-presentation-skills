@@ -323,3 +323,42 @@ The latter alone does not establish a defect. A concrete ambiguity or hard-to-
 track relation is a design observation to route to Art within the existing
 return budget, not permission to silently reflow the deck. Keep actual
 observations and unresolved findings even when the reader understands the page.
+
+### Local star50.r02.1 — preserve the actual authored entry and color roles
+
+Neutral page creation does not authorize Output to add a conventional title band,
+short rule or fixed top gap. Consume Art's explicit title/body positions and
+selected layout; retain genuine user-master inheritance. When adopting native
+objects, preserve independently authored data-mark and identifying-text colors.
+Do not restore a pale swatch's color onto the label because a helper exposes one
+shared foreground parameter. Actual editable properties, page images and reader
+understanding remain separate evidence; no new color or page-layout gate applies.
+
+### Local star50.r03.1 — preserve authored groups without new reflow
+
+Consume Art's actual selected lines, typography and object geometry. Optional
+author-selected `protected_terms` belongs to the existing preparation call in
+`packages.layout.text_flow.wrap` / `authoring_text.measure_lines`; native helpers
+must pass that choice when used, not substitute a topic-wide dictionary.
+The existing date/number/Latin atoms remain intact when choices overlap them.
+
+Do not add a wrapping engine to the manifest adapter or reflow an already locked
+native prototype to apply a later preference. Compare actual final text, line
+breaks, native properties and pixels. An overwide protected group returns to
+Art's current spatial decision, rather than justifying smaller type, hidden
+joiner characters or changed approved wording. Successful grouping does not
+clear unmatched PDF lines, capacity diagnostics or unobserved target behavior.
+
+### Local star50.r04.1 — preserve explicit native endpoint scope
+
+Implement the locked relation and geometry without automatically attaching every line or adding frames. When Art explicitly selects the optional `packages.layout.native_connector.attach_rectangular_connector`, validate its direct-slide rectangle/site scope before touching either endpoint. The helper uses the library's existing experimental connection methods; it does not route lines or monitor later property edits. Preserve separate arrowheads/labels as separate objects, and do not infer that they follow a bound connector. Reopen the written native file and observe its actual render; native id/site references, coordinate coincidence, GUI drag behavior and reader-visible correspondence require separate evidence. Existing validators, capacity diagnostics and bounded return remain unchanged.
+
+
+### Local star50.r05.1 — preserve chart-label scope and actual visibility
+
+Consume Art's actual point-label wrapping, literal text and placement decisions, including external annotations when selected. `packages.layout.native_chart_text.set_point_label_wrapping` is an optional identity-checked integration for existing custom labels only; preserve automatic labels as automatic rather than creating fixed text just to control wrapping. The helper changes no data/style/geometry and reports authorship, not fit. Reopen and view the actual written chart: ordinary TextFrame/grouping checks do not cover internally allocated chart-label space, and individually fitting neighbours may obscure each other. Retain the exact font audit, existing PDF-label observer scope and original QA thresholds. A manual label's future workbook update behavior remains unverified unless actually exercised; no universal nowrap, automatic shrinking, extra render cycle or gate is introduced.
+
+
+### Local star50.r06.1 — preserve native endings and separate objects
+
+Preserve the approved connector's headEnd/tailEnd style and selected inheritance state as part of its existing native line, not as another object. `packages.layout.set_connector_line_ends` is optional; omitted ends, explicit none and removal to inherit are distinct author choices. Keep authored independent triangles and labels independent when that is the locked design; do not silently migrate or remove them. Inspect actual line geometry after an explicit reattachment before positioning separate objects. Reopen and view actual positive/reversed/flipped directions where used; native marker ownership does not prove semantic direction, label association or GUI movement. Existing QA, edit boundaries and finite repair remain unchanged.

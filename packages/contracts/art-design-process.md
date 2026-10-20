@@ -100,6 +100,32 @@ Record consequential whole-deck conclusions and actions in `art_cognition`.
 
 ## 2. Prepare the semantics of each whole page
 
+Separate current page position from content origin after splitting, merging or
+reordering. Existing `art_learning.py diff` compares structural `slide_id`
+slots: `before` is the old slot, and `before=null` means no such slot. Neither
+establishes where the current content came from or that old content disappeared.
+Keep that exact structural difference and its original validator. Follow the
+actual unit's existing `source_basis.source_copy_ids` to the used original
+wording instead; one current page may use several originals and one original
+may support several current pages. Never fill lineage from the new page number.
+
+Optional `scripts/art_learning.py source-context --package <approved-copy.json>
+--presentation <actual-slides-array.json>` and its read-only
+`copy_source_context(package, slides)` expand declared stable Copy IDs into
+original page/unit text beside current wording. Missing basis, unknown IDs and
+orphan basis rows remain explicit, without positional fallback. Ambiguous
+duplicate page/unit/basis identities refuse the helper call; repeated source
+references expand once. It does not mutate packages/diffs, resolve research
+support, infer splits/merges or create a new production gate. Attach an actually
+used report through existing notes if useful; keep it out of a blind first read.
+
+Finding the original is separate from retaining its claim. Resolved references
+can still accompany a deleted actor, a changed period or a shift from an invalid
+inference to an asserted state. A04/A05/A11 compare the actual propositions and
+their scope; source context supplies material, never semantic approval, visual
+quality or reader-effect evidence. No new per-sentence form or repagination is
+required to obtain such a report.
+
 Before choosing containers or assigning colors, use A04 and A05 to state the
 page judgment and identify what supports, explains or limits it. Read passages
 continuously before regrouping them; one body passage may contain both evidence
@@ -229,3 +255,54 @@ period labels distinguish categories without implying good or bad performance.
 A11 checks whether the draft makes both the divergence and attribution limit
 readable. This invented example demonstrates a dependency, not a fixed layout,
 palette or measured reader outcome.
+
+### Main handoffs and side conditions
+
+A readable main path does not automatically carry an adjacent condition. A resource can support an activity, an order can initiate work, a delivery can satisfy a recognition condition, and use can incur cost. These are compatible claims rather than interchangeable arrow labels. For a consequential transformation, read the actual graphic and prose back as a business claim: where is the agent now stated, and which activity or result does the side condition qualify? Retain needed prose or make that specific relation discernible. This is a local design judgment, not a requirement to diagram every condition, add edges or fill a new form. Matching individual words to Copy does not prove the composed claim survives.
+
+Keep coordinate contact, native endpoint references and visible/semantic correspondence separate. Optional `packages.layout.native_connector.attach_rectangular_connector` integrates the existing python-pptx experimental API only for caller-selected straight connectors and ordinary unrotated, unflipped rectangles in one direct slide spTree. All endpoints are checked before either is changed; groups are refused even on the same slide part. It creates no objects, styles, routes, labels or line endings. Separate triangles and labels do not follow an attached connector. An explicit call can refresh an endpoint after a programmatic move; GUI editing and rendered meaning require their own observation.
+
+
+### Local star50.r05.1 — select chart label wrapping in its own scope
+
+Chart point labels receive space from the chart engine, not the enclosing graphic frame or an ordinary TextFrame preparation call. Numeric caches, ordinary text capacity and an intact visible label are separate evidence. Compare inherited wrapping, a local explicit wrap choice, chart-space adjustment or a named external annotation according to the current reading task. Disabling wrap can replace broken text with overflow; it is no layout verdict and does not remove hard breaks.
+
+The optional `packages.layout.native_chart_text.set_point_label_wrapping` selects existing custom point labels by series/point and expected literal text. It preflights all requests before writing only word_wrap. It does not create custom text from automatic labels or alter text, runs, size, position, data or workbooks. True/False/None mean wrap/no-wrap/inherit; None is not no-wrap. The existing library supplies this text-body behavior. Do not apply it globally or treat ordinary protected_terms as controlling chart internals.
+
+Read intact values with their series, unit and period. A software default name is not evidence of category meaning. Separately fitting table/text objects can still cover each other in painter order; inspect the real page and affected neighbours, optionally reusing the existing selected-label observer. External annotations trade explicit placement for separately verified update/link behavior. No diagram, font-size, clearance or label-count gate follows.
+
+
+### Local star50.r06.1 — choose native line endings without inferring meaning
+
+A separate triangle gives independent placement and shape control; changing or reattaching a connector does not move that other object. Use the connector's actual post-operation geometry when arranging it. Native headEnd/tailEnd decorations instead belong to the connector's line formatting, with no extra shape. Neither implementation chooses the business source/destination or moves a label. Compare them for the actual relation and editing responsibility; no universal arrow or attachment rule follows.
+
+Optional `packages.layout.set_connector_line_ends(line, tail={"type":"triangle", "w":"med", "len":"med"})` preflights both selected ends before mutation. head/tail are DrawingML names, not screen sides. None preserves an end, explicit type=none disables its decoration, and 'inherit' removes only that element to resume style inheritance. Omitted w/len preserve existing attributes; these size categories are relative to line width, not absolute triangle dimensions. The narrow scope is nonzero, unrotated straight connectors in a direct slide spTree, retaining native flips. Grouped, curved and rotated connectors are refused. Geometry, bindings, width/color, the other end and unrelated XML remain; no independent object migration, routing or GUI assurance occurs.
+
+A rate describing a result and an adjustment operating on it are different relations. Existing GROUP/RELATION/DATA principles already cover mistaken association. After splitting a supported sentence, read the particular rate/result or member/set relation from the real page, then choose local naming, position, continuous explanation or an appropriate shared region. Do not turn this into repeated full names, frames or a new checklist/gate. Native endpoint decoration cannot solve semantic attachment elsewhere.
+
+
+### Local star50.r08.1 — conditional rules and actual membership
+
+A supported conditional rule and evidence that a particular instance satisfies its category are different claims. A commercial use of service, product or confirmation need not share a contract or policy taxonomy with the same words. Turning a conditional rule into an organization-wide realization path can silently classify its instances when the endpoint names only a particular category. Unknown membership does not refute the rule and does not license an invented classification.
+
+During A04/A05, identify whether the consequential path explains a rule, a selected instance or the whole organization. A07/A08 can retain an explicitly conditional example, or stop the broader graphic at a supported neutral result and explain the applicable rules in prose. Existing clear context need not be repeated. Individually sourced labels do not establish that their combination preserved the condition.
+
+When a local revision narrows a scope or exposes an unknown, A10/A11 should revisit the later passage or graphic that actually reuses that premise. Repeated names do not propagate a qualification by themselves. This is a local meaning judgment, not a requirement for repeated disclaimers, frames, edge tables or a new gate. A compressed modifier may identify the set being discussed; retain that referent or an equivalent contextual reading rather than assuming it was expendable wording. Keep original Copy, changes and reader residuals; explaining an unknown is not obtaining the missing fact.
+
+
+### Local star50.r09.1 — aggregate names and the members they select
+
+An aggregate value, a member count and the identities of those members answer different questions. A correct total with a label such as “four items” or “other” can lose which objects were included. Nearby words from the same domain do not establish that set: mentioning expenses and taxes does not tell a reader whether a particular expense total includes tax. This applies existing object/grouping principles to compression; it is not a new accounting taxonomy or an automatic tool defect.
+
+During A04/A05, read a consequential aggregate name against its actual members and operation. A07/A08 can retain a compact name when visible context has already established the set. Otherwise, preserve the necessary member names, identify the composition in a local explanation, or make the actual members and their aggregate readable together. Raw data, source IDs, file grouping and equal numbers do not themselves establish visible context. Do not require every component value, a complete earnings bridge, uniformly long labels or added frames.
+
+The level selected by a label also matters to placement. A name for a set must not appear to name only its nearest member. A region carrying a whole activity cannot be judged complete merely because each internal TextFrame fits. During A10/A11, read the current aggregate and its local context, considering how actual objects, wording and regions jointly select its referent. Keep an adequate open layout or existing context. Numeric measurement, visible ownership and semantic support have distinct evidence scopes; none automatically passes the others. No new field, gate, prescribed graphic or per-page quota follows.
+
+
+### Local star50.r10.1 — finding evidence and identifying an adjustment's starting point
+
+A title selects a task as well as stating a judgment. During A04/A06, distinguish what the different claims in a compound conclusion depend on: one may require a two-period amount comparison, another an expense or result change. Having both facts somewhere on the page does not make both usable in the actual primary reading path. A07/A08 can choose shared principal evidence, a main comparison with clear support, continuous explanation or pagination, or an evidenced change to the title's responsibility. This does not require equal size for every clause, two charts or promoting all annotations. A11 reads actual evidence entry points rather than inferring support from numeric presence, even allocation or individual-frame fit.
+
+A prominent adjusted result still needs an identifiable named starting quantity and the operation changing it. During A05, recover the approved base, excluded or added item and target definition. A07/A09 can preserve that relationship with a named expression, continuous prose, local explanation or unambiguous shared context. Equal values do not make metric identities equal; another complete subtraction on the same page does not provide the base for a neighbouring adjustment. Do not retain only a positive result and a warning that it differs from another definition when the source already explains the starting point. Do not invent a missing expense schedule, full earnings bridge, or rename an author's net difference as an original pretax expense.
+
+These apply existing hierarchy, data-identity and actual-render principles. Selected phrase protection, individual-frame capacity and intact native glyphs have limited coverage: protecting a few phrases does not protect every meaningful phrase on neighbouring lines. Recoverable original text may still force cross-line assembly of a keyword. A09/A11 can choose existing local protection, semantic line breaks, wording or geometry as the actual importance and space require. No topic dictionary, universal nowrap or per-word quota follows. Record actual selections and written lines; Output preserves the locked line choices rather than silently redesigning or reopening a closed repair.

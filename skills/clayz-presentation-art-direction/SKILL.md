@@ -223,3 +223,155 @@ When a functional whole contains several relations, identify the reading task th
 Choose the mechanism by what this reader needs to identify, correspond, trace or understand. Common identity, meaningful row/column correspondence, a recognizable business object, a path and continuous explanation can share that work; these are possible mechanisms, not a required menu. Selecting a table or relationship-diagram name does not establish what a row, column or connection actually means. Where a consequential choice is uncertain, compare mechanisms that preserve the needed meaning and conditions, and acknowledge other differences such as typography rather than attributing all visible benefit to the representation. Use the existing A05/A07/A08/A11 judgments, without requiring alternatives on every page.
 
 A branch from a portal to functions exposes access; it does not by itself expose document sharing or a meeting-to-task handoff. Conversely, nearby complete prose can explain a supported connection without making the graphic alone a process model. Trace the current objects, endpoints and conditions in the real draft, then decide which relation should be visible at a glance and which needs words or an example. Preserve the explanation when changing representation; neither more lines nor replacing prose is a general improvement. Do this within the existing A05/A07/A11 judgments, without a required diagram, field, page, connection count or gate. Consult P.REL.EXTERNAL_REP when its task/operation distinction helps. Report what the combined page lets the actual reader infer, separately from what the graphic alone depicts; comprehension without a comparison does not establish faster reading or the superiority of the chosen division.
+# Local star50.r01.1 — distinguish information identity and shared rendered space
+
+A correct value and its visible identity are different design decisions. When
+turning prose into a comparison, equation or salient label, preserve the current
+period, variable and necessary condition through the chosen nearby context.
+An axis, unit or result name does not automatically name the missing input.
+Use the current reading task to decide what can be shared; do not repeat every
+identity mechanically or add a new per-number form.
+
+Native chart labels and manual annotations occupy one visible page even though
+their native objects are separate. If these compete, plan their occupied regions
+together and inspect the actual export. The optional
+`scripts/observe_label_occupancy.py <pdf> <request.json> --output <new.json>`
+can locate selected exact rendered label lines in caller-supplied search regions
+and report metric rectangles and possible intersections. Read its actual coverage:
+missing/ambiguous matches stay unresolved, font metrics differ from glyph ink,
+and a possible intersection is a prompt for page inspection. An empty list proves
+neither semantic ownership, readability nor polish. This aid adds no hard gap
+threshold, quality score, mandatory gate or automatic native edit.
+
+An unnamed state or relation is a different problem from geometric crowding.
+A recognizable object silhouette may identify a category while leaving its
+input/output state and the arrow's supported action unknown. Decide whether
+current words, local roles or the graphic itself carry that meaning; alignment
+and a collision-free endpoint cannot supply a missing business assertion.
+
+Optional request format and coverage examples are in
+`packages/layout/rendered-label-occupancy.zh-CN.md` at the composite root.
+
+### Local star50.r02.1 — keep page initialization separate from composition
+
+A title's semantic role does not determine its position or require a mark above
+it. Inspect reused authoring helpers before composing: adding the same short
+rule and title rectangle in a page initializer already selects an entry and
+reserves space before the current evidence has been considered. The existing
+python-pptx manifest adapter is neutral; the shared `add_native_page` operation
+in `packages/layout/native_page.py` exposes that selected-layout/background
+behavior to native authors and is consumed by the source adapter.
+It adds no authored header, line or body band. A user-selected master can still
+have its own inherited objects; do not strip them or replace a required master.
+
+Place titles, primary evidence and necessary margins explicitly for the current
+page. If an unnecessary mark is removed, reconsider the allocation rather than
+keeping its former empty header band. This does not forbid useful navigation,
+conclusion titles, top margins or repeated structures that serve a real task;
+it does not request decorative variation or a new layout quota.
+
+Distinguish the data mark's emphasis from the words needed to identify it.
+A pale historical bar can remain pale while its nearby legend name uses a
+readable text color. `set_manual_legend_colors` in
+`packages/layout/native_chart_text.py` takes both colors explicitly and changes
+neither geometry nor font. Use proximity, swatch and actual names to preserve
+association, then inspect the real background and exported glyphs. The operation
+chooses no palette, contrast threshold or quality verdict. The relevant existing
+COLOR_IMAGE and HIERARCHY knowledge discusses these separate roles; technical
+authorship does not establish audience readability or the usefulness of space.
+
+Usage and limits: `packages/layout/native-authoring-boundaries.zh-CN.md`.
+
+### Local star50.r03.1 — choose meaningful line groups explicitly
+
+Separate an available break from a useful break for the current reading task.
+For an important short term, numeric range or range-and-unit combination, the
+existing `packages.layout.text_flow.wrap(..., protected_terms=...)` accepts
+literal groups selected by the author for that object. `authoring_text.measure_lines`
+already forwards that choice; check the actual task helper also passes it,
+rather than silently using only its inherited default terms. Do not expand a
+topic dictionary to replace this decision. Ordinary Chinese flow can remain.
+
+The grouping choice composes with existing date, numeric and Latin atoms;
+selecting a substring cannot make those atoms easier to split. Overlapping
+choices can form a larger indivisible group. If it is too wide, reconsider this
+object's space or authored lines; no font shrink, character insertion or silent
+content change follows. A literal choice applies to all its occurrences in the
+current call, not to every object in a deck. Manual lines remain an explicit Art
+choice and do not have to be replaced by automatic wrapping.
+
+Read the existing TEXT_ORGANIZATION knowledge and the scoped UAX14 discussion:
+break opportunities, selected lines, physical fit and audience clarity are
+different evidence. The primitive is not a complete Unicode line-breaking
+implementation or a quality validator. Inspect the actual page, neighbours and
+native metrics; do not declare a protected phrase or an unchanged string a
+readability pass. See the existing native authoring boundary document for usage.
+
+### Local star50.r04.1 — retain the claim when separating its objects
+
+During A04/A05/A11, distinguish a visible main handoff from the capability, necessary condition or cost influence carried by its side objects. Read a consequential transformation as an ordinary business claim; individually source-matched labels do not preserve a deleted agent or an uncarried condition. Use the existing Art process reference; no new field, diagram quota or review gate is introduced.
+
+If the selected design benefits from native endpoint attachment, `packages.layout.native_connector.attach_rectangular_connector` is an optional integration of the existing library API. Choose the objects and explicit sites first. It supports only straight connectors and ordinary unrotated/unflipped rectangles in one direct slide spTree, refusing groups and cross-slide targets before mutation. Coordinate contact, id/site binding, visible referents and business meaning remain distinct. The function does not add a header, frame, line, label or arrowhead; native editing/GUI behavior is not established by API success.
+
+
+### Local star50.r05.1 — select chart label wrapping in its own scope
+
+Chart point labels receive space from the chart engine, not the enclosing graphic frame or an ordinary TextFrame preparation call. Numeric caches, ordinary text capacity and an intact visible label are separate evidence. Compare inherited wrapping, a local explicit wrap choice, chart-space adjustment or a named external annotation according to the current reading task. Disabling wrap can replace broken text with overflow; it is no layout verdict and does not remove hard breaks.
+
+The optional `packages.layout.native_chart_text.set_point_label_wrapping` selects existing custom point labels by series/point and expected literal text. It preflights all requests before writing only word_wrap. It does not create custom text from automatic labels or alter text, runs, size, position, data or workbooks. True/False/None mean wrap/no-wrap/inherit; None is not no-wrap. The existing library supplies this text-body behavior. Do not apply it globally or treat ordinary protected_terms as controlling chart internals.
+
+Read intact values with their series, unit and period. A software default name is not evidence of category meaning. Separately fitting table/text objects can still cover each other in painter order; inspect the real page and affected neighbours, optionally reusing the existing selected-label observer. External annotations trade explicit placement for separately verified update/link behavior. No diagram, font-size, clearance or label-count gate follows.
+
+
+### Local star50.r06.1 — choose native line endings without inferring meaning
+
+A separate triangle gives independent placement and shape control; changing or reattaching a connector does not move that other object. Use the connector's actual post-operation geometry when arranging it. Native headEnd/tailEnd decorations instead belong to the connector's line formatting, with no extra shape. Neither implementation chooses the business source/destination or moves a label. Compare them for the actual relation and editing responsibility; no universal arrow or attachment rule follows.
+
+Optional `packages.layout.set_connector_line_ends(line, tail={"type":"triangle", "w":"med", "len":"med"})` preflights both selected ends before mutation. head/tail are DrawingML names, not screen sides. None preserves an end, explicit type=none disables its decoration, and 'inherit' removes only that element to resume style inheritance. Omitted w/len preserve existing attributes; these size categories are relative to line width, not absolute triangle dimensions. The narrow scope is nonzero, unrotated straight connectors in a direct slide spTree, retaining native flips. Grouped, curved and rotated connectors are refused. Geometry, bindings, width/color, the other end and unrelated XML remain; no independent object migration, routing or GUI assurance occurs.
+
+A rate describing a result and an adjustment operating on it are different relations. Existing GROUP/RELATION/DATA principles already cover mistaken association. After splitting a supported sentence, read the particular rate/result or member/set relation from the real page, then choose local naming, position, continuous explanation or an appropriate shared region. Do not turn this into repeated full names, frames or a new checklist/gate. Native endpoint decoration cannot solve semantic attachment elsewhere.
+
+### Local star50.r07.1 — distinguish page-slot differences from used wording
+
+Reordering, splitting and merging can change page slots without changing a
+unit's actual source. Existing `art_learning.py diff` intentionally reports
+structural same-ID before/after facts; keep that contract and its validator.
+Read original material through the current units' explicit stable Copy IDs,
+including sources on different pages, rather than interpreting a same-numbered
+old page as semantic ancestry or null as proof of wholly new content.
+
+Optional `art_learning.py source-context --package <approved-copy.json>
+--presentation <actual-slides-array.json>` expands existing
+`source_basis.source_copy_ids` into a read-only companion report. It supports
+cross-page use without guessing split/merge operations, reports missing or
+unresolved basis, and rejects ambiguous duplicate identities. It neither
+rewrites `changes` nor checks semantic support; research IDs remain declarations.
+Use existing notes/evidence when helpful, never a new gate or blind-reader input.
+The bilingual Art process explains limits and the callable `copy_source_context`.
+
+Compare the actual actor, action and strength of the new claim with that original
+wording. Correct source IDs do not preserve an omitted company actor or turn
+“cannot infer demand fulfilled” into a supported claim about order status. This
+applies existing proposition/relationship principles; it does not automate
+semantic judgment, force a diagram or prove current reader improvement.
+
+
+### Local star50.r08.1 — keep the scope of a reused rule visible
+
+Separate knowing a conditional rule from knowing which concrete objects fall under it. A named endpoint can classify the whole preceding path even when each label has a valid source. Read the actual combined claim before treating a commercial name as a contract or policy category. For a material unknown, compare a clearly conditional illustration with a broader supported outcome plus explanation; do not invent membership.
+
+After narrowing a scope on one page, use A10/A11 to revisit only the later content that relies on that premise. A qualification does not automatically travel with a repeated name. Preserve a modifier when it identifies the relevant object set, or convey the same referent in the current context. The bilingual Art process develops these choices. No fixed caption, disclaimer, diagram form, new field or validator is required; unchanged adequate context can remain. Existing principles already cover conditions and category ownership. This refinement concerns applying them when a local correction leaves a dependent whole-path statement intact.
+
+
+### Local star50.r09.1 — retain the identity of an aggregate
+
+When compressing a material aggregate, distinguish its total, member count and member identities. Read its actual composition during A04/A05, then decide during A07/A08 whether visible context supports the short name or a local naming/grouping choice is needed. Correct numbers and source references do not supply omitted visible membership. Preserve only the explanation needed for the current task; no complete bridge, expanded list, fixed frame or label quota is required.
+
+Use A10/A11 to read the label at the level it selects: one member, a set or a whole activity. Look at actual surrounding objects and regions, rather than treating TextFrame fit or file grouping as proof of ownership. The bilingual Art process develops the alternatives and limits. These principles already existed; this refinement makes the aggregate-compression judgment explicit. It adds no validator or automatic semantic pass.
+
+
+### Local star50.r10.1 — usable evidence and named starting points
+
+When a compound conclusion assigns more than one consequential reading task, use A04/A06 to identify each task's evidence, and A07/A08 to give it an appropriate visible entry. Co-principal evidence, a main comparison with usable support, prose or pagination are alternatives; facts present at the bottom are not automatically evidence in the primary path. Do not prescribe equal emphasis, two charts or a fixed layout. A11 observes the actual page.
+
+For a compressed adjusted result, preserve the approved starting metric and exclusion/addition operation, not merely the new value and a warning that definitions differ. A05/A09 can retain those identities through a named expression or adequate visible context. Unknown expense detail remains unknown; equal values do not collapse different metrics. Existing phrase grouping and capacity checks cover only their selected inputs; inspect actual important line relationships without making a dictionary or adding a gate. The bilingual Art process explains alternatives, technical limits and the finite Output boundary.

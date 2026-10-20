@@ -1,16 +1,14 @@
 # Clayz Presentation Skills
 
-## 0.20.8：把产业交付、产业链与具体工作讲清楚
+## 0.20.9：打磨证据入口、标签与原生关系
 
-本版纳入十轮实际递推后的 **industries.r10.1** 主体，覆盖汽车、石油、电力、半导体、智能手机、乳制品、服装、医药、快递和航空客运。从消费者得到什么出发，明确本稿采用的产业链锚点，分清实物或服务交付、信息支撑、资产及公共协调。压缩文字和切换视图时，保留有据活动、必要前提、所选实例范围和稳定对象身份。
+采用科创50市值前十公司十轮实际递推后的 **star50.r10.1** 主体。新增或深化可选PDF标签占位观察、中性页入口、局部语块保护、矩形连接器附着、选定图内标签换行、同线端标及只读Copy来源展开。方法补强适用范围、汇总成员身份、标题证据入口与调整结果起点，不增加固定版式或自动语义放行。
 
-读者CLI修复了依赖调用方额外配置PYTHONPATH才能找到既有验证器辅助模块的问题。表达方法补强标点边界、备选项含义、技术活动、引用内容定位及实际读者问题承接，包括未通过的comparison；这些均为有条件的方法，不新增固定图式或自动语义门禁。
-
-外挂知识 **1.2.29+industries.r10.1** 保留91个节点，深化选定概念并明确专业来源实际阅读范围。[可读正文、ZIP和校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1)独立存放于work-output，[配套信息](config/knowledge-release.json)绑定精确字节。十份本地成品的原始发现和incomplete-evidence状态保留，包括局部内容/表达缺口和实际执行角色偏离；不声称真人效果、设计全部通过或PowerPoint/WPS GUI已验。本次不更新已安装ChatGPT插件。
+外挂知识 **1.2.39+star50.r10.1** 保留91节点和58唯一来源。[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1)与[十家公司PPT、PDF、完整审计](https://github.com/clayzwang/work-output/tree/main/presentations/star50top10-20261019)存放于私有work-output。原审计发现、incomplete-evidence和未验范围全部保留；不声称真人效果、进程字体加载或PowerPoint/WPS GUI通过。本次不更新已安装ChatGPT插件。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.8**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.9**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
@@ -18,7 +16,7 @@
 
 ## Art knowledge / Art 知识包
 
-Current external knowledge / 当前外挂知识：**1.2.29+industries.r10.1**. [Readable files, ZIP and checksums / 可读正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.29-industries.r10.1). The 91 existing nodes preserve source scopes and distinguish professional theory, package interpretation and actual production observations. See [Art cognition](packages/contracts/art-cognition.md); knowledge use requires concrete judgment and does not itself establish reader benefit. Historical versions remain available.
+Current external knowledge / 当前外挂知识：**1.2.39+star50.r10.1**. [Readable files, ZIP and checksums / 正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1). Knowledge is separate from public Light assets. Source scope, package interpretation and observed production remain distinct.
 
 ## Clayz 的三项核心优势
 
