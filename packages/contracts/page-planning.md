@@ -54,6 +54,8 @@ subjects, connectors and conditions, and read the split text continuously.
 These are semantic dependencies, not a visual order or an object-count command.
 Art may compose several bodies in one paragraph/object while keeping them clear.
 
+After completing the current page and its edits, read its relationship description as a content claim too: which actual headings and passages does it describe, and does that relation still hold? A page constructor’s advance claim such as an absence of local headings cannot automatically survive later heading additions or changes. Correct references do not reconcile a description that contradicts the current content. Replace the stale claim with the supported relation, rather than merely reporting how many headings exist. Do this within the existing semantic review, without another field, validator or approval. The description helps Art understand meaning; it does not select containers, columns or a graphic form. A heading or relation name can identify a connection without explaining the actions or conditions the current audience needs. When the task concerns how work earns a return, calling it a commercial link does not supply that mechanism. Keep a gap explicit when domain evidence is missing; a structural label cannot add facts.
+
 ## Art plans the whole page before declaring objects
 
 Apply the [Art design process](art-design-process.md). Whole-deck preparation

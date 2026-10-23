@@ -1,14 +1,14 @@
 # Clayz Presentation Skills
 
-## 0.20.9: refine evidence, labels and native relationships
+## 0.20.10: native editing follows content
 
-Promote the actual **star50.r10.1** source after ten sequential STAR50 company rounds. Native tools add optional PDF label-occupancy inspection, neutral page entry, protected local phrases, rectangular connector attachment, selected point-label wrapping, same-line endpoint markers and read-only Copy source-context. Methods deepen scope, aggregate identity, title-to-evidence access and named adjustment starting points. These are conditional choices, not a fixed layout or automatic semantic pass.
+Promote brokers20.r20.1 after twenty sequential broker rounds: native paragraph wrapping, multiple line spacing, alignment and built-in shape text; explicitly selected attached rectangular connectors and refresh; named table-cell selection; selected data-driven point-label formats; actual renderer process receipts. Methods separate implementation from composition, deepen quantitative roles, grouping scope, visible correspondence, reading order and retained shared periods. These are conditional capabilities, not layout templates or new gates.
 
-External knowledge **1.2.39+star50.r10.1** keeps 91 existing nodes and 58 unique sources. [Knowledge](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1) and the [ten-company PPT/PDF/audit collection](https://github.com/clayzwang/work-output/tree/main/presentations/star50top10-20261019) remain in private work-output. Original findings and incomplete-evidence statuses are retained; no human-effect, loaded-font or PowerPoint/WPS GUI acceptance is claimed. No installed ChatGPT plugin update.
+External knowledge / 外挂知识 **1.2.59+brokers20.r20.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1)；[334页券商20轮与完整审计](https://github.com/clayzwang/work-output/tree/main/presentations/brokers20-20261020)。原始残留、财通补充检查例外与晚到原读者证据保留，未声明GUI或真人效果。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.9**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.10**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
@@ -16,7 +16,7 @@ Reader reviews now run before Art and after Output with fresh host contexts when
 
 ## Art knowledge / Art 知识包
 
-Current external knowledge / 当前外挂知识：**1.2.39+star50.r10.1**. [Readable files, ZIP and checksums / 正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1). Knowledge is separate from public Light assets. Source scope, package interpretation and observed production remain distinct.
+Current external knowledge / 当前外挂知识：**1.2.59+brokers20.r20.1**. [Readable files, ZIP and checksums](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1). Source scopes, package interpretation and observed effects remain distinct; knowledge is separate from public Light assets.
 
 ## Why Clayz stands out
 

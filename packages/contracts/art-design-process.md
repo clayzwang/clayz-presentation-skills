@@ -179,6 +179,21 @@ encoding. Text role alone must not select a fixed color, equal box or style.
 Define what a consequential color distinguishes or emphasizes and why; use
 position, type, spacing, labels or line style when they explain it better.
 Update language that refers to a prior medium when the medium changes.
+Native implementation capabilities then serve the selected representation:
+shape text, cells and attached connectors specify how selected objects can be
+edited, not which boxes, tables or lines a page needs. API capability examples
+illustrate call boundaries, not composition. Choose prose, space and
+quantitative encoding from the current content and reading task.
+
+Visible treatments can also come from inherited theme or object styles. Once
+visible, shadows, gradients, opacity and line ends participate in the page
+language even when an authoring call leaves them unset. For an unintended
+treatment, trace selected explicit properties, theme references and local
+overrides with the current native preview, then return to the intended hierarchy
+and visual language. Keep deliberate effects where appropriate. An explicit
+effect list can also remove other inherited effects; consider the combination
+that the current design needs. A11 observes the result. Property provenance does
+not establish benefit or prescribe a deck-wide effects-off default.
 
 Consult relevant knowledge at the decision that needs it. When a user-selected
 learning pack is available, read applicable principles and examples before
@@ -198,11 +213,17 @@ funding implications. Use this distinction for A07 medium and A08 space choices,
 without requiring a diagram or a number of alternatives. A11 checks whether
 those operations are possible in the actual pages. Successful independent
 retelling establishes this reading, not a measured speed improvement.
+For adjacent quantitative plots, consider the physical length per unit in the
+actual plot areas; identical tick numbers alone do not make their bars
+comparable across plots. Choose a common scale or clearer separation from the
+current comparison task, without imposing a chart or layout quota.
 
 Save planning with `record-planning` before producing the full drafts and
 refining native-object specifications. Preserve original Copy; document actual
 Art changes, evidence and consequences under `art_content`. A change in
 presentation is independently audited under the existing contract.
+
+The outer chart frame, rendered plot region and label attachment use different references. Frame coordinates or equal divisions of its height do not by themselves locate rendered bar centers; axes, titles, labels and category order also participate in layout. If external direct labels are chosen, trace each to its actual mark in the full-size page and revisit that correspondence after consequential local changes. Native axis or point labels can delegate part of placement maintenance to the chart; fixed external text retains independent composition and synchronization responsibilities. Choose for the current task, without requiring all labels inside, all labels separate or a particular chart type. Correct data, complete labels, visible association and future updating supply different evidence. Placement attachment and value updating can belong to different objects: custom rich-text point labels can retain literal strings while remaining attached to their indexed points. Read the actual axis, legend, label-group, individual-label or custom-run style rather than inferring each size from an enclosing chart default. Value formatting and literal label text are distinct; a shared unit context is an option only when the current quantity remains clear. Neither global no-wrap nor a label or layout quota follows.
 
 ## 5. Observe the drafts and revise the responsible decision
 
@@ -260,7 +281,9 @@ palette or measured reader outcome.
 
 A readable main path does not automatically carry an adjacent condition. A resource can support an activity, an order can initiate work, a delivery can satisfy a recognition condition, and use can incur cost. These are compatible claims rather than interchangeable arrow labels. For a consequential transformation, read the actual graphic and prose back as a business claim: where is the agent now stated, and which activity or result does the side condition qualify? Retain needed prose or make that specific relation discernible. This is a local design judgment, not a requirement to diagram every condition, add edges or fill a new form. Matching individual words to Copy does not prove the composed claim survives.
 
-Keep coordinate contact, native endpoint references and visible/semantic correspondence separate. Optional `packages.layout.native_connector.attach_rectangular_connector` integrates the existing python-pptx experimental API only for caller-selected straight connectors and ordinary unrotated, unflipped rectangles in one direct slide spTree. All endpoints are checked before either is changed; groups are refused even on the same slide part. It creates no objects, styles, routes, labels or line endings. Separate triangles and labels do not follow an attached connector. An explicit call can refresh an endpoint after a programmatic move; GUI editing and rendered meaning require their own observation.
+Distinguish the target object, selected connection site, stored path geometry and the entry, route and label association actually rendered. Choose the supported relationship and representation before the attachment API. Read the selected relationship cluster in its whole-page context: native attachment or a successful programmatic refresh does not establish that its paths, subjects and annotations work together. Local placement, routing, wording or label treatment may change; no orthogonal route, common entry or enclosure is prescribed.
+
+After choosing straight connectors and ordinary unrotated, unflipped rectangles in one direct slide spTree, the optional `packages.layout.native_connector.attach_rectangular_connector` integrates the existing experimental library API. Its invocation belongs to implementation guidance, not a cognitive composition example. It checks all endpoints before mutation and refuses groups even on the same slide part. It creates no objects, styles, routes, labels or line endings. Independent labels and triangles do not follow it. Programmatic refresh, saved structure, the selected renderer’s actual entry and GUI behaviour provide different evidence; a stored custom connection site does not establish application adoption. Use the existing A11 native page observation, without new forms, gates or repair allowances.
 
 
 ### Local star50.r05.1 — select chart label wrapping in its own scope
@@ -269,12 +292,12 @@ Chart point labels receive space from the chart engine, not the enclosing graphi
 
 The optional `packages.layout.native_chart_text.set_point_label_wrapping` selects existing custom point labels by series/point and expected literal text. It preflights all requests before writing only word_wrap. It does not create custom text from automatic labels or alter text, runs, size, position, data or workbooks. True/False/None mean wrap/no-wrap/inherit; None is not no-wrap. The existing library supplies this text-body behavior. Do not apply it globally or treat ordinary protected_terms as controlling chart internals.
 
-Read intact values with their series, unit and period. A software default name is not evidence of category meaning. Separately fitting table/text objects can still cover each other in painter order; inspect the real page and affected neighbours, optionally reusing the existing selected-label observer. External annotations trade explicit placement for separately verified update/link behavior. No diagram, font-size, clearance or label-count gate follows.
+Read intact values with their series, unit and period. A correct series name in the data cache, a visibly identifiable series, and correspondence between its legend symbol and actual marks are different evidence. Individually colored points can coexist with inherited series or theme styles that give the legend another color. Follow a currently important series through its name, chosen legend or direct label, and actual marks on the rendered page, rather than checking palette parameters alone. Choose a legend, direct naming or clear shared context for the reading task; a software default name is not evidence of category meaning. Separately fitting table/text objects can still cover each other in painter order; inspect the real page and affected neighbours, optionally reusing the existing selected-label observer. External annotations trade explicit placement for separately verified update/link behavior. No diagram, font-size, clearance or label-count gate follows.
 
 
 ### Local star50.r06.1 — choose native line endings without inferring meaning
 
-A separate triangle gives independent placement and shape control; changing or reattaching a connector does not move that other object. Use the connector's actual post-operation geometry when arranging it. Native headEnd/tailEnd decorations instead belong to the connector's line formatting, with no extra shape. Neither implementation chooses the business source/destination or moves a label. Compare them for the actual relation and editing responsibility; no universal arrow or attachment rule follows.
+For a line-end arrow, default to the connector's own headEnd/tailEnd properties, not a separate triangle. Register actual node IDs/sites for node connections. A whole direction-bearing block may be a native arrow AutoShape with its own short label. The content still determines direction and whether an arrow is needed; do not add arrows to every line. A legacy separate triangle remains another object and does not follow a changed or reattached endpoint. Retain that limitation rather than using the old structure as the default node connector. Native endings do not move independent annotations either.
 
 Optional `packages.layout.set_connector_line_ends(line, tail={"type":"triangle", "w":"med", "len":"med"})` preflights both selected ends before mutation. head/tail are DrawingML names, not screen sides. None preserves an end, explicit type=none disables its decoration, and 'inherit' removes only that element to resume style inheritance. Omitted w/len preserve existing attributes; these size categories are relative to line width, not absolute triangle dimensions. The narrow scope is nonzero, unrotated straight connectors in a direct slide spTree, retaining native flips. Grouped, curved and rotated connectors are refused. Geometry, bindings, width/color, the other end and unrelated XML remain; no independent object migration, routing or GUI assurance occurs.
 
@@ -306,3 +329,16 @@ A title selects a task as well as stating a judgment. During A04/A06, distinguis
 A prominent adjusted result still needs an identifiable named starting quantity and the operation changing it. During A05, recover the approved base, excluded or added item and target definition. A07/A09 can preserve that relationship with a named expression, continuous prose, local explanation or unambiguous shared context. Equal values do not make metric identities equal; another complete subtraction on the same page does not provide the base for a neighbouring adjustment. Do not retain only a positive result and a warning that it differs from another definition when the source already explains the starting point. Do not invent a missing expense schedule, full earnings bridge, or rename an author's net difference as an original pretax expense.
 
 These apply existing hierarchy, data-identity and actual-render principles. Selected phrase protection, individual-frame capacity and intact native glyphs have limited coverage: protecting a few phrases does not protect every meaningful phrase on neighbouring lines. Recoverable original text may still force cross-line assembly of a keyword. A09/A11 can choose existing local protection, semantic line breaks, wording or geometry as the actual importance and space require. No topic dictionary, universal nowrap or per-word quota follows. Record actual selections and written lines; Output preserves the locked line choices rather than silently redesigning or reopening a closed repair.
+
+
+### Edge association and intact glyphs
+
+Within a selected relation graphic, distinguish recognizing which edge a label belongs to from reading its intact glyphs. Proximity to its own edge can aid association while that edge can still occlude the text. Space beside the edge, routing and any necessary text protection have tradeoffs. Read the actual label with its edge and neighbouring nodes before choosing a local position. Native endpoint binding and metric rectangles provide implementation or geometric evidence in their own scope. This judgment follows the content and chosen medium; it prescribes no universal label background, on-edge/off-edge placement, or additional diagram.
+
+### Optional value labels with an independent format source
+
+For a selected native chart that will be edited, choose value-generated label content separately from numeric format and text styling. Font or position control alone need not introduce fixed rich-text values. Existing automatic point labels may use packages.layout.native_chart_text.set_point_value_label_formats: explicit series/point indices, expected_value and number_format are checked together before only the selected numeric formats are written. Custom text is rejected, not converted; font/position siblings and data stay intact. An unlinked format source is not a fixed value source. Select content modes for meaning and future use, then inspect the actual chart and neighbours; no label/chart quota or new gate follows.
+
+### Maintaining an explicitly selected connector set
+
+After changing node geometry in a selected native relation graphic, distinguish maintaining one connector from an explicitly selected set. Optional packages.layout.refresh_rectangular_connectors accepts a same-slide list and validates all registered targets/sites and its narrow scope before updating selected paths. The single-path interface remains available. This does not discover all affected edges, move nodes or independent labels, choose new sites, reroute paths or install an observer. Read actual paths, labels/proportions and shared conditions in the whole graphic; one successful refresh does not establish that every dependency was maintained. This maintains chosen objects, without selecting a node-link composition or adding a gate.

@@ -57,6 +57,14 @@ Cover and closing slides must not depend exclusively on layout-layer objects tha
 
 Rank compatibility evidence from strongest to weakest: target application opened the file, target-application render, production-side render, static OOXML inspection. Without stronger evidence, run the general compatibility suite and record the gap in delivery notes. Passing one local renderer does not prove every configured target.
 
+## Implement the configured native mechanism in newly authored decks
+
+A new deck without an inherited master still has the native obligations selected in the task configuration. Separate numbering visibility, counting and start value from the required mechanism. Where an editable slide-number field is required, an editable text shape containing the current number does not implement that field. Reopen the actual package and inspect the responsible object and its field type, alongside the visible sequence and configured slide scope. DrawingML uses a:fld with an identity and update type; slidenum identifies the presentation slide-number kind. A cached numeral alone establishes neither field identity nor future updates.
+
+Choose an implementation compatible with the selected authoring route, preserving configured geometry and inherited chrome where present. The existing native_slide_number restoration helper copies a field from a source object; it is not a constructor for a deck that never had one. A numbering-plan calculation likewise does not by itself create the native field. Do not assume a missing API or add a duplicate object to imitate the visible result. Raise an implementation conflict through the existing Supervisor handoff within the actual repair allowance, and record any unmet obligation.
+
+Inspect native mechanism, current rendering and observed application behavior separately. A field in OOXML supports the structural claim; a readable export supports that export. Future insert/delete/reorder updates and PowerPoint/WPS editing remain unverified until actually observed. This method applies within existing production checks and records; it adds no gate, budget change or extra reader cycle.
+
 ## Delivery size
 
 File size is an Output implementation concern and does not authorize a dominant-medium change. Unless the user specifies otherwise, use the lightweight profile: preprocess images for their final placed boxes, embed identical media once, and remove unused media, hidden attachments, and accidental fonts. If compression visibly harms one asset, increase only that asset's quality and log the technical deviation. Do not delete planned imagery, change area, or rasterize a full slide.

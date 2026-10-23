@@ -1,8 +1,10 @@
-"""Optional, explicit endpoint attachment for a narrow native geometry scope.
+"""Caller-selected rectangle connections, native line ends and explicit refresh.
 
-Uses python-pptx's existing experimental connection API. This module chooses no
-objects, relation, label, line ending, route or style. Native attachment does not
-prove visible correspondence, business meaning or a target application's editing.
+Uses python-pptx's experimental attachment API in a narrow geometry scope.
+Callers choose relation endpoints and arrow direction; the creation convenience
+has overridable line style defaults. It does not select business meaning or
+route around obstacles. Native attachment and programmatic refresh do not prove
+visible correspondence or a target application's interactive editing behavior.
 """
 from __future__ import annotations
 
@@ -93,6 +95,121 @@ def attach_rectangular_connector(
 
 _LINE_END_TYPES = frozenset({"none", "triangle", "stealth", "diamond", "oval", "arrow"})
 _LINE_END_SIZES = frozenset({"sm", "med", "lg"})
+
+
+def add_rectangular_connector(slide: Any, *, begin: tuple[Any, str],
+                              end: tuple[Any, str], name: str | None = None,
+                              color: str = "667085", width_pt: float = 1.5,
+                              head: Any = None, tail: Any = None) -> Any:
+    """Create a native straight connector and register both node/site ends.
+
+    Targets share the slide's direct spTree and the existing rectangle scope.
+    Arrow ends belong to the line itself. Node movement through python-pptx
+    does not automatically recalculate geometry: call refresh afterwards.
+    Native IDs/sites are not evidence of GUI dragging behavior.
+    """
+    from math import isfinite
+    from pptx.enum.shapes import MSO_CONNECTOR
+    from pptx.dml.color import RGBColor
+    from pptx.util import Pt
+    container = slide.shapes._spTree
+    selected_begin = _endpoint(begin, container)
+    selected_end = _endpoint(end, container)
+    _line_end_choice(head); _line_end_choice(tail)
+    if isinstance(width_pt, bool) or not isinstance(width_pt, (int, float)) or not isfinite(width_pt) or width_pt <= 0:
+        raise ValueError("width_pt must be a positive finite number")
+    chosen_color = RGBColor.from_string(color.lstrip("#"))
+    a, b = selected_begin[0], selected_end[0]
+    line = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT,
+                                      a.left, a.top, b.left+b.width, b.top+b.height)
+    if name is not None: line.name = name
+    line.line.color.rgb = chosen_color
+    line.line.width = Pt(width_pt)
+    attach_rectangular_connector(line, begin=begin, end=end)
+    if head is not None or tail is not None:
+        set_connector_line_ends(line, head=head, tail=tail)
+    return line
+
+
+def _registered_rectangular_endpoints(connector: Any) -> dict[str, Any]:
+    """Read and validate a registered straight connector without mutation."""
+    from pptx.oxml.ns import qn
+    from pptx.shapes.connector import Connector
+
+    if not isinstance(connector, Connector):
+        raise ValueError("Pass an existing native connector")
+    container = _direct_slide_container(connector)
+    if connector.rotation % 360:
+        raise ValueError("A rotated connector is outside the supported scope")
+    geom = connector._element.spPr.prstGeom
+    if geom is None or geom.get("prst") not in {"line", "straightConnector1"}:
+        raise ValueError("Only an existing straight connector is supported")
+    shapes = {}
+    for shape in connector._parent:
+        if shape.shape_id in shapes:
+            raise ValueError("Ambiguous duplicate native shape IDs on the slide")
+        shapes[shape.shape_id] = shape
+    nv = connector._element.find(qn("p:nvCxnSpPr"))
+    props = None if nv is None else nv.find(qn("p:cNvCxnSpPr"))
+    sites = {value:key for key,value in _SITES.items()}
+    selected = {}
+    for tag, key in (("stCxn", "begin"), ("endCxn", "end")):
+        nodes = [] if props is None else props.findall(qn("a:"+tag))
+        if len(nodes) != 1:
+            raise ValueError("Both native node endpoints must be registered exactly once")
+        try:
+            node = nodes[0]
+            endpoint = (shapes[int(node.get("id"))], sites[int(node.get("idx"))])
+        except (ValueError, TypeError, KeyError) as exc:
+            raise ValueError("Registered endpoint target/site cannot be resolved") from exc
+        _endpoint(endpoint, container)
+        selected[key] = endpoint
+    return selected
+
+
+def refresh_rectangular_connector(connector: Any) -> Any:
+    """Recompute one path from registered IDs/sites, without choosing a route.
+
+    Explicit programmatic maintenance, not an automatic observer or GUI test.
+    Missing/moved-out-of-scope targets are rejected before either end changes.
+    """
+    selected = _registered_rectangular_endpoints(connector)
+    return attach_rectangular_connector(connector, **selected)
+
+
+def refresh_rectangular_connectors(connectors: Any) -> tuple[Any, ...]:
+    """Refresh an explicitly selected same-slide batch after full validation.
+
+    No selected connector changes if any input/registration is rejected.
+    Selection is a nonempty list/tuple of distinct ordinary straight connectors
+    in one direct slide spTree, with both rectangular targets registered.
+    Current node geometry is read, while target IDs/sites, native line ends,
+    line style and separate labels are preserved. Nodes are not moved here.
+
+    This does not discover all affected edges, choose different sites, shorten
+    or route paths, move independent labels, or install an edit observer.
+    The caller selects the actual affected set and inspects the whole graphic.
+    Prevalidation does not roll back earlier caller edits or unexpected library
+    runtime exceptions; no GUI, rendering or semantic-fit verdict is implied.
+    """
+    if not isinstance(connectors, (list, tuple)) or not connectors:
+        raise ValueError("Pass a nonempty explicit connector list or tuple")
+    prepared, seen = [], set()
+    container = None
+    for connector in connectors:
+        selected = _registered_rectangular_endpoints(connector)
+        current = _direct_slide_container(connector)
+        if container is None:
+            container = current
+        elif current is not container:
+            raise ValueError("Selected connectors must share one direct slide spTree")
+        if connector._element in seen:
+            raise ValueError("Select each native connector only once")
+        seen.add(connector._element)
+        prepared.append((connector, selected))
+    for connector, selected in prepared:
+        attach_rectangular_connector(connector, **selected)
+    return tuple(connector for connector, _ in prepared)
 
 
 def _line_end_choice(value: Any) -> dict[str, str] | str | None:

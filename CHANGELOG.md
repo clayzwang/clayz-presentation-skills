@@ -6,6 +6,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.10 — 2026-10-23
+
+- Promote brokers20.r20.1 after twenty sequential broker rounds: native paragraph wrapping, multiple line spacing, alignment and built-in shape text; explicitly selected attached rectangular connectors and refresh; named table-cell selection; selected data-driven point-label formats; actual renderer process receipts. Methods separate implementation from composition, deepen quantitative roles, grouping scope, visible correspondence, reading order and retained shared periods. These are conditional capabilities, not layout templates or new gates.
+- Retain existing strict slide-order checks through relationship resolution and document reader comparison fields; standalone cycle CLI imports resolved explicitly.
+- Associate exact external 1.2.59+brokers20.r20.1 and 334-page twenty-broker delivery; preserve all residuals and the R18 authorized historical exception. No installed plugin update or retroactive effectiveness claim.
 ## 0.20.9 — 2026-10-20
 
 - Promote the actual star50.r10.1 source after ten recursively inherited company rounds, retaining prior published industry/system methods.

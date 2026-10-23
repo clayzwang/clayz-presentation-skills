@@ -22,13 +22,54 @@ class Column:
     weight: float = 1.0
 
 
+def data_cell_by_label(columns, rows, *, row_label_column, row_label, column_label):
+    """Locate one explicitly chosen cell in the current data, excluding header.
+
+    Labels match exactly; the identity column, target column and selected row
+    must each resolve once. Unrelated duplicate labels are allowed. The result
+    is a zero-based ``(data_row, column)`` for ``plan(emphasis=[...])``. Resolve
+    again after changing rows or columns; this is not a persistent binding.
+
+    Art chooses the member and metric. This helper neither infers importance
+    from values nor normalizes, fuzzily matches or disambiguates labels.
+    Existing explicit emphasis coordinates remain available.
+    """
+    labels = (row_label_column, row_label, column_label)
+    if any(not isinstance(label, str) or not label.strip() for label in labels):
+        raise ValueError("cell selection needs three nonempty string labels")
+    if not columns or not rows:
+        raise ValueError("cell selection needs columns and data rows")
+    if any(len(row) != len(columns) for row in rows):
+        raise ValueError("ragged table")
+
+    def unique_column(label):
+        matches = [i for i, column in enumerate(columns) if column.label == label]
+        if len(matches) != 1:
+            raise ValueError(f"column label must match exactly once: {label!r}")
+        return matches[0]
+
+    identity_column = unique_column(row_label_column)
+    target_column = unique_column(column_label)
+    matches = [i for i, row in enumerate(rows) if row[identity_column] == row_label]
+    if len(matches) != 1:
+        raise ValueError(f"row label must match exactly once: {row_label!r}")
+    return matches[0], target_column
+
+
 def plan(columns, rows, *, width, font_path, size=21, header_size=18,
          total_rows=(), emphasis=(), max_height=None, padding=(.17, .13),
-         caption="", comparison="", protected_terms=None, native_width_scale=1.0):
+         caption="", comparison="", protected_terms=None, native_width_scale=1.0,
+         text_flow="native-wrap", line_spacing=1.0, exception_reason=None):
     # Optional calibration of usable line width for the actual target/font.
     # Physical columns, font size and padding remain Art's chosen values.
     if not isfinite(native_width_scale) or native_width_scale < 1:
         raise ValueError("native width scale must be finite and at least 1")
+    if text_flow not in {"native-wrap", "authored-lines"}:
+        raise ValueError("unknown table text_flow")
+    if text_flow == "authored-lines" and not str(exception_reason or "").strip():
+        raise ValueError("authored visual lines need an exception_reason")
+    if isinstance(line_spacing, bool) or not isinstance(line_spacing, (int, float)) or not isfinite(line_spacing) or line_spacing <= 0:
+        raise ValueError("line_spacing must be a positive multiple")
     if not columns or not rows or not comparison.strip() or not caption.strip():
         raise ValueError("table needs data, visible scope caption and comparison intent")
     if any(c.role not in {"text", "number", "period"} or c.weight <= 0 for c in columns):
@@ -50,18 +91,24 @@ def plan(columns, rows, *, width, font_path, size=21, header_size=18,
             if ri and columns[ci].role == "number" and len(lines) != 1:
                 raise ValueError(f"numeric cell wraps: data row {ri-1}, column {ci}")
             line.append(dict(text=str(value), lines=lines, size_pt=pt,
-                             align="right" if columns[ci].role == "number" else "left",
+                             align="center" if ri == 0 else "right" if columns[ci].role == "number" else "left",
+                             vertical="middle" if ri == 0 else "top",
                              bold=ri == 0 or ri - 1 in total_rows or (ri - 1, ci) in emphasis,
                              header=ri == 0, total=ri - 1 in total_rows,
                              emphasis=(ri - 1, ci) in emphasis))
         cells.append(line)
-        heights.append(max(len(c["lines"]) * c["size_pt"] / 72 * 1.18 for c in line) + 2 * py)
+        # A candidate estimate, not a prediction of native visual-line breaks.
+        # Respond to the selected multiple before applying available height.
+        heights.append(max(len(c["lines"]) * c["size_pt"] / 72 * 1.18 * line_spacing for c in line) + 2 * py)
     if max_height is not None and sum(heights) > max_height:
         raise ValueError(f"table needs {sum(heights):.2f}in, available {max_height:.2f}in; revise Art")
     return dict(columns=[vars(c) for c in columns], cells=cells, widths=widths,
                 heights=heights, padding=list(padding), width=width,
                 height=sum(heights), caption=caption, comparison=comparison,
-                native_width_scale=native_width_scale)
+                native_width_scale=native_width_scale,
+                text_flow=text_flow, line_spacing=float(line_spacing),
+                exception_reason=exception_reason,
+                lines_role="measurement-estimate; not inserted native line breaks" if text_flow == "native-wrap" else "explicit authored visual lines")
 
 
 def write(slide, spec, x, y, *, family="STKaiti", ink="172B3A",
@@ -70,6 +117,7 @@ def write(slide, spec, x, y, *, family="STKaiti", ink="172B3A",
     from pptx.enum.text import PP_ALIGN, MSO_ANCHOR, MSO_AUTO_SIZE
     from pptx.dml.color import RGBColor
     from pptx.oxml.xmlchemy import OxmlElement
+    from packages.layout.native_text import write_native_text
     shape = slide.shapes.add_table(len(spec["cells"]), len(spec["widths"]),
                                    Inches(x), Inches(y), Inches(spec["width"]), Inches(spec["height"]))
     shape.name = name
@@ -88,21 +136,18 @@ def write(slide, spec, x, y, *, family="STKaiti", ink="172B3A",
             cell.margin_top = cell.margin_bottom = Inches(py)
             cell.fill.solid()
             cell.fill.fore_color.rgb = RGBColor.from_string("E9F0F2" if item["header"] or item["total"] else "FFFFFF")
-            tf = cell.text_frame
-            tf.clear(); tf.word_wrap = False; tf.auto_size = MSO_AUTO_SIZE.NONE
-            tf.vertical_anchor = MSO_ANCHOR.TOP
-            # Do not call a generic text-box setter that resets cell padding.
-            for li, value in enumerate(item["lines"]):
-                p = tf.paragraphs[0] if li == 0 else tf.add_paragraph()
-                p.alignment = PP_ALIGN.RIGHT if item["align"] == "right" else PP_ALIGN.LEFT
-                p.space_before = p.space_after = Pt(0)
-                p.line_spacing = Pt(item["size_pt"] * 1.18)
-                run = p.add_run(); run.text = value
-                run.font.name = family; run.font.size = Pt(item["size_pt"]); run.font.bold = item["bold"]
-                run.font.color.rgb = RGBColor.from_string(accent if item["emphasis"] or item["total"] else ink)
-                for tag in ("a:ea", "a:cs"):
-                    font = OxmlElement(tag); font.set("typeface", family)
-                    run._r.get_or_add_rPr().append(font)
+            mode = spec.get("text_flow", "native-wrap")
+            # Measurement estimates remain in spec; native wrapping owns the
+            # actual visual lines. A local explicit exception keeps old intent.
+            value = item["text"] if mode == "native-wrap" else "\v".join(item["lines"])
+            write_native_text(cell, value, family=family, size_pt=item["size_pt"],
+                              color=accent if item["emphasis"] or item["total"] else ink,
+                              bold=item["bold"], role="header" if item["header"] else "body",
+                              horizontal=item["align"], vertical=item.get("vertical", "middle" if item["header"] else "top"),
+                              margins_in={"left":px,"right":px,"top":py,"bottom":py},
+                              line_spacing=spec.get("line_spacing", 1.0), space_after_pt=0,
+                              word_wrap=mode == "native-wrap",
+                              exception_reason=spec.get("exception_reason"))
             tc = cell._tc.get_or_add_tcPr()
             for side in ("L", "R", "T", "B"):
                 ln = OxmlElement("a:ln" + side); ln.set("w", "6350")

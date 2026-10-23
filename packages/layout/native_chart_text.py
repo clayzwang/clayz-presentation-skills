@@ -134,3 +134,87 @@ def set_point_label_wrapping(chart, requests):
                              'authored_word_wrap': tf.word_wrap})
     return {'selected_labels': observations,
             'scope': 'Explicit existing custom point-label wrapping only; no text/style/data/geometry mutation or layout-quality verdict.'}
+
+
+def set_point_value_label_formats(chart, requests):
+    """Format explicitly selected existing value labels without fixed text.
+
+    Each request supplies series_index, point_index, expected_value and
+    number_format. Validate the whole request before changing any label.
+    Existing numeric labels may have their own font, position or shape style;
+    those siblings, point values, caches and workbooks are left unchanged.
+    Custom text (rich or referenced) is rejected, never silently discarded.
+
+    sourceLinked=False selects this explicit format, not a literal value.
+    This does not enable labels, choose placement/typeface, parse Excel format
+    syntax, or certify rendering, workbook editing or future GUI behaviour.
+    After changes to the data/meaning, verify labels and nearby marks again.
+    """
+    import math
+    from decimal import Decimal
+    from numbers import Real
+
+    from pptx.chart.chart import Chart
+    from pptx.oxml.xmlchemy import OxmlElement
+
+    if not isinstance(chart, Chart):
+        raise TypeError('Pass a python-pptx Chart')
+    if not isinstance(requests, (list, tuple)):
+        raise TypeError('Pass explicit point-label format requests')
+    required = {'series_index', 'point_index', 'expected_value', 'number_format'}
+    prepared, seen = [], set()
+    for item in requests:
+        if not isinstance(item, dict) or set(item) != required:
+            raise ValueError('Each request needs series_index, point_index, expected_value and number_format')
+        si, pi = item['series_index'], item['point_index']
+        if type(si) is not int or type(pi) is not int or si < 0 or pi < 0:
+            raise ValueError('Indices must be nonnegative integers, excluding booleans')
+        if si >= len(chart.series):
+            raise ValueError('series_index is outside this chart')
+        series = chart.series[si]
+        if pi >= len(series.points):
+            raise ValueError('point_index is outside this series')
+        if (si, pi) in seen:
+            raise ValueError('Select each point only once per call')
+        seen.add((si, pi))
+        expected = item['expected_value']
+        if isinstance(expected, bool) or not isinstance(expected, (Real, Decimal)):
+            raise TypeError('expected_value must be a finite number')
+        if not math.isfinite(float(expected)):
+            raise ValueError('expected_value must be finite')
+        values = getattr(series, 'values', None)
+        if values is None or pi >= len(values) or values[pi] is None:
+            raise ValueError('Selected series needs an existing numeric point value')
+        actual = values[pi]
+        if not math.isfinite(float(actual)) or float(actual) != float(expected):
+            raise ValueError('Selected numeric value differs from expected_value')
+        code = item['number_format']
+        if not isinstance(code, str) or not code.strip():
+            raise ValueError('Pass an explicit nonempty numeric format code')
+        labels = series._element.xpath('./c:dLbls/c:dLbl')
+        matches = [el for el in labels if el.xpath('./c:idx/@val') == [str(pi)]]
+        if len(matches) != 1:
+            raise ValueError('Selected point label must already exist once')
+        label = matches[0]
+        if label.xpath('./c:tx'):
+            raise ValueError('Custom label text requires a separate explicit content decision')
+        old = label.xpath('./c:numFmt')
+        if len(old) > 1:
+            raise ValueError('Existing point label has duplicate number formats')
+        prepared.append((si, pi, float(actual), code, label, old))
+    observations = []
+    for si, pi, actual, code, label, old in prepared:
+        for element in old:
+            label.remove(element)
+        fmt = OxmlElement('c:numFmt')
+        fmt.set('formatCode', code)
+        fmt.set('sourceLinked', '0')
+        label.insert_element_before(fmt, 'c:spPr', 'c:txPr', 'c:dLblPos',
+                                    'c:showLegendKey', 'c:showVal', 'c:showCatName',
+                                    'c:showSerName', 'c:showPercent',
+                                    'c:showBubbleSize', 'c:separator', 'c:extLst')
+        observations.append({'series_index': si, 'point_index': pi,
+                             'value_read': actual, 'number_format': code,
+                             'source_format_linked': False})
+    return {'selected_labels': observations,
+            'scope': 'Explicit numeric formats on existing value labels only; no custom text or data/geometry edits. Font/style/position siblings preserved; supplied formats may affect rendered appearance. No rendering/GUI verdict.'}

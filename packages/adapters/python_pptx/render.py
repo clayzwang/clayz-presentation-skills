@@ -18,6 +18,7 @@ from xml.etree import ElementTree as ET
 if not __package__:
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 from packages.layout.native_page import add_native_page
+from packages.layout.native_text import prepare_native_text
 
 
 def _imports() -> dict[str, Any]:
@@ -78,19 +79,8 @@ def _fill_and_line(shape: Any, options: Mapping[str, Any], api: Mapping[str, Any
             shape.line.fill.background()
 
 
-def _style_text_frame(text_frame: Any, text: str, options: Mapping[str, Any], api: Mapping[str, Any]) -> None:
+def _style_text_frame(text_frame: Any, text: str, options: Mapping[str, Any], api: Mapping[str, Any], *, native_container: Any = None) -> None:
     text_frame.clear()
-    text_frame.word_wrap = options.get("breakLine", True) is not False
-    margin = float(options.get("margin", 0))
-    for side in ("margin_left", "margin_right", "margin_top", "margin_bottom"):
-        setattr(text_frame, side, api["Inches"](margin))
-    valign = str(options.get("valign", "top")).lower()
-    text_frame.vertical_anchor = {
-        "top": api["MSO_ANCHOR"].TOP,
-        "mid": api["MSO_ANCHOR"].MIDDLE,
-        "middle": api["MSO_ANCHOR"].MIDDLE,
-        "bottom": api["MSO_ANCHOR"].BOTTOM,
-    }.get(valign, api["MSO_ANCHOR"].TOP)
     lines = text.split("\n") or [""]
     for index, line in enumerate(lines):
         paragraph = text_frame.paragraphs[0] if index == 0 else text_frame.add_paragraph()
@@ -112,6 +102,25 @@ def _style_text_frame(text_frame: Any, text: str, options: Mapping[str, Any], ap
             font.italic = bool(options.get("italic", False))
             if options.get("color"):
                 font.color.rgb = _color(options["color"], api)
+    margins = None
+    if "margin" in options:
+        margins = {side:float(options["margin"]) for side in ("left", "right", "top", "bottom")}
+    valign = options.get("valign")
+    if valign == "mid": valign = "middle"
+    exception_reason = options.get("textFlowExceptionReason")
+    if (not exception_reason and "wordWrap" not in options
+            and options.get("breakLine") is False):
+        # Preserve an existing manifest's explicit legacy choice. This is not
+        # the default for newly authored content or an inferred fit decision.
+        exception_reason = "Legacy manifest explicitly requests breakLine=False; preserved for compatibility"
+    prepare_native_text(text_frame if native_container is None else native_container, role=str(options.get("textRole", "body")),
+                        word_wrap=options.get("wordWrap", options.get("breakLine", True)),
+                        line_spacing=options.get("lineSpacingMultiple", 1.0),
+                        fixed_line_spacing_pt=options.get("lineSpacingPt"),
+                        space_before_pt=options.get("paraSpaceBeforePt", 0),
+                        space_after_pt=options.get("paraSpaceAfterPt"),
+                        horizontal=options.get("align"), vertical=valign,
+                        margins_in=margins, exception_reason=exception_reason)
 
 
 def _ensure_east_asian_run_fonts(pptx_path: Path) -> None:
@@ -206,6 +215,9 @@ def _add_object(slide: Any, spec: Mapping[str, Any], manifest_dir: Path, api: Ma
     elif kind == "shape":
         shape = slide.shapes.add_shape(_shape_type(str(spec.get("shape", "rect")), api), x, y, w, h)
         _fill_and_line(shape, options, api)
+        if "text" in spec:
+            _style_text_frame(shape.text_frame, str(spec["text"]),
+                              {"textRole":"label", **options}, api)
     elif kind == "line":
         shape = slide.shapes.add_connector(1, x, y, x + w, y + h)
         _fill_and_line(shape, options, api)
@@ -231,7 +243,9 @@ def _add_object(slide: Any, spec: Mapping[str, Any], manifest_dir: Path, api: Ma
             for col_index, value in enumerate(row):
                 cell = table.cell(row_index, col_index)
                 cell.text = str(value)
-                _style_text_frame(cell.text_frame, str(value), options, api)
+                _style_text_frame(cell.text_frame, str(value),
+                                  {"textRole":"header" if row_index == 0 else "body", **options}, api,
+                                  native_container=cell)
     elif kind == "chart":
         series = spec.get("series")
         if not isinstance(series, list) or not series:

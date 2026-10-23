@@ -49,6 +49,14 @@ prose adds work. Art can adapt supported wording to the selected medium and
 record the actual change; this does not authorize new facts. Tabular
 presentations retain the native-table requirements.
 
+## Keep numerical roles visible in the chosen hierarchy
+
+A shared unit permits comparison without making quantities serve the same role. One financial extract may contain a revenue total, components within it, a result after costs, and a separate explanatory amount. Identify the supported relationship the audience needs, then read the actual arrangement: does it invite a total, its components and a result to be treated as peers, or a total to be counted again as another component?
+
+Tables, open alignment, local grouping and prose can each carry the distinction. Choose labels, proximity, indentation, spacing and emphasis for the task; no formula, bridge chart, extra page or repeated full label is mandatory. Preserve unknown portions rather than inventing an additive or cost relationship to complete a visual. Correct numbers, native cells and shared units do not settle this design judgment.
+
+When shortening a mechanism or a formal metric, identify the variable or scope selected by the omitted words. Price change can describe a return mechanism; price alone names a quantity. Removing a component from a compound metric may narrow its scope. Abbreviate when visible context still carries the full meaning; otherwise preserve the necessary words or change the local composition. Read the important relationship back from the actual page, using existing Art records and the bounded reader cycle without new terminology lists, per-page fields or gates.
+
 ## Construct a representation from its meaning
 
 Start from the objects and relations the reader needs for this judgment. An
@@ -135,6 +143,12 @@ replace it; place that reading guidance where it explains the evidence. Record
 material choices and observed effects in existing Art notes. This method adds
 no form, gate, layout quota or claim of measured reading-speed improvement.
 
+When turning prose into a table or deleting an apparently repetitive summary, identify the function of the removed sentence in the current conclusion. Retaining every number does not establish that the population of a measure, its denominator, whether a cost is already included, or the distinction involving nonrecurring items remains understandable. A header can name a measure without explaining it. Read the important judgment through the actual page and adjacent context: where is this meaning now carried, and does it depend on audience knowledge that was previously supplied?
+
+Use approved evidence to retain necessary continuous explanation, a complete subject, or a local conceptual bridge, or change the division of work between the table and prose. Supply the connection needed for this task; do not invent a full profit bridge from adjacent cost and profit amounts, require every ratio to repeat all definitions, or impose a caption format. Judge retained values, native implementation, visible meaning and actual reader understanding separately. Record the choice in the existing Art record and keep the current bounded repair policy.
+
+Recognize important numeric glyphs at the actual display size as well as checking native values and extracted PDF text. If an initial misreading is withdrawn after evidence, preserve both the correct file value and the observed first-reading difficulty. Consider local size, weight and contrast within the configured font and existing reader cycle; this creates no deck-wide size rule, font substitution or extra blind-reading requirement.
+
 ## Explanation scale and the distribution of reading work
 
 Consider the scale of the explanation together with what the reader needs to do. An overview may treat a whole activity as an object; a detail view may focus on its records, actions or results. A change of scale can also change the relationship being explained. Repeating a name does not by itself connect those explanations. Bringing activity names and data endpoints together may help readers find them without establishing how they cooperate. A local row correspondence can make one relationship explicit while leaving its conditions or place in the whole elsewhere.
@@ -184,6 +198,8 @@ existing Art notes, without new forms, gates, template menus or count quotas.
 
 Distinguish content ownership from the grouping a viewer could perceive. A native group, shared type style or common area does not establish which label, value or qualification belongs to which object. Trace a correspondence in the current page: what does the label name, does the qualification constrain one object or several, and are the objects merely compared or actually nested?
 
+When a comparison of named entities is followed by a comparison of rules or categories, read the actual columns in both directions. Which entity does the lower rule appear to describe, and does the evidence place that entity in the rule's domain? Equal column counts, common alignment and repeated spacing can attach a true general rule to the wrong instance. A lower explanation may concern a third class rather than either entity above it. Give that change of domain an understandable place in the composition: a complete local subject, a separate shared explanation or another justified arrangement can work. Adding a negative disclaimer while retaining the misleading pairing may leave the positive reading intact. This is a local composition judgment, not a requirement to label every rule or separate every comparison.
+
 Proximity, similar treatment, common regions and connections can suggest membership, and their suggestions may differ. Consistent treatment can identify comparable quantities while a local label still appears attached to the wrong mark. A common period can support state correspondence; nested products need their inclusion scope. A shared area or adjacent position does not establish exclusive membership, causality or a common denominator. Consider separation, alignment, explicit names or necessary connections from the current meaning, without prescribing frames, chart types or a universal relationship diagram.
 
 The native text frame measured for capacity may differ from the area representing a responsibility. Even if every string fits its measured frame, a visible boundary can separate part of a work statement or a necessary qualification from its name. Read the current name, positive action and scope together, then judge whether the area, position and adjacent explanation carry the complete work meaning. A title outside a shape, open prose or explanation beyond a region can be valid: the area may cue identity rather than bound the entire work. Do not require all text inside one container.
@@ -214,6 +230,8 @@ In the actual render, trace labels and marks to their objects and references, th
 
 An object may do different explanatory work in a plot, a table, continuous prose, or adjacent pages. Identify the entity, period, or scope that must persist, and whether the transition changes scale, grouping, or argumentative role. Identity can persist while position changes. Matching colors, ordering, or correct values alone do not establish correspondence.
 
+For a material change of classification, distinguish the population from the dimension used to divide it. Business segments, customer groups, income types and geographic reporting can offer different views. First establish compatible periods, units, gross/net treatment and eliminations; equal totals alone do not establish the same population. Even for the same population, equal marginal totals do not determine the intersections. Retain disclosed cross-classification where useful, or explain the supported qualitative connection with identifiable activities and returns. An unknown intersection is not zero, and a category name is not an operating mechanism. A table can make the accounting lookup clear while the actors, work and source of return still need explanation. Use the actual evidence and task to choose what to connect; do not force companies into identical segment names, invent complete profit attribution or require a cross-table on every page.
+
 Make the change understandable. When a plot and table use compatible annual references, their actual marks, years, and values can correspond. Independent references can instead use clear domains, names, or necessary connections. When moving from a result to its explanation, show whether the next view develops that result, supplies partial evidence, or leaves a difference unexplained. Sequence must not imply a complete causal account. Choose for the meaning and use; shared axes, a fixed layout, and animation are not requirements.
 
 Before implementation, distinguish marks carrying data or relations from objects used for separation, hierarchy, or decoration. Similar stroke widths, colors, or shapes do not establish similar responsibilities. A change to annual correspondence should not select a title separator solely by its appearance. Geometry tools can read the current carrier; the author still chooses the objects that meaningfully depend on it.
@@ -230,6 +248,43 @@ When adjacent representations give the same result different signs or directions
 
 Read the actual page and its neighbors for a recognizable quantity and reference. Keep numerical checks, interpretation of graphic form, and reader understanding as distinct evidence. One correct restatement does not establish faster reading, and task-specific research does not prescribe a universal chart ranking. Use existing Art records and bounded repair allowances without a new symbol checklist, color rule, score, or page quota.
 
+## Short labels still select objects and comparison references
+
+Identify what a qualification does for the current judgment before shortening it.
+“Completed” can select the projects admitted to a statistic; “the same prior-year
+period” can select a temporal reference; a business name can identify an entity
+without identifying whether its measure is net income, assets or count. These are
+neither universally disposable words nor fields to repeat on every page. Under
+one current-period subtitle, a stock may compare with year-end while an income
+flow compares with the same prior-year period. The shared current window does
+not assign each variable's comparison window. Read the actual label, sentence or
+clear shared context that carries the identity; correct original values or a
+header such as “current result” do not establish that the meaning survived.
+
+Inspect newly borrowed context too. Moving company-wide figures into a personal
+client region can silently select an unsupported subset without changing any
+number. Local company-scope naming, shared evidence space or another supported
+organization can retain the population; a subset claim needs its own evidence.
+Choose for this task, without universal label expansion, repeated units, caption
+formats, a new checklist or an extension of the bounded repair workflow.
+
+## Separate an initial miss from actual absence
+
+Failing to recognize an item on a first whole-page reading is a real observation;
+it does not alone establish missing pixels or a missing native object. When
+making an absence finding, inspect the relevant render, native text or original
+page crop as needed for that question. Preserve the initial experience, timing
+and factual correction. Finding the text does not yet show that it is easy to
+locate or semantically sufficient for the comparison. Judge those separately
+against the task; evidence against absence must not become an invented repair
+that supposedly added existing content.
+
+Choose wording, hierarchy, grouping or no change from the supported problem.
+Several same-model misses do not prove layout failure or justify a mandatory
+larger subtitle or duplicate date. Use existing records, retain the same-reader
+confirmation's actual scope, and add no reader, repair cycle, font rule or
+automatic quality gate.
+
 ## Give attention a useful hierarchy
 
 Use size, position, contrast, spacing, area and alignment together to guide the
@@ -242,6 +297,23 @@ dominate even when its text is minor. Reallocate the space or emphasis when the
 visible hierarchy misrepresents the information. Whitespace can separate ideas,
 support a focal point or give the eye a pause. Judge those effects on the actual
 page, including whether unused space could relieve cramped information.
+
+Choose the emphasis target before locating it. Identify the member, metric and
+period intended here. Sorting, headers or transposition can change its position;
+they must not silently give its color or weight to another member. Values and
+totals can remain correct while this attribute is attached incorrectly. Read
+the actually emphasized object and quantity back from the real page, then relate
+them to the judgment. The largest value does not automatically choose the target.
+
+For table authoring, optional `packages.layout.semantic_table.data_cell_by_label`
+takes an explicit row-label column, complete row label and target-column label.
+It returns the zero-based data coordinate, excluding the header, for the existing
+`plan(emphasis=[...])`. Matching must be exact and unique in the current data;
+missing or ambiguous targets are not guessed. Resolve again after changing rows,
+columns or order. This is neither a persistent binding nor an importance judgment
+and does not establish visible emphasis quality. Explicit coordinates remain
+available; do not rename business labels, require universal label uniqueness or
+add a review gate merely to use the helper.
 
 ## Let the whole composition communicate
 
@@ -271,6 +343,14 @@ removing every frame can erase hierarchy, just as indiscriminate heavy fills
 can distort it. Reallocate visible weight as needed, inspect the page and its
 neighbors, and retain the model's freedom to find a better composition. No
 prescribed layout, object count or aesthetic score replaces this judgment.
+
+## Choose color from the theme and the content
+
+In A02, choose the relationship of background, text and emphasis for this audience, subject, content density and viewing medium; realize local meanings in A09. Explicit user color requirements still bind. Historical configuration, reused drawing functions and an industry convention are starting references rather than this decision. Reusing a series palette can aid comparison; no unique palette per company is required, and an association of a hue with finance, technology or risk is not universal. Explain consequential choices in existing Art notes without a new palette form or prescribed number of alternatives.
+
+Distinguish whole-deck direction, attention emphasis and local data encoding. Nominal categories, ordered quantities and differences about a meaningful reference may need different color relationships. Use consistent legends or labels when such an encoding is actually intended. An accent does not automatically become a global business-category code; a lighter variant on a dark background need not name a new category. Read the metric and reference before interpreting red, a minus sign or a darker mark as decline, contribution or economic adversity. Neutral color, names, position and shape can share that work. No color count, red/green convention or contrast threshold follows.
+
+In A11, read the actual color draft together with its words and positions. A cache containing every category does not establish that export displayed each required name. Necessary labels depend on the comparison task; a dense time axis may reasonably sample ticks. Keep required identities recognizable, with hierarchy and cross-page context. Record observed distinctions and uncertainty without inferring understanding from coherent style or claiming an optimal palette or measured efficiency from one successful reading.
 
 ## Balance the weight that is actually visible
 
@@ -353,6 +433,22 @@ Shared drawing code may handle text measurement and native objects. Its default
 coordinates, column widths or container count must not become the design brief.
 Decide the composition first and implement the chosen design with suitable tools.
 
+## Select attention and continuous reading groups separately
+
+Color, weight and size choose what attracts attention. An authored reading group chooses what should be read together here. An emphasized span may reasonably cross a line, while an unaccented quantity or name may need continuity. Identify the object, scope or number-unit association on which this reading depends, then choose its local span. Do not turn every bold or colored run into an unbreakable group.
+
+An intact numeric atom shows that its digits stayed together in this implementation. It need not include a following unit or date component, and does not supply the variable or period. A whole number-unit expression can still have unclear ownership; a clear table header or local context may already supply what is needed without repeating every identity. Character preservation, selected continuity and actual glyph recognition remain separate observations. Recognizing the correct value on a later look does not erase a first misreading.
+
+Keep continuous prose as natural text and prefer native frame wrapping; do not batch-insert hard or soft breaks for its present width. Preserve genuinely semantic paragraphs or independent lines. Existing local protected_terms may support a deliberate authored-layout or measurement choice: pass the chosen current span to that call without turning all prose into fixed lines. A protected span in a measurement helper does not change the application's native line-breaking rules. If a helper assigns emphasis after wrapping, its style ranges do not retroactively select reading groups. This is an author adoption choice, not evidence that an existing wrapping capability is missing. Continuity can add a line; consider the explanation and adjacent objects together. Retain actual native inspection without a deck-wide dictionary, financial-term no-break rule, automatic shrinking or new pass gate.
+
+## Distinguish shorter text from a spatial response
+
+When relieving crowding, identify the line groups, paragraph space or same-row objects that currently occupy the region. Fewer characters may leave the same number of lines; explicit breaks can preserve an authored line group. Keeping a necessary phrase together may instead add a line. Shorter wording, a more coherent phrase and less vertical occupation are different outcomes to observe.
+
+Compare rewriting, line choices, paragraph space, local allocation or a different relationship arrangement at the affected place. Shortening text inside a frame does not automatically move prose outside it, and a shorter table cell need not reduce a row governed by its tallest cell. Preserve necessary subjects and qualifiers. Record attempts that did not achieve the spatial goal in existing notes; they grant no extra save, render or repair allowance.
+
+Occupied text bounds, allocated frames and adjacent gaps support different claims. They can refine an observation of clipping, crowding or overlap without proving reading comfort. When evidence contradicts an initial observation, retain the original and the correction rather than expanding revision for a withdrawn problem. This applies the existing visual revision method without a mandatory estimate, line-count target or universal spacing reduction.
+
 ## Inspect, revise and observe the result
 
 Use thumbnails to judge the first impression, focal points and the sequence.
@@ -388,3 +484,15 @@ These hypothetical page tasks illustrate reasoning, not reusable layouts:
 
 Choose an original composition for the actual content. The measure of these
 ideas is whether the reader can see and understand that content more readily.
+
+### Legend identity and observed reading order
+
+For a chosen quantitative comparison, distinguish series order, category order, rendered mark order, and the reading order of the legend and adjacent views. Correct names and colors establish identity, not identical spatial sequences. Follow one named period or category through the actual rendered marks and nearby comparison; resolve unnecessary reverse lookup according to this task. Do not impose newest-first ordering or reverse every legend from one bar-chart example.
+
+Arrays, axis reversal and object specifications do not replace rendered correspondence. Preserve labels, values and meaning together when changing order. For complete but hard-to-scan paragraphs, identify the main judgment, evidence and necessary conditions before choosing hierarchy and spatial relationships; refinement is not a quota of cards, connectors or columns. Record actual choices in existing Art notes without new fields, gates or repair cycles.
+
+### Where shared scope survives a rewrite
+
+When prose becomes an equation, table or grouping, identify the subjects, periods and measurement definitions that governed several values in the original sentence. Keeping every number does not preserve that shared scope. Read the actual new grouping: which title, header, local explanation or established narrative still carries the scope, and which objects does it cover? Mixed period totals and endpoint stocks must not silently acquire one common temporal meaning. Choose prose or local naming for the reading task; do not impose date badges, fields or tables.
+
+Endpoint assets, period transactions and company fee revenue may share a currency unit while differing in measured population, temporal aggregation and ownership. Juxtaposition must not imply a revenue composition or conversion funnel. A fee-rate comparison needs an evidenced asset population and time-weighted base; preserve unknowns rather than inventing a mechanism with connectors. Record the choice in existing rewrite and image observations without new gates or layout quotas.

@@ -33,3 +33,5 @@ No registered layout or pattern is required. Optional external tools supplied
 by Art remain task tools, not global design restrictions. Keep native charts,
 integrated tables, font naming, editable objects and real reopen/render
 coverage under the existing production-reliability contract.
+
+When comparing an existing chart with approved Art, observe legend-to-mark correspondence and actual reading order in the final render. Series order, category-axis direction and visible vertical/horizontal order are distinct properties. Correct names, colors and values alone do not establish a clear reading correspondence. Preserve observed differences; route design issues within the current bounded process rather than silently rearranging them in Output. This extends existing image observation, not legend defaults, new gates or repair allowances.

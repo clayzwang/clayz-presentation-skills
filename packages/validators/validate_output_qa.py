@@ -21,6 +21,7 @@ from resource_inventory import resource_inventory_signature
 from validate_art_direction_plan import OBJECT_TYPES, STRUCTURE_TYPES, validate_plan
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 from verification_result import Issue, exception_result, finish
+from work_report import _ordered_slides as ordered_slides
 
 
 CONTRACT_VERSION = "4.1"
@@ -90,10 +91,7 @@ def validate_quantitative_inventory(
 
 def pptx_inventories(pptx: Path) -> list[dict[str, int]]:
     with zipfile.ZipFile(pptx) as archive:
-        slide_names = sorted(
-            [name for name in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)],
-            key=natural_slide_key,
-        )
+        slide_names = ordered_slides(archive)
         return [extract_slide(archive.read(name))[2] for name in slide_names]
 
 
@@ -111,7 +109,7 @@ def validate_tabular_inventory(plan_slide: dict[str, Any], rendered_structure: A
 def pptx_table_dimensions(pptx: Path) -> list[list[tuple[int, int]]]:
     ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
     with zipfile.ZipFile(pptx) as archive:
-        names = sorted((n for n in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)), key=natural_slide_key)
+        names = ordered_slides(archive)
         return [[(len(table.findall("a:tr", ns)), len(table.findall("a:tblGrid/a:gridCol", ns)))
                  for table in ET.fromstring(archive.read(name)).findall(".//a:tbl", ns)] for name in names]
 

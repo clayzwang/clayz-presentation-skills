@@ -44,6 +44,10 @@ Use `reconcile --first-read FIRST --dispositions DISPOSITIONS --evidence BASELIN
 
 For content and final, `checks` has `accuracy`, `completeness`, `reasoning`, each with a grounded observation. Title/content bind original `logic-approved` research equal to Copy's research; final binds `copy-approved` Copy. `baseline` must also occur in the bound evidence. Verdicts are `pass`, `return-copy`, `return-art`, `return-logic`. Freeze first, compare second even when no finding exists.
 
+When the prepared final packet binds an Art plan, the existing runtime also requires `comparison.art_changes`. Supply one observation for every entry in that plan's `art_content.changes`, in the same order, with `change_id`, `assessment` (`justified`, `unsupported`, or `uncertain`), and grounded nonempty `explanation` and `evidence` strings. A `pass` verdict requires every assessment to be `justified`. Bind that exact plan in second-pass evidence; read the actual documented differences rather than inferring coverage from the number of first-read findings. Without a bound Art plan, retain the four-field comparison above. The static schema allows the field; the existing runtime enforces the external-plan condition, IDs and order.
+
+For dispositions and a final repair owner, the existing stage name is `art-direction`, not `art`. These are transport details of the current review and cycle contracts, not another reading, an additional repair allowance, or an instruction to change a reader's judgment.
+
 Each original finding gets exactly one disposition: `finding_id`, `owner_layer`, `status` (`open` or `disputed-with-evidence`), `explanation`, and `evidence_refs` drawn from the bound evidence. Preserve disagreement and first impressions; a correction requires the original reader confirmation specified in the cycle contract. Never relabel an old observation as a new pass.
 
 ## Executable handoffs

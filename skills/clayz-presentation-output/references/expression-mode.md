@@ -32,9 +32,9 @@ Visual grammar also replaces punctuation: area and type size express hierarchy; 
 ### Production rules
 
 - Prefer square or mildly rounded corners. Keep corner radius, border, and padding consistent among peers.
-- Create connectors before nodes so lines sit below nodes.
+- Keep connectors below nodes in the stacking order. Registered-node APIs require the target nodes to exist; adjust stacking afterwards when needed rather than treating creation order as attachment.
 - Lines may not cross nodes, text, or slide numbers. Use orthogonal routing or split complex relations.
-- Do not place paragraphs inside large arrows; arrows carry direction and text remains in readable regions.
+- Place long explanations in readable regions rather than forcing a paragraph into an arrow silhouette. Short node labels default to the AutoShape's own text; a whole direction-bearing block may be a native arrow shape. Separate text only for a real independent placement or cross-shape annotation need, grouping when appropriate. Editable text and geometry need not be two objects.
 - Match shape area to content weight. Shrink a large block holding two short words or turn it into a label.
 - Light boxes represent real boundaries or groups, not content length. Four consecutive light boxes without distinct semantic responsibilities should become a chart, table, nesting, or open layout.
 - Do not randomly add shadows, outlines, or colors to peer objects.

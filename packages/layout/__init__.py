@@ -25,7 +25,8 @@ from packages.layout.layout_contract import (
     validate_layout_contract_request,
 )
 from packages.layout.solve_relative_layout import solve, solve_compilation
-from packages.layout.native_connector import set_connector_line_ends
+from packages.layout.native_connector import set_connector_line_ends, add_rectangular_connector, refresh_rectangular_connector, refresh_rectangular_connectors
+from packages.layout.native_text import prepare_native_text, write_native_text, add_native_textbox, add_text_shape
 
 __all__ = [
     "LAYOUT_COMPILATION_CONTRACT",
@@ -38,6 +39,13 @@ __all__ = [
     "solve",
     "solve_compilation",
     "set_connector_line_ends",
+    "add_rectangular_connector",
+    "refresh_rectangular_connector",
+    "refresh_rectangular_connectors",
+    "prepare_native_text",
+    "write_native_text",
+    "add_native_textbox",
+    "add_text_shape",
     "validate_layout_contract",
     "validate_layout_contract_instance",
     "validate_layout_contract_request",

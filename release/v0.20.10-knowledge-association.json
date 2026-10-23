@@ -1,0 +1,16 @@
+{
+  "release_version": "0.20.10",
+  "knowledge_version": "1.2.59+brokers20.r20.1",
+  "knowledge_repository": "clayzwang/work-output",
+  "knowledge_directory": "knowledge/ppt/v1.2.59-brokers20.r20.1",
+  "knowledge_archive": "knowledge-pack-1.2.59-brokers20.r20.1.zip",
+  "knowledge_sha256": "0fed4abae6d901f7ac44011850f987a96c51031095d60934de3fc1062d74e403",
+  "knowledge_bytes": 429255,
+  "knowledge_manifest_sha256": "3feae9a1ae63cbefe9b9d054f2b275b48d97c59861aa3d7cb7286aee4c735f71",
+  "nodes": 91,
+  "source_revision": "brokers20.r20.1",
+  "completed_training_rounds": 20,
+  "presentation_directory": "presentations/brokers20-20261020",
+  "reader_policy": "At most one consolidated Copy and one Final repair; original confirmations; independent record-only audit. R18 authorized supplemental exception retained alongside later original-reader supplement.",
+  "limitations": "Original quality findings/incomplete-evidence, capacity/budget failures, GUI and human-effect limits remain. Publication is storage/version evidence, not universal quality acceptance."
+}

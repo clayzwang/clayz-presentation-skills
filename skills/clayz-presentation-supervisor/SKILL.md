@@ -274,7 +274,7 @@ Retain content fidelity, visual fidelity, native editability and design quality
 as separate observed checks. A faithful implementation of a bad design remains
 an Art Direction finding. Route defects to the earliest responsible stage and
 record downstream detection failures separately. Never equate image similarity
-with approval. Retain the Independent Auditor's own observations unchanged.
+with approval. For a selected relationship graphic, read the actual cluster in its whole-page context: target entry, route, label association and visual hierarchy can remain poor even when attachment and file fidelity are correct. A record that images were opened does not supply that design judgment. Preserve concrete observations in the existing review rather than imposing one routing geometry or another gate. Retain the Independent Auditor's own observations unchanged.
 Provide `design_comparison` in the report draft. `assemble-report` embeds the
 actual original Logic handoff, final Copy, Art Direction specification and all
 locked preview bytes as `stage_documents`; it derives readable documents from

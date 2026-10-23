@@ -18,6 +18,7 @@ from xml.etree import ElementTree as ET
 
 from validate_art_direction_plan import validate_plan
 from verification_result import Issue, Issues, exception_result, finish
+from work_report import _ordered_slides as ordered_slides
 
 
 NS = {
@@ -255,7 +256,7 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
         return re.sub(r'\s+', '', value)  # Preserve case and punctuation.
     try:
         with zipfile.ZipFile(pptx) as archive:
-            names = sorted((n for n in archive.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml', n)), key=natural_slide_key)
+            names = ordered_slides(archive)
             from packages.validators.art_content import presentation_pages
             pages = presentation_pages(package, plan)
             if len(names) != len(pages):
@@ -336,10 +337,7 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
     errors = Issues('quality')
     try:
         with zipfile.ZipFile(pptx) as archive:
-            slide_names = sorted(
-                [name for name in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)],
-                key=natural_slide_key,
-            )
+            slide_names = ordered_slides(archive)
             extracted = [extract_slide(archive.read(name)) for name in slide_names]
             locations = [text_locations(archive.read(name)) for name in slide_names]
     except (OSError, zipfile.BadZipFile, KeyError, ValueError, ET.ParseError) as exc:

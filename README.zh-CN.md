@@ -1,14 +1,14 @@
 # Clayz Presentation Skills
 
-## 0.20.9：打磨证据入口、标签与原生关系
+## 0.20.10：原生编辑服务于内容
 
-采用科创50市值前十公司十轮实际递推后的 **star50.r10.1** 主体。新增或深化可选PDF标签占位观察、中性页入口、局部语块保护、矩形连接器附着、选定图内标签换行、同线端标及只读Copy来源展开。方法补强适用范围、汇总成员身份、标题证据入口与调整结果起点，不增加固定版式或自动语义放行。
+券商20轮实际递推后的 brokers20.r20.1：原生自动换行、倍数行距、容器对齐与图形内置文字；选定矩形节点的连接符及显式刷新；按具名行列选择表格单元格；选定数据驱动点标签格式；真实导出进程回执。方法纠正由实现示例反推框线构图的倾向，深化数量角色、分组归属、可见对应、实际读取顺序和共享期间的保留。这些是按内容选用的能力和判断，不是固定布局或新增门禁。
 
-外挂知识 **1.2.39+star50.r10.1** 保留91节点和58唯一来源。[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1)与[十家公司PPT、PDF、完整审计](https://github.com/clayzwang/work-output/tree/main/presentations/star50top10-20261019)存放于私有work-output。原审计发现、incomplete-evidence和未验范围全部保留；不声称真人效果、进程字体加载或PowerPoint/WPS GUI通过。本次不更新已安装ChatGPT插件。
+External knowledge / 外挂知识 **1.2.59+brokers20.r20.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1)；[334页券商20轮与完整审计](https://github.com/clayzwang/work-output/tree/main/presentations/brokers20-20261020)。原始残留、财通补充检查例外与晚到原读者证据保留，未声明GUI或真人效果。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.9**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.10**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
@@ -16,7 +16,7 @@
 
 ## Art knowledge / Art 知识包
 
-Current external knowledge / 当前外挂知识：**1.2.39+star50.r10.1**. [Readable files, ZIP and checksums / 正文、ZIP与校验值](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.39-star50.r10.1). Knowledge is separate from public Light assets. Source scope, package interpretation and observed production remain distinct.
+Current external knowledge / 当前外挂知识：**1.2.59+brokers20.r20.1**. [Readable files, ZIP and checksums](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1). Source scopes, package interpretation and observed effects remain distinct; knowledge is separate from public Light assets.
 
 ## Clayz 的三项核心优势
 

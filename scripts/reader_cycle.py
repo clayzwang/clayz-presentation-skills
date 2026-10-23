@@ -2,7 +2,9 @@
 """Collect reader findings, reserve one repair, and close with remaining issues."""
 import argparse,json,sys
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "packages" / "validators"))
 from packages.validators.reader_cycle import collect,start_repair,close,validate_cycle,read
 
 def main():
