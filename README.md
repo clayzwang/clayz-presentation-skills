@@ -1,5 +1,11 @@
 # Clayz Presentation Skills
 
+## 0.20.12: corrective fund-manager presentation
+
+Corrective fund-manager study: restore the knowledge, method and purpose of each page. Tianhong separates channel, fund and manager-company subjects, validates nested denominators and scenario arithmetic, and keeps forecasts explicitly conditional. The original reader repair and independent audit remain visible.
+
+[External knowledge / 外挂知识 1.2.84+funds10.purpose.r09b.1](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.84-funds10.purpose.r09b.1) · [PPT, PDF and audit / 成品与审计](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-purpose-rebuild-20261024)。
+
 ## 0.20.11: fund-manager research into structure
 
 Promote funds10.r10.1 after ten sequential fund-manager rounds. The Art method now assigns distinct reader questions when the same evidence recurs across pages and checks whether product examples are visually nested within their true category. A task-specific native-edit-unit auditor checks committed page fields, tables, integrated shape labels and leftover overlays. These are selective checks, not layout templates.
@@ -8,7 +14,7 @@ External knowledge / 外挂知识 **1.2.69+funds10.r10.1**：[知识包](https:/
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.11**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.12**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 

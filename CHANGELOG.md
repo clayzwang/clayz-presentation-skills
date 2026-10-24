@@ -6,6 +6,11 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.12 — 2026-10-24
+
+- Corrective fund-manager study: restore the knowledge, method and purpose of each page. Tianhong separates channel, fund and manager-company subjects, validates nested denominators and scenario arithmetic, and keeps forecasts explicitly conditional. The original reader repair and independent audit remain visible.
+- Associate external knowledge 1.2.84+funds10.purpose.r09b.1 and eight corrective fund-company PPT/PDF/audit bundles. Preserve original reader and Auditor findings.
+
 ## 0.20.11 — 2026-10-24
 
 - Promote funds10.r10.1 after ten sequential fund-manager rounds. The Art method now assigns distinct reader questions when the same evidence recurs across pages and checks whether product examples are visually nested within their true category. A task-specific native-edit-unit auditor checks committed page fields, tables, integrated shape labels and leftover overlays. These are selective checks, not layout templates.

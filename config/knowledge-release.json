@@ -1,16 +1,16 @@
 {
-  "release_version": "0.20.11",
-  "knowledge_version": "1.2.69+funds10.r10.1",
+  "release_version": "0.20.12",
+  "knowledge_version": "1.2.84+funds10.purpose.r09b.1",
   "knowledge_repository": "clayzwang/work-output",
-  "knowledge_directory": "knowledge/ppt/v1.2.69-funds10.r10.1",
-  "knowledge_archive": "knowledge-pack-1.2.69+funds10.r10.1.zip",
-  "knowledge_sha256": "2b7beb662f4dd4bf0c431e50ea3e432d6de158b6480b83540960a352aa6abac5",
-  "knowledge_bytes": 448928,
-  "knowledge_manifest_sha256": "ba8c240f5acdadcf354fde91b2edaf7aa911191f0c9a1f6cd60e3b364b900361",
+  "knowledge_directory": "knowledge/ppt/v1.2.84-funds10.purpose.r09b.1",
+  "knowledge_archive": "knowledge-pack-1.2.84+funds10.purpose.r09b.1.zip",
+  "knowledge_sha256": "d68cfa4467201b112fa4bc12bbcdac3e38c92ffeca323fd8028cbd95cb5be842",
+  "knowledge_bytes": 475903,
+  "knowledge_manifest_sha256": "2bde7198dbb0274830ca8f74fbf2085d8e65ae5a8a3509402d4587837f8ddcd3",
   "nodes": 91,
-  "source_revision": "funds10.r10.1",
-  "completed_training_rounds": 10,
-  "presentation_directory": "presentations/funds10-20261023",
-  "reader_policy": "Two independent Copy readers, one consolidated Copy repair and original confirmation; one Final reader and repair, original confirmation; independent Auditor records. R10 documented extra native-editability technical repair and narrow recheck.",
-  "limitations": "Per-round findings and incomplete-evidence states remain. No PowerPoint/WPS GUI or human-effect acceptance. Publication proves version and storage, not universal design quality."
+  "source_revision": "funds10.purpose.r09b.1",
+  "completed_corrective_rounds": 8,
+  "presentation_directory": "presentations/funds10-purpose-rebuild-20261024",
+  "reader_policy": "Two independent Copy readers, one consolidated rework and original reread; one final reader and one Art/Output rework with original reread; independent Auditor records. R10 has its documented extra repair.",
+  "limitations": "Future scenario assumptions lack a forecast model; Art-added R09 scenario did not receive earlier Copy readers again. No PowerPoint/WPS GUI or human outcome test. Publication is version/storage proof, not universal quality acceptance."
 }

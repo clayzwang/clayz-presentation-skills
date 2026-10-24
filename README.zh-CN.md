@@ -1,5 +1,11 @@
 # Clayz Presentation Skills
 
+## 0.20.12：基金公司呈现纠偏
+
+基金公司纠偏：逐页恢复读者应获得的知识、判断目的与真实关系。天弘将渠道、基金和管理公司分开，核验嵌套分母与情景算术；未来数字只作为演示条件。原读者返工与独立审计记录保留。
+
+[External knowledge / 外挂知识 1.2.84+funds10.purpose.r09b.1](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.84-funds10.purpose.r09b.1) · [PPT, PDF and audit / 成品与审计](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-purpose-rebuild-20261024)。
+
 ## 0.20.11：基金研究转化为结构表达
 
 基金公司十轮实际递推后的 funds10.r10.1：Art方法检查同一证据跨页承担的阅读问题，以及产品例子与上位类别的真实包含关系；原生编辑单元审计按该稿明确承诺检查自动页码、表格、形内文字和旧叠字。十轮形成十套可编辑PPT、PDF与审计。方法和检查按内容选用，不把圆形、堆叠柱或三问结构固化成模板。
@@ -8,7 +14,7 @@ External knowledge / 外挂知识 **1.2.69+funds10.r10.1**：[知识包](https:/
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.11**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.12**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
