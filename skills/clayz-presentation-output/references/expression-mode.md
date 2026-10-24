@@ -2,6 +2,8 @@
 
 > From 0.17.5, historical font-size thresholds, even-point rules and consecutive-composition limits are not automatic checks; Art judges actual pages. Reports use prose, evidence and hashes. The [production reliability contract](../../../packages/contracts/production-reliability.md) takes precedence.
 
+Output implements the approved Art choices. The examples below explain possible functions, not a layout catalogue, chart quota, or authority to redesign a locked page. Native-editing requirements govern how a selected object works; they do not require choosing shapes, arrows, tables, or any particular composition.
+
 ## 1. Assign a visual responsibility first
 
 Every visual element must serve one or more responsibilities:
@@ -36,7 +38,7 @@ Visual grammar also replaces punctuation: area and type size express hierarchy; 
 - Lines may not cross nodes, text, or slide numbers. Use orthogonal routing or split complex relations.
 - Place long explanations in readable regions rather than forcing a paragraph into an arrow silhouette. Short node labels default to the AutoShape's own text; a whole direction-bearing block may be a native arrow shape. Separate text only for a real independent placement or cross-shape annotation need, grouping when appropriate. Editable text and geometry need not be two objects.
 - Match shape area to content weight. Shrink a large block holding two short words or turn it into a label.
-- Light boxes represent real boundaries or groups, not content length. Four consecutive light boxes without distinct semantic responsibilities should become a chart, table, nesting, or open layout.
+- Light boxes represent real boundaries or groups, not content length. If the boxes add no useful grouping, reconsider their role using the actual reading task; neither box counts nor a replacement format determine quality.
 - Do not randomly add shadows, outlines, or colors to peer objects.
 - Do not turn every `page_message_tree` node into an equal rounded card. Express parent/child relations through nesting, indentation, braces, alignment, table columns, and fine grouping lines.
 
@@ -44,12 +46,12 @@ Visual grammar also replaces punctuation: area and type size express hierarchy; 
 
 ### Selection order
 
-Choose the comparison before the chart: category comparison → bar; time trend → line; composition → stacked; contribution bridge → waterfall; distribution → histogram/box; correlation → scatter; two-dimensional position → matrix/bubble; precise multi-field comparison → table.
+Identify the comparison the reader needs, then consider which representation makes it accessible. Bars, lines, distributions and tables support different operations, but a task label does not uniquely choose a chart. Keep necessary scope and evaluate the actual page; text or combined views may be appropriate.
 
 ### Visual rules
 
-- One primary chart per slide, with at most one or two supporting indicators when needed.
-- Use one accent for the key series or point; recede other series to grayscale.
+- Retain the approved combination of views when it supports the intended comparison. Do not impose a per-slide chart or indicator count.
+- Preserve meaningful series distinctions and establish emphasis appropriate to the task; a single accent plus grayscale is an option, not a universal palette.
 - Directly label key values and conclusion ranges; reduce legends and gridlines.
 - Include axes, units, period, sample, definition, and source.
 - Follow display values in the content package for decimals, percent, and percentage points.
@@ -77,7 +79,7 @@ Build charts from script-package data fields or source data, never by eyeballing
 - Use tables for multiple objects, fields, and exact values; remove columns irrelevant to the slide conclusion.
 - Make headers, units, period, totals, missing values, and notes clear.
 - Align numbers by decimal or digit width and text to the left. Do not mix year-over-year, period-over-period, and attainment in one column.
-- Emphasize a key row or column in one way only: accent text, light fill, fine rule, or bold.
+- Emphasize the relevant row or column without obscuring other comparisons. Color, weight, spacing and rules may cooperate when their roles are clear; no fixed one-of-four choice applies.
 - Management detail may be dense, but never paste an Excel screenshot or shrink a table into an unreadable image.
 
 ### Key numbers
@@ -146,7 +148,7 @@ A color keeps one meaning throughout the deck. Positive, warning, risk, and nega
 - When capacity is insufficient, change structure within the approved plan, use the grid better, or split supporting evidence. Do not change locked content or go below the type baseline.
 - When content itself is insufficient, do not fill the hole with containers, icons, method labels, or decoration. Record and backflow it.
 - Audience detail and chart text follow the configured minimum; core body copy should normally be at least 18 pt. Smaller text is allowed only for explicitly configured non-audience technical fields, never body copy, chart text, or entity labels.
-- The structure must support intentional line breaks; do not let PowerPoint split numbers, units, product names, or complete phrases arbitrarily.
+- Use native automatic wrapping for continuous text. Inspect actual wrapping of numbers, units and names, and use intentional breaks only where meaning requires them; do not replace editable wrapping with manually positioned lines.
 - Avoid isomorphic card pages among ordinary slides. Logic series slides repeat the Art Direction backbone so comparison, accumulation, or drill-down works; only current focus and new information change.
 - At thumbnail size, validate the backbone. At full size, verify that L1, L2, and necessary L3 content follow the same reading order.
 - Business-analysis slides may be dense but need primary evidence. Strategy-deployment slides should vary among strong judgment, structure, and evidence. Training slides use large type, short sentences, and real contexts.

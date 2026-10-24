@@ -1,14 +1,14 @@
 # Clayz Presentation Skills
 
-## 0.20.10：原生编辑服务于内容
+## 0.20.11：基金研究转化为结构表达
 
-券商20轮实际递推后的 brokers20.r20.1：原生自动换行、倍数行距、容器对齐与图形内置文字；选定矩形节点的连接符及显式刷新；按具名行列选择表格单元格；选定数据驱动点标签格式；真实导出进程回执。方法纠正由实现示例反推框线构图的倾向，深化数量角色、分组归属、可见对应、实际读取顺序和共享期间的保留。这些是按内容选用的能力和判断，不是固定布局或新增门禁。
+基金公司十轮实际递推后的 funds10.r10.1：Art方法检查同一证据跨页承担的阅读问题，以及产品例子与上位类别的真实包含关系；原生编辑单元审计按该稿明确承诺检查自动页码、表格、形内文字和旧叠字。十轮形成十套可编辑PPT、PDF与审计。方法和检查按内容选用，不把圆形、堆叠柱或三问结构固化成模板。
 
-External knowledge / 外挂知识 **1.2.59+brokers20.r20.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1)；[334页券商20轮与完整审计](https://github.com/clayzwang/work-output/tree/main/presentations/brokers20-20261020)。原始残留、财通补充检查例外与晚到原读者证据保留，未声明GUI或真人效果。
+External knowledge / 外挂知识 **1.2.69+funds10.r10.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1)；[基金公司十轮交付](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-20261023)。原始残留与未验范围保留。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.10**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.11**
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
@@ -16,7 +16,7 @@ External knowledge / 外挂知识 **1.2.59+brokers20.r20.1**：[知识包](https
 
 ## Art knowledge / Art 知识包
 
-Current external knowledge / 当前外挂知识：**1.2.59+brokers20.r20.1**. [Readable files, ZIP and checksums](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1). Source scopes, package interpretation and observed effects remain distinct; knowledge is separate from public Light assets.
+Current external knowledge / 当前外挂知识：**1.2.69+funds10.r10.1**. [ZIP, readable manifest and checksum](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1). Knowledge is separate from public Light assets.
 
 ## Clayz 的三项核心优势
 

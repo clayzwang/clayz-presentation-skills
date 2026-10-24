@@ -1,14 +1,14 @@
 # Clayz Presentation Skills
 
-## 0.20.10: native editing follows content
+## 0.20.11: fund-manager research into structure
 
-Promote brokers20.r20.1 after twenty sequential broker rounds: native paragraph wrapping, multiple line spacing, alignment and built-in shape text; explicitly selected attached rectangular connectors and refresh; named table-cell selection; selected data-driven point-label formats; actual renderer process receipts. Methods separate implementation from composition, deepen quantitative roles, grouping scope, visible correspondence, reading order and retained shared periods. These are conditional capabilities, not layout templates or new gates.
+Promote funds10.r10.1 after ten sequential fund-manager rounds. The Art method now assigns distinct reader questions when the same evidence recurs across pages and checks whether product examples are visually nested within their true category. A task-specific native-edit-unit auditor checks committed page fields, tables, integrated shape labels and leftover overlays. These are selective checks, not layout templates.
 
-External knowledge / 外挂知识 **1.2.59+brokers20.r20.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1)；[334页券商20轮与完整审计](https://github.com/clayzwang/work-output/tree/main/presentations/brokers20-20261020)。原始残留、财通补充检查例外与晚到原读者证据保留，未声明GUI或真人效果。
+External knowledge / 外挂知识 **1.2.69+funds10.r10.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1)；[基金公司十轮交付](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-20261023)。原始残留与未验范围保留。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.10**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.11**
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
@@ -16,7 +16,7 @@ Reader reviews now run before Art and after Output with fresh host contexts when
 
 ## Art knowledge / Art 知识包
 
-Current external knowledge / 当前外挂知识：**1.2.59+brokers20.r20.1**. [Readable files, ZIP and checksums](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.59-brokers20.r20.1). Source scopes, package interpretation and observed effects remain distinct; knowledge is separate from public Light assets.
+Current external knowledge / 当前外挂知识：**1.2.69+funds10.r10.1**. [ZIP, readable manifest and checksum](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1). Knowledge is separate from public Light assets.
 
 ## Why Clayz stands out
 

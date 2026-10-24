@@ -18,7 +18,7 @@ class NativePreviewProcessEvidenceTest(unittest.TestCase):
             root = Path(td); native = root / 'native.pptx'; native.write_bytes(b'fixture')
             target = root / 'render'
             actual = subprocess.CompletedProcess(['libreoffice'], 1, '', 'conversion failed\n')
-            with patch.object(preview, 'font_environment', self._font_environment), patch.object(preview.subprocess, 'run', return_value=actual) as run:
+            with patch.object(preview, 'audit_shape_bounds', return_value={'passed': True, 'issues': []}), patch.object(preview, 'font_environment', self._font_environment), patch.object(preview.subprocess, 'run', return_value=actual) as run:
                 with self.assertRaisesRegex(RuntimeError, 'conversion failed'):
                     preview.render(native, target, ['A'], font_file='bound', font_family='STKaiti')
             self.assertEqual(run.call_count, 1)
@@ -33,7 +33,7 @@ class NativePreviewProcessEvidenceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td); native = root / 'native.pptx'; native.write_bytes(b'fixture')
             target = root / 'render'
-            with patch.object(preview, 'font_environment', self._font_environment), patch.object(preview.subprocess, 'run', side_effect=FileNotFoundError('missing renderer')) as run:
+            with patch.object(preview, 'audit_shape_bounds', return_value={'passed': True, 'issues': []}), patch.object(preview, 'font_environment', self._font_environment), patch.object(preview.subprocess, 'run', side_effect=FileNotFoundError('missing renderer')) as run:
                 with self.assertRaises(FileNotFoundError):
                     preview.render(native, target, ['A'], font_file='bound', font_family='STKaiti')
             self.assertEqual(run.call_count, 1)
@@ -56,7 +56,7 @@ class NativePreviewProcessEvidenceTest(unittest.TestCase):
                 elif command[0] == 'pdftoppm':
                     (target / 'slide-1.png').write_bytes(b'png-fixture')
                 return subprocess.CompletedProcess(command, 0, command[0] + ' stdout', '')
-            with patch.object(preview, 'font_environment', self._font_environment), patch.object(preview.subprocess, 'run', side_effect=execute):
+            with patch.object(preview, 'audit_shape_bounds', return_value={'passed': True, 'issues': []}), patch.object(preview, 'font_environment', self._font_environment), patch.object(preview.subprocess, 'run', side_effect=execute):
                 manifest = preview.render(native, target, ['A'], font_file='bound', font_family='STKaiti')
             self.assertEqual([c[0] for c in calls], ['libreoffice', 'pdffonts', 'pdftoppm'])
             self.assertEqual(calls[0], ['libreoffice', '-env:UserInstallation=file://' + str(target / 'lo-profile'), '--headless', '--convert-to', 'pdf', '--outdir', str(target), str(native)])

@@ -1,0 +1,16 @@
+{
+  "release_version": "0.20.11",
+  "knowledge_version": "1.2.69+funds10.r10.1",
+  "knowledge_repository": "clayzwang/work-output",
+  "knowledge_directory": "knowledge/ppt/v1.2.69-funds10.r10.1",
+  "knowledge_archive": "knowledge-pack-1.2.69+funds10.r10.1.zip",
+  "knowledge_sha256": "2b7beb662f4dd4bf0c431e50ea3e432d6de158b6480b83540960a352aa6abac5",
+  "knowledge_bytes": 448928,
+  "knowledge_manifest_sha256": "ba8c240f5acdadcf354fde91b2edaf7aa911191f0c9a1f6cd60e3b364b900361",
+  "nodes": 91,
+  "source_revision": "funds10.r10.1",
+  "completed_training_rounds": 10,
+  "presentation_directory": "presentations/funds10-20261023",
+  "reader_policy": "Two independent Copy readers, one consolidated Copy repair and original confirmation; one Final reader and repair, original confirmation; independent Auditor records. R10 documented extra native-editability technical repair and narrow recheck.",
+  "limitations": "Per-round findings and incomplete-evidence states remain. No PowerPoint/WPS GUI or human-effect acceptance. Publication proves version and storage, not universal design quality."
+}

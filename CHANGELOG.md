@@ -6,6 +6,10 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
+## 0.20.11 — 2026-10-24
+
+- Promote funds10.r10.1 after ten sequential fund-manager rounds. The Art method now assigns distinct reader questions when the same evidence recurs across pages and checks whether product examples are visually nested within their true category. A task-specific native-edit-unit auditor checks committed page fields, tables, integrated shape labels and leftover overlays. These are selective checks, not layout templates.
+- Link exact external 1.2.69+funds10.r10.1 and ten PPT/PDF/audit bundles. Preserve original findings, the R10 technical exception and unverified GUI/human effects.
 ## 0.20.10 — 2026-10-23
 
 - Promote brokers20.r20.1 after twenty sequential broker rounds: native paragraph wrapping, multiple line spacing, alignment and built-in shape text; explicitly selected attached rectangular connectors and refresh; named table-cell selection; selected data-driven point-label formats; actual renderer process receipts. Methods separate implementation from composition, deepen quantitative roles, grouping scope, visible correspondence, reading order and retained shared periods. These are conditional capabilities, not layout templates or new gates.

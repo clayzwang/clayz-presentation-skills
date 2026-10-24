@@ -312,6 +312,8 @@ During A04/A05, identify whether the consequential path explains a rule, a selec
 
 When a local revision narrows a scope or exposes an unknown, A10/A11 should revisit the later passage or graphic that actually reuses that premise. Repeated names do not propagate a qualification by themselves. This is a local meaning judgment, not a requirement for repeated disclaimers, frames, edge tables or a new gate. A compressed modifier may identify the set being discussed; retain that referent or an equivalent contextual reading rather than assuming it was expendable wording. Keep original Copy, changes and reader residuals; explaining an unknown is not obtaining the missing fact.
 
+For company figures quoted by different shareholders, identify the start and end dates as well as the accounting entity before making a visual comparison. A full-year amount and an amount recognized only after an acquisition date are not two comparable full years; their difference does not by itself establish the unrecognized period's profit. A threshold calculated as last full year's result minus a disclosed current half-year result is a conditional hurdle, not a forecast. If either disclosed input is rounded, label the hurdle at that precision as approximate rather than using a strict inequality that implies an exact sufficient cutoff. Select visual form from the reading task; this is not a calendar-band or bar-chart requirement.
+
 
 ### Local star50.r09.1 — aggregate names and the members they select
 
@@ -342,3 +344,19 @@ For a selected native chart that will be edited, choose value-generated label co
 ### Maintaining an explicitly selected connector set
 
 After changing node geometry in a selected native relation graphic, distinguish maintaining one connector from an explicitly selected set. Optional packages.layout.refresh_rectangular_connectors accepts a same-slide list and validates all registered targets/sites and its narrow scope before updating selected paths. The single-path interface remains available. This does not discover all affected edges, move nodes or independent labels, choose new sites, reroute paths or install an observer. Read actual paths, labels/proportions and shared conditions in the whole graphic; one successful refresh does not establish that every dependency was maintained. This maintains chosen objects, without selecting a node-link composition or adding a gate.
+
+### Evidence strength for a manager's revenue, net profit, and residual
+
+For the same reporting entity and period, revenue minus net profit is an aggregate residual that can include operating costs, expenses, tax, and other results. It is not an identified expense or distribution cost. When revenue rises and net profit falls, show the matched-period divergence, then check whether disclosed components support causal attribution. If they do not, label the cause unresolved; do not turn the residual into invented cost segments in a visual bridge. Period revenue and profit also differ from an end-date asset stock. Choose the representation the relation needs rather than prescribing a bridge, table, funnel, or columns.
+
+### Fee-paying assets, contract rates, and profit entities
+
+For asset-based management fees, multiply period-average fee-paying assets by the applicable rate within each contract, then sum across contracts. Performance fees, distribution fees, and the manager's own investment results may follow other terms. One end-date AUM observation and one product rate do not produce the company's recognized full-year revenue. A rate-offset AUM multiple is a static condition for a specified product, not a company forecast. Identify period, payee, product, and assumptions. A fund's accounting profit belongs to fund assets and investors; a manager's net profit belongs to the operating company. Map products, contracts, shareholders, manager, and investors to their actual layers before drawing cross relations. Do not invent intersections or mandate a matrix. When a source date changes, scan every date label on the rendered page, not only the title and footnote.
+
+### Canvas bounds and visual comparison
+
+Audit all native PowerPoint shape bounds, not only extracted PDF text. Bars, fills, connectors, and integrated labels can be clipped while every word stays in the canvas. Run `scripts/audit_native_shape_bounds.py` on the finished PPTX, then inspect the rendered endpoints, relative lengths, and scale. Compute same-scale bars from the usable drawing width with a right margin. Correct labels cannot compensate for a clipped mark. Preserve the original audit and a separately evidenced emergency fix if a late review finds an out-of-bounds object. This check does not mandate bars or a fixed layout.
+
+### Conditional arrows and known baselines
+
+A known historical baseline is a reference, not automatically the cause of future hypotheses. For an if-then scenario, attach a native arrow from the condition object's appropriate edge to its possible outcome. Keep the known baseline independent when its causal role is not evidenced. Inspect rendered endpoint positions, direction, text overlap, and crossings. A registered connector is not a semantic verdict. Asset share comparisons must use matching dates and scopes; one product's AUM share is not the manager's revenue share.

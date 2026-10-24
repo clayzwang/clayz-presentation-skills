@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Render a native Art prototype before visual locking; never infer quality."""
 import argparse,hashlib,json,pathlib,subprocess,datetime,re,os
+from audit_native_shape_bounds import audit as audit_shape_bounds
 
 def ref(p):
     p=pathlib.Path(p).resolve()
@@ -80,6 +81,10 @@ def _run_observed(cmd, env, directory, *, stage, log_name=None):
 def render(pptx,directory,slide_ids=None,*,font_file=None,font_family=None,fontconfig=None):
     pptx=pathlib.Path(pptx).resolve();directory=pathlib.Path(directory).resolve()
     directory.mkdir(parents=True,exist_ok=False)
+    bounds=audit_shape_bounds(pptx)
+    (directory/'shape-bounds.json').write_text(json.dumps(bounds,ensure_ascii=False,indent=2)+'\n')
+    if not bounds['passed']:
+        raise ValueError('Native shapes extend beyond the slide canvas; see shape-bounds.json')
     if font_file is None or font_family is None:
         raise ValueError('Native preview requires explicit font_file and font_family; bind the task font before rendering')
     env,font_record=font_environment(directory,font_file,font_family,fontconfig)
@@ -93,7 +98,7 @@ def render(pptx,directory,slide_ids=None,*,font_file=None,font_family=None,fontc
     if len(ids)!=len(files) or len(set(ids))!=len(ids) or any(not isinstance(s,str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]*',s) for s in ids):
         raise ValueError('Art slide identities must safely cover rendered physical pages once')
     for sid,p in zip(ids,files):p.rename(directory/(sid+'.png'))
-    manifest=dict(contract='io.clayz.presentation.native-art-preview/1.0',created_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),pptx=ref(pptx),pdf=ref(pdf),backend='LibreOffice + Poppler',font_environment=ref(directory/'font-environment.json'),process_observations=ref(directory/'subprocess-observations.json'),slides=[dict(slide_id=sid,**ref(directory/(sid+'.png'))) for sid in ids],limitations=['Actual native prototype; not final Output evidence.','Rendering alone does not establish visual or content quality.','PowerPoint and WPS are not observed.'])
+    manifest=dict(contract='io.clayz.presentation.native-art-preview/1.0',created_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),pptx=ref(pptx),pdf=ref(pdf),backend='LibreOffice + Poppler',shape_bounds=ref(directory/'shape-bounds.json'),font_environment=ref(directory/'font-environment.json'),process_observations=ref(directory/'subprocess-observations.json'),slides=[dict(slide_id=sid,**ref(directory/(sid+'.png'))) for sid in ids],limitations=['Actual native prototype; not final Output evidence.','Rendering alone does not establish visual or content quality.','PowerPoint and WPS are not observed.'])
     (directory/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     return manifest
 

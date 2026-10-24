@@ -36,11 +36,11 @@ The placement should help readers recognize grouping, comparison, sequence,
 conditions or feedback with less reconstruction from prose. An arrangement
 must not invent a sequence, cause, rank or numerical proportion.
 
-Distinguish different relationships within a page. A process may have a main
-path, conditions attached to particular actions and an accompanying explanation
-of revenue. They need not receive the same spatial treatment. Boxes and arrows
-are available tools, with meaning determined by their actual use. Avoid choosing
-a grid from the number of headings and then finding reasons to justify it.
+Treat distinct relations on a page separately. Identify the objects and predicate in the current region: differences between contracts, client needs informing an investment solution, and revenue covering operating inputs require different reading operations. Repeated column positions can carry the previous category assignment into a new relation even when every sentence is correct. Read back that spatial implication in the actual page; where needed, clarify the relation's scope, retain its subject, choose a suitable correspondence, or separate it. Adding headings alone does not do this. Frames, open alignment, diagrams and continuous explanation remain options: avoiding boxes must not default to prose, and structuring must not default to two columns.
+
+Shortening, emphasis and splitting columns may aid lookup without explaining a mechanism. Judge which relations are visible and which still require the reader to assemble long passages, retaining necessary conditions. Record a rearrangement that only changes appearance or introduces a new pairing as unresolved. Word count, object count and repeated-layout count are not quality verdicts; add no template quotas or extra repair cycles.
+
+Trace the relation that the audience actually needs across its levels. In a layered service, separate the asset or account charged, the service performed and the fee recipient; a row for each service can still hide a customer portfolio's holdings in underlying funds and the coexistence of charges. For a choice subject to several conditions, showing a common condition below several options may state the rule without revealing how it affects each option. For a forecast, distinguish observed capacity, unobserved adoption and conditional revenue or profit drivers before connecting them. Review the visible endpoints and any missing crossing in the rendered page. A connector, colored box or heading is evidence of an object, not proof that the relevant relation has been expressed. Add only relationships supported by Copy and research; preserve unknown incidence, weights or comparisons as unknown.
 
 Several related numbers can share a comparison or other visual encoding when
 the approved data supports it. Labels, units and conditions belong close enough
@@ -432,6 +432,15 @@ fixed repetition limit, prescribed number of layouts or required contrast page.
 Shared drawing code may handle text measurement and native objects. Its default
 coordinates, column widths or container count must not become the design brief.
 Decide the composition first and implement the chosen design with suitable tools.
+
+Two quantities can add to one total without having equally evidenced business
+mechanisms. A residual computed as total less a known category establishes its
+numeric identity; it does not disclose the residual's activities, fee basis or
+revenue contribution. Do not duplicate the known category's causal arrows just
+to complete a symmetric diagram. Let the supported path remain readable, and
+give the residual an appropriate place with its actual date, ownership and
+unanswered questions. This is a check on what a connection asserts, not a
+two-column, question-mark, gray-box or connector layout prescription.
 
 ## Select attention and continuous reading groups separately
 
