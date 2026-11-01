@@ -18,6 +18,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
+      PYTHONDONTWRITEBYTECODE: "1"
       CLAYZ_RELEASE_DENYLIST_B64: ${{ secrets.CLAYZ_RELEASE_DENYLIST_B64 }}
     steps:
       - uses: actions/checkout@v4
@@ -81,6 +82,18 @@ jobs:
         run: python scripts/build_runtime_packs.py --platform windows --without-learning-pack
       - name: Verify release archives, nested wheels, and checksums
         run: python scripts/verify_release_bundles.py --platform windows --without-learning-pack
+      - name: Build and validate the standalone PPT Skill
+        run: |
+          python release/build_skill.py
+          python - <<'PY'
+          import pathlib, subprocess, sys, tempfile, zipfile
+          version = pathlib.Path("VERSION").read_text().strip()
+          with tempfile.TemporaryDirectory() as directory:
+              with zipfile.ZipFile(f"dist/ppt-{version}-standalone-skill.zip") as archive:
+                  archive.extractall(directory)
+              subprocess.run([sys.executable, "scripts/validate_composite_skill_mount.py", "--root", directory], check=True)
+              subprocess.run([sys.executable, "scripts/validate_config.py", str(pathlib.Path(directory) / "config/personal-extension-resolved.json")], check=True)
+          PY
       - name: Publish or complete the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -88,9 +101,9 @@ jobs:
           NOTES: ${{ steps.release.outputs.notes }}
         shell: bash
         run: |
-          mapfile -t assets < <(find dist -maxdepth 1 -type f \( -name '*.zip' -o -name 'SHA256SUMS.txt' \) -print | sort)
-          if [ "${#assets[@]}" -ne 4 ]; then
-            echo "Expected three ZIP archives plus SHA256SUMS.txt; found ${#assets[@]} files."
+          mapfile -t assets < <(find dist -maxdepth 1 -type f \( -name '*.zip' -o -name 'SHA256SUMS.txt' -o -name 'SKILL-SHA256SUMS.txt' \) -print | sort)
+          if [ "${#assets[@]}" -ne 6 ]; then
+            echo "Expected four ZIP archives and two checksum files; found ${#assets[@]} files."
             exit 1
           fi
           if gh release view "$TAG" >/dev/null 2>&1; then

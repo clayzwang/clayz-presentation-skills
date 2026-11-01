@@ -28,6 +28,9 @@ def write_new(path, value):
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1].startswith("files-"):
+        from packages.validators.stage_files import main as file_main
+        return file_main(sys.argv[1:])
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=['record-planning', 'lock-design', 'export', 'logic-document'])
     parser.add_argument('--package', type=Path, required=True)
@@ -44,14 +47,14 @@ def main():
     args = parser.parse_args()
     try:
         package = json.loads(args.package.read_text(encoding='utf-8'))
-        if package.get('contract_version') not in {'3.0', '3.1', '3.2', '3.3', '3.4'}:
+        if package.get('contract_version') not in {'3.0', '3.1', '3.2', '3.3', '3.4', '3.5'}:
             raise ValueError('story/research handoffs require a supported package 3.x')
         if args.command in {'record-planning', 'lock-design'} and load_config(args.config).get('workflow', {}).get('reader_review', {}).get('phases') == ['title', 'content', 'final']:
             from packages.validators.reader_review import check_art_gate
             check_art_gate(package, args.title_review, args.content_review,
                            config=load_config(args.config), reader_cycle=args.reader_cycle)
         if args.command == 'record-planning':
-            if args.plan is None or package.get('contract_version') != '3.4':
+            if args.plan is None or package.get("contract_version") not in {"3.4", "3.5"}:
                 raise ValueError('record-planning requires --plan draft and Copy package 3.4')
             from validate_ppt_package import validate_package as validate_copy
             errors = validate_copy(package, 'copy-approved')

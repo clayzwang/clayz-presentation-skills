@@ -1,373 +1,45 @@
 ---
 name: clayz-presentation-copy
-description: Explain Logic-approved research for the intended reader, review the actual explanation for understanding and meaning preservation, then edit it into finely resolved, coherent text passages. Own wording, reorganization, pagination and page sequence; preserve supported meaning and evidence. Hand semantic body units and their relationships to Art without prescribing objects or layouts. Do not design or build the PPTX.
+description: Read the complete research, develop an independent reader-facing account, then edit and paginate it without fixed content-group or heading defaults.
 ---
-## v0.20.5 current repair policy
+# Copy：从完整讲述编辑出PPT文字结构
 
-The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
+## 当前职责与输入
 
+当前内容协议为3.5，专业交接为stage-files/1.0。阅读`../../packages/contracts/stage-file-handoff.zh-CN.md`与本语言的`references/copy-package-contract.zh-CN.md`、`references/atomic-copy-and-hierarchy.zh-CN.md`。
 
+Copy从Logic的专业handoff文件读取完整研究报告、过程和证据；接收用户与本阶段相关的读者、用途、分页和措辞要求。技术运行包、字体/布局快照和渲染预算不作为写作内容。依据文件引用取得必要材料，不重复携带全套运行状态。
 
-# Clayz Presentation Copy
+Copy负责实质编辑判断。先理解研究，再建立读者可以连续理解的讲述；分页、标题和细分文字服务这一讲述。禁止先以页面、栏目、卡片或标题正文槽位作为首次写作入口，再把分页结果串接为前置讲述。重新串接的页面文字只能用于后验连读，必须标为这种用途。
 
-For this local r10.1 revision, read
-`../../packages/contracts/copy-explanation-preservation.zh-CN.md` when editing for a
-Chinese audience. Apply the concrete explanation-preservation action within
-the existing continuous prose and semantic review; do not create another form.
-After compression, read the actual title sequence without the body or research.
-In the existing semantic review, paraphrase each material claim using only the
-objects and relationships that the titles have established. Preserve an unknown
-business identity as unknown before reopening the body: a shortened name may
-have only one intended meaning and still not identify a business for this reader.
-A definition in the body does not establish that identity in the title sequence.
-Compare the paraphrase with the complete account and restore only the relation
-or qualifier needed for the judgment. Do not require every abbreviation's full
-name. This author action is not an independent reading; keep the existing fresh-
-reader sequence, without adding another form, review gate or repair allowance.
-Follow subject changes within an independent title claim as well as across
-the actual title sequence. A shared topic or an earlier clause does not supply
-the later claim's subject. If the visible wording cannot name it, retain that
-absence in the paraphrase before reopening the body; correct relationship
-metadata does not make a missing subject visible. Repair consequential changes
-of scope without requiring full names on every page or a definition exam.
-When a comparison depends on a value filed with source notes, temporarily read
-the actual argument without those notes. If that value is still needed to make
-the comparison intelligible, reconsider its argumentative role or remove the
-dependency, then separate the source locator. An extra scenario is not inherently
-secondary; this does not promote every source number or prescribe Art's placement.
-In the continuous account, begin with the actual subject's change and its
-meaning for this audience. Explain unfamiliar concepts where this judgment
-uses them; do not turn a local naming repair into an additional professional
-course. When a retained example names a part or way of working, distinguish
-recognizing its name from knowing enough about what it handles or does to
-connect it to the function being explained. The larger function may be clear
-while that example still adds only a label. Preserve the supported role or
-action needed for the example's contribution, or omit an optional list item
-that adds no necessary understanding; do not turn every term into a definition.
-Preserve necessary evidence and scope. A wish to know the full algorithm
-does not itself establish a missing explanation. After the current content
-gates, judge hierarchy and reading effort on actual Art pages rather than
-adding an upstream professional examination.
+## 实际写作顺序
 
-For the reader's first use of a material metric, explain the operation in
-ordinary language, not only its professional label. If two growth rates use
-different currency bases, state what the comparison holds constant and why the
-reported-dollar change can differ. If a definition introduces another unfamiliar
-term, resolve only the term needed to understand this company's judgment. Use
-the existing Logic evidence; this is not a requirement for a financial glossary
-or additional research when the supported meaning is already available.
+阅读完整报告及必要的过程和来源，确认研究能够支撑用户需要理解的内容。研究不足返回Logic补研究；不能靠文案填补事实、机制或关系。
 
-When keeping an aggregate or cross-statement comparison, preserve whose
-comparison it is, which items it combines and what question the sum answers.
-Correct arithmetic does not make a mixed-item sum a pure causal contribution,
-an earnings offset or a cash-flow result. State the useful interpretation and
-its limit together, or remove the optional aggregate if it adds no necessary
-understanding while retaining the supported main claim. Do not relabel a
-supported sum as a calculation error. A qualification elsewhere does not
-automatically constrain the prominently repeated total. Retain useful transitions
-and synthesis, but give repeated language its intended role rather than treating
-repetition itself as additional support. Art decides its actual visual weight.
+面向读者写完整讲述，保存`copy/complete-account.md`，用`scripts/stage_documents.py files-account`登记。该操作发生在创建分页文档之前，并将真实讲述文件及输入绑定到account记录。不得从已写出的页面表生成这一前置文件。
 
-Copy owns substantive editorial judgment: what the reader needs to know first,
-what requires explanation, and how the supported facts form a coherent account.
-Develop that account before filling text roles or page slots. Logic owns research
-judgments; that boundary does not reduce Copy to summarizing or labeling them.
+在已保存的讲述上进行编辑、归纳与分页，依据真实的承接、对照、条件、包含、证据和解释关系决定边界。用户给出的页数或分段要求在本阶段处理；没有要求时依据内容选择，不能先定每页项目数再填充。研究本来互相依赖的内容应保持联系，不能为了条目整齐压成同级判断。
 
-Read the whole Logic research and Supervisor calibration. Explain the story in
-natural language for the intended reader, then organize and edit the text for
-presentation. Copy may combine, split, reorder and rewrite the complete story.
-Preserve facts, numbers, claim strength, qualifiers, relationships and required
-coverage; return new facts or changed research judgments to Logic.
+在内容组织成立后分配title、subtitle、heading、body、annotation等文字角色。所有类别按需使用；可以没有局部标题。heading使用实际的正整数层级，工具不默认一级，也不从二元组、列表长度或模板自动创造标题与层次。不要把所有主题做成相同数量的标题正文组，也不以换成另一个数量纠正内容关系。
 
-During that existing meaning review, compare each consequential claim with the
-measure, record or work it actually uses, including the research detail you
-chose to omit. A record of actual use or time can answer what happened without
-establishing a difference or its cause; those answers need a supported
-comparison basis or explanation. When shortening a capability example, retain
-that premise or scope the promised answer to what the current evidence supports.
-Keeping the correct company name does not preserve the metric: statutory net
-income and a management profit measure can move in opposite directions for the
-same company and period. When the source already contains such a distinction,
-check whether a shortened title or synthesis silently broadens the selected
-measure. Keep the necessary metric identity in the claim and explain it where
-used; choosing not to show another series does not authorize its implied claim.
-Money amounts likewise do not by themselves measure customer departures.
-Carry the supported cause and scope into repeated risk or closing claims. Work
-from the existing research and consequential omissions, without collecting every
-possible metric, restoring every unused number or adding another review gate.
+正文细分以完整意思和依赖关系为依据。一个自然段可以跨多个body，也可以保持为一个body；文字单元不是视觉块。既有`content_relationships`中写本页实际关系和正文作用；不得用一条通用声明批量替代逐页关系判断。
 
-## Current production boundary (v0.20.1)
+## 文件化编辑成果
 
-Follow [reader review](../../packages/contracts/reader-review.md), with the current reader-cycle contract for bounded repair and original-reader confirmation. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts after the closed Copy cycle, including both original-reader confirmations when repaired; Output follows approved Art. Final reading compares actual pages to approved Copy and routes one consolidated repair to Art or Output, followed by confirmation by the same final reader. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+保存`copy/content.json`，包含：已登记的account_record文件引用、slides、unit_sources和实际semantic_review。每个可见文字单元以讲述稿的实际字符范围追溯；直接引用须完全一致，改写或派生说明实际理由。页内单位只含copy_id、text、role和必要的heading_level，不带栏数、几何、媒介或视觉分组指令。
 
-## Current handoff — v0.19.0
+保存`copy/edit-process.json`记录实际编辑取舍、保留和删改、关系变化与剩余问题。使用`files-copy`保存专业handoff；交给Art和Supervisor的是讲述、文案与过程文件的引用。
 
-Read `../../packages/contracts/story-visual-handoff.md` or its `.zh-CN.md`
-peer. New runs use content package 3.4, Art plan 2.3 and Output QA 4.1.
-Resolve the explicit locale or `locale.default`; read `references/copy-package-contract.md` or its `.zh-CN.md` peer.
+主产物不再是由页面内容反向生成的“连续稿”。索引和来源覆盖支持追溯；实际讲述及其编辑派生关系支持内容复核。工具不自动写任何段落或决定分组数量。
 
-The content document contains only these kinds of visible text:
+## 复核与读者
 
-- `title`: the main Storyline.
-- `subtitle`: a secondary Storyline.
-- `heading`: a heading with a positive `heading_level`.
-- `body`: a meaningful passage of body prose, resolved as finely as coherence permits.
-- `annotation`: qualifications, notes, sources and other annotations.
+实际对照完整研究、完整讲述和分页文字。核对必要信息、论证关系、作用范围和不确定性是否保存；检查分组本身是否成立，而不只检查每句话可否找到来源。能复述单条文字不能单独证明整体组织合理。保真、理解、组织质量分别按真实观察记录。
 
-Every category is optional. Heading levels may be skipped; a heading does not
-require a subordinate heading or body. Textual hierarchy describes meaning,
-not font size, position, containers or visual importance. A page may consist
-only of body text or annotations. No standard title/subtitle/body shell is
-required. Honor an explicit user-selected master requirement when applicable.
+按原生`../../packages/contracts/reader-cycle.zh-CN.md`和`../../packages/contracts/reader-review.zh-CN.md`使用全新上下文标题/正文读者。先冻结独立理解，再对照研究、讲述和实际文案；保持原来的合并返工及原读者复看次数。原始首读及剩余问题保留，不增加读者层级、审批或数量门槛。
 
-Each text passage has a stable `copy_id`, `text` and `role`; headings also have
-`heading_level`. Natural paragraph breaks are allowed. Preserve source
-references separately in `copy_provenance`, for content fidelity review.
-The array order is editorial organization, not Art's visual reading order.
+Supervisor/工具用`files-bind-copy`保存技术绑定，沿用原生校验、校准和报告；这些配置与控制记录不回灌为Copy正文。Art根据真实内容关系独立设计，不按heading数量直接决定视觉分组。
 
-Do not emit columns/table/ladder/rows/flow kinds, parent or sibling trees,
-render-separately or merge prohibitions, visual order, style tokens, forced
-line breaks, grammar signatures or presentation requests. Art chooses media,
-layout, grouping, combination, visual emphasis and reading paths.
+## 复用边界
 
-## Explicit content relationships — v0.19.0
-
-Read the locale-matched `../../packages/contracts/page-planning.md` contract.
-Before handoff, give every body passage an explicit relationship: the heading
-it explains, multiple headings it jointly supports, or no local heading
-ownership with its page-level purpose stated. Explain heading relationships
-from their actual meaning. Array order and heading level cannot supply them.
-Record `content_relationships` separately from text units; meaning relations do
-not prescribe visual nesting, equal-sized blocks, styles, spatial reading paths
-or independent objects. Headings may have no body. Review supported meaning
-and identify affected Copy IDs in the existing work record.
-
-## Context and authority
-
-Use the root's unified `task-config.json` and task selection, merged from `../../config/default.json`, with the resource
-inventory, Provider lock and hash-bound Logic-to-Copy calibration. Preserve
-their real bindings. Read `../../packages/contracts/stage-enablement.md`,
-`reader-quality.md` and `production-reliability.md` in the task locale.
-Read `../../packages/contracts/knowledge-learning.md` when retrieving or
-writing learning observations.
-
-Use relevant available Copy knowledge to improve actual wording; unavailable
-optional knowledge does not stop editing. Preserve selected source IDs and
-actual use. Never invent source evidence, a consultation or a saved revision.
-
-Execution work preserves meaningful supplied material. Research work edits
-Logic's source-backed synthesis. Mixed work preserves their assigned scope.
-These are content responsibilities in one workflow.
-
-## Work
-
-1. Bind the original Logic file and unchanged research. Write a coherent
-   reader-facing explanation before editing it into presentation text. Preserve
-   the actual explanation in existing work notes or reference its real draft;
-   this is editorial prose, not a private reasoning transcript.
-2. Choose chapters when useful, pagination, page responsibilities, page order
-   and conclusion wording. Copy owns these choices. Honor actual cover/closing
-   and user constraints; do not add notes or appendices by default.
-3. Resolve body into the smallest meaningful passages that preserve fluency,
-   logical links and qualifications. A paragraph may yield several body units
-   under the same heading; a grammatically or logically dependent passage stays
-   intact when splitting would break it. Read the units continuously and explain
-   their actual roles/dependencies in existing content relationships. Art decides
-   whether to combine them; fine text units do not prescribe separate boxes.
-4. Review Logic findings against the explanation, then the explanation against
-   edited text. Check actual reader understanding, retained mechanisms and
-   discriminating facts, and coherence after decomposition. Record concrete
-   observations, exclusions or deferrals in the existing semantic preservation
-   review/work notes. Source IDs and schema success do not establish these results.
-5. Hand the clean content document and separate provenance to Art and
-   Supervisor. A density-driven pagination or wording change returns to Copy;
-   research changes return to Logic.
-
-## Argument and reader review
-
-Apply [reader review](../../packages/contracts/reader-review.md) (or its zh-CN
-peer). Write for the audience's substantive questions: what the subject does,
-how it works and what the supported comparison actually establishes. Keep this
-reader-question/answer judgment in the actual explanation and work notes.
-For explanatory/comparative tasks, explain the mechanisms and differences before
-offering writing procedures or due-diligence advice. Preserve a procedure-first
-sequence when the user's task and reader genuinely need that sequence.
-
-Titles may ask, judge or orient. Read them together, then check that the body
-delivers the promised answer. A title saying requirements differ has not itself
-explained the difference; a reminder to distinguish evidence types may belong
-in a qualification instead of displacing the subject's core meaning. Do not
-force every heading into a conclusion, question, contrast or slogan. Preserve
-scope and uncertainty: strengthen expression only as far as the evidence allows.
-
-After saving the current Copy revision, send it to Supervisor for the fresh
-reader pass before Copy-to-Art calibration. Respond to actual comprehension
-findings in existing work notes; change the substantive explanation and page
-responsibility when needed, then derive titles/body again. Cosmetic title changes
-cannot repair missing analysis. Preserve old findings and re-read revised bytes.
-
-Before assigning text roles, establish what the page answers, its supported
-judgments and evidence, and the relation between paragraphs. Then write the
-Storyline, useful local headings, body and annotations. Categorizing a passage
-as body does not establish an organized argument.
-
-Check each title against its explanation and approved evidence. Growth or
-decline needs a comparison; a current-period amount alone does not establish a
-trend. Contribution and causation need their own support. Narrow an unsupported
-title or return missing research to Logic; never fill the gap by wording alone.
-
-When passages answer different questions, use informative local headings where
-they help readers distinguish the judgments. A continuous explanation can remain
-body-only. No heading quota, fixed group count, mandatory three-level shell,
-word-count limit or visual grouping tree is introduced.
-
-Identify entity, period, metric and accounting scope before interpreting numbers.
-Separate different scopes, such as group earnings and insurance-fund returns.
-Keep qualifications that change the conclusion with the relevant body; source
-details and incidental notes may be annotations.
-
-Remove repetition between passages while retaining necessary evidence and
-explanation. Art chooses the medium. When its chart/table repeats the prose,
-Art returns the specific redundancy to Copy for an authorized wording revision;
-Copy does not preselect a medium or remove facts merely to fit a layout.
-
-Before handoff, actually read the text and answer in the existing
-semantic_preservation_review or work notes, citing affected copy IDs as useful:
-
-- Can the Storyline and any local headings communicate the page's argument?
-- Does each judgment have matching evidence with a clear entity and scope?
-- Does each passage add evidence, explanation or a necessary qualification?
-- Which concrete actors, mechanisms and differences survived editing, and which
-  were omitted or moved? Cite the affected findings and Copy IDs; explain a
-  consequential omission or an actual destination instead of asserting coverage.
-- When the fine body units are read together, do pronouns, connectors, conditions
-  and qualifications still communicate the same fluent account?
-
-These are professional reading checks, not keyword tests or another approval
-form. Art checks their visible expression; Supervisor reads both the text and
-actual page and routes defects to the earliest responsible stage.
-Record a content-reading result only after that reading, with evidence in the
-existing notes. A generic structure-check pass or an empty issue list must not
-automatically become a content-quality pass; missing reading remains deferred.
-
-Validate with:
-
-```bash
-python ../../packages/validators/validate_ppt_package.py <copy-package.json>
-```
-
-## Work record at handoff
-
-Use the existing stage-work-record workflow in
-`../../packages/contracts/stage-enablement.md`. Save immutable actual artifacts,
-record the Copy stage and checks through
-`../../scripts/publish_supervised_pair.py record-stage --stage copy`, preserve
-the predecessor record, and check the record chain. Record material wording
-decisions as work notes when useful. Missing observations remain not-recorded.
-Supervisor calibrates the handoff and collects the final report; Copy does not
-invent prior work or overwrite the research.
-
-The central baseline is `../../config/default.json`; consume it through the unified merger.
-
-
-## Local industry research development
-
-For industry-explanation tasks, read `../../packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
-
-
-### Local r11.1 — carry the actual run identity at package creation
-
-When constructing the authored package, use `../../scripts/package_run_binding.py`
-`with_run_binding(package, preflight_path, challenge_path, upstream=...)` to copy
-the already-issued preflight binding. For Logic omit upstream; for Copy supply
-the exact approved Logic package. The helper checks transport identity and
-receipt bytes, never issues a challenge or replaces a conflicting binding.
-Preserve the result before hashing/calibrating it and keep original package and
-reader validation. It is not proof of host readiness or content approval.
-
-
-### Local r14.1 — explain the changes the account makes important
-
-After the continuous account is complete, revisit the changes it actively makes
-important: a largest contribution, a material decline, an apparent reversal or a
-future condition. For each relevant claim, check whether the visible account
-lets the intended reader explain the supported reason or the actual disclosure
-limit. A decomposition showing where an increase occurred is not by itself an
-explanation of why it occurred. This also applies to optional asides added to
-echo the main theme: a contrasting quarterly profit pair still invites an
-explanation of that quarter. A general definition of the two metrics does not
-establish the actual reason they diverged. Restore an existing Logic explanation
-lost in editing; return only a consequential missing research answer to Logic.
-If an optional contrast adds no necessary task answer and lacks that support,
-remove the aside while preserving required coverage and the original research;
-do not report omission as a demonstrated causal explanation.
-
-Use the current account and audience to choose this check, not every disclosed
-metric or a fixed number of arguments. Directional company attribution may be
-sufficient with its limit; distinguish a management category such as “underlying
-performance” from an explained operating action, and distinguish an unknown
-action from a known action whose contribution was not quantified. Use disclosed
-actions and their supported direction where available. Otherwise identify the
-attribution as the company's broad description and keep the claim within that
-boundary; never fill the gap from generic industry knowledge or invent a
-quantified net-profit bridge. Read
-countervailing effects together: new business can grow while current profit
-falls. Keep the needed mechanism in ordinary language; a request for an entire
-accounting algorithm does not itself establish a missing task answer. Preserve
-real uncertainty and concrete reader findings rather than writing toward pass.
-Record consequential choices in the existing semantic review; no extra page,
-column, cause count or acceptance threshold follows from this action.
-
-
-### Local r15.1 — preserve the reader's reference across the account
-
-When adjacent passages continue a comparison, reread them as a continuous
-account: what company, metric, ownership basis, period and unit is the audience
-following? Select a consistent basis where it answers the task; where a change
-of basis is needed, make its purpose and the new reference understandable at
-the transition. A correct definition somewhere in the deck is not evidence
-that the transition is understood. Do not mandate a single metric throughout,
-repeated full names, extra labels on every page or a fixed comparison template.
-Use existing semantic notes to record a consequential editorial choice.
-
-
-### Local systems.restart.r00.1 — make composition and detail traceable
-
-When the purpose is to understand a system's composition, organize the account
-around Logic's supported functional division and meaningful connections. Let
-readers identify the main modules and recognize the concrete capabilities
-within each, rather than offering a topic catalog followed by disconnected
-explanations. Keep functional identities recognizable when moving between the
-whole, constituent work and a supported example; page numbers or chapter names
-alone cannot supply that relationship. The explanation can expand across pages
-or combine closely related work according to what the audience needs to read.
-
-Use the existing content and relationships to distinguish what belongs within
-a module from what is transferred between modules or shared across them.
-Use these distinctions to explain the audience's business questions: which
-function does the work, which record or data it uses, and what another item of
-work receives. An author's relation categories can organize that reasoning
-without becoming a separate lesson for the reader. Retain such a lesson when
-the task actually calls for understanding the categories. Preserve the needed
-whole-system collaboration as well as membership: a list of modules and shared
-data does not itself explain the supported handoffs, conditions or parallel
-work. When an early whole is needed to orient later detail, retain enough of
-those specific connections there rather than leaving the reader to assemble
-them only after the constituent explanations. Carry the relevant concrete
-subjects and objects into that account;
-correct relationship metadata cannot supply a referent missing from the
-visible wording. When a specific product mechanism appears beside another
-product or a general capability, keep enough local scope to identify which
-example the action and condition belong to; a source locator or a named product
-elsewhere does not establish that referent. No repeated-label or scenario
-format follows from this.
-Explain overlap and conditional paths where they matter. A general panorama
-and a concrete use path answer different questions and can complement each
-other; neither has to enumerate every deployment or follow a fixed page slot.
-If the research supplies only isolated names or topic answers where this
-structure is needed, return the substantive gap to Logic before presentation
-wording conceals it. Module and subfunction identities come from the supported
-work, not the number of research questions, slides or labels. Art receives the
-complete meaning and retains its existing authority to clarify wording,
-reorganize, paginate and add grounded explanatory labels, with the original
-Copy and actual transformations preserved for comparison.
+为后续模型分析保存本次完整输入、研究、讲述、文案、过程、读者观察和版本引用。迭代对象是可复用的基础方法、工具与交接能力。不能把本次公司的故事、这次修法或某种版式当成下一题的默认内容。

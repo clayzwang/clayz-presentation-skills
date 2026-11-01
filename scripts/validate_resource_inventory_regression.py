@@ -244,8 +244,8 @@ def test_final_usage_reconciliation() -> None:
 
 
 def test_logic_requires_inventory() -> None:
-    errors = validate_package({}, "logic-approved")
-    _assert(any("resource_inventory" in error for error in errors), "Logic must reject a missing Supervisor inventory")
+    errors = validate_package({}, "logic-approved", allow_legacy=True)
+    _assert(any("resource_inventory" in error for error in errors), "Explicit legacy replay must reject a missing Supervisor inventory")
 
 
 def main() -> int:

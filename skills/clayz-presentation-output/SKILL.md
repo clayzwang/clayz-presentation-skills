@@ -2,6 +2,13 @@
 name: clayz-presentation-output
 description: Build and verify an editable PPTX from a copy-approved package and art-direction-approved plan using the centrally configured theme, renderer, compatibility targets, delivery profile, and attribution metadata. Use for final presentation production, technical repair, media optimization, font and compatibility checks, and render-grounded QA. Do not invent content or redesign an approved composition.
 ---
+## 当前3.5文件交接
+
+遵循`../../packages/contracts/stage-file-handoff.zh-CN.md`。专业输入与产物以实际文件交接；技术运行配置由Supervisor另存。Art从完整讲述、实际文案和格式要求形成设计，不以heading数量作为选择栏数或视觉组数的依据；在方案已经按内容成立之后，脚本才实现对象与位置。保留原生Art内容投影及变更理由，不以批准Copy为由机械照搬其分组。
+
+Art保存设计/制作规格、全部真实渲染图和过程文件，通过files-art交接。Output保存实际PPTX、PDF、全部页图、原生QA及异常过程，通过files-output交接；文件存在不表示QA或内容质量通过。原有技术校验和读者/Auditor规则继续生效。
+
+
 ## v0.20.5 current repair policy
 
 The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
@@ -275,17 +282,6 @@ not replace a required full-file reopen.
 paths but still rejects unknown objects before opening the output. Keep actual
 process exit/status assertions; this helper is transport, not a validator.
 
-When reusing an already executed render, the same module's optional
-`derive_render_manifest(raw_manifest_path, pptx_path, evidence_role=...,
-provenance_clarification=...)` returns a new binding with the existing reader
-contract's `pptx_sha256`. It checks the raw manifest's bound input against the
-actual supplied PPTX and retains raw limitations, page order and file references.
-Describe the actual role explicitly: use formal Output evidence only for the
-actual formal input and export, not by relabeling an Art prototype. This helper
-does not render, establish that role, change quality states or waive original
-consumer checks. Preserve the raw receipt and write any derivative as a new
-revision; a binding repair alone does not call for a new native save or render.
-
 ### Local r12.1 — consume actual native text properties
 
 When consuming Art's native text or table objects, distinguish cell tcPr padding
@@ -323,46 +319,3 @@ The latter alone does not establish a defect. A concrete ambiguity or hard-to-
 track relation is a design observation to route to Art within the existing
 return budget, not permission to silently reflow the deck. Keep actual
 observations and unresolved findings even when the reader understands the page.
-
-### Local star50.r02.1 — preserve the actual authored entry and color roles
-
-Neutral page creation does not authorize Output to add a conventional title band,
-short rule or fixed top gap. Consume Art's explicit title/body positions and
-selected layout; retain genuine user-master inheritance. When adopting native
-objects, preserve independently authored data-mark and identifying-text colors.
-Do not restore a pale swatch's color onto the label because a helper exposes one
-shared foreground parameter. Actual editable properties, page images and reader
-understanding remain separate evidence; no new color or page-layout gate applies.
-
-### Local star50.r03.1 — preserve authored groups without new reflow
-
-Consume Art's actual selected lines, typography and object geometry. Optional
-author-selected `protected_terms` belongs to the existing preparation call in
-`packages.layout.text_flow.wrap` / `authoring_text.measure_lines`; native helpers
-must pass that choice when used, not substitute a topic-wide dictionary.
-The existing date/number/Latin atoms remain intact when choices overlap them.
-
-Do not add a wrapping engine to the manifest adapter or reflow an already locked
-native prototype to apply a later preference. Compare actual final text, line
-breaks, native properties and pixels. An overwide protected group returns to
-Art's current spatial decision, rather than justifying smaller type, hidden
-joiner characters or changed approved wording. Successful grouping does not
-clear unmatched PDF lines, capacity diagnostics or unobserved target behavior.
-
-### Local star50.r04.1 — preserve explicit native endpoint scope
-
-Implement the locked relation and geometry without automatically attaching every line or adding frames. When Art explicitly selects the optional `packages.layout.native_connector.attach_rectangular_connector`, validate its direct-slide rectangle/site scope before touching either endpoint. The helper uses the library's existing experimental connection methods; it does not route lines or monitor later property edits. Preserve separate arrowheads/labels as separate objects, and do not infer that they follow a bound connector. Reopen the written native file and observe its actual render; native id/site references, coordinate coincidence, GUI drag behavior and reader-visible correspondence require separate evidence. Existing validators, capacity diagnostics and bounded return remain unchanged.
-
-
-### Local star50.r05.1 — preserve chart-label scope and actual visibility
-
-Consume Art's actual point-label wrapping, literal text and placement decisions, including external annotations when selected. `packages.layout.native_chart_text.set_point_label_wrapping` is an optional identity-checked integration for existing custom labels only; preserve automatic labels as automatic rather than creating fixed text just to control wrapping. The helper changes no data/style/geometry and reports authorship, not fit. Reopen and view the actual written chart: ordinary TextFrame/grouping checks do not cover internally allocated chart-label space, and individually fitting neighbours may obscure each other. Retain the exact font audit, existing PDF-label observer scope and original QA thresholds. A manual label's future workbook update behavior remains unverified unless actually exercised; no universal nowrap, automatic shrinking, extra render cycle or gate is introduced.
-
-
-### Local star50.r06.1 — preserve native endings and separate objects
-
-Preserve the approved connector's headEnd/tailEnd style and selected inheritance state as part of its existing native line, not as another object. `packages.layout.set_connector_line_ends` is optional; omitted ends, explicit none and removal to inherit are distinct author choices. Keep authored independent triangles and labels independent when that is the locked design; do not silently migrate or remove them. Inspect actual line geometry after an explicit reattachment before positioning separate objects. Reopen and view actual positive/reversed/flipped directions where used; native marker ownership does not prove semantic direction, label association or GUI movement. Existing QA, edit boundaries and finite repair remain unchanged.
-
-### Native editing defaults for new content
-
-Use the actual Python-native APIs in `references/native-editability.md` (or its Chinese peer): logical text with native wrap and multiple line spacing, role-based anchors/margins, one AutoShape with its own short label, and registered node connectors with native line-end arrows. The older preservation rule above still protects a locked historical design; it is not the generation default for new nodes. Coordinate-only lines and independent triangle helpers do not establish node attachment. Keep programmatic refresh, rendered geometry and unobserved GUI dragging distinct. Semantic paragraph breaks and justified local exceptions remain available; do not generally merge unrelated text units or add a new reader/approval gate.

@@ -2,6 +2,19 @@
 name: {{SKILL_NAME}}
 description: Root-orchestrate presentation Library inspection, discussion-based confirmed knowledge, PPT enablement, and editable presentation work through Logic, Copy, Art Direction, Output, and Supervisor in one self-contained Skill. Use from ordinary Chat or Work for presentation-related Library inspection, reusable presentation knowledge, PPT capability advice, or creating, revising, and auditing PPT, PPTX, slides, presentations, and decks. No ChatGPT Project is required.
 ---
+## 当前本地修订：阶段文件与完整研究（优先于旧版3.4交接说明）
+
+当前新任务使用内容包3.5及`packages/contracts/stage-file-handoff.zh-CN.md`。目标是稳定产出高质量PPT的通用工作流；单份PPT是验证样本，不能以单份改善替代方法改进。
+
+根入口通过现有`scripts/stage_documents.py files-prepare`按职责保存专业输入：Logic只接收课题、读者、研究要求和资料；Copy接收完整研究文件及分页/措辞要求；Art接收文案文件、格式要求和选择的基础设计知识；Output接收设计、渲染图与交付要求。Supervisor单独保留用户完整输入、版本、配置、运行身份、盘点、预算和异常记录。不要把完整task_selection/config/acceptance/resource/index对象当作Logic或Copy的专业输入。
+
+Logic先交完整研究正文、研究过程、证据及数据文件，禁止以精炼findings列表替代。Copy先保存并登记完整讲述，然后编辑成有实际来源范围的分页文字；不得从已分页内容回造前置稿。Art按内容关系设计，heading数量及copy_units数组不自动成为栏数或视觉组数。
+
+各阶段必须用本工具的files-*接口把专业产物及交接引用落盘。原有技术运行包由Supervisor/工具在单独目录绑定并校验，不交给内容作者充当研究或讲述。原生读者、校准、可编辑检查和独立审计继续服务实质成果，不以字段完整或ID覆盖替代质量。
+
+用files-collect保留本次用户目标、工具与知识版本、各阶段真实文件和异常，供后续模型分析与方法迭代。该操作只保存材料，不启动训练、不调用包外控制器、不把历史稿件或案例方法喂给下一轮作者。后续修订工具或基础知识，下一次任务使用实际更新后的字节，并重新验证方法。
+
+
 
 # Clayz Presentation Personal
 
@@ -123,7 +136,7 @@ Read `packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). I
 按「内容（Logic、Copy）→ 排版与布局（Art Direction）→ 生成 PPT（Output）」
 连续推进；五个模块隔离职责，不要求五个独立代理，也不是只能向前的流水线。
 每个制作模块在当前草案上执行「具体问题 → 对应 Library/索引检索 → 阅读相关
-正文或案例 → 判断采用、调整或不采用 → 修改本阶段成果 → 验证效果」。适用的
+基础方法 → 判断采用、调整或不采用 → 修改本阶段成果 → 验证效果」。Logic不读取行业案例方法作为研究方向。适用的
 事实定义和品牌硬要求先读；初稿可被推翻，不为既定答案寻找装饰性引用。
 
 索引命中、哈希核验和读过技能不等于改善作品。用已有阶段备注或检索回执简短
@@ -200,11 +213,13 @@ For every PPT artifact `new-build`, `revision`, or `audit` request:
 - Output: `references/stages/output/stage.md`
 - Supervisor: `references/stages/supervisor/stage.md` plus the shared Independent Auditor module after Output
 
-Each stage must validate its input, preserve the shared locks, emit its approved
-artifact and cumulative evidence, send that artifact to its next owner and
-Supervisor, and consume the returned calibration before locking the next
+Each stage validates its professional input and saves its substantive files and
+handoff manifest. The next owner and Supervisor read those files. Supervisor
+retains shared locks, cumulative runtime evidence and technical bindings in its
+own records; those envelopes are not the next author's professional input.
+Return actual calibration decisions to the responsible owner before locking a
 revision. A later stage may challenge an upstream conflict but may not silently
-rewrite the upstream artifact. Output additionally sends the actual PPTX,
+rewrite the original artifact. Output additionally sends the actual PPTX,
 objects and renders to the Independent Auditor.
 
 ## Delivery contract

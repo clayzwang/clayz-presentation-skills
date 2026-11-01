@@ -64,7 +64,7 @@ def validate_art_content(package, plan):
                 errors.append('art_content: heading_level required')
             if text(cid):
                 unit_ids.add(cid)
-        if package.get('contract_version') == '3.4':
+        if package.get("contract_version") in {"3.4", "3.5"}:
             from packages.validators.page_planning import validate_content_relationships
             errors.extend(validate_content_relationships(page))
     if errors:

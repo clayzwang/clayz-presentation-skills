@@ -1,48 +1,9 @@
-# PPT v3.4 Copy-layer contract
+# PPT v3.5 Copy-layer contract
 
-Read [content relationships and page planning](../../../packages/contracts/page-planning.md) for required semantic Copy relationships, recorded Art planning before object specifications, and planning-to-render audit.
+Read the complete research files and develop a complete audience-facing account before pagination. Follow [professional stage files](../../../packages/contracts/stage-file-handoff.md). Runtime/configuration envelopes remain Supervisor/tool records, not Copy input.
 
+Register the actual account with files-account before creating content.json. That file binds account_record and contains slides, unit_sources and the actual semantic_review. Each page has slide_id, copy_units and substantive content_relationships. Optional text roles are title, subtitle, heading, body and annotation. A heading explicitly carries its actual positive heading_level; there is no default level, heading count, group count or hierarchy shell.
 
-New tasks on v0.19.0 use the [research and visual handoff](../../../packages/contracts/story-visual-handoff.md).
-Copy organizes and rewrites the full Logic story while preserving its meaning.
+Trace each visible unit to actual account start/end character ranges. Verbatim text must match; explain edits and derivations. Keep the original account and actual editing process. Concatenated page text is a later rereading aid, never evidence of a pre-pagination account.
 
-`copy_layer` binds `logic_version`, `pagination_owner:"copy"`,
-`research_sha256`, `semantic_preservation_review` and ordered `slides`.
-A slide has `slide_id` and `copy_units`. Optional chapter labels,
-`narrative_role`, `data_ids` or requested historical notes describe content,
-not its presentation. There is no duplicate Logic page projection.
-
-Each visible unit is:
-
-```json
-{"copy_id":"S01-H3","role":"heading","heading_level":3,"text":"A heading at the level this story needs"}
-```
-
-The roles are `title` (main Storyline), `subtitle` (secondary Storyline),
-`heading` (positive heading_level), `body` and `annotation`.
-Every category is optional; levels may be skipped and no title, subordinate
-heading or body pairing is required. Text may contain natural paragraph breaks.
-Units have no visual flags, grouping graph, reading-order number or media request.
-
-Write and retain the actual reader-facing explanation in existing work notes
-before assigning roles. Resolve its body into the smallest meaningful passages
-that retain fluency, logic and scope; several body units may share one heading.
-Describe their contributions and material dependencies in existing relationship
-purposes, and review the edited units continuously against the explanation and
-Logic findings. Granularity does not prescribe independent objects.
-
-Keep provenance separately at root: `copy_provenance` maps each visible
-`copy_id` to its source finding IDs. It does not constrain Art's composition.
-References must support each unit's actual expression; copying a whole page's
-finding list to every unit cannot establish semantic preservation.
-Bind the original immutable approved Logic file as `logic_artifact`; retain
-research, task identity, acceptance and configuration/run bindings.
-
-Art may merge text into shared objects, choose different styles for equal
-textual levels, or change visual reading order while preserving meaning.
-Only actual text, meaning, coverage and explicit user requirements remain binding.
-Historical 3.2 and earlier artifacts retain their versioned replay validation.
-
-## Reader review / 读者审读 — v0.20.0
-
-Before Art, use the fresh reader pass in [reader review](../../../packages/contracts/reader-review.md). Review the actual subject answers, title sequence and body fulfilment; retain qualifications and composition freedom.
+Do not infer independent issues from equal heading levels or visual groups from unit count. Art chooses presentation based on meaning. Preserve existing neutral fresh readers, their original observations and the bounded original-reader confirmation policy. Files and schema validity do not establish quality.

@@ -1,5 +1,8 @@
 # Copy 内容关系与 Art 逐页艺术规划 — v0.19.0
 
+当前3.5任务先遵循[阶段文件交接](stage-file-handoff.zh-CN.md)：完整研究及过程文件为Logic主产物，Copy先登记真实讲述文件再分页，专业交接不带运行配置。本文后续3.4段落用于其原版本；下述Art规划和原生校验仍适用于3.5，不能以文字标签或数量替代内容判断。
+
+
 ## v0.20.2 Art cognition and audited changes
 
 The current [Art cognition contract](art-cognition.md) extends earlier fidelity instructions: preserve original Logic/Copy, but allow Art to revise meaning, argument, sequence and pagination without advance modification requests. Record actual presentation in `art_content`, conclusions/actions and selected knowledge in `art_cognition`. Output implements that recorded presentation. Independent final reading first sees only renders, then compares original Copy and every documented Art change. Difference alone is not failure; justification, accuracy, completeness and reasoning determine the audit result. Older “unchanged Copy” or “return wording/pagination to Copy” instructions apply only when no Art projection exists. New Art work covers A01—A11; these are cognitive results, not agents or approval gates.
@@ -42,8 +45,6 @@ The current [Art cognition contract](art-cognition.md) extends earlier fidelity 
 沿用现有 `purpose` 说明每段的具体贡献，必要时说明与另一正文的证据、承接或限定关系。
 仅写“解释H1”不能成为充分的编辑说明。保留必要主语、衔接词和条件，拆后全文连读。
 这些是语义依赖，不是视觉阅读顺序或对象数量指令；Art 可以将多个 body 组合成一段或一个对象。
-
-在完成当前页面及其编辑后，把关系说明也作为一项内容断言读回：它说的是哪些实际标题及正文，描述的联系是否仍然成立？页面构造函数预先填入的“没有局部标题”等说明，不能在后续加入或调整标题后自动保留。引用正确但说明与当前内容相反，仍需纠正；不能只把旧说明改成标题数量，而应按现有文段说明它们共同解释什么、怎样相连。将这个动作放在已有语义复核中，不增加字段、检查器或审批。关系说明供Art理解含义，不预定容器、分栏或图式。 标题或关系名称指示了一种联系，也不证明正文已让当前读者辨认其动作与必要条件；若本题需要解释工作怎样取得报酬，不把“商业联系”这个名称当作已有机制说明。缺少领域依据时保留并指出缺口，不用结构标签补事实。
 
 ## Art 先统筹页面，再细化对象
 

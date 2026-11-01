@@ -51,12 +51,18 @@ def validate(root: Path) -> list[str]:
             errors.append(f"{path.name}: description length must be 40..900")
         if len(text.splitlines()) > 500:
             errors.append(f"{path.name}: SKILL.md exceeds 500 lines")
-        if "../../config/default.json" not in text:
-            errors.append(f"{path.name}: does not route through central config")
-        if "../../packages/contracts/knowledge-learning.md" not in text:
-            errors.append(f"{path.name}: does not route through shared knowledge contract")
-        if ".zh-CN.md" not in text or "locale.default" not in text:
-            errors.append(f"{path.name}: does not declare bilingual locale routing")
+        if path.name in {"clayz-presentation-logic", "clayz-presentation-copy"}:
+            # 3.5 professional authors consume role-specific handoff files;
+            # technical configuration remains with Supervisor.
+            if "../../packages/contracts/stage-file-handoff.zh-CN.md" not in text:
+                errors.append(f"{path.name}: does not route through the professional file handoff")
+        else:
+            if "../../config/default.json" not in text:
+                errors.append(f"{path.name}: does not route through central config")
+            if "../../packages/contracts/knowledge-learning.md" not in text:
+                errors.append(f"{path.name}: does not route through shared knowledge contract")
+            if ".zh-CN.md" not in text or "locale.default" not in text:
+                errors.append(f"{path.name}: does not declare bilingual locale routing")
         if (path / "README.md").exists():
             errors.append(f"{path.name}: README belongs at repository root")
         ui = path / "agents" / "openai.yaml"

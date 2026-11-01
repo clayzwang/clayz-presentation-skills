@@ -31,7 +31,7 @@ RETIRED_QA_CHECKS = {
 
 def content_pages(package, plan=None):
     """Use clean Copy pages directly, without a fabricated Logic projection."""
-    if package.get("contract_version") in {"3.3", "3.4"}:
+    if package.get("contract_version") in {"3.3", "3.4", "3.5"}:
         from packages.validators.art_content import presentation_pages
         return presentation_pages(package, plan)
     return rows((package.get("logic_layer") or {}).get("slides"))
@@ -51,6 +51,7 @@ def retired_fields(value, path, errors):
 def validate_clean_copy(package):
     from research_handoff import validate_research_package
     errors = []
+    origin = None
     try:
         origin = json.loads(file_bytes(package.get("logic_artifact")))
         if origin.get("contract_version") != package.get("contract_version") or origin.get("status") != "logic-approved":
@@ -100,7 +101,7 @@ def validate_clean_copy(package):
                     errors.append(f"copy unit {cid}: heading requires a positive heading_level")
             elif "heading_level" in unit:
                 errors.append(f"copy unit {cid}: heading_level belongs only to a heading")
-        if package.get("contract_version") == "3.4":
+        if package.get("contract_version") in {"3.4", "3.5"}:
             from page_planning import validate_content_relationships
             errors.extend(validate_content_relationships(page))
         for note in object_list(page.get("speaker_notes", []), "speaker_notes", errors):
@@ -111,6 +112,33 @@ def validate_clean_copy(package):
     # Provenance travels separately from the text document, never as a parent,
     # sibling, shape, order or style instruction to Art.
     provenance = package.get("copy_provenance")
+    if package.get("contract_version") == "3.5":
+        from packages.validators.stage_files import json_ref, check_handoff, validate_copy_document
+        try:
+            if not isinstance(origin, dict):
+                raise ValueError('Original Logic runtime binding is unavailable')
+            handoff = check_handoff(json_ref(package.get("professional_handoff")))
+            documents = layer.get("documents")
+            if handoff['stage'] != 'copy' or not isinstance(documents, dict):
+                raise ValueError('Copy requires its professional file handoff')
+            expected = {**handoff['artifacts'], 'account_record': handoff['account_record']}
+            if documents != expected:
+                raise ValueError('Copy runtime documents differ from the professional handoff')
+            content = json_ref(documents['content'])
+            validate_copy_document(content, json_ref(documents['account_record']))
+            if (content['slides'] != layer.get('slides') or content['unit_sources'] != provenance
+                    or content['semantic_review'] != layer.get('semantic_preservation_review')):
+                raise ValueError('Copy runtime content differs from the actual edited content file')
+            original_handoff = json_ref(origin['professional_handoff'])
+            copy_input = json_ref(handoff['input'])
+            if copy_input['inputs'] != [origin['professional_handoff']]:
+                raise ValueError('Copy must consume the actual approved Logic professional handoff')
+            if original_handoff['artifacts'] != package['research']['documents']:
+                raise ValueError('Copy changed the full research/process files')
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            errors.append(f'Copy documents: {exc}')
+        errors.extend(validate_cover_policy(package, pages))
+        return errors
     findings = {f.get("finding_id"): f for f in rows(research.get("findings"))}
     if not isinstance(provenance, dict) or set(provenance) != ids:
         errors.append("copy_provenance: source finding references must cover the visible copy IDs")
@@ -124,6 +152,12 @@ def validate_clean_copy(package):
     for fid, finding in findings.items():
         if finding.get("must_preserve") and fid not in covered:
             errors.append(f"Copy omitted required research finding {fid} from visible content")
+    errors.extend(validate_cover_policy(package, pages))
+    return errors
+
+
+def validate_cover_policy(package, pages):
+    errors = []
     cover = (package.get("acceptance_contract") or {}).get("cover_policy") or {}
     for role, key, index in (("cover", "cover_required", 0), ("closing", "closing_required", -1)):
         if cover.get(key, cover.get("mode") != "not-applicable") and (not pages or
@@ -189,8 +223,8 @@ def validate_free_art(package, plan, policy=None):
         return errors
     if not isinstance(plan, dict):
         return errors + ["Art plan: object required"]
-    if package.get("contract_version") == "3.4":
-        if plan.get("contract_version") != "2.3" or plan.get("package_contract_version") != "3.4":
+    if package.get("contract_version") in {"3.4", "3.5"}:
+        if plan.get("contract_version") != "2.3" or plan.get("package_contract_version") != package.get("contract_version"):
             errors.append("package 3.4 requires Art plan 2.3")
     elif plan.get("contract_version") not in {"2.1", "2.2"} or plan.get("package_contract_version") != "3.3":
         errors.append("package 3.3 requires Art plan 2.2 (2.1 retained for replay)")
@@ -269,7 +303,7 @@ def validate_free_art(package, plan, policy=None):
         if "atomicity_review" in design:
             errors.append(f"Art {sid}: retired atomicity_review is not a new-run design requirement")
     errors.extend(validate_visual_baseline(package, plan))
-    if package.get("contract_version") == "3.4":
+    if package.get("contract_version") in {"3.4", "3.5"}:
         from page_planning import validate_art_planning
         errors.extend(validate_art_planning(package, plan))
     if plan.get("contract_version") in {"2.2", "2.3"} and not errors:

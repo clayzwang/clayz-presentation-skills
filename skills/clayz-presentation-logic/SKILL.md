@@ -1,290 +1,45 @@
 ---
 name: clayz-presentation-logic
-description: Research the subject and deliver complete evidence-backed findings before Copy organizes presentation content. Use for presentation planning, management reports, business analysis, strategy, proposals, and training decks when the facts, decision outcome, research answers or substantive judgments must be established. Do not paginate, write slide titles or presentation conclusions, choose composition, or build a PPTX.
+description: Conduct complete source-backed research, preserve its observable process and deliver substantive research files before presentation editing.
 ---
-## v0.20.5 current repair policy
+# Logic：完整研究与可核查的研究过程
 
-The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
+## 当前职责与输入
 
+当前内容协议为3.5，专业交接为stage-files/1.0。阅读`../../packages/contracts/stage-file-handoff.zh-CN.md`与本语言的`references/research-and-reasoning.zh-CN.md`。本节取代旧版将findings清单作为研究主产物的做法。
 
+用户要求完整研究时，交付完整研究。结论、摘要、索引和字段完整均不能替代报告。研究报告应有依题材形成的主题与段落、充分论述、事实、机制、关系、必要比较、证据、出处、相反证据及剩余限制；研究过程另有可核查文件。
 
-# Clayz Presentation Logic
+Logic的模型输入只有本阶段任务文件：研究课题、读者、研究要求、用户提供的资料，以及本次选择的基础方法。字体、颜色、版式、渲染预算、个人配置快照、全量盘点和运行回执由Supervisor及工具保存，不装进Logic专业输入。跨阶段必要身份通过文件引用与哈希追踪。
 
-Create a `logic-approved` package that another stage can use without
-reconstructing the argument. Supervisor supplies the task objective and the
-shared hard/soft acceptance commitments; Logic owns substantive meaning and
-does not invent a stronger requirement or change the user's precedence.
+使用本工具的Logic知识读取入口时，只返回选中节点的基础方法字段，省略教学例子与案例字段；不读取行业案例文件或接受case_ids。原知识快照可保留用于版本追溯，不能把其中的旧行业案例回灌为研究方向。
 
-Logic is the most reasoning-intensive stage. Think sufficiently to reconstruct the subject, audience, supported analysis and uncertainty; think effectively by concentrating on distinctions that can change the conclusion, research findings or decision. Private knowledge is evidence and method support, never a substitute for this synthesis.
+## 研究工作
 
-## Current production boundary (v0.20.1)
+从用户的研究目标出发提出暂定问题，实际阅读原始资料并建立研究对象的范围及关系。资料可能改变问题、分类、判断和重点；不能只摘取支持最初框架的语句。按理解需要调查，保持不同产品、使用者、购买者、渠道和时期等差异；具体对象由实际题材决定，不预设行业问题清单。
 
-Follow [reader review](../../packages/contracts/reader-review.md), with the current reader-cycle contract for bounded repair and original-reader confirmation. Logic explicitly supplies substantive research conclusions. Copy completes text before separate title and content readings against Logic. Art starts after the closed Copy cycle, including both original-reader confirmations when repaired; Output follows approved Art. Final reading compares actual pages to approved Copy and routes one consolidated repair to Art or Output, followed by confirmation by the same final reader. Record/receipt formatting repairs never require regenerating the deck. Upload is only a separately requested action.
+补足能够由证据回答的问题，核对定义、单位、时期、主体、计算及因果范围。相反证据既用于挑战判断，也用于挑战研究框架。区分来源事实、计算、解释、公司归因、条件性判断和未知，不用通用机制填补具体资料没有支持的原因。
 
-## Production reliability (v0.17.5)
+先形成展开的研究报告，再根据需要给摘要或索引。报告中的自然段、主题和层次来自实际论证；不提前承担PPT分页、页数、页面标题、栏位或固定分组。没有固定的发现数量、段数、字数或研究对象配额。完整性由用户目标、资料揭示的题材及必要解释共同判断。
 
-Read `../../packages/contracts/production-reliability.md` (or its `.zh-CN.md` peer). It supersedes older automatic font-size and consecutive-composition gates and inline report transport. Art owns rendered legibility and repetition; Output and Supervisor own editable delivery and PPTX size.
+过程文件保存实际检索与阅读、来源定位和摘录文件、口径比较、计算、发现的冲突、问题修订、补证及限制等可核查记录。记录可观察行动、证据和实质决定，不用“已充分研究”等宣称代替发生过的工作。
 
-## Reader understanding (v0.17.1)
+## 文件产物与交接
 
-Read `../../packages/contracts/reader-quality.md` or its `.zh-CN.md` peer
-according to the task locale. Necessary explanation and evidence fidelity take
-priority over shortness; use existing records for review observations.
+在任务目录内分别保存：
 
-Before handoff, read the complete research as an answer to the task, not a research agenda.
-Develop the available facts, comparisons, mechanisms and supported judgment.
-Keep remaining unknowns explicit; do not let “what to verify” replace analysis
-that the evidence already permits. Do not invent a cause to make the story flow.
+- `logic/research-report.md`：完整研究正文，包含必要证据和出处。
+- `logic/research-process.json`：实际工作的events；每项有action、事实记录record，必要时附source_ids和实际证据文件引用。
+- `logic/evidence.json`：来源与定位，保留实际取得的证据文件引用。
+- `logic/data.json`：原始数值、口径、计算及出处；无数量研究时可以为[]。
+- `logic/handoff.json`：仅引用以上文件及本阶段输入，供Copy、Supervisor和后续分析读取。
 
-For a change that the actual research singles out as important, read its stated
-cause with the same entity, period and metric as that change. Group-level causes
-do not automatically explain a highlighted region. A changed expense or rate
-can describe the channel through which profit moved without yet explaining this
-period's pressure. Check the corresponding source discussion and connect the
-supported origin or state the disclosure limit in the existing finding. Stop
-when the audience can judge the nature of the change; do not turn every number
-into a multi-level why exercise, an exact contribution bridge or another gate.
+用本工具`scripts/stage_documents.py files-research`登记这些真实文件。工具不生成研究结论、不规定报告章节、不代作者批准研究质量。缺少报告或过程文件的findings列表不能作为新协议研究交付。
 
-When a highlighted measure is converted into a business conclusion, keep its
-measurement subject explicit. A money amount, an account count and a customer
-count are different observations: larger withdrawals can coexist with unchanged
-customer numbers and higher account balances. Read the source's stated mechanism
-before interpreting a net amount as customer retention or demand. Preserve the
-supported causal link and its scope in the finding; do not import a general
-mechanism into this company without evidence or ask for every component's data.
+Supervisor/工具使用`files-bind-logic`另存技术运行绑定，位置属于Supervisor记录。Logic作者、Copy作者和研究正文不接收这份含配置的运行包。保留配置身份与原生校验；不删除必要的监督记录，也不把记录正文重新塞回研究报告。
 
-For an explanatory or comparative task, develop the subject's core rules and
-mechanisms and compare the relevant objects on shared questions. State what each
-does, concrete commonalities/differences, supported implications and their scope.
-Keep evidence limitations close to the claims they qualify. A list of research
-dimensions or instructions for writing a report cannot replace available answers.
-Retain these judgments in existing research findings/work notes; Copy owns their
-presentation wording and sequence. Under [reader review](../../packages/contracts/reader-review.md),
-accept evidence-backed returns when a reader's question exposes missing analysis.
+## 专业复核
 
-## Research and visual handoff (v0.17.4)
+Supervisor实际阅读完整报告和来源证据，核对是否完成用户课题、必要对象与关系是否展开、限制是否与判断相称。不能用findings ID覆盖、文件存在、来源数量或schema通过证明研究充分。现有校准、原生读者与独立审计继续使用，研究不足回到Logic补充实质研究文件并保存新修订。
 
-Before authoring, read `../../packages/contracts/story-visual-handoff.md` (or
-`story-visual-handoff.zh-CN.md` for zh-CN). New runs use package 3.4 and Art
-Direction plan 2.3. The complete research, Copy content document, complete image drafts, visual tags and
-report documents apply even when optional Library or A/B capabilities are absent.
-Legacy page-first contracts remain readable only for existing runs. Preserve
-the existing Supervisor calibration and Independent Auditor handoffs.
-
-## Generation mode
-
-Infer the content responsibility from the actual task and the maturity of the
-supplied material. New runs record `brief.preflight.generation_mode` as one of
-`execution`, `research`, or `mixed`; legacy packages may omit the field. This
-is an internal working decision and never a setup questionnaire, permission
-request, or user-confirmation gate. It is independent of the runtime
-Library availability and does not change the
-existing source, evidence, master, visual, or five-stage checks.
-
-- **Execution:** When substantive material is supplied for conversion into a
-  deck, preserve its meaningful claims, facts, numbers, caveats, relationships,
-  instructions, and information coverage. Organize, condense, and clarify for
-  slides without reducing detailed evidence to large slogans or launching
-  unrelated research. Fill routine transitions directly. Flag contradictions
-  and substantive unknowns; distinguish any substantive unverified addition in
-  the existing evidence, claim-status, or open-item fields.
-- **Research:** When the task is a topic, question, or incomplete input, first
-  define what must be understood, then gather credible evidence, compare
-  definitions, time windows, and units, investigate counterevidence,
-  responses, and mechanisms, and synthesize substantive content before fixing
-  slide count or design. Website count, word count, elapsed time, and slide
-  count do not establish depth; unsupported claims remain unsupported.
-- **Mixed:** Apply execution responsibility to mature supplied sections and
-  research responsibility to unresolved sections. Assign those responsibilities
-  with the existing scope or notes fields and section/slide evidence; do not
-  introduce a parallel mode schema.
-
-### Local systems.restart.r00.1 — synthesize a system's functional composition
-
-For a task asking what a system contains, research and synthesize its functional
-organization, as well as what individual capabilities do. Establish an
-evidence-backed teaching division into principal modules and the capabilities
-within them: why does this work belong together, which work is a constituent
-part, and which work crosses or supports several modules? Use the subject's
-objects, responsibilities and work to justify the grouping. Product menus can
-locate material, but one vendor's suite boundary or navigation hierarchy is not
-automatically the general system's composition. Where boundaries differ,
-choose and explain the useful scope rather than abandoning classification.
-
-Develop recognizable subfunctions through the objects people handle, their
-actions and supported results, at the detail needed to distinguish the work.
-Read relevant official object, operation and workflow descriptions when an
-overview only supplies names. Then synthesize how those capabilities belong
-and work together. Distinguish part-of composition from cross-module transfers,
-shared records or support, and conditional or concurrent work. These relations
-can overlap; a supported use path helps inspect their collaboration but does
-not turn the whole system into one compulsory sequence. Retain core versus
-optional scope and genuine alternative divisions without inventing a unique
-industry module count.
-
-Before handoff, read the complete research as an account of this system: can
-the audience identify its main functional parts, recognize the work within
-them, and explain the important connections? A set of individually correct
-topic answers may still need this synthesis. Reorganize already researched
-substance where sufficient; supplement sources where the actual function or
-relationship remains unanswered. Findings and work notes carry this meaning
-in the existing package. Research questions, chapters and pages do not count
-as modules or subfunctions. Explanation depth follows the audience's purpose,
-not a fixed hierarchy, item quota, full product manual or implementation study.
-Copy and Art own the eventual sequence, pagination and representation.
-
-### Local systems.r05.1 — identify the question a result actually answers
-
-When a consequential term such as confirm, approve, complete or settle can be
-read as the result of different work, return to the supported operation and
-object instead of treating the shared word as an equivalence. What has actually
-been initiated, checked, permitted, recorded or reconciled here? Whose action or
-institutional result matters to that distinction, and what condition limits it?
-Use these as synthesis questions only where the task has a real ambiguity;
-they are not fields required for every capability or a request for a full state
-machine. Consult the relevant object/operation description when an overview's
-labels cannot answer the question.
-
-Separate the supported result from the neighboring result a reader might
-infer. Starting a request, establishing a condition for further work, completing
-an operation, making a resource usable, receiving it elsewhere and agreeing
-records can answer different questions even when they share a business
-reference. State the relevant positive meaning as well as the unsupported
-inference; a string of warnings cannot replace the function's concrete work.
-Preserve real prerequisites and handoffs without inventing a compulsory chain,
-one-to-one correspondence or automatic success at the next participant.
-
-During the existing research self-review, read an ambiguous result statement
-back as an answer to its actual question. If its wording silently changes the
-work or outcome, correct the affected finding and necessary glossary/invariant,
-retaining the specific source and scope in existing records. Copy still owns
-the eventual wording and page sequence; Art chooses how the distinctions are
-visible. This makes the existing object/action/result and evidence-strength
-principles operational for non-quantitative outcomes. It adds no new review
-gate, fixed vocabulary, schema, function quota or repair allowance.
-
-### Local systems.r06.1 — distinguish a relation from the scope of a change
-
-When describing a change, stop, cancellation or correction on related records,
-identify which operation acts on which object. A shared reference, a source
-record or the ability to create subsequent work establishes a relationship;
-it does not by itself establish that changing one object changes every linked
-commitment or processed result. Consult the relevant operation descriptions
-where that inference would alter the audience's understanding. Follow the
-needed relation to its supported answer and source, rather than attributing
-all of the effect to the first record's description.
-
-Explain the positive capability and its actual reach. Work still requested,
-an established commitment and a partially processed item can have different
-available actions and conditions. Preserve supported automatic propagation
-when the source establishes it; the absence of a mechanism in the material
-does not prove that every product forbids it. Do not turn this distinction into
-a universal cascade rule, a compulsory sequence or an assertion that linked
-work must always be handled manually. State only the scope needed to explain
-the current function, not a full cancellation or recovery specification.
-
-During the existing research self-review, reread a consequential verb against
-its affected object and evidence. If the statement silently expands its reach,
-correct the relevant finding and dependent wording while preserving the real
-relation. Copy and Art continue to own explanation and representation. These
-are targeted synthesis questions within existing object/action/result and
-relationship reasoning, not new mandatory fields, a cross-record matrix, an
-extra gate, a fixed vocabulary or another repair allowance.
-
-## Boundaries
-
-Own research scope, source inventory, substantive answers, definitions, calculations, research conclusions, counterevidence, uncertainty and semantic invariants. Research findings must be complete enough for Copy to organize independently.
-
-Do not organize the PPT: pagination, page order, presentation chapters, titles, opening/closing and conclusion wording belong to Copy. Research prose still needs to be clear and complete. Visual presentation structure belongs to Art.
-
-## Required context
-
-Read `../../packages/contracts/stage-enablement.md` for task authority, relevance-based retrieval, professional review, and measured execution. It supersedes legacy requirements to select every source, rediscover unchanged resources, or treat aesthetic heuristics as mandatory gates.
-
-
-1. Consume the root's validated v2 task selection, merged `task-config.json`,
-   and Supervisor's initiation commitments from the unified configure-task
-   flow. If absent, return to root to prepare them once; do not select a config
-   by the presence of a Personal Runtime. Preserve that configuration and its
-   hash through the remaining stages.
-2. Resolve the task locale from the explicit request or `locale.default`. For `en-US`, read the base English references; for `zh-CN`, read the matching `.zh-CN.md` files. Read only one language unless translation comparison is explicitly requested.
-3. Record the configuration SHA-256 as `configuration_sha256`.
-4. Read `references/logic-package-contract.md` for the package contract. This core contract is mandatory and never search-dependent.
-5. Read `../../packages/contracts/knowledge-learning.md` before retrieval or learning writeback. This governance contract is mandatory and never search-dependent.
-6. Read the locale-matched `../clayz-presentation-supervisor/references/resource-inventory-gate.md` and `../clayz-presentation-supervisor/references/first-class-index-gate.md`. Require the finalized resource inventory to prove all seven scopes were scanned, the user-facing brief was presented, and authoring started afterward. When task source requirements declare it necessary, reuse the verified source revision or materialize newly admitted Logic sources into `task-private-learning` before reasoning; a locator-only inventory or prose claim is not evidence.
-7. Bind the bundled public Provider, then only the actual task-selected sources and materialized task provider when used. Read and hash those sources through observed references, retain one CompositeIndex and its receipts, and check declared required sources. An installed personal profile does not impose a Provider quota.
-8. Classify optional capability signals before loading optional references. Resolve them through the built-in Capability Index and retain the capability resolution plus full finalized Retrieval Receipts. Typical signals include `evidence-research`, `audited-calculation`, `complex-relationships`, and `repeated-series`.
-9. Load only the optional `knowledge_refs` returned by selected capability records. If a signal is unresolved, record it explicitly and continue with core contracts or return the gap; never invent a capability or silently substitute unrelated guidance.
-
-When the root supplies knowledge from a prior discussion, consume only the
-complete verified committed revision selected through the existing Index. Keep
-its confirmation and attachment hashes, provenance category, evidence limits,
-applicability, and unresolved questions visible while reasoning. A draft,
-unconfirmed consensus, or attachment outside that committed snapshot is
-context only and cannot become Logic evidence. Do not start this stage for a
-discussion-only request; emit no `logic-approved` package until a PPT artifact
-is actually requested.
-
-## Workflow
-
-Before approving the argument, apply the artifact-led Library loop in
-`../../packages/contracts/stage-enablement.md`: provisional Logic -> question-led
-Logic Library lookup -> revised Logic -> evidence and audience-understanding
-check. Read known definitions before drafting. Use a missing causal link, weak
-comparison or plausible counterexample as the query, then revisit the conclusion
-and research answer instead of searching only for support. Record the exact claim
-or research answer changed, or why the original survives. If downstream
-copy or layout exposes missing meaning or a missing research answer, reopen this
-stage and update the affected dependencies; do not prescribe a smaller font.
-
-1. Validate and bind the Supervisor task acceptance and resource inventory. Preserve the user brief, scope, hard/soft requirements, evidence standards and generation_mode. Treat page count, cover/closing, typography and other presentation requirements as unchanged inputs for Copy/Art to implement; Logic does not decide or lock them. Research topics and evidence needs follow the task, without a fixed analytical or presentation template.
-2. Translate actual task requirements into research questions and complete supported answers, preserving the user’s precedence and explicit page constraints. Do not impose a fixed narrative or analytical sequence.
-3. Interpret only task material marked selected in that inventory. Use owner-private Logic knowledge and any confirmed committed discussion knowledge to deepen facts, counterexamples, mechanisms, terminology, and methods, then reason independently. Preserve each source's provenance and limits; user agreement does not turn an interpretation into an externally verified fact. Separate facts, calculations, interpretations, causal claims, targets, recommendations, hypotheses, and missing data, and keep unresolved questions unresolved.
-5. Define terms, metrics, time windows, dimensions, exclusions, and comparison bases.
-6. Write the complete research report and findings with finding IDs, sources, evidence status, qualifiers, data IDs and preservation requirements. Include research conclusions and evidence limits; do not prewrite a presentation structure. Analytical methods are selected from task context, personal configuration or external knowledge; none is built in.
-7. Emit research only, with logic_layer and copy_layer null. Copy owns all presentation chapters, page responsibilities, count/order, titles and conclusion wording, within the user brief. Do not generate speaker notes or appendices unless requested.
-8. Define substantive research invariants only when necessary; presentation series and cross-page organization belong to Copy.
-9. Record missing inputs and research questions in the existing open-item, scope, and notes fields. Consolidate only truly blocking missing inputs into the smallest useful user interaction; generation-mode and taxonomy classification never require an interaction or confirmation. Never invent data or imply approval.
-10. Emit task-local learning candidates with evidence and limits; persist them only through the configured Logic learning route and never auto-promote them. Candidates remain observation-only; discussion confirmation and immutable commit belong to the root facade and require the actual user's decision.
-11. Emit one logic package with `origin_namespace: io.clayz.presentation`, status `logic-approved`, root `acceptance_contract`, root `resource_inventory`, and root `index_evidence`; on new runs, include `brief.preflight.generation_mode` and preserve any optional inferred-label metadata. Approval requires a ready inventory plus focused relevance-ranked Logic receipts whose selected records identify the exact claims, relations, or research findings they materially influenced. Efficiency may remove repeated retrieval and transport, but it may not shorten the reasoning needed for a complete argument.
-
-## Validation
-
-Run:
-
-```bash
-python ../../packages/validators/validate_logic_package.py <logic-package.json>
-```
-
-Send the validated package to both `$clayz-presentation-copy` and Supervisor.
-Copy consumes the Supervisor's hash-bound Logic calibration before locking its
-final package. A later calibration can challenge the Logic package with
-evidence, but Supervisor does not rewrite Logic on its behalf.
-
-## Work record at handoff
-
-Read the stage-work-record section of `../../packages/contracts/stage-enablement.md`. Save this stage's actual artifacts to immutable task-local revision files, record the work and real checks with `../../scripts/publish_supervised_pair.py record-stage --stage logic`, and attach `work-notes` when the task interpretation, evidence/source trace, counterevidence, assumptions, uncertainty, research interpretations, excluded alternatives, or material content decision needs richer context. Verify the available record chain with `check-records` before handoff. Include the immediate predecessor record after Logic. Binding, identity, format or evidence-integrity failures cannot be replaced by a prose pass; quality findings may travel with explicit evidence. Missing notes remain `not-recorded`; Supervisor collects all four records, adds its coordination record and binds the independent audit artifact; it must not invent prior work or deliver a separate summary as the final report.
-
-The central baseline is `../../config/default.json`; consume it through the unified merger with personal settings and task overrides, never as a separate production route.
-
-## v0.18.1 content handoff
-
-New runs use content package 3.4 and the locale-matched story-visual-handoff contract.
-Research ownership and source evidence are unchanged. Copy may reorganize the complete story.
-Research order and topic labels do not prescribe visual order or layouts.
-
-
-## Local industry research development
-
-For industry-explanation tasks, read `../../packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
-
-
-### Local r11.1 — carry the actual run identity at package creation
-
-When constructing the authored package, use `../../scripts/package_run_binding.py`
-`with_run_binding(package, preflight_path, challenge_path, upstream=...)` to copy
-the already-issued preflight binding. For Logic omit upstream; for Copy supply
-the exact approved Logic package. The helper checks transport identity and
-receipt bytes, never issues a challenge or replaces a conflicting binding.
-Preserve the result before hashing/calibrating it and keep original package and
-reader validation. It is not proof of host readiness or content approval.
+普通制作不扩展为训练批次。为后续方法迭代保留本次真实输入、版本、报告、过程与异常；本次公司内容及案例修法不成为下一题的默认方法。

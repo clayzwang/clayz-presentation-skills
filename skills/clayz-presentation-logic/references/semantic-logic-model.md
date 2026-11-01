@@ -1,5 +1,7 @@
 # Task-specific meaning
 
+Freedom from mandatory semantic forms does not remove the need to judge scope and relationships. Explain why a synthesis fits the sources, including overlaps, hierarchy and exceptions. Make necessary relationships understandable in the research itself; research categories and relationships do not automatically become presentation chapters, pages or columns.
+
 Logic explains the actual subject and relationships in complete prose. Preserve
 definitions, scope, evidence strength and uncertainty. Optional semantic metadata
 may clarify a complex subject, but no object taxonomy, node tree, parent/child

@@ -1,8 +1,20 @@
 # Research, sources and evidence
 
-Research the subject according to the task. Prefer original data, formal documents and authoritative sources; verify currency and limitations. Mark unverifiable material as uncertainty. Analytical methods belong to personal configuration or selected external knowledge, not a built-in question sequence, management route, action template or page quota.
+The primary deliverable is a full research report with substantive facts, mechanisms, relationships, comparisons, evidence and sources, plus an observable process file. A summary or finding index cannot replace it. Natural structure follows the subject; do not compress research into future slide slots. Save report, process, evidence and data files under stage-file-handoff/1.0; author inputs exclude layout/font/budget snapshots.
+
+Research the subject according to the task. Prefer original data, formal documents and authoritative sources; verify currency and limitations. Mark unverifiable material as uncertainty. Task-specific analytical frameworks come from explicit user requirements or the actual research. Selected knowledge supports foundational methods; industry cases are not a default research direction. Logic still owns basic inquiry. Do not impose a universal analytical framework, question checklist, management route, action template or page quota.
 
 Logic develops complete research answers, evidence and substantive judgments without page allocation. Copy organizes presentation content, chapters, pagination, titles and exact text; Art organizes the visual presentation. Do not proactively generate speaker notes or appendices.
+
+## Establish the subject from sources before choosing emphasis
+
+Treat initial research questions as provisional. Read primary sources in light of the user's objective, discover the subject's scope, composition and actual relationships, then choose what needs deeper explanation. Source contents may reveal unanticipated objects, uses or relationships, or invalidate an initial category. Revise the questions and account accordingly rather than extracting only evidence that answers the original questions. Adapt the entry point to the subject; these inquiry actions are not fixed content sections or page order.
+
+Select material for what this audience needs to understand. Identity, historical change, actual uses and relationship differences may be important even when they do not change a current financial judgment. Choose proportionate depth without treating either exhaustive detail or size alone as the criterion for explanatory importance.
+
+Challenge the frame as well as the claims. Check whether the current questions omit important objects, merge different relationships, or force overlapping or different-level concepts into parallel categories. Support a synthesis's basis, scope and exceptions; sources for individual statements do not by themselves validate the whole grouping. Preserve real categories, connections, hierarchies and changes without forcing a unified storyline or a fixed number of groups for neatness.
+
+Judge completion against the user's understanding objective and the subject revealed by primary sources, not merely whether the author's initial questions have answers. Supply necessary explanations or state justified exclusions and remaining limits. Develop independently understandable research before Copy organizes the expression. Preserve these judgments in the complete report and actual research-process files; add no form, count or approval.
 
 ## 2. Build a source and evidence ledger
 

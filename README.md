@@ -1,28 +1,29 @@
 # Clayz Presentation Skills
 
-## 0.20.12: corrective fund-manager presentation
+## 0.20.6: make the presentation carry meaning
 
-Corrective fund-manager study: restore the knowledge, method and purpose of each page. Tianhong separates channel, fund and manager-company subjects, validates nested denominators and scenario arithmetic, and keeps forecasts explicitly conditional. The original reader repair and independent audit remain visible.
+The bank10 development body strengthens reader-centered composition: choose the relation and comparison the reader needs, preserve ownership and identity across representations, and state which quantity a direction refers to. Optional native helpers cover chart typefaces, scoped page-number roles, exact decimal chart caches, and table-grid references. These are contextual tools and methods, without a new layout quota or automatic design score.
 
-[External knowledge / 外挂知识 1.2.84+funds10.purpose.r09b.1](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.84-funds10.purpose.r09b.1) · [PPT, PDF and audit / 成品与审计](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-purpose-rebuild-20261024)。
+The external **1.2.9+banks.r10.1** knowledge pack preserves 91 existing nodes and deepens selected professional concepts through scoped primary-source reading. It is stored in [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-banks.r10.1); [knowledge metadata](config/knowledge-release.json) binds the exact archive. Public Release assets remain the two Light packages, Windows offline add-on and checksums.
 
-## 0.20.11: fund-manager research into structure
-
-Promote funds10.r10.1 after ten sequential fund-manager rounds. The Art method now assigns distinct reader questions when the same evidence recurs across pages and checks whether product examples are visually nested within their true category. A task-specific native-edit-unit auditor checks committed page fields, tables, integrated shape labels and leftover overlays. These are selective checks, not layout templates.
-
-External knowledge / 外挂知识 **1.2.69+funds10.r10.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1)；[基金公司十轮交付](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-20261023)。原始残留与未验范围保留。
+Ten sequential local bank rounds produced ten PPTX/PDF pairs, 194 pages, with real source/knowledge inheritance. Their reports retain residual findings, original QA failures and unverified target applications. This is not a claim that every quality check passed or that human comprehension improved. Bounded original-reader confirmation and record-only independent audit remain unchanged; see [reader cycles](packages/contracts/reader-cycle.md).
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.20.12**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.21.0**
+
+本版基于0.20.6＋stage-files.r02，配套知识为1.3.0+composition.r01.1；不包含本次95张参考图片。见[完整发布说明](release/v0.21.0-release-notes.md)和[准确知识绑定](config/knowledge-release.json)。知识沿既有私有仓库单独发布。
+
+读取新知识时，先用 `scripts/art_learning.py` 进入相关原则，再沿节点的 `composition_readings` 选择与当前表达命题有关的完整文字理解；包内 `read_compositions.py` 支持由不同原则进入同一理解。不要从示例的元素数量推导固定栏数。
+
 
 Reader reviews now run before Art and after Output with fresh host contexts when available. Visible-only inputs, frozen retellings, evidence reconciliation and repair history are collected in the same audit. See [reader review](packages/contracts/reader-review.md).
 
 **Compress complex material into presentation-ready decisions — with logic, copy, art direction, editable output, and final QA in one governed workflow.**
 
-## Art knowledge / Art 知识包
+## Art learning — v0.20.2 / Art 学习包
 
-Current external knowledge / 当前外挂知识：**1.2.69+funds10.r10.1**. [ZIP, readable manifest and checksum](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1). Knowledge is separate from public Light assets.
+[Download the external learning pack / 下载外挂学习包](https://github.com/clayzwang/clayz-presentation-skills/releases/download/v0.20.2/clayz-presentation-skills-0.20.2-art-learning.zip). It contains the complete Chinese TXT, 66 principle-bearing codes, university curriculum mapping and synthetic teaching examples. Use [the cognition and integration contract](packages/contracts/art-cognition.md) for code lookup, concrete conclusions/actions and independent audit of Art changes. The learning body is separate from Light; historical source documents remain for replay.
 
 ## Why Clayz stands out
 

@@ -46,7 +46,10 @@ def main() -> int:
         raise PersonalExtensionError("public material evolution methods must remain explicitly deferred")
     for skill in SKILLS:
         text = (ROOT / "skills" / skill / "SKILL.md").read_text(encoding="utf-8")
-        if "unified merger" not in text or "task-config" not in text:
+        if skill in {"clayz-presentation-logic", "clayz-presentation-copy"}:
+            if "stage-file-handoff" not in text:
+                raise PersonalExtensionError(f"{skill}: missing professional handoff route")
+        elif "unified merger" not in text or "task-config" not in text:
             raise PersonalExtensionError(f"{skill}: missing unified merged task configuration")
     resolver_source = (ROOT / "packages" / "personal_extension" / "resolver.py").read_text(encoding="utf-8")
     if "def prepare_unified_task_selection(" not in resolver_source:

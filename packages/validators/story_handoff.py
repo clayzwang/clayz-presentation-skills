@@ -19,8 +19,8 @@ from datetime import datetime
 from pathlib import Path
 
 CONTRACT_VERSION = "1.3"
-PACKAGE_VERSION = "3.4"
-STORY_PACKAGE_VERSIONS = {"3.0", "3.1", "3.2", "3.3", PACKAGE_VERSION}
+PACKAGE_VERSION = "3.5"
+STORY_PACKAGE_VERSIONS = {"3.0", "3.1", "3.2", "3.3", "3.4", PACKAGE_VERSION}
 PLAN_VERSION = "2.3"
 
 
@@ -125,7 +125,7 @@ def validate_story(story, *, legacy=False):
 
 
 def validate_logic_story(package, require_status):
-    if package.get("contract_version") in {"3.2", "3.3", "3.4"}:
+    if package.get("contract_version") in {"3.2", "3.3", "3.4", "3.5"}:
         from research_handoff import validate_research_package
         return validate_research_package(package, require_status)
     from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
@@ -172,7 +172,7 @@ def load_logic_origin(package):
 
 
 def validate_copy_trace(package):
-    if package.get("contract_version") in {"3.3", "3.4"}:
+    if package.get("contract_version") in {"3.3", "3.4", "3.5"}:
         from clean_content import validate_clean_copy
         return validate_clean_copy(package)
     if package.get("contract_version") == "3.2":
@@ -257,7 +257,7 @@ def validate_visual_baseline(package, plan):
                 errors.append(f"visual_baseline.{key}: inspected observation required")
         elements = rows(preview.get("elements"))
         approved_data_ids = ({item.get("data_id") for item in rows((package.get("research") or {}).get("data")) if isinstance(item, dict)}
-                             if package.get("contract_version") in {"3.3", "3.4"} else
+                             if package.get("contract_version") in {"3.3", "3.4", "3.5"} else
                              {item.get("data_id") for slide in rows((package.get("logic_layer") or {}).get("slides"))
                               for item in rows(slide.get("data")) if isinstance(item, dict)})
         element_ids, mapped = set(), []
@@ -314,7 +314,16 @@ def validate_output_baseline(package, plan, qa):
 
 def render_document(stage, value):
     lines = [f"# {stage}", ""]
-    if stage == "logic" and value.get("contract_version") in {"3.2", "3.3", "3.4"}:
+    if stage == "logic" and value.get("contract_version") == "3.5":
+        from packages.validators.stage_files import validate_research_documents, read_ref
+        documents = value["research"]["documents"]
+        report, _, _ = validate_research_documents(documents)
+        lines += [report, "", "## Research process", "", "```json",
+                  read_ref(documents['process']).decode('utf-8').strip(), "```", "",
+                  "## Evidence and data files", ""]
+        for role in ('evidence', 'data'):
+            lines += [f"- {role}: {documents[role]['path']} (sha256={documents[role]['sha256']})"]
+    elif stage == "logic" and value.get("contract_version") in {"3.2", "3.3", "3.4"}:
         research = value["research"]
         lines += [research["research_question"], "", research["scope"], "", research["summary"], ""]
         for finding in research["findings"]:
@@ -333,15 +342,20 @@ def render_document(stage, value):
         for page in rows((value.get("logic_layer") or {}).get("slides")):
             lines += [f"## {page['slide_id']}: {page['claim']}", "", ", ".join(page["source_story_ids"]), ""]
     elif stage == "copy":
+        if value.get('contract_version') == '3.5':
+            from packages.validators.stage_files import read_ref
+            lines += ["## Complete reader-facing account", "",
+                      read_ref(value['copy_layer']['documents']['account']).decode('utf-8'), "",
+                      "## Edited page text", ""]
         for page in value["copy_layer"]["slides"]:
             lines += [f"## {page['slide_id']}", ""]
             for unit in page["copy_units"]:
-                if value.get("contract_version") in {"3.3", "3.4"}:
+                if value.get("contract_version") in {"3.3", "3.4", "3.5"}:
                     level = f", level={unit['heading_level']}" if unit.get("role") == "heading" else ""
                     lines += [f"[{unit['copy_id']}; {unit['role']}{level}]", unit['text'], ""]
                 else:
                     lines += [f"- {unit['copy_id']} ({unit['role']}, parent={unit['parent_copy_id']}): {unit['text']}"]
-            if value.get("contract_version") == "3.4":
+            if value.get("contract_version") in {"3.4", "3.5"}:
                 relation = page.get("content_relationships") or {}
                 lines += ["", "Content relationships", "", relation.get("heading_relationships", "not-recorded"), ""]
                 for item in rows(relation.get("body_relations")):
@@ -356,7 +370,10 @@ def render_document(stage, value):
                 lines += [planning_markdown(record), ""]
         for page in value["visual_baseline"]["slides"]:
             lines += [f"## {page['slide_id']}", "", page["first_visual"], "", page["reading_path"], ""]
-    lines += ["## Complete handoff data", "", "```json", json.dumps(value, ensure_ascii=False, indent=2), "```", ""]
+    # Professional stage documents carry the substantive material. Runtime
+    # envelopes are separately preserved by Supervisor and the report archive.
+    # Reprinting configuration, budgets and resource snapshots here makes them
+    # appear to be Logic/Copy content and needlessly repeats them downstream.
     return "\n".join(lines)
 
 
@@ -380,7 +397,7 @@ def validate_design_audit(package, plan, qa, report, pptx=None):
         return []
     errors = validate_logic_story(package, "copy-approved") + validate_copy_trace(package)
     errors.extend(validate_output_baseline(package, plan, qa))
-    if package.get("contract_version") == "3.4":
+    if package.get("contract_version") in {"3.4", "3.5"}:
         from page_planning import validate_art_planning
         errors.extend(validate_art_planning(package, plan))
     try:
@@ -403,7 +420,7 @@ def validate_design_audit(package, plan, qa, report, pptx=None):
     for page, design in zip(pages, expected):
         if page.get("preview_sha256") != design.get("image", {}).get("sha256"):
             errors.append("comparison preview hash differs from locked design")
-        if package.get("contract_version") == "3.4":
+        if package.get("contract_version") in {"3.4", "3.5"}:
             from page_planning import AUDIT_CHECKS
             for key in AUDIT_CHECKS:
                 check = page.get(key) or {}

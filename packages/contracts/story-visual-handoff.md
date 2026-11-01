@@ -1,5 +1,8 @@
 # Research, clean text and visual handoff — v0.19.0
 
+For new package 3.5 work, [professional stage files](stage-file-handoff.md) take precedence: full research/process, registered account before pages, and separate runtime records. Earlier 3.4 ownership/structure prose is version-scoped; the existing Art planning and native validation still apply.
+
+
 ## v0.20.2 Art cognition and audited changes
 
 The current [Art cognition contract](art-cognition.md) extends earlier fidelity instructions: preserve original Logic/Copy, but allow Art to revise meaning, argument, sequence and pagination without advance modification requests. Record actual presentation in `art_content`, conclusions/actions and selected knowledge in `art_cognition`. Output implements that recorded presentation. Independent final reading first sees only renders, then compares original Copy and every documented Art change. Difference alone is not failure; justification, accuracy, completeness and reasoning determine the audit result. Older “unchanged Copy” or “return wording/pagination to Copy” instructions apply only when no Art projection exists. New Art work covers A01—A11; these are cognitive results, not agents or approval gates.

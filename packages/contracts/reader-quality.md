@@ -1,5 +1,8 @@
 # Substantive reasoning and natural presentation language
 
+For package 3.5, retain the neutral blind first reading. During the existing evidence comparison, read the actual full research/process and registered account. Completeness is against the user's objective and full research; reasoning includes the basis of grouping/hierarchy and the real account-to-page edits. ID coverage, schema success and repeating individual statements do not prove complete research or sound organization. Do not add another comparison field, reader or approval.
+
+
 For v0.20.1 follow [reader review](reader-review.md): independent title-only and full-content readings against Logic before Art; actual final pages against approved Copy after Output. Freeze first understanding before evidence. Require the current gates, preserve findings, and repair only the affected scope. Upload is outside the standard workflow.
 
 Use across Logic, Copy, Art Direction and final review. Evidence fidelity,

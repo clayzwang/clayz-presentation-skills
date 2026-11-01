@@ -1,36 +1,11 @@
-# PPT v3.4 Copy 层合同
+# PPT v3.5 Copy 层合同
 
-本版同时遵循[内容关系与逐页艺术规划](../../../packages/contracts/page-planning.zh-CN.md)：Copy 明确正文归属与标题关系，Art 在对象规格前保存逐页统筹规划，审计检查规划及实际呈现。
+遵循[阶段文件交接](../../../packages/contracts/stage-file-handoff.zh-CN.md)。读取完整研究文件，先保存完整读者讲述，再从真实讲述编辑出分页文案；不得把页面表作为首次写作入口或将分页稿串接冒充前置稿。
 
+Copy专业输入和交接只含本阶段需求及内容文件引用。Supervisor单独保存技术运行包，供现有原生校验和报告使用。
 
-v0.19.0 新任务使用[研究与视觉交接](../../../packages/contracts/story-visual-handoff.zh-CN.md)。
-Copy 阅读 Logic 的完整故事，可调整、重组、改写，保留事实、限定条件和真实业务关系。
+先用files-account登记实际讲述文件。随后content.json绑定account_record，并保存slides、unit_sources、semantic_review。每页有slide_id、copy_units和既有content_relationships。文字单元按需使用title、subtitle、heading、body、annotation；heading显式使用实际正整数层级，没有默认一级或默认标题数量。
 
-`copy_layer` 保留 `logic_version`、`pagination_owner:"copy"`、
-`research_sha256`、实际语义复核说明和按内容顺序组织的 `slides`。
-每页包含 `slide_id` 与 `copy_units`；章节、页面职责、数据引用及原有或用户要求的备注按需保留。
-不再另写一份 Logic 页面投影。
+unit_sources逐项给出真实讲述字符范围start/end、verbatim/edited/derived及必要改写理由。正文可以保持完整段落，不因文字追溯而变成独立视觉块。关系说明依据实际含义，不能由标签/数组次序反推，不能用统一声明替代逐页阅读。
 
-文案只分为标题 `title`（主 Storyline）、副标题 `subtitle`（次级 Storyline）、
-各级标题 `heading`、正文 `body`、注释 `annotation`。
-每段只有 `copy_id`、`text`、`role`，各级标题另有正整数 `heading_level`。
-每类都可缺省，层级可以跳级，标题后不必有下级标题或正文，自然段落换行可以保留。
-
-分配角色前，在现有工作记录中保留实际面向读者的讲述稿。
-正文在通顺、逻辑与范围不变的前提下拆至最小完整意义，多个 body 可以归属同一标题。
-在现有关系 purpose 中说明各段贡献和重要依赖，将最终正文连读并与讲述稿及 Logic 核对。
-文字粒度不规定独立对象。
-
-来源映射放在根级 `copy_provenance` 中，与干净文字分开；
-每个单元的来源对应其实际表达，不把全页来源机械复制给每段或据此认定语义保真。
-绑定原始 Logic 文件与研究、任务、配置和证据，保留必要内容。
-这些技术追溯信息不成为版式指令。
-
-不再生成 columns/table/ladder、分组树、强制单独渲染、禁止合并、阅读序号、
-视觉样式、强制换行或媒介请求。Art 可以合并可编辑对象、给同级文字不同样式、
-自主安排阅读路径，仍需保留真实含义与用户明确要求。
-旧合同只用于对应版本历史材料的回读。
-
-## Reader review / 读者审读 — v0.20.0
-
-交给 Art 前，按[读者审读](../../../packages/contracts/reader-review.zh-CN.md)执行新上下文审读，检查主题回答、标题连读和正文是否兑现解释；保留必要限定与构图自由。
+不生成栏数、版式、视觉分组树、强制换行或对象边界。Art依据完整故事独立设计，仍保留真实含义及有依据的变更。沿用现有fresh标题/正文读者、合并返工与原读者复看，不新增审批层。

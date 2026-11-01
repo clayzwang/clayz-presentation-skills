@@ -16,8 +16,8 @@
     "refresh_policy": "immutable-release",
     "snapshot": {
       "provider_id": "builtin-catalog",
-      "digest": "d098eba31b8ba9493bef4f6ee6327005b9e6e1e3e5663e6a4e5bc63dea25e7eb",
-      "record_count": 24
+      "digest": "6c13d7cefe43ffee8cf28f9f46d6d3389e0b6f9ea214cd15948a2fa571861798",
+      "record_count": 6
     }
   },
   "evolution_methods": {

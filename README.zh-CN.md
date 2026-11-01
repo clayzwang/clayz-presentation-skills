@@ -1,28 +1,29 @@
 # Clayz Presentation Skills
 
-## 0.20.12：基金公司呈现纠偏
+## 0.20.6：让呈现本身传达含义
 
-基金公司纠偏：逐页恢复读者应获得的知识、判断目的与真实关系。天弘将渠道、基金和管理公司分开，核验嵌套分母与情景算术；未来数字只作为演示条件。原读者返工与独立审计记录保留。
+本版纳入 banks.r10.1 连续迭代主体：围绕读者所需的关系和比较组织表达，让所有权、对象身份及跨页转换可追踪，并明确数量方向所依赖的参照。可选原生工具支持图表字体、限定页面的页码职责、精确十进制图表缓存及原生表格网格参照。不新增版式配额或自动设计评分。
 
-[External knowledge / 外挂知识 1.2.84+funds10.purpose.r09b.1](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.84-funds10.purpose.r09b.1) · [PPT, PDF and audit / 成品与审计](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-purpose-rebuild-20261024)。
+外挂知识 **1.2.9+banks.r10.1** 保留91个既有节点，通过有范围的一手专业阅读深化选定概念，独立存放在 [work-output](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.9-banks.r10.1)；[知识版本信息](config/knowledge-release.json)绑定精确压缩包。公共Release仍提供两种Light、Windows离线附加包和校验值。
 
-## 0.20.11：基金研究转化为结构表达
-
-基金公司十轮实际递推后的 funds10.r10.1：Art方法检查同一证据跨页承担的阅读问题，以及产品例子与上位类别的真实包含关系；原生编辑单元审计按该稿明确承诺检查自动页码、表格、形内文字和旧叠字。十轮形成十套可编辑PPT、PDF与审计。方法和检查按内容选用，不把圆形、堆叠柱或三问结构固化成模板。
-
-External knowledge / 外挂知识 **1.2.69+funds10.r10.1**：[知识包](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1)；[基金公司十轮交付](https://github.com/clayzwang/work-output/tree/main/presentations/funds10-20261023)。原始残留与未验范围保留。
+10家银行实际顺序迭代形成10对PPTX/PDF、共194页，并核对每轮实际主体及知识继承。原报告中的残留、原QA失败和未验应用均保留，不宣称全部质量检查通过或真人理解效果提升。一次合并返工、原读者确认及独立Auditor仅记录的流程保持，见[读者闭环](packages/contracts/reader-cycle.zh-CN.md)。
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.20.12**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · 当前版本：**v0.21.0**
+
+本版基于0.20.6＋stage-files.r02，配套知识为1.3.0+composition.r01.1；不包含本次95张参考图片。见[完整发布说明](release/v0.21.0-release-notes.md)和[准确知识绑定](config/knowledge-release.json)。知识沿既有私有仓库单独发布。
+
+读取新知识时，先用 `scripts/art_learning.py` 进入相关原则，再沿节点的 `composition_readings` 选择与当前表达命题有关的完整文字理解；包内 `read_compositions.py` 支持由不同原则进入同一理解。不要从示例的元素数量推导固定栏数。
+
 
 读者审读现已前置到 Copy→Art，并在成品后复核；宿主支持时使用不继承历史的新上下文。可见内容输入、首次复述、证据核对与修订历史进入同一份审计。见[读者审读](packages/contracts/reader-review.zh-CN.md)。
 
 **[进入交互式体验中心 →](https://clayzwang.github.io/clayz-presentation-skills/)**
 
-## Art knowledge / Art 知识包
+## Art learning — v0.20.2 / Art 学习包
 
-Current external knowledge / 当前外挂知识：**1.2.69+funds10.r10.1**. [ZIP, readable manifest and checksum](https://github.com/clayzwang/work-output/tree/main/knowledge/ppt/v1.2.69-funds10.r10.1). Knowledge is separate from public Light assets.
+[Download the external learning pack / 下载外挂学习包](https://github.com/clayzwang/clayz-presentation-skills/releases/download/v0.20.2/clayz-presentation-skills-0.20.2-art-learning.zip). It contains the complete Chinese TXT, 66 principle-bearing codes, university curriculum mapping and synthetic teaching examples. Use [the cognition and integration contract](packages/contracts/art-cognition.md) for code lookup, concrete conclusions/actions and independent audit of Art changes. The learning body is separate from Light; historical source documents remain for replay.
 
 ## Clayz 的三项核心优势
 

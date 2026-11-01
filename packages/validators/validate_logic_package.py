@@ -17,7 +17,7 @@ from resource_inventory import validate_resource_inventory
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 
 
-CONTRACT_VERSION = "3.4"
+CONTRACT_VERSION = "3.5"
 LEGACY_CONTRACT_VERSION = "2.4"
 STATUS_RANK = {"draft": 0, "logic-approved": 1, "copy-approved": 2}
 MATERIAL_TYPES = {
@@ -549,8 +549,10 @@ def validate_acceptance_against_logic(acceptance: Any, slides: Any, errors: list
         errors.append("acceptance_contract.narrative_policy: Logic does not establish the required friction-impact relations before recommendation")
 
 
-def validate_package(data: Any, require_status: str = "logic-approved") -> list[str]:
-    if isinstance(data, dict) and data.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", CONTRACT_VERSION}:
+def validate_package(data: Any, require_status: str = "logic-approved", *, allow_legacy: bool = False) -> list[str]:
+    if isinstance(data, dict) and data.get("contract_version") != CONTRACT_VERSION and not allow_legacy:
+        return ["Current authoring requires package 3.5 and native stage files; use the original bound tool or explicit legacy replay for frozen packages"]
+    if isinstance(data, dict) and data.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", "3.4", CONTRACT_VERSION}:
         from story_handoff import validate_logic_story, validate_copy_trace
         errors = validate_logic_story(data, require_status)
         if data.get("status") == "copy-approved":
@@ -770,13 +772,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("package", type=Path)
     parser.add_argument("--require-status", choices=sorted(STATUS_RANK), default="logic-approved")
+    parser.add_argument("--allow-legacy-replay", action="store_true", help="Read frozen older content with its original version semantics; not a new authoring route")
     args = parser.parse_args()
     try:
         data = json.loads(args.package.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         print(f"ERROR: cannot read JSON: {exc}", file=sys.stderr)
         return 2
-    errors = validate_package(data, args.require_status)
+    errors = validate_package(data, args.require_status, allow_legacy=args.allow_legacy_replay)
     if errors:
         for error in errors:
             print(f"ERROR: {error}")

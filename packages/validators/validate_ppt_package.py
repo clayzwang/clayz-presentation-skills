@@ -502,12 +502,12 @@ def validate_copy_slide(
                 errors.append(f"{path}.series_copy_review.{key}: must be true")
 
 
-def validate_package(data: Any, require_status: str = "copy-approved") -> list[str]:
+def validate_package(data: Any, require_status: str = "copy-approved", *, allow_legacy: bool = False) -> list[str]:
     """Validate the shared Logic contract and the Copy layer as one callable API."""
     logic_validator = _load_logic_validator()
-    errors = logic_validator.validate_package(data, require_status)
+    errors = logic_validator.validate_package(data, require_status, allow_legacy=allow_legacy)
     if isinstance(data, dict) and require_status == "copy-approved":
-        if data.get("contract_version") in {"3.3", "3.4"}:
+        if data.get("contract_version") in {"3.3", "3.4", "3.5"}:
             # validate_logic_package already validates the complete clean Copy
             # handoff. Never send new content through historical hierarchy gates.
             pass
@@ -523,6 +523,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("package", type=Path)
     parser.add_argument("--require-status", choices=["draft", "logic-approved", "copy-approved"], default="copy-approved")
+    parser.add_argument("--allow-legacy-replay", action="store_true", help="Read frozen older content with its original version semantics; not a new authoring route")
     args = parser.parse_args()
     try:
         data = json.loads(args.package.read_text(encoding="utf-8"))
@@ -530,7 +531,7 @@ def main() -> int:
         print(f"ERROR: cannot read JSON: {exc}", file=sys.stderr)
         return 2
     try:
-        errors = validate_package(data, args.require_status)
+        errors = validate_package(data, args.require_status, allow_legacy=args.allow_legacy_replay)
     except (FileNotFoundError, RuntimeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2

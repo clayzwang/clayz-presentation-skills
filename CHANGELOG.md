@@ -6,44 +6,17 @@ All notable public changes are recorded here. This project follows Semantic Vers
 
 - Nothing yet.
 
-## 0.20.12 — 2026-10-24
+## 0.21.0 — 2026-11-02
 
-- Corrective fund-manager study: restore the knowledge, method and purpose of each page. Tianhong separates channel, fund and manager-company subjects, validates nested denominators and scenario arithmetic, and keeps forecasts explicitly conditional. The original reader repair and independent audit remain visible.
-- Associate external knowledge 1.2.84+funds10.purpose.r09b.1 and eight corrective fund-company PPT/PDF/audit bundles. Preserve original reader and Auditor findings.
+- Publish the selected 0.20.6 stage-files.r02 lineage: full research with observable process, role-specific file handoffs, complete account before pagination, and content-driven grouping.
+- Bind external knowledge 1.3.0+composition.r01.1: preserve 91 foundation nodes and include 567 complete text understandings with bidirectional framework indexes; no reference images.
+- Keep original-reader review cycles and record-only audit. This release does not incorporate the separate 0.20.7–0.20.12 line or claim new deck-effect validation.
 
-## 0.20.11 — 2026-10-24
+### 中文
 
-- Promote funds10.r10.1 after ten sequential fund-manager rounds. The Art method now assigns distinct reader questions when the same evidence recurs across pages and checks whether product examples are visually nested within their true category. A task-specific native-edit-unit auditor checks committed page fields, tables, integrated shape labels and leftover overlays. These are selective checks, not layout templates.
-- Link exact external 1.2.69+funds10.r10.1 and ten PPT/PDF/audit bundles. Preserve original findings, the R10 technical exception and unverified GUI/human effects.
-## 0.20.10 — 2026-10-23
-
-- Promote brokers20.r20.1 after twenty sequential broker rounds: native paragraph wrapping, multiple line spacing, alignment and built-in shape text; explicitly selected attached rectangular connectors and refresh; named table-cell selection; selected data-driven point-label formats; actual renderer process receipts. Methods separate implementation from composition, deepen quantitative roles, grouping scope, visible correspondence, reading order and retained shared periods. These are conditional capabilities, not layout templates or new gates.
-- Retain existing strict slide-order checks through relationship resolution and document reader comparison fields; standalone cycle CLI imports resolved explicitly.
-- Associate exact external 1.2.59+brokers20.r20.1 and 334-page twenty-broker delivery; preserve all residuals and the R18 authorized historical exception. No installed plugin update or retroactive effectiveness claim.
-## 0.20.9 — 2026-10-20
-
-- Promote the actual star50.r10.1 source after ten recursively inherited company rounds, retaining prior published industry/system methods.
-- Add optional PDF metric label-occupancy inspection, neutral page entry, selected local phrase boundaries, rectangular connector attachment, selected existing point-label wrapping and same-line endpoint markers. Geometry, selected inputs and rendering limits remain explicit; no universal dictionary or layout quota.
-- Add read-only Copy source-context expansion for stable source IDs without source guessing, mutation or automatic semantic support.
-- Deepen conditional-rule scope, aggregate membership, compound-title evidence entry and named adjustment bases; no fixed dual charts, complete earnings bridge or new gate.
-- Associate exact external 1.2.39+star50.r10.1 knowledge,91 existing nodes and58 unique sources, separately archived in work-output.
-- Preserve93-page ten-company PPT/PDF/report collection and every original audit finding/uncertainty. Post-delivery learning is not credited for earlier manual repairs or reader results; GUI/human/loaded-font/future-edit scopes remain unverified.
-## 0.20.8 — 2026-10-19
-
-- Promote the actual industries.r10.1 body after ten recursively inherited industry rounds, preserving prior published system methods and later validated refinements.
-- Strengthen bounded explanation preservation: meaningful alternatives and roles, technical result versus activity, prerequisite support, selected-example scope, compound-name identity, coordination participants and whole-task versus multiple-instance readings.
-- Preserve actual citation locations and provenance; retain reader-supplied issues and non-pass comparison keys through the one-repair, same-original confirmation workflow without changing validators.
-- Fix reader_review CLI helper imports without caller PYTHONPATH; eight real baseline/patched positive/negative calls preserve phase and hash validation.
-- Preserve punctuation boundaries in text balancing and cross-view object/relation identity; no mandatory layout, taxonomy, node count or diagram quota.
-- Associate exact external 1.2.29+industries.r10.1 knowledge, 91 existing nodes and independently verified archive checksums in work-output.
-- Keep original ten incomplete-evidence deliveries, residual findings, execution-role deviation and unverified GUI/font/future-edit limits. No human or causal comprehension claim; no installed ChatGPT plugin update.
-## 0.20.7 — 2026-10-17
-
-- Promote the actual nine-round systems.restart.r09.1 body: supported functional composition, concrete intra-module work, meaningful cooperation, whole/detail continuity and scoped shared support.
-- Retain Art authority for evidence-based expression and pagination; remove executor-added literal-copy and return-to-Copy assumptions. Clarify group membership, shared context and collective/member-level assertions without diagram or layout quotas.
-- Include contextual native text-response observations and explicit render-manifest provenance transport; these optional helpers do not establish readability or GUI acceptance.
-- Associate the exact external 1.2.9+systems.restart.r09.1 knowledge with 91 preserved nodes, readable source scopes and archive checksums in work-output.
-- Preserve all original QA/audit limitations and the later actual-user CRM03 comprehension failure. Exclude incomplete R10 work; no human-effect or universal design-pass claim.
+- 发布选定的0.20.6＋stage-files.r02谱系：完整研究及过程、按职责交接真实文件、完整讲述先于分页，分组服从内容。
+- 关联知识包1.3.0+composition.r01.1，保留91个基础节点，纳入567条完整文字理解和双向索引，不含参考图片。
+- 保留原读者复看与仅记录的独立审计；未合入0.20.7—0.20.12另一条谱系，不声称已验证新包的PPT效果。
 ## 0.20.6 — 2026-10-15
 
 - Integrate the exact banks.r10.1 development body after ten sequential bank rounds: relations, comparison, perceptual grouping, framing, real references, cross-representation identity and quantity-direction meaning.

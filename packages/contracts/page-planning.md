@@ -1,5 +1,8 @@
 # Copy relationships and Art page planning — v0.19.0
 
+For new package 3.5 work, [professional stage files](stage-file-handoff.md) take precedence: full research/process, registered account before pages, and separate runtime records. Earlier 3.4 ownership/structure prose is version-scoped; the existing Art planning and native validation still apply.
+
+
 ## v0.20.2 Art cognition and audited changes
 
 The current [Art cognition contract](art-cognition.md) extends earlier fidelity instructions: preserve original Logic/Copy, but allow Art to revise meaning, argument, sequence and pagination without advance modification requests. Record actual presentation in `art_content`, conclusions/actions and selected knowledge in `art_cognition`. Output implements that recorded presentation. Independent final reading first sees only renders, then compares original Copy and every documented Art change. Difference alone is not failure; justification, accuracy, completeness and reasoning determine the audit result. Older “unchanged Copy” or “return wording/pagination to Copy” instructions apply only when no Art projection exists. New Art work covers A01—A11; these are cognitive results, not agents or approval gates.
@@ -53,8 +56,6 @@ such as supplying evidence for a judgment or qualifying its scope. A generic
 subjects, connectors and conditions, and read the split text continuously.
 These are semantic dependencies, not a visual order or an object-count command.
 Art may compose several bodies in one paragraph/object while keeping them clear.
-
-After completing the current page and its edits, read its relationship description as a content claim too: which actual headings and passages does it describe, and does that relation still hold? A page constructor’s advance claim such as an absence of local headings cannot automatically survive later heading additions or changes. Correct references do not reconcile a description that contradicts the current content. Replace the stale claim with the supported relation, rather than merely reporting how many headings exist. Do this within the existing semantic review, without another field, validator or approval. The description helps Art understand meaning; it does not select containers, columns or a graphic form. A heading or relation name can identify a connection without explaining the actions or conditions the current audience needs. When the task concerns how work earns a return, calling it a commercial link does not supply that mechanism. Keep a gap explicit when domain evidence is missing; a structural label cannot add facts.
 
 ## Art plans the whole page before declaring objects
 

@@ -35,6 +35,7 @@ SEMVER = re.compile(r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$")
 # Shared by the reader, packager and mount check. Locale pruning must never
 # remove an executable dependency, even when prose is read in another language.
 COMPONENT_VERSION_SOURCES = {
+    "stage-file-handoff": ("packages/validators/stage_files.py", r'^CONTRACT\s*=\s*"io\.clayz\.presentation\.stage-files/([^\"]+)"'),
     "reader-review": ("packages/validators/reader_review.py", r'^CONTRACT\s*=\s*"io\.clayz\.presentation\.reader-review/([^\"]+)"'),
     "story-visual-handoff": ("packages/validators/story_handoff.py", r'^CONTRACT_VERSION\s*=\s*"([^\"]+)"'),
     "personal-extension-runtime": ("packages/personal_extension/resolver.py", r'^PERSONAL_EXTENSION_RUNTIME_CONTRACT\s*=\s*"io\.clayz\.presentation\.personal-extension-runtime/([^\"]+)"'),

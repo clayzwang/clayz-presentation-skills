@@ -21,7 +21,6 @@ from resource_inventory import resource_inventory_signature
 from validate_art_direction_plan import OBJECT_TYPES, STRUCTURE_TYPES, validate_plan
 from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
 from verification_result import Issue, exception_result, finish
-from work_report import _ordered_slides as ordered_slides
 
 
 CONTRACT_VERSION = "4.1"
@@ -91,7 +90,10 @@ def validate_quantitative_inventory(
 
 def pptx_inventories(pptx: Path) -> list[dict[str, int]]:
     with zipfile.ZipFile(pptx) as archive:
-        slide_names = ordered_slides(archive)
+        slide_names = sorted(
+            [name for name in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)],
+            key=natural_slide_key,
+        )
         return [extract_slide(archive.read(name))[2] for name in slide_names]
 
 
@@ -109,7 +111,7 @@ def validate_tabular_inventory(plan_slide: dict[str, Any], rendered_structure: A
 def pptx_table_dimensions(pptx: Path) -> list[list[tuple[int, int]]]:
     ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
     with zipfile.ZipFile(pptx) as archive:
-        names = ordered_slides(archive)
+        names = sorted((n for n in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)), key=natural_slide_key)
         return [[(len(table.findall("a:tr", ns)), len(table.findall("a:tblGrid/a:gridCol", ns)))
                  for table in ET.fromstring(archive.read(name)).findall(".//a:tbl", ns)] for name in names]
 
@@ -193,7 +195,7 @@ def validate_qa(
     policy: ValidationPolicy | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
-    clean = isinstance(package, dict) and package.get("contract_version") in {"3.3", "3.4"}
+    clean = isinstance(package, dict) and package.get("contract_version") in {"3.3", "3.4", "3.5"}
     errors = validate_plan(package, plan, policy)
     require_keys(
         qa,
@@ -282,7 +284,7 @@ def validate_qa(
 
     from clean_content import content_pages, RETIRED_QA_CHECKS
     logic_slides = content_pages(package, plan)
-    copy_slides = (content_pages(package, plan) if package.get("contract_version") in {"3.3", "3.4"}
+    copy_slides = (content_pages(package, plan) if package.get("contract_version") in {"3.3", "3.4", "3.5"}
                    else package.get("copy_layer", {}).get("slides", []))
     qa_slides = qa.get("slides")
     if not isinstance(qa_slides, list):

@@ -156,9 +156,12 @@ briefly and proceed. Older artifacts without this field remain supported.
   Complete routine transitions directly. Flag contradictions and substantive
   unknowns; do not invent facts or launch unrelated research simply to satisfy
   a workflow. Honor an explicit request to retain wording or structure.
-- Research: when given a topic, question or incomplete material, first identify
-  what must be understood, actively gather credible evidence, examine contrary
-  explanations and relevant responses, compare definitions/time windows/units,
+- Research: when given a topic, question or incomplete material, form provisional
+  questions from the user's understanding objective. Use primary sources to
+  establish the subject's scope and relationships, revise the questions when the
+  material challenges their coverage or categories, and then choose analytical
+  emphasis. Examine contrary evidence to the framing as well as to individual
+  claims and explanations, compare definitions/time windows/units,
   and synthesize mechanisms, implications and remaining uncertainty. Develop
   substantive content before allocating slides or designing large headlines.
   Use exact sources and meaningful limitations; website count, elapsed time,
@@ -218,7 +221,7 @@ New runs follow [the story and visual handoff contract](story-visual-handoff.md)
 Logic owns complete research and supported findings; Copy owns presentation content structure, pagination and
 visible wording, trimming and content groups; Art Direction locks every page image
 with its visual tags. Develop the subject from actual evidence and task needs.
-Analytical frameworks come from selected external knowledge or personal settings.
+Task-specific analytical frameworks come from selected external knowledge, personal settings or the task. Basic source-led inquiry, revision of initial research questions and review of subject coverage remain Logic obligations; they are not optional analytical templates.
 Retain source reliability, numbers, definitions and uncertainty. Depth is assessed
 by substantive explanation, never by elapsed time or prose length.
 

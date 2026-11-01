@@ -1,5 +1,10 @@
 # 连续训练：继承实际改进，并限制本题回退
 
+## 当前文件化材料与迭代目标
+
+以可稳定产出高质量PPT的通用工作流为改进对象。按照stage-file-handoff/1.0保存本次用户目标、实际工具/知识版本、完整研究及过程、Copy讲述与编辑文件、Art设计/渲染、Output文件/QA与Supervisor异常。使用现有stage_documents.py files-collect收集真实文件，而不是只保存最后成品或一份总结。后续模型从这些证据分析工作方法、设计修改，再将实际更新的工具或基础知识字节用于下一轮。案例故事及样本专用修法不升级成通用生产指令。该契约在用户明确要求训练时才执行；普通制作仅保留后续分析所需的材料。
+
+
 ## v0.20.5 current repair policy
 
 The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `packages/contracts/reader-cycle.md` from the plugin root.
@@ -11,12 +16,6 @@ v0.20.4 的作品、读者、审计或发布合同，也不把停止迭代当作
 每题的产物有三个不同用途：作品用于观察问题；阶段方法与实现用于改善制作；
 专业知识用于理解新的情境。只改当前稿、增加工作记录或复制旧文件，均不能
 称为已升级插件或知识包。版本名变化也不能证明发生过有效修改。
-
-再次迭代同一题材时，作者先对照可用的上一轮实际作品、研究与读者反馈，
-辨认值得保留的表达及本次改善机会，再结合实际继承的方法和知识开展工作。
-仍有效的研究、具体解释和图文可以复用；有时效变化或实质缺口时再补查。
-作者从旧稿学习与独立读者首读的输入限制分别执行，不把读者的隔离范围
-扩大成作者不得看旧稿。说明具体改善及其证据，保持未改善或未知之处。
 
 本题结束或达到回退上限后，沿实际缺陷或改善机会选择小范围更新。已有规则
 已经覆盖的问题，先辨认执行为何仍会漏掉，改进相应阅读、编辑或调度动作，

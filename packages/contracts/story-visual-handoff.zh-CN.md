@@ -1,5 +1,8 @@
 # 研究、干净文字与视觉交接 — v0.19.0
 
+当前3.5任务先遵循[阶段文件交接](stage-file-handoff.zh-CN.md)：完整研究及过程文件为Logic主产物，Copy先登记真实讲述文件再分页，专业交接不带运行配置。本文后续3.4段落用于其原版本；下述Art规划和原生校验仍适用于3.5，不能以文字标签或数量替代内容判断。
+
+
 ## v0.20.2 Art cognition and audited changes
 
 The current [Art cognition contract](art-cognition.md) extends earlier fidelity instructions: preserve original Logic/Copy, but allow Art to revise meaning, argument, sequence and pagination without advance modification requests. Record actual presentation in `art_content`, conclusions/actions and selected knowledge in `art_cognition`. Output implements that recorded presentation. Independent final reading first sees only renders, then compares original Copy and every documented Art change. Difference alone is not failure; justification, accuracy, completeness and reasoning determine the audit result. Older “unchanged Copy” or “return wording/pagination to Copy” instructions apply only when no Art projection exists. New Art work covers A01—A11; these are cognitive results, not agents or approval gates.

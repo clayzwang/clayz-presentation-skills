@@ -118,7 +118,7 @@ def validate(
                 errors.append(f"log.source_bindings.{key}: hash does not match the supplied file")
 
     from packages.validators.art_content import presentation_pages
-    page_layer = ({"slides": presentation_pages(package, plan)} if package.get("contract_version") in {"3.3", "3.4"}
+    page_layer = ({"slides": presentation_pages(package, plan)} if package.get("contract_version") in {"3.3", "3.4", "3.5"}
                   else package.get("logic_layer"))
     if not isinstance(page_layer, dict) or not isinstance(page_layer.get("slides"), list):
         errors.append("package: a valid current slide layer is required")

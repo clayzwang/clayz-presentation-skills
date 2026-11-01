@@ -96,6 +96,31 @@ def validate_research_package(package, require_status):
     if not isinstance(research, dict):
         return errors + ['research: complete research report required']
     forbid_presentation(research, 'research', errors)
+    if package.get('contract_version') == '3.5':
+        from packages.validators.stage_files import validate_research_documents, json_ref, check_handoff
+        try:
+            _, document_sources, document_data = validate_research_documents(research.get('documents'))
+            handoff = check_handoff(json_ref(package.get('professional_handoff')))
+            if handoff['stage'] not in {'logic', 'copy'}:
+                errors.append('research: bind the actual professional file handoff')
+            runtime_sources = research.get('sources', [])
+            clean_sources = lambda items: [{k: v for k, v in s.items() if k != 'resource_id'} for s in items]
+            if clean_sources(runtime_sources) != clean_sources(document_sources) or research.get('data') != document_data:
+                errors.append('research: runtime indexes differ from the source/evidence files')
+            selected = (package.get('resource_inventory') or {}).get('selected_resource_ids', [])
+            if any(s.get('resource_id') not in selected for s in runtime_sources):
+                errors.append('research.sources: Supervisor must bind each actual source to a selected resource')
+            validate_data(document_data, {s['source_id'] for s in document_sources}, errors)
+            if handoff['stage'] == 'logic' and handoff['artifacts'] != research['documents']:
+                errors.append('research: full report/process files differ from the actual Logic handoff')
+            if research.get('findings'):
+                errors.append('package 3.5: an indexed finding summary cannot replace the full research file')
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            errors.append(f'research documents: {exc}')
+        approval = (package.get('approvals') or {}).get('logic') or {}
+        if status != 'draft' and (approval.get('status') != 'approved' or not text(approval.get('approved_by'))):
+            errors.append('approvals.logic: actual research review required')
+        return errors
     for key in ('research_question', 'scope', 'summary'):
         if not text(research.get(key)):
             errors.append(f'research.{key}: substantive prose required')

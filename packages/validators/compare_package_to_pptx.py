@@ -18,7 +18,6 @@ from xml.etree import ElementTree as ET
 
 from validate_art_direction_plan import validate_plan
 from verification_result import Issue, Issues, exception_result, finish
-from work_report import _ordered_slides as ordered_slides
 
 
 NS = {
@@ -256,7 +255,7 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
         return re.sub(r'\s+', '', value)  # Preserve case and punctuation.
     try:
         with zipfile.ZipFile(pptx) as archive:
-            names = ordered_slides(archive)
+            names = sorted((n for n in archive.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml', n)), key=natural_slide_key)
             from packages.validators.art_content import presentation_pages
             pages = presentation_pages(package, plan)
             if len(names) != len(pages):
@@ -329,7 +328,7 @@ def compare_clean_content(package, plan, pptx, allow_extra_text=False):
 
 
 def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False) -> list[str]:
-    if isinstance(package, dict) and package.get('contract_version') in {'3.3', '3.4'}:
+    if isinstance(package, dict) and package.get('contract_version') in {'3.3', '3.4', '3.5'}:
         return compare_clean_content(package, plan, pptx, allow_extra_text)
     errors = validate_plan(package, plan)
     if errors or not isinstance(package, dict) or not isinstance(plan, dict):
@@ -337,7 +336,10 @@ def compare(package: Any, plan: Any, pptx: Path, allow_extra_text: bool = False)
     errors = Issues('quality')
     try:
         with zipfile.ZipFile(pptx) as archive:
-            slide_names = ordered_slides(archive)
+            slide_names = sorted(
+                [name for name in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)],
+                key=natural_slide_key,
+            )
             extracted = [extract_slide(archive.read(name)) for name in slide_names]
             locations = [text_locations(archive.read(name)) for name in slide_names]
     except (OSError, zipfile.BadZipFile, KeyError, ValueError, ET.ParseError) as exc:

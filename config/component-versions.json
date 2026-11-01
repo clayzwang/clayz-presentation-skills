@@ -2,18 +2,18 @@
   "contract": "io.clayz.presentation.component-version-manifest/1.0",
   "repository": "clayzwang/clayz-presentation-skills",
   "latest_release_api": "https://api.github.com/repos/clayzwang/clayz-presentation-skills/releases/latest",
-  "release_version": "0.20.12",
+  "release_version": "0.21.0",
   "components": {
-    "public-core": "0.20.12",
-    "plugin-manifest": "0.20.12",
-    "central-config": "0.20.12",
+    "public-core": "0.21.0",
+    "plugin-manifest": "0.21.0",
+    "central-config": "0.21.0",
     "workflow-contract": "3.1-open",
     "runtime-preflight": "1.3",
     "personal-extension-runtime": "1.1",
     "resource-inventory": "1.0",
     "index-execution-evidence": "1.1",
-    "logic-package": "3.4",
-    "copy-package": "3.4",
+    "logic-package": "3.5",
+    "copy-package": "3.5",
     "art-direction-plan": "2.3",
     "output-qa": "4.1",
     "supervision-report": "3.6",
@@ -23,13 +23,13 @@
     "owner-index-materialization": "1.0",
     "version-private-learning-audit": "1.0",
     "story-visual-handoff": "1.3",
-    "reader-review": "1.0"
+    "reader-review": "1.0",
+    "stage-file-handoff": "1.0"
   },
   "guards": {
     "official_latest_release_required": false,
     "all_components_must_match_manifest": true,
     "user_visible_before_work": true,
     "unverified_latest_fails_closed": false
-  },
-  "development_revision": "funds10.purpose.r09b.1"
+  }
 }

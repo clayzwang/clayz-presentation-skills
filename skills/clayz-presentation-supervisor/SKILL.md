@@ -2,6 +2,19 @@
 name: clayz-presentation-supervisor
 description: Root-orchestrate resource inspection, discussion-based knowledge learning, PPT enablement, and presentation tasks across resource inventory, Provider locking, Logic, Copy, Art Direction, Output, written PPTX objects, and final renders. Use for requests to inspect the plugin, discuss and confirm reusable knowledge, advise on PPT capability, or create, revise, generate, or audit slides, PPT, PPTX, presentations, or decks. Prevent direct tool bypass, keep discussion separate from production, dispatch the five governed stages only when a deck is requested, detect drift and evidence failures, and return control without silently rewriting or redesigning.
 ---
+## 当前本地修订：阶段文件与完整研究（优先于旧版3.4交接说明）
+
+当前新任务使用内容包3.5及`packages/contracts/stage-file-handoff.zh-CN.md`。目标是稳定产出高质量PPT的通用工作流；单份PPT是验证样本，不能以单份改善替代方法改进。
+
+根入口通过现有`scripts/stage_documents.py files-prepare`按职责保存专业输入：Logic只接收课题、读者、研究要求和资料；Copy接收完整研究文件及分页/措辞要求；Art接收文案文件、格式要求和选择的基础设计知识；Output接收设计、渲染图与交付要求。Supervisor单独保留用户完整输入、版本、配置、运行身份、盘点、预算和异常记录。不要把完整task_selection/config/acceptance/resource/index对象当作Logic或Copy的专业输入。
+
+Logic先交完整研究正文、研究过程、证据及数据文件，禁止以精炼findings列表替代。Copy先保存并登记完整讲述，然后编辑成有实际来源范围的分页文字；不得从已分页内容回造前置稿。Art按内容关系设计，heading数量及copy_units数组不自动成为栏数或视觉组数。
+
+各阶段必须用本工具的files-*接口把专业产物及交接引用落盘。原有技术运行包由Supervisor/工具在单独目录绑定并校验，不交给内容作者充当研究或讲述。原生读者、校准、可编辑检查和独立审计继续服务实质成果，不以字段完整或ID覆盖替代质量。
+
+用files-collect保留本次用户目标、工具与知识版本、各阶段真实文件和异常，供后续模型分析与方法迭代。该操作只保存材料，不启动训练、不调用包外控制器、不把历史稿件或案例方法喂给下一轮作者。后续修订工具或基础知识，下一次任务使用实际更新后的字节，并重新验证方法。
+
+
 ## v0.20.5 current repair policy
 
 The selected `consolidated-once` policy controls all reader return routes: Copy readers together → one Copy repair → both original readers confirm; final reader → one Art/Output repair → same reader confirms. Independent Auditor records only. Residual/new issues are reported, never another repair dispatch. Historical pass-until-clean or repeated returns below apply only to legacy `strict-pass`. See `../../packages/contracts/reader-cycle.md` from the plugin root.
@@ -52,7 +65,7 @@ For v0.18.2, inspect claim/evidence correspondence, local argument organization,
 entity/accounting scope and avoidable repetition in Copy, then their visible
 expression in Art and the final render. A missing heading alone is not a defect.
 Record concrete affected copy IDs/pages in existing calibration or audit findings.
-Compare concrete Logic findings with the actual Copy explanation and then with
+Compare the complete Logic report and evidence with the actual Copy explanation and then with
 its fine body units. Inspect retained mechanisms and discriminating facts, real
 omissions/moves, and continuous grammar and logic after splitting. Missing draft
 or reading evidence remains a gap. Do not infer a content pass from provenance
@@ -129,22 +142,6 @@ calibration and downstream absorption, actual PPTX facts, Auditor observations,
 release, limitations and improvements. Judge completeness by recorded evidence,
 not by report length or by the number of slides.
 
-### Local systems.r03.1 — distinguish task sufficiency from accurate restatement
-
-When the actual task asks for internal functional composition, calibrate Logic
-against that understanding goal: can the supported answers explain concrete
-work within the main areas and the meaningful connections between them? Then
-inspect whether Copy preserves that substance in the whole and local account.
-An independent reader's accurate restatement of a coarse script establishes
-only what that script made understandable; it cannot by itself prove the
-research answered the original task at the needed granularity. Neither an
-empty finding list nor a valid record removes Supervisor's responsibility for
-that judgment. Use specific existing research, source, Copy and page evidence
-to explain an inadequacy and its earliest owner, preserving the original
-reader result and the user's correction. Do not impose this task's taxonomy,
-function count, hierarchy depth or source format on unrelated work; use the
-existing calibration and bounded repair policy rather than adding a gate.
-
 ## Unified configuration and optional Library inputs
 
 Follow the one-path contract in `../../packages/contracts/stage-enablement.md`.
@@ -193,7 +190,7 @@ For a new, revised, or audited presentation artifact:
    minimum editable-content capability, an actual write/inspect failure, or
    invalid bindings stops authoring. Do not present `spec-only` as a writable
    PPTX route.
-9. Dispatch the same Logic, Copy, Art Direction and Output stages with one merged configuration. Preserve task acceptance, resource/Index locks, source evidence, preflight and actual stage artifacts through the handoffs. Send Logic to Copy and Supervisor, Copy to Art Direction and Supervisor, and Art Direction to Output and Supervisor. Return each hash-bound calibration to the next owner and require its `calibration_bindings` decision before that owner locks its artifact. Learning evidence is included only when actually used; never invent an extension digest or private audit. Respect existing retrieval budgets and record substantive use instead of ceremonial source mentions.
+9. Execute the same Logic, Copy, Art Direction and Output stages. Save stage-scoped professional input files and actual deliverables using the files-* interfaces. Send Logic research files to Copy and Supervisor, Copy account/content files to Art Direction and Supervisor, and Art design/render files to Output and Supervisor. Supervisor separately preserves the merged configuration, task acceptance, resource/Index locks, preflight and technical stage bindings; do not transmit those full envelopes to Logic or Copy. Return each actual hash-bound calibration to the next owner and record its decision before locking that artifact. Learning evidence is included only when actually used; never invent an extension digest or private audit. Respect existing retrieval budgets and record substantive use instead of ceremonial source mentions.
 10. After Output, send the final PPTX, object evidence and render evidence to Supervisor and the shared Independent Auditor module. The Auditor reads the immutable original task request, acceptance rules and Supervisor commitments/changes, then writes `independent-audit/1.0` with actual file/render findings, coverage and disclosed context limitations. Supervisor receives that artifact, reconciles it with the stage chain and decides release under the user's policy. Quality findings, unavailable optional knowledge and deferred target-application checks do not by themselves block delivery; binding, identity, format or evidence-integrity failures do. Preserve each finding and status exactly, and never claim a check that was not performed. Mirror the run ID, task-request hash, nonce, task-root hash, challenge hash, canonical issuance and consumption receipt hashes, resolved-config hash, preflight scan ID and raw hash, locked route, satisfied/declared-unverified/missing route requirements, and every target application's available/unavailable result into `environment_observation`; after Output, record each target as `pass`, `fail`, `deferred`, or `not-selected` with evidence. Use `../../scripts/publish_supervised_pair.py` as the only final publication path, derive the readable Markdown from the validated report JSON, and hand off the PPTX, formal report and derived Markdown only from its validated bundle.
 
 For an audit-only request, start from the available approved packages and artifacts, record every missing prerequisite, and run the audit workflow without inventing prior approvals.
@@ -274,7 +271,7 @@ Retain content fidelity, visual fidelity, native editability and design quality
 as separate observed checks. A faithful implementation of a bad design remains
 an Art Direction finding. Route defects to the earliest responsible stage and
 record downstream detection failures separately. Never equate image similarity
-with approval. For a selected relationship graphic, read the actual cluster in its whole-page context: target entry, route, label association and visual hierarchy can remain poor even when attachment and file fidelity are correct. A record that images were opened does not supply that design judgment. Preserve concrete observations in the existing review rather than imposing one routing geometry or another gate. Retain the Independent Auditor's own observations unchanged.
+with approval. Retain the Independent Auditor's own observations unchanged.
 Provide `design_comparison` in the report draft. `assemble-report` embeds the
 actual original Logic handoff, final Copy, Art Direction specification and all
 locked preview bytes as `stage_documents`; it derives readable documents from
@@ -348,9 +345,6 @@ judgment. Record findings in the existing native_editability observation.
 For native production, also read `../../packages/contracts/local-development-gates.zh-CN.md`. Apply actual native preview, inspectable knowledge parameters, table-cell and footer checks, bound visual evidence, and stale-record rejection. The current external knowledge pack is stored and versioned separately; read its top-level learning philosophy when selected. Preserve failed readings and disclose actual Auditor context and unobserved target applications.
 
 
-## Local industry research development
-
-For industry-explanation tasks, read `../../packages/contracts/industry-research.zh-CN.md`. Preserve the actual audience knowledge profile and develop substantive industry answers before presentation work. The optional research-ledger checker proves reference consistency only.
 
 
 ### Local r14.1 — distinguish the reader comparison from the original gate

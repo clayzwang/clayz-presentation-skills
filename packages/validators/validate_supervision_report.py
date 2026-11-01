@@ -88,7 +88,7 @@ def validate_stage_snapshots(
             for key in ("communication_contract", "art_direction", "decision_log", "typography_contract", "deck_rhythm", "slides")
         },
     }
-    if package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", "3.4"}:
+    if package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", "3.4", "3.5"}:
         from story_handoff import load_logic_origin
         try:
             expected["logic"] = load_logic_origin(package)
@@ -103,7 +103,7 @@ def validate_stage_snapshots(
             continue
         if not valid_sha256(record.get("artifact_sha256")):
             errors.append(f"{path}.artifact_sha256: must be a lower-case SHA-256")
-        elif stage == "logic" and package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", "3.4"}:
+        elif stage == "logic" and package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", "3.4", "3.5"}:
             if record.get("artifact_sha256") != package.get("logic_artifact", {}).get("sha256"):
                 errors.append(f"{path}: must bind original Logic artifact, not Copy projection")
         elif evidence_root is not None and isinstance(artifact_paths, dict):
@@ -756,7 +756,7 @@ def validate_evidence_reference(
         if "#user_brief" in reference and (not isinstance(parsed, dict) or "user_brief" not in parsed):
             errors.append(f"{path}: resource-inventory user_brief fragment does not exist")
     elif artifact_name == "ppt-design-package.json":
-        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"2.4", "3.0", "3.1", "3.2", "3.3", "3.4"} or parsed.get("status") != "copy-approved":
+        if not isinstance(parsed, dict) or parsed.get("contract_version") not in {"2.4", "3.0", "3.1", "3.2", "3.3", "3.4", "3.5"} or parsed.get("status") != "copy-approved":
             errors.append(f"{path}: design-package evidence must be contract 2.4 and copy-approved")
         if parsed != package:
             errors.append(f"{path}: design-package evidence must match the package under validation")
@@ -1773,7 +1773,7 @@ def validate_report(
     evidence_root: Path | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
-    if isinstance(package, dict) and package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", "3.4"}:
+    if isinstance(package, dict) and package.get("contract_version") in {"3.0", "3.1", "3.2", "3.3", "3.4", "3.5"}:
         from story_handoff import validate_design_audit
         handoff_errors = validate_design_audit(package, plan, qa, report, pptx)
         if handoff_errors:
@@ -1871,7 +1871,7 @@ def validate_report(
     )
     validate_index_evidence(
         report.get("index_evidence"),
-        ["logic", "copy", "output", "supervisor"] if package.get("contract_version") in {"3.3", "3.4"} else ["logic", "copy", "art-direction", "output", "supervisor"],
+        ["logic", "copy", "output", "supervisor"] if package.get("contract_version") in {"3.3", "3.4", "3.5"} else ["logic", "copy", "art-direction", "output", "supervisor"],
         "report.index_evidence",
         errors,
     )
@@ -2083,7 +2083,7 @@ def validate_report(
         rendered = report_slide.get("rendered")
         require_keys(rendered, {"medium_label", "first_visual_observed", "area_plan_observed", "series_backbone_observed", "motif_observed", "semantic_whitespace_observed", "context_rail_observed", "semantic_tree_observed", "visual_self_correction_evidence_observed", "minimum_audience_text_pt_observed", "nonconforming_point_sizes_observed", "scatter_label_evidence", "scatter_line_evidence", "recognizability", "evidence"}, f"{path}.rendered", errors)
         if isinstance(rendered, dict):
-            if (not nonempty(rendered.get("medium_label"))) if package.get("contract_version") in {"3.3", "3.4"} else (rendered.get("medium_label") not in MEDIA_LABELS):
+            if (not nonempty(rendered.get("medium_label"))) if package.get("contract_version") in {"3.3", "3.4", "3.5"} else (rendered.get("medium_label") not in MEDIA_LABELS):
                 errors.append(f"{path}.rendered.medium_label: invalid value")
             if rendered.get("recognizability") not in {"pass", "fail", "uncertain"}:
                 errors.append(f"{path}.rendered.recognizability: invalid value")

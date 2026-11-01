@@ -425,7 +425,7 @@ def validate_plan(
     policy: ValidationPolicy | None = None,
 ) -> list[str]:
     policy = policy or load_policy()
-    if isinstance(package, dict) and package.get("contract_version") in {"3.3", "3.4"}:
+    if isinstance(package, dict) and package.get("contract_version") in {"3.3", "3.4", "3.5"}:
         from clean_content import validate_free_art
         return validate_free_art(package, plan, policy)
     errors = validate_package(package, "copy-approved")
