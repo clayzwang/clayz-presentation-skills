@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       PYTHONDONTWRITEBYTECODE: "1"
       CLAYZ_RELEASE_DENYLIST_B64: ${{ secrets.CLAYZ_RELEASE_DENYLIST_B64 }}

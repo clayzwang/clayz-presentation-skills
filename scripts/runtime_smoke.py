@@ -10,7 +10,7 @@ import tempfile
 import hashlib
 from pptx import Presentation
 from pptx.chart.data import CategoryChartData
-from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION
+from pptx.enum.chart import XL_CHART_TYPE
 from pptx.util import Inches, Pt
 from stamp_pptx_metadata import stamp
 
@@ -31,7 +31,6 @@ def main():
         chart.plots[0].has_data_labels=True
         chart.plots[0].data_labels.show_value=True
         chart.plots[0].data_labels.number_format='0.00'
-        chart.plots[0].data_labels.position=XL_DATA_LABEL_POSITION.INSIDE_END
         s=p.slides.add_slide(p.slide_layouts[6])
         shared=s.shapes.add_textbox(Inches(.6),Inches(.7),Inches(8),Inches(2))
         shared.name='ART::shared-editorial-text'
