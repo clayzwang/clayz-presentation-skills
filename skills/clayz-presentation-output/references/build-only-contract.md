@@ -63,5 +63,3 @@ File size is an Output implementation concern and does not authorize a dominant-
 
 After the final write, generate `ppt-size-audit.json`. A soft total budget may be exceeded when there is no item-level inefficiency and QA records the concrete need. Repeated, unused, over-resolution, or accidentally embedded content must be repaired rather than hidden behind a total-size exception.
 
-
-Cross-application numeric formats: when controlling a chart value display, specify the actual precision, units and negative-value expression, including explicit positive/zero and negative sections where needed. Do not assume that a single positive format preserves the minus sign in every renderer. Compare source data, native chart values and actual final renders; never hide differences with absolute values or by dropping the negative-sign check.
