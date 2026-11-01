@@ -62,3 +62,6 @@ Rank compatibility evidence from strongest to weakest: target application opened
 File size is an Output implementation concern and does not authorize a dominant-medium change. Unless the user specifies otherwise, use the lightweight profile: preprocess images for their final placed boxes, embed identical media once, and remove unused media, hidden attachments, and accidental fonts. If compression visibly harms one asset, increase only that asset's quality and log the technical deviation. Do not delete planned imagery, change area, or rasterize a full slide.
 
 After the final write, generate `ppt-size-audit.json`. A soft total budget may be exceeded when there is no item-level inefficiency and QA records the concrete need. Repeated, unused, over-resolution, or accidentally embedded content must be repaired rather than hidden behind a total-size exception.
+
+
+Cross-application numeric formats: when controlling a chart value display, specify the actual precision, units and negative-value expression, including explicit positive/zero and negative sections where needed. Do not assume that a single positive format preserves the minus sign in every renderer. Compare source data, native chart values and actual final renders; never hide differences with absolute values or by dropping the negative-sign check.

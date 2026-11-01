@@ -30,7 +30,7 @@ def main():
         chart=s.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED,0,0,Inches(8),Inches(5),d).chart
         chart.plots[0].has_data_labels=True
         chart.plots[0].data_labels.show_value=True
-        chart.plots[0].data_labels.number_format='0.00'
+        chart.plots[0].data_labels.number_format='0.00;-0.00'
         s=p.slides.add_slide(p.slide_layouts[6])
         shared=s.shapes.add_textbox(Inches(.6),Inches(.7),Inches(8),Inches(2))
         shared.name='ART::shared-editorial-text'
