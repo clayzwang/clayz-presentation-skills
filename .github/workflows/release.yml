@@ -5,6 +5,9 @@ on:
     branches: ["main"]
     paths:
       - "VERSION"
+      - "release/**"
+      - "scripts/runtime_smoke.py"
+      - ".github/workflows/release.yml"
   workflow_dispatch:
 
 permissions:

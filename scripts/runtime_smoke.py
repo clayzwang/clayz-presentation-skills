@@ -60,13 +60,16 @@ def main():
         proc=subprocess.run(cmd,check=True,capture_output=True,text=True,timeout=90)
         pdf=root/'stamped.pdf'
         if not pdf.is_file():raise RuntimeError('Office returned without an actual PDF: '+proc.stdout+proc.stderr)
-        text=subprocess.run(['pdftotext',str(pdf),'-'],check=True,capture_output=True,text=True,timeout=30).stdout
+        rendered_text=subprocess.run(['pdftotext',str(pdf),'-'],check=True,capture_output=True,text=True,timeout=30).stdout
+        # Office versions may emit mathematical U+2212 for a numeric minus.
+        # Preserve the sign requirement; an unsigned number still fails.
+        text=rendered_text.replace('\u2212', '-')
         for value in ['Line one','Line two','Complete table','-11.09','24.01',
                       'Editorial heading','Two approved paragraphs share one editable text box.',
                       'A peer heading with different emphasis','A separately editable heading',
                       'This body stays a distinct editable object inside a native group.']:
-            if value not in text:raise RuntimeError('rendered text/negative label missing: '+value)
-        result={'status':'passed','office_version':subprocess.run([office,'--version'],capture_output=True,text=True,check=True).stdout.strip(),
+            if value not in text:raise RuntimeError('rendered text/negative label missing: '+value+'; extracted PDF text='+repr(rendered_text))
+        result={'status':'passed','unicode_minus_normalized_for_comparison':'\u2212' in rendered_text,'office_version':subprocess.run([office,'--version'],capture_output=True,text=True,check=True).stdout.strip(),
                 'pptx_sha256':hashlib.sha256(pptx.read_bytes()).hexdigest(),'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),
                 'checks':['metadata-stamped package opens','integrated table and multiline text render','negative chart label retains sign',
                           'combined editable paragraphs and independent text styles survive reopening and rendering',
