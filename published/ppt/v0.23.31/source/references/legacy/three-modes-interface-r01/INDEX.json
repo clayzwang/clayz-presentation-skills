@@ -1,0 +1,67 @@
+{
+  "parent_version": "0.23.0",
+  "parent_revision": "three-modes.interface.r01",
+  "scope": "Historical bound protocol reference only; not current author instructions",
+  "files": [
+    {
+      "original_path": "SKILL.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/SKILL.original.md",
+      "sha256": "4346354c6e745a28b37ae5e9898519d2fc8d12ba2242fef6acb81edeb226c813",
+      "bytes": 3324
+    },
+    {
+      "original_path": "packages/contracts/three-modes.zh-CN.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/packages/contracts/three-modes.zh-CN.md",
+      "sha256": "9acf94d2d5a67746fb0358665fe33cc4c987d2fc759fe4652179223ea996cf9e",
+      "bytes": 11860
+    },
+    {
+      "original_path": "references/stages/logic/stage.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/references/stages/logic/stage.md",
+      "sha256": "ec1fb4a134d0e44548fe81c81c2d93c0943493165915c155364dd23aba5d8a4b",
+      "bytes": 4628
+    },
+    {
+      "original_path": "references/stages/copy/stage.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/references/stages/copy/stage.md",
+      "sha256": "c8abda2902a243e4f116e09be978bf06c3b4dcafe7945c7181c6d0871b203648",
+      "bytes": 6038
+    },
+    {
+      "original_path": "references/stages/art-direction/stage.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908",
+      "bytes": 32566
+    },
+    {
+      "original_path": "references/stages/output/stage.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/references/stages/output/stage.md",
+      "sha256": "4ddd759bd4bef6cddf77155438c9dc499ee4865cec609ca4e9d54796502c19bb",
+      "bytes": 32089
+    },
+    {
+      "original_path": "references/stages/supervisor/stage.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/references/stages/supervisor/stage.md",
+      "sha256": "a79a863d513549a0b68c221b21f35f76bae75c2bb38e4548e678aad4d42c6f54",
+      "bytes": 45201
+    },
+    {
+      "original_path": "packages/contracts/stage-file-handoff.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/packages/contracts/stage-file-handoff.md",
+      "sha256": "b6105641c24428ac1443ed580b4a9964d9c0de4e38875e11c7e3b701f999ff59",
+      "bytes": 1984
+    },
+    {
+      "original_path": "packages/contracts/stage-file-handoff.zh-CN.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/packages/contracts/stage-file-handoff.zh-CN.md",
+      "sha256": "964d1f8d3dfdfe6b91f8fb15cca7bc16e7b3dbf1bca16da38b504a7bfd14c689",
+      "bytes": 6779
+    },
+    {
+      "original_path": "packages/contracts/stage-enablement.md",
+      "preserved_path": "references/legacy/three-modes-interface-r01/packages/contracts/stage-enablement.md",
+      "sha256": "f1e531300081bc4d475e8265e0aeb8eb6270d21aeb312c6995484fd5af883426",
+      "bytes": 38835
+    }
+  ]
+}

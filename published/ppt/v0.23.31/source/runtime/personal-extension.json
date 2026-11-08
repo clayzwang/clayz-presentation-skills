@@ -1,0 +1,152 @@
+{
+  "contract": "io.clayz.presentation.personal-extension-runtime/1.1",
+  "core": {
+    "name": "clayz-presentation-skills",
+    "version": "0.23.31",
+    "workflow_stages": [
+      "logic",
+      "copy",
+      "art-direction",
+      "output",
+      "supervisor"
+    ]
+  },
+  "extension": {
+    "enabled": true,
+    "profile_id": "ppt.instruction-package",
+    "profile_version": "1.0.0",
+    "profile_sha256": "e7241a97594d35c6823715a003523e30901e4166398140211978e243b8b217d6",
+    "host": "chatgpt-personal",
+    "decision_point": "before-logic"
+  },
+  "config": {
+    "path": "config/personal-extension-resolved.json",
+    "sha256": "e7a6f49399c8033fdf98728d7a8d9404ae0a3811195bef9d78ad953a8a9473d7",
+    "format": "json"
+  },
+  "mounts": [
+    {
+      "mount_id": "public-library",
+      "logical_root": "bundle://public-library/",
+      "adapter": "bundle",
+      "root": "."
+    },
+    {
+      "mount_id": "task-learning",
+      "logical_root": "library://ppt-learning/",
+      "adapter": "host-library",
+      "root": "PPT"
+    }
+  ],
+  "providers": [
+    {
+      "provider_id": "builtin-catalog",
+      "visibility": "public",
+      "manifest_uri": "bundle://public-library/catalog/provider-manifest.json",
+      "manifest_contract": "io.clayz.presentation.provider-manifest/1.0",
+      "mount_id": "public-library",
+      "required": true,
+      "stages": [
+        "logic",
+        "copy",
+        "art-direction",
+        "output",
+        "supervisor"
+      ],
+      "snapshot_policy": "immutable-release",
+      "index_snapshot": {
+        "provider_id": "builtin-catalog",
+        "digest": "6c13d7cefe43ffee8cf28f9f46d6d3389e0b6f9ea214cd15948a2fa571861798",
+        "record_count": 6
+      }
+    }
+  ],
+  "resource_inventory": {
+    "contract": "io.clayz.presentation.resource-inventory-policy/1.0",
+    "artifact": "ppt-resource-inventory.json",
+    "finalizer_script": "scripts/finalize_resource_inventory.py",
+    "evidence_contract": "packages/contracts/resource-inventory.schema.json",
+    "required_scan_scopes": [
+      "plugin-runtime",
+      "task-inputs",
+      "owner-library",
+      "public-index",
+      "brand-assets",
+      "host-capabilities",
+      "font-environment"
+    ],
+    "user_brief_before_logic": true,
+    "final_usage_reconciliation": true,
+    "fail_closed": true
+  },
+  "index_execution": {
+    "contract": "io.clayz.presentation.index-execution-policy/1.0",
+    "mode": "first-class-stage-gated",
+    "task_provider_id": "task-private-learning",
+    "source_manifest": "runtime-input://owner-learning-manifest",
+    "source_manifest_contract": "io.clayz.presentation.owner-learning-sources/1.0",
+    "source_manifest_required": true,
+    "materializer_script": "scripts/materialize_owner_index.py",
+    "evidence_contract": "packages/contracts/index-execution-evidence.schema.json",
+    "fail_closed_stages": [
+      "logic",
+      "copy",
+      "art-direction",
+      "output",
+      "supervisor"
+    ],
+    "required_receipt_stages": [
+      "logic",
+      "copy",
+      "art-direction",
+      "output",
+      "supervisor"
+    ]
+  },
+  "version_learning": {
+    "contract": "io.clayz.presentation.version-private-learning-policy/1.0",
+    "mode": "immutable-source-revisions",
+    "state_root": "runtime-input://owner-private-version-learning-state",
+    "bootstrap_script": "scripts/bootstrap_owner_learning.py",
+    "audit_contract": "io.clayz.presentation.version-private-learning-audit/1.0",
+    "audit_schema": "packages/contracts/version-private-learning-audit.schema.json",
+    "required_knowledge_kinds": [
+      "private-knowledge",
+      "template",
+      "standard",
+      "method"
+    ],
+    "reuse_requires_hash_match": true,
+    "source_drift_fails_closed": true,
+    "fail_closed": true
+  },
+  "origin_map": [
+    {
+      "path": "locale.default",
+      "policy": "replace",
+      "source": "profile:ppt.instruction-package",
+      "resolved_value_sha256": "cb6ad26bff207781ff22d264c287efef6765b9ca8f90d29c39244f73827fedcc"
+    }
+  ],
+  "guards": {
+    "single_public_workflow": true,
+    "no_sixth_stage": true,
+    "public_fallback_when_optional_provider_unavailable": true,
+    "required_private_provider_fails_closed": true,
+    "provider_snapshot_locked_per_run": true,
+    "public_material_evolution_methods_deferred": true,
+    "resource_inventory_required": true,
+    "resource_brief_before_logic": true,
+    "resource_usage_reconciliation_required": true,
+    "first_class_index_required": true,
+    "stage_receipts_fail_closed": true,
+    "latest_version_guard_required": true,
+    "version_private_learning_required": true,
+    "one_learning_run_per_source_revision": true,
+    "source_drift_fails_closed": true
+  },
+  "lock": {
+    "algorithm": "sha256",
+    "digest": "13a5b37d95e1852b8327ce46f4573fe6e9af3e832f4d867ba6531664e03cdb3b"
+  }
+}

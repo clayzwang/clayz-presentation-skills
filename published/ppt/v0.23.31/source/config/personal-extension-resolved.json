@@ -1,0 +1,324 @@
+{
+  "$schema": "./config.schema.json",
+  "identity": {
+    "project": "clayz-presentation-skills",
+    "version": "0.23.31",
+    "creator": "clayz",
+    "brand": "clayz",
+    "namespace": "io.clayz.presentation",
+    "attribution": {
+      "mode": "metadata",
+      "visible_mark": false,
+      "allow_removal": true,
+      "custom_properties": {
+        "ClayzGenerator": "clayz-presentation-skills",
+        "ClayzVersion": "0.23.31",
+        "ClayzOriginalArchitecture": "clayz",
+        "ClayzBrand": "clayz",
+        "ClayzNamespace": "io.clayz.presentation"
+      }
+    }
+  },
+  "workflow": {
+    "contract_version": "3.1-open",
+    "stages": [
+      "logic",
+      "copy",
+      "art-direction",
+      "output",
+      "supervisor"
+    ],
+    "approval_states": [
+      "draft",
+      "logic-approved",
+      "copy-approved",
+      "art-direction-approved",
+      "built",
+      "supervised"
+    ],
+    "execution_ledger_contract": "io.clayz.presentation.execution-ledger/1.0",
+    "maximum_technical_cycles": 3,
+    "reader_review": {
+      "contract": "io.clayz.presentation.reader-review/1.0",
+      "required": true,
+      "phases": [
+        "title",
+        "content",
+        "final"
+      ],
+      "unavailable_policy": "disclose-and-stop",
+      "repair_policy": "consolidated-once"
+    },
+    "delivery_policy": {
+      "mode": "calibrated",
+      "calibration_contract": "io.clayz.presentation.supervisor-calibration/1.0",
+      "independent_audit_contract": "io.clayz.presentation.independent-audit/1.0",
+      "require_calibration_chain": true,
+      "require_independent_auditor": true,
+      "legacy_reports": "read-only"
+    },
+    "mode_system": {
+      "contract": "io.clayz.presentation.mode-workflow/1.0",
+      "default_mode": "normal",
+      "modes": [
+        "fast",
+        "normal",
+        "train"
+      ],
+      "production_stages": [
+        "logic",
+        "copy",
+        "art",
+        "output"
+      ],
+      "supervisor": "side-audit-in-normal-and-train",
+      "reader_return_limit": 1,
+      "legacy_fields": "Read-only compatibility defaults. New tasks enter workflow_cli; init resolves one config and replaces legacy reader gates."
+    }
+  },
+  "runtime": {
+    "contract_version": "1.3",
+    "preflight_script": "scripts/runtime_preflight.py",
+    "model_profiles": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "classification_basis": "capabilities-not-model-brands",
+    "route_policy": "scan-once-lock-for-run",
+    "fallback_policy": "restart-from-preflight",
+    "platform_packs": [
+      "common",
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pdf_support": "lazy-optional",
+    "budgets": {
+      "maximum_capability_scans": 1,
+      "maximum_source_collection_rounds": 1,
+      "maximum_authoring_writes": 2,
+      "maximum_office_processes": 1,
+      "maximum_full_deck_renders": 2,
+      "maximum_repair_cycles": 1,
+      "maximum_route_switches": 0,
+      "maximum_fallback_restarts": 1
+    }
+  },
+  "locale": {
+    "default": "zh-CN",
+    "supported": [
+      "en-US",
+      "zh-CN"
+    ],
+    "date_style": "iso",
+    "decimal_separator": ".",
+    "thousands_separator": ","
+  },
+  "theme": {
+    "profile": "neutral-default",
+    "source": "generated",
+    "master_path": null,
+    "slide_size": "LAYOUT_WIDE",
+    "layout_roles": [
+      "cover",
+      "body",
+      "section",
+      "closing"
+    ],
+    "colors": {
+      "background": "#F7F8FC",
+      "surface": "#FFFFFF",
+      "text": "#171A2B",
+      "muted": "#667085",
+      "accent": "#5B5BD6",
+      "accent_soft": "#E8E8FF",
+      "positive": "#14866D",
+      "warning": "#B7791F",
+      "negative": "#C24156",
+      "grid": "#D8DCE8"
+    },
+    "typography": {
+      "size_acceptance": "art-direction-visual-review",
+      "primary_fonts": [
+        "华文楷体"
+      ],
+      "cjk_fonts": [
+        "STKaiti"
+      ],
+      "latin_fonts": [
+        "STKaiti"
+      ],
+      "digit_fonts": [
+        "STKaiti"
+      ],
+      "chart_fonts": [
+        "STKaiti"
+      ],
+      "title_minimum_pt": 24,
+      "body_minimum_pt": 18,
+      "minimum_audience_text_pt": 12,
+      "minimum_chart_text_pt": 12,
+      "footnote_minimum_pt": 12,
+      "page_number_minimum_pt": 10,
+      "prefer_even_point_sizes": false,
+      "allow_fractional_point_sizes": true,
+      "minimum_exception_policy": "technical-fields-only",
+      "fail_on_missing_primary_font": false,
+      "font_validation": {
+        "contract_version": "1.0",
+        "mode": "preserve-name-defer-native",
+        "deferred_font_identities": [
+          {
+            "canonical_family": "华文楷体",
+            "aliases": [
+              "STKaiti"
+            ],
+            "pptx_family": "STKaiti",
+            "font_asset": {
+              "file_name": "STKAITI.TTF",
+              "sha256": "c6f6d5b894a22e21a2153231f37db0136950503ac18bf846721739bfa8de56c2",
+              "bytes": 12717992,
+              "font_version": "Version 1.02"
+            }
+          }
+        ],
+        "preserve_requested_font_names": true,
+        "silent_substitution_forbidden": true,
+        "cloud_render_authority": "diagnostic-only",
+        "cloud_pdf_pixel_equivalence": "not-required-when-deferred-font-missing",
+        "native_reopen_required_for_final_font_acceptance": true,
+        "missing_deferred_font_status": "font-validation-pending"
+      }
+    },
+    "page_number_policy": {
+      "required": true,
+      "position": "footer-right",
+      "scope": "body-and-closing",
+      "start": 1,
+      "cover_counting": false,
+      "mechanism": "editable-footer-field"
+    }
+  },
+  "layout": {
+    "column_count": 12,
+    "safe_margin_in": 0.42,
+    "title_zone_height_in": 0.78,
+    "footer_zone_height_in": 0.28,
+    "minimum_gap_in": 0.12,
+    "internal_content_reserve_ratio": 0.1,
+    "maximum_horizontal_nodes": 5,
+    "cardification_policy": "evidence-required"
+  },
+  "references": {
+    "provider_contract": "packages/contracts/provider-manifest.schema.json",
+    "public_provider_manifest": "catalog/provider-manifest.json",
+    "public_index": "catalog/records.jsonl",
+    "local_library_adapter": "filesystem",
+    "roots": [
+      "knowledge/sources"
+    ],
+    "registry": "knowledge/registry/asset-registry.jsonl",
+    "admission_registry": "knowledge/registry/admitted-references.jsonl",
+    "index": {
+      "role": "derived-local-search-cache",
+      "engine": "bm25-lexical",
+      "path": "knowledge/index/search-cache.json",
+      "maximum_results": 5,
+      "physical_neighbor_expansion": 2,
+      "semantic_neighbor_expansion": 3
+    },
+    "learning": {
+      "root": "knowledge/learning",
+      "stages": [
+        "logic",
+        "copy",
+        "art-direction",
+        "output"
+      ],
+      "writeback_mode": "append-observation-only",
+      "auto_promote": false,
+      "contract": "packages/contracts/knowledge-learning.md"
+    },
+    "require_human_admission": true,
+    "allow_external_search": true,
+    "maximum_unique_examples_per_deck": 24
+  },
+  "renderer": {
+    "provider": "auto",
+    "adapters": {
+      "pptxgenjs": {
+        "path": "packages/adapters/pptxgenjs/render.mjs",
+        "enabled": false,
+        "security_status": "blocked-unpatched-transitive-dependency",
+        "blocked_advisories": [
+          "GHSA-w3rx-r6r6-pgpr",
+          "GHSA-5p2g-fcmc-qvqq"
+        ]
+      }
+    },
+    "baseline_authoring_backend": "python-pptx",
+    "baseline_adapter": "packages/adapters/python_pptx/render.py",
+    "required_capabilities": [
+      "editable-text",
+      "editable-shapes",
+      "charts",
+      "tables",
+      "images",
+      "render-preview",
+      "pptx-inspection"
+    ],
+    "optional_capabilities": [
+      "svg",
+      "pdf-page-input"
+    ],
+    "preferred_backends": [
+      "python-pptx",
+      "artifact-tool",
+      "native-presentation-tool",
+      "pptxgenjs"
+    ],
+    "target_applications": [
+      "powerpoint",
+      "wps",
+      "libreoffice"
+    ],
+    "require_final_reopen_render": true
+  },
+  "delivery": {
+    "report_storage": "external-evidence",
+    "default_profile": "lightweight",
+    "profiles": {
+      "lightweight": {
+        "raster_scale": 1.75,
+        "jpeg_quality": 86,
+        "max_long_edge": 1600
+      },
+      "balanced": {
+        "raster_scale": 2.0,
+        "jpeg_quality": 90,
+        "max_long_edge": 2200
+      },
+      "high-fidelity": {
+        "raster_scale": 2.5,
+        "jpeg_quality": 94,
+        "max_long_edge": 3200
+      }
+    },
+    "embed_fonts": false,
+    "preserve_editability": true
+  },
+  "qa": {
+    "require_source_traceability": true,
+    "require_copy_id_traceability": true,
+    "require_object_inventory": true,
+    "require_full_deck_render_review": true,
+    "automatic_scores_are_diagnostic_only": true,
+    "scatter_lines_require_semantic_meaning": true,
+    "labels_must_be_legible": true,
+    "accent_band_detection": {
+      "rgb_distance": 52
+    }
+  }
+}

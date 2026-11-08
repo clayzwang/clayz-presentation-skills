@@ -1,0 +1,7 @@
+{
+  "contract": "io.clayz.presentation.native-library-policy/1.0",
+  "adapter": "host-library",
+  "host_root": "PPT/_extension/confirmed-learning",
+  "logical_root": "library://clayz-confirmed/",
+  "provider_id": "clayz.owner-consensus"
+}

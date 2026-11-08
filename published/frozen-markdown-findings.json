@@ -1,0 +1,140 @@
+{
+  "contract": "io.clayz.frozen-markdown-findings/1",
+  "scope": "Explicit retained findings in the unchanged frozen standalone package, not repaired or valid links. Unknown findings and changed source bytes remain blocking.",
+  "publication": "published/ppt/v0.23.31/publication.json",
+  "archive_sha256": "a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe",
+  "findings": [
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/SKILL.original.md",
+      "target": "packages/contracts/copy-graph.zh-CN.md",
+      "error": "target does not exist",
+      "source_sha256": "4346354c6e745a28b37ae5e9898519d2fc8d12ba2242fef6acb81edeb226c813"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/SKILL.original.md",
+      "target": "packages/contracts/native-library-workflow.md",
+      "error": "target does not exist",
+      "source_sha256": "4346354c6e745a28b37ae5e9898519d2fc8d12ba2242fef6acb81edeb226c813"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/packages/contracts/stage-enablement.md",
+      "target": "reader-review.md",
+      "error": "target does not exist",
+      "source_sha256": "f1e531300081bc4d475e8265e0aeb8eb6270d21aeb312c6995484fd5af883426"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/packages/contracts/stage-enablement.md",
+      "target": "story-visual-handoff.md",
+      "error": "target does not exist",
+      "source_sha256": "f1e531300081bc4d475e8265e0aeb8eb6270d21aeb312c6995484fd5af883426"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/packages/contracts/stage-enablement.md",
+      "target": "reader-quality.md",
+      "error": "target does not exist",
+      "source_sha256": "f1e531300081bc4d475e8265e0aeb8eb6270d21aeb312c6995484fd5af883426"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/reader-review.md",
+      "error": "target does not exist",
+      "source_sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-design-process.md",
+      "error": "target does not exist",
+      "source_sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-design-process.zh-CN.md",
+      "error": "target does not exist",
+      "source_sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-cognition.md",
+      "error": "target does not exist",
+      "source_sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "target": "../../../skills/clayz-presentation-art-direction/references/reader-centered-composition.md",
+      "error": "target does not exist",
+      "source_sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "target": "../../../skills/clayz-presentation-art-direction/references/reader-centered-composition.zh-CN.md",
+      "error": "target does not exist",
+      "source_sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-design-process.md",
+      "error": "target does not exist",
+      "source_sha256": "3955b847250be9a3effdc6ce0af23c4e25fb357ec6885cd4447c8d6790cf3908"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/output/stage.md",
+      "target": "packages/contracts/art-cognition.md",
+      "error": "target does not exist",
+      "source_sha256": "4ddd759bd4bef6cddf77155438c9dc499ee4865cec609ca4e9d54796502c19bb"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/output/stage.md",
+      "target": "packages/contracts/reader-review.md",
+      "error": "target does not exist",
+      "source_sha256": "4ddd759bd4bef6cddf77155438c9dc499ee4865cec609ca4e9d54796502c19bb"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/supervisor/stage.md",
+      "target": "packages/contracts/art-cognition.md",
+      "error": "target does not exist",
+      "source_sha256": "a79a863d513549a0b68c221b21f35f76bae75c2bb38e4548e678aad4d42c6f54"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/legacy/three-modes-interface-r01/references/stages/supervisor/stage.md",
+      "target": "packages/contracts/reader-review.md",
+      "error": "target does not exist",
+      "source_sha256": "a79a863d513549a0b68c221b21f35f76bae75c2bb38e4548e678aad4d42c6f54"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-design-process.md",
+      "error": "target does not exist",
+      "source_sha256": "9db35502d5bc20c77dba4cb80884040a5974ad1150e502efed35a2b3f7e9a0ea"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-design-process.zh-CN.md",
+      "error": "target does not exist",
+      "source_sha256": "9db35502d5bc20c77dba4cb80884040a5974ad1150e502efed35a2b3f7e9a0ea"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-cognition.md",
+      "error": "target does not exist",
+      "source_sha256": "9db35502d5bc20c77dba4cb80884040a5974ad1150e502efed35a2b3f7e9a0ea"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/stages/art-direction/stage.md",
+      "target": "../../../skills/clayz-presentation-art-direction/references/reader-centered-composition.md",
+      "error": "target does not exist",
+      "source_sha256": "9db35502d5bc20c77dba4cb80884040a5974ad1150e502efed35a2b3f7e9a0ea"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/references/stages/art-direction/stage.md",
+      "target": "packages/contracts/art-design-process.md",
+      "error": "target does not exist",
+      "source_sha256": "9db35502d5bc20c77dba4cb80884040a5974ad1150e502efed35a2b3f7e9a0ea"
+    },
+    {
+      "path": "published/ppt/v0.23.31/source/skills/clayz-presentation-logic/references/semantic-logic-model.md",
+      "target": "logic-package-contract.md",
+      "error": "target does not exist",
+      "source_sha256": "7c637753fbe2209d194ebf2ff95e0d0cb8d139c45aa6e99cb7127291d3a5546d"
+    }
+  ]
+}

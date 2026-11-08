@@ -1,0 +1,455 @@
+{
+  "release_version": "0.23.31",
+  "source_release": "0.23.30",
+  "local_revision": "three-modes.knowledge-use-projection.b02.r15",
+  "publication": "local-knowledge-use-projection-trial",
+  "parent_tool_archive": {
+    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/batch-accounting-b02-r14/tool-candidate.zip",
+    "bytes": 1001070,
+    "sha256": "8aa975a0810ebf671ea7d17ed9774218084816322c3418ebc337fb950f1bbd42"
+  },
+  "change_scope": "Only reader_knowledge.py changes: preserve author-declared actual_adoption arrays/records using an explicit professional whitelist. Other147 Python including all criteria, record/repair/gate logic, evaluators, lineage and transport unchanged from30. No old judgment/run is changed; no quality/token/VPN gain assumed.",
+  "user_instruction": "User finite same20 training and stable professional Logic/Copy/Art goals; current evidence shows actual_adoption arrays lost by string-only projection. Repair only future professional input, preserving all old judgments, budgets and unknowns.",
+  "parent_candidate_history_preserved": {
+    "release_version": "0.23.30",
+    "source_release": "0.23.29",
+    "local_revision": "three-modes.batch-accounting.b02.r14",
+    "publication": "local-history-lifecycle-trial",
+    "parent_tool_archive": {
+      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/technical-batch-b02-r13/tool-candidate.zip",
+      "bytes": 999770,
+      "sha256": "92c1bbd0aba9f4eb58a8c87dd0e8ef8061b64b3171bf0463a951e003955754c3"
+    },
+    "change_scope": "Only two technical-batch Python files change: separate nominal API serialization from measured CLI stdout, and accept this case actual birth-tool programs. Other146 Python including all professional evaluators/reader lineage unchanged from29; no model/VPN saving claimed.",
+    "user_instruction": "2026-11-06: fix accumulated image replay; codify in toolkit and training/Gitea configuration; retain professional quality.",
+    "parent_candidate_history_preserved": {
+      "release_version": "0.23.29",
+      "source_release": "0.23.28",
+      "local_revision": "three-modes.technical-batch.b02.r13",
+      "publication": "local-history-lifecycle-trial",
+      "parent_tool_archive": {
+        "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-history-guard-b02-r12b/tool-candidate.zip",
+        "bytes": 994740,
+        "sha256": "ed7346f30ac994452077d2fbe4b0e2d468bbe74e36d50c2cff8b98945b334fc7"
+      },
+      "change_scope": "Add two technical-batch Python files and usage guidance; all146 preexisting Python files, professional evaluators, frozen-reader lineage, criteria and budgets byte-identical to28. No measured provider-token or VPN saving claimed.",
+      "user_instruction": "2026-11-06: fix accumulated image replay; codify in toolkit and training/Gitea configuration; retain professional quality.",
+      "parent_candidate_history_preserved": {
+        "release_version": "0.23.28",
+        "source_release": "0.23.27",
+        "local_revision": "three-modes.history-lifecycle-guard.b02.r12b",
+        "publication": "local-history-lifecycle-trial",
+        "parent_tool_archive": {
+          "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-history-b02-r12/tool-candidate.zip",
+          "bytes": 994465,
+          "sha256": "a1737a4ba6599b790ea30850eca2fdec7f8547e34374fcca98206114ad38bc33"
+        },
+        "change_scope": "Add retirement/fresh-context lifecycle; reader physical-context continuity adds explicit hash-bound frozen-first lineage. Professional evaluation logic, immutable first reading, stages, repair and budgets unchanged. Legacy CLI compatibility is explicitly logged.",
+        "user_instruction": "2026-11-06: fix accumulated image replay; codify in toolkit and training/Gitea configuration; retain professional quality.",
+        "parent_candidate_history_preserved": {
+          "release_version": "0.23.27",
+          "source_release": "0.23.26",
+          "local_revision": "three-modes.history-lifecycle.b02.r12",
+          "publication": "local-history-lifecycle-trial",
+          "parent_tool_archive": {
+            "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-status-b02-r11/tool-candidate.zip",
+            "bytes": 988964,
+            "sha256": "ccea0674b88448bd8d3a74fc8a819db4b81a1660fad23c05abc43d26bf69eee2"
+          },
+          "change_scope": "Add retirement/fresh-context lifecycle; reader physical-context continuity adds explicit hash-bound frozen-first lineage. Professional evaluation logic, immutable first reading, stages, repair and budgets unchanged. Legacy CLI compatibility is explicitly logged.",
+          "user_instruction": "2026-11-06: fix accumulated image replay; codify in toolkit and training/Gitea configuration; retain professional quality.",
+          "parent_candidate_history_preserved": {
+            "release_version": "0.23.26",
+            "source_release": "0.23.25",
+            "local_revision": "three-modes.transport-status.b02.r11",
+            "publication": "local-validated-transport-sidecar-and-future-uninitialized-tool",
+            "parent_tool_archive": {
+              "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-economy-b02-r10/tool-candidate.zip",
+              "bytes": 988322,
+              "sha256": "b3dbfb1345c8752a6a2ea90ec8e3327eff2f43207be84eb0bf2a49b4f0c7c8f9"
+            },
+            "change_scope": "Bounded transport summaries preserve Native verdict/disposition while omitting duplicated bodies. All Native Python/evaluators, projections and professional goals unchanged; only additive transport summary code changes.",
+            "user_instruction": "2026-11-06: implement image/context traffic controls and cross-round isolation in tool and Gitea training config, then resume.",
+            "parent_candidate_history_preserved": {
+              "release_version": "0.23.25",
+              "source_release": "0.23.21",
+              "local_revision": "three-modes.transport-economy.b02.r10",
+              "publication": "local-validated-transport-sidecar-and-future-uninitialized-tool",
+              "parent_tool_archive": {
+                "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/semantic-fragments-b02-r06/tool-candidate.zip",
+                "bytes": 976783,
+                "sha256": "969ea19cbb6c326b6c54338b96198ad6850ebeca0118e01fa9a1b1b7c5dcbad7"
+              },
+              "change_scope": "Two additive transport Python files, standalone defaults and operational guidance. All preexisting Python, projections, native evaluators and professional goals unchanged.",
+              "user_instruction": "2026-11-06: implement image/context traffic controls and cross-round isolation in tool and Gitea training config, then resume.",
+              "parent_candidate_history_preserved": {
+                "release_version": "0.23.21",
+                "source_release": "0.23.20",
+                "local_revision": "three-modes.semantic-fragments.b02.r06",
+                "publication": "local-unselected-not-installed-not-published",
+                "parent_tool_archive": {
+                  "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-view-b02-r05/tool-candidate.zip",
+                  "bytes": 972915,
+                  "sha256": "4a687aee58cfd7f507ce527667ce33e5c21112dc6c6725c35b63ee69655f414d"
+                },
+                "change_scope": "One optional native-text construction Python module and Art guidance; all preexisting Python, native projections/evaluators/contracts/goals/budgets unchanged.",
+                "user_goal_selection": {
+                  "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                  "bytes": 1293,
+                  "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
+                },
+                "prototype_validation": {
+                  "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/operations/semantic-fragments-prototype-20261106/validation-first.json",
+                  "bytes": 396,
+                  "sha256": "30e73d9c2115e933dc72a5183f244f38b20b5f5010a0cb5752d16e06e75425d3"
+                },
+                "parent_candidate_history_preserved": {
+                  "release_version": "0.23.20",
+                  "source_release": "0.23.19",
+                  "local_revision": "three-modes.professional-view.b02.r05",
+                  "publication": "local-unselected-not-installed-not-published",
+                  "parent_tool_archive": {
+                    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-content-b02-r04/tool-candidate.zip",
+                    "bytes": 968521,
+                    "sha256": "dbc91957209704b3450d6a9895f67981d7008edb6f59d530d29eb3516fb6feb1"
+                  },
+                  "change_scope": "Two new optional reading-aid Python files plus Copy/Art guidance and distribution version/hash envelopes. All preexisting Python, native projections/evaluators/contracts/goals/budgets unchanged.",
+                  "user_goal_selection": {
+                    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                    "bytes": 1293,
+                    "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
+                  },
+                  "prototype_validation": {
+                    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/operations/professional-view-prototype-20261105/validation-r02/validation.json",
+                    "bytes": 1645,
+                    "sha256": "a1c5f74df3a5871186a65ec2f4706f56f5ef1f0d21810d254467f2ca44314f5c"
+                  },
+                  "parent_candidate_history_preserved": {
+                    "release_version": "0.23.19",
+                    "source_release": "0.23.18",
+                    "local_revision": "three-modes.professional-content.b02.r04",
+                    "publication": "local-unselected-not-installed-not-published",
+                    "parent_tool_archive": {
+                      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-capabilities-b02-r03/tool-candidate.zip",
+                      "bytes": 966794,
+                      "sha256": "9498bd42c602db45d16bf25251f4ec69025d8e4a4d9b40e0121206dea88c848e"
+                    },
+                    "change_scope": "Copy/Art method prose and distribution version/hash envelopes only; all Python, contracts, evaluation, reader methods and budgets unchanged. Separate K candidate curates development history.",
+                    "user_goal_selection": {
+                      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                      "bytes": 1293,
+                      "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
+                    },
+                    "evidence": {
+                      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/analysis/next-kernel-improvement-candidates-after-R06-observations.json",
+                      "bytes": 13397,
+                      "sha256": "d849d007828d56fdd7caa5a255fa65413c6efb7889578b4f0746c5e24947ba05"
+                    },
+                    "parent_candidate_history_preserved": {
+                      "release_version": "0.23.18",
+                      "source_release": "0.23.17",
+                      "local_revision": "three-modes.professional-capabilities.b02.r03",
+                      "publication": "local-unselected-not-installed-not-published",
+                      "parent_tool_archive": {
+                        "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/copy-art-metadata-b02-r02/tool-candidate.zip",
+                        "bytes": 964966,
+                        "sha256": "4fa31e037c32fc23952d6000e855da0a07fa96638241112f5c4792f06eb51221"
+                      },
+                      "change_scope": "Professional Logic/Copy/Art method priority per explicit user revision; all existing Python, evaluator and contracts unchanged. Optional metadata utility retained unchanged; K unchanged.",
+                      "user_goal_revision": {
+                        "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                        "bytes": 1293,
+                        "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
+                      },
+                      "parent_candidate_history_preserved": {
+                        "release_version": "0.23.17",
+                        "source_release": "0.23.16",
+                        "local_revision": "three-modes.copy-meaning-metadata.b02.r02",
+                        "publication": "local-candidate-not-installed-not-published",
+                        "inheritance": "built-unselected",
+                        "parent_tool_archive": {
+                          "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/copy-art-b02-r01.2/tool-candidate.zip",
+                          "bytes": 962186,
+                          "sha256": "75a17b86352fea132981f494114c55d76bd9f3e97bd29e5d1ba63433c06b9522"
+                        },
+                        "change_scope": "Retain prepared Copy semantic method and unchanged K bytes; add optional configured custom-property in-memory writer and Art usage guidance. No evaluator, contract, reader or budget changes.",
+                        "training_package_changed": false,
+                        "parent_candidate_history_preserved": {
+                          "release_version": "0.23.16",
+                          "source_release": "0.23.15",
+                          "local_revision": "three-modes.copy-meaning.b02.r01",
+                          "publication": "local-candidate-not-installed-not-published",
+                          "inheritance": "built-unselected",
+                          "parent_tool_zip_sha256": "e3f3f6c5a8770c739f33dc30557ce29b4122bed8c17bdaf6ae3778dd295bb12d",
+                          "change_scope": "Copy professional reconstruction prose plus corresponding local version/hash envelopes. All executable Python and contracts unchanged. Separate K candidate has its own bytes/version, no effect or release claim.",
+                          "training_package_changed": false,
+                          "parent_candidate_history_preserved": {
+                            "release_version": "0.23.15",
+                            "source_release": "0.23.14",
+                            "local_revision": "three-modes.native-diagnostic.r16",
+                            "parent_tool_zip_sha256": "49d0dd9ebe217ff71b32ee9875ec0bf30e2c571d81e5a15e9bc587b79a87c88a",
+                            "parent_revision": "three-modes.fixed-footer.r16",
+                            "publication": "local-candidate-not-installed-not-published",
+                            "inheritance": "prepared-not-promoted",
+                            "change_scope": "Optional early read-only native text/cache diagnostic calls the unchanged technical.capture with all seven quality checks explicitly not-observed and temporary byte snapshots; no production state, evaluator, gate, budget, font, training or knowledge changes.",
+                            "knowledge_changed": false,
+                            "training_package_changed": false,
+                            "parent_candidate_history_preserved": {
+                              "release_version": "0.23.14",
+                              "source_release": "0.23.13",
+                              "local_revision": "three-modes.fixed-footer.r16",
+                              "parent_tool_zip_sha256": "7fb6eb96e7fa8cc2ca7c78b6b879f4603ec95c283d8e76f364290a282c0be6a0",
+                              "parent_revision": "three-modes.native-knowledge.r14",
+                              "publication": "local-candidate-not-installed-not-published",
+                              "inheritance": "prepared-not-promoted",
+                              "change_scope": "Optional conversion of a pre-existing page/footer placeholder field to fixed footer cache; semantic numbering is supplied by caller. No overlay, auto-renumbering, geometry/text/font rewrite, validator, gate, criteria, budget, reader boundary, training or knowledge change.",
+                              "knowledge_changed": false,
+                              "training_package_changed": false,
+                              "parent_candidate_history_preserved": {
+                                "release_version": "0.23.13",
+                                "source_release": "0.23.12",
+                                "local_revision": "three-modes.native-knowledge.r14",
+                                "parent_tool_zip_sha256": "21524e72f7eb8814ff6f034a5f00ec3131ad66f498f2cd3407caea5ecbdb2d6b",
+                                "parent_revision": "three-modes.knowledge-docs.r13",
+                                "publication": "local-candidate-not-installed-not-published",
+                                "inheritance": "prepared-not-promoted",
+                                "change_scope": "Known native knowledge lookup envelope compatibility with the same professional field whitelist; source-locator/native-segment documentation. All other Python, reader verdicts/criteria/gates, budgets, fonts, Knowledge and Training unchanged.",
+                                "knowledge_changed": false,
+                                "training_package_changed": false,
+                                "parent_candidate_history_preserved": {
+                                  "release_version": "0.23.12",
+                                  "source_release": "0.23.11",
+                                  "local_revision": "three-modes.knowledge-docs.r13",
+                                  "parent_tool_zip_sha256": "8c440a646204e71769face64781842053c0c7b5e7f8c5de77e3b761eafa42fb0",
+                                  "parent_revision": "three-modes.native-text.r13",
+                                  "publication": "local-candidate-not-installed-not-published",
+                                  "inheritance": "prepared-not-promoted",
+                                  "change_scope": "Documentation-only explanation of existing Art knowledge/proof, native Copy-lock and renders contracts; prepared optional text primitive inherited. All existing Python, gates, goals, reader criteria, budgets, fonts, Knowledge and Training unchanged.",
+                                  "knowledge_changed": false,
+                                  "training_package_changed": false,
+                                  "parent_candidate_history_preserved": {
+                                    "release_version": "0.23.11",
+                                    "source_release": "0.23.10",
+                                    "local_revision": "three-modes.native-text.r13",
+                                    "parent_tool_zip_sha256": "6ca20e119678d7f81523df17d8fa6186a69af294648178abb2f61bda671f88d5",
+                                    "parent_revision": "three-modes.visible-content.r11",
+                                    "publication": "local-candidate-not-installed-not-published",
+                                    "inheritance": "prepared-not-promoted",
+                                    "change_scope": "Optional native text-frame/paragraph setters preserve content and geometry while explicitly choosing auto-fit/wrap/alignment. No automatic whole-deck rewrite, wrapping algorithm, template, validator, gate, criteria, budget, font policy, reader boundary, training or knowledge change.",
+                                    "knowledge_changed": false,
+                                    "training_package_changed": false,
+                                    "parent_candidate_history_preserved": {
+                                      "release_version": "0.23.10",
+                                      "source_release": "0.23.9",
+                                      "local_revision": "three-modes.visible-content.r11",
+                                      "parent_tool_zip_sha256": "5df37d83567f1789f46b8783420d7a408ab09fe00a2e9e9efaab4191c692676b",
+                                      "parent_revision": "three-modes.technical-config.r10",
+                                      "publication": "local-candidate-not-installed-not-published",
+                                      "inheritance": "prepared-not-promoted",
+                                      "change_scope": "Visible-content excludes only content.selection metadata; full displayed values/axes/labels/unit/period remain, and rich semantic comparison retains full Copy graph. No criteria/record/closure/repair/failure/budget/font/runtime/producer-content/knowledge/training change.",
+                                      "knowledge_changed": false,
+                                      "training_package_changed": false,
+                                      "parent_candidate_history_preserved": {
+                                        "release_version": "0.23.9",
+                                        "source_release": "0.23.8",
+                                        "local_revision": "three-modes.technical-config.r10",
+                                        "publication": "local-candidate-not-published-or-installed",
+                                        "inheritance": "prepared-not-promoted",
+                                        "parent_tool_zip_sha256": "7f9a9596a3d0e3a6972b4d4ac42c2b80a0aee97024bc6abcd5d7b209b87cbfbb",
+                                        "parent_revision": "three-modes.page-fields.r09",
+                                        "change_scope": "Art/Output professional_projection carries the exact frozen run task-config as separate technical_files.canonical_task_config; producer content, graph/identity, design/renders/resources/images unchanged. No source/author-process/reader-history expansion, acceptance/reader/budget/font/runtime/training/K change.",
+                                        "knowledge_changed": false,
+                                        "training_package_changed": false,
+                                        "parent_candidate_history_preserved": {
+                                          "release_version": "0.23.8",
+                                          "source_release": "0.23.7",
+                                          "local_revision": "three-modes.page-fields.r09",
+                                          "publication": "local-candidate-not-published-or-installed",
+                                          "inheritance": "prepared-not-promoted",
+                                          "parent_tool_zip_sha256": "96a927f271583024e6876b640b919b48fff0648c4f6b83a3348fef187050f12a",
+                                          "parent_revision": "three-modes.output-inputs.r08",
+                                          "change_scope": "Optional read-only manifest-bound explicit page-field/PDF diagnostic. No existing executable, production criterion/gate/reader/failure/budget/font behavior changes; no K/training or current run changes.",
+                                          "knowledge_changed": false,
+                                          "training_package_changed": false,
+                                          "parent_candidate_history_preserved": {
+                                            "release_version": "0.23.7",
+                                            "source_release": "0.23.6",
+                                            "local_revision": "three-modes.output-inputs.r08",
+                                            "publication": "local-candidate-not-published-or-installed",
+                                            "inheritance": "prepared-not-promoted",
+                                            "parent_tool_zip_sha256": "96bac370f531f2eb8f6c8c7f175dce22128e1f4f6213d20851a3832b121f5af5",
+                                            "parent_revision": "three-modes.deck-planning.r07",
+                                            "change_scope": "Output professional_projection excludes only the four documented reserved Art knowledge proof roles from production_resources. Original stage/audit proofs, design/renders/editable source/page images and every other resource remain. No reader, criterion, gate, budget, failure or font changes.",
+                                            "knowledge_changed": false,
+                                            "training_package_changed": false,
+                                            "parent_candidate_history_preserved": {
+                                              "release_version": "0.23.6",
+                                              "source_release": "0.23.5",
+                                              "local_revision": "three-modes.deck-planning.r07",
+                                              "publication": "local-candidate-not-published-or-installed",
+                                              "inheritance": "prepared-not-promoted",
+                                              "parent_tool_zip_sha256": "98249bc3b3b06d413b7c36c3dd47f7ab11c49ee578bd98e1c7a1a83544bfd8c3",
+                                              "parent_revision": "three-modes.clean-inputs.r06",
+                                              "change_scope": "Documentation-only responsibility/entry clarification: Copy whole-deck roles, legal cover framing and coherent title language before locking; Art whole-deck semantic visual system and bounded local adaptation; actual-save accounting clarification. Existing knowledge, all executable code, criteria, interfaces, bytes locks, budgets, failures and closure unchanged.",
+                                              "knowledge_changed": false,
+                                              "training_package_changed": false,
+                                              "parent_candidate_history_preserved": {
+                                                "release_version": "0.23.5",
+                                                "source_release": "0.23.4",
+                                                "local_revision": "three-modes.clean-inputs.r06",
+                                                "publication": "local-candidate-not-published-or-installed",
+                                                "inheritance": "prepared-not-promoted",
+                                                "parent_tool_zip_sha256": "c5176d037cf9e4e61ddb8764e0b4654fcbed5081e877073126845931ffd93e57",
+                                                "parent_revision": "three-modes.technical.r05",
+                                                "change_scope": "Current professional knowledge whitelist in readers.prepare plus new reader_knowledge module; stage_files.validate_process error wording only (no predicate change); process.events and same-scope UNO documentation; inherited technical packet/UNO changes; necessary identity/lineage/integrity metadata. No criteria, context, record, deferred/closure/repair, budgets, fonts, quality or failure policy changes.",
+                                                "knowledge_changed": false,
+                                                "training_package_changed": false,
+                                                "parent_candidate_history_preserved": {
+                                                  "release_version": "0.23.4",
+                                                  "source_release": "0.23.3",
+                                                  "local_revision": "three-modes.technical.r05",
+                                                  "publication": "local-candidate-not-published-or-installed",
+                                                  "inheritance": "prepared-not-promoted",
+                                                  "parent_tool_zip_sha256": "71e6f8d2e455dad957bb4906c7ca9831914f1a303aef4c3904b7afcccf750adf",
+                                                  "parent_revision": "three-modes.uno.r04",
+                                                  "change_scope": "Technical-only candidate: retain packet-reference and UNO ready/export changes; restore Logic/Copy professional method text to0.23.1; retain all existing validators, criteria and budgets. No semantic improvement claim.",
+                                                  "knowledge_changed": false,
+                                                  "training_package_changed": false,
+                                                  "parent_candidate_history_preserved": {
+                                                    "release_version": "0.23.3",
+                                                    "source_release": "0.23.2",
+                                                    "local_revision": "three-modes.uno.r04",
+                                                    "publication": "local-candidate-not-published-or-installed",
+                                                    "inheritance": "prepared-not-promoted",
+                                                    "parent_tool_zip_sha256": "b4ba44603f59b602df56ef0e3e11411b6cd4a8a7519b4e866259a0c6e97a3a54",
+                                                    "parent_revision": "three-modes.packets.r03",
+                                                    "change_scope": "Add tested UNO attach/export client and ready-before-PID-binding method; inherited packet/method fixes; identity and integrity metadata. No budget, failure policy, evaluator, validator or font weakening.",
+                                                    "knowledge_changed": false,
+                                                    "training_package_changed": false,
+                                                    "parent_candidate_history_preserved": {
+                                                      "release_version": "0.23.2",
+                                                      "source_release": "0.23.1",
+                                                      "local_revision": "three-modes.packets.r03",
+                                                      "publication": "local-candidate-not-published-or-installed",
+                                                      "inheritance": "prepared-not-promoted; R01/current unchanged",
+                                                      "parent_tool_zip_sha256": "bd5d7ea62ec9c40fe69665229dbe9ffdcccd2a934022252ac0d2c8510e1bb62e",
+                                                      "parent_revision": "three-modes.docs.r02",
+                                                      "change_scope": "Two packet I/O fixes in interfaces.py/readers.py; general Logic period/range bridging and Copy composite-proposition source-span methods; inherited current/legacy documentation; identity/lineage/integrity metadata only. No criterion, substantive validator, budget, font or failure-rule weakening.",
+                                                      "knowledge_version": "1.3.0+composition.r01.1",
+                                                      "knowledge_changed": false,
+                                                      "training_package_changed": false,
+                                                      "upstream_history_preserved": {
+                                                        "release_version": "0.22.0",
+                                                        "source_release": "0.21.0",
+                                                        "local_revision": "copy-graph.interface.r01",
+                                                        "source_branch": "main",
+                                                        "source_commit": "52060175ea623dc162687b2660c4d32f8b06f82f",
+                                                        "separate_line_not_merged": "0.20.7–0.20.12",
+                                                        "knowledge_version": "1.3.0+composition.r01.1",
+                                                        "reference_images_included": false,
+                                                        "publication_adjustments": [
+                                                          "Copy report-only fresh-context semantic main/subsidiary chains",
+                                                          "Versioned identity Copy—Art interface and actual generation journal",
+                                                          "Art presentation-only lock and audit-only objections; existing readers and Auditor retained"
+                                                        ],
+                                                        "publication": "local-candidate-not-published"
+                                                      },
+                                                      "claims": {
+                                                        "released": false,
+                                                        "installed": false,
+                                                        "promoted": false,
+                                                        "improved_semantic_quality": false,
+                                                        "reduced_cost": false,
+                                                        "technical_validation": "Pure technical packet I/O observations recorded in external candidate evidence; offline identity/archive results recorded there separately. No production, semantic-quality or cost result."
+                                                      },
+                                                      "parent_candidate_history_preserved": {
+                                                        "release_version": "0.23.1",
+                                                        "source_release": "0.23.0",
+                                                        "local_revision": "three-modes.docs.r02",
+                                                        "publication": "local-candidate-not-published-or-installed",
+                                                        "inheritance": "prepared-not-promoted; R01/current unchanged",
+                                                        "parent_tool_zip_sha256": "a94ac8bfbe23ee529c4879b08f979e10d7926d627595caa9e50f18c03707b20b",
+                                                        "parent_revision": "three-modes.interface.r01",
+                                                        "change_scope": "Professional documentation routes and current/legacy boundaries; identity/integrity metadata only",
+                                                        "knowledge_version": "1.3.0+composition.r01.1",
+                                                        "knowledge_changed": false,
+                                                        "training_package_changed": false,
+                                                        "upstream_history_preserved": {
+                                                          "release_version": "0.22.0",
+                                                          "source_release": "0.21.0",
+                                                          "local_revision": "copy-graph.interface.r01",
+                                                          "source_branch": "main",
+                                                          "source_commit": "52060175ea623dc162687b2660c4d32f8b06f82f",
+                                                          "separate_line_not_merged": "0.20.7–0.20.12",
+                                                          "knowledge_version": "1.3.0+composition.r01.1",
+                                                          "reference_images_included": false,
+                                                          "publication_adjustments": [
+                                                            "Copy report-only fresh-context semantic main/subsidiary chains",
+                                                            "Versioned identity Copy—Art interface and actual generation journal",
+                                                            "Art presentation-only lock and audit-only objections; existing readers and Auditor retained"
+                                                          ],
+                                                          "publication": "local-candidate-not-published"
+                                                        },
+                                                        "claims": {
+                                                          "reproduced_runtime_failure": false,
+                                                          "improved_semantic_quality": false,
+                                                          "reduced_cost": false,
+                                                          "released": false,
+                                                          "installed": false
+                                                        }
+                                                      },
+                                                      "evidence_classification": {
+                                                        "canonical_rules": "Actual R01 packet-root read FileNotFoundError preserved; I/O behavior also checked on pure technical fixtures.",
+                                                        "art_identity": "Source availability observation only; no actual production failure claimed.",
+                                                        "logic_copy_methods": "General methods motivated by R01 feedback; no company examples or reader answers in method text; semantic improvement untested."
+                                                      }
+                                                    },
+                                                    "claims": {
+                                                      "released": false,
+                                                      "installed": false,
+                                                      "promoted": false,
+                                                      "semantic_improvement": false,
+                                                      "cost_reduction": false,
+                                                      "technical_scope": "one tested Linux environment; two one-page synthetic exports; not a professional quality result"
+                                                    }
+                                                  },
+                                                  "claims": {
+                                                    "released": false,
+                                                    "installed": false,
+                                                    "promoted": false,
+                                                    "semantic_improvement": false,
+                                                    "cost_reduction": false
+                                                  }
+                                                },
+                                                "claims": {
+                                                  "released": false,
+                                                  "installed": false,
+                                                  "promoted": false,
+                                                  "semantic_improvement": false,
+                                                  "cost_reduction": false,
+                                                  "technical_scope": "Schema/provenance projection on purefixtures; no semantic judge or original-run re-evaluation"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:supervisor-calibration:1.0",
+  "title": "Supervisor calibration handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "calibration_id", "run_id", "task_request_sha256", "step", "source_stage", "target_stage", "recipients", "source_records", "expected_source_kinds", "source_artifacts", "acceptance_contract", "shared_rules", "findings", "recorded_at", "previous_calibration_sha256", "record_sha256"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.supervisor-calibration/1.0"},
+    "calibration_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "task_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "step": {"enum": ["logic-to-copy", "copy-to-art-direction", "art-direction-to-output"]},
+    "source_stage": {"enum": ["logic", "copy", "art-direction"]},
+    "target_stage": {"enum": ["copy", "art-direction", "output"]},
+    "recipients": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "source_records": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"$ref": "#/$defs/fileRecordWithStage"}},
+    "expected_source_kinds": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "source_artifacts": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/fileRecord"}},
+    "acceptance_contract": {"$ref": "#/$defs/fileRecord"},
+    "shared_rules": {"$ref": "#/$defs/fileRecord"},
+    "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "recorded_at": {"type": "string", "minLength": 1},
+    "previous_calibration_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "fileRecord": {
+      "type": "object", "required": ["path", "sha256", "bytes"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "bytes": {"type": "integer", "minimum": 1}}
+    },
+    "fileRecordWithStage": {
+      "allOf": [{"$ref": "#/$defs/fileRecord"}],
+      "required": ["stage"], "properties": {"stage": {"type": "string", "minLength": 1}}, "unevaluatedProperties": false
+    },
+    "finding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["finding_id", "requirement_ids", "statement", "recommendation", "severity", "blocking"],
+      "properties": {
+        "finding_id": {"type": "string", "minLength": 1},
+        "requirement_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "statement": {"type": "string", "minLength": 1}, "recommendation": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["critical", "major", "moderate", "minor"]}, "blocking": {"type": "boolean"}
+      }
+    }
+  }
+}

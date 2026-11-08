@@ -1,0 +1,568 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 clayz
+# SPDX-License-Identifier: Apache-2.0
+"""Validate final-render QA records against package and approved Art Direction."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import sys
+import zipfile
+from pathlib import Path
+from typing import Any
+from xml.etree import ElementTree as ET
+
+from compare_package_to_pptx import extract_slide, natural_slide_key
+from config_policy import ValidationPolicy, load_policy
+from index_evidence import index_lock_signature, validate_index_evidence
+from resource_inventory import resource_inventory_signature
+from validate_art_direction_plan import OBJECT_TYPES, STRUCTURE_TYPES, validate_plan
+from acceptance_contract import validate_acceptance_contract, validate_stage_retrieval_budget
+from verification_result import Issue, exception_result, finish
+
+
+CONTRACT_VERSION = "4.1"
+CHECK_KEYS = {
+    "exact_text", "copy_id_traceability", "atomic_copy_separation",
+    "parent_child_hierarchy", "peer_parallelism", "visual_hierarchy",
+    "thumbnail_review", "full_size_review", "storyline_single_line",
+    "list_alignment", "object_types_preserved", "icon_execution",
+    "image_weight", "kpi_layout", "connectors", "collision_and_tangency",
+    "notes_subordinate", "font_size_discipline", "font_name_conformance", "scatter_semantics_and_labels", "grid_alignment",
+    "whitespace_scale", "material_type_fit", "medium_plan_object_render_consistency",
+    "anti_cardification", "art_direction_first_visual_fidelity",
+    "art_direction_area_plan_fidelity", "art_direction_rhythm_fidelity",
+    "purposeful_series_fidelity", "cross_slide_invariant_fidelity",
+    "semantic_whitespace_fidelity", "motif_fidelity", "context_rail_fidelity",
+    "semantic_layout_tree_fidelity",
+    "unapproved_deviation_absent", "master_page_number",
+    "inherited_chrome_uniqueness", "closing_exact",
+}
+SEQUENCE_EVIDENCE_KEYS = {
+    "planned_series_id_repeated", "planned_series_behavior_repeated",
+    "planned_motif_id_repeated", "planned_whitespace_mode_repeated",
+    "series_backbone_observed", "motif_observed", "semantic_whitespace_observed",
+    "context_rail_observed",
+}
+SEMANTIC_TREE_EVIDENCE_KEYS = {
+    "planned_tree_id_repeated", "planned_tree_mode_repeated", "observed_grouping",
+    "observed_reading_order", "observed_shape_semantics", "flattening_detected", "evidence",
+}
+CHECK_STATUS = {"pass", "fail", "deferred", "uncertain", "not-applicable"}
+qa_path_parent = Path.cwd()
+
+
+def nonempty(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def require_keys(obj: Any, keys: set[str], path: str, errors: list[str]) -> None:
+    if not isinstance(obj, dict):
+        errors.append(f"{path}: must be an object")
+        return
+    missing = sorted(keys - set(obj))
+    if missing:
+        errors.append(f"{path}: missing keys {missing}")
+
+
+def validate_quantitative_inventory(
+    quantitative: Any,
+    actual_inventory: Any,
+    path: str,
+    errors: list[str],
+) -> None:
+    """Bind the declared quantitative encoding to real editable PPTX objects."""
+
+    if not isinstance(quantitative, dict) or not isinstance(actual_inventory, dict):
+        return
+    encoding_mode = quantitative.get("encoding_mode")
+    requirements = {
+        "native-chart": ("native-chart", "native chart object"),
+        "native-table": ("native-table", "native table object"),
+        "shape-encoded-chart": ("shape", "shape evidence"),
+    }
+    inventory_key, label = requirements.get(encoding_mode, (None, None))
+    if inventory_key is not None and actual_inventory.get(inventory_key, 0) < 1:
+        errors.append(f"{path}: {encoding_mode} quantitative plan requires {label}")
+
+
+def pptx_inventories(pptx: Path) -> list[dict[str, int]]:
+    with zipfile.ZipFile(pptx) as archive:
+        slide_names = sorted(
+            [name for name in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)],
+            key=natural_slide_key,
+        )
+        return [extract_slide(archive.read(name))[2] for name in slide_names]
+
+
+def validate_tabular_inventory(plan_slide: dict[str, Any], rendered_structure: Any,
+                               inventory: Any, path: str, errors: list[str],
+                               table_dimensions: list[tuple[int, int]] | None = None) -> None:
+    medium = plan_slide.get("medium_execution_contract", {})
+    tabular = plan_slide.get("dominant_medium") == "table" or medium.get("structure_type") == "table" or rendered_structure == "table"
+    if tabular and (not isinstance(inventory, dict) or inventory.get("native-table", 0) < 1):
+        errors.append(f"{path}: tabular presentation requires an actual integrated native table, including qualitative comparisons")
+    if tabular and table_dimensions and all(rows * cols <= 1 for rows, cols in table_dimensions):
+        errors.append(f"{path}: fragmented one-cell tables do not establish an integrated tabular presentation")
+
+
+def pptx_table_dimensions(pptx: Path) -> list[list[tuple[int, int]]]:
+    ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
+    with zipfile.ZipFile(pptx) as archive:
+        names = sorted((n for n in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)), key=natural_slide_key)
+        return [[(len(table.findall("a:tr", ns)), len(table.findall("a:tblGrid/a:gridCol", ns)))
+                 for table in ET.fromstring(archive.read(name)).findall(".//a:tbl", ns)] for name in names]
+
+
+def validate_final_cjk_evidence(qa: dict[str, Any], pptx: Path, errors: list[str]) -> None:
+    for key in ("font_environment_report", "font_name_audit_report", "cjk_render_report", "final_reopen_render_root"):
+        if not nonempty(qa.get(key)):
+            errors.append(f"qa.{key}: must be a non-empty path")
+    if qa.get("final_reopen_cjk_render_reviewed") != "pass":
+        errors.append("qa.final_reopen_cjk_render_reviewed: must be pass")
+    if errors and any(
+        error.startswith("qa.font_environment_report")
+        or error.startswith("qa.font_name_audit_report")
+        or error.startswith("qa.cjk_render_report")
+        for error in errors
+    ):
+        return
+    font_path = Path(qa.get("font_environment_report", ""))
+    font_name_path = Path(qa.get("font_name_audit_report", ""))
+    cjk_path = Path(qa.get("cjk_render_report", ""))
+    if not font_path.is_absolute():
+        font_path = qa_path_parent / font_path
+    if not cjk_path.is_absolute():
+        cjk_path = qa_path_parent / cjk_path
+    if not font_name_path.is_absolute():
+        font_name_path = qa_path_parent / font_name_path
+    try:
+        font = json.loads(font_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"qa.font_environment_report: cannot read evidence: {exc}")
+        font = {}
+    try:
+        font_name = json.loads(font_name_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"qa.font_name_audit_report: cannot read evidence: {exc}")
+        font_name = {}
+    try:
+        cjk = json.loads(cjk_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"qa.cjk_render_report: cannot read evidence: {exc}")
+        cjk = {}
+    for key in ("ok", "font_identity_ok", "cjk_glyphs_ok", "render_active"):
+        if font.get(key) is not True:
+            errors.append(f"qa.font_environment_report.{key}: must be true")
+    if font_name.get("contract") != "io.clayz.presentation.pptx-font-name-audit/1.0" or font_name.get("ok") is not True:
+        errors.append("qa.font_name_audit_report: slide, native table and chart fonts must conform before render acceptance")
+    required_scope = {"slide-cjk", "slide-latin-digits", "native-table-text", "native-chart-text"}
+    if not required_scope.issubset(set(font_name.get("coverage", {}).get("scope", []))):
+        errors.append("qa.font_name_audit_report: missing table/chart/Latin/digit coverage; rerun the current font audit")
+    if font_name.get("font_scope_findings"):
+        errors.append("qa.font_name_audit_report: unresolved or wrong table/chart/Latin/digit font fields remain")
+    if font_name.get("visible_cjk_chars") != font_name.get("conforming_cjk_chars") or font_name.get("violations"):
+        errors.append("qa.font_name_audit_report: every visible CJK character must preserve an approved family or alias")
+    if cjk.get("ok") is not True or cjk.get("final_pptx_reopened") is not True:
+        errors.append("qa.cjk_render_report: must prove a successful final-PPTX reopen render")
+    expected_hash = cjk.get("pptx_sha256")
+    if nonempty(expected_hash):
+        import hashlib
+        actual_hash = hashlib.sha256(pptx.read_bytes()).hexdigest()
+        if expected_hash != actual_hash:
+            errors.append("qa.cjk_render_report.pptx_sha256: does not match final PPTX")
+        if font_name.get("pptx_sha256") != actual_hash:
+            errors.append("qa.font_name_audit_report.pptx_sha256: does not match final PPTX")
+    else:
+        errors.append("qa.cjk_render_report.pptx_sha256: must be non-empty")
+    slides = cjk.get("slides")
+    if not isinstance(slides, list) or not slides:
+        errors.append("qa.cjk_render_report.slides: must be a non-empty array")
+    else:
+        failed = [item.get("slide_number") for item in slides if isinstance(item, dict) and item.get("cjk_text_shape_count", 0) > 0 and item.get("status") != "pass"]
+        if failed:
+            errors.append(f"qa.cjk_render_report.slides: CJK pixel probe did not pass slides {failed}")
+
+
+def validate_qa(
+    package: Any,
+    plan: Any,
+    qa: Any,
+    render_root: Path | None = None,
+    pptx: Path | None = None,
+    policy: ValidationPolicy | None = None,
+) -> list[str]:
+    policy = policy or load_policy()
+    clean = isinstance(package, dict) and package.get("contract_version") in {"3.3", "3.4", "3.5"}
+    errors = validate_plan(package, plan, policy)
+    require_keys(
+        qa,
+        {"contract_version", "package_id", "package_version", "art_direction_plan_contract_version", "acceptance_contract", "resource_inventory_lock", "index_evidence", "communication_contract_reviewed", "typography_contract_reviewed", "legibility_audit_reviewed", "font_environment_report", "font_name_audit_report", "cjk_render_report", "final_reopen_render_root", "final_reopen_cjk_render_reviewed", "delivery_profile", "size_audit_report", "size_audit_reviewed", "size_budget_exception_reason", "slides"},
+        "$qa",
+        errors,
+    )
+    if not isinstance(package, dict) or not isinstance(plan, dict) or not isinstance(qa, dict):
+        return errors
+    from story_handoff import validate_output_baseline
+    errors.extend(validate_output_baseline(package, plan, qa))
+    inventories: list[dict[str, int]] = []
+    table_dimensions: list[list[tuple[int, int]]] = []
+    if pptx is None:
+        errors.append("qa validation requires final PPTX object evidence")
+    else:
+        try:
+            inventories = pptx_inventories(pptx)
+            table_dimensions = pptx_table_dimensions(pptx)
+        except (OSError, zipfile.BadZipFile, KeyError, ET.ParseError) as exc:
+            errors.append(f"qa PPTX evidence cannot be inspected: {exc}")
+        validate_final_cjk_evidence(qa, pptx, errors)
+        if clean and plan.get("contract_version") in {"2.2", "2.3"}:
+            from compare_package_to_pptx import compare
+            errors.extend(compare(package, plan, pptx))
+    expected_version = CONTRACT_VERSION if clean else "4.0"
+    if qa.get("contract_version") != expected_version:
+        errors.append(f"qa.contract_version: expected {expected_version}")
+    if qa.get("package_id") != package.get("package_id") or qa.get("package_version") != package.get("version"):
+        errors.append("qa package identity/version must match package")
+    if qa.get("art_direction_plan_contract_version") != plan.get("contract_version"):
+        errors.append("qa.art_direction_plan_contract_version: must match plan")
+    validate_acceptance_contract(qa.get("acceptance_contract"), "qa.acceptance_contract", errors)
+    if qa.get("acceptance_contract") != package.get("acceptance_contract") or qa.get("acceptance_contract") != plan.get("acceptance_contract"):
+        errors.append("qa.acceptance_contract: must exactly preserve the task acceptance contract")
+    expected_resource_lock = resource_inventory_signature(package.get("resource_inventory"))
+    if qa.get("resource_inventory_lock") != expected_resource_lock or plan.get("resource_inventory_lock") != expected_resource_lock:
+        errors.append("qa.resource_inventory_lock: package, Art Direction, and Output QA must preserve one inventory signature")
+    validate_index_evidence(
+        qa.get("index_evidence"),
+        ["logic", "copy", "output"] if clean else ["logic", "copy", "art-direction", "output"],
+        "qa.index_evidence",
+        errors,
+    )
+    validate_stage_retrieval_budget(
+        qa.get("index_evidence"), qa.get("acceptance_contract"),
+        ["logic", "copy", "art-direction", "output"], "qa.index_evidence", errors,
+    )
+    if index_lock_signature(qa.get("index_evidence")) != index_lock_signature(plan.get("index_evidence")):
+        errors.append("qa.index_evidence: must preserve the Art Direction Provider lock and owner materialization")
+    profile = qa.get("delivery_profile")
+    if profile not in {"lightweight", "balanced", "high-fidelity"}:
+        errors.append("qa.delivery_profile: invalid value")
+    if qa.get("size_audit_reviewed") != "pass":
+        errors.append("qa.size_audit_reviewed: must be pass")
+    size_report_name = qa.get("size_audit_report")
+    if not nonempty(size_report_name):
+        errors.append("qa.size_audit_report: must be non-empty")
+    elif pptx is not None:
+        size_path = qa_path_parent / size_report_name
+        try:
+            size_report = json.loads(size_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"qa.size_audit_report: cannot load report: {exc}")
+        else:
+            import hashlib
+            expected_hash = hashlib.sha256(pptx.read_bytes()).hexdigest()
+            if size_report.get("pptx_sha256") != expected_hash:
+                errors.append("qa.size_audit_report.pptx_sha256: does not match final PPTX")
+            if size_report.get("delivery_profile") != profile:
+                errors.append("qa.size_audit_report.delivery_profile: must match QA")
+            if size_report.get("ok") is not True or size_report.get("blockers"):
+                errors.append("qa.size_audit_report: blockers must be empty and ok must be true")
+            above_budget = any(
+                isinstance(item, dict) and item.get("code") == "ABOVE_PREFERRED_TOTAL_SIZE"
+                for item in size_report.get("warnings", [])
+            )
+            reason = qa.get("size_budget_exception_reason")
+            if above_budget and not nonempty(reason):
+                errors.append("qa.size_budget_exception_reason: required when above preferred total size")
+            if not above_budget and reason is not None:
+                errors.append("qa.size_budget_exception_reason: must be null when within preferred total size")
+    for key in ("communication_contract_reviewed", "typography_contract_reviewed", "legibility_audit_reviewed"):
+        if qa.get(key) != "pass":
+            errors.append(f"qa.{key}: must be pass")
+
+    from clean_content import content_pages, RETIRED_QA_CHECKS
+    logic_slides = content_pages(package, plan)
+    copy_slides = (content_pages(package, plan) if package.get("contract_version") in {"3.3", "3.4", "3.5"}
+                   else package.get("copy_layer", {}).get("slides", []))
+    qa_slides = qa.get("slides")
+    if not isinstance(qa_slides, list):
+        errors.append("qa.slides: must be an array")
+        return errors
+    expected_order = [slide.get("slide_id") for slide in logic_slides]
+    if [slide.get("slide_id") for slide in qa_slides if isinstance(slide, dict)] != expected_order:
+        errors.append("qa.slides: order must exactly match package")
+
+    evidence_seen: set[str] = set()
+    plan_slides = plan.get("slides", [])
+    if inventories and len(inventories) != len(logic_slides):
+        errors.append(f"qa PPTX evidence: expected {len(logic_slides)} slides, found {len(inventories)}")
+    for index, (logic_slide, copy_slide, plan_slide, qa_slide) in enumerate(zip(logic_slides, copy_slides, plan_slides, qa_slides)):
+        path = f"qa.slides[{index}]"
+        require_keys(
+            qa_slide,
+            {"slide_id", "render_file", "logic_statement_repeated", "rendered_copy_ids", "planned_structure_type_repeated", "actual_object_inventory", "rendered_structure_type", "rendered_medium_evidence", "legibility_evidence", "scatter_evidence", "sequence_render_evidence", "semantic_tree_render_evidence", "checks", "not_applicable_reasons", "issues_remaining", "review_evidence"},
+            path,
+            errors,
+        )
+        if not isinstance(qa_slide, dict):
+            continue
+        if qa_slide.get("slide_id") != logic_slide.get("slide_id"):
+            errors.append(f"{path}.slide_id: mismatch")
+        if not clean and qa_slide.get("logic_statement_repeated") != logic_slide.get("logic_map", {}).get("statement"):
+            errors.append(f"{path}.logic_statement_repeated: must be verbatim")
+        expected_copy_ids = plan_slide.get("reading_sequence") if clean else [unit.get("copy_id") for unit in sorted(copy_slide.get("copy_units", []), key=lambda item: item.get("order", 0))]
+        if qa_slide.get("rendered_copy_ids") != expected_copy_ids:
+            errors.append(f"{path}.rendered_copy_ids: must match Art reading sequence" if clean else f"{path}.rendered_copy_ids: must exactly match Copy order")
+        medium = plan_slide.get("medium_execution_contract", {})
+        planned_structure = medium.get("structure_type")
+        if qa_slide.get("planned_structure_type_repeated") != planned_structure:
+            errors.append(f"{path}.planned_structure_type_repeated: must match Art Direction plan")
+        actual_inventory = qa_slide.get("actual_object_inventory")
+        if not isinstance(actual_inventory, dict) or set(actual_inventory) != OBJECT_TYPES or any(not isinstance(value, int) or value < 0 for value in actual_inventory.values()):
+            errors.append(f"{path}.actual_object_inventory: must contain exact non-negative counts for {sorted(OBJECT_TYPES)}")
+        elif index < len(inventories) and actual_inventory != inventories[index]:
+            errors.append(f"{path}.actual_object_inventory: must match final PPTX object evidence")
+        quantitative = medium.get("quantitative_execution_contract") if isinstance(medium, dict) else None
+        validate_quantitative_inventory(
+            quantitative,
+            actual_inventory,
+            f"{path}.actual_object_inventory",
+            errors,
+        )
+        rendered_structure = qa_slide.get("rendered_structure_type")
+        validate_tabular_inventory(plan_slide, rendered_structure,
+                                   inventories[index] if index < len(inventories) else actual_inventory,
+                                   f"{path}.actual_object_inventory", errors,
+                                   table_dimensions[index] if index < len(table_dimensions) else None)
+        if (not nonempty(rendered_structure)) if clean else (rendered_structure not in STRUCTURE_TYPES):
+            errors.append(f"{path}.rendered_structure_type: invalid value")
+        rendered_medium_evidence = qa_slide.get("rendered_medium_evidence")
+        if not nonempty(rendered_medium_evidence) or len(rendered_medium_evidence.strip()) < 20:
+            errors.append(f"{path}.rendered_medium_evidence: must be specific evidence of at least 20 characters")
+        legibility = qa_slide.get("legibility_evidence")
+        require_keys(
+            legibility,
+            {"minimum_audience_text_pt", "chart_text_minimum_pt", "below_minimum_items", "nonconforming_size_items", "evidence"},
+            f"{path}.legibility_evidence",
+            errors,
+        )
+        is_body = logic_slide.get("narrative_role") not in {"cover", "closing"}
+        if isinstance(legibility, dict):
+            minimum_pt = legibility.get("minimum_audience_text_pt")
+            below = legibility.get("below_minimum_items")
+            nonconforming = legibility.get("nonconforming_size_items")
+            # Readability is an Art observation, never an automatic point-size verdict.
+            if not nonempty(legibility.get("evidence")) or len(legibility.get("evidence", "").strip()) < 12:
+                errors.append(f"{path}.legibility_evidence.evidence: must contain specific evidence")
+            planned_chart = medium.get("data_chart_contract") if isinstance(medium, dict) else None
+            chart_min = legibility.get("chart_text_minimum_pt")
+
+
+        planned_chart = medium.get("data_chart_contract") if isinstance(medium, dict) else None
+        is_scatter = isinstance(planned_chart, dict) and planned_chart.get("chart_type") == "scatter"
+        scatter = qa_slide.get("scatter_evidence")
+        require_keys(
+            scatter,
+            {"applicable", "point_count", "direct_label_count", "unreadable_or_colliding_labels", "unjustified_point_connection_count", "semantic_lines", "label_collision_resolution"},
+            f"{path}.scatter_evidence",
+            errors,
+        )
+        if isinstance(scatter, dict):
+            if scatter.get("applicable") is not is_scatter:
+                errors.append(f"{path}.scatter_evidence.applicable: must match the Art Direction chart type")
+            for key in ("point_count", "direct_label_count", "unjustified_point_connection_count"):
+                if not isinstance(scatter.get(key), int) or scatter.get(key, -1) < 0:
+                    errors.append(f"{path}.scatter_evidence.{key}: must be a non-negative integer")
+            collisions = scatter.get("unreadable_or_colliding_labels")
+            if not isinstance(collisions, list):
+                errors.append(f"{path}.scatter_evidence.unreadable_or_colliding_labels: must be an array")
+            semantic_lines = scatter.get("semantic_lines")
+            if not isinstance(semantic_lines, list):
+                errors.append(f"{path}.scatter_evidence.semantic_lines: must be an array")
+                semantic_lines = []
+            if is_scatter:
+                if scatter.get("point_count", 0) <= 0:
+                    errors.append(f"{path}.scatter_evidence.point_count: scatter must contain at least one point")
+                if scatter.get("direct_label_count") != scatter.get("point_count"):
+                    errors.append(f"{path}.scatter_evidence.direct_label_count: must equal point_count")
+                if collisions:
+                    errors.append(f"{path}.scatter_evidence.unreadable_or_colliding_labels: must be empty")
+                if scatter.get("unjustified_point_connection_count") != 0:
+                    errors.append(f"{path}.scatter_evidence.unjustified_point_connection_count: must be 0")
+                if not nonempty(scatter.get("label_collision_resolution")) or scatter.get("label_collision_resolution") == "not-applicable":
+                    errors.append(f"{path}.scatter_evidence.label_collision_resolution: scatter requires a concrete resolution")
+                expected_lines = {
+                    (line.get("line_id"), line.get("visible_label"))
+                    for line in planned_chart.get("semantic_lines", [])
+                    if isinstance(line, dict)
+                }
+                observed_lines = set()
+                for line_index, line in enumerate(semantic_lines):
+                    lpath = f"{path}.scatter_evidence.semantic_lines[{line_index}]"
+                    require_keys(line, {"line_id", "visible_label"}, lpath, errors)
+                    if isinstance(line, dict):
+                        observed_lines.add((line.get("line_id"), line.get("visible_label")))
+                if observed_lines != expected_lines:
+                    errors.append(f"{path}.scatter_evidence.semantic_lines: must match Art Direction line IDs and visible labels")
+            else:
+                if any(scatter.get(key) != 0 for key in ("point_count", "direct_label_count", "unjustified_point_connection_count")):
+                    errors.append(f"{path}.scatter_evidence: non-scatter slides require zero counts")
+                if collisions or semantic_lines:
+                    errors.append(f"{path}.scatter_evidence: non-scatter slides require empty label and line arrays")
+                if scatter.get("label_collision_resolution") != "not-applicable":
+                    errors.append(f"{path}.scatter_evidence.label_collision_resolution: non-scatter slides must use not-applicable")
+        sequence_evidence = qa_slide.get("sequence_render_evidence")
+        require_keys(sequence_evidence, SEQUENCE_EVIDENCE_KEYS, f"{path}.sequence_render_evidence", errors)
+        if isinstance(sequence_evidence, dict):
+            series_contract = plan_slide.get("series_visual_contract", {})
+            whitespace = plan_slide.get("semantic_whitespace", {})
+            repeated = {
+                "planned_series_id_repeated": series_contract.get("series_id"),
+                "planned_series_behavior_repeated": series_contract.get("behavior"),
+                "planned_motif_id_repeated": plan_slide.get("motif_id"),
+                "planned_whitespace_mode_repeated": whitespace.get("mode"),
+            }
+            for key, expected in repeated.items():
+                if sequence_evidence.get(key) != expected:
+                    errors.append(f"{path}.sequence_render_evidence.{key}: must match Art Direction")
+            for key in (
+                "series_backbone_observed", "motif_observed",
+                "semantic_whitespace_observed", "context_rail_observed",
+            ):
+                if not nonempty(sequence_evidence.get(key)) or len(sequence_evidence.get(key, "").strip()) < 12:
+                    errors.append(f"{path}.sequence_render_evidence.{key}: must contain specific rendered evidence")
+        semantic_evidence = qa_slide.get("semantic_tree_render_evidence")
+        require_keys(semantic_evidence, SEMANTIC_TREE_EVIDENCE_KEYS, f"{path}.semantic_tree_render_evidence", errors)
+        if isinstance(semantic_evidence, dict):
+            planned_tree = plan_slide.get("semantic_layout_tree", {})
+            if semantic_evidence.get("planned_tree_id_repeated") != planned_tree.get("tree_id"):
+                errors.append(f"{path}.semantic_tree_render_evidence.planned_tree_id_repeated: must match Art Direction")
+            if semantic_evidence.get("planned_tree_mode_repeated") != planned_tree.get("mode"):
+                errors.append(f"{path}.semantic_tree_render_evidence.planned_tree_mode_repeated: must match Art Direction")
+            for key in ("observed_grouping", "observed_reading_order", "observed_shape_semantics", "evidence"):
+                if not nonempty(semantic_evidence.get(key)) or len(semantic_evidence.get(key, "").strip()) < 12:
+                    errors.append(f"{path}.semantic_tree_render_evidence.{key}: must contain specific rendered evidence")
+            if not isinstance(semantic_evidence.get("flattening_detected"), bool):
+                errors.append(f"{path}.semantic_tree_render_evidence.flattening_detected: must be boolean")
+        render_file = qa_slide.get("render_file")
+        if not nonempty(render_file):
+            errors.append(f"{path}.render_file: must be non-empty")
+        elif render_root is not None and not (render_root / render_file).is_file():
+            errors.append(f"{path}.render_file: file not found under render root")
+
+        checks = qa_slide.get("checks")
+        allowed_checks = CHECK_KEYS - RETIRED_QA_CHECKS if clean else CHECK_KEYS
+        required_checks = allowed_checks if clean else CHECK_KEYS - {"storyline_single_line"} if package.get("contract_version") in {"3.1", "3.2"} else CHECK_KEYS
+        require_keys(checks, required_checks, f"{path}.checks", errors)
+        reasons = qa_slide.get("not_applicable_reasons")
+        if not isinstance(reasons, dict):
+            errors.append(f"{path}.not_applicable_reasons: must be an object")
+            reasons = {}
+        if isinstance(checks, dict):
+            unknown = sorted(set(checks) - allowed_checks)
+            if unknown:
+                errors.append(f"{path}.checks: unknown checks {unknown}")
+            for key in required_checks | (set(checks) & allowed_checks):
+                value = checks.get(key)
+                if not isinstance(value, str) or value not in CHECK_STATUS:
+                    errors.append(f"{path}.checks.{key}: unknown check status")
+                elif value == "fail":
+                    errors.append(Issue(f"{path}.checks.{key}: reported fail", "quality"))
+                elif value in {"deferred", "uncertain"}:
+                    errors.append(Issue(f"{path}.checks.{key}: reported {value}", "coverage"))
+                elif value == "not-applicable" and not nonempty(reasons.get(key)):
+                    errors.append(f"{path}.not_applicable_reasons.{key}: required")
+                elif value == "pass" and key in reasons:
+                    errors.append(f"{path}.not_applicable_reasons.{key}: remove reason for passed check")
+            if checks.get("medium_plan_object_render_consistency") == "pass" and rendered_structure != planned_structure:
+                errors.append(f"{path}.checks.medium_plan_object_render_consistency: cannot pass when rendered structure differs from plan")
+            if checks.get("anti_cardification") == "pass" and rendered_structure == "cards" and planned_structure != "cards":
+                errors.append(f"{path}.checks.anti_cardification: cannot pass when a non-card plan renders as cards")
+            if checks.get("semantic_layout_tree_fidelity") == "pass" and isinstance(semantic_evidence, dict) and semantic_evidence.get("flattening_detected") is not False:
+                errors.append(f"{path}.checks.semantic_layout_tree_fidelity: cannot pass when hierarchy flattening is observed or uncertain")
+            if is_body:
+                for key in (
+                    "font_size_discipline", "font_name_conformance",
+                    "object_types_preserved", "medium_plan_object_render_consistency", "anti_cardification",
+                    "art_direction_first_visual_fidelity", "art_direction_area_plan_fidelity",
+                    "art_direction_rhythm_fidelity", "purposeful_series_fidelity",
+                    "cross_slide_invariant_fidelity", "semantic_whitespace_fidelity",
+                    "motif_fidelity", "context_rail_fidelity", "semantic_layout_tree_fidelity", "unapproved_deviation_absent",
+                    "master_page_number", "inherited_chrome_uniqueness",
+                ):
+                    if checks.get(key) == "not-applicable":
+                        optional_inputs = {
+                            "art_direction_area_plan_fidelity": "area_plan",
+                            "purposeful_series_fidelity": "series_visual_contract",
+                            "semantic_whitespace_fidelity": "semantic_whitespace",
+                            "motif_fidelity": "motif_id",
+                            "semantic_layout_tree_fidelity": "semantic_layout_tree",
+                        }
+                        if clean and plan.get("contract_version") == "2.3" and key in optional_inputs and not plan_slide.get(optional_inputs[key]):
+                            continue
+                        errors.append(Issue(f"{path}.checks.{key}: body slide check was not performed", "coverage"))
+            if is_scatter and checks.get("scatter_semantics_and_labels") == "not-applicable":
+                errors.append(Issue(f"{path}.checks.scatter_semantics_and_labels: scatter check was not performed", "coverage"))
+            if not is_scatter and checks.get("scatter_semantics_and_labels") != "not-applicable":
+                errors.append(f"{path}.checks.scatter_semantics_and_labels: non-scatter slides must be not-applicable")
+        if not isinstance(qa_slide.get("issues_remaining"), list):
+            errors.append(f"{path}.issues_remaining: must be an array")
+        elif qa_slide["issues_remaining"]:
+            errors.append(Issue(f"{path}.issues_remaining: unresolved quality findings remain", "quality"))
+        evidence = qa_slide.get("review_evidence")
+        if not nonempty(evidence) or len(evidence.strip()) < 20:
+            errors.append(f"{path}.review_evidence: must be a specific record of at least 20 characters")
+        else:
+            folded = evidence.casefold()
+            if isinstance(checks, dict) and checks.get("master_page_number") == "pass" and not any(
+                marker in folded for marker in ("页码", "page number", "slide number")
+            ):
+                errors.append(f"{path}.review_evidence: passed master_page_number must cite the rendered page number check")
+            if isinstance(checks, dict) and checks.get("inherited_chrome_uniqueness") == "pass":
+                has_line = any(marker in folded for marker in ("标题线", "分隔线", "页眉", "title divider", "header rule"))
+                has_unique = any(marker in folded for marker in ("唯一", "单一", "only", "single"))
+                if not has_line or not has_unique:
+                    errors.append(f"{path}.review_evidence: passed inherited_chrome_uniqueness must cite the unique inherited title-divider check")
+            if isinstance(checks, dict) and checks.get("font_name_conformance") == "pass" and not any(
+                marker in folded for marker in ("字体名称", "字体名", "font family", "font name", "east asian")
+            ):
+                errors.append(f"{path}.review_evidence: passed font_name_conformance must cite the written PPTX font-name audit")
+            if isinstance(checks, dict) and checks.get("scatter_semantics_and_labels") == "pass":
+                has_label = any(marker in folded for marker in ("实体标签", "实体名", "direct label", "entity label"))
+                has_line = any(marker in folded for marker in ("连线", "阈值线", "参考线", "point connection", "semantic line"))
+                if not has_label or not has_line:
+                    errors.append(f"{path}.review_evidence: passed scatter check must cite both entity labels and line semantics")
+            if evidence in evidence_seen:
+                errors.append(f"{path}.review_evidence: duplicate boilerplate across slides")
+            else:
+                evidence_seen.add(evidence)
+    return errors
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("package", type=Path)
+    parser.add_argument("plan", type=Path)
+    parser.add_argument("qa", type=Path)
+    parser.add_argument("--render-root", type=Path)
+    parser.add_argument("--pptx", type=Path, required=True)
+    parser.add_argument("--config", type=Path)
+    parser.add_argument("--result-json", type=Path)
+    args = parser.parse_args()
+    try:
+        package = json.loads(args.package.read_text(encoding="utf-8"))
+        plan = json.loads(args.plan.read_text(encoding="utf-8"))
+        qa = json.loads(args.qa.read_text(encoding="utf-8"))
+        global qa_path_parent
+        qa_path_parent = args.qa.resolve().parent
+        errors = validate_qa(package, plan, qa, args.render_root, args.pptx, load_policy(args.config))
+    except Exception as exc:
+        return exception_result("output-qa", exc, args.result_json)
+    return finish("output-qa", errors, args.result_json, quality_checked=True,
+                  success=f"PASS: final QA {qa.get('package_id')} ({len(qa.get('slides', []))} slides)")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

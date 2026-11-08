@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:personal-extension-profile:1.0",
+  "title": "Clayz Personal Extension Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "profile_id", "profile_version", "compatibility", "overrides", "mounts", "providers"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.personal-extension-profile/1.0"},
+    "profile_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "profile_version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_core_version", "maximum_core_version_exclusive"],
+      "properties": {
+        "minimum_core_version": {"type": "string"},
+        "maximum_core_version_exclusive": {"type": "string"}
+      }
+    },
+    "overrides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "policy", "value"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "policy": {"enum": ["replace", "append_unique", "stricter_only"]},
+          "value": {}
+        }
+      }
+    },
+    "mounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["mount_id", "logical_root", "bindings"],
+        "properties": {
+          "mount_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+          "logical_root": {"type": "string", "pattern": "^library://.+/$"},
+          "bindings": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["local", "chatgpt-personal"],
+            "properties": {
+              "local": {"$ref": "#/$defs/binding"},
+              "chatgpt-personal": {"$ref": "#/$defs/binding"}
+            }
+          }
+        }
+      }
+    },
+    "providers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["provider_id", "manifest_uri", "mount_id", "required", "stages"],
+        "properties": {
+          "provider_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+          "manifest_uri": {"type": "string", "pattern": "^library://"},
+          "mount_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+          "required": {"type": "boolean"},
+          "stages": {"type": "array", "items": {"enum": ["logic", "copy", "art-direction", "output", "supervisor"]}, "uniqueItems": true}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter", "root"],
+      "properties": {
+        "adapter": {"enum": ["filesystem", "host-library"]},
+        "root": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

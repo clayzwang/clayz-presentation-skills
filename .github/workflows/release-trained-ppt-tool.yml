@@ -3,7 +3,9 @@ on:
   push:
     branches: [main]
     paths:
-      - published/ppt/v0.23.31/ppt-0.23.31-standalone-skill.zip
+      - published/ppt/v0.23.31/source/**
+      - published/ppt/v0.23.31/rebuild*
+      - published/frozen-markdown-findings.json
       - published/ppt/v0.23.31/publication.json
       - published/ppt/v0.23.31/publish_frozen.py
       - .github/workflows/release-trained-ppt-tool.yml
@@ -26,8 +28,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Rebuild exact frozen ZIP from source
+        run: python -B "$PREFIX/rebuild_frozen.py" "$PREFIX/rebuild.json" "$PREFIX/source" "$RUNNER_TEMP/frozen-dist"
       - name: Verify exact archive and materialize frozen source
-        run: python -B "$PREFIX/publish_frozen.py" "$PREFIX" > "$PREFIX/package-verification.json"
+        run: python -B "$PREFIX/publish_frozen.py" "$PREFIX" --archive "$RUNNER_TEMP/frozen-dist/$ARCHIVE" > "$PREFIX/package-verification.json"
       - name: Install existing repository test dependencies
         run: python -m pip install -r requirements.txt
       - name: Preserve existing repository validation
@@ -65,7 +69,7 @@ jobs:
             exit 1
           fi
           if [ -n "$(git ls-remote --tags origin "refs/tags/$TAG")" ]; then
-            echo 'Tag already exists; refusing to bind a Release to an unverified earlier tag.'
+            echo "Tag already exists; refusing unverified reuse."
             exit 1
           fi
-          gh release create "$TAG" --target "$SOURCE_SHA" --latest --title 'PPT Tool 0.23.31' --notes-file "$PREFIX/release-notes.md" "$PREFIX/$ARCHIVE" "$PREFIX/SHA256SUMS.txt" "$PREFIX/publication.json" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/office-smoke.json"
+          gh release create "$TAG" --target "$SOURCE_SHA" --latest --title 'PPT Tool 0.23.31' --notes-file "$PREFIX/release-notes.md" "$RUNNER_TEMP/frozen-dist/$ARCHIVE" "$PREFIX/SHA256SUMS.txt" "$PREFIX/publication.json" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/office-smoke.json"

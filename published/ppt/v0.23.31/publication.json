@@ -1467,5 +1467,10 @@
     "Completed training execution is not a full professional quality pass or general transfer proof.",
     "Known historical case/quality labels in knowledge and historical local reference paths remain; do not treat them as current-task inputs or installed paths.",
     "Image encoding reductions are not VPN or total token savings."
-  ]
+  ],
+  "retained_document_link_findings": {
+    "count": 22,
+    "registry": "published/frozen-markdown-findings.json",
+    "status": "unresolved; retained with exact source hashes, not all-links-valid"
+  }
 }

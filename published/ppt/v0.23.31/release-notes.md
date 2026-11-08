@@ -14,3 +14,5 @@ Install by extracting `ppt-0.23.31-standalone-skill.zip` into one Skill director
 External knowledge is released separately in the private `clayzwang/work-output` repository. On another host supply its actual manifest path; frozen package references to original local paths are historical, not proof of installation. Internal local-candidate status labels are preserved; this GitHub Release and publication receipt attest the later publication.
 
 Frozen ZIP SHA256: `a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe`
+
+Repository link validation additionally found22 unresolved links in frozen legacy/reference Markdown. These are retained by exact source hash, reported as known findings, and remain unresolved in the install ZIP. New or changed failures remain blocking.

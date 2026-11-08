@@ -1,0 +1,21 @@
+{
+  "release_version": "0.22.0",
+  "knowledge_version": "1.3.0+composition.r01.1",
+  "knowledge_repository": "clayzwang/work-output",
+  "knowledge_directory": "knowledge/ppt/v1.3.0-composition.r01.1",
+  "knowledge_archive": "art-design-foundations-1.3.0+composition.r01.1.zip",
+  "knowledge_sha256": "bb97b01874b9a22d41a8235b61d52af7627d4c9e227810a19812cc3e3e437f85",
+  "knowledge_bytes": 977525,
+  "knowledge_manifest_sha256": "22a890c677f2e1c7e4744f270ee389917fc414d169afac8d5676f9aa9da3c612",
+  "nodes": 91,
+  "source_revision": "composition.r01.1",
+  "reader_policy": "Native bounded cycles retained; after Copy closure Art content objections remain audit-only and final repair is presentation-only.",
+  "limitations": "Structural, exact-text, manifest and native-reader compatibility checks passed. New mappings have not received complete human review; no new PPT was made to establish reader-effect improvement.",
+  "composition_understandings": 567,
+  "framework_entrypoints": 39,
+  "principle_links": 1536,
+  "knowledge_branch": "release/ppt-v1.3.0-composition-r01.1",
+  "knowledge_release_tag": "knowledge-ppt-v1.3.0-composition-r01.1",
+  "reference_images_included": false,
+  "knowledge_commit": "88de2bf02302002b1178bca54a61ad946f3686aa"
+}

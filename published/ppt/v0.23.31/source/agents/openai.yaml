@@ -1,0 +1,9 @@
+interface:
+  display_name: "Clayz Presentation Personal"
+  short_description: "聊天与Work中的资源检查、讨论学习、原生Library入库与PPT制作"
+  icon_small: "./assets/clayz-mark.svg"
+  icon_large: "./assets/clayz-mark.svg"
+  brand_color: "#5B5BD6"
+  default_prompt: "Use $ppt in this chat to inspect my Library, discuss and save confirmed knowledge, or create a presentation with fast, normal or train mode and explicit producer-owned interfaces."
+policy:
+  allow_implicit_invocation: true

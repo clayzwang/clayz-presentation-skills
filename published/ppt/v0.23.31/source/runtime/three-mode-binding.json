@@ -1,0 +1,15 @@
+{
+  "contract": "io.clayz.presentation.external-knowledge-binding/1.0",
+  "tool_version": "0.23.31",
+  "local_revision": "three-modes.knowledge-use-projection.b02.r15",
+  "status": "local-history-lifecycle-trial",
+  "knowledge_version": "1.3.4+professional-view.b02.r03",
+  "knowledge_manifest_sha256": "b6cac4d16397938b1bb88a142e1e958b0e56370d179e34a823a4ce1768e76452",
+  "knowledge_content_changed": false,
+  "entrypoints": [
+    "composition/framework.md",
+    "domain-map.json"
+  ],
+  "local_reference_manifest": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-view-b02-r05/knowledge/manifest.json",
+  "portability": "External knowledge; on another host supply its actual manifest to workflow init. Do not fabricate installation."
+}

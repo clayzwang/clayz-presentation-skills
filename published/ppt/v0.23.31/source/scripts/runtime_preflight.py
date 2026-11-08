@@ -1,0 +1,382 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 clayz
+# SPDX-License-Identifier: Apache-2.0
+"""Run one Clayz runtime capability scan and write a locked route plan."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path, PurePosixPath
+
+
+ROOT = Path(__file__).resolve().parents[1]
+TASK_SELECTION_V2_CONTRACT = "io.clayz.presentation.task-resource-selection/2.0"
+sys.path.insert(0, str(ROOT))
+
+from packages.runtime.preflight import (  # noqa: E402
+    HOST_INVENTORY_CONTRACT,
+    RUN_CHALLENGE_CONSUMPTION_CONTRACT,
+    RUN_CHALLENGE_ISSUANCE_CONTRACT,
+    build_preflight_report,
+    issue_run_challenge,
+    task_root_digest,
+    validate_run_challenge,
+)
+
+
+def default_config_path() -> Path:
+    personal = ROOT / "config" / "personal-extension-resolved.json"
+    return personal if personal.is_file() else ROOT / "config" / "default.json"
+
+
+def _write_payload(payload: dict[str, object], output: Path | None) -> None:
+    text = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if output:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(text, encoding="utf-8")
+    else:
+        print(text, end="")
+
+
+def _issue_challenge(task_request: Path, output: Path) -> None:
+    task_root = output.resolve().parent
+    challenge = issue_run_challenge(task_request.read_bytes(), task_root=task_root)
+    challenge_raw = (json.dumps(challenge, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with output.open("xb") as handle:
+            handle.write(challenge_raw)
+    except FileExistsError as exc:
+        raise ValueError("challenge output already exists; use a new task-local path") from exc
+    challenge_sha256 = hashlib.sha256(challenge_raw).hexdigest()
+    issuance_path = task_root / Path(*PurePosixPath(challenge["issuance_record"]).parts)
+    issuance_path.parent.mkdir(parents=True, exist_ok=True)
+    issuance = {
+        "contract": RUN_CHALLENGE_ISSUANCE_CONTRACT,
+        "challenge_sha256": challenge_sha256,
+        "run_id": challenge["run_id"],
+        "task_request_sha256": challenge["task_request_sha256"],
+        "nonce": challenge["nonce"],
+        "task_root_sha256": challenge["task_root_sha256"],
+        "issued_at": challenge["issued_at"],
+        "expires_at": challenge["expires_at"],
+    }
+    issuance_raw = (json.dumps(issuance, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    try:
+        with issuance_path.open("xb") as handle:
+            handle.write(issuance_raw)
+    except FileExistsError as exc:
+        raise ValueError("run challenge issuance record already exists") from exc
+
+
+def _validate_issuance_receipt(
+    challenge_path: Path,
+    challenge: dict[str, object],
+    challenge_sha256: str,
+) -> dict[str, object]:
+    task_root = challenge_path.resolve().parent
+    validate_run_challenge(
+        challenge,
+        challenge_sha256=challenge_sha256,
+        task_root=task_root,
+    )
+    relative = PurePosixPath(str(challenge.get("issuance_record", "")))
+    issuance_path = (task_root / Path(*relative.parts)).resolve()
+    try:
+        issuance_path.relative_to(task_root)
+    except ValueError as exc:
+        raise ValueError("run challenge issuance record escapes the task root") from exc
+    raw = issuance_path.read_bytes()
+    value = json.loads(raw)
+    if not isinstance(value, dict) or value.get("contract") != RUN_CHALLENGE_ISSUANCE_CONTRACT:
+        raise ValueError("run challenge issuance record is missing or unsupported")
+    expected = {
+        "challenge_sha256": challenge_sha256,
+        "run_id": challenge.get("run_id"),
+        "task_request_sha256": challenge.get("task_request_sha256"),
+        "nonce": challenge.get("nonce"),
+        "task_root_sha256": challenge.get("task_root_sha256"),
+        "issued_at": challenge.get("issued_at"),
+        "expires_at": challenge.get("expires_at"),
+    }
+    if any(value.get(key) != item for key, item in expected.items()):
+        raise ValueError("run challenge issuance record does not match the challenge")
+    return {
+        **value,
+        "receipt_path": issuance_path.as_posix(),
+        "receipt_sha256": hashlib.sha256(raw).hexdigest(),
+    }
+
+
+def _validate_host_evidence(
+    attestation: dict[str, object] | None,
+    attestation_path: Path | None,
+    challenge: dict[str, object],
+    challenge_sha256: str,
+) -> dict[str, object] | None:
+    if not attestation or attestation.get("available") is not True:
+        return None
+    if attestation_path is None:
+        raise ValueError("available host attestation requires a source file")
+    receipts = attestation.get("evidence_receipts")
+    if not isinstance(receipts, list) or not receipts:
+        raise ValueError("available host attestation requires evidence_receipts")
+    validated: list[dict[str, object]] = []
+    observed_capabilities: set[str] = set()
+    for index, receipt in enumerate(receipts):
+        if not isinstance(receipt, dict):
+            raise ValueError(f"host evidence receipt {index} must be an object")
+        relative = PurePosixPath(str(receipt.get("artifact", "")))
+        if relative.is_absolute() or ".." in relative.parts or not relative.parts:
+            raise ValueError(f"host evidence receipt {index} has an unsafe artifact path")
+        artifact = (attestation_path.resolve().parent / Path(*relative.parts)).resolve()
+        try:
+            artifact.relative_to(attestation_path.resolve().parent)
+        except ValueError as exc:
+            raise ValueError(f"host evidence receipt {index} escapes its evidence root") from exc
+        raw = artifact.read_bytes()
+        digest = hashlib.sha256(raw).hexdigest()
+        if digest != receipt.get("sha256"):
+            raise ValueError(f"host evidence receipt {index} SHA-256 mismatch")
+        inventory = json.loads(raw)
+        if not isinstance(inventory, dict) or inventory.get("contract") != HOST_INVENTORY_CONTRACT:
+            raise ValueError(f"host evidence receipt {index} has an unsupported inventory contract")
+        for key in ("run_id", "task_request_sha256", "nonce"):
+            if inventory.get(key) != challenge.get(key):
+                raise ValueError(f"host inventory {index} does not match challenge {key}")
+        if inventory.get("challenge_sha256") != challenge_sha256:
+            raise ValueError(f"host inventory {index} does not match challenge SHA-256")
+        capabilities = inventory.get("capabilities")
+        if not isinstance(capabilities, list) or any(not isinstance(item, str) or not item for item in capabilities):
+            raise ValueError(f"host inventory {index} capabilities must be a string array")
+        observed_capabilities.update(capabilities)
+        validated.append(dict(receipt))
+    declared = attestation.get("capabilities")
+    if not isinstance(declared, list) or set(declared) != observed_capabilities:
+        raise ValueError("host attestation capabilities must exactly equal evidence inventory capabilities")
+    return {
+        "validated": True,
+        "challenge_sha256": challenge_sha256,
+        "evidence_receipts": validated,
+    }
+
+
+def _consume_challenge(challenge_path: Path, challenge: dict[str, object], challenge_sha256: str) -> dict[str, object]:
+    task_root = challenge_path.resolve().parent
+    if challenge.get("task_root_sha256") != task_root_digest(task_root):
+        raise ValueError("run challenge is not bound to the current task root")
+    receipt_root = task_root / ".clayz-run-challenges" / "consumed"
+    receipt_root.mkdir(parents=True, exist_ok=True)
+    receipt_path = receipt_root / f"{challenge_sha256}.json"
+    payload: dict[str, object] = {
+        "contract": RUN_CHALLENGE_CONSUMPTION_CONTRACT,
+        "challenge_sha256": challenge_sha256,
+        "run_id": challenge.get("run_id"),
+        "task_request_sha256": challenge.get("task_request_sha256"),
+        "nonce": challenge.get("nonce"),
+        "task_root_sha256": challenge.get("task_root_sha256"),
+        "consumed_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+    }
+    raw = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    try:
+        with receipt_path.open("xb") as handle:
+            handle.write(raw)
+    except FileExistsError as exc:
+        raise ValueError("run challenge was already consumed; issue a fresh challenge") from exc
+    return {
+        **payload,
+        "receipt_path": receipt_path.resolve().as_posix(),
+        "receipt_sha256": hashlib.sha256(raw).hexdigest(),
+    }
+
+
+def _validate_task_request(task_request_path: Path, challenge: dict[str, object]) -> None:
+    """Bind the scan to the same immutable task-request bytes used at issuance."""
+
+    actual = hashlib.sha256(task_request_path.read_bytes()).hexdigest()
+    if actual != challenge.get("task_request_sha256"):
+        raise ValueError("current task request does not match the fresh run challenge")
+
+
+def _unified_workflow_required() -> bool:
+    lock_path = ROOT / "runtime" / "runtime-lock.json"
+    if not lock_path.is_file():
+        return False
+    try:
+        lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ValueError("runtime lock is not valid JSON") from exc
+    if not isinstance(lock, dict):
+        raise ValueError("runtime lock must be an object")
+    return lock.get("unified_workflow_required") is True
+
+
+def _validate_task_selection(
+    selection_path: Path,
+    config_path: Path,
+    *,
+    require_unified: bool = False,
+) -> dict[str, object]:
+    """Validate a task-local visual configuration against the bundled sources."""
+
+    try:
+        from packages.personal_extension.resolver import validate_task_selection
+    except ImportError as exc:  # pragma: no cover - task selection requires the updated resolver
+        raise ValueError("task selection validation is unavailable") from exc
+    selection = validate_task_selection(
+        selection_path.resolve(),
+        config_path.resolve(),
+        ROOT.resolve(),
+    )
+    if not isinstance(selection, dict):
+        raise ValueError("task selection validator returned an invalid selection")
+    if selection.get("contract") == TASK_SELECTION_V2_CONTRACT:
+        valid_selection = selection.get("workflow") == "unified" and "mode" not in selection and "visual_source" not in selection
+    else:
+        valid_selection = selection.get("mode") in {"public-core", "owner-personal"}
+    if require_unified:
+        valid_selection = selection.get("contract") == TASK_SELECTION_V2_CONTRACT and selection.get("workflow") == "unified" and "mode" not in selection and "visual_source" not in selection
+    if not valid_selection:
+        raise ValueError("task selection validator returned an invalid knowledge mode")
+    return selection
+
+
+def _validate_component_version_report(path: Path, config: dict[str, object]) -> dict[str, object]:
+    raw = path.read_bytes()
+    report = json.loads(raw)
+    if not isinstance(report, dict) or report.get("contract") != "io.clayz.presentation.component-version-report/1.0":
+        raise ValueError("component version report contract is unsupported")
+    if report.get("status") not in {"installed", "latest", "candidate"} or report.get("error_codes") != []:
+        raise ValueError("component version report did not establish consistent installed components")
+    if report.get("status") == "installed":
+        from scripts.component_version_guard import build_application_report
+        current = build_application_report(ROOT)
+        for key in ("status", "local_release_version", "manifest_sha256", "local_manifest_sha256", "components", "personal_extension"):
+            if report.get(key) != current.get(key):
+                raise ValueError(f"installed component report no longer matches mounted {key}")
+    configured_version = config.get("identity", {}).get("version") if isinstance(config.get("identity"), dict) else None
+    latest = report.get("latest_release")
+    latest_version = latest.get("version") if isinstance(latest, dict) else None
+    if report.get("local_release_version") != configured_version:
+        raise ValueError("component version report does not match the resolved configuration")
+    if report.get("status") == "latest" and latest_version != configured_version:
+        raise ValueError("latest component report does not match the official release")
+    if report.get("status") == "candidate":
+        candidate = report.get("candidate_manifest")
+        if not isinstance(candidate, dict) or candidate.get("candidate_version") != configured_version or candidate.get("base_latest_version") != latest_version:
+            raise ValueError("candidate component report is not bound to the staged local version and official base release")
+    components = report.get("components")
+    if not isinstance(components, list) or not components or any(
+        not isinstance(item, dict) or item.get("status") != "current" for item in components
+    ):
+        raise ValueError("component version report contains missing or drifting components")
+    generated_at = report.get("generated_at")
+    try:
+        generated = datetime.fromisoformat(str(generated_at).replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("component version report generated_at is invalid") from exc
+    age_seconds = abs((datetime.now(timezone.utc) - generated.astimezone(timezone.utc)).total_seconds()) if generated.tzinfo else float("inf")
+    if age_seconds > 900:
+        raise ValueError("component version report is not fresh for this task")
+    return {
+        "artifact": path.resolve().as_posix(),
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "generated_at": generated_at,
+        "status": report.get("status"),
+        "local_release_version": report.get("local_release_version"),
+        "latest_release_version": latest_version,
+        "manifest_sha256": report.get("manifest_sha256"),
+        "all_components_current": True,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--issue-challenge", action="store_true", help="Issue a fresh run challenge before the single capability scan")
+    parser.add_argument("--task-request", type=Path, help="Canonical current task-request bytes required for issuance and scan binding")
+    parser.add_argument("--challenge", type=Path, help="Fresh run challenge emitted by --issue-challenge")
+    parser.add_argument("--task-selection", type=Path, help="Validated task-local knowledge and visual-source selection")
+    parser.add_argument("--config", type=Path, default=default_config_path())
+    parser.add_argument("--model-profile", choices=["A", "B", "C", "D"])
+    parser.add_argument("--model-capabilities", type=Path, help="JSON object used only when --model-profile is omitted")
+    parser.add_argument("--host-capabilities", type=Path, help="JSON object declaring inspected host presentation-tool capabilities")
+    parser.add_argument("--component-version-report", type=Path, help="fresh report emitted by component_version_guard.py")
+    parser.add_argument("--require", action="append", default=[], help="Add a stricter required capability; repeat as needed")
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args()
+    try:
+        if args.issue_challenge:
+            if args.task_request is None or args.output is None:
+                raise ValueError("--issue-challenge requires --task-request and --output")
+            _issue_challenge(args.task_request, args.output)
+            return 0
+        if args.challenge is None or args.task_request is None:
+            raise ValueError("the capability scan requires --challenge and the same --task-request used at issuance")
+        challenge_raw = args.challenge.read_bytes()
+        challenge = json.loads(challenge_raw)
+        challenge_sha256 = hashlib.sha256(challenge_raw).hexdigest()
+        validate_run_challenge(
+            challenge,
+            challenge_sha256=challenge_sha256,
+            task_root=args.challenge.resolve().parent,
+        )
+        issuance = _validate_issuance_receipt(args.challenge, challenge, challenge_sha256)
+        _validate_task_request(args.task_request, challenge)
+        config_raw = args.config.read_bytes()
+        config = json.loads(config_raw)
+        unified_required = _unified_workflow_required()
+        mode_system=config.get("workflow",{}).get("mode_system",{})
+        mode_workflow=mode_system.get("contract")=="io.clayz.presentation.mode-workflow/1.0" and mode_system.get("mode")in {"fast","normal","train"}
+        if unified_required and not mode_workflow and args.task_selection is None:
+            raise ValueError("current runtime requires --task-selection with unified workflow")
+        task_selection_binding: dict[str, str] | None = None
+        if args.task_selection is not None:
+            _validate_task_selection(args.task_selection, args.config, require_unified=unified_required)
+            selection_raw = args.task_selection.read_bytes()
+            task_selection_binding = {
+                "selection_path": args.task_selection.resolve().as_posix(),
+                "selection_sha256": hashlib.sha256(selection_raw).hexdigest(),
+            }
+        config_binding: dict[str, str] = {
+            "path": args.config.resolve().as_posix(),
+            "sha256": hashlib.sha256(config_raw).hexdigest(),
+            "source": "task-selected" if task_selection_binding is not None else (
+                "personal-resolved" if args.config.name == "personal-extension-resolved.json" else "public-default"
+            ),
+        }
+        if task_selection_binding is not None:
+            config_binding.update(task_selection_binding)
+        if args.component_version_report is None:
+            raise ValueError("the capability scan requires --component-version-report")
+        component_version_gate = _validate_component_version_report(args.component_version_report, config)
+        model_caps = json.loads(args.model_capabilities.read_text(encoding="utf-8")) if args.model_capabilities else None
+        host_caps = json.loads(args.host_capabilities.read_text(encoding="utf-8")) if args.host_capabilities else None
+        host_context = _validate_host_evidence(host_caps, args.host_capabilities, challenge, challenge_sha256)
+        consumption = _consume_challenge(args.challenge, challenge, challenge_sha256)
+        report = build_preflight_report(
+            config,
+            model_profile=args.model_profile,
+            model_capabilities=model_caps,
+            host_capabilities=host_caps,
+            required_capabilities=args.require or None,
+            run_challenge=challenge,
+            run_challenge_sha256=challenge_sha256,
+            run_challenge_issuance=issuance,
+            run_challenge_consumption=consumption,
+            host_attestation_context=host_context,
+            config_binding=config_binding,
+            component_version_gate=component_version_gate,
+        )
+        _write_payload(report, args.output)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+    return 0 if report["selected_route"].get("available") or report["selected_route"].get("attemptable") else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

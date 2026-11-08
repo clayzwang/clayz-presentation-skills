@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:render-manifest:1.0",
+  "title": "Clayz resolved render manifest",
+  "type": "object",
+  "required": ["contract", "presentation", "slides"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.render-manifest/1.0"},
+    "presentation": {
+      "type": "object",
+      "required": ["layout", "language"],
+      "properties": {
+        "layout": {"type": "string"},
+        "language": {"type": "string"},
+        "author": {"type": "string"},
+        "subject": {"type": "string"},
+        "title": {"type": "string"},
+        "company": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "headFontFace": {"type": "string"},
+        "bodyFontFace": {"type": "string"},
+        "lang": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "slides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["slide_id", "objects"],
+        "properties": {
+          "slide_id": {"type": "string", "minLength": 1},
+          "background": {"type": "string"},
+          "speaker_notes": {"type": "array", "items": {"type": "string"}},
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["object_id", "type", "options"],
+              "properties": {
+                "object_id": {"type": "string", "minLength": 1},
+                "copy_id": {"type": ["string", "null"]},
+                "type": {"enum": ["text", "shape", "image", "svg", "table", "chart", "line"]},
+                "text": {"type": "string"},
+                "shape": {"type": "string"},
+                "path": {"type": "string"},
+                "data": {"type": "string"},
+                "rows": {"type": "array"},
+                "chart_type": {"type": "string"},
+                "series": {"type": "array"},
+                "options": {"type": "object"}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

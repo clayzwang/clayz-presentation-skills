@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:provider-manifest:1.0",
+  "title": "Clayz index provider manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "provider_id", "visibility", "rights_context", "human_admission_required", "allowed_hosts", "index"],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "contract": {"const": "io.clayz.presentation.provider-manifest/1.0"},
+    "provider_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"},
+    "visibility": {"enum": ["public", "owner-private"]},
+    "rights_context": {"enum": ["public-open-source", "private-runtime"]},
+    "human_admission_required": {"const": true},
+    "allowed_hosts": {"type": "array", "items": {"enum": ["local", "chatgpt-personal"]}, "minItems": 1, "uniqueItems": true},
+    "index": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_contract", "format", "uri", "refresh_policy", "snapshot"],
+      "properties": {
+        "record_contract": {"const": "io.clayz.presentation.index-record/1.0"},
+        "format": {"const": "jsonl"},
+        "uri": {"type": "string", "pattern": "^(bundle|library)://"},
+        "refresh_policy": {"enum": ["immutable-release", "read-once-lock-for-run"]},
+        "snapshot": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["provider_id", "digest", "record_count"],
+          "properties": {
+            "provider_id": {"type": "string", "minLength": 1},
+            "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "record_count": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "evolution_methods": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["continuous_learning", "community_aggregation", "automatic_update", "cross_source_fusion"],
+      "properties": {
+        "continuous_learning": {"const": "deferred"},
+        "community_aggregation": {"const": "deferred"},
+        "automatic_update": {"const": "deferred"},
+        "cross_source_fusion": {"const": "deferred"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"visibility": {"const": "public"}}},
+      "then": {
+        "required": ["evolution_methods"],
+        "properties": {
+          "rights_context": {"const": "public-open-source"},
+          "index": {
+            "properties": {
+              "uri": {"pattern": "^bundle://"},
+              "refresh_policy": {"const": "immutable-release"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"visibility": {"const": "owner-private"}}},
+      "then": {
+        "properties": {
+          "rights_context": {"const": "private-runtime"},
+          "index": {
+            "properties": {
+              "uri": {"pattern": "^library://"},
+              "refresh_policy": {"const": "read-once-lock-for-run"}
+            }
+          }
+        }
+      }
+    }
+  ]
+}
