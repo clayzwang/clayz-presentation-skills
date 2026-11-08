@@ -1,3 +1,11 @@
+## 本轮单入口工具包：v0.23.31
+
+[下载本轮 Tool 0.23.31 Release](https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.31) · [源码、冻结文件清单与说明](published/ppt/v0.23.31)
+
+本次按原字节发布第二批20次工作流迭代最终选择的单入口Skill。内容包含完整结论型研究、标题正文与关系组织、专业知识采用投影、图像上下文退役/接续、无损输入和技术批处理计量。长段、字体/容量/原生应用和历史标签等遗留仍保留，未宣称通用质量或VPN/token总节省。配套知识1.3.4在[私有work-output Release](https://github.com/clayzwang/work-output/releases/tag/knowledge-ppt-v1.3.4-professional-view.b02.r03)。
+
+下载ZIP后解压为一个Skill目录使用。仓库根目录VERSION、插件清单和Light/offline构建源保留原v0.21.0历史发行标识；本次未把它们改名当作0.23.31，也未更新账号安装。当前单Skill源码位于`published/ppt/v0.23.31/source`，`publication.json`绑定全部原始文件。
+
 # Clayz Presentation Skills
 
 ## 0.20.6：让呈现本身传达含义
@@ -244,3 +252,4 @@ Copy 明确正文的单项归属、共同支撑或无局部标题归属及用途
 ## v0.19.1：完整讲述与细分正文
 
 Copy 先形成实际面向读者的讲述，再编辑文字角色，核对具体含义是否保留，并在通顺和逻辑完整的前提下尽可能拆细 body。多个正文可以归属同一标题或组合到同一个 Art 对象，各段贡献与依赖通过现有关系传递。内容审读记录与来源 ID 覆盖、结构校验分别判断。见[内容与自然表达](packages/contracts/reader-quality.zh-CN.md)。
+

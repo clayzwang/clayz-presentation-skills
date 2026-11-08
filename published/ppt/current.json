@@ -1,0 +1,8 @@
+{
+  "version": "0.23.31",
+  "tag": "v0.23.31",
+  "source": "published/ppt/v0.23.31/source",
+  "publication": "published/ppt/v0.23.31/publication.json",
+  "release": "https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.31",
+  "archive_sha256": "a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe"
+}

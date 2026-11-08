@@ -1,0 +1,71 @@
+name: release-frozen-tool
+on:
+  push:
+    branches: [main]
+    paths:
+      - published/ppt/v0.23.31/ppt-0.23.31-standalone-skill.zip
+      - published/ppt/v0.23.31/publication.json
+      - published/ppt/v0.23.31/publish_frozen.py
+      - .github/workflows/release-trained-ppt-tool.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: frozen-tool-v0.23.31
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PREFIX: published/ppt/v0.23.31
+      TAG: v0.23.31
+      ARCHIVE: ppt-0.23.31-standalone-skill.zip
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact archive and materialize frozen source
+        run: python -B "$PREFIX/publish_frozen.py" "$PREFIX" > "$PREFIX/package-verification.json"
+      - name: Install existing repository test dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Preserve existing repository validation
+        run: python -B scripts/validate_all.py
+      - name: Validate exact standalone package
+        run: |
+          python -B "$PREFIX/source/scripts/validate_composite_skill_mount.py" --root "$PREFIX/source" --mode archive > "$PREFIX/mount-validation.json"
+          python -B "$PREFIX/source/scripts/validate_config.py" "$PREFIX/source/config/personal-extension-resolved.json"
+      - name: Install real Office acceptance dependencies
+        run: sudo apt-get update && sudo apt-get install -y libreoffice-impress poppler-utils
+      - name: Real Office regression with the frozen package metadata writer
+        env:
+          FROZEN_PACKAGE_ROOT: ${{ github.workspace }}/published/ppt/v0.23.31/source
+        run: python -B "$PREFIX/office_smoke.py" --output "$PREFIX/office-smoke.json"
+      - name: Commit verified source and validation receipts
+        id: source
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$PREFIX/source" "$PREFIX/SHA256SUMS.txt" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/office-smoke.json"
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish verified frozen tool 0.23.31 source'
+            git push origin HEAD:main
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Publish immutable Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo 'Release already exists; refusing to replace its tag or assets.'
+            exit 1
+          fi
+          if [ -n "$(git ls-remote --tags origin \"refs/tags/$TAG\")" ]; then
+            echo 'Tag already exists; refusing to bind a Release to an unverified earlier tag.'
+            exit 1
+          fi
+          gh release create "$TAG" --target "$SOURCE_SHA" --latest --title 'PPT Tool 0.23.31' --notes-file "$PREFIX/release-notes.md" "$PREFIX/$ARCHIVE" "$PREFIX/SHA256SUMS.txt" "$PREFIX/publication.json" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/office-smoke.json"

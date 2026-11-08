@@ -1,5 +1,14 @@
 # Clayz Presentation Skills
 
+## Current standalone Skill: v0.23.31
+
+[Download the frozen Tool 0.23.31 Release](https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.31) · [Verified source and file manifest](published/ppt/v0.23.31)
+
+This release publishes the exact standalone Skill selected after the second twenty-issuer workflow cycle. It adds conclusion-led research/content guidance, semantic hierarchy helpers, professional knowledge adoption projection, image-history lifecycle controls and transport accounting. Known long-paragraph, native capacity/font/application and historic-label limits remain; no general quality or overall VPN/token saving is claimed. External K 1.3.4 remains in the private [work-output Release](https://github.com/clayzwang/work-output/releases/tag/knowledge-ppt-v1.3.4-professional-view.b02.r03).
+
+Extract the Release ZIP into one Skill directory. Repository-root VERSION, plugin manifest and Light/offline build sources below remain the earlier v0.21.0 distribution; this publication does not relabel those packages or update an account installation. The current standalone source is under `published/ppt/v0.23.31/source` and its exact bytes are bound by `publication.json`.
+
+
 ## 0.20.6: make the presentation carry meaning
 
 The bank10 development body strengthens reader-centered composition: choose the relation and comparison the reader needs, preserve ownership and identity across representations, and state which quantity a direction refers to. Optional native helpers cover chart typefaces, scoped page-number roles, exact decimal chart caches, and table-grid references. These are contextual tools and methods, without a new layout quota or automatic design score.
@@ -10,7 +19,7 @@ Ten sequential local bank rounds produced ten PPTX/PDF pairs, 194 pages, with re
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.21.0**
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Legacy plugin bundle: **v0.21.0**
 
 本版基于0.20.6＋stage-files.r02，配套知识为1.3.0+composition.r01.1；不包含本次95张参考图片。见[完整发布说明](release/v0.21.0-release-notes.md)和[准确知识绑定](config/knowledge-release.json)。知识沿既有私有仓库单独发布。
 
@@ -291,3 +300,4 @@ Copy supplies body-to-heading ownership, shared support or explicit page-level p
 ## v0.19.1: reader explanation and fine body units
 
 Copy develops an actual explanation for readers before editing it into text roles, reviews concrete meaning preservation, and resolves body as finely as coherent language and logic permit. Several bodies can share a heading or an Art object; their contributions and dependencies travel through existing relationships. Content-reading observations are distinct from source-ID coverage and structural checks. See [reader-quality guidance](packages/contracts/reader-quality.md).
+
