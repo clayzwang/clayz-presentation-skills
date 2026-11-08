@@ -19,7 +19,9 @@ Ten sequential local bank rounds produced ten PPTX/PDF pairs, 194 pages, with re
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Legacy plugin bundle: **v0.21.0**
+The marker below refers to the retained root-level Light/offline plugin source; the current standalone Skill Release is v0.23.31 above.
+
+[![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.21.0**
 
 本版基于0.20.6＋stage-files.r02，配套知识为1.3.0+composition.r01.1；不包含本次95张参考图片。见[完整发布说明](release/v0.21.0-release-notes.md)和[准确知识绑定](config/knowledge-release.json)。知识沿既有私有仓库单独发布。
 

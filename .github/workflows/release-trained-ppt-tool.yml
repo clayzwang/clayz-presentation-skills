@@ -48,7 +48,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- "$PREFIX/source" "$PREFIX/SHA256SUMS.txt" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/office-smoke.json"
+          git add --force -- "$PREFIX/source" "$PREFIX/SHA256SUMS.txt" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/office-smoke.json"
           if ! git diff --cached --quiet; then
             git commit -m 'Publish verified frozen tool 0.23.31 source'
             git push origin HEAD:main
@@ -64,7 +64,7 @@ jobs:
             echo 'Release already exists; refusing to replace its tag or assets.'
             exit 1
           fi
-          if [ -n "$(git ls-remote --tags origin \"refs/tags/$TAG\")" ]; then
+          if [ -n "$(git ls-remote --tags origin "refs/tags/$TAG")" ]; then
             echo 'Tag already exists; refusing to bind a Release to an unverified earlier tag.'
             exit 1
           fi
