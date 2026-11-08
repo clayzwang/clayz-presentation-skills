@@ -1,6 +1,6 @@
 # PPT Tool 0.23.31 / 第二批工作流迭代工具包
 
-Publishes the exact selected standalone Skill used in the second finite twenty-issuer workflow cycle. / 本次发布训练最终选择的单入口Skill原始包，版本和字节均保留。
+Publishes the selected standalone Skill with a portable release metadata layer. / 本次发布训练最终选择的单入口Skill，发布副本仅调整三处来源/外部知识路径元数据及完整性清单，执行代码和专业文档保持。
 
 - Logic/Copy: complete conclusion-led research, semantic hierarchy and typed relation scope; optional professional reading and exact-fragment helpers.
 - Art: knowledge-guided composition and explicit actual-adoption projection.
@@ -13,6 +13,10 @@ Install by extracting `ppt-0.23.31-standalone-skill.zip` into one Skill director
 
 External knowledge is released separately in the private `clayzwang/work-output` repository. On another host supply its actual manifest path; frozen package references to original local paths are historical, not proof of installation. Internal local-candidate status labels are preserved; this GitHub Release and publication receipt attest the later publication.
 
-Frozen ZIP SHA256: `a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe`
+Training frozen ZIP SHA256: `a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe`
+
+Release ZIP SHA256: `cb0dc0c397fc2c527a94be64f715ca9f250d6e197e2e8d9bab1ed292956f8ec8`
 
 Repository link validation additionally found22 unresolved links in frozen legacy/reference Markdown. These are retained by exact source hash, reported as known findings, and remain unresolved in the install ZIP. New or changed failures remain blocking.
+
+Only three provenance/reference JSON files and the runtime artifact-hash lock differ from the training snapshot;148 Python files remain byte-identical. Local path strings are portable provenance/external-knowledge URIs in the release copy. Original training inputs and package remain archived unchanged.

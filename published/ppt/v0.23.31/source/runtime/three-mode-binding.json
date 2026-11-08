@@ -10,6 +10,6 @@
     "composition/framework.md",
     "domain-map.json"
   ],
-  "local_reference_manifest": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-view-b02-r05/knowledge/manifest.json",
+  "local_reference_manifest": "external-knowledge://art-design-foundations/1.3.4+professional-view.b02.r03/manifest.json",
   "portability": "External knowledge; on another host supply its actual manifest to workflow init. Do not fabricate installation."
 }

@@ -4,7 +4,7 @@
   "local_revision": "three-modes.knowledge-use-projection.b02.r15",
   "publication": "local-knowledge-use-projection-trial",
   "parent_tool_archive": {
-    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/batch-accounting-b02-r14/tool-candidate.zip",
+    "path": "provenance://sha256/8aa975a0810ebf671ea7d17ed9774218084816322c3418ebc337fb950f1bbd42/tool-candidate.zip",
     "bytes": 1001070,
     "sha256": "8aa975a0810ebf671ea7d17ed9774218084816322c3418ebc337fb950f1bbd42"
   },
@@ -16,7 +16,7 @@
     "local_revision": "three-modes.batch-accounting.b02.r14",
     "publication": "local-history-lifecycle-trial",
     "parent_tool_archive": {
-      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/technical-batch-b02-r13/tool-candidate.zip",
+      "path": "provenance://sha256/92c1bbd0aba9f4eb58a8c87dd0e8ef8061b64b3171bf0463a951e003955754c3/tool-candidate.zip",
       "bytes": 999770,
       "sha256": "92c1bbd0aba9f4eb58a8c87dd0e8ef8061b64b3171bf0463a951e003955754c3"
     },
@@ -28,7 +28,7 @@
       "local_revision": "three-modes.technical-batch.b02.r13",
       "publication": "local-history-lifecycle-trial",
       "parent_tool_archive": {
-        "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-history-guard-b02-r12b/tool-candidate.zip",
+        "path": "provenance://sha256/ed7346f30ac994452077d2fbe4b0e2d468bbe74e36d50c2cff8b98945b334fc7/tool-candidate.zip",
         "bytes": 994740,
         "sha256": "ed7346f30ac994452077d2fbe4b0e2d468bbe74e36d50c2cff8b98945b334fc7"
       },
@@ -40,7 +40,7 @@
         "local_revision": "three-modes.history-lifecycle-guard.b02.r12b",
         "publication": "local-history-lifecycle-trial",
         "parent_tool_archive": {
-          "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-history-b02-r12/tool-candidate.zip",
+          "path": "provenance://sha256/a1737a4ba6599b790ea30850eca2fdec7f8547e34374fcca98206114ad38bc33/tool-candidate.zip",
           "bytes": 994465,
           "sha256": "a1737a4ba6599b790ea30850eca2fdec7f8547e34374fcca98206114ad38bc33"
         },
@@ -52,7 +52,7 @@
           "local_revision": "three-modes.history-lifecycle.b02.r12",
           "publication": "local-history-lifecycle-trial",
           "parent_tool_archive": {
-            "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-status-b02-r11/tool-candidate.zip",
+            "path": "provenance://sha256/ccea0674b88448bd8d3a74fc8a819db4b81a1660fad23c05abc43d26bf69eee2/tool-candidate.zip",
             "bytes": 988964,
             "sha256": "ccea0674b88448bd8d3a74fc8a819db4b81a1660fad23c05abc43d26bf69eee2"
           },
@@ -64,7 +64,7 @@
             "local_revision": "three-modes.transport-status.b02.r11",
             "publication": "local-validated-transport-sidecar-and-future-uninitialized-tool",
             "parent_tool_archive": {
-              "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/transport-economy-b02-r10/tool-candidate.zip",
+              "path": "provenance://sha256/b3dbfb1345c8752a6a2ea90ec8e3327eff2f43207be84eb0bf2a49b4f0c7c8f9/tool-candidate.zip",
               "bytes": 988322,
               "sha256": "b3dbfb1345c8752a6a2ea90ec8e3327eff2f43207be84eb0bf2a49b4f0c7c8f9"
             },
@@ -76,7 +76,7 @@
               "local_revision": "three-modes.transport-economy.b02.r10",
               "publication": "local-validated-transport-sidecar-and-future-uninitialized-tool",
               "parent_tool_archive": {
-                "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/semantic-fragments-b02-r06/tool-candidate.zip",
+                "path": "provenance://sha256/969ea19cbb6c326b6c54338b96198ad6850ebeca0118e01fa9a1b1b7c5dcbad7/tool-candidate.zip",
                 "bytes": 976783,
                 "sha256": "969ea19cbb6c326b6c54338b96198ad6850ebeca0118e01fa9a1b1b7c5dcbad7"
               },
@@ -88,18 +88,18 @@
                 "local_revision": "three-modes.semantic-fragments.b02.r06",
                 "publication": "local-unselected-not-installed-not-published",
                 "parent_tool_archive": {
-                  "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-view-b02-r05/tool-candidate.zip",
+                  "path": "provenance://sha256/4a687aee58cfd7f507ce527667ce33e5c21112dc6c6725c35b63ee69655f414d/tool-candidate.zip",
                   "bytes": 972915,
                   "sha256": "4a687aee58cfd7f507ce527667ce33e5c21112dc6c6725c35b63ee69655f414d"
                 },
                 "change_scope": "One optional native-text construction Python module and Art guidance; all preexisting Python, native projections/evaluators/contracts/goals/budgets unchanged.",
                 "user_goal_selection": {
-                  "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                  "path": "provenance://sha256/46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa/current-goal-selection.json",
                   "bytes": 1293,
                   "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
                 },
                 "prototype_validation": {
-                  "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/operations/semantic-fragments-prototype-20261106/validation-first.json",
+                  "path": "provenance://sha256/30e73d9c2115e933dc72a5183f244f38b20b5f5010a0cb5752d16e06e75425d3/validation-first.json",
                   "bytes": 396,
                   "sha256": "30e73d9c2115e933dc72a5183f244f38b20b5f5010a0cb5752d16e06e75425d3"
                 },
@@ -109,18 +109,18 @@
                   "local_revision": "three-modes.professional-view.b02.r05",
                   "publication": "local-unselected-not-installed-not-published",
                   "parent_tool_archive": {
-                    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-content-b02-r04/tool-candidate.zip",
+                    "path": "provenance://sha256/dbc91957209704b3450d6a9895f67981d7008edb6f59d530d29eb3516fb6feb1/tool-candidate.zip",
                     "bytes": 968521,
                     "sha256": "dbc91957209704b3450d6a9895f67981d7008edb6f59d530d29eb3516fb6feb1"
                   },
                   "change_scope": "Two new optional reading-aid Python files plus Copy/Art guidance and distribution version/hash envelopes. All preexisting Python, native projections/evaluators/contracts/goals/budgets unchanged.",
                   "user_goal_selection": {
-                    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                    "path": "provenance://sha256/46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa/current-goal-selection.json",
                     "bytes": 1293,
                     "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
                   },
                   "prototype_validation": {
-                    "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/operations/professional-view-prototype-20261105/validation-r02/validation.json",
+                    "path": "provenance://sha256/a1c5f74df3a5871186a65ec2f4706f56f5ef1f0d21810d254467f2ca44314f5c/validation.json",
                     "bytes": 1645,
                     "sha256": "a1c5f74df3a5871186a65ec2f4706f56f5ef1f0d21810d254467f2ca44314f5c"
                   },
@@ -130,18 +130,18 @@
                     "local_revision": "three-modes.professional-content.b02.r04",
                     "publication": "local-unselected-not-installed-not-published",
                     "parent_tool_archive": {
-                      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/professional-capabilities-b02-r03/tool-candidate.zip",
+                      "path": "provenance://sha256/9498bd42c602db45d16bf25251f4ec69025d8e4a4d9b40e0121206dea88c848e/tool-candidate.zip",
                       "bytes": 966794,
                       "sha256": "9498bd42c602db45d16bf25251f4ec69025d8e4a4d9b40e0121206dea88c848e"
                     },
                     "change_scope": "Copy/Art method prose and distribution version/hash envelopes only; all Python, contracts, evaluation, reader methods and budgets unchanged. Separate K candidate curates development history.",
                     "user_goal_selection": {
-                      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                      "path": "provenance://sha256/46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa/current-goal-selection.json",
                       "bytes": 1293,
                       "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
                     },
                     "evidence": {
-                      "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/analysis/next-kernel-improvement-candidates-after-R06-observations.json",
+                      "path": "provenance://sha256/d849d007828d56fdd7caa5a255fa65413c6efb7889578b4f0746c5e24947ba05/next-kernel-improvement-candidates-after-R06-observations.json",
                       "bytes": 13397,
                       "sha256": "d849d007828d56fdd7caa5a255fa65413c6efb7889578b4f0746c5e24947ba05"
                     },
@@ -151,13 +151,13 @@
                       "local_revision": "three-modes.professional-capabilities.b02.r03",
                       "publication": "local-unselected-not-installed-not-published",
                       "parent_tool_archive": {
-                        "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/copy-art-metadata-b02-r02/tool-candidate.zip",
+                        "path": "provenance://sha256/4fa31e037c32fc23952d6000e855da0a07fa96638241112f5c4792f06eb51221/tool-candidate.zip",
                         "bytes": 964966,
                         "sha256": "4fa31e037c32fc23952d6000e855da0a07fa96638241112f5c4792f06eb51221"
                       },
                       "change_scope": "Professional Logic/Copy/Art method priority per explicit user revision; all existing Python, evaluator and contracts unchanged. Optional metadata utility retained unchanged; K unchanged.",
                       "user_goal_revision": {
-                        "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/protocol/current-goal-selection.json",
+                        "path": "provenance://sha256/46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa/current-goal-selection.json",
                         "bytes": 1293,
                         "sha256": "46e2c8bf8b76873fefb99f4a4598c4ea51109579e318dd57a4536b2ed37d5bfa"
                       },
@@ -168,7 +168,7 @@
                         "publication": "local-candidate-not-installed-not-published",
                         "inheritance": "built-unselected",
                         "parent_tool_archive": {
-                          "path": "/workspace/projects/gitea/training/usrev20-cycle2-20261105-19eb39d5/components/candidates/copy-art-b02-r01.2/tool-candidate.zip",
+                          "path": "provenance://sha256/75a17b86352fea132981f494114c55d76bd9f3e97bd29e5d1ba63433c06b9522/tool-candidate.zip",
                           "bytes": 962186,
                           "sha256": "75a17b86352fea132981f494114c55d76bd9f3e97bd29e5d1ba63433c06b9522"
                         },

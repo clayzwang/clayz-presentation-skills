@@ -7,8 +7,8 @@
   "source_directory": "source",
   "archive": {
     "name": "ppt-0.23.31-standalone-skill.zip",
-    "bytes": 1003232,
-    "sha256": "a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe"
+    "bytes": 1002984,
+    "sha256": "cb0dc0c397fc2c527a94be64f715ca9f250d6e197e2e8d9bab1ed292956f8ec8"
   },
   "files": [
     {
@@ -88,8 +88,8 @@
     },
     {
       "path": "config/release-lineage.json",
-      "bytes": 41152,
-      "sha256": "464a3ee3be65475b02fa5ab49dc18e476f531a6491ad91def85a0f69ec2427c4"
+      "bytes": 40734,
+      "sha256": "e51d06870f3b318c522312ca241cd7c39fece8c95586e476674f68a0cd54329e"
     },
     {
       "path": "config/transport-economy.json",
@@ -1038,8 +1038,8 @@
     },
     {
       "path": "runtime/local-revision.json",
-      "bytes": 41152,
-      "sha256": "464a3ee3be65475b02fa5ab49dc18e476f531a6491ad91def85a0f69ec2427c4"
+      "bytes": 40734,
+      "sha256": "e51d06870f3b318c522312ca241cd7c39fece8c95586e476674f68a0cd54329e"
     },
     {
       "path": "runtime/native-library-policy.json",
@@ -1054,7 +1054,7 @@
     {
       "path": "runtime/runtime-lock.json",
       "bytes": 35797,
-      "sha256": "75c9c113b470320a2b858c0936631dd6e5be0c579276130dcaa6aa78651ea75a"
+      "sha256": "d04d08b43ea90745dc938a61b7537c7347da618eb22042a4fe5e0738bd2b6a58"
     },
     {
       "path": "runtime/skill-mount-contract.json",
@@ -1063,8 +1063,8 @@
     },
     {
       "path": "runtime/three-mode-binding.json",
-      "bytes": 793,
-      "sha256": "5ead1a706db0ed4e30c6aac9d944609021d935e0c0e399e7728af54a0eec8244"
+      "bytes": 743,
+      "sha256": "eddadb2334e4eb4deead1073ff2a34d33f2c4f950f280a21795458b4244f900d"
     },
     {
       "path": "scripts/art_learning.py",
@@ -1462,7 +1462,7 @@
       "sha256": "e87a76b549bd902a9643e397461a015b3b26201275566423cbd7dbc4cfa909b3"
     }
   ],
-  "publication_scope": "GitHub publication of immutable previously selected local component; internal historical status labels and reference paths remain original. External publication receipt records actual release state.",
+  "publication_scope": "Release copy: three provenance/local-reference JSON files converted to portable URIs and runtime artifact hashes refreshed; all executable code and professional documents retain training bytes. Original training package preserved separately.",
   "limitations": [
     "Completed training execution is not a full professional quality pass or general transfer proof.",
     "Known historical case/quality labels in knowledge and historical local reference paths remain; do not treat them as current-task inputs or installed paths.",
@@ -1472,5 +1472,6 @@
     "count": 22,
     "registry": "published/frozen-markdown-findings.json",
     "status": "unresolved; retained with exact source hashes, not all-links-valid"
-  }
+  },
+  "training_frozen_archive_sha256": "a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe"
 }

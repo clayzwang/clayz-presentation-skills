@@ -4,5 +4,6 @@
   "source": "published/ppt/v0.23.31/source",
   "publication": "published/ppt/v0.23.31/publication.json",
   "release": "https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.31",
-  "archive_sha256": "a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe"
+  "archive_sha256": "cb0dc0c397fc2c527a94be64f715ca9f250d6e197e2e8d9bab1ed292956f8ec8",
+  "training_frozen_archive_sha256": "a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe"
 }

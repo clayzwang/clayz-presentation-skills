@@ -1,0 +1,31 @@
+{
+  "training_archive_sha256": "a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe",
+  "release_archive": {
+    "name": "ppt-0.23.31-standalone-skill.zip",
+    "bytes": 1002984,
+    "sha256": "cb0dc0c397fc2c527a94be64f715ca9f250d6e197e2e8d9bab1ed292956f8ec8"
+  },
+  "changes": [
+    {
+      "path": "config/release-lineage.json",
+      "before_sha256": "464a3ee3be65475b02fa5ab49dc18e476f531a6491ad91def85a0f69ec2427c4",
+      "after_sha256": "e51d06870f3b318c522312ca241cd7c39fece8c95586e476674f68a0cd54329e"
+    },
+    {
+      "path": "runtime/local-revision.json",
+      "before_sha256": "464a3ee3be65475b02fa5ab49dc18e476f531a6491ad91def85a0f69ec2427c4",
+      "after_sha256": "e51d06870f3b318c522312ca241cd7c39fece8c95586e476674f68a0cd54329e"
+    },
+    {
+      "path": "runtime/three-mode-binding.json",
+      "before_sha256": "5ead1a706db0ed4e30c6aac9d944609021d935e0c0e399e7728af54a0eec8244",
+      "after_sha256": "eddadb2334e4eb4deead1073ff2a34d33f2c4f950f280a21795458b4244f900d"
+    },
+    {
+      "path": "runtime/runtime-lock.json",
+      "before_sha256": "75c9c113b470320a2b858c0936631dd6e5be0c579276130dcaa6aa78651ea75a",
+      "after_sha256": "d04d08b43ea90745dc938a61b7537c7347da618eb22042a4fe5e0738bd2b6a58"
+    }
+  ],
+  "scope": "Metadata portability only.148 executable Python files byte-identical; original train run/session/criteria/budgets/judgments unchanged. Early public preparation commits retain the old non-secret provenance path strings; no history rewrite performed."
+}
