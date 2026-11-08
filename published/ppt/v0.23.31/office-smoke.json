@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "unicode_minus_normalized_for_comparison": false,
+  "office_version": "LibreOffice 7.3.7.2 30(Build:2)",
+  "pptx_sha256": "6e1ae0df83c6a447c97f2460a2d75fdcc159de0e2ad8709f9a6be2ccf8a4f8e0",
+  "pdf_sha256": "458d5bbcaad2614a3d0b11310147a8f2ae5c297cc1983b1bd5b63fefc9095ef6",
+  "checks": [
+    "metadata-stamped package opens",
+    "integrated table and multiline text render",
+    "negative chart label retains sign",
+    "combined editable paragraphs and independent text styles survive reopening and rendering",
+    "separate editable children inside a native group survive reopening and rendering"
+  ],
+  "limitations": [
+    "Not a pixel geometry verdict.",
+    "Not STKaiti or PowerPoint/WPS native acceptance."
+  ]
+}

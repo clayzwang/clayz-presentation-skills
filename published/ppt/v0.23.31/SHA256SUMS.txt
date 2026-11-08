@@ -1,1 +1,1 @@
-a665ed4951346325a56a2bfea3fae1e75ba62f9b0df7c16757973020de3ab4fe  ppt-0.23.31-standalone-skill.zip
+cb0dc0c397fc2c527a94be64f715ca9f250d6e197e2e8d9bab1ed292956f8ec8  ppt-0.23.31-standalone-skill.zip
