@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2026 clayz
+# SPDX-License-Identifier: Apache-2.0
+
+from .pattern_library import (
+    COMPOSITION_PATTERN_CONTRACT,
+    COMPOSITION_PLAN_CONTRACT,
+    DATASET_EXPORT_CONTRACT,
+    FAILURE_PATTERN_CONTRACT,
+    PATTERN_REQUEST_CONTRACT,
+    PATTERN_RESOLUTION_CONTRACT,
+    REFERENCE_RECORD_CONTRACT,
+    SEQUENCE_RECORD_CONTRACT,
+    PatternLibraryError,
+    compile_composition_pattern,
+    export_metadata_dataset,
+    load_builtin_provider,
+    load_registered_payload,
+    resolve_composition_pattern,
+    validate_composition_pattern,
+    validate_composition_pattern_request,
+    validate_failure_pattern,
+    validate_reference_record,
+    validate_registered_library,
+    validate_sequence_record,
+)
+
+__all__ = [
+    "COMPOSITION_PATTERN_CONTRACT",
+    "COMPOSITION_PLAN_CONTRACT",
+    "DATASET_EXPORT_CONTRACT",
+    "FAILURE_PATTERN_CONTRACT",
+    "PATTERN_REQUEST_CONTRACT",
+    "PATTERN_RESOLUTION_CONTRACT",
+    "REFERENCE_RECORD_CONTRACT",
+    "SEQUENCE_RECORD_CONTRACT",
+    "PatternLibraryError",
+    "compile_composition_pattern",
+    "export_metadata_dataset",
+    "load_builtin_provider",
+    "load_registered_payload",
+    "resolve_composition_pattern",
+    "validate_composition_pattern",
+    "validate_composition_pattern_request",
+    "validate_failure_pattern",
+    "validate_reference_record",
+    "validate_registered_library",
+    "validate_sequence_record",
+]

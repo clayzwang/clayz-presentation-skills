@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">clayz mark</title>
+  <desc id="desc">A geometric lowercase c formed by two open arcs.</desc>
+  <rect width="128" height="128" rx="28" fill="#171A2B"/>
+  <path d="M91 38A38 38 0 1 0 91 90" fill="none" stroke="#8B8CF8" stroke-width="16" stroke-linecap="round"/>
+  <path d="M86 49A24 24 0 1 0 86 79" fill="none" stroke="#F4F4FF" stroke-width="7" stroke-linecap="round"/>
+</svg>
+

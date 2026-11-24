@@ -1,0 +1,8 @@
+{
+  "contract": "io.clayz.presentation.environment-lock/1.0",
+  "python": "3.12",
+  "python_dependencies": {"Pillow": "12.3.0", "PyYAML": "6.0.3", "python-pptx": "1.0.2", "XlsxWriter": "3.2.9", "lxml": "6.0.2", "typing-extensions": "4.15.0"},
+  "renderer_policy": "Record actual LibreOffice binary/version and font manifest hash as task_runtime inputs; do not reuse render receipts across environment changes.",
+  "font_manifest": "assets/fonts/manifest.json",
+  "acceptance": "PowerPoint/WPS require a separate actual target-application check. Linux rendering is not native target acceptance."
+}

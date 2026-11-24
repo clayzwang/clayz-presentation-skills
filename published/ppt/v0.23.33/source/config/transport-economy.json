@@ -1,0 +1,58 @@
+{
+  "schema": "io.clayz.presentation.transport-policy/1",
+  "enabled": true,
+  "images": {
+    "encoding": "verified-lossless-webp-if-smaller-otherwise-original",
+    "preserve_dimensions_and_every_decoded_pixel": true,
+    "automatic_downscale": false,
+    "navigation_preview_counts_as_visual_review": false,
+    "reuse": "same-context-same-pixels-with-completed-own-coverage-only",
+    "new_independent_reader_must_read": true,
+    "reread_for_quality": "allowed-with-recorded-purpose-no-quality-quota",
+    "record_actual_forwarded_data_url_length": true
+  },
+  "contexts": {
+    "one_round_run_role_per_context": true,
+    "fresh_dispatch_fork_turns": "none",
+    "cross_round_task_outputs_or_answers": "forbidden",
+    "same_round_original_reader_confirmation": "fresh-physical-context-with-full-frozen-reader-lineage-after-image-inspection",
+    "coordinator_carry": [
+      "identity",
+      "component-version",
+      "state",
+      "budget",
+      "evidence-reference"
+    ],
+    "shared_filesystem_is_a_security_sandbox": false,
+    "reject_continuation_after_images": true,
+    "retire_after_completed_visual_plan": true,
+    "host_history_deletion_attested": false
+  },
+  "text": {
+    "complete_professional_analysis_and_design_content": true,
+    "lossy_summary_as_replacement_for_required_content": false,
+    "repeat_large_technical_metadata_or_terminal_output": false,
+    "technical_output": "bounded-summary-with-local-exact-receipt",
+    "base64_in_text_output": "forbidden",
+    "model_sampling_between_deterministic_commands": "batch-when-independent"
+  },
+  "measurement": {
+    "prepared_file_reduction": "potential-only",
+    "actual_model_visible_image_length": "observed-per-forward",
+    "baseline": "same-observed-actions-with-original-PNG-data-URL",
+    "input_reduction_equals_vpn_savings": false,
+    "vpn_usage": "separate-real-counter-snapshots-with-scope-and-gaps",
+    "vpn_savings_without_comparable_baseline": null
+  },
+  "technical_batches": {
+    "enabled": true,
+    "cli": "scripts/technical_batch.py",
+    "policy": "references/technical-batch.zh-CN.md",
+    "professional_reading_or_judgment": "not-replaced",
+    "stop_on_first_failure": true,
+    "retry": "never-automatic",
+    "Office": "original-budgeted-runner-only",
+    "model_token_saving": null,
+    "vpn_saving": null
+  }
+}

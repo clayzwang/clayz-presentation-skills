@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:layout-tree:1.0",
+  "title": "Clayz relative layout tree",
+  "type": "object",
+  "required": ["frame", "root"],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.layout-tree/1.0"},
+    "tree_id": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object",
+      "required": ["layout_contract_id", "layout_contract_revision", "record_id", "retrieval_receipt_id", "instance_id", "semantic_layout_tree_id"],
+      "properties": {
+        "layout_contract_id": {"type": "string", "minLength": 1},
+        "layout_contract_revision": {"type": "string", "minLength": 1},
+        "record_id": {"type": "string", "minLength": 1},
+        "retrieval_receipt_id": {"type": "string", "minLength": 1},
+        "instance_id": {"type": "string", "minLength": 1},
+        "semantic_layout_tree_id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "frame": {"$ref": "#/$defs/box"},
+    "root": {"$ref": "#/$defs/node"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "box": {
+      "type": "object",
+      "required": ["x", "y", "w", "h"],
+      "properties": {
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "w": {"type": "number", "minimum": 0},
+        "h": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "node": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "type": {"enum": ["leaf", "row", "column", "grid", "layers"]},
+        "role": {"type": "string"},
+        "intent": {"type": "string"},
+        "reading_order": {"type": "integer", "minimum": 0},
+        "copy_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "semantic_node_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "protected": {"type": "boolean"},
+        "contract_node_id": {"type": "string", "minLength": 1},
+        "slot_id": {"type": "string", "minLength": 1},
+        "basis": {"type": "number", "minimum": 0},
+        "flex": {"type": "number", "minimum": 0},
+        "min": {"type": "number", "minimum": 0},
+        "max": {"type": "number", "minimum": 0},
+        "cross": {"type": "number", "minimum": 0},
+        "align": {"enum": ["stretch", "start", "center", "end"]},
+        "align_self": {"enum": ["stretch", "start", "center", "end"]},
+        "gap": {"type": "number", "minimum": 0},
+        "column_gap": {"type": "number", "minimum": 0},
+        "row_gap": {"type": "number", "minimum": 0},
+        "columns": {"type": "integer", "minimum": 1},
+        "column_span": {"type": "integer", "minimum": 1},
+        "padding": {
+          "oneOf": [
+            {"type": "number", "minimum": 0},
+            {
+              "type": "object",
+              "properties": {
+                "top": {"type": "number", "minimum": 0},
+                "right": {"type": "number", "minimum": 0},
+                "bottom": {"type": "number", "minimum": 0},
+                "left": {"type": "number", "minimum": 0}
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "inset": {
+          "type": "object",
+          "properties": {
+            "x": {"type": "number"},
+            "y": {"type": "number"},
+            "w": {"type": "number", "minimum": 0},
+            "h": {"type": "number", "minimum": 0}
+          },
+          "additionalProperties": false
+        },
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:clayz:presentation:schema:retrieval-receipt:1.0",
+  "title": "Clayz retrieval receipt",
+  "type": "object",
+  "required": [
+    "contract",
+    "receipt_id",
+    "created_at",
+    "request",
+    "index_snapshot",
+    "candidates",
+    "selection",
+    "ranking",
+    "fallback",
+    "hallucination_guard"
+  ],
+  "properties": {
+    "contract": {"const": "io.clayz.presentation.retrieval-receipt/1.0"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 1},
+    "request": {"type": "object"},
+    "index_snapshot": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["provider_id", "digest", "record_count"],
+        "properties": {
+          "provider_id": {"type": "string", "minLength": 1},
+          "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "record_count": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "record_id",
+          "record_type",
+          "provider_id",
+          "title",
+          "score",
+          "rank",
+          "score_breakdown",
+          "match_basis",
+          "rights_decision",
+          "materializable",
+          "source_id",
+          "source_revision",
+          "license",
+          "never_copy",
+          "neighbor_of",
+          "neighbor_type"
+        ],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 1},
+          "record_type": {"type": "string", "minLength": 1},
+          "provider_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "score": {"type": "number", "minimum": 0, "maximum": 1},
+          "rank": {"type": "integer", "minimum": 1},
+          "score_breakdown": {
+            "type": "object",
+            "required": ["semantic", "stage", "task_context", "relation_purpose", "format_fit", "evidence_quality"],
+            "properties": {
+              "semantic": {"type": "number", "minimum": 0, "maximum": 1},
+              "stage": {"type": "number", "minimum": 0, "maximum": 1},
+              "task_context": {"type": "number", "minimum": 0, "maximum": 1},
+              "relation_purpose": {"type": "number", "minimum": 0, "maximum": 1},
+              "format_fit": {"type": "number", "minimum": 0, "maximum": 1},
+              "evidence_quality": {"type": "number", "minimum": 0, "maximum": 1}
+            },
+            "additionalProperties": false
+          },
+          "match_basis": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "rights_decision": {"type": "string", "minLength": 1},
+          "materializable": {"type": "boolean"},
+          "source_id": {"type": "string", "minLength": 1},
+          "source_revision": {"type": "string", "minLength": 1},
+          "license": {"type": "string", "minLength": 1},
+          "never_copy": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "neighbor_of": {"type": ["string", "null"]},
+          "neighbor_type": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "selection": {
+      "type": "object",
+      "required": ["selected", "rejected", "coverage_status", "coverage_gaps"],
+      "properties": {
+        "selected": {"$ref": "#/$defs/decisions"},
+        "rejected": {"$ref": "#/$defs/decisions"},
+        "coverage_status": {"enum": ["complete", "partial", "unresolved"]},
+        "coverage_gaps": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "ranking": {
+      "type": "object",
+      "required": ["profile", "minimum_score", "max_selected", "diversity_lambda", "eligible_candidate_count", "above_threshold_count"],
+      "properties": {
+        "profile": {"enum": ["content", "format", "implementation", "failure"]},
+        "minimum_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "max_selected": {"type": "integer", "minimum": 1, "maximum": 10},
+        "diversity_lambda": {"type": "number", "minimum": 0, "maximum": 1},
+        "eligible_candidate_count": {"type": "integer", "minimum": 0},
+        "above_threshold_count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "fallback": {
+      "type": "object",
+      "required": ["used", "reason"],
+      "properties": {
+        "used": {"type": "boolean"},
+        "reason": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "hallucination_guard": {
+      "type": "object",
+      "required": ["only_registered_records", "invented_record_count", "candidate_count"],
+      "properties": {
+        "only_registered_records": {"const": true},
+        "invented_record_count": {"const": 0},
+        "candidate_count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["record_id", "reason", "adoption_targets", "adoption_status"],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "adoption_targets": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "adoption_status": {"enum": ["planned", "material", "not-adopted"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,9 @@
+# Current three-mode professional handoff
+
+For workflow_cli fast/normal/train runs, use professional-input/2.0 and stage-interface/1.0. Read the current [handoff contract](stage-file-handoff.zh-CN.md), [three modes](three-modes.zh-CN.md) and [command boundaries](three-mode-command-boundaries.zh-CN.md). The current handoff is a role-to-real-file JSON passed to workflow_cli commit, not a stage-input/1.0 wrapper.
+
+Logic writes full report/process/evidence/data. Copy receives only the report plus its professional brief, uses the real copy_graph prepare/main/heads/bodies/assemble/identity chain and submits graph/generation/interface/process. Art receives the exact graph, preserves all content and page identities, reads the bound knowledge before design, and submits design, all real page renders, process, actual knowledge evidence and named resources. Output receives design/renders/images/native source/resources and submits real pptx/pdf/renders/qa/inventory/process. Exact file hashes and immutable snapshots remain required.
+
+Current readers are content/layout/final with one return each to Logic/Art/Copy and original-reader confirmation. The independent Auditor records only. Current publication is workflow_cli publish/verify-handoff; training capture/export belongs to the separately bound training package. No old five-stage handoff, reader or report chain is added.
+
+The old files-* / package3.x input, handoff, calibration and publication commands are unchanged and apply only to explicitly bound historical artifacts. Do not rename contracts, manufacture a package envelope, pass runtime configuration to Copy or relax checks to make them accept a current packet. The complete prior English and Chinese documents are preserved under ../../references/legacy/three-modes-interface-r01/ for historical reference only.
