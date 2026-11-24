@@ -1,12 +1,12 @@
 # Clayz Presentation Skills
 
-## Current standalone Skill: v0.23.31
+## Current standalone Skill: v0.23.33
 
-[Download the frozen Tool 0.23.31 Release](https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.31) · [Verified source and file manifest](published/ppt/v0.23.31)
+[Download the frozen Tool 0.23.33 Release](https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.33) · [Verified source and file manifest](published/ppt/v0.23.33)
 
-This release publishes the exact standalone Skill selected after the second twenty-issuer workflow cycle. It adds conclusion-led research/content guidance, semantic hierarchy helpers, professional knowledge adoption projection, image-history lifecycle controls and transport accounting. Known long-paragraph, native capacity/font/application and historic-label limits remain; no general quality or overall VPN/token saving is claimed. External K 1.3.4 remains in the private [work-output Release](https://github.com/clayzwang/work-output/releases/tag/knowledge-ppt-v1.3.4-professional-view.b02.r03).
+The 0.23.33 toolkit records training operations, applies explicitly configured limits, validates editable shape-to-relation bindings and guides readers through measurement scope. Its companion is [PPT Knowledge 1.3.6](https://github.com/clayzwang/work-output/releases/tag/knowledge-ppt-v1.3.6-professional-view.training.r02), distributed in the private work-output repository. The release retains 22 inherited documentation link findings.
 
-Extract the Release ZIP into one Skill directory. Repository-root VERSION, plugin manifest and Light/offline build sources below remain the earlier v0.21.0 distribution; this publication does not relabel those packages or update an account installation. The current standalone source is under `published/ppt/v0.23.31/source` and its exact bytes are bound by `publication.json`.
+Extract the Release ZIP into one Skill directory. Repository-root VERSION, plugin manifest and Light/offline build sources below remain the earlier v0.21.0 distribution; this publication does not relabel those packages or update an account installation. The current standalone source is under `published/ppt/v0.23.33/source` and its exact bytes are bound by `publication.json`.
 
 
 ## 0.20.6: make the presentation carry meaning
@@ -19,7 +19,7 @@ Ten sequential local bank rounds produced ten PPTX/PDF pairs, 194 pages, with re
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-The marker below refers to the retained root-level Light/offline plugin source; the current standalone Skill Release is v0.23.31 above.
+The marker below refers to the retained root-level Light/offline plugin source; the current standalone Skill Release is v0.23.33 above.
 
 [![CI](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/clayzwang/clayz-presentation-skills/actions/workflows/ci.yml) · Current release: **v0.21.0**
 

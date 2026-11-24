@@ -1,10 +1,10 @@
-## 本轮单入口工具包：v0.23.31
+## 本轮单入口工具包：v0.23.33
 
-[下载本轮 Tool 0.23.31 Release](https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.31) · [源码、冻结文件清单与说明](published/ppt/v0.23.31)
+[下载本轮 Tool 0.23.33 Release](https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.33) · [源码、冻结文件清单与说明](published/ppt/v0.23.33)
 
-本次按原字节发布第二批20次工作流迭代最终选择的单入口Skill。内容包含完整结论型研究、标题正文与关系组织、专业知识采用投影、图像上下文退役/接续、无损输入和技术批处理计量。长段、字体/容量/原生应用和历史标签等遗留仍保留，未宣称通用质量或VPN/token总节省。配套知识1.3.4在[私有work-output Release](https://github.com/clayzwang/work-output/releases/tag/knowledge-ppt-v1.3.4-professional-view.b02.r03)。
+本工具包记录训练操作次数，执行显式设置的操作上限，校验可编辑图形与逻辑关系的绑定，并帮助读者辨认统计口径。配套 [PPT 知识包 1.3.6](https://github.com/clayzwang/work-output/releases/tag/knowledge-ppt-v1.3.6-professional-view.training.r02) 发布在私有 work-output 仓库。此版本保留 22 个已有的文档链接问题。
 
-下载ZIP后解压为一个Skill目录使用。仓库根目录VERSION、插件清单和Light/offline构建源保留原v0.21.0历史发行标识；本次未把它们改名当作0.23.31，也未更新账号安装。当前单Skill源码位于`published/ppt/v0.23.31/source`，`publication.json`绑定全部原始文件。
+下载ZIP后解压为一个Skill目录使用。仓库根目录VERSION、插件清单和Light/offline构建源保留原v0.21.0历史发行标识；本次未把它们改名当作0.23.33，也未更新账号安装。当前单Skill源码位于`published/ppt/v0.23.33/source`，`publication.json`绑定全部原始文件。
 
 # Clayz Presentation Skills
 
