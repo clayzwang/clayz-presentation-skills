@@ -39,7 +39,8 @@ jobs:
           python -B "$PREFIX/publish_frozen.py" "$PREFIX" --archive "$RUNNER_TEMP/$ARCHIVE" > "$PREFIX/package-verification.json"
       - name: Validate the standalone mount and configuration
         run: |
-          python -B "$PREFIX/source/scripts/validate_composite_skill_mount.py" --root "$PREFIX/source" --mode archive > "$PREFIX/mount-validation.json"
+          python -B "$PREFIX/source/scripts/validate_composite_skill_mount.py" --root "$PREFIX/source" --mode archive > "$RUNNER_TEMP/mount-validation.json"
+          python -c 'import json,sys; from pathlib import Path; d=json.loads(Path(sys.argv[1]).read_bytes()); d["root"]=sys.argv[2]; print(json.dumps(d,ensure_ascii=False,indent=2))' "$RUNNER_TEMP/mount-validation.json" "$PREFIX/source" > "$PREFIX/mount-validation.json"
           python -B "$PREFIX/source/scripts/validate_config.py" "$PREFIX/source/config/personal-extension-resolved.json"
       - name: Install test dependencies
         run: |

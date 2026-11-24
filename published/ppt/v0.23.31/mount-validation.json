@@ -2,7 +2,7 @@
   "contract": "io.clayz.presentation.composite-skill-mount/1.0",
   "validation_mode": "archive",
   "skill": "ppt",
-  "root": "/home/runner/work/clayz-presentation-skills/clayz-presentation-skills/published/ppt/v0.23.31/source",
+  "root": "published/ppt/v0.23.31/source",
   "archive_layout": "standalone-skill-root",
   "publication_unit": "single-skill",
   "complete": true,
