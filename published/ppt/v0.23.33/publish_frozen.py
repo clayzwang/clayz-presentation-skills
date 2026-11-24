@@ -15,10 +15,11 @@ def digest(data):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('root', type=Path)
+    parser.add_argument('--archive', type=Path)
     args = parser.parse_args()
     root = args.root.resolve()
     spec = json.loads((root / 'publication.json').read_text())
-    archive = root / spec['archive']['name']
+    archive = args.archive or root / spec['archive']['name']
     raw = archive.read_bytes()
     assert len(raw) == spec['archive']['bytes']
     assert digest(raw) == spec['archive']['sha256']
