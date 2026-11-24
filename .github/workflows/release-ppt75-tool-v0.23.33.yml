@@ -26,13 +26,17 @@ jobs:
       ARCHIVE: 'ppt-0.23.33-standalone-skill.zip'
       CURRENT: 'published/ppt/current.json'
       EXPECTED_SHA256: '40c7cf7481c287d3314fff466ca48a9a0fd016eb11dd8bc58e1f79056730f83f'
+      ARCHIVE_SOURCE_COMMIT: '54e80e42b3182b8c402d3523eb6f49c3d9ab0871'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Verify ZIP and materialize exact source
-        run: python -B "$PREFIX/publish_frozen.py" "$PREFIX" > "$PREFIX/package-verification.json"
+        run: |
+          git fetch --no-tags --depth=1 origin "$ARCHIVE_SOURCE_COMMIT"
+          git show "$ARCHIVE_SOURCE_COMMIT:$PREFIX/$ARCHIVE" > "$RUNNER_TEMP/$ARCHIVE"
+          python -B "$PREFIX/publish_frozen.py" "$PREFIX" --archive "$RUNNER_TEMP/$ARCHIVE" > "$PREFIX/package-verification.json"
       - name: Validate the standalone mount and configuration
         run: |
           python -B "$PREFIX/source/scripts/validate_composite_skill_mount.py" --root "$PREFIX/source" --mode archive > "$PREFIX/mount-validation.json"
@@ -77,7 +81,7 @@ jobs:
             echo "Tag already exists for $TAG"
             exit 1
           fi
-          gh release create "$TAG" --draft --target "$SOURCE_SHA" --title 'Clayz Presentation 0.23.33' --notes-file "$PREFIX/release-notes.md" "$PREFIX/$ARCHIVE" "$PREFIX/SHA256SUMS.txt" "$PREFIX/publication.json" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/training-regression.xml" "$PREFIX/office-smoke.json"
+          gh release create "$TAG" --draft --target "$SOURCE_SHA" --title 'Clayz Presentation 0.23.33' --notes-file "$PREFIX/release-notes.md" "$RUNNER_TEMP/$ARCHIVE" "$PREFIX/SHA256SUMS.txt" "$PREFIX/publication.json" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/training-regression.xml" "$PREFIX/office-smoke.json"
           release_id=""
           for attempt in 1 2 3 4 5; do
             release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=30" | jq -r --arg tag "$TAG" '[.[] | select(.tag_name == $tag and .draft)] | if length == 1 then .[0].id else empty end')
