@@ -1,0 +1,31 @@
+{
+  "changes": [
+    {
+      "path": "config/knowledge-release.json",
+      "training_sha256": "70ee171584e309abf2e88f1775f9492f23f2088aea2013e9fa27a60cdb64633b",
+      "release_sha256": "bd522bdfcfe6bb7d2a68e364b4ff02dbe04a80c5ebb9f3e5fc139302e7877141"
+    },
+    {
+      "path": "config/release-lineage.json",
+      "training_sha256": "f7537bb2d1508e8389076c433d60174a6c8759d150fd89059d802d6edeaa81e2",
+      "release_sha256": "a91083f49ee1825aee02a2c1ba3335df94933d02119c892dfecba4e91678b56b"
+    },
+    {
+      "path": "runtime/local-revision.json",
+      "training_sha256": "f7537bb2d1508e8389076c433d60174a6c8759d150fd89059d802d6edeaa81e2",
+      "release_sha256": "a91083f49ee1825aee02a2c1ba3335df94933d02119c892dfecba4e91678b56b"
+    },
+    {
+      "path": "runtime/runtime-lock.json",
+      "training_sha256": "a308acb9b0651be8c71d6937987b13dcadb83fadbaaa100046ae0891cd54aa40",
+      "release_sha256": "0f9d7e07eb7b290f98a5a5e435ab86a8d3896903ef3a24b0eed838d0fd4daf74"
+    },
+    {
+      "path": "runtime/three-mode-binding.json",
+      "training_sha256": "b331957ac2d45cd90ed1a6712c50e74bdf03a1c5039cafcb987c76edba1d483c",
+      "release_sha256": "bc23cef609ee2c4be994b439505a509e2a51b1ef5c0d1d009668b1c67736b678"
+    }
+  ],
+  "source_file_count": 298,
+  "python_files_unchanged": 156
+}

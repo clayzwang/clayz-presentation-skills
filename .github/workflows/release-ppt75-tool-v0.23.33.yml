@@ -1,0 +1,110 @@
+name: release-ppt75-tool
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'published/ppt/v0.23.33/ppt-0.23.33-standalone-skill.zip'
+      - 'published/ppt/v0.23.33/publication.json'
+      - 'published/ppt/v0.23.33/publish_frozen.py'
+      - '.github/workflows/release-ppt75-tool-v0.23.33.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-ppt75-tool
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PREFIX: 'published/ppt/v0.23.33'
+      TAG: 'v0.23.33'
+      ARCHIVE: 'ppt-0.23.33-standalone-skill.zip'
+      CURRENT: 'published/ppt/current.json'
+      EXPECTED_SHA256: '40c7cf7481c287d3314fff466ca48a9a0fd016eb11dd8bc58e1f79056730f83f'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify ZIP and materialize exact source
+        run: python -B "$PREFIX/publish_frozen.py" "$PREFIX" > "$PREFIX/package-verification.json"
+      - name: Validate the standalone mount and configuration
+        run: |
+          python -B "$PREFIX/source/scripts/validate_composite_skill_mount.py" --root "$PREFIX/source" --mode archive > "$PREFIX/mount-validation.json"
+          python -B "$PREFIX/source/scripts/validate_config.py" "$PREFIX/source/config/personal-extension-resolved.json"
+      - name: Install test dependencies
+        run: |
+          python -m pip install -r requirements.txt pytest
+          sudo apt-get update
+          sudo apt-get install -y libreoffice-impress poppler-utils fonts-liberation
+      - name: Run repository validation and training regression tests
+        run: |
+          python -B scripts/validate_all.py
+          python -B -m pytest -q -o cache_dir="$RUNNER_TEMP/ppt-pytest-cache" --junitxml="$PREFIX/training-regression.xml" "$PREFIX/source/tests"
+          python -c 'import sys, xml.etree.ElementTree as E; suites=E.parse(sys.argv[1]).getroot().iter("testsuite"); assert any(int(s.attrib["tests"]) > 0 and sum(int(s.get(k, "0")) for k in ("failures","errors","skipped")) == 0 for s in suites)' "$PREFIX/training-regression.xml"
+      - name: Verify the editable Office export
+        env:
+          FROZEN_PACKAGE_ROOT: ${{ github.workspace }}/published/ppt/v0.23.33/source
+        run: python -B "$PREFIX/office_smoke.py" --output "$PREFIX/office-smoke.json"
+      - name: Commit the verified source
+        id: source
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --force -- "$PREFIX/source" "$PREFIX/SHA256SUMS.txt" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/training-regression.xml" "$PREFIX/office-smoke.json"
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish the verified $TAG source"
+            git push origin HEAD:main
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Upload, verify and publish the Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release already exists for $TAG"
+            exit 1
+          fi
+          if [ -n "$(git ls-remote --tags origin "refs/tags/$TAG")" ]; then
+            echo "Tag already exists for $TAG"
+            exit 1
+          fi
+          gh release create "$TAG" --draft --target "$SOURCE_SHA" --title 'Clayz Presentation 0.23.33' --notes-file "$PREFIX/release-notes.md" "$PREFIX/$ARCHIVE" "$PREFIX/SHA256SUMS.txt" "$PREFIX/publication.json" "$PREFIX/package-verification.json" "$PREFIX/mount-validation.json" "$PREFIX/training-regression.xml" "$PREFIX/office-smoke.json"
+          release_id=""
+          for attempt in 1 2 3 4 5; do
+            release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=30" | jq -r --arg tag "$TAG" '[.[] | select(.tag_name == $tag and .draft)] | if length == 1 then .[0].id else empty end')
+            if [ -n "$release_id" ]; then break; fi
+            sleep 3
+          done
+          test -n "$release_id"
+          expected_target="$SOURCE_SHA"
+          release_api="repos/$GITHUB_REPOSITORY/releases/$release_id"
+          gh api "$release_api" | jq -e --arg tag "$TAG" --arg target "$expected_target" '.tag_name == $tag and .draft and .target_commitish == $target' >/dev/null
+          verified=false
+          for attempt in 1 2 3 4 5; do
+            if gh api "$release_api/assets" | jq -e --arg archive "$ARCHIVE" --arg digest "sha256:$EXPECTED_SHA256" 'any(.[]; .name == $archive and .state == "uploaded" and .digest == $digest)' >/dev/null; then
+              verified=true
+              break
+            fi
+            sleep 3
+          done
+          test "$verified" = true
+          gh api --method PATCH "$release_api" --field draft=false --raw-field make_latest=true --jq '.html_url'
+      - name: Advance the current package pointer
+        shell: bash
+        run: |
+          cp "$PREFIX/current.json" "$CURRENT"
+          git add -- "$CURRENT"
+          if ! git diff --cached --quiet; then
+            git commit -m "Set $TAG as the current PPT package"
+            git push origin HEAD:main
+          fi
+

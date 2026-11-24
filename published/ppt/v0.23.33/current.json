@@ -1,0 +1,16 @@
+{
+  "version": "0.23.33",
+  "tag": "v0.23.33",
+  "source": "published/ppt/v0.23.33/source",
+  "publication": "published/ppt/v0.23.33/publication.json",
+  "release": "https://github.com/clayzwang/clayz-presentation-skills/releases/tag/v0.23.33",
+  "archive_sha256": "40c7cf7481c287d3314fff466ca48a9a0fd016eb11dd8bc58e1f79056730f83f",
+  "training_frozen_archive_sha256": "3a8cef4774bf0853c735d229f7f8166158a117547c34610750276b7b2e77798b",
+  "knowledge": {
+    "version": "1.3.6+professional-view.training.r02",
+    "release": "https://github.com/clayzwang/work-output/releases/tag/knowledge-ppt-v1.3.6-professional-view.training.r02",
+    "manifest_sha256": "00e279c8e391baca59a8f3ae777189b60eb4af5393a70b10930031b0a9d0f07b",
+    "archive_sha256": "16a070bc4c8e3c826338996b9afe1213e8bb55237f581e94fb0c0db0008e7bc9",
+    "visibility": "private"
+  }
+}
